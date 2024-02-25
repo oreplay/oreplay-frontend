@@ -4,31 +4,29 @@ import KayakingIcon from '@mui/icons-material/Kayaking';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function EventsList() {
 
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const headers: {id: string, label: string}[] = [
         {
             id: "dates",
-            label: "Fecha"
+            label: t("Dates")
         }, 
         {
             id: "event",
-            label: "Evento"
-        },
-        {
-            id: "league",
-            label: "Liga"
+            label: t("Event")
         },
         {
             id: "location",
-            label: "Ubicación"
+            label: t("Location")
         },
         {
             id: "organizer",
-            label: "Organizador"
+            label: t("Organizer")
         },
         {
             id: "tipo",
