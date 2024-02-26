@@ -1,7 +1,7 @@
 # oreplay-react
 
-Create new react app: `npm create vite@latest`, afterwards you'll need to select 'React' and in this case I've chosen 'Typescript'
+If you use the application for the first time or if you get any error bound to missing packages execute
+`npm install`
 
-At the previous commit, I created a new react app with another command, however, it is now deprecated.
-
-To run the application you should use: `npm run dev`
+To run the application you should use:
+ `npm run dev`
