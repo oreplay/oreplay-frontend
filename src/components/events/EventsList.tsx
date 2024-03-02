@@ -1,4 +1,7 @@
+import React from "react"
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
+import { List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Typography } from "@mui/material"
+
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import KayakingIcon from '@mui/icons-material/Kayaking';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
@@ -6,9 +9,45 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+interface EventItemProps {
+  name: string;
+  eventID: string;
+  organizer: string;
+  startDate: string;
+  finishDate: string;
+}
+
+function EventItem ({name, eventID, organizer, startDate, finishDate}:EventItemProps) {
+    const navigate = useNavigate();
+    const { t } = useTranslation();
+
+    return (
+      <ListItem alignItems="flex-start" onClick={()=>navigate(`${eventID}`)}>
+        <ListItemAvatar>
+          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary={name}
+          secondary={ 
+            <React.Fragment>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {organizer}
+              </Typography>
+              { `${startDate}-${finishDate}` }
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+    );
+}
+
 export default function EventsList() {
 
-    const navigate = useNavigate();
     const { t } = useTranslation();
 
     const headers: {id: string, label: string}[] = [
@@ -100,6 +139,66 @@ export default function EventsList() {
 
     return (
         <Box sx={{m: "50px"}}>
+             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      
+        <EventItem
+           name="CEU 2024"
+           eventID="DETAIL"
+           organizer="ORCA"
+           startDate="27/02/2024"
+           finishDate="28/02/2024"
+        />
+      <Divider variant="inset" component="li" />
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Summer BBQ"
+          secondary={
+            <>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                to Scott, Alex, Jennifer
+              </Typography>
+              {" — Wish I could come, but I'm out of town this…"}
+            </>
+          }
+        />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Oui Oui"
+          secondary={
+            <>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Sandra Adams
+              </Typography>
+              {' — Do you have Paris recommendations? Have you ever…'}
+            </>
+          }
+        />
+      </ListItem>
+    </List>
+        </Box>
+    );
+
+    /*
+    return (
+        <Box sx={{m: "50px"}}>
             <TableContainer>
                 <Table>
                     <TableHead>
@@ -128,5 +227,5 @@ export default function EventsList() {
                 </Table>
             </TableContainer>
         </Box>
-    )
+    )*/
 }
