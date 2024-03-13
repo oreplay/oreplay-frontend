@@ -42,16 +42,6 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
                             <ListItemText sx= {{color: "white"}} primary={t("Events")}/>
                         </ListItemButton>
                     </ListItem>
-                    <ListItem>
-                        <ListItemButton onClick={ () => i18n.changeLanguage("es") }>
-                            <ListItemText sx={{color: "white"}} primary={"Español"}/>
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton onClick={ () => i18n.changeLanguage("en") }>
-                            <ListItemText sx={{color: "white"}} primary={"English"}/>
-                        </ListItemButton>
-                    </ListItem>
                 </List>
             </Drawer>
         </Box>

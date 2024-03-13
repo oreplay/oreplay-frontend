@@ -7,7 +7,6 @@ import { Outlet } from "react-router-dom";
 export default function Layout() {
     const [openSidebar, setOpenSidebar] = useState(false);
 
-    console.log(openSidebar);
     return (
         <Box sx={{height: "100vh"}}>
             <Header setOpenSidebar={setOpenSidebar}></Header>
