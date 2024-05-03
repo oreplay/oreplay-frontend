@@ -2,15 +2,15 @@ version: '3'
 
 services:
   nodejs:
-    image: freefri/oreplay-front:0.1.0
+    image: freefri/oreplay-front:0.1.2
     build:
       context: .
       dockerfile: docker/Dockerfile
-    command: bash -c "cd /var/www && npm run dev"
-#    command: sh -c "tail -f /dev/null"
+    #command: bash -c "cd /var/www && npm run dev"
+    #command: sh -c "tail -f /dev/null"
     ports:
       - '8080:8080'
-#    volumes:
-#      - .:/var/www
+    volumes:
+      - .:/var/www
     extra_hosts:
       - "host.docker.internal:host-gateway"
