@@ -3,6 +3,7 @@ import Header from "./Header";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
+import UglyWelcome from './UglyWelcome.tsx'
 
 export default function Layout() {
     const [openSidebar, setOpenSidebar] = useState(false);
@@ -11,7 +12,11 @@ export default function Layout() {
         <Box sx={{height: "100vh"}}>
             <Header setOpenSidebar={setOpenSidebar}></Header>
             <Sidebar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar}/>
-            <Outlet/>
+            {location.pathname === '/' ? (
+              <UglyWelcome />
+            ) : (
+              <Outlet />
+            )}
         </Box>
     )
 }
