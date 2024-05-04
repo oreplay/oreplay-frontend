@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nodejs:
-    image: freefri/oreplay-front:0.1.2
+    image: freefri/oreplay-front:0.1.3
     build:
       context: .
       dockerfile: docker/Dockerfile
@@ -12,6 +12,7 @@ services:
       - .env
     ports:
       - '8080:8080'
+      - '4173:4173'
     volumes:
       - .:/var/www
     extra_hosts:
