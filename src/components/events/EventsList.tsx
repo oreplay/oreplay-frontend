@@ -1,6 +1,6 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import loadingIcon from "./../../assets/loading.svg";
 import { getEventList } from "../../services/EventService";
@@ -9,7 +9,7 @@ import { EventModel } from "../../shared/EntityTypes";
 export default function EventsList() {
 
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
     const [eventList, setEventList] = useState<EventModel[]>([]);
     const [loadingData, setLoadingData] = useState(true);
 
@@ -32,7 +32,7 @@ export default function EventsList() {
             <TableContainer>
                 <Table>
                     <TableBody>
-                        {eventList.map((e, index) => (
+                        {eventList.map((e) => (
                             <TableRow onClick={() => navigate(`/detail/${e.id}`)} hover>
                                 <TableCell>{e.description}</TableCell>
                                 <TableCell>{e.federation_id}</TableCell>

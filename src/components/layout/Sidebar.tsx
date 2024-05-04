@@ -12,7 +12,7 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
     const navigate = useNavigate();
 
     /* Language support */
-    const { i18n, t } = useTranslation()
+    const { t } = useTranslation()
 
     /* Component */
     return (

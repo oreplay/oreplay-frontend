@@ -9,7 +9,7 @@ export interface EventModel {
 
 export interface EventDetailModel {
     data: {
-        id: string, 
+        id: string,
         description: string,
         initial_date: string,
         final_date: string,
@@ -32,5 +32,5 @@ export interface FederationModel {
 }
 
 export interface Page<T> {
-    data:<T>[]
+    data:T[];
 }
