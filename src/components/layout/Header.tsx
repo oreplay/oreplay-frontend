@@ -3,12 +3,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
 import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsMenu from "./SettingsMenu.tsx";
 
-type Props = {
-    setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
-}
 
-export default function Header({setOpenSidebar}: Props) {
+export default function Header( Props) {
 
     const [auth, setAuth] = useState(false); //Control authentication
 
@@ -19,16 +18,7 @@ export default function Header({setOpenSidebar}: Props) {
     return (
         <Box>
             <AppBar position="static">
-                <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-                    <IconButton size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2, color: "white" }}
-                        onClick={() => setOpenSidebar(prev => !prev)}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
+                <Toolbar sx={{display: "flex", justifyContent: "right"}}>
                     <Box>
                         <IconButton
                             size="large"
@@ -36,6 +26,9 @@ export default function Header({setOpenSidebar}: Props) {
                         >
                             {!auth ? (<AccountCircle onClick={() => handleClickUser(true)}/>) : (<LogoutIcon onClick={() => handleClickUser(false)}/>)}
                         </IconButton>
+                    </Box>
+                    <Box>
+                      <SettingsMenu />
                     </Box>
                 </Toolbar>
             </AppBar>

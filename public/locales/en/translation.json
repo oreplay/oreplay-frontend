@@ -6,6 +6,11 @@
     "Location" : "Location",
     "Organizer" : "Organizer",
 
-    "Spanish" : "Spanish",
-    "English" : "English"
+    "Logout" : "Logout",
+    "Settings" : "Settings",
+    "Language" : {
+      "Language" : "Language",
+      "Spanish" : "Español",
+      "English" : "English"
+    }
 }

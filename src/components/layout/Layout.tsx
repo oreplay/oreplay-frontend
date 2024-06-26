@@ -6,12 +6,10 @@ import { Outlet } from "react-router-dom";
 import UglyWelcome from './UglyWelcome.tsx'
 
 export default function Layout() {
-    const [openSidebar, setOpenSidebar] = useState(false);
 
     return (
         <Box sx={{height: "100vh"}}>
-            <Header setOpenSidebar={setOpenSidebar}></Header>
-            <Sidebar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar}/>
+            <Header></Header>
             {location.pathname === '/' ? (
               <UglyWelcome />
             ) : (

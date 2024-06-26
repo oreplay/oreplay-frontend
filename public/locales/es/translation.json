@@ -6,6 +6,11 @@
     "Location" : "Ubicación",
     "Organizer" : "Organizador",
 
-    "Spanish" : "Español",
-    "English" : "Inglés"
+    "Logout" : "Cerrar sesion",
+    "Settings" : "Ajustes",
+    "Language" : {
+      "Language" : "Idioma",
+      "Spanish" : "Español",
+      "English" : "English"
+  }
 }
