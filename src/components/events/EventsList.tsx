@@ -20,10 +20,10 @@ export default function EventsList() {
         });
     },[]);
 
-    if (loadingData == true){
+    if (loadingData){
       return (
         <Box sx={{width:"100%", height:"90%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <img height={50} width={50} src={loadingIcon}></img>
+          <img alt={'loading icon'} height={50} width={50} src={loadingIcon}></img>
         </Box>
       )
     } else
