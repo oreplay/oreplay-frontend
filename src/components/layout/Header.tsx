@@ -3,11 +3,13 @@ import { useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsMenu from "./SettingsMenu.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 export default function Header() {
 
     const [auth, setAuth] = useState(false); //Control authentication
+    const navigate = useNavigate()
 
     const handleClickUser = (auth: boolean) => {
         setAuth(auth);
@@ -22,7 +24,7 @@ export default function Header() {
                             size="large"
                             sx= {{color: "white"}}
                         >
-                            {!auth ? (<AccountCircle onClick={() => handleClickUser(true)}/>) : (<LogoutIcon onClick={() => handleClickUser(false)}/>)}
+                            {!auth ? (<AccountCircle onClick={() => { navigate('/login') }}/>) : (<LogoutIcon onClick={() => handleClickUser(false)}/>)}
                         </IconButton>
                     </Box>
                     <Box>
