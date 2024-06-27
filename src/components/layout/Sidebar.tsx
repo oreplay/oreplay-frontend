@@ -1,5 +1,6 @@
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Theme, useTheme } from "@mui/material";
 import EventIcon from '@mui/icons-material/Event';
+import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next"
 
@@ -34,14 +35,22 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
                 }}
             >
                 <List>
-                    <ListItem>
-                        <ListItemButton onClick={() => {navigate("/competitions"); setOpenSidebar(prev => !prev)}}>
-                            <ListItemIcon sx= {{color: "white"}}>
-                                <EventIcon/>
-                            </ListItemIcon>
-                            <ListItemText sx= {{color: "white"}} primary={t("Events")}/>
-                        </ListItemButton>
-                    </ListItem>
+                  <ListItem>
+                    <ListItemButton onClick={() => {navigate("/"); setOpenSidebar(prev => !prev)}}>
+                      <ListItemIcon sx= {{color: "white"}}>
+                        <HomeIcon/>
+                      </ListItemIcon>
+                      <ListItemText sx= {{color: "white"}} primary={t("Home")}/>
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemButton onClick={() => {navigate("/competitions"); setOpenSidebar(prev => !prev)}}>
+                      <ListItemIcon sx= {{color: "white"}}>
+                        <EventIcon/>
+                      </ListItemIcon>
+                      <ListItemText sx= {{color: "white"}} primary={t("Events")}/>
+                    </ListItemButton>
+                  </ListItem>
                 </List>
             </Drawer>
         </Box>
