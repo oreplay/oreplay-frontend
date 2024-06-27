@@ -13,7 +13,7 @@ import {ListItemText} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 export default function SettingsMenu() {
-  const {t} = useTranslation();
+  const {i18n,t} = useTranslation();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -89,6 +89,26 @@ export default function SettingsMenu() {
           </ListItemIcon>
           <ListItemText>
             {t("Logout")}
+          </ListItemText>
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <TranslateIcon />
+          </ListItemIcon>
+          <ListItemText
+            onClick={()=>{i18n.changeLanguage('es-ES')}}
+          >
+            {t('Language.Spanish')}
+          </ListItemText>
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <TranslateIcon/>
+          </ListItemIcon>
+          <ListItemText
+            onClick={()=>{i18n.changeLanguage('en-GB')}}
+          >
+            {t('Language.English')}
           </ListItemText>
         </MenuItem>
       </Menu>

@@ -8,7 +8,6 @@ i18n
   .use(initReactI18next)
   .init({
     debug: true,
-    fallbackLng: 'en',
+    fallbackLng: 'en-GB',
   });
 export default i18n;
-// Bug with LanguageDetector. I guess it returns es-ES or similar and falls back kto english.
