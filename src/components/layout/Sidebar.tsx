@@ -35,22 +35,22 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
                 }}
             >
                 <List>
-                  <ListItem>
-                    <ListItemButton onClick={() => {navigate("/"); setOpenSidebar(prev => !prev)}}>
-                      <ListItemIcon sx= {{color: "white"}}>
-                        <HomeIcon/>
-                      </ListItemIcon>
-                      <ListItemText sx= {{color: "white"}} primary={t("Home")}/>
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem>
-                    <ListItemButton onClick={() => {navigate("/competitions"); setOpenSidebar(prev => !prev)}}>
-                      <ListItemIcon sx= {{color: "white"}}>
-                        <EventIcon/>
-                      </ListItemIcon>
-                      <ListItemText sx= {{color: "white"}} primary={t("Events")}/>
-                    </ListItemButton>
-                  </ListItem>
+                    <ListItem>
+                        <ListItemButton onClick={() => {navigate("/"); setOpenSidebar(prev => !prev)}}>
+                            <ListItemIcon sx= {{color: "white"}}>
+                                <HomeIcon/>
+                            </ListItemIcon>
+                            <ListItemText sx= {{color: "white"}} primary={t("Home")}/>
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem>
+                        <ListItemButton onClick={() => {navigate("/competitions"); setOpenSidebar(prev => !prev)}}>
+                            <ListItemIcon sx= {{color: "white"}}>
+                                <EventIcon/>
+                            </ListItemIcon>
+                            <ListItemText sx= {{color: "white"}} primary={t("Events")}/>
+                        </ListItemButton>
+                    </ListItem>
                 </List>
             </Drawer>
         </Box>
