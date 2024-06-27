@@ -9,6 +9,14 @@
 
     "Logout" : "Logout",
     "Settings" : "Settings",
+    "EmailAddress" : "Email Address",
+    "Password" : "Password",
+    "Sign in" : {
+      "Sign in" : "Sign in",
+      "ForgotPassword" : "Forgot password?",
+      "NoAccount" : "Don't have an account? Sign Up",
+      "RememberMe" : "Remember me"
+    },
     "Language" : {
       "Language" : "Language",
       "Spanish" : "Español",

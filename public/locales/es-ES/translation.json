@@ -9,6 +9,14 @@
 
     "Logout" : "Cerrar sesion",
     "Settings" : "Ajustes",
+    "EmailAddress" : "Correo electrónico",
+    "Password" : "Contraseña",
+    "Sign in" : {
+      "Sign in" : "Iniciar sesión",
+      "ForgotPassword" : "¿Olvidaste tu contraseña?",
+      "NoAccount" : "¿No tienes cuenta? Registrate",
+      "RememberMe" : "Recordarme"
+    },
     "Language" : {
       "Language" : "Idioma",
       "Spanish" : "Español",

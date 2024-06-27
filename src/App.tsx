@@ -3,6 +3,7 @@ import Layout from './components/layout/Layout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import EventsList from './components/events/EventsList'
 import EventDetail from './components/events/EventDetail'
+import Login from "./components/users/login.tsx";
 
 export default function App() {
 
@@ -28,6 +29,7 @@ export default function App() {
             <Route path='competitions' element={<EventsList/>}/>
             <Route path='competitions/:id' element={<EventDetail/>}/>
           </Route>
+          <Route path={'/login'} element={<Login/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
