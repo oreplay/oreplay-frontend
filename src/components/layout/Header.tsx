@@ -1,13 +1,11 @@
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
 import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
 import SettingsMenu from "./SettingsMenu.tsx";
 
 
-export default function Header( Props) {
+export default function Header() {
 
     const [auth, setAuth] = useState(false); //Control authentication
 

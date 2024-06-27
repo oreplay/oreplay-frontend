@@ -17,7 +17,7 @@ export interface EventDetailModel {
         created: string,
         modified: string,
         federation: FederationModel,
-        staged: StageModel[]
+        stages: StageModel[]
     }
 }
 

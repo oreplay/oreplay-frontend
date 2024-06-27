@@ -14,10 +14,10 @@ export default function App() {
         light: "#FAD4B2"
       },
       secondary: {
-        main: "#B85E0F"
+        main: "#6702a8"
       }
     },
-    
+
   })
 
   return (
@@ -31,6 +31,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
-    
+
   )
 }
