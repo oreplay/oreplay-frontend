@@ -26,7 +26,7 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Layout/>}>
             <Route path='competitions' element={<EventsList/>}/>
-            <Route path='detail/:id' element={<EventDetail/>}/>
+            <Route path='competitions/:id' element={<EventDetail/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

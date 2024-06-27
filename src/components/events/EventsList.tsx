@@ -33,7 +33,7 @@ export default function EventsList() {
                 <Table>
                     <TableBody>
                         {eventList.map((e) => (
-                            <TableRow onClick={() => navigate(`/detail/${e.id}`)} hover>
+                            <TableRow onClick={() => navigate(`/competitions/${e.id}`)} hover>
                                 <TableCell>{e.description}</TableCell>
                                 <TableCell>{e.federation_id}</TableCell>
                             </TableRow>
