@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getEventDetail } from "../../services/EventService";
 import {useTranslation} from "react-i18next";
 import Launch from '@mui/icons-material/Launch'
-import PrimaryButton from '../common/PrimaryButton.tsx'
+import Button from "@mui/material/Button";
 
 export default function EventDetail() {
 
@@ -13,8 +13,6 @@ export default function EventDetail() {
     const {t} = useTranslation();
 
     const [detail, setDetail] = useState<EventDetailModel>()
-
-    const url = 'https://github.com/oreplay/oreplay-frontend' //remove when implemented in backend
 
     useEffect(() => {
         if (id) {
@@ -41,12 +39,15 @@ export default function EventDetail() {
               <Typography>Falta Club</Typography>
               <Typography variant="h3"> {detail?.data.description}</Typography>
               <Typography>{detail?.data.initial_date} -- {detail?.data.final_date}</Typography>
-              <PrimaryButton
-                text="www.faltaURL.com"
-                url={url}
-                target="_blank"
-                icon={<Launch />}
-              />
+              { detail?.data.website ? (
+                <Button
+                  variant="contained"
+                  onClick={() => {window.open(detail?.data.website,'_blank','noopener,noreferrer')}}
+                  endIcon={<Launch />}
+                >
+                {detail?.data.website}
+                </Button>
+                ) : ""}
             </Container>
 
         </Box>

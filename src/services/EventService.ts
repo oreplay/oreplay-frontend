@@ -1,6 +1,6 @@
 import { EventDetailModel, EventModel, Page } from "../shared/EntityTypes";
-const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || 'https://localhost'
-const baseUrl = API_DOMAIN + "/api/v1/events"
+const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || 'https://localhost/'
+const baseUrl = API_DOMAIN + "api/v1/events"
 
 export async function getEventList(): Promise<Page<EventModel>> {
     const response = await fetch(baseUrl, {
