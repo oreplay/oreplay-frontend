@@ -35,6 +35,40 @@ export interface FederationModel {
   description: string
 }
 
+export interface RunnerModel {
+  id: string,
+  first_name: string,
+  last_name: string,
+  bib_number:string,
+  sicard: bigint|null,
+  class: string|null,
+  club: string|null,
+  runner_result : RunnerResultModel[],
+}
+
+export interface RunnerResultModel {
+  result_type_id: string,
+  start_time: string,
+  finish_time: string,
+  time_seconds:string,
+  position:bigint,
+  status_code:string|null,
+  time_behind: bigint,
+  split: SplitsModel[],
+}
+
+export interface SplitsModel {
+  id: string,
+  reading_time:string,
+  points: bigint|null,
+  control: bigint|null,
+}
+
+export interface ClassModel {
+  id: string,
+  short_name: string,
+}
+
 export interface Page<T> {
   data:T[];
 }

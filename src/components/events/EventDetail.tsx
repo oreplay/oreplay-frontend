@@ -1,5 +1,5 @@
 import {Box, Container, List, ListItem, ListItemText, Typography} from "@mui/material";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { EventDetailModel } from "../../shared/EntityTypes";
 import { useEffect, useState } from "react";
 import { getEventDetail } from "../../services/EventService";
@@ -11,8 +11,9 @@ export default function EventDetail() {
 
     const {id} = useParams();
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
-    const [detail, setDetail] = useState<EventDetailModel>()
+    const [detail, setDetail] = useState<EventDetailModel>();
 
     useEffect(() => {
         if (id) {
@@ -65,7 +66,7 @@ export default function EventDetail() {
               {detail?.data.stages.map(
                 (stage)=>{
                   return (
-                    <ListItem onClick={()=>{alert('On progress')}}>
+                    <ListItem onClick={()=>navigate(`/competitions/${id}/${stage.id}`)}>
                       <ListItemText>
                         {stage.description}
                       </ListItemText>
