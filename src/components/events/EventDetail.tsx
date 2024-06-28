@@ -22,7 +22,7 @@ export default function EventDetail() {
                 setDetail(response);
             })
         }
-    }, []);
+    }, [id]);
 
     return (
       <Box
