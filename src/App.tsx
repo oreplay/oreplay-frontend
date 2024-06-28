@@ -15,7 +15,7 @@ export default function App() {
         light: "#f5f5f5"
       },
       text: {
-        secondary: "#ffffff"
+        secondary: "#7d7d7d"
       },
       secondary: {
         main: "#5e2572",
