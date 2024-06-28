@@ -3,7 +3,6 @@ import {
   Container,
 } from "@mui/material";
 import DirectionsRun from "@mui/icons-material/DirectionsRun";
-import PrimaryButton from "../common/PrimaryButton";
 import {useNavigate} from "react-router-dom";
 import React from "react";
 import Button from "@mui/material/Button";
@@ -19,7 +18,7 @@ export default function UglyWelcome() {
         <h1>
           Welcome to O-Replay
         </h1>
-        <img src="/logo.svg" width="124px"></img>
+        <img alt='O-Replay logo' src="/logo.svg" width="124px"></img>
         <Box sx={{mt: "30px"}}>
           The orienteering results home (still in version pre-alfa).
         </Box>
