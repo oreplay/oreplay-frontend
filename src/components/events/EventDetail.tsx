@@ -1,4 +1,4 @@
-import {Box, Button, List, ListItem, ListItemText, Typography} from "@mui/material";
+import {Box, Container, List, ListItem, ListItemText, Typography} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { EventDetailModel } from "../../shared/EntityTypes";
 import { useEffect, useState } from "react";
@@ -35,37 +35,38 @@ export default function EventDetail() {
             alignContent: "center"
         }}
         >
-            <Box
-              sx={{
-                maxWidth: "600px",
-              }}
-            >
+            <Container>
               <Typography>Falta Club</Typography>
               <Typography variant="h3"> {detail?.data.description}</Typography>
               <Typography>{detail?.data.initial_date} -- {detail?.data.final_date}</Typography>
               <Button variant="contained" onClick={ () => {window.open(url,'_blank','noopener')} }>www.faltaURL.com</Button>
-            </Box>
+            </Container>
 
         </Box>
         <Box
           width={"100%"}
           height={"80%"}
-          sx={{bgcolor:'secondary.main'}}
+          sx={{
+            color: 'text.secondary',
+            bgcolor:'secondary.main'
+        }}
         >
-          <Typography variant={'h2'}>{t('Stages')}</Typography>
-          <List>
-            {detail?.data.stages.map(
-              (stage)=>{
-                return (
-                  <ListItem onClick={()=>{alert('On progress')}}>
-                    <ListItemText>
-                      {stage.description}
-                    </ListItemText>
-                  </ListItem>
-                )
-              }
-            )}
-          </List>
+          <Container>
+            <Typography variant={'h2'}>{t('Stages')}</Typography>
+            <List>
+              {detail?.data.stages.map(
+                (stage)=>{
+                  return (
+                    <ListItem onClick={()=>{alert('On progress')}}>
+                      <ListItemText>
+                        {stage.description}
+                      </ListItemText>
+                    </ListItem>
+                  )
+                }
+              )}
+            </List>
+          </Container>
         </Box>
       </Box>
     )
