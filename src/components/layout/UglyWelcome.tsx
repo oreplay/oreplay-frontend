@@ -2,6 +2,8 @@ import {
   Box,
   Container,
 } from "@mui/material";
+import DirectionsRun from "@mui/icons-material/DirectionsRun";
+import PrimaryButton from "../common/PrimaryButton";
 
 export default function UglyWelcome() {
 
@@ -16,7 +18,11 @@ export default function UglyWelcome() {
           The timing system (still in version pre-alfa).
         </Box>
         <Box sx={{mt: "10px"}}>
-          Open the menu to check the existing events.
+          <PrimaryButton
+            text="Go to Competitions"
+            url="/competitions" // TODO need to fix this navigation (should not have reload)
+            icon={<DirectionsRun />}
+          />
         </Box>
       </Box>
     </Container>

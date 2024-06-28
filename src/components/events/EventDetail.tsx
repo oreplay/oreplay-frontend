@@ -4,6 +4,8 @@ import { EventDetailModel } from "../../shared/EntityTypes";
 import { useEffect, useState } from "react";
 import { getEventDetail } from "../../services/EventService";
 import {useTranslation} from "react-i18next";
+import Launch from '@mui/icons-material/Launch'
+import PrimaryButton from '../common/PrimaryButton.tsx'
 
 export default function EventDetail() {
 
@@ -39,7 +41,12 @@ export default function EventDetail() {
               <Typography>Falta Club</Typography>
               <Typography variant="h3"> {detail?.data.description}</Typography>
               <Typography>{detail?.data.initial_date} -- {detail?.data.final_date}</Typography>
-              <Button variant="contained" onClick={ () => {window.open(url,'_blank','noopener')} }>www.faltaURL.com</Button>
+              <PrimaryButton
+                text="www.faltaURL.com"
+                url={url}
+                target="_blank"
+                icon={<Launch />}
+              />
             </Container>
 
         </Box>
