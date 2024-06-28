@@ -7,17 +7,15 @@ import {
   Typography
 } from "@mui/material";
 import {useTranslation} from "react-i18next";
+import {validateSignIn} from "../../services/UsersService.ts";
 
 
-export default function Login(){
+export default function SignIn(){
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log(validateSignIn(data.get('email'),data.get('password')));
   };
 
   const {t} = useTranslation();
@@ -70,7 +68,7 @@ export default function Login(){
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {t('Sign in.Sign in')}
             </Button>
             <Grid container>
               <Grid item xs>
