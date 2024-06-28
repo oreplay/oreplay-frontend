@@ -5,6 +5,7 @@ import EventsList from './components/events/EventsList'
 import EventDetail from './components/events/EventDetail'
 import SignIn from "./components/users/SignIn.tsx";
 import EventRunners from "./components/events/EventRunners.tsx";
+import UglyWelcome from "./components/layout/UglyWelcome.tsx";
 
 export default function App() {
 
@@ -29,7 +30,8 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Layout/>}>
+          <Route path='/' element={<Layout/>} >
+            <Route index element={<UglyWelcome />} />
             <Route path='competitions' element={<EventsList/>}/>
             <Route path='competitions/:id' element={<EventDetail/>}/>
             <Route path='competitions/:eventId/:stageId' element={<EventRunners/>} />
