@@ -66,7 +66,7 @@ export default function EventDetail() {
               {detail?.data.stages.map(
                 (stage)=>{
                   return (
-                    <ListItem onClick={()=>navigate(`/competitions/${id}/${stage.id}`)}>
+                    <ListItem key={stage.id} onClick={()=>navigate(`/competitions/${id}/${stage.id}`)}>
                       <ListItemText>
                         {stage.description}
                       </ListItemText>
