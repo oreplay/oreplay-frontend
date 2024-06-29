@@ -1,5 +1,6 @@
-const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || 'https://localhost'
-const baseUrl = API_DOMAIN+"/api/v1/authentication"
+import { post } from './ApiConfig.ts'
+
+const baseUrl: string = "/api/v1/authentication"
 
 interface Authentication {
   data:{
@@ -11,20 +12,12 @@ interface Authentication {
 }
 
 export async function validateSignIn(username: string,password: string): Promise<Authentication> {
-  const response = await fetch(
+  return await post(
     baseUrl, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }),
-      body: JSON.stringify({
-        "username": username,
-        "password": password,
-        "grant_type": "password",
-        "client_id" : 2658
-      })
+      "username": username,
+      "password": password,
+      "grant_type": "password",
+      "client_id" : 2658
     }
   )
-  return await response.json()
 }
