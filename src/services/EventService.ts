@@ -12,10 +12,9 @@ export async function getEventDetail(id:string): Promise<EventDetailModel> {
 
 export async function getClassesInStage(event_id:string, stage_id:string): Promise<Page<ClassModel>> {
   const response = await get(baseUrl + `/${event_id}/stages/${stage_id}/classes`);
-  console.log(response);
-  return response;
+  return response.json();
 }
 
-export async function getRunnersInStage(event_id:string, stage_id:string): Promise<RunnerModel> {
-  return await get(baseUrl + `/${event_id}/stages/${stage_id}`)
+export async function getRunnersInStage(event_id:string, stage_id:string): Promise<RunnerModel[]> {
+  return await get(baseUrl + `/${event_id}/stages/${stage_id}/runners`)
 }
