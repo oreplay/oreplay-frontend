@@ -15,7 +15,7 @@ export default function SignIn(){
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(validateSignIn(data.get('email'),data.get('password')));
+    console.log('validateSignIn', validateSignIn(data.get('email'),data.get('password')));// TODO remove console.log
   };
 
   const {t} = useTranslation();
