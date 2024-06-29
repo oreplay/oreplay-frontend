@@ -27,8 +27,9 @@ export default function Header() {
                         <IconButton
                             size="large"
                             sx= {{color: "white"}}
+                            onClick={() => { navigate('/signin') }}
                         >
-                            {!auth ? (<AccountCircle onClick={() => { navigate('/signin') }}/>) : (<LogoutIcon onClick={() => handleClickUser(false)}/>)}
+                            {!auth ? (<AccountCircle />) : (<LogoutIcon onClick={() => handleClickUser(false)}/>)}
                         </IconButton>
                       </Tooltip>
                     </Box>
