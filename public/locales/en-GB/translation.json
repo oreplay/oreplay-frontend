@@ -12,10 +12,10 @@
     "EmailAddress" : "Email Address",
     "Password" : "Password",
   "Results" : {
-    "class" : "class",
-    "start list" : "start list",
-    "results" : "results",
-    "splits" : "splits"
+    "class" : "Class",
+    "start list" : "Start list",
+    "results" : "Results",
+    "splits" : "Splits"
   },
   "Sign in" : {
       "Sign in" : "Sign in",

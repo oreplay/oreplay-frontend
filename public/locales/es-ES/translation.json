@@ -12,10 +12,10 @@
     "EmailAddress" : "Correo electrónico",
     "Password" : "Contraseña",
   "Results" : {
-    "class" : "categoría",
-    "start list" : "horas de salida",
-    "results" : "resultados",
-    "splits" : "parciales"
+    "class" : "Categoría",
+    "start list" : "Salida",
+    "results" : "Resultados",
+    "splits" : "Parciales"
   },
   "Sign in" : {
       "Sign in" : "Iniciar sesión",
