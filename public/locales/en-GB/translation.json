@@ -11,7 +11,13 @@
     "Settings" : "Settings",
     "EmailAddress" : "Email Address",
     "Password" : "Password",
-    "Sign in" : {
+  "Results" : {
+    "class" : "class",
+    "start list" : "start list",
+    "results" : "results",
+    "splits" : "splits"
+  },
+  "Sign in" : {
       "Sign in" : "Sign in",
       "ForgotPassword" : "Forgot password?",
       "NoAccount" : "Don't have an account? Sign Up",

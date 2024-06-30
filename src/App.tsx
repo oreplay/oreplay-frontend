@@ -4,8 +4,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import EventsList from './components/events/EventsList'
 import EventDetail from './components/events/EventDetail'
 import SignIn from "./components/users/SignIn.tsx";
-import EventRunners from "./components/events/EventRunners.tsx";
+import FootOResults from "./components/events/EventRunners/FootOResults.tsx";
 import UglyWelcome from "./components/layout/UglyWelcome.tsx";
+import EventRunnersLayout from "./components/layout/EventRunnersLayout.tsx";
+import StartList from "./components/events/EventRunners/StartList.tsx";
+import Splits from "./components/events/EventRunners/Splits.tsx";
 
 export default function App() {
 
@@ -34,7 +37,11 @@ export default function App() {
             <Route index element={<UglyWelcome />} />
             <Route path='competitions' element={<EventsList/>}/>
             <Route path='competitions/:id' element={<EventDetail/>}/>
-            <Route path='competitions/:eventId/:stageId' element={<EventRunners/>} />
+            <Route path='competitions/:eventId/:stageId' element={<EventRunnersLayout/>}>
+              <Route path={'start-list'} element={<StartList/>} />
+              <Route path={'results'} element={<FootOResults/>} />
+              <Route path={'splits'} element={<Splits />} />
+            </Route>
           </Route>
           <Route path={'/signin'} element={<SignIn/>} />
         </Routes>

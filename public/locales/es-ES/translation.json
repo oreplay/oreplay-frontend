@@ -11,7 +11,13 @@
     "Settings" : "Ajustes",
     "EmailAddress" : "Correo electrónico",
     "Password" : "Contraseña",
-    "Sign in" : {
+  "Results" : {
+    "class" : "categoría",
+    "start list" : "horas de salida",
+    "results" : "resultados",
+    "splits" : "parciales"
+  },
+  "Sign in" : {
       "Sign in" : "Iniciar sesión",
       "ForgotPassword" : "¿Olvidaste tu contraseña?",
       "NoAccount" : "¿No tienes cuenta? Regístrate",
