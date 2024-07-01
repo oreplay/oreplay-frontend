@@ -7,6 +7,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 import {useTranslation} from "react-i18next";
 import ClassMenu from "./ClassMenu.tsx";
 import {ClassModel, useRequiredParams} from "../../shared/EntityTypes.ts";
+import {activeClassContext} from "../../shared/Context.ts";
 
 export default function EventRunnersLayout() {
   const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>()
@@ -20,7 +21,9 @@ export default function EventRunnersLayout() {
     <Box
       height={'100%'}
     >
-      <Outlet />
+      <activeClassContext.Provider value={activeClass}>
+        <Outlet />
+      </activeClassContext.Provider>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} >
         <BottomNavigation
           value={activeScreen}
