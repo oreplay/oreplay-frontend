@@ -4,7 +4,6 @@ import {
 } from "@mui/material";
 import DirectionsRun from "@mui/icons-material/DirectionsRun";
 import {useNavigate} from "react-router-dom";
-import React from "react";
 import Button from "@mui/material/Button";
 import {useTranslation} from "react-i18next";
 

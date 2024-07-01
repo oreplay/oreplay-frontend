@@ -15,6 +15,6 @@ export async function getClassesInStage(event_id:string, stage_id:string): Promi
   return response.json();
 }
 
-export async function getRunnersInStage(event_id:string, stage_id:string): Promise<RunnerModel[]> {
+export async function getRunnersInStage(event_id:string, stage_id:string): Promise<Page<RunnerModel>> {
   return await get(baseUrl + `/${event_id}/stages/${stage_id}/runners`)
 }

@@ -1,3 +1,9 @@
+import {useParams} from "react-router-dom";
+
+export function useRequiredParams<T>() {
+  return useParams() as T;
+}
+
 export interface EventModel {
   id: string,
   description: string,
