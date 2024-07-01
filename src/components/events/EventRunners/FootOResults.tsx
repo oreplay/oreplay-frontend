@@ -1,6 +1,6 @@
 import {List, ListItem, ListItemText} from "@mui/material";
-import {getClassesInStage, getRunnersInStage} from "../../../services/EventService.ts";
-import {ClassModel, RunnerModel, useRequiredParams} from "../../../shared/EntityTypes.ts";
+import {getRunnersInStage} from "../../../services/EventService.ts";
+import {RunnerModel, useRequiredParams} from "../../../shared/EntityTypes.ts";
 import {useEffect, useState} from "react";
 
 
@@ -10,12 +10,12 @@ export default function FootOResults() {
 
   const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>()
   const [runnerList,setRunnerList] = useState<RunnerModel[]>([]);
-  const [activeClass,setActiveClass] = useState<ClassModel|null>(null)
-  getClassesInStage(eventId,stageId).then((response) => {setActiveClass(response.data[0])});
-  console.log(activeClass);
+  //const [activeClass,setActiveClass] = useState<ClassModel|null>(null)
+  //getClassesInStage(eventId,stageId).then((response) => {setActiveClass(response.data[0])});
+  //console.log(activeClass);
   useEffect(() => {
     getRunnersInStage(eventId,stageId).then((response)=>{setRunnerList(response.data)})
-  },[activeClass,eventId,stageId]);
+  },[eventId,stageId]);
 
   return (
     <List>
