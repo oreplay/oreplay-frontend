@@ -2,7 +2,6 @@
     "Dates" : "Fecha",
     "Event" : "Evento",
     "Events": "Eventos",
-    "Home" : "Inicio",
     "Stages": "Etapas",
     "Location" : "Ubicación",
     "Organizer" : "Organizador",
@@ -11,6 +10,12 @@
     "Settings" : "Ajustes",
     "EmailAddress" : "Correo electrónico",
     "Password" : "Contraseña",
+  "Home" : {
+    "Home": "Inicio",
+    "WelcomeMsg" : "Bienvenido a O-Replay",
+    "ProjectDescription" : "Hogar de los resultados de orientación (aún en versión pre-alfa).",
+    "Go to competitions" : "Ir a competiciones"
+  },
   "Results" : {
     "class" : "Categoría",
     "start list" : "Salida",

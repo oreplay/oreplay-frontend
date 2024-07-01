@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {useTranslation} from "react-i18next";
 
-export default function UglyWelcome() {
+export default function Home() {
   const navigate = useNavigate();
   const {t} = useTranslation();
 
@@ -15,11 +15,11 @@ export default function UglyWelcome() {
     <Container>
       <Box sx={{m: "50px"}}>
         <h1>
-          Welcome to O-Replay
+          {t('Home.WelcomeMsg')}
         </h1>
         <img alt='O-Replay logo' src="/logo.svg" width="124px"></img>
         <Box sx={{mt: "30px"}}>
-          The orienteering results home (still in version pre-alfa).
+          {t('Home.ProjectDescription')}
         </Box>
         <Box sx={{mt: "10px"}}>
           <Button
@@ -34,7 +34,7 @@ export default function UglyWelcome() {
               minWidth: '200px',
             }}
           >
-            {t('Go to competitions')}
+            {t('Home.Go to competitions')}
           </Button>
         </Box>
       </Box>

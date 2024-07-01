@@ -5,7 +5,7 @@ import EventsList from './components/events/EventsList'
 import EventDetail from './components/events/EventDetail'
 import SignIn from "./components/users/SignIn.tsx";
 import FootOResults from "./components/events/EventRunners/FootOResults.tsx";
-import UglyWelcome from "./components/layout/UglyWelcome.tsx";
+import Home from "./components/layout/Home.tsx";
 import EventRunnersLayout from "./components/layout/EventRunnersLayout.tsx";
 import StartList from "./components/events/EventRunners/StartList.tsx";
 import Splits from "./components/events/EventRunners/Splits.tsx";
@@ -34,7 +34,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout/>} >
-            <Route index element={<UglyWelcome />} />
+            <Route index element={<Home />} />
             <Route path='competitions' element={<EventsList/>}/>
             <Route path='competitions/:id' element={<EventDetail/>}/>
             <Route path='competitions/:eventId/:stageId' element={<EventRunnersLayout/>}>

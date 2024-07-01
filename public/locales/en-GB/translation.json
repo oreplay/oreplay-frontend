@@ -2,7 +2,6 @@
     "Dates" : "Dates",
     "Event" : "Event",
     "Events": "Events",
-    "Home" : "Home",
     "Stages": "Stages",
     "Location" : "Location",
     "Organizer" : "Organizer",
@@ -11,6 +10,12 @@
     "Settings" : "Settings",
     "EmailAddress" : "Email Address",
     "Password" : "Password",
+  "Home" : {
+    "Home": "Home",
+    "WelcomeMsg" : "Welcome to O-Replay",
+    "ProjectDescription" : "Home to orienteering live results (still in version pre-alfa).",
+    "Go to competitions" : "Go to competitions"
+  },
   "Results" : {
     "class" : "Class",
     "start list" : "Start list",
