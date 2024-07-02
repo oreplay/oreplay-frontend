@@ -1,17 +1,15 @@
-import {List, ListItem, ListItemText} from "@mui/material";
-import {useRunners} from "../../../services/EventService.ts";
-import {useRequiredParams} from "../../../shared/EntityTypes.ts";
+import {Container, List} from "@mui/material";
 import {useContext} from "react";
-import {activeClassContext} from "../../../shared/Context.ts";
+import {runnerListContext} from "../../../shared/Context.ts";
+import FootORunnerResultItem from "./FootORunnerResultItem.tsx";
 
 export default function FootOResults() {
-  // TODO avoid making too many repeated request. Make footer and split into several components
-  const activeClass = useContext(activeClassContext);
-  const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>();
-  const [runnerList,areRunnersLoading] = useRunners(eventId,stageId,activeClass); //TODO: moveRunners to a context
+  const [runnerList,areRunnersLoading] = useContext(runnerListContext); //TODO: moveRunners to a context
 
   if (areRunnersLoading) {
-    return <p>Loading</p>
+    return <p>Loading...</p>
+  } else if (runnerList === null) {
+    return <p>Choose a class</p>
   } else {
     return (
       <List>

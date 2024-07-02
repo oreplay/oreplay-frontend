@@ -28,12 +28,19 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
   const [runnerList, setRunnerList] = useState<RunnerModel[]>([])
 
   useEffect(() => {
-    getRunnersInStage(event_id,stage_id,activeClass? activeClass.id : null).then((response)=>{
+    if (activeClass){
+    getRunnersInStage(event_id,stage_id,activeClass.id).then((response)=>{
       setRunnerList(response.data)
       setIsLoading(false)
-    })
-    return () => {setIsLoading(true)}
-  },[activeClass])
+      })
+    } else {
+      setRunnerList([])
+      setIsLoading(false);
+    }
+    return () => {
+      setIsLoading(true)
+    }
+  },[event_id,stage_id,activeClass])
 
   return [runnerList,isLoading]
 }

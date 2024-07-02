@@ -7,7 +7,8 @@ import TimerIcon from '@mui/icons-material/Timer';
 import {useTranslation} from "react-i18next";
 import ClassMenu from "./ClassMenu.tsx";
 import {ClassModel, useRequiredParams} from "../../shared/EntityTypes.ts";
-import {activeClassContext} from "../../shared/Context.ts";
+import {activeClassContext, runnerListContext} from "../../shared/Context.ts";
+import {useRunners} from "../../services/EventService.ts";
 
 export default function EventRunnersLayout() {
   const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>()
@@ -16,13 +17,16 @@ export default function EventRunnersLayout() {
   const {t} = useTranslation()
 
   const [activeClass,setActiveClass] = useState<ClassModel|null>(null)
+  const [runnerList,areRunnersLoading] = useRunners(eventId,stageId,activeClass);
 
   return (
     <Box
       height={'100%'}
     >
       <activeClassContext.Provider value={activeClass}>
-        <Outlet />
+        <runnerListContext.Provider value={[runnerList,areRunnersLoading]} >
+          <Outlet />
+        </runnerListContext.Provider>
       </activeClassContext.Provider>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} >
         <BottomNavigation
