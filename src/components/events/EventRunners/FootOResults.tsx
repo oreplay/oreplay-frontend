@@ -13,11 +13,11 @@ export default function FootOResults() {
   } else {
     return (
       <Container>
-      <List>
-        {runnerList.map((runner) => (
-          <FootORunnerResultItem runner={runner} />
-        ))}
-      </List>
+        <List>
+          {runnerList.map((runner) => (
+            <FootORunnerResultItem runner={runner} />
+          ))}
+        </List>
       </Container>
     )
   }
