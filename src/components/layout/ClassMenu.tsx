@@ -80,7 +80,7 @@ export default function ClassMenu(props:ClassMenuProps) {
       <Button sx={{m:'auto'}}
         onClick={handleClick}
       >
-        <Typography sx={{color:'text.secondary'}}>{props.activeClass ? props.activeClass.short_name : t('Results.class')}</Typography>
+        <Typography sx={{color:'text.secondary'}}>{props.activeClass ? props.activeClass.short_name : t('Results.shortClass')}</Typography>
       </Button>
 
       <Menu
@@ -93,8 +93,11 @@ export default function ClassMenu(props:ClassMenuProps) {
           horizontal: 'center'
         }}
         sx={{
-          minWidth: '100px',
-          maxWidth: '200px'
+          minWidth: '20px',
+          maxWidth: '80%',
+          marginX: 'auto',
+          marginY: 'auto',
+          paddingX: 'auto'
         }}
       >
         <ClassItems
