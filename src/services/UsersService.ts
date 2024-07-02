@@ -1,8 +1,10 @@
 import { post } from './ApiConfig.ts'
+import {useContext} from "react";
+import {AuthContext, AuthContextInterface} from "../shared/AuthProvider.tsx";
 
 const baseUrl: string = "/api/v1/authentication"
 
-interface Authentication {
+interface UserTokenModel {
   data:{
     access_token: string,
     expires_in: number,
@@ -11,7 +13,7 @@ interface Authentication {
   }
 }
 
-export async function validateSignIn(username: string,password: string): Promise<Authentication> {
+export async function validateSignIn(username: string,password: string): Promise<UserTokenModel> {
   return await post(
     baseUrl, {
       "username": username,
@@ -20,4 +22,8 @@ export async function validateSignIn(username: string,password: string): Promise
       "client_id" : 2658
     }
   )
+}
+
+export function useAuth() {
+  return useContext(AuthContext) as AuthContextInterface;
 }

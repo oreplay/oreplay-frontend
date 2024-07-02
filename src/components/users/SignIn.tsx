@@ -7,15 +7,29 @@ import {
   Typography
 } from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {validateSignIn} from "../../services/UsersService.ts";
+import {useAuth} from "../../services/UsersService.ts";
+import React from "react";
+import {useNavigate} from "react-router-dom";
 
 
 export default function SignIn(){
 
+  //const [isErrorInEmail,setIsErrorInEmail] = useState(false);
+  //const [isErrorInPassword,setIsErrorInPassword] = useState(false);
+  const navigate = useNavigate()
+  const {loginAction} = useAuth()
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log('validateSignIn', validateSignIn(data.get('email') as string,data.get('password') as string));//data is casted to ensure type is string // TODO remove console.log
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+
+    loginAction(email,password).finally( ()=> {
+        navigate('/')
+      }
+    )
   };
 
   const {t} = useTranslation();
