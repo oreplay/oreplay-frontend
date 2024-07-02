@@ -38,7 +38,7 @@ export default function EventDetail() {
         >
             <Container>
               <Typography>Falta Club</Typography>
-              <Typography variant="h3"> {detail?.data.description}</Typography>
+              <Typography variant="body1"> {detail?.data.description}</Typography>
               <Typography>{detail?.data.initial_date} -- {detail?.data.final_date}</Typography>
               { detail?.data.website ? (
                 <Button
@@ -61,7 +61,7 @@ export default function EventDetail() {
         }}
         >
           <Container>
-            <Typography variant={'h2'}>{t('Stages')}</Typography>
+            <Typography variant={'body1'}>{t('Stages')}</Typography>
             <List>
               {detail?.data.stages.map(
                 (stage)=>{
