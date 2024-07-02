@@ -47,9 +47,9 @@ export interface RunnerModel {
   last_name: string,
   bib_number:string,
   sicard: bigint|null,
-  class: string|null,
-  club: string|null,
-  runner_result : RunnerResultModel[],
+  class: ClassModel,
+  club: ClubModel,
+  runner_results : RunnerResultModel[],
 }
 
 export interface RunnerResultModel {
@@ -73,6 +73,11 @@ export interface SplitsModel {
 export interface ClassModel {
   id: string,
   short_name: string,
+}
+
+export interface ClubModel{
+  id: string,
+  short_name:string
 }
 
 export interface Page<T> {

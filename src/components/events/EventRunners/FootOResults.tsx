@@ -12,15 +12,13 @@ export default function FootOResults() {
     return <p>Choose a class</p>
   } else {
     return (
+      <Container>
       <List>
         {runnerList.map((runner) => (
-          <ListItem key={runner.id}>
-            <ListItemText>
-              {runner.first_name} {runner.last_name}
-            </ListItemText>
-          </ListItem>
+          <FootORunnerResultItem runner={runner} />
         ))}
       </List>
+      </Container>
     )
   }
 
