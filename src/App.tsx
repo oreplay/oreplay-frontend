@@ -20,10 +20,11 @@ export default function App() {
         light: "#f5f5f5"
       },
       text: {
-        secondary: "#7d7d7d"
+        secondary: "#646464"
       },
       secondary: {
         main: "#5e2572",
+        light: "#efefef"
       }
     },
 

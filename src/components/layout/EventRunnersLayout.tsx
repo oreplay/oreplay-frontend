@@ -1,5 +1,12 @@
 import {Outlet, useNavigate} from "react-router-dom";
-import {BottomNavigation, BottomNavigationAction, Box, Paper} from "@mui/material";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  Container,
+  Paper,
+  Typography
+} from "@mui/material";
 import {useState} from "react";
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
@@ -11,7 +18,7 @@ import {activeClassContext, runnerListContext} from "../../shared/Context.ts";
 import {useRunners} from "../../services/EventService.ts";
 
 export default function EventRunnersLayout() {
-  const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>()
+  const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>()//TODO: create context
   const [activeScreen, setActiveScreen] = useState(null); //TODO set it to results if loading it directly
   const navigate = useNavigate()
   const {t} = useTranslation()
@@ -23,6 +30,15 @@ export default function EventRunnersLayout() {
     <Box
       height={'100%'}
     >
+      <Box bgcolor="secondary.light">
+        <Container sx={{paddingY:'10px'}}>
+          {// TODO: implement real names
+          }
+          <Typography color={'secondary.main'}>Event name</Typography>
+          <Typography color={'text.secondary'}>Stage name</Typography>
+        </Container>
+      </Box>
+
       <activeClassContext.Provider value={activeClass}>
         <runnerListContext.Provider value={[runnerList,areRunnersLoading]} >
           <Outlet />
