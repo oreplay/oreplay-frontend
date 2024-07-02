@@ -10,6 +10,8 @@ import EventRunnersLayout from "./components/layout/EventRunnersLayout.tsx";
 import StartList from "./components/events/EventRunners/StartList.tsx";
 import Splits from "./components/events/EventRunners/Splits.tsx";
 import {AuthProvider} from "./shared/AuthProvider.tsx";
+import PrivateRoute from "./components/users/PrivateRoute.tsx";
+import {Dashboard} from "./components/administration/Dashboard.tsx";
 
 export default function App() {
 
@@ -44,6 +46,9 @@ export default function App() {
                 <Route path={'start-list'} element={<StartList/>} />
                 <Route path={'results'} element={<FootOResults/>} />
                 <Route path={'splits'} element={<Splits />} />
+              </Route>
+              <Route  element={<PrivateRoute />}>
+                <Route path={'/dashboard'} element={<Dashboard />} />
               </Route>
             </Route>
             <Route path={'/signin'} element={<SignIn/>} />
