@@ -1,6 +1,7 @@
 import {ListItem, Stack, Typography} from "@mui/material";
 import {RunnerModel} from "../../../shared/EntityTypes.ts";
 import {useTranslation} from "react-i18next";
+import {DateTime} from 'luxon';
 
 /**
  *
@@ -9,6 +10,7 @@ import {useTranslation} from "react-i18next";
 export default function FootORunnerResultItem(props:{runner:RunnerModel}) {
   const {t} = useTranslation();
   const runner_result = props.runner.runner_results[0]
+
   return (
     <ListItem key={props.runner.id}>
         <div>
@@ -20,7 +22,8 @@ export default function FootORunnerResultItem(props:{runner:RunnerModel}) {
                 {`${t('Results.Start')}:`}
               </Typography>
               <Typography key={props.runner.id+'st'} color={'text.secondary'}>
-                {`${runner_result.start_time}`}
+                {`${DateTime.fromISO(runner_result.start_time).toFormat('t')}`//TODO: add internationalization
+                }
               </Typography>
               <Typography key={props.runner.id+'ff'} color={'secondary.main'}>
                 {` ${t('Results.Finish')}: `}
