@@ -17,7 +17,11 @@
     "Go to competitions" : "Go to competitions"
   },
   "Results" : {
-    "class" : "Class",
+    "shortClass": "Class",
+    "Class" : "Class",
+    "Start" : "Start",
+    "Finish" : "Finish",
+    "SiCard" : "SI Card",
     "start list" : "Start list",
     "results" : "Results",
     "splits" : "Splits"

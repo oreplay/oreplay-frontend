@@ -17,7 +17,11 @@
     "Go to competitions" : "Ir a competiciones"
   },
   "Results" : {
-    "class" : "Cat.",
+    "shortClass": "Cat.",
+    "Class" : "Categoría",
+    "Start" : "Salida",
+    "Finish" : "Meta",
+    "SiCard" : "Pinza",
     "start list" : "Salida",
     "results" : "Resultados",
     "splits" : "Parciales"
