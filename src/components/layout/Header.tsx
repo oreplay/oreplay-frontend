@@ -1,22 +1,19 @@
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
-import { useState } from "react";
-import { AccountCircle } from "@mui/icons-material";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 import SettingsMenu from "./SettingsMenu.tsx";
 import {useNavigate} from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import {useTranslation} from "react-i18next";
+import {useAuth} from "../../services/UsersService.ts";
+import {AccountCircle} from "@mui/icons-material";
 
 
 export default function Header() {
 
-    const [auth, setAuth] = useState(false); //Control authentication
+    const {token} = useAuth(); //Control authentication
     const navigate = useNavigate()
     const {t} = useTranslation();
 
-    const handleClickUser = (auth: boolean) => {
-        setAuth(auth);
-    }
 
     return (
         <Box>
@@ -29,7 +26,7 @@ export default function Header() {
                             sx= {{color: "white"}}
                             onClick={() => { navigate('/signin') }}
                         >
-                            {!auth ? (<AccountCircle />) : (<LogoutIcon onClick={() => handleClickUser(false)}/>)}
+                            {!token ? (<LoginIcon />) : <AccountCircle />}
                         </IconButton>
                       </Tooltip>
                     </Box>
