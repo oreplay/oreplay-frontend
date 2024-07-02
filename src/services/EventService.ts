@@ -17,7 +17,7 @@ export async function getClassesInStage(event_id:string, stage_id:string): Promi
 
 export async function getRunnersInStage(event_id:string, stage_id:string, class_id:string|null = null): Promise<Page<RunnerModel>> {
   if (class_id){
-    return await get(baseUrl + `/${event_id}/stages/${stage_id}/runners?=class_id=${class_id}`)
+    return await get(baseUrl + `/${event_id}/stages/${stage_id}/runners?class_id=${class_id}`)
   } else {
     return await get(baseUrl + `/${event_id}/stages/${stage_id}/runners`)
   }
