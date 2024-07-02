@@ -27,7 +27,7 @@ export default function SignIn(){
     const password = data.get('password') as string;
 
     loginAction(email,password).finally( ()=> {
-        navigate('/')
+        navigate('/dashboard')
       }
     )
   };
