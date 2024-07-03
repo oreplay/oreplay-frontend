@@ -14,8 +14,13 @@ import TimerIcon from '@mui/icons-material/Timer';
 import {useTranslation} from "react-i18next";
 import ClassMenu from "./ClassMenu.tsx";
 import {ClassModel, useRequiredParams} from "../../shared/EntityTypes.ts";
-import {activeClassContext, runnerListContext} from "../../shared/Context.ts";
+import {
+  activeClassContext,
+  activeResultBottomMenuContext,
+  runnerListContext
+} from "../../shared/Context.ts";
 import {useRunners} from "../../services/EventService.ts";
+
 
 export default function EventRunnersLayout() {
   const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>()//TODO: create context
@@ -41,16 +46,15 @@ export default function EventRunnersLayout() {
 
       <activeClassContext.Provider value={activeClass}>
         <runnerListContext.Provider value={[runnerList,areRunnersLoading]} >
-          <Outlet />
+           <activeResultBottomMenuContext.Provider value={setActiveScreen} >
+              <Outlet />
+           </activeResultBottomMenuContext.Provider>
         </runnerListContext.Provider>
       </activeClassContext.Provider>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} >
         <BottomNavigation
           value={activeScreen}
           onChange={(_,newValue)=> {
-            // highlight screen
-            setActiveScreen(newValue)
-
             // navigation options
             if (newValue === 1) {navigate('start-list')}
             if (newValue === 2) {navigate('results')}
