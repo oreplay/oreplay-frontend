@@ -3,10 +3,8 @@ import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
 import SettingsIcon from "@mui/icons-material/Settings";
 import TranslateIcon from "@mui/icons-material/Translate";
 import {ListItemText} from "@mui/material";
@@ -75,23 +73,7 @@ export default function SettingsMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
-          <ListItemIcon>
-            <TranslateIcon />
-          </ListItemIcon>
-          <ListItemText>
-            {t('Language.Language')}
-          </ListItemText>
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>
-            {t("Logout")}
-          </ListItemText>
-        </MenuItem>
+        {/**<Divider />**/}
         <MenuItem>
           <ListItemIcon>
             <TranslateIcon />
