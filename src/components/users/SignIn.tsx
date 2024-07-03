@@ -26,8 +26,10 @@ export default function SignIn(){
     const email = data.get('email') as string;
     const password = data.get('password') as string;
 
-    loginAction(email,password).finally( ()=> {
+    loginAction(email,password).then( (succesful)=> {
+      if (succesful) {
         navigate('/dashboard')
+        }
       }
     )
   };
