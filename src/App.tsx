@@ -12,6 +12,7 @@ import Splits from "./components/events/EventRunners/Splits.tsx";
 import {AuthProvider} from "./shared/AuthProvider.tsx";
 import PrivateRoute from "./components/users/PrivateRoute.tsx";
 import {Dashboard} from "./components/administration/Dashboard.tsx";
+import EventAdmin from "./components/administration/EventAdmin.tsx";
 
 export default function App() {
 
@@ -49,6 +50,7 @@ export default function App() {
               </Route>
               <Route  element={<PrivateRoute />}>
                 <Route path={'/dashboard'} element={<Dashboard />} />
+                <Route path={'/admin/:eventId'} element={<EventAdmin />} />
               </Route>
             </Route>
             <Route path={'/signin'} element={<SignIn/>} />

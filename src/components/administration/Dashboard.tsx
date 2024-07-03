@@ -5,11 +5,8 @@ import {useEffect, useState} from "react";
 import {getEventsFromUser} from "../../services/EventService.ts";
 import {useAuth} from "../../services/UsersService.ts";
 import {UserModel} from "../../shared/EntityTypes.ts";
+import {useNavigate} from "react-router-dom";
 
-function handleClick (params:GridRowParams) {
-  console.log(params)
-
-}
 
 interface EventDataGridColumns {
   id:string
@@ -25,6 +22,11 @@ export function Dashboard() {
   const rowsPerPage = 5;
   const [totalRows,setTotalRows] = useState<number>(0)
   const [page,setPage] = useState<number>(0)
+  const navigate = useNavigate()
+
+  function handleClick (params:GridRowParams) {
+    navigate(`/admin/${params.id}`)
+  }
 
   const [rows,setRows] = useState<EventDataGridColumns[]>([])
   useEffect(()=>{
