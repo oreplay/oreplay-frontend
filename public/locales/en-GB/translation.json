@@ -27,14 +27,21 @@
     "splits" : "Splits"
   },
   "Sign in" : {
-      "Sign in" : "Sign in",
-      "ForgotPassword" : "Forgot password?",
-      "NoAccount" : "Don't have an account? Sign Up",
-      "RememberMe" : "Remember me"
-    },
-    "Language" : {
-      "Language" : "Language",
-      "Spanish" : "Español",
-      "English" : "English"
-    }
+    "Sign in" : "Sign in",
+    "ForgotPassword" : "Forgot password?",
+    "NoAccount" : "Don't have an account? Sign Up",
+    "RememberMe" : "Remember me"
+  },
+  "Language" : {
+    "Language" : "Language",
+    "Spanish" : "Español",
+    "English" : "English"
+  },
+  "Dashboard" : {
+    "Dashboard" : "Dashboard",
+    "YourEvents" : "Your events",
+    "StartDate" : "Start date",
+    "FinishDate" : "Finish date",
+    "Name" : "Event's name"
+  }
 }

@@ -40,8 +40,8 @@ export default function App() {
           <Routes>
             <Route path='/' element={<Layout/>} >
               <Route index element={<Home />} />
-              <Route path='competitions' element={<EventsList/>}/>
-              <Route path='competitions/:id' element={<EventDetail/>}/>
+              <Route path='competitions' element={<EventsList/>} />
+              <Route path='competitions/:id' element={<EventDetail/>} />
               <Route path='competitions/:eventId/:stageId' element={<EventRunnersLayout/>}>
                 <Route path={'start-list'} element={<StartList/>} />
                 <Route path={'results'} element={<FootOResults/>} />

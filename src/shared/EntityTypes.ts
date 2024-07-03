@@ -103,6 +103,15 @@ export interface ClubModel{
   short_name:string
 }
 
-export interface Page<T> {
-  data:T[];
+export interface UserModel {
+  id:string,
+  email:string,
+  first_name: string,
+  last_name: string,
+  created: string,
+  modified:string,
+  token:{
+    "access_token":string,
+    "token_type":string,
+  }
 }

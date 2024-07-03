@@ -27,14 +27,21 @@
     "splits" : "Parciales"
   },
   "Sign in" : {
-      "Sign in" : "Iniciar sesión",
-      "ForgotPassword" : "¿Olvidaste tu contraseña?",
-      "NoAccount" : "¿No tienes cuenta? Regístrate",
-      "RememberMe" : "Recordarme"
-    },
-    "Language" : {
-      "Language" : "Idioma",
-      "Spanish" : "Español",
-      "English" : "English"
+    "Sign in" : "Iniciar sesión",
+    "ForgotPassword" : "¿Olvidaste tu contraseña?",
+    "NoAccount" : "¿No tienes cuenta? Regístrate",
+    "RememberMe" : "Recordarme"
+  },
+  "Language" : {
+    "Language" : "Idioma",
+    "Spanish" : "Español",
+    "English" : "English"
+  },
+  "Dashboard" : {
+    "Dashboard" : "Panel de control",
+    "YourEvents" : "Tus eventos",
+    "StartDate" : "Fecha inicio",
+    "FinishDate" : "Fecha fin",
+    "Name" : "Nombre del evento"
   }
 }

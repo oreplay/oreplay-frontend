@@ -44,3 +44,7 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
 
   return [runnerList,isLoading]
 }
+
+export function getEventsFromUser(user_id:string, token:string, page:number=1,limit:number=10): Promise<Page<EventModel>> {
+  return get<Page<EventModel>>(baseUrl+`?user_id=${user_id}&show_hidden=1&page=${page}&limit=${limit}`,token)
+}

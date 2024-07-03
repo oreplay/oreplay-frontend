@@ -10,7 +10,7 @@ import {AccountCircle} from "@mui/icons-material";
 
 export default function Header() {
 
-    const {token} = useAuth(); //Control authentication
+    const {user} = useAuth(); //Control authentication
     const navigate = useNavigate()
     const {t} = useTranslation();
 
@@ -26,7 +26,7 @@ export default function Header() {
                             sx= {{color: "white"}}
                             onClick={() => { navigate('/signin') }}
                         >
-                            {!token ? (<LoginIcon />) : <AccountCircle />}
+                            {!user ? (<LoginIcon />) : <AccountCircle />}
                         </IconButton>
                       </Tooltip>
                     </Box>

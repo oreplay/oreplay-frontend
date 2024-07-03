@@ -1,6 +1,7 @@
-import { post } from './ApiConfig.ts'
+import {get, post} from './ApiConfig.ts'
 import {useContext} from "react";
 import {AuthContext, AuthContextInterface} from "../shared/AuthProvider.tsx";
+import {UserModel, Data} from "../shared/EntityTypes.ts";
 
 const baseUrl: string = "/api/v1/authentication"
 
@@ -22,6 +23,10 @@ export async function validateSignIn(username: string,password: string): Promise
       "client_id" : 2658
     }
   )
+}
+
+export function getUserData(token:string): Promise<Data<UserModel>> {
+  return get<Data<UserModel>>('api/v1/me',token)
 }
 
 export function useAuth() {
