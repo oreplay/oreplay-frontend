@@ -1,18 +1,34 @@
 export const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || 'https://localhost';
 
-const headers = new Headers({
-  'Content-Type': 'application/json',
-})
 
-export async function get(url: string) {
+/**
+ * Make a GET https query to the backend
+ * @param url url to make the http query to
+ * @param token (optional) bearer token to handle authentication
+ */
+export async function get(url: string,token?: string): {
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  })
+  if (token) {
+    headers.append('Authorization', `Bearer ${token}`);
+  }
   const response = await fetch(API_DOMAIN + url, {
     method: "GET",
     headers: headers,
   });
-  return await response.json();
+  return await response.json()
 }
 
-export async function post(url: string, body: object | undefined) {
+export async function post(url: string, body?: object,token?:string) {
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  })
+  if (token) {
+    headers.append('Authorization', `Bearer ${token}`);
+  }
   const response = await fetch(API_DOMAIN + url,
       {
         method: 'POST',
