@@ -6,15 +6,13 @@ import {UserModel, Data} from "../shared/EntityTypes.ts";
 const baseUrl: string = "/api/v1/authentication"
 
 interface UserTokenModel {
-  data:{
     access_token: string,
     expires_in: number,
     token_type: string,
     scope: string
-  }
 }
 
-export async function validateSignIn(username: string,password: string): Promise<UserTokenModel> {
+export async function validateSignIn(username: string,password: string): Promise<Data<UserTokenModel>> {
   return await post(
     baseUrl, {
       "username": username,

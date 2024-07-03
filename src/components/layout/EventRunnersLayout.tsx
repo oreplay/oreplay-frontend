@@ -19,7 +19,7 @@ import {useRunners} from "../../services/EventService.ts";
 
 export default function EventRunnersLayout() {
   const {eventId,stageId} = useRequiredParams<{eventId:string,stageId:string}>()//TODO: create context
-  const [activeScreen, setActiveScreen] = useState(null); //TODO set it to results if loading it directly
+  const [activeScreen, setActiveScreen] = useState<number|null>(null); //TODO set it to results if loading it directly
   const navigate = useNavigate()
   const {t} = useTranslation()
 
