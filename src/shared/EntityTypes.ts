@@ -1,5 +1,25 @@
 import {useParams} from "react-router-dom";
 
+/**
+ * Paginated list from backend
+ */
+export interface Page<T> {
+  data:T[],
+  total:number,
+  limit:number
+}
+
+/**
+ * Single element from Backend encapsulated in data
+ */
+export interface Data<T>{
+  data: T
+}
+
+/**
+ * useParams hook adding casting to the desired type. This removes the possibility of params being
+ * null. It can be safely used when the params are mandatory
+ */
 export function useRequiredParams<T>() {
   return useParams() as T;
 }
@@ -7,6 +27,11 @@ export function useRequiredParams<T>() {
 export interface EventModel {
   id: string,
   description: string,
+  picture:string|null,
+  website:string|null,
+  scope:null,
+  location:string|null,
+  initial_date: string,
   final_date: string,
   federation_id: string,
   created: string,
@@ -14,21 +39,19 @@ export interface EventModel {
 }
 
 export interface EventDetailModel {
-  data: {
-    id: string,
-    description: string,
-    picture:string,
-    website: string,
-    scope: string,
-    location: string,
-    initial_date: string,
-    final_date: string,
-    federation_id: string,
-    created: string,
-    modified: string,
-    federation: FederationModel,
-    stages: StageModel[]
-  }
+  id: string,
+  description: string,
+  picture:string,
+  website: string,
+  scope: string,
+  location: string,
+  initial_date: string,
+  final_date: string,
+  federation_id: string,
+  created: string,
+  modified: string,
+  federation: FederationModel,
+  stages: StageModel[]
 }
 
 export interface StageModel {

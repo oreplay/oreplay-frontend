@@ -6,7 +6,7 @@ export const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || 'https://localhost'
  * @param url url to make the http query to
  * @param token (optional) bearer token to handle authentication
  */
-export async function get(url: string,token?: string): {
+export async function get<T>(url: string,token?: string): Promise<T> {
   const headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json'

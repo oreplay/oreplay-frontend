@@ -18,7 +18,7 @@ export default function EventDetail() {
     useEffect(() => {
         if (id) {
             getEventDetail(id).then((response) => {
-                setDetail(response);
+                setDetail(response.data);
             })
         }
     }, [id]);
@@ -38,15 +38,15 @@ export default function EventDetail() {
         >
             <Container>
               <Typography>Falta Club</Typography>
-              <Typography variant="body1"> {detail?.data.description}</Typography>
-              <Typography>{detail?.data.initial_date} -- {detail?.data.final_date}</Typography>
-              { detail?.data.website ? (
+              <Typography variant="body1"> {detail?.description}</Typography>
+              <Typography>{detail?.initial_date} -- {detail?.final_date}</Typography>
+              { detail?.website ? (
                 <Button
                   variant="contained"
-                  onClick={() => {window.open(detail?.data.website,'_blank','noopener,noreferrer')}}
+                  onClick={() => {window.open(detail?.website,'_blank','noopener,noreferrer')}}
                   endIcon={<Launch />}
                 >
-                {detail?.data.website}
+                {detail?.website}
                 </Button>
                 ) : ""}
             </Container>
@@ -63,7 +63,7 @@ export default function EventDetail() {
           <Container>
             <Typography variant={'body1'}>{t('Stages')}</Typography>
             <List>
-              {detail?.data.stages.map(
+              {detail?.stages.map(
                 (stage)=>{
                   return (
                     <ListItem key={stage.id} onClick={()=>navigate(`/competitions/${id}/${stage.id}`)}>
