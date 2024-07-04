@@ -1,5 +1,5 @@
 import React, {createContext, useState} from "react";
-import {getUserData, validateSignIn} from "../services/UsersService.ts";
+import {deleteToken, getUserData, validateSignIn} from "../services/UsersService.ts";
 import {UserModel} from "./EntityTypes.ts";
 
 /**
@@ -60,12 +60,21 @@ export function AuthProvider (props:{children: React.ReactNode}) {
    * Perform logout action in the server. Also, it sets token and user from useAuth() hook to null.
    * @returns true if logout successful, false if logout unsuccessful
    */
-  const logoutAction = async () => {
-    //TODO: logout in backend
-    setToken(null)
-    setUser(null)
-
-    return true
+  const logoutAction = async () : Promise<boolean> => {
+    if (token) {
+      try {
+        await deleteToken(token)
+      } catch (error) {
+        console.log(error);
+        return false
+      }
+      setToken(null);
+      setUser(null);
+      return true
+    } else {
+      console.log('User was logged out')
+      return true
+    }
   }
 
   return (

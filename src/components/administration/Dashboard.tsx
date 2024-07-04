@@ -6,6 +6,7 @@ import {getEventsFromUser} from "../../services/EventService.ts";
 import {useAuth} from "../../shared/hooks.ts";
 import {UserModel} from "../../shared/EntityTypes.ts";
 import {useNavigate} from "react-router-dom";
+import Button from "@mui/material/Button";
 
 
 interface EventDataGridColumns {
@@ -17,7 +18,7 @@ interface EventDataGridColumns {
 
 export function Dashboard() {
   const {t} = useTranslation()
-  const {user,token} = useAuth()
+  const {user,token,logoutAction} = useAuth()
   const [isLoading,setIsLoading] = useState<boolean>(true)
   const rowsPerPage = 5;
   const [totalRows,setTotalRows] = useState<number>(0)
@@ -63,6 +64,7 @@ export function Dashboard() {
           onPaginationModelChange={(model)=>{setPage(model.page)}}
           onRowClick={handleClick}
         />
+      <Button onClick={logoutAction}>Logout</Button>{/** TODO: move to the navigation var */}
     </Container>
   )
 }

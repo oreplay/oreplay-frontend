@@ -38,3 +38,23 @@ export async function post(url: string, body?: object,token?:string) {
       );
   return await response.json();
 }
+
+/**
+ * Generic backend delete request
+ * @param url to make the request to
+ * @param token User authentication token
+ */
+export async function deleteRequest(url:string, token?:string) {
+  const headers = new Headers({
+    'Accept': 'application/json'
+  })
+  if (token) {
+    headers.append('Authorization', `Bearer ${token}`);
+  }
+  return await fetch(API_DOMAIN + url,
+      {
+        method: 'DELETE',
+        headers: headers
+      }
+    )
+}
