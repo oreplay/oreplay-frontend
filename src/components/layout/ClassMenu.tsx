@@ -8,9 +8,12 @@ import {ClassModel} from "../../shared/EntityTypes.ts";
 import {useTranslation} from "react-i18next";
 
 /**
- * Custom hook to query and load classes
+ * Get a state with a list of classes.
  * @param eventId Backend database id of the event the data is to be grabbed from
  * @param stageId Backend database id of the stage the data is to be grabbed from.
+ * @returns [ClassesList,isLoading]
+ * @returns ClassesList : ClassModel[]|null
+ * @returns isLoading : boolean
  */
 function useClass (eventId:string,stageId:string):[ClassModel[]|null,boolean]  {
   const [isLoading,setIsLoading] = useState(true);

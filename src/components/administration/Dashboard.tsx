@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {GridColDef, DataGrid, GridRowParams} from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
 import {getEventsFromUser} from "../../services/EventService.ts";
-import {useAuth} from "../../services/UsersService.ts";
+import {useAuth} from "../../shared/hooks.ts";
 import {UserModel} from "../../shared/EntityTypes.ts";
 import {useNavigate} from "react-router-dom";
 

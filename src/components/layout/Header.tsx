@@ -4,7 +4,7 @@ import SettingsMenu from "./SettingsMenu.tsx";
 import {useNavigate} from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import {useTranslation} from "react-i18next";
-import {useAuth} from "../../services/UsersService.ts";
+import {useAuth} from "../../shared/hooks.ts";
 import {AccountCircle} from "@mui/icons-material";
 
 

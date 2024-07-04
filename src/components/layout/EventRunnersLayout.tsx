@@ -19,7 +19,7 @@ import {
   activeResultBottomMenuContext,
   runnerListContext
 } from "../../shared/Context.ts";
-import {useRunners} from "../../services/EventService.ts";
+import {useRunners} from "../../shared/hooks.ts";
 
 
 export default function EventRunnersLayout() {

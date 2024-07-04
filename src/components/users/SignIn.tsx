@@ -7,7 +7,7 @@ import {
   Typography
 } from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {useAuth} from "../../services/UsersService.ts";
+import {useAuth} from "../../shared/hooks.ts";
 import React from "react";
 import {useNavigate} from "react-router-dom";
 
