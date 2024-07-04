@@ -13,13 +13,13 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import TimerIcon from '@mui/icons-material/Timer';
 import {useTranslation} from "react-i18next";
 import ClassMenu from "./ClassMenu.tsx";
-import {ClassModel, useRequiredParams} from "../../shared/EntityTypes.ts";
+import {ClassModel, useRequiredParams} from "../../../../shared/EntityTypes.ts";
 import {
   activeClassContext,
   activeResultBottomMenuContext,
   runnerListContext
-} from "../../shared/Context.ts";
-import {useRunners} from "../../shared/hooks.ts";
+} from "../../../../shared/Context.ts";
+import {useRunners} from "../../../../shared/hooks.ts";
 
 
 export default function EventRunnersLayout() {

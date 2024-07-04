@@ -3,8 +3,8 @@ import {Box, Typography} from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import {useEffect, useState} from "react";
-import {getClassesInStage} from "../../services/EventService.ts";
-import {ClassModel} from "../../shared/EntityTypes.ts";
+import {getClassesInStage} from "../../../../services/EventService.ts";
+import {ClassModel} from "../../../../shared/EntityTypes.ts";
 import {useTranslation} from "react-i18next";
 
 /**

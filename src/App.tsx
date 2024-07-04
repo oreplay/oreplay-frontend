@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import EventsList from './components/events/EventsList'
 import EventDetail from './components/events/EventDetail'
 import SignIn from "./components/users/SignIn.tsx";
-import FootOResults from "./components/events/EventRunners/FootOResults.tsx";
-import Home from "./components/layout/Home.tsx";
-import EventRunnersLayout from "./components/layout/EventRunnersLayout.tsx";
+import FootOResults from "./components/events/EventRunners/FootOResults/FootOResults.tsx";
+import Home from "./components/Home/Home.tsx";
+import EventRunnersLayout from "./components/events/EventRunners/Layout/EventRunnersLayout.tsx";
 import StartList from "./components/events/EventRunners/StartList.tsx";
 import Splits from "./components/events/EventRunners/Splits.tsx";
 import {AuthProvider} from "./shared/AuthProvider.tsx";

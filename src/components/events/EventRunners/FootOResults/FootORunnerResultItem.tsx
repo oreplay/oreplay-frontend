@@ -1,5 +1,5 @@
 import {ListItem, Stack, Typography} from "@mui/material";
-import {RunnerModel} from "../../../shared/EntityTypes.ts";
+import {RunnerModel} from "../../../../shared/EntityTypes.ts";
 import {useTranslation} from "react-i18next";
 import {DateTime} from 'luxon';
 

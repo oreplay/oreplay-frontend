@@ -1,8 +1,8 @@
 import {Container, List} from "@mui/material";
 import {useContext} from "react";
-import {runnerListContext} from "../../../shared/Context.ts";
+import {runnerListContext} from "../../../../shared/Context.ts";
 import FootORunnerResultItem from "./FootORunnerResultItem.tsx";
-import {useBottomActiveMenu} from "../../../shared/hooks.ts";
+import {useBottomActiveMenu} from "../../../../shared/hooks.ts";
 
 export default function FootOResults() {
   const [runnerList,areRunnersLoading] = useContext(runnerListContext); //TODO: moveRunners to a context
