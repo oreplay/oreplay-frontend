@@ -6,7 +6,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import SettingsIcon from "@mui/icons-material/Settings";
-import TranslateIcon from "@mui/icons-material/Translate";
 import {ListItemText} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
@@ -76,7 +75,7 @@ export default function SettingsMenu() {
         {/**<Divider />**/}
         <MenuItem>
           <ListItemIcon>
-            <TranslateIcon />
+            {"\ud83c\uddea\ud83c\uddf8"}
           </ListItemIcon>
           <ListItemText
             onClick={()=>{i18n.changeLanguage('es-ES')}}
@@ -86,7 +85,7 @@ export default function SettingsMenu() {
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <TranslateIcon/>
+            {"\ud83c\uddec\ud83c\udde7"}
           </ListItemIcon>
           <ListItemText
             onClick={()=>{i18n.changeLanguage('en-GB')}}
