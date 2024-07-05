@@ -32,6 +32,27 @@
     "NoAccount" : "Don't have an account? Sign Up",
     "RememberMe" : "Remember me"
   },
+  "EventAdmin" : {
+    "EventName" : "Event's name",
+    "StartDate" : "Start date",
+    "FinishDate" : "Finish date",
+    "Organizer" : "Organizer",
+    "Website" : "Event's website",
+    "Location" : "Location",
+    "Public" : "Public",
+    "Hidden" : "Hidden",
+    "Save" : "Save",
+    "Country" : "Country",
+    "Scopes" : {
+      "Scope" : "Scope",
+      "International" : "International",
+      "National" : "National",
+      "RegionalHigh" : "Federal",
+      "RegionalLow" : "Regional",
+      "Local" : "Local",
+      "Club" : "Club"
+    }
+  },
   "Language" : {
     "Language" : "Language",
     "Spanish" : "Español",

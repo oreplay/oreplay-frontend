@@ -13,6 +13,8 @@ import {AuthProvider} from "./shared/AuthProvider.tsx";
 import PrivateRoute from "./components/users/PrivateRoute.tsx";
 import {Dashboard} from "./components/administration/Dashboard.tsx";
 import EventAdmin from "./components/administration/EventAdmin.tsx";
+import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
+import {LocalizationProvider} from "@mui/x-date-pickers";
 
 export default function App() {
 
@@ -36,28 +38,29 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Layout/>} >
-              <Route index element={<Home />} />
-              <Route path='competitions' element={<EventsList/>} />
-              <Route path='competitions/:id' element={<EventDetail/>} />
-              <Route path='competitions/:eventId/:stageId' element={<EventRunnersLayout/>}>
-                <Route path={'start-list'} element={<StartList/>} />
-                <Route path={'results'} element={<FootOResults/>} />
-                <Route path={'splits'} element={<Splits />} />
+      <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={'es-ES'}> {/** TODO: manage real location**/}
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Layout/>} >
+                <Route index element={<Home />} />
+                <Route path='competitions' element={<EventsList/>} />
+                <Route path='competitions/:id' element={<EventDetail/>} />
+                <Route path='competitions/:eventId/:stageId' element={<EventRunnersLayout/>}>
+                  <Route path={'start-list'} element={<StartList/>} />
+                  <Route path={'results'} element={<FootOResults/>} />
+                  <Route path={'splits'} element={<Splits />} />
+                </Route>
+                <Route  element={<PrivateRoute />}>
+                  <Route path={'/dashboard'} element={<Dashboard />} />
+                  <Route path={'/admin/:eventId'} element={<EventAdmin />} />
+                </Route>
               </Route>
-              <Route  element={<PrivateRoute />}>
-                <Route path={'/dashboard'} element={<Dashboard />} />
-                <Route path={'/admin/:eventId'} element={<EventAdmin />} />
-              </Route>
-            </Route>
-            <Route path={'/signin'} element={<SignIn/>} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+              <Route path={'/signin'} element={<SignIn/>} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </LocalizationProvider>
     </ThemeProvider>
-
   )
 }

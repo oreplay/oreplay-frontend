@@ -32,6 +32,27 @@
     "NoAccount" : "¿No tienes cuenta? Regístrate",
     "RememberMe" : "Recordarme"
   },
+  "EventAdmin" : {
+    "EventName": "Nombre del evento",
+    "StartDate": "Fecha de comienzo",
+    "FinishDate": "Fecha de final",
+    "Organizer": "Organizador",
+    "Website" : "Web del evento",
+    "Location" : "Ubicación",
+    "Public" : "Público",
+    "Hidden" : "Privado",
+    "Save" : "Guardar",
+    "Country" : "País",
+    "Scopes" : {
+      "Scope" : "Ámbito",
+      "International" : "Internacional",
+      "National" : "Nacional",
+      "RegionalHigh" : "Autonómico",
+      "RegionalLow" : "Provincial",
+      "Local" : "Local",
+      "Club" : "Club"
+    }
+  },
   "Language" : {
     "Language" : "Idioma",
     "Spanish" : "Español",
