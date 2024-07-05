@@ -6,8 +6,8 @@ export async function getEventList(): Promise<Page<EventModel>> {
   return await get<Page<EventModel>>(baseUrl);
 }
 
-export async function getEventDetail(id:string): Promise<Data<EventDetailModel>> {
-  return await get<Data<EventDetailModel>>(`${baseUrl}/${id}`);
+export async function getEventDetail(id:string,token?:string|null): Promise<Data<EventDetailModel>> {
+  return await get<Data<EventDetailModel>>(`${baseUrl}/${id}`,token);
 }
 
 export async function getClassesInStage(event_id:string, stage_id:string): Promise<Page<ClassModel>> {

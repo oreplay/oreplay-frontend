@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {activeResultBottomMenuContext} from "./Context.ts";
-import {ClassModel, RunnerModel} from "./EntityTypes.ts";
-import {getRunnersInStage} from "../services/EventService.ts";
+import {ClassModel, EventDetailModel, RunnerModel} from "./EntityTypes.ts";
+import {getEventDetail, getRunnersInStage} from "../services/EventService.ts";
 import {AuthContext, AuthContextInterface} from "./AuthProvider.tsx";
 
 /**
@@ -38,6 +38,9 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
       getRunnersInStage(event_id,stage_id,activeClass.id).then((response)=>{
         setRunnerList(response.data)
         setIsLoading(false)
+      },(error)=>{
+        console.log(error);
+        setIsLoading(false)
       })
     } else {
       setRunnerList([])
@@ -60,4 +63,26 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
  */
 export function useAuth() {
   return useContext(AuthContext) as AuthContextInterface;
+}
+
+/**
+ * Get a state with the `EventDetailModel` information. The state get updated when the authentication
+ * or the id changes.
+ * @param event_id
+ * @returns [EventDetailModel,isLoading]
+ */
+export function useEventDetail(event_id:string):[EventDetailModel|null,boolean] {
+  const [EventDetail,setEventDetail] = useState<EventDetailModel|null>(null);
+  const [isLoading,setIsLoading] = useState(true);
+  //const {token} = useAuth()
+
+  useEffect(() => {
+    getEventDetail(event_id).then((response)=>{//temporary removed token due to BACKs bug
+      setEventDetail(response.data)
+      setIsLoading(false)
+
+      return ()=>setIsLoading(false)
+    })
+  },[event_id])//,token])
+  return [EventDetail,isLoading]
 }

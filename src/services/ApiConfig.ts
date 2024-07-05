@@ -6,7 +6,7 @@ export const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || 'https://localhost'
  * @param url url to make the http query to
  * @param token (optional) bearer token to handle authentication
  */
-export async function get<T>(url: string,token?: string): Promise<T> {
+export async function get<T>(url: string,token?: string|null): Promise<T> {
   const headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -44,7 +44,7 @@ export async function post(url: string, body?: object,token?:string) {
  * @param url to make the request to
  * @param token User authentication token
  */
-export async function deleteRequest(url:string, token?:string) {
+export async function deleteRequest(url:string, token?:string|null) {
   const headers = new Headers({
     'Accept': 'application/json'
   })
