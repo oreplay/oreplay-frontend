@@ -1,5 +1,5 @@
 import {ClassModel, EventDetailModel, EventModel, Page, RunnerModel, Data} from "../shared/EntityTypes";
-import { get } from "./ApiConfig";
+import {get, post} from "./ApiConfig";
 const baseUrl: string = "/api/v1/events"
 
 export async function getEventList(): Promise<Page<EventModel>> {
@@ -24,4 +24,23 @@ export async function getRunnersInStage(event_id:string, stage_id:string, class_
 
 export function getEventsFromUser(user_id:string, token:string, page:number=1,limit:number=10): Promise<Page<EventModel>> {
   return get<Page<EventModel>>(baseUrl+`?user_id=${user_id}&show_hidden=1&page=${page}&limit=${limit}`,token)
+}
+
+export function postEvent(
+  description:string,
+  startDate:string,
+  finishDate:string,
+  token:string,
+  federation_id?:string,
+  ) {
+  return post(
+    baseUrl,
+    {
+      description:description,
+      initial_date:startDate,
+      final_date:finishDate,
+      federation_id:federation_id,
+    },
+    token
+    )
 }

@@ -71,11 +71,14 @@ export default function EventAdminForm(props: EventAdminFormProps){
             {...style_props}
             defaultValue={ 'No viene club' }
           />
-          <DatePicker label={t('EventAdmin.StartDate')+' *'}
+          <DatePicker
+            name={'startDate'}
+            label={t('EventAdmin.StartDate')+' *'}
             slotProps={{textField: {...style_props} }}
             defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : undefined}
           />
           <DatePicker label={t('EventAdmin.FinishDate')+' *'}
+            name={'endDate'}
             slotProps={{textField: {...style_props} }}
             defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : undefined}
           />
@@ -89,9 +92,10 @@ export default function EventAdminForm(props: EventAdminFormProps){
           <FormControl  sx={{minWidth:'10em'}} required>
             <InputLabel id='scope-label' >{t('EventAdmin.Scopes.Scope')}</InputLabel>
             <Select
+              id = 'scope'
+              name={'scope'}
               disabled={!props.canEdit}
               labelId='scope-label'
-              id = 'scope'
               label={t('EventAdmin.Scopes.Scope')}
             >
               <MenuItem value={'international'}>{t('EventAdmin.Scopes.International')}</MenuItem>
@@ -103,7 +107,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
             </Select>
           </FormControl>
           <FormControl sx={{align:'center', minWidth:'6em'}}>
-            <FormControlLabel control={<Switch />} label={isPublic ? t('EventAdmin.Public') : t('EventAdmin.Hidden')}/>
+            <FormControlLabel id={'public'} name={'isPublic'} control={<Switch />} label={isPublic ? t('EventAdmin.Public') : t('EventAdmin.Hidden')}/>
           </FormControl>
         </Box>
         {

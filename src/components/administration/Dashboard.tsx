@@ -7,6 +7,7 @@ import {useAuth} from "../../shared/hooks.ts";
 import {UserModel} from "../../shared/EntityTypes.ts";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
+import AddIcon from '@mui/icons-material/Add';
 
 
 interface EventDataGridColumns {
@@ -15,6 +16,7 @@ interface EventDataGridColumns {
   endDate:string,
   Name:string,
 }
+
 
 export function Dashboard() {
   const {t} = useTranslation()
@@ -54,16 +56,20 @@ export function Dashboard() {
   return  (
     <Container>
       <Typography variant="h1" color="primary.main">{t('Dashboard.YourEvents')}</Typography>
-        <DataGrid
-          columns={columns}
-          loading={isLoading}
-          rows={rows}
-          rowCount={totalRows}
-          paginationMode={'server'}
-          paginationModel={{page:page,pageSize:rowsPerPage}}
-          onPaginationModelChange={(model)=>{setPage(model.page)}}
-          onRowClick={handleClick}
-        />
+      <Button
+        onClick={() =>navigate('/admin/create-event')}
+        variant="contained"
+      > <AddIcon /> </Button>
+      <DataGrid
+        columns={columns}
+        loading={isLoading}
+        rows={rows}
+        rowCount={totalRows}
+        paginationMode={'server'}
+        paginationModel={{page:page,pageSize:rowsPerPage}}
+        onPaginationModelChange={(model)=>{setPage(model.page)}}
+        onRowClick={handleClick}
+      />
       <Button onClick={logoutAction}>Logout</Button>{/** TODO: move to the navigation var */}
     </Container>
   )

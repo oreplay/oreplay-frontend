@@ -15,6 +15,7 @@ import {Dashboard} from "./components/administration/Dashboard.tsx";
 import EventAdmin from "./components/administration/EventAdmin.tsx";
 import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
 import {LocalizationProvider} from "@mui/x-date-pickers";
+import CreateEvent from "./components/administration/CreateEvent.tsx";
 
 export default function App() {
 
@@ -53,6 +54,7 @@ export default function App() {
                 </Route>
                 <Route  element={<PrivateRoute />}>
                   <Route path={'/dashboard'} element={<Dashboard />} />
+                  <Route path={'/admin/create-event'} element={<CreateEvent />} />
                   <Route path={'/admin/:eventId'} element={<EventAdmin />} />
                 </Route>
               </Route>
