@@ -37,6 +37,9 @@ export default function Home() {
             {t('Home.Go to competitions')}
           </Button>
         </Box>
+        <Box sx={{mt: "30px"}}>
+          Help <a href="https://github.com/oreplay" target="_blank">developing</a> the <a href="https://www.oreplay.es/api/v1/openapi/" target="_blank">API</a>
+        </Box>
       </Box>
     </Container>
   )
