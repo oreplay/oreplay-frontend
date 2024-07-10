@@ -40,5 +40,5 @@ export async function deleteToken(token:string): Promise<Response> {
  * @param token
  */
 export function getUserData(token:string): Promise<Data<UserModel>> {
-  return get<Data<UserModel>>('api/v1/me',token)
+  return get<Data<UserModel>>('/api/v1/me',token)
 }
