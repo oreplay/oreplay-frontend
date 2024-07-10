@@ -19,7 +19,7 @@ export default function Home() {
         </h1>
         <img alt='O-Replay logo' src="/logo.svg" width="124px"></img>
         <Box sx={{mt: "30px"}}>
-          {t('Home.ProjectDescription')}
+          {t('Home.ProjectDescription')} v0.1.6
         </Box>
         <Box sx={{mt: "10px"}}>
           <Button
