@@ -81,7 +81,7 @@ export function useEventDetail(event_id:string):[EventDetailModel|null,boolean] 
       setEventDetail(response.data)
       setIsLoading(false)
 
-      return ()=>setIsLoading(false)
+      return ()=>setIsLoading(true)
     })
   },[event_id])//,token])
   return [EventDetail,isLoading]

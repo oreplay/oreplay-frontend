@@ -1,4 +1,12 @@
-import {ClassModel, EventDetailModel, EventModel, Page, RunnerModel, Data} from "../shared/EntityTypes";
+import {
+  ClassModel,
+  EventDetailModel,
+  EventModel,
+  Page,
+  RunnerModel,
+  Data,
+  PostEventResponse
+} from "../shared/EntityTypes";
 import {get, post} from "./ApiConfig";
 const baseUrl: string = "/api/v1/events"
 
@@ -32,7 +40,7 @@ export function postEvent(
   finishDate:string,
   token:string,
   federation_id?:string,
-  ) {
+  ):Promise<Data<PostEventResponse>> {
   return post(
     baseUrl,
     {
