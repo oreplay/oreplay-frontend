@@ -115,3 +115,20 @@ export interface UserModel {
     "token_type":string,
   }
 }
+
+export interface UserEvent {
+  id:string,
+  email:string,
+  first_name:string,
+  last_name:string,
+  created:string,
+  modified:string
+}
+
+export interface PostEventResponse {
+  id:string,
+  description: string,
+  initial_date: string,
+  final_date:string,
+  users:UserEvent[]
+}
