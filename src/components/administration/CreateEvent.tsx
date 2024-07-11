@@ -13,8 +13,7 @@ export default function CreateEvent (){
     const response = postEvent(
       data.get('description') as string,
       DateTime.fromFormat(data.get('startDate') as string,'dd/mm/yyyy').toSQLDate() as string,
-      DateTime.fromFormat(data.get('startDate') as string,'dd/mm/yyyy').toSQLDate() as string,
-      data.get('endDate') as string,
+      DateTime.fromFormat(data.get('endDate') as string,'dd/mm/yyyy').toSQLDate() as string,
       token
     )
     console.log(response)
