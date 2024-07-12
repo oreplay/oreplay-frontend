@@ -1,16 +1,20 @@
 {
-    "Dates" : "Fecha",
-    "Event" : "Evento",
-    "Events": "Eventos",
-    "Stages": "Etapas",
-    "Location" : "Ubicación",
-    "Organizer" : "Organizador",
-    "Name" : "Nombre",
+  "Dates" : "Fecha",
+  "Event" : "Evento",
+  "Events": "Eventos",
+  "Stages": "Etapas",
+  "Location" : "Ubicación",
+  "Organizer" : "Organizador",
+  "Name" : "Nombre",
+  "Edit" : "Editar",
+  "Cancel" : "Cancelar",
+  "Delete" : "Borrar",
+  "Save" : "Guardar",
 
-    "Logout" : "Cerrar sesion",
-    "Settings" : "Ajustes",
-    "EmailAddress" : "Correo electrónico",
-    "Password" : "Contraseña",
+  "Logout" : "Cerrar sesion",
+  "Settings" : "Ajustes",
+  "EmailAddress" : "Correo electrónico",
+  "Password" : "Contraseña",
   "Home" : {
     "Home": "Inicio",
     "WelcomeMsg" : "Bienvenido a O-Replay",
@@ -53,7 +57,8 @@
       "Local" : "Local",
       "Club" : "Club"
     },
-    "NewStage" : "Nueva etapa"
+    "NewStage" : "Nueva etapa",
+    "WipeOutRunners" : "Borrar todos los corredores de esta etapa"
   },
   "Language" : {
     "Language" : "Idioma",

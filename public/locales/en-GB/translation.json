@@ -1,16 +1,20 @@
 {
-    "Dates" : "Dates",
-    "Event" : "Event",
-    "Events": "Events",
-    "Stages": "Stages",
-    "Location" : "Location",
-    "Organizer" : "Organizer",
-    "Name" : "Name",
+  "Dates" : "Dates",
+  "Event" : "Event",
+  "Events": "Events",
+  "Stages": "Stages",
+  "Location" : "Location",
+  "Organizer" : "Organizer",
+  "Name" : "Name",
+  "Edit" : "Edit",
+  "Cancel" : "Cancel",
+  "Delete" : "Delete",
+  "Save" : "Save",
 
-    "Logout" : "Logout",
-    "Settings" : "Settings",
-    "EmailAddress" : "Email Address",
-    "Password" : "Password",
+  "Logout" : "Logout",
+  "Settings" : "Settings",
+  "EmailAddress" : "Email Address",
+  "Password" : "Password",
   "Home" : {
     "Home": "Home",
     "WelcomeMsg" : "Welcome to O-Replay",
@@ -53,7 +57,8 @@
       "Local" : "Local",
       "Club" : "Club"
     },
-    "NewStage" : "New stage"
+    "NewStage" : "New stage",
+    "WipeOutRunners" : "Wipe out all runners in this stage"
   },
   "Language" : {
     "Language" : "Language",

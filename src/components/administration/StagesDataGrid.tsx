@@ -25,6 +25,7 @@ import {EventDetailModel} from "../../shared/EntityTypes.ts";
 import {deleteStage, postStage, wipeOutStage} from "../../services/EventService.ts";
 import {useAuth} from "../../shared/hooks.ts";
 import {DateTime} from "luxon";
+import Tooltip from "@mui/material/Tooltip";
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -185,44 +186,54 @@ export default function StagesDataGrid(props:Props) {
 
         if (isInEditMode) {
           return [
-            <GridActionsCellItem
-              icon={<SaveIcon />}
-              label="Save"
-              sx={{
-                color: 'primary.main',
-              }}
-              onClick={handleSaveClick(row)}
-            />,
-            <GridActionsCellItem
-              icon={<CancelIcon />}
-              label="Cancel"
-              className="textPrimary"
-              onClick={handleCancelClick(row)}
-              color="inherit"
-            />
+            <Tooltip title={t('Save')}>
+              <GridActionsCellItem
+                icon={<SaveIcon />}
+                label="Save"
+                sx={{
+                  color: 'primary.main',
+                }}
+                onClick={handleSaveClick(row)}
+              />
+            </Tooltip>,
+            <Tooltip title={t('Cancel')}>
+              <GridActionsCellItem
+                icon={<CancelIcon />}
+                label="Cancel"
+                className="textPrimary"
+                onClick={handleCancelClick(row)}
+                color="inherit"
+              />
+            </Tooltip>
           ];
         }
 
         return [
-          <GridActionsCellItem
-            icon={<EditIcon />}
-            label="Edit"
-            className="textPrimary"
-            onClick={handleEditClick(row)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={handleDeleteClick(row)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<PersonOffIcon />}
-            label="WipeOutRunners"
-            onClick={handleWipeOutRunnersClick(row)}
-            color={"inherit"}
-          />
+          <Tooltip title={t('Edit')}>
+            <GridActionsCellItem
+              icon={<EditIcon />}
+              label="Edit"
+              className="textPrimary"
+              onClick={handleEditClick(row)}
+              color="inherit"
+            />
+          </Tooltip>,
+          <Tooltip title={t('Delete')}>
+            <GridActionsCellItem
+              icon={<DeleteIcon />}
+              label="Delete"
+              onClick={handleDeleteClick(row)}
+              color="inherit"
+            />
+          </Tooltip>,
+          <Tooltip title={t('EventAdmin.WipeOutRunners')}>
+            <GridActionsCellItem
+              icon={<PersonOffIcon />}
+              label="WipeOutRunners"
+              onClick={handleWipeOutRunnersClick(row)}
+              color={"inherit"}
+            />
+          </Tooltip>
         ];
       },
     },
