@@ -31,7 +31,7 @@ export async function getRunnersInStage(event_id:string, stage_id:string, class_
   return await get<Page<RunnerModel>>(baseUrl + url)
 }
 
-export function getEventsFromUser(user_id:string, token:string, page:number=1,limit:number=10): Promise<Page<EventModel>> {
+export async function getEventsFromUser(user_id:string, token:string, page:number=1,limit:number=10): Promise<Page<EventModel>> {
   return get<Page<EventModel>>(baseUrl+`?user_id=${user_id}&show_hidden=1&page=${page}&limit=${limit}`,token)
 }
 
@@ -46,7 +46,7 @@ export function getEventsFromUser(user_id:string, token:string, page:number=1,li
  * @param website URL to the event's webpage on the organizer website
  * @param federation_id federation id of the data source
  */
-export function postEvent(
+export async function postEvent(
   description:string,
   startDate:string,
   endDate:string,
