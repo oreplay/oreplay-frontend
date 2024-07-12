@@ -21,7 +21,7 @@ import {
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {EventDetailModel} from "../../shared/EntityTypes.ts";
-import {postStage} from "../../services/EventService.ts";
+import {deleteStage, postStage} from "../../services/EventService.ts";
 import {useAuth} from "../../shared/hooks.ts";
 import {DateTime} from "luxon";
 
@@ -69,6 +69,7 @@ interface Props {
  */
 interface StageRow {
   id:string
+  stageId:string
   stageName:string,
   isNew?:boolean,
   isEdit?:boolean
@@ -80,7 +81,7 @@ export default function StagesDataGrid(props:Props) {
 
   const initialRows : GridRowsProp<StageRow> = props.eventDetail.stages.map(
     (stage)=>(
-      {id:stage.id, stageName:stage.description }
+      {id:stage.id,stageId:stage.id, stageName:stage.description }
     )
   )
 
@@ -103,10 +104,13 @@ export default function StagesDataGrid(props:Props) {
   };
 
   const handleDeleteClick = (row:GridRowParams<StageRow>) => () => {
-
-
-
-    setRows(rows.filter((thisRow) => thisRow.id !== row.id));
+    deleteStage(
+      props.eventDetail.id,
+      row.row.stageId,
+      token as string
+    ).then(()=>
+      setRows(rows.filter((thisRow) => thisRow.id !== row.id))
+    )
   };
 
   const handleCancelClick = (row:GridRowParams<StageRow>) => () => {

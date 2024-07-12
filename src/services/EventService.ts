@@ -8,7 +8,7 @@ import {
   PostEventResponse,
   PostStageResponse
 } from "../shared/EntityTypes";
-import {get, post} from "./ApiConfig";
+import {deleteRequest, get, post} from "./ApiConfig";
 const baseUrl = "/api/v1/events"
 
 export async function getEventList(): Promise<Page<EventModel>> {
@@ -87,6 +87,17 @@ export async function postStage(
     {
       description:stageName,
     },
+    token
+  )
+}
+
+export async function deleteStage(
+  eventId:string,
+  stageId:string,
+  token: string
+) {
+  return deleteRequest(
+    baseUrl+`/${eventId}/stages/${stageId}`,
     token
   )
 }
