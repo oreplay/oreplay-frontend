@@ -116,7 +116,7 @@ export default function StagesDataGrid(props:Props) {
     });
 
     const editedRow = rows.find((thisRow) => thisRow.id === row.id);
-    if (editedRow!.isEdit) {
+    if (editedRow!.isNew) {
       setRows(rows.filter((thisRow) => thisRow.id !== row.id));
     }
   };
