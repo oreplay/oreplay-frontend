@@ -40,6 +40,7 @@ export interface EventModel {
 
 export interface EventDetailModel {
   id: string,
+  is_hidden: boolean,
   description: string,
   picture:string,
   website: string,

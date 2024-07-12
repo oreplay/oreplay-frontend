@@ -3,7 +3,7 @@ import {
   Container,
   FormControl, FormControlLabel,
   InputLabel,
-  Select, Switch,
+  Select,
   TextField,
   TextFieldProps
 } from "@mui/material";
@@ -13,6 +13,7 @@ import {EventDetailModel} from "../../shared/EntityTypes.ts";
 import {DateTime} from "luxon";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import Checkbox from '@mui/material/Checkbox';
 import React from "react";
 
 /**
@@ -37,7 +38,6 @@ interface EventAdminFormProps {
  */
 export default function EventAdminForm(props: EventAdminFormProps){
   const {t} = useTranslation();
-  const isPublic=true //TODO: Make it work
 
   const style_props:TextFieldProps = {
     margin:'normal',
@@ -108,7 +108,13 @@ export default function EventAdminForm(props: EventAdminFormProps){
             </Select>
           </FormControl>
           <FormControl sx={{align:'center', minWidth:'6em'}}>
-            <FormControlLabel id={'public'} name={'isPublic'} control={<Switch />} label={isPublic ? t('EventAdmin.Public') : t('EventAdmin.Hidden')}/>
+            <FormControlLabel
+              id={'isPublic'}
+              name={'isPublic'}
+              control={<Checkbox checked={props.eventDetail? !(props.eventDetail.is_hidden) : undefined} />}
+              label={t('EventAdmin.Public')}
+              disabled={!props.canEdit}
+            />
           </FormControl>
         </Box>
         {

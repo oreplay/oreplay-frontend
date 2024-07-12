@@ -17,6 +17,7 @@ export default function CreateEvent (){
       DateTime.fromFormat(data.get('startDate') as string,'dd/MM/yyyy').toSQLDate() as string,
       DateTime.fromFormat(data.get('endDate') as string,'dd/MM/yyyy').toSQLDate() as string,
       data.get('scope') as string,
+      !!data.get('isPublic'),
       token,
       data.get('website')? data.get('website') as string : undefined
     )

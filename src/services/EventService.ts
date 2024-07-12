@@ -40,6 +40,7 @@ export function getEventsFromUser(user_id:string, token:string, page:number=1,li
  * @param startDate Event's start date in SQL format, i.e. YYYY-MM-DD
  * @param endDate Event's end date in SQL format, i.e. YYYY-MM-DD
  * @param scope Event's scope string.
+ * @param is_public True if the event is publicly available on O-Replay main events searcher, false otherwise.
  * @param token Auth token of the user creating the event
  * @param website URL to the event's webpage on the organizer website
  * @param federation_id federation id of the data source
@@ -49,6 +50,7 @@ export function postEvent(
   startDate:string,
   endDate:string,
   scope:'international'|'national'|'regional.high'|'regional.low'|'local'|'club'|string,
+  is_public:boolean,
   token:string,
   website?:string,
   federation_id?:string,
@@ -57,6 +59,7 @@ export function postEvent(
     baseUrl,
     {
       description:description,
+      is_hidden: !is_public,
       initial_date:startDate,
       final_date:endDate,
       scope:scope,
