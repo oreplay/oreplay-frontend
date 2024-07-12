@@ -1,0 +1,241 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+  GridRowsProp,
+  GridRowModesModel,
+  GridRowModes,
+  DataGrid,
+  GridColDef,
+  GridToolbarContainer,
+  GridActionsCellItem,
+  GridEventListener,
+  GridRowId,
+  GridRowModel,
+  GridRowEditStopReasons,
+  GridSlots,
+} from '@mui/x-data-grid';
+import {useTranslation} from "react-i18next";
+import {useState} from "react";
+import {EventDetailModel} from "../../shared/EntityTypes.ts";
+import {postStage} from "../../services/EventService.ts";
+import {useAuth} from "../../shared/hooks.ts";
+import {DateTime} from "luxon";
+
+/**
+ * Auxiliary component to introduce buttons on top of the DataGrid
+ */
+interface EditToolbarProps {
+  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
+  setRowModesModel: (
+    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
+  ) => void;
+}
+
+function EditToolbar(props: EditToolbarProps) {
+  const {t} = useTranslation()
+  const { setRows, setRowModesModel } = props;
+
+  const handleClick = () => {
+    const id = DateTime.now().toSeconds(); // Random key generation
+    setRows((oldRows) => [...oldRows, { id:id, stageName: '', isNew: true, isEdit:false}]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+    }));
+  };
+
+  return (
+    <GridToolbarContainer>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        {t('EventAdmin.NewStage')}
+      </Button>
+    </GridToolbarContainer>
+  );
+}
+
+/**
+ * Props for StagesDataGrid
+ */
+interface Props {
+  eventDetail: EventDetailModel;
+}
+
+/**
+ * Possible properties of a row in the stages DataGrid
+ */
+interface StageRow {
+  id:string
+  stageName:string,
+  isNew?:boolean,
+  isEdit?:boolean
+}
+
+export default function StagesDataGrid(props:Props) {
+  const {t} = useTranslation()
+  const {token} = useAuth()
+
+  const initialRows : GridRowsProp<StageRow> = props.eventDetail.stages.map(
+    (stage)=>(
+      {id:stage.id, stageName:stage.description }
+    )
+  )
+
+
+  const [rows, setRows] = useState(initialRows);
+  const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
+
+  const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id: GridRowId) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id: GridRowId) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id: GridRowId) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleCancelClick = (id: GridRowId) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow!.isEdit) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = async (newRow: GridRowModel<StageRow>) => {
+    const updatedRow:GridRowModel<StageRow> = { ...newRow, isEdit: false, isNew: false };
+
+    if (newRow.isNew) // Case row is posted to the server
+    {
+      try {
+        const response = await postStage(
+          props.eventDetail.id,
+          newRow.stageName,
+          token
+        )
+        updatedRow.id = response.data.id
+      } catch (error) {
+        console.log("Something bad happened while posting the stage")
+      }
+
+    } else // Case Row is patched to the server
+    {
+      alert('Stages cannot be edited yet!')
+    }
+
+    // Update DataGridView
+    setRows(rows.map((row):GridRowModel<StageRow> => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
+  const columns: GridColDef[] = [
+    {
+      field:'stageName',
+      headerName:t('Name'),
+      flex:1,
+      type: 'string',
+      align: 'left',
+      headerAlign : 'left',
+      editable:true
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: '',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{
+                color: 'primary.main',
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
+  ];
+
+  return (
+    <Box
+      sx={{
+        minHeight: 200,
+        maxHeight: 500,
+        width: '100%',
+        '& .actions': {
+          color: 'text.secondary',
+        },
+        '& .textPrimary': {
+          color: 'text.primary',
+        },
+      }}
+    >
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        editMode="row"
+        rowModesModel={rowModesModel}
+        onRowModesModelChange={handleRowModesModelChange}
+        onRowEditStop={handleRowEditStop}
+        processRowUpdate={processRowUpdate}
+        slots={{
+          toolbar: EditToolbar as GridSlots['toolbar'],
+        }}
+        slotProps={{
+          toolbar: { setRows, setRowModesModel },
+        }}
+      />
+    </Box>
+  );
+}

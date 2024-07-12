@@ -133,3 +133,9 @@ export interface PostEventResponse {
   final_date:string,
   users:UserEvent[]
 }
+
+export interface PostStageResponse {
+  id: string,
+  description: string,
+  stage_type: StageModel,
+}

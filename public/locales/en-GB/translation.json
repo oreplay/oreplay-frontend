@@ -52,7 +52,8 @@
       "RegionalLow" : "Regional",
       "Local" : "Local",
       "Club" : "Club"
-    }
+    },
+    "NewStage" : "New stage"
   },
   "Language" : {
     "Language" : "Language",

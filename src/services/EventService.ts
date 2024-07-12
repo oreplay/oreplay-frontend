@@ -5,7 +5,8 @@ import {
   Page,
   RunnerModel,
   Data,
-  PostEventResponse
+  PostEventResponse,
+  PostStageResponse
 } from "../shared/EntityTypes";
 import {get, post} from "./ApiConfig";
 const baseUrl: string = "/api/v1/events"
@@ -68,4 +69,24 @@ export function postEvent(
     },
     token
     )
+}
+
+/**
+ * Make HTTP Request to the backend to create a stage in a given event
+ * @param eventId
+ * @param stageName
+ * @param token
+ */
+export async function postStage(
+  eventId: string,
+  stageName: string,
+  token: string | null
+):Promise<Data<PostStageResponse>> {
+  return post(
+    baseUrl+`/${eventId}/stages/`,
+    {
+      description:stageName,
+    },
+    token
+  )
 }

@@ -52,7 +52,8 @@
       "RegionalLow" : "Provincial",
       "Local" : "Local",
       "Club" : "Club"
-    }
+    },
+    "NewStage" : "Nueva etapa"
   },
   "Language" : {
     "Language" : "Idioma",
