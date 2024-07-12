@@ -14,10 +14,9 @@ import {
   GridToolbarContainer,
   GridActionsCellItem,
   GridEventListener,
-  GridRowId,
   GridRowModel,
   GridRowEditStopReasons,
-  GridSlots,
+  GridSlots, GridRowParams,
 } from '@mui/x-data-grid';
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
@@ -95,27 +94,30 @@ export default function StagesDataGrid(props:Props) {
     }
   };
 
-  const handleEditClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  const handleEditClick = (row:GridRowParams<StageRow>) => () => {
+    setRowModesModel({ ...rowModesModel, [row.id]: { mode: GridRowModes.Edit } });
   };
 
-  const handleSaveClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  const handleSaveClick = (row:GridRowParams<StageRow>) => () => {
+    setRowModesModel({ ...rowModesModel, [row.id]: { mode: GridRowModes.View } });
   };
 
-  const handleDeleteClick = (id: GridRowId) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+  const handleDeleteClick = (row:GridRowParams<StageRow>) => () => {
+
+
+
+    setRows(rows.filter((thisRow) => thisRow.id !== row.id));
   };
 
-  const handleCancelClick = (id: GridRowId) => () => {
+  const handleCancelClick = (row:GridRowParams<StageRow>) => () => {
     setRowModesModel({
       ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+      [row.id]: { mode: GridRowModes.View, ignoreModifications: true },
     });
 
-    const editedRow = rows.find((row) => row.id === id);
+    const editedRow = rows.find((thisRow) => thisRow.id === row.id);
     if (editedRow!.isEdit) {
-      setRows(rows.filter((row) => row.id !== id));
+      setRows(rows.filter((thisRow) => thisRow.id !== row.id));
     }
   };
 
@@ -165,8 +167,8 @@ export default function StagesDataGrid(props:Props) {
       headerName: '',
       width: 100,
       cellClassName: 'actions',
-      getActions: ({ id }) => {
-        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+      getActions: (row:GridRowParams<StageRow>) => {
+        const isInEditMode = rowModesModel[row.id]?.mode === GridRowModes.Edit;
 
         if (isInEditMode) {
           return [
@@ -176,13 +178,13 @@ export default function StagesDataGrid(props:Props) {
               sx={{
                 color: 'primary.main',
               }}
-              onClick={handleSaveClick(id)}
+              onClick={handleSaveClick(row)}
             />,
             <GridActionsCellItem
               icon={<CancelIcon />}
               label="Cancel"
               className="textPrimary"
-              onClick={handleCancelClick(id)}
+              onClick={handleCancelClick(row)}
               color="inherit"
             />,
           ];
@@ -193,13 +195,13 @@ export default function StagesDataGrid(props:Props) {
             icon={<EditIcon />}
             label="Edit"
             className="textPrimary"
-            onClick={handleEditClick(id)}
+            onClick={handleEditClick(row)}
             color="inherit"
           />,
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
-            onClick={handleDeleteClick(id)}
+            onClick={handleDeleteClick(row)}
             color="inherit"
           />,
         ];
