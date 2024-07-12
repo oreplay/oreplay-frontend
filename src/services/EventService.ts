@@ -34,11 +34,23 @@ export function getEventsFromUser(user_id:string, token:string, page:number=1,li
   return get<Page<EventModel>>(baseUrl+`?user_id=${user_id}&show_hidden=1&page=${page}&limit=${limit}`,token)
 }
 
+/**
+ * Make HTTP post to the backend creating an event
+ * @param description Event's name
+ * @param startDate Event's start date in SQL format, i.e. YYYY-MM-DD
+ * @param endDate Event's end date in SQL format, i.e. YYYY-MM-DD
+ * @param scope Event's scope string.
+ * @param token Auth token of the user creating the event
+ * @param website URL to the event's webpage on the organizer website
+ * @param federation_id federation id of the data source
+ */
 export function postEvent(
   description:string,
   startDate:string,
-  finishDate:string,
+  endDate:string,
+  scope:'international'|'national'|'regional.high'|'regional.low'|'local'|'club'|string,
   token:string,
+  website?:string,
   federation_id?:string,
   ):Promise<Data<PostEventResponse>> {
   return post(
@@ -46,8 +58,10 @@ export function postEvent(
     {
       description:description,
       initial_date:startDate,
-      final_date:finishDate,
-      federation_id:federation_id,
+      final_date:endDate,
+      scope:scope,
+      federation_id:federation_id ? federation_id : null,
+      website: website ? website : null,
     },
     token
     )

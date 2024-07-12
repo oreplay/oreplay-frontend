@@ -87,7 +87,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
             name="website"
             label={t('EventAdmin.Website')}
             {...style_props}
-            defaultValue={ props.eventDetail ? props.eventDetail.website : undefined  }
+            defaultValue={ props.eventDetail ? props.eventDetail.website : undefined}
           />
           <FormControl  sx={{minWidth:'10em'}} required>
             <InputLabel id='scope-label' >{t('EventAdmin.Scopes.Scope')}</InputLabel>
@@ -97,13 +97,14 @@ export default function EventAdminForm(props: EventAdminFormProps){
               disabled={!props.canEdit}
               labelId='scope-label'
               label={t('EventAdmin.Scopes.Scope')}
+              defaultValue={props.eventDetail ? props.eventDetail.scope : undefined}
             >
-              <MenuItem value={'international'}>{t('EventAdmin.Scopes.International')}</MenuItem>
-              <MenuItem value={'national'}>{t('EventAdmin.Scopes.National')}</MenuItem>
-              <MenuItem value={'regional.high'}>{t('EventAdmin.Scopes.RegionalHigh')}</MenuItem>
-              <MenuItem value={'regional.low'}>{t('EventAdmin.Scopes.RegionalLow')}</MenuItem>
-              <MenuItem value={'local'}>{t('EventAdmin.Scopes.Local')}</MenuItem>
-              <MenuItem value={'club'}>{t('EventAdmin.Scopes.Club')}</MenuItem>
+              <MenuItem value={'int'}>{t('EventAdmin.Scopes.International')}</MenuItem>
+              <MenuItem value={'nat'}>{t('EventAdmin.Scopes.National')}</MenuItem>
+              <MenuItem value={'r.h'}>{t('EventAdmin.Scopes.RegionalHigh')}</MenuItem>
+              <MenuItem value={'r.l'}>{t('EventAdmin.Scopes.RegionalLow')}</MenuItem>
+              <MenuItem value={'loc'}>{t('EventAdmin.Scopes.Local')}</MenuItem>
+              <MenuItem value={'clu'}>{t('EventAdmin.Scopes.Club')}</MenuItem>
             </Select>
           </FormControl>
           <FormControl sx={{align:'center', minWidth:'6em'}}>

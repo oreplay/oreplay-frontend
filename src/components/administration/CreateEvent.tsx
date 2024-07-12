@@ -14,9 +14,11 @@ export default function CreateEvent (){
     const data = new FormData(event.currentTarget);
     const response = postEvent(
       data.get('description') as string,
-      DateTime.fromFormat(data.get('startDate') as string,'dd/mm/yyyy').toSQLDate() as string,
-      DateTime.fromFormat(data.get('endDate') as string,'dd/mm/yyyy').toSQLDate() as string,
-      token
+      DateTime.fromFormat(data.get('startDate') as string,'dd/MM/yyyy').toSQLDate() as string,
+      DateTime.fromFormat(data.get('endDate') as string,'dd/MM/yyyy').toSQLDate() as string,
+      data.get('scope') as string,
+      token,
+      data.get('website')? data.get('website') as string : undefined
     )
     console.log(response)
     console.log(data)
