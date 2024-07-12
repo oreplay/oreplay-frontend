@@ -101,3 +101,22 @@ export async function deleteStage(
     token
   )
 }
+
+/**
+ * Remove all the runners in a stage without removing the stage. This option is useful when the
+ * timekeeper finds any issue with the results uploaded to an event. They can remove the results
+ * entirely and re-upload them from scratch to solve the issue.
+ * @param eventId
+ * @param stageId
+ * @param token
+ */
+export async function wipeOutStage(
+  eventId:string,
+  stageId:string,
+  token: string
+) {
+  return deleteRequest(
+    baseUrl+`/${eventId}/stages/${stageId}/?clean=1`,
+    token
+  )
+}

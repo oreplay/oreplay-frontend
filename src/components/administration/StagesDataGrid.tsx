@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {
@@ -21,7 +22,7 @@ import {
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {EventDetailModel} from "../../shared/EntityTypes.ts";
-import {deleteStage, postStage} from "../../services/EventService.ts";
+import {deleteStage, postStage, wipeOutStage} from "../../services/EventService.ts";
 import {useAuth} from "../../shared/hooks.ts";
 import {DateTime} from "luxon";
 
@@ -113,6 +114,14 @@ export default function StagesDataGrid(props:Props) {
     )
   };
 
+  const handleWipeOutRunnersClick = (row:GridRowParams<StageRow>) => ()=> {
+    wipeOutStage(
+        props.eventDetail.id,
+        row.row.stageId,
+        token as string
+      ).then(()=>{})
+  }
+
   const handleCancelClick = (row:GridRowParams<StageRow>) => () => {
     setRowModesModel({
       ...rowModesModel,
@@ -169,7 +178,7 @@ export default function StagesDataGrid(props:Props) {
       field: 'actions',
       type: 'actions',
       headerName: '',
-      width: 100,
+      width: 135,
       cellClassName: 'actions',
       getActions: (row:GridRowParams<StageRow>) => {
         const isInEditMode = rowModesModel[row.id]?.mode === GridRowModes.Edit;
@@ -190,7 +199,7 @@ export default function StagesDataGrid(props:Props) {
               className="textPrimary"
               onClick={handleCancelClick(row)}
               color="inherit"
-            />,
+            />
           ];
         }
 
@@ -208,6 +217,12 @@ export default function StagesDataGrid(props:Props) {
             onClick={handleDeleteClick(row)}
             color="inherit"
           />,
+          <GridActionsCellItem
+            icon={<PersonOffIcon />}
+            label="WipeOutRunners"
+            onClick={handleWipeOutRunnersClick(row)}
+            color={"inherit"}
+          />
         ];
       },
     },
