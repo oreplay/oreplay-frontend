@@ -9,7 +9,7 @@ import {
   PostStageResponse
 } from "../shared/EntityTypes";
 import {get, post} from "./ApiConfig";
-const baseUrl: string = "/api/v1/events"
+const baseUrl = "/api/v1/events"
 
 export async function getEventList(): Promise<Page<EventModel>> {
   return await get<Page<EventModel>>(baseUrl);
