@@ -58,7 +58,9 @@
       "Club" : "Club"
     },
     "NewStage" : "New stage",
-    "WipeOutRunners" : "Wipe out all runners in this stage"
+    "WipeOutRunners" : "Wipe out all runners in this stage",
+    "EventSecurityTokens" : "Security keys",
+    "EventId" : "Event's ID"
   },
   "Language" : {
     "Language" : "Language",

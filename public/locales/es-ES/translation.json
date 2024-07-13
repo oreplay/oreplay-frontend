@@ -58,7 +58,9 @@
       "Club" : "Club"
     },
     "NewStage" : "Nueva etapa",
-    "WipeOutRunners" : "Borrar todos los corredores de esta etapa"
+    "WipeOutRunners" : "Borrar todos los corredores de esta etapa",
+    "EventSecurityTokens" : "Claves de seguridad",
+    "EventId" : "ID del evento"
   },
   "Language" : {
     "Language" : "Idioma",
