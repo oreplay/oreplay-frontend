@@ -1,7 +1,7 @@
 import {deleteRequest, get, post} from './ApiConfig.ts'
 import {UserModel, Data} from "../shared/EntityTypes.ts";
 
-const baseUrl = "/api/v1/authentication"
+const baseUrl = "api/v1/authentication"
 
 interface UserTokenModel {
     access_token: string,
