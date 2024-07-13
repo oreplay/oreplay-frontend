@@ -138,3 +138,16 @@ export async function postEventToken(eventId:string, token:string,expiresIn:Dura
     token
   )
 }
+
+/**
+ * Invalidate and already existing security token for an event.
+ * @param eventId Id of the event the token belongs to
+ * @param eventToken Token to be invalidated
+ * @param authToken User's authentication token to perform de action
+ */
+export async function invalidateEventToken(eventId:string,eventToken:string,authToken:string) {
+  return deleteRequest(
+    baseUrl+`/${eventId}/tokens/${eventToken}`,
+    authToken
+  )
+}
