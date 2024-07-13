@@ -21,7 +21,7 @@ export async function get<T>(url: string,token?: string|null): Promise<T> {
   return await response.json()
 }
 
-export async function post(url: string, body?: object,token?:string|null) {
+export async function post<T>(url: string, body?: object,token?:string|null):Promise<T> {
   const headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
