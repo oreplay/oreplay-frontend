@@ -139,3 +139,9 @@ export interface PostStageResponse {
   description: string,
   stage_type: StageModel,
 }
+
+export interface PostEventTokenResponse {
+  id:string,
+  expires:string,
+  token:string,
+}

@@ -6,10 +6,10 @@ import {
   RunnerModel,
   Data,
   PostEventResponse,
-  PostStageResponse
+  PostStageResponse, PostEventTokenResponse
 } from "../shared/EntityTypes";
 import {deleteRequest, get, post} from "./ApiConfig";
-const baseUrl = "/api/v1/events"
+import {DateTime, DurationLikeObject} from "luxon";
 const baseUrl = "api/v1/events"
 
 export async function getEventList(): Promise<Page<EventModel>> {
@@ -118,6 +118,23 @@ export async function wipeOutStage(
 ) {
   return deleteRequest(
     baseUrl+`/${eventId}/stages/${stageId}/?clean=1`,
+    token
+  )
+}
+
+/**
+ * Creates a security token to upload runners to an event.
+ * The token is set to be expired in one month time from the moment of creation.
+ * @param eventId of the event that the token will be created for.
+ * @param token user authentication token.
+ * @param expiresIn Time that the token will expire in from now. Default value is 1 month.
+ */
+export async function postEventToken(eventId:string, token:string,expiresIn:DurationLikeObject={month:1}) {
+  return post<Data<PostEventTokenResponse>>(
+    baseUrl+`/${eventId}/tokens`,
+    {
+      expires:DateTime.now().plus(expiresIn).toUTC()
+    },
     token
   )
 }
