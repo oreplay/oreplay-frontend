@@ -1,11 +1,11 @@
 import {
   Box,
-  Container,
+  Container, Link,
 } from "@mui/material";
 import DirectionsRun from "@mui/icons-material/DirectionsRun";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
-import {useTranslation} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -38,7 +38,9 @@ export default function Home() {
           </Button>
         </Box>
         <Box sx={{mt: "30px"}}>
-          Help <a href="https://github.com/oreplay" target="_blank">developing</a> the <a href="https://www.oreplay.es/api/v1/openapi/" target="_blank">API</a>
+          <Trans i18nKey="Home.DevelopersHelpMessage">
+            We are proud of being an open source project. Please checkout out GitHub page <Link href="https://github.com/oreplay" target="_blank">github.com/oreplay</Link> to find guidance on developing with O-Replay or contributing. Also, checkout our <Link href="https://www.oreplay.es/api/v1/openapi/" target="_blank">public API documentation</Link>.
+          </Trans>
         </Box>
       </Box>
     </Container>
