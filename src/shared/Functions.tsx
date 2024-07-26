@@ -1,24 +1,18 @@
 import i18next from "i18next";
-import moment from "moment";
+import { DateTime } from "luxon";
 
 export function getCurrentDate()
 {
-    let today = moment()
-    return today;
-};
+  return DateTime.now();
+}
 
 export function parseDate(dateString: string)
 {
-    let language = i18next.language;
-    
-    switch (language){
-        case 'en-GB':
-            moment.locale('en');
-            break;
-        case 'es-ES':
-            moment.locale('es');
-            break;
-            
-    }
-    return moment(dateString).format('L');
-};
+  return parseLuxon(dateString).toLocaleString(DateTime.DATE_SHORT);
+}
+
+export function parseLuxon(dateString: string)
+{
+  const locale = i18next.language;
+  return DateTime.fromISO(dateString, { locale });
+}
