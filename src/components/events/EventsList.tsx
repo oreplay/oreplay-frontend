@@ -5,7 +5,7 @@ import loadingIcon from "./../../assets/loading.svg";
 import { getEventList } from "../../services/EventService";
 import { EventModel } from "../../shared/EntityTypes";
 import { useTranslation } from "react-i18next";
-import moment from "moment";
+import { DateTime } from 'luxon'
 import { parseDate } from "../../shared/Functions";
 
 export default function EventsList() {
@@ -36,18 +36,18 @@ export default function EventsList() {
 
     useEffect(() => {
         getEventList().then((response) => {
-            let actualDate = moment();
-            let actualDataList: EventModel[] = [];
-            let previousDataList: EventModel[] = [];
-            let nextDataList: EventModel[] = [];
+            const actualDate = DateTime.now();
+            const actualDataList: EventModel[] = [];
+            const previousDataList: EventModel[] = [];
+            const nextDataList: EventModel[] = [];
             response.data.forEach(event => {
 
-                let initdata = moment(event.initial_date);
-                let endData = moment(event.final_date);
+                const initDate = DateTime.fromISO(event.initial_date);
+                const endDate = DateTime.fromISO(event.final_date);
 
-                if (initdata>actualDate){
+                if (initDate>actualDate){
                     nextDataList.push(event);
-                } else if (endData<actualDate) {
+                } else if (endDate<actualDate) {
                     previousDataList.push(event);
                 } else {
                     actualDataList.push(event);
