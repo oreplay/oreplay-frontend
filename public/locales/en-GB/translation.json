@@ -74,5 +74,10 @@
     "StartDate" : "Start date",
     "FinishDate" : "Finish date",
     "Name" : "Event's name"
+  },
+  "EventList": {
+    "LiveToday": "Live today",
+    "FutureEvents": "Future events",
+    "PastEvents": "Past events"
   }
 }
