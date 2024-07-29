@@ -56,7 +56,7 @@ export async function postEvent(
   token:string,
   website?:string,
   federation_id?:string,
-  ):Promise<Data<PostEventResponse>> {
+):Promise<Data<PostEventResponse>> {
   return post(
     baseUrl,
     {
@@ -69,7 +69,7 @@ export async function postEvent(
       website: website ? website : null,
     },
     token
-    )
+  )
 }
 
 /**

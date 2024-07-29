@@ -117,10 +117,10 @@ export default function StagesDataGrid(props:Props) {
 
   const handleWipeOutRunnersClick = (row:GridRowParams<StageRow>) => ()=> {
     wipeOutStage(
-        props.eventDetail.id,
-        row.row.stageId,
-        token as string
-      ).then(()=>{})
+      props.eventDetail.id,
+      row.row.stageId,
+      token as string
+    ).then(()=>{})
   }
 
   const handleCancelClick = (row:GridRowParams<StageRow>) => () => {

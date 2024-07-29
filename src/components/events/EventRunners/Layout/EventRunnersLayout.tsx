@@ -46,9 +46,9 @@ export default function EventRunnersLayout() {
 
       <activeClassContext.Provider value={activeClass}>
         <runnerListContext.Provider value={[runnerList,areRunnersLoading]} >
-           <activeResultBottomMenuContext.Provider value={setActiveScreen} >
-              <Outlet />
-           </activeResultBottomMenuContext.Provider>
+          <activeResultBottomMenuContext.Provider value={setActiveScreen} >
+            <Outlet />
+          </activeResultBottomMenuContext.Provider>
         </runnerListContext.Provider>
       </activeClassContext.Provider>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} >
@@ -68,7 +68,7 @@ export default function EventRunnersLayout() {
             stageId={stageId}
           />
           <BottomNavigationAction label={t('Results.start list')} icon={<FormatListBulletedIcon/>} />{// TODO change Icon
-        }
+          }
           <BottomNavigationAction label={t('Results.results')} icon={<EmojiEventsIcon />} />
           <BottomNavigationAction label={t('Results.splits')} icon={<TimerIcon />} />
         </BottomNavigation>

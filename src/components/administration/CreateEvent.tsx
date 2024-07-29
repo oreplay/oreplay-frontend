@@ -24,8 +24,7 @@ export default function CreateEvent (){
     response.then(
       (response) => {
         navigate(`/admin/${response.data.id}`)
-      }
-    ,
+      },
       ()=>console.log("Create event failed",response)
     )
   }
