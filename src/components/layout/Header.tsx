@@ -10,39 +10,39 @@ import {AccountCircle, ArrowBack} from "@mui/icons-material";
 
 export default function Header() {
 
-    const {user} = useAuth(); //Control authentication
-    const navigate = useNavigate()
-    const {t} = useTranslation();
+  const {user} = useAuth(); //Control authentication
+  const navigate = useNavigate()
+  const {t} = useTranslation();
 
 
-    return (
-        <Box>
-            <AppBar position="static">
-                <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-                    <Box>
-                        <Tooltip title={t('GoBack')}>
-                            <ArrowBack sx={{color:"white"}}/>
-                        </Tooltip>
-                    </Box>
-                    <Box display={"flex"} sx= {{justifyContent: "right"}}>
-                        <Box>
-                            <Tooltip title={t('Sign in.Sign in')}>
-                                <IconButton
-                                    size="large"
-                                    sx= {{color: "white"}}
-                                    onClick={() => { navigate('/signin') }}
-                                >
-                                    {!user ? (<LoginIcon />) : <AccountCircle />}
-                                </IconButton>
-                            </Tooltip>
-                        </Box>
-                        <Box>
-                            <SettingsMenu />
-                        </Box>
-                    </Box>
-                    
-                </Toolbar>
-            </AppBar>
-        </Box>
-    )
+  return (
+    <Box>
+      <AppBar position="static">
+        <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
+          <Box>
+            <Tooltip title={t('GoBack')}>
+              <ArrowBack sx={{color:"white"}}/>
+            </Tooltip>
+          </Box>
+          <Box display={"flex"} sx= {{justifyContent: "right"}}>
+            <Box>
+              <Tooltip title={t('Sign in.Sign in')}>
+                <IconButton
+                  size="large"
+                  sx= {{color: "white"}}
+                  onClick={() => { navigate('/signin') }}
+                >
+                  {!user ? (<LoginIcon />) : <AccountCircle />}
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <Box>
+              <SettingsMenu />
+            </Box>
+          </Box>
+
+        </Toolbar>
+      </AppBar>
+    </Box>
+  )
 }

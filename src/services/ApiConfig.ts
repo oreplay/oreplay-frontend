@@ -30,12 +30,12 @@ export async function post<T>(url: string, body?: object,token?:string|null):Pro
     headers.append('Authorization', `Bearer ${token}`);
   }
   const response = await fetch(API_DOMAIN + url,
-      {
-        method: 'POST',
-        headers: headers,
-        body: (body ? JSON.stringify(body) : undefined),
-        }
-      );
+    {
+      method: 'POST',
+      headers: headers,
+      body: (body ? JSON.stringify(body) : undefined),
+    }
+  );
   return await response.json();
 }
 
@@ -52,9 +52,9 @@ export async function deleteRequest(url:string, token?:string|null) {
     headers.append('Authorization', `Bearer ${token}`);
   }
   return await fetch(API_DOMAIN + url,
-      {
-        method: 'DELETE',
-        headers: headers
-      }
-    )
+    {
+      method: 'DELETE',
+      headers: headers
+    }
+  )
 }

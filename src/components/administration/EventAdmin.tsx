@@ -17,21 +17,21 @@ export default function EventAdmin ()  {
     <Container>
       {isLoadingEventData ? <p>Loading...</p>
         : <Container>
-            <Box sx={{marginY:'2em'}}>
-              <EventAdminForm
-                  eventDetail={detail as EventDetailModel}
-                />
-            </Box>
-            <Box sx={{marginY:'2em'}}>
-              <Typography>{t('Stages')}</Typography>
-              {detail ? <StagesDataGrid eventDetail={detail} /> : <></> }
-            </Box>
-            <Box sx={{marginY:'2em'}}>
-              <Typography>{t('EventAdmin.EventSecurityTokens')}</Typography>
-              <Typography>{t('EventAdmin.EventId')+`: ${detail?.id}`}</Typography>
-              <EventTokenDataGrid event_id={detail? detail.id : ""} />
-            </Box>
-          </Container>
+          <Box sx={{marginY:'2em'}}>
+            <EventAdminForm
+              eventDetail={detail as EventDetailModel}
+            />
+          </Box>
+          <Box sx={{marginY:'2em'}}>
+            <Typography>{t('Stages')}</Typography>
+            {detail ? <StagesDataGrid eventDetail={detail} /> : <></> }
+          </Box>
+          <Box sx={{marginY:'2em'}}>
+            <Typography>{t('EventAdmin.EventSecurityTokens')}</Typography>
+            <Typography>{t('EventAdmin.EventId')+`: ${detail?.id}`}</Typography>
+            <EventTokenDataGrid event_id={detail? detail.id : ""} />
+          </Box>
+        </Container>
       }
 
     </Container>

@@ -4,10 +4,10 @@ import { Outlet } from "react-router-dom";
 
 export default function Layout() {
 
-    return (
-        <Box sx={{height: "100vh"}}>
-            <Header />
-            <Outlet />
-        </Box>
-    )
+  return (
+    <Box sx={{height: "100vh"}}>
+      <Header />
+      <Outlet />
+    </Box>
+  )
 }

@@ -46,83 +46,83 @@ export default function EventAdminForm(props: EventAdminFormProps){
   }
 
   return (
-      <Container component="form" onSubmit={props.handleSubmit} >
-        <Box
-          sx={{
-            flexWrap: 'wrap',
-            flexGrow: 1,
-            marginY:'2em'
-          }}
-        >
-          <TextField
-            fullWidth
-            id="description"
-            name="description"
-            required
-            label={t('EventAdmin.EventName')}
-            {...style_props}
-            defaultValue={ props.eventDetail ? props.eventDetail.description : undefined  }
+    <Container component="form" onSubmit={props.handleSubmit} >
+      <Box
+        sx={{
+          flexWrap: 'wrap',
+          flexGrow: 1,
+          marginY:'2em'
+        }}
+      >
+        <TextField
+          fullWidth
+          id="description"
+          name="description"
+          required
+          label={t('EventAdmin.EventName')}
+          {...style_props}
+          defaultValue={ props.eventDetail ? props.eventDetail.description : undefined  }
+        />
+        <TextField
+          id="organizer"
+          name="organizer"
+          required
+          label={t('EventAdmin.Organizer')}
+          {...style_props}
+          defaultValue={ 'No viene club' }
+        />
+        <DatePicker
+          name={'startDate'}
+          label={t('EventAdmin.StartDate')+' *'}
+          slotProps={{textField: {...style_props} }}
+          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : undefined}
+        />
+        <DatePicker label={t('EventAdmin.FinishDate')+' *'}
+          name={'endDate'}
+          slotProps={{textField: {...style_props} }}
+          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : undefined}
+        />
+        <TextField
+          id="website"
+          name="website"
+          label={t('EventAdmin.Website')}
+          {...style_props}
+          defaultValue={ props.eventDetail ? props.eventDetail.website : undefined}
+        />
+        <FormControl  sx={{minWidth:'10em'}} required>
+          <InputLabel id='scope-label' >{t('EventAdmin.Scopes.Scope')}</InputLabel>
+          <Select
+            id = 'scope'
+            name={'scope'}
+            disabled={!props.canEdit}
+            labelId='scope-label'
+            label={t('EventAdmin.Scopes.Scope')}
+            defaultValue={props.eventDetail ? props.eventDetail.scope : undefined}
+          >
+            <MenuItem value={'int'}>{t('EventAdmin.Scopes.International')}</MenuItem>
+            <MenuItem value={'nat'}>{t('EventAdmin.Scopes.National')}</MenuItem>
+            <MenuItem value={'r.h'}>{t('EventAdmin.Scopes.RegionalHigh')}</MenuItem>
+            <MenuItem value={'r.l'}>{t('EventAdmin.Scopes.RegionalLow')}</MenuItem>
+            <MenuItem value={'loc'}>{t('EventAdmin.Scopes.Local')}</MenuItem>
+            <MenuItem value={'clu'}>{t('EventAdmin.Scopes.Club')}</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={{align:'center', minWidth:'6em'}}>
+          <FormControlLabel
+            id={'isPublic'}
+            name={'isPublic'}
+            control={<Checkbox checked={props.eventDetail? !(props.eventDetail.is_hidden) : undefined} />}
+            label={t('EventAdmin.Public')}
+            disabled={!props.canEdit}
           />
-          <TextField
-            id="organizer"
-            name="organizer"
-            required
-            label={t('EventAdmin.Organizer')}
-            {...style_props}
-            defaultValue={ 'No viene club' }
-          />
-          <DatePicker
-            name={'startDate'}
-            label={t('EventAdmin.StartDate')+' *'}
-            slotProps={{textField: {...style_props} }}
-            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : undefined}
-          />
-          <DatePicker label={t('EventAdmin.FinishDate')+' *'}
-            name={'endDate'}
-            slotProps={{textField: {...style_props} }}
-            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : undefined}
-          />
-          <TextField
-            id="website"
-            name="website"
-            label={t('EventAdmin.Website')}
-            {...style_props}
-            defaultValue={ props.eventDetail ? props.eventDetail.website : undefined}
-          />
-          <FormControl  sx={{minWidth:'10em'}} required>
-            <InputLabel id='scope-label' >{t('EventAdmin.Scopes.Scope')}</InputLabel>
-            <Select
-              id = 'scope'
-              name={'scope'}
-              disabled={!props.canEdit}
-              labelId='scope-label'
-              label={t('EventAdmin.Scopes.Scope')}
-              defaultValue={props.eventDetail ? props.eventDetail.scope : undefined}
-            >
-              <MenuItem value={'int'}>{t('EventAdmin.Scopes.International')}</MenuItem>
-              <MenuItem value={'nat'}>{t('EventAdmin.Scopes.National')}</MenuItem>
-              <MenuItem value={'r.h'}>{t('EventAdmin.Scopes.RegionalHigh')}</MenuItem>
-              <MenuItem value={'r.l'}>{t('EventAdmin.Scopes.RegionalLow')}</MenuItem>
-              <MenuItem value={'loc'}>{t('EventAdmin.Scopes.Local')}</MenuItem>
-              <MenuItem value={'clu'}>{t('EventAdmin.Scopes.Club')}</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl sx={{align:'center', minWidth:'6em'}}>
-            <FormControlLabel
-              id={'isPublic'}
-              name={'isPublic'}
-              control={<Checkbox checked={props.eventDetail? !(props.eventDetail.is_hidden) : undefined} />}
-              label={t('EventAdmin.Public')}
-              disabled={!props.canEdit}
-            />
-          </FormControl>
-        </Box>
-        {
-          props.canEdit ? <Button
-            type='submit'
-            variant='contained'
-          >{t('EventAdmin.Save')}</Button> : <></>
-        }
-      </Container>
+        </FormControl>
+      </Box>
+      {
+        props.canEdit ? <Button
+          type='submit'
+          variant='contained'
+        >{t('EventAdmin.Save')}</Button> : <></>
+      }
+    </Container>
   )
 }

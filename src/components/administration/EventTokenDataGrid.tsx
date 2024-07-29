@@ -13,8 +13,8 @@ export default function EventTokenDataGrid( props:Props ) {
     <>
       <Button
         onClick={()=>{
-            console.log( postEventToken(props.event_id,token as string) )
-          }
+          console.log( postEventToken(props.event_id,token as string) )
+        }
         }
       >
         Create Event Token

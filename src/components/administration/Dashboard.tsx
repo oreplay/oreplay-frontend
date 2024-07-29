@@ -37,8 +37,8 @@ export function Dashboard() {
     response.then((response)=>{
       setRows(
         response.data.map((event):EventDataGridColumns=> (
-            {id:event.id, startDate:event.initial_date,endDate:event.final_date,Name:event.description}
-          )
+          {id:event.id, startDate:event.initial_date,endDate:event.final_date,Name:event.description}
+        )
         )
       )
       setTotalRows(response.total)
