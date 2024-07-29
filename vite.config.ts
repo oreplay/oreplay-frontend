@@ -3,10 +3,13 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  optimizeDeps:{
-    include:['@mui/material']
+  optimizeDeps: {
+    include: [
+      '@emotion/styled', 
+      '@mui/material/Tooltip'
+    ],
   },
+  plugins: [react()],
   server: {
     port: 8080
   }

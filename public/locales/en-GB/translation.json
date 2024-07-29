@@ -15,6 +15,7 @@
   "Settings" : "Settings",
   "EmailAddress" : "Email Address",
   "Password" : "Password",
+  "GoBack": "Go back",
   "Home" : {
     "Home": "Home",
     "WelcomeMsg" : "Welcome to O-Replay",

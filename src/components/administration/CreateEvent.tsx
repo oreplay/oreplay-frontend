@@ -21,8 +21,6 @@ export default function CreateEvent (){
       token,
       data.get('website')? data.get('website') as string : undefined
     )
-    console.log(response)
-    console.log(data)
     response.then(
       (response) => {
         navigate(`/admin/${response.data.id}`)

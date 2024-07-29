@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../../shared/hooks.ts";
-import {AccountCircle} from "@mui/icons-material";
+import {AccountCircle, ArrowBack} from "@mui/icons-material";
 
 
 export default function Header() {
@@ -18,21 +18,29 @@ export default function Header() {
     return (
         <Box>
             <AppBar position="static">
-                <Toolbar sx={{display: "flex", justifyContent: "right"}}>
+                <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
                     <Box>
-                      <Tooltip title={t('Sign in.Sign in')}>
-                        <IconButton
-                            size="large"
-                            sx= {{color: "white"}}
-                            onClick={() => { navigate('/signin') }}
-                        >
-                            {!user ? (<LoginIcon />) : <AccountCircle />}
-                        </IconButton>
-                      </Tooltip>
+                        <Tooltip title={t('GoBack')}>
+                            <ArrowBack sx={{color:"white"}}/>
+                        </Tooltip>
                     </Box>
-                    <Box>
-                      <SettingsMenu />
+                    <Box display={"flex"} sx= {{justifyContent: "right"}}>
+                        <Box>
+                            <Tooltip title={t('Sign in.Sign in')}>
+                                <IconButton
+                                    size="large"
+                                    sx= {{color: "white"}}
+                                    onClick={() => { navigate('/signin') }}
+                                >
+                                    {!user ? (<LoginIcon />) : <AccountCircle />}
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                        <Box>
+                            <SettingsMenu />
+                        </Box>
                     </Box>
+                    
                 </Toolbar>
             </AppBar>
         </Box>

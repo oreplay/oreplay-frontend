@@ -32,8 +32,6 @@ export default function EventsList() {
         }
     }
 
-    console.log(selectedTab);
-
     useEffect(() => {
         getEventList().then((response) => {
             const actualDate = DateTime.now();
@@ -61,7 +59,6 @@ export default function EventsList() {
         });
     },[]);
 
-    console.log(actualEventList.length);
     function getTabList(): EventModel[] {
         switch(selectedTab){
             case 0:
