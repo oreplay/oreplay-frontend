@@ -1,4 +1,4 @@
-import {Box, Button, List, ListItem, ListItemText, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
 import { EventDetailModel } from "../../shared/EntityTypes";
 import loadingIcon from "./../../assets/loading.svg";
@@ -50,8 +50,8 @@ export default function EventDetail() {
     function getDatesOfEvent(){
       if (detail?.initial_date && detail?.final_date)
       {
-        let initDateParse = parseDate(detail.initial_date);
-        let finalDateParse = parseDate(detail.final_date);
+        const initDateParse = parseDate(detail.initial_date);
+        const finalDateParse = parseDate(detail.final_date);
 
         if (initDateParse == finalDateParse)
         {
