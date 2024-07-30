@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {useAuth} from "../../shared/hooks.ts";
 import {AccountCircle, ArrowBack} from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
+import {getSignInUrl} from '../../services/UsersService.ts'
 
 
 export default function Header() {
@@ -15,6 +16,10 @@ export default function Header() {
   const navigate = useNavigate()
   const location = useLocation();
   const {t} = useTranslation();
+
+  const goToLogin = async () => {
+    window.location = await getSignInUrl()
+  }
 
 
   return (

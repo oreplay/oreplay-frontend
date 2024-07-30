@@ -12,7 +12,7 @@ import {UserModel} from "./EntityTypes.ts";
 export interface AuthContextInterface {
   user:UserModel|null,
   token:string|null,
-  loginAction: (email:string,password:string)=>Promise<boolean>,
+  loginAction: (code:string,codeVerifier:string)=>Promise<boolean>,
   logoutAction:()=>Promise<boolean>
 }
 
@@ -31,19 +31,20 @@ export function AuthProvider (props:{children: React.ReactNode}) {
   const [user,setUser] = useState<UserModel | null>(null);
 
   /**
-   * Perform login with a user and password. This function set the token and user information that
+   * Perform login. This function set the token and user information that
    * ara available on the useAuth() hook.
-   * @param user user's email
-   * @param password user's password
+   * @param code authorization code
+   * @param codeVerifier code verifier created in the frontend during auth init
    * @returns A promise that is
    */
-  const loginAction = async (user:string,password:string):Promise<boolean> => {
+  const loginAction = async (code:string,codeVerifier:string):Promise<boolean> => {
     try {
-      const responseSignInToken = await validateSignIn(user,password)
+      const responseSignInToken = await validateSignIn(code,codeVerifier)
       setToken(responseSignInToken.data.access_token)
       try {
         const responseUserData = await getUserData(responseSignInToken.data.access_token)
         setUser(responseUserData.data)
+        console.log('xx responseUserData', responseUserData.data)// TODO
         return true
       } catch (error) {
         console.log('Failed getUserData',error)
