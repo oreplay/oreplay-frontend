@@ -1,6 +1,6 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import loadingIcon from "./../../assets/loading.svg";
 import { getEventList } from "../../services/EventService";
 import { EventModel } from "../../shared/EntityTypes";
@@ -18,7 +18,7 @@ export default function EventsList() {
   const [loadingData, setLoadingData] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChangeTab = (_event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
   }
 
@@ -80,7 +80,7 @@ export default function EventsList() {
     return (
       <Box sx={{m: "50px"}}>
         {actualEventList.length != 0 &&
-          <Box width={"100%"}display={"flex"} alignItems={"center"}>
+          <Box width={"100%"} display={"flex"} alignItems={"center"}>
             <Box height={"16px"} width={"16px"} borderRadius={"50%"} bgcolor={"orange"}></Box>
             <Box marginLeft={"12px"}>
               <Typography>{t('EventList.LiveToday')}</Typography>
