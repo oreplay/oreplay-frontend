@@ -93,6 +93,16 @@ export default function SettingsMenu() {
             {t('Language.English')}
           </ListItemText>
         </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            {"\ud83c\uddeb\ud83c\uddf7"}
+          </ListItemIcon>
+          <ListItemText
+            onClick={()=>{i18n.changeLanguage('fr-FR')}}
+          >
+            {t('Language.French')}
+          </ListItemText>
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );

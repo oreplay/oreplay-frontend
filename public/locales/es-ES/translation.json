@@ -67,7 +67,8 @@
   "Language" : {
     "Language" : "Idioma",
     "Spanish" : "Español",
-    "English" : "English"
+    "English" : "English",
+    "French" : "Français"
   },
   "Dashboard" : {
     "Dashboard" : "Panel de control",
