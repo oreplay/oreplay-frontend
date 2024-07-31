@@ -1,81 +1,80 @@
 {
-  "Dates" : "Fecha",
-  "Event" : "Evento",
+  "Dates": "Fecha",
+  "Event": "Evento",
   "Events": "Eventos",
   "Stages": "Etapas",
-  "Location" : "Ubicación",
-  "Organizer" : "Organizador",
-  "Name" : "Nombre",
-  "Edit" : "Editar",
-  "Cancel" : "Cancelar",
-  "Delete" : "Borrar",
-  "Save" : "Guardar",
-
-  "Logout" : "Cerrar sesion",
-  "Settings" : "Ajustes",
+  "Location": "Ubicación",
+  "Organizer": "Organizador",
+  "Name": "Nombre",
+  "Edit": "Editar",
+  "Cancel": "Cancelar",
+  "Delete": "Borrar",
+  "Save": "Guardar",
+  "Logout": "Cerrar sesion",
+  "Settings": "Ajustes",
+  "EmailAddress": "Correo electrónico",
+  "Password": "Contraseña",
   "GoBack": "Volver atrás",
-  "EmailAddress" : "Correo electrónico",
-  "Password" : "Contraseña",
-  "Home" : {
+  "Home": {
     "Home": "Inicio",
-    "WelcomeMsg" : "Bienvenido a O-Replay",
-    "ProjectDescription" : "Hogar de los resultados de orientación (aún en versión pre-alfa).",
-    "Go to competitions" : "Ir a competiciones",
-    "DevelopersHelpMessage" : "Estamos orgullosos de ser un proyecto de código abierto. Visita nuestro repositorio <1>github.com/oreplay</1> para encontrar ayuda desarrollando con O-Replay o contribuyendo al proyecto. También puedes consultar la <3>documentación de nuestra API pública</3>."
+    "WelcomeMsg": "Bienvenido a O-Replay",
+    "ProjectDescription": "Hogar de los resultados de orientación (aún en versión pre-alfa).",
+    "Go to competitions": "Ir a competiciones",
+    "DevelopersHelpMessage": "Estamos orgullosos de ser un proyecto de código abierto. Visita nuestro repositorio <1>github.com/oreplay</1> para encontrar ayuda desarrollando con O-Replay o contribuyendo al proyecto. También puedes consultar la <3>documentación de nuestra API pública</3>."
   },
-  "Results" : {
+  "Results": {
     "shortClass": "Cat.",
-    "Class" : "Categoría",
-    "Start" : "Salida",
-    "Finish" : "Meta",
-    "SiCard" : "Pinza",
-    "start list" : "Salida",
-    "results" : "Resultados",
-    "splits" : "Parciales"
+    "Class": "Categoría",
+    "Start": "Salida",
+    "Finish": "Meta",
+    "SiCard": "Pinza",
+    "start list": "Salida",
+    "results": "Resultados",
+    "splits": "Parciales"
   },
-  "Sign in" : {
-    "Sign in" : "Iniciar sesión",
-    "ForgotPassword" : "¿Olvidaste tu contraseña?",
-    "NoAccount" : "¿No tienes cuenta? Regístrate",
-    "RememberMe" : "Recordarme"
+  "Sign in": {
+    "Sign in": "Iniciar sesión",
+    "ForgotPassword": "¿Olvidaste tu contraseña?",
+    "NoAccount": "¿No tienes cuenta? Regístrate",
+    "RememberMe": "Recordarme"
   },
-  "EventAdmin" : {
+  "EventAdmin": {
     "EventName": "Nombre del evento",
     "StartDate": "Fecha de comienzo",
     "FinishDate": "Fecha de final",
     "Organizer": "Organizador",
-    "Website" : "Web del evento",
-    "Location" : "Ubicación",
-    "Public" : "Público",
-    "Hidden" : "Privado",
-    "Save" : "Guardar",
-    "Country" : "País",
-    "Scopes" : {
-      "Scope" : "Ámbito",
-      "International" : "Internacional",
-      "National" : "Nacional",
-      "RegionalHigh" : "Autonómico",
-      "RegionalLow" : "Provincial",
-      "Local" : "Local",
-      "Club" : "Club"
+    "Website": "Web del evento",
+    "Location": "Ubicación",
+    "Public": "Público",
+    "Hidden": "Privado",
+    "Save": "Guardar",
+    "Country": "País",
+    "Scopes": {
+      "Scope": "Ámbito",
+      "International": "Internacional",
+      "National": "Nacional",
+      "RegionalHigh": "Autonómico",
+      "RegionalLow": "Provincial",
+      "Local": "Local",
+      "Club": "Club"
     },
-    "NewStage" : "Nueva etapa",
-    "WipeOutRunners" : "Borrar todos los corredores de esta etapa",
-    "EventSecurityTokens" : "Claves de seguridad",
-    "EventId" : "ID del evento"
+    "NewStage": "Nueva etapa",
+    "WipeOutRunners": "Borrar todos los corredores de esta etapa",
+    "EventSecurityTokens": "Claves de seguridad",
+    "EventId": "ID del evento"
   },
-  "Language" : {
-    "Language" : "Idioma",
-    "Spanish" : "Español",
-    "English" : "English",
-    "French" : "Français"
+  "Language": {
+    "Language": "Idioma",
+    "Spanish": "Español",
+    "English": "English",
+    "French": "Français"
   },
-  "Dashboard" : {
-    "Dashboard" : "Panel de control",
-    "YourEvents" : "Tus eventos",
-    "StartDate" : "Fecha inicio",
-    "FinishDate" : "Fecha fin",
-    "Name" : "Nombre del evento"
+  "Dashboard": {
+    "Dashboard": "Panel de control",
+    "YourEvents": "Tus eventos",
+    "StartDate": "Fecha inicio",
+    "FinishDate": "Fecha fin",
+    "Name": "Nombre del evento"
   },
   "EventList": {
     "LiveToday": "En vivo hoy",

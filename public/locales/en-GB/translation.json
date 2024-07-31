@@ -1,81 +1,80 @@
 {
-  "Dates" : "Dates",
-  "Event" : "Event",
+  "Dates": "Dates",
+  "Event": "Event",
   "Events": "Events",
   "Stages": "Stages",
-  "Location" : "Location",
-  "Organizer" : "Organizer",
-  "Name" : "Name",
-  "Edit" : "Edit",
-  "Cancel" : "Cancel",
-  "Delete" : "Delete",
-  "Save" : "Save",
-
-  "Logout" : "Logout",
-  "Settings" : "Settings",
-  "EmailAddress" : "Email Address",
-  "Password" : "Password",
+  "Location": "Location",
+  "Organizer": "Organizer",
+  "Name": "Name",
+  "Edit": "Edit",
+  "Cancel": "Cancel",
+  "Delete": "Delete",
+  "Save": "Save",
+  "Logout": "Logout",
+  "Settings": "Settings",
+  "EmailAddress": "Email Address",
+  "Password": "Password",
   "GoBack": "Go back",
-  "Home" : {
+  "Home": {
     "Home": "Home",
-    "WelcomeMsg" : "Welcome to O-Replay",
-    "ProjectDescription" : "Home to orienteering live results (still in version pre-alfa).",
-    "Go to competitions" : "Go to competitions",
-    "DevelopersHelpMessage" : "We are proud of being an open source project. Please checkout out GitHub page <1>github.com/oreplay</1> to find guidance on developing with O-Replay or contributing. Also, checkout our <3>public API documentation</3>."
+    "WelcomeMsg": "Welcome to O-Replay",
+    "ProjectDescription": "Home to orienteering live results (still in version pre-alfa).",
+    "Go to competitions": "Go to competitions",
+    "DevelopersHelpMessage": "We are proud of being an open source project. Please checkout out GitHub page <1>github.com/oreplay</1> to find guidance on developing with O-Replay or contributing. Also, checkout our <3>public API documentation</3>."
   },
-  "Results" : {
+  "Results": {
     "shortClass": "Class",
-    "Class" : "Class",
-    "Start" : "Start",
-    "Finish" : "Finish",
-    "SiCard" : "SI Card",
-    "start list" : "Start list",
-    "results" : "Results",
-    "splits" : "Splits"
+    "Class": "Class",
+    "Start": "Start",
+    "Finish": "Finish",
+    "SiCard": "SI Card",
+    "start list": "Start list",
+    "results": "Results",
+    "splits": "Splits"
   },
-  "Sign in" : {
-    "Sign in" : "Sign in",
-    "ForgotPassword" : "Forgot password?",
-    "NoAccount" : "Don't have an account? Sign Up",
-    "RememberMe" : "Remember me"
+  "Sign in": {
+    "Sign in": "Sign in",
+    "ForgotPassword": "Forgot password?",
+    "NoAccount": "Don't have an account? Sign Up",
+    "RememberMe": "Remember me"
   },
-  "EventAdmin" : {
-    "EventName" : "Event's name",
-    "StartDate" : "Start date",
-    "FinishDate" : "Finish date",
-    "Organizer" : "Organizer",
-    "Website" : "Event's website",
-    "Location" : "Location",
-    "Public" : "Public",
-    "Hidden" : "Hidden",
-    "Save" : "Save",
-    "Country" : "Country",
-    "Scopes" : {
-      "Scope" : "Scope",
-      "International" : "International",
-      "National" : "National",
-      "RegionalHigh" : "Federal",
-      "RegionalLow" : "Regional",
-      "Local" : "Local",
-      "Club" : "Club"
+  "EventAdmin": {
+    "EventName": "Event's name",
+    "StartDate": "Start date",
+    "FinishDate": "Finish date",
+    "Organizer": "Organizer",
+    "Website": "Event's website",
+    "Location": "Location",
+    "Public": "Public",
+    "Hidden": "Hidden",
+    "Save": "Save",
+    "Country": "Country",
+    "Scopes": {
+      "Scope": "Scope",
+      "International": "International",
+      "National": "National",
+      "RegionalHigh": "Federal",
+      "RegionalLow": "Regional",
+      "Local": "Local",
+      "Club": "Club"
     },
-    "NewStage" : "New stage",
-    "WipeOutRunners" : "Wipe out all runners in this stage",
-    "EventSecurityTokens" : "Security keys",
-    "EventId" : "Event's ID"
+    "NewStage": "New stage",
+    "WipeOutRunners": "Wipe out all runners in this stage",
+    "EventSecurityTokens": "Security keys",
+    "EventId": "Event's ID"
   },
-  "Language" : {
-    "Language" : "Language",
-    "Spanish" : "Español",
-    "English" : "English",
-    "French" : "Français"
+  "Language": {
+    "Language": "Language",
+    "Spanish": "Español",
+    "English": "English",
+    "French": "Français"
   },
-  "Dashboard" : {
-    "Dashboard" : "Dashboard",
-    "YourEvents" : "Your events",
-    "StartDate" : "Start date",
-    "FinishDate" : "Finish date",
-    "Name" : "Event's name"
+  "Dashboard": {
+    "Dashboard": "Dashboard",
+    "YourEvents": "Your events",
+    "StartDate": "Start date",
+    "FinishDate": "Finish date",
+    "Name": "Event's name"
   },
   "EventList": {
     "LiveToday": "Live today",
