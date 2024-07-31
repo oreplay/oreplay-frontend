@@ -1,20 +1,27 @@
 {
-    "Dates" : "Dates",
-    "Event" : "Evénement",
-    "Events": "Evénements",
-    "Stages": "Etages",
-    "Location" : "Emplacement",
-    "Organizer" : "Organisateur",
+  "Dates" : "Dates",
+  "Event" : "Événement",
+  "Events": "Événements",
+  "Stages": "Etages",
+  "Location" : "Emplacement",
+  "Organizer" : "Organisateur",
+  "Name" : "Nom",
+  "Edit" : "Modifier",
+  "Cancel" : "Annuler",
+  "Delete" : "Supprimer",
+  "Save" : "Sauvegarder",
 
-    "Logout" : "Fermer session",
-    "Settings" : "Paramètres",
-    "EmailAddress" : "adresse e-mail",
-    "Password" : "Mot de passe",
+  "Logout" : "Fermer session",
+  "Settings" : "Paramètres",
+  "EmailAddress" : "adresse e-mail",
+  "Password" : "Mot de passe",
+  "GoBack": "Retourner",
   "Home" : {
     "Home": "Accueil",
     "WelcomeMsg" : "Bienvenue sur O-Replay",
     "ProjectDescription" : "Accueil des résultats d'orientation (toujours en version pré-alpha).",
-    "Go to competitions" : "Aller aux compétitions"
+    "Go to competitions" : "Aller aux compétitions",
+    "DevelopersHelpMessage" : "Nous sommes fiers d'être un projet open source. Veuillez consulter la page GitHub <1>github.com/oreplay</1> pour obtenir des conseils sur le développement avec O-Replay ou sur la contribution. Consultez également notre <3>documentation API publique</3>."
   },
   "Results" : {
     "shortClass": "Cla.",
@@ -51,7 +58,11 @@
       "RegionalLow" : "Provinciale",
       "Local" : "Locale",
       "Club" : "Club"
-    }
+    },
+    "NewStage" : "Nouvelle étape",
+    "WipeOutRunners" : "Éliminez tous les coureurs à cette étape",
+    "EventSecurityTokens" : "Clés de sécurité",
+    "EventId" : "ID de l'événement"
   },
   "Language" : {
     "Language" : "Langue",
@@ -65,5 +76,10 @@
     "StartDate" : "Date de début",
     "FinishDate" : "Date de fin",
     "Name" : "Nom de l'événement"
+  },
+  "EventList": {
+    "LiveToday": "Aujourd'hui en direct",
+    "FutureEvents": "Événements à venir",
+    "PastEvents": "Événements passés"
   }
 }
