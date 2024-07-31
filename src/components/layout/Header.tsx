@@ -43,15 +43,30 @@ export default function Header() {
           </Box>
           <Box display={"flex"} sx= {{justifyContent: "right"}}>
             <Box>
-              <Tooltip title={t('Sign in.Sign in')}>
-                <IconButton
-                  size="large"
-                  sx= {{color: "white"}}
-                  onClick={() => { navigate('/signin') }}
-                >
-                  {!user ? (<LoginIcon />) : <AccountCircle />}
-                </IconButton>
-              </Tooltip>
+              {
+                !user ? (
+                  <Tooltip title={t('Sign in.Sign in')}>
+                    <IconButton
+                      size="large"
+                      sx= {{color: "white"}}
+                      onClick={() => { navigate('/signin') }}
+                    >
+                      <LoginIcon />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title={t('Dashboard.YourEvents')}>
+                    <IconButton
+                      size="large"
+                      sx= {{color: "white"}}
+                      onClick={() => { navigate('/dashboard') }}
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </Tooltip>
+                )
+              }
+
             </Box>
             <Box>
               <SettingsMenu />
