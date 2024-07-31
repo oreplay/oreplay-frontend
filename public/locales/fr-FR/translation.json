@@ -1,69 +1,68 @@
 {
-    "Dates" : "Dates",
-    "Event" : "Evénement",
-    "Events": "Evénements",
-    "Stages": "Etages",
-    "Location" : "Emplacement",
-    "Organizer" : "Organisateur",
-
-    "Logout" : "Fermer session",
-    "Settings" : "Paramètres",
-    "EmailAddress" : "adresse e-mail",
-    "Password" : "Mot de passe",
-  "Home" : {
+  "Dates": "Dates",
+  "Event": "Evénement",
+  "Events": "Evénements",
+  "Stages": "Etages",
+  "Location": "Emplacement",
+  "Organizer": "Organisateur",
+  "Logout": "Fermer session",
+  "Settings": "Paramètres",
+  "EmailAddress": "adresse e-mail",
+  "Password": "Mot de passe",
+  "Home": {
     "Home": "Accueil",
-    "WelcomeMsg" : "Bienvenue sur O-Replay",
-    "ProjectDescription" : "Accueil des résultats d'orientation (toujours en version pré-alpha).",
-    "Go to competitions" : "Aller aux compétitions"
+    "WelcomeMsg": "Bienvenue sur O-Replay",
+    "ProjectDescription": "Accueil des résultats d'orientation (toujours en version pré-alpha).",
+    "Go to competitions": "Aller aux compétitions"
   },
-  "Results" : {
+  "Results": {
     "shortClass": "Cla.",
-    "Class" : "Classe",
-    "Start" : "Départ",
-    "Finish" : "Arrivée",
-    "SiCard" : "SiCard",
-    "start list" : "Liste de départ",
-    "results" : "Résultats",
-    "splits" : "Détails"
+    "Class": "Classe",
+    "Start": "Départ",
+    "Finish": "Arrivée",
+    "SiCard": "SiCard",
+    "start list": "Liste de départ",
+    "results": "Résultats",
+    "splits": "Détails"
   },
-  "Sign in" : {
-    "Sign in" : "Se connecter",
-    "ForgotPassword" : "Mot de passe oublié?",
-    "NoAccount" : "Vous n'avez pas de compte ? S'inscrire",
-    "RememberMe" : "Souviens-toi de moi"
+  "Sign in": {
+    "Sign in": "Se connecter",
+    "ForgotPassword": "Mot de passe oublié?",
+    "NoAccount": "Vous n'avez pas de compte ? S'inscrire",
+    "RememberMe": "Souviens-toi de moi"
   },
-  "EventAdmin" : {
+  "EventAdmin": {
     "EventName": "Nom de l'événement",
     "StartDate": "Date de début",
     "FinishDate": "Date de fin",
     "Organizer": "Organisateur",
-    "Website" : "Site web",
-    "Location" : "Emplacement",
-    "Public" : "Publique",
-    "Hidden" : "Caché",
-    "Save" : "Sauvegarder",
-    "Country" : "Pays",
-    "Scopes" : {
-      "Scope" : "Portée",
-      "International" : "Internationale",
-      "National" : "Nationale",
-      "RegionalHigh" : "Régionale",
-      "RegionalLow" : "Provinciale",
-      "Local" : "Locale",
-      "Club" : "Club"
+    "Website": "Site web",
+    "Location": "Emplacement",
+    "Public": "Publique",
+    "Hidden": "Caché",
+    "Save": "Sauvegarder",
+    "Country": "Pays",
+    "Scopes": {
+      "Scope": "Portée",
+      "International": "Internationale",
+      "National": "Nationale",
+      "RegionalHigh": "Régionale",
+      "RegionalLow": "Provinciale",
+      "Local": "Locale",
+      "Club": "Club"
     }
   },
-  "Language" : {
-    "Language" : "Langue",
-    "Spanish" : "Español",
-    "English" : "English",
-    "French" : "Français"
+  "Language": {
+    "Language": "Langue",
+    "Spanish": "Español",
+    "English": "English",
+    "French": "Français"
   },
-  "Dashboard" : {
-    "Dashboard" : "Tableau de bord",
-    "YourEvents" : "Vos événements",
-    "StartDate" : "Date de début",
-    "FinishDate" : "Date de fin",
-    "Name" : "Nom de l'événement"
+  "Dashboard": {
+    "Dashboard": "Tableau de bord",
+    "YourEvents": "Vos événements",
+    "StartDate": "Date de début",
+    "FinishDate": "Date de fin",
+    "Name": "Nom de l'événement"
   }
 }

@@ -8,7 +8,10 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: [
+    'react-refresh',
+    'jsonc'
+  ],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -28,5 +31,13 @@ module.exports = {
       'ignoreComments': false,
       'ignoredNodes': ['TemplateLiteral *']
     }],
+    'jsonc/indent': ['error', 2], // Ensures 2 space indentation
+    'jsonc/key-spacing': ['error', { beforeColon: false, afterColon: true }], // Ensures no space before colon and space after colon
   },
+  overrides: [
+    {
+      files: ["*.json"],
+      parser: "jsonc-eslint-parser"
+    }
+  ]
 }
