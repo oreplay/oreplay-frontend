@@ -31,7 +31,7 @@ const createRandomString = () => {
 const getRedirectUri = () => {
   const host = window.location.host
   const protocol = window.location.protocol // TODO this is a bit ugly and could be not working in some cases
-  return `${protocol}//${host}/signin`// TODO instead of signin we should implement a new page in frontend
+  return `${protocol}//${host}/signin/auth`// TODO instead of signin we should implement a new page in frontend
 }
 
 /**

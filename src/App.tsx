@@ -17,6 +17,7 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import CreateEvent from "./components/administration/CreateEvent.tsx";
 import Authentication from "./components/users/Authentication.tsx";
 import InItSignIn from "./components/users/InItSignIn.tsx";
+import SignIn from "./components/users/SignIn.tsx";
 
 export default function App() {
 
@@ -59,8 +60,11 @@ export default function App() {
                   <Route path={'/admin/:eventId'} element={<EventAdmin />} />
                 </Route>
               </Route>
-              <Route path={'/signin'} element={<Authentication/>} />
-              <Route path={'/signin-init'} element={<InItSignIn/>} />
+              <Route path={'/signin'} >
+                <Route index element={<InItSignIn/>} />
+                <Route path={'form'} element={<SignIn/>} />
+                <Route path={'auth'} element={<Authentication />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </AuthProvider>
