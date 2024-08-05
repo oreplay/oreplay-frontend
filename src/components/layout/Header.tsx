@@ -54,7 +54,7 @@ export default function Header() {
                     <IconButton
                       size="large"
                       sx= {{color: "white"}}
-                      onClick={() => { navigate('/signin') }}
+                      onClick={goToLogin}
                     >
                       <LoginIcon />
                     </IconButton>

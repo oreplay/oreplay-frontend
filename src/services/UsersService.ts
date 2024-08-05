@@ -38,7 +38,7 @@ const getRedirectUri = () => {
  * Get URL to initialize the login flow
  */
 export async function getSignInUrl(): Promise<string> {
-  console.log('xx getSignInUrl', new Error())
+  console.log('xx getSignInUrl')
 
   const urlEncodeB64 = (input: string) => {
     const b64Chars: { [index: string]: string } = { '+': '-', '/': '_', '=': '' };
@@ -58,7 +58,7 @@ export async function getSignInUrl(): Promise<string> {
     return await digestOp;
   };
 
-  const state = createRandomString() // TODO store this value
+  const state = createRandomString()
   window.sessionStorage.setItem(loginStateKey, state);
   console.log('xx getSignInUrl store state', state)
   const codeVerifier: string = createRandomString();
@@ -70,10 +70,13 @@ export async function getSignInUrl(): Promise<string> {
     + `&redirect_uri=${getRedirectUri()}&code_challenge_method=S256&code_challenge=${codeChallenge}`
 }
 
-export function popStoredLoginCodeVerifier()
+export function popStoredLoginCodeVerifier():string
 {
   const item = window.sessionStorage.getItem(loginCodeVerifierKey)
-  window.sessionStorage.setItem(loginCodeVerifierKey, '')
+  if (!item) {
+    throw new Error('Could not pop stored login CodeVerifier')
+  }
+  //window.sessionStorage.setItem(loginCodeVerifierKey, '')
   return item
 }
 
@@ -83,7 +86,7 @@ export function popStoredLoginState()
   if (!item) {
     throw new Error('State stored must not be empty')
   }
-  window.sessionStorage.setItem(loginStateKey, '')
+  //window.sessionStorage.setItem(loginStateKey, '')
   return item
 }
 

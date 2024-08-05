@@ -3,7 +3,6 @@ import Layout from './components/layout/Layout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import EventsList from './components/events/EventsList'
 import EventDetail from './components/events/EventDetail'
-import SignIn from "./components/users/SignIn.tsx";
 import FootOResults from "./components/events/EventRunners/FootOResults/FootOResults.tsx";
 import Home from "./components/Home/Home.tsx";
 import EventRunnersLayout from "./components/events/EventRunners/Layout/EventRunnersLayout.tsx";
@@ -16,6 +15,8 @@ import EventAdmin from "./components/administration/EventAdmin.tsx";
 import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import CreateEvent from "./components/administration/CreateEvent.tsx";
+import Authentication from "./components/users/Authentication.tsx";
+import SignIn from "./components/users/SignIn.tsx";
 
 export default function App() {
 
@@ -58,7 +59,7 @@ export default function App() {
                   <Route path={'/admin/:eventId'} element={<EventAdmin />} />
                 </Route>
               </Route>
-              <Route path={'/signin'} element={<SignIn/>} />
+              <Route path={'/signin'} element={<Authentication/>} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>
