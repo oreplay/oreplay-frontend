@@ -1,6 +1,6 @@
 import {popStoredLoginCodeVerifier, popStoredLoginState} from "../../services/UsersService.ts";
 import {useAuth} from "../../shared/hooks.ts";
-import {Navigate} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
 import loadingIcon from "../../assets/loading.svg";
@@ -37,13 +37,13 @@ export default function Authentication() {
   // TODO this function should get the login challenge from the router (maybe router in react, using window location is ugly)
   // TODO after getting the param, the value should be removed from the URL (so it is not visible for the user)
 
-  const url = window.location.href
-  const error = url.match(/error_description=([^&]*)/);
-  const authenticationCode = url.match(/code=([^&]*)/);
+  const [searchParams] = useSearchParams();
+  const error = searchParams.get("error")
+  const authenticationCode = searchParams.get("code")
 
   if (authenticationCode) {
     console.log('__authentication_code_provided__')
-    const loginState = url.match(/state=([^&]*)/);
+    const loginState = searchParams.get('state')
     const storedState = popStoredLoginState()
     if (!loginState || !loginState[1] || decodeURIComponent(loginState[1]) !== storedState) {
       throw new Error(
