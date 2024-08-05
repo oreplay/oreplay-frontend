@@ -24,9 +24,7 @@ export default function SignIn(props:{loginChallenge:string}){
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     data.set('login_challenge', props.loginChallenge)
-    if (loginFormRef.current) {
-      loginFormRef.current.submit();
-    }
+    event.currentTarget.submit()
   };
 
   return (

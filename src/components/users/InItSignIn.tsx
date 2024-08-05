@@ -7,7 +7,7 @@ export default function InItSignIn() {
 
   useEffect(() => {
     getSignInUrl().then((url:string) =>{
-      window.location = url
+      window.location.replace(url)
     })
   }, []);
 

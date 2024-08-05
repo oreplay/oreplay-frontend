@@ -2,7 +2,7 @@ import {popStoredLoginCodeVerifier, popStoredLoginState} from "../../services/Us
 import {useAuth} from "../../shared/hooks.ts";
 import {Navigate} from "react-router-dom";
 import SignIn from "./SignIn.tsx";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
 import loadingIcon from "../../assets/loading.svg";
 
@@ -14,7 +14,7 @@ function MakeRequest(props:{code:string,code_verifier:string}) {
     loginAction(props.code, props.code_verifier).then(()=>{
       setLoading(false);
     })
-  }, []);
+  }, );
 
   if (loading) {
     return (
@@ -30,7 +30,7 @@ function MakeRequest(props:{code:string,code_verifier:string}) {
     )
   }
   else {
-    return <Navigate to={'/Dashboard'} />
+    return <Navigate to={'/Dashboard'} /> //TODO: Sometimes the application gets crazy because user state is not set yet and an infinate redirection loop happens from here to private route to initsignin and back here.
   }
 }
 
@@ -58,14 +58,13 @@ export default function Authentication() {
     if (!loginState || !loginState[1] || decodeURIComponent(loginState[1]) !== storedState) {
       throw new Error(
         'State must be the same, otherwise there is a potential security issue. Stored: '
-        + storedState + ', but got : ' + decodeURIComponent(loginState[1])
+        + storedState + ', but got : ' + decodeURIComponent(loginState? loginState[1] : '')
       )
     }
     const loginCodeVerifier = popStoredLoginCodeVerifier()
     return <MakeRequest code={authenticationCode[1]} code_verifier={loginCodeVerifier}/>
   } else if (error) {
     // TODO handle the error (for example invalid username and password
-    console.error('Error '.match[1], url)
     console.log('__authentication_code_provided__ with error')
     return (<p>An error happened</p>)
   } else {

@@ -6,7 +6,7 @@ import {UserModel} from "./EntityTypes.ts";
  * Available information when calling useAuth() hook
  * @property user User model if a user is logged in, otherwise null
  * @property token authentication token if a user is logged in, otherwise null
- * @property loginAction function to perform authentication with user and password
+ * @property loginAction function to perform authentication with code and codeVerifier
  * @property logoutAction function to perform log out from server
  */
 export interface AuthContextInterface {
@@ -44,7 +44,6 @@ export function AuthProvider (props:{children: React.ReactNode}) {
       try {
         const responseUserData = await getUserData(responseSignInToken.data.access_token)
         setUser(responseUserData.data)
-        console.log('xx responseUserData', responseUserData.data)// TODO
         return true
       } catch (error) {
         console.log('Failed getUserData',error)
