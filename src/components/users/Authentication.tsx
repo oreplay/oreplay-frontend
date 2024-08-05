@@ -19,8 +19,8 @@ function MakeRequest(props:{code:string,code_verifier:string}) {
   if (loading) {
     return (
       <Box sx={{
-        width: "100%",
-        height: "90%",
+        width: "100vw",
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center"

@@ -16,7 +16,7 @@ import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import CreateEvent from "./components/administration/CreateEvent.tsx";
 import Authentication from "./components/users/Authentication.tsx";
-import SignIn from "./components/users/SignIn.tsx";
+import InItSignIn from "./components/users/InItSignIn.tsx";
 
 export default function App() {
 
@@ -60,6 +60,7 @@ export default function App() {
                 </Route>
               </Route>
               <Route path={'/signin'} element={<Authentication/>} />
+              <Route path={'/signin-init'} element={<InItSignIn/>} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>

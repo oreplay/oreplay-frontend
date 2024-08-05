@@ -76,7 +76,7 @@ export function popStoredLoginCodeVerifier():string
   if (!item) {
     throw new Error('Could not pop stored login CodeVerifier')
   }
-  //window.sessionStorage.setItem(loginCodeVerifierKey, '')
+  //window.sessionStorage.setItem(loginCodeVerifierKey, '') //TODO: remove item. Careful! if the component reloads it fails
   return item
 }
 
@@ -86,7 +86,7 @@ export function popStoredLoginState()
   if (!item) {
     throw new Error('State stored must not be empty')
   }
-  //window.sessionStorage.setItem(loginStateKey, '')
+  //window.sessionStorage.setItem(loginStateKey, '') //TODO: remove storage. Careful! if the component reloads it fails
   return item
 }
 
