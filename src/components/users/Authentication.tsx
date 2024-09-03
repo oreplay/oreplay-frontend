@@ -42,17 +42,19 @@ export default function Authentication() {
   const authenticationCode = searchParams.get("code")
 
   if (authenticationCode) {
-    console.log('__authentication_code_provided__')
     const loginState = searchParams.get('state')
+    if (!loginState) {
+      throw new Error('State param is missing from URL')
+    }
     const storedState = popStoredLoginState()
-    if (!loginState || !loginState[1] || decodeURIComponent(loginState[1]) !== storedState) {
+    if (decodeURIComponent(loginState) !== storedState) {
       throw new Error(
         'State must be the same, otherwise there is a potential security issue. Stored: '
-        + storedState + ', but got : ' + decodeURIComponent(loginState? loginState[1] : '')
+        + storedState + ', but got: ' + decodeURIComponent(loginState)
       )
     }
     const loginCodeVerifier = popStoredLoginCodeVerifier()
-    return <MakeRequest code={authenticationCode[1]} code_verifier={loginCodeVerifier}/>
+    return <MakeRequest code={authenticationCode} code_verifier={loginCodeVerifier}/>
   } else if (error) {
     // TODO handle the error (for example invalid username and password
     console.log('__authentication_code_provided__ with error')
