@@ -111,7 +111,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
           <FormControlLabel
             id={'isPublic'}
             name={'isPublic'}
-            control={<Checkbox checked={props.eventDetail? !(props.eventDetail.is_hidden) : undefined} />}
+            control={<Checkbox checked={props.eventDetail? !(props.eventDetail.is_hidden) : true} />}
             label={t('EventAdmin.Public')}
             disabled={!props.canEdit}
           />
