@@ -15,6 +15,7 @@ export default function EventTokenDataGrid( props:Props ) {
     <div>
       <div><b>{text}</b></div>
       <Button
+        variant="contained"
         onClick={async ()=>{
           const res = await postEventToken(props.event_id,token as string)
           const newText = 'Copy your token here (it will not be displayed again): ' + res.data.token

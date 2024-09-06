@@ -1,4 +1,4 @@
-import {Container, Typography} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {GridColDef, DataGrid, GridRowParams} from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
@@ -56,10 +56,11 @@ export function Dashboard() {
   return  (
     <Container>
       <Typography variant="h1" color="primary.main">{t('Dashboard.YourEvents')}</Typography>
-      <Button
-        onClick={() =>navigate('/admin/create-event')}
-        variant="contained"
-      > <AddIcon /> </Button>
+      <Box sx={{mb: "10px"}}>
+        <Button onClick={() =>navigate('/admin/create-event')} variant="contained">
+          <AddIcon />
+        </Button>
+      </Box>
       <DataGrid
         columns={columns}
         loading={isLoading}
@@ -70,7 +71,7 @@ export function Dashboard() {
         onPaginationModelChange={(model)=>{setPage(model.page)}}
         onRowClick={handleClick}
       />
-      <Button onClick={logoutAction}>Logout</Button>{/** TODO: move to the navigation var */}
+      <Button onClick={logoutAction} variant="contained" sx={{mt: "10px"}}>Logout</Button>{/** TODO: move to the navigation var */}
     </Container>
   )
 }

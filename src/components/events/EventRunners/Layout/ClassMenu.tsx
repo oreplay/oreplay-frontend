@@ -6,6 +6,8 @@ import {useEffect, useState} from "react";
 import {getClassesInStage} from "../../../../services/EventService.ts";
 import {ClassModel} from "../../../../shared/EntityTypes.ts";
 import {useTranslation} from "react-i18next";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 /**
  * Get a state with a list of classes.
@@ -80,10 +82,17 @@ export default function ClassMenu(props:ClassMenuProps) {
 
   return(
     <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
-      <Button sx={{m:'auto'}}
+      <Button
+        sx={{m:'auto'}}
+        variant="contained"
         onClick={handleClick}
       >
-        <Typography sx={{color:'text.secondary'}}>{props.activeClass ? props.activeClass.short_name : t('Results.shortClass')}</Typography>
+        {isMenuOpen ? (
+          <ExpandMoreIcon sx={{ color: 'white' }} />
+        ) : (
+          <ExpandLessIcon sx={{ color: 'white' }} />
+        )}
+        <Typography sx={{color:'white'}}>{props.activeClass ? props.activeClass.short_name : t('Results.shortClass')}</Typography>
       </Button>
 
       <Menu

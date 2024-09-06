@@ -52,7 +52,7 @@ function EditToolbar(props: EditToolbarProps) {
 
   return (
     <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick} variant="contained">
         {t('EventAdmin.NewStage')}
       </Button>
     </GridToolbarContainer>
