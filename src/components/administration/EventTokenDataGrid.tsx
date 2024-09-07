@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {useAuth} from "../../shared/hooks.ts";
 import Button from "@mui/material/Button";
 import {invalidateEventToken, postEventToken} from "../../services/EventService.ts";
