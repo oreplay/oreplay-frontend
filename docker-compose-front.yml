@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nodejs:
-    image: freefri/oreplay-front:0.1.7
+    image: freefri/oreplay-front:0.1.8
     build:
       context: .
       dockerfile: docker/Dockerfile
