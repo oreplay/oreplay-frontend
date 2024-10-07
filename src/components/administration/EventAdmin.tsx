@@ -5,6 +5,7 @@ import {useEventDetail} from "../../shared/hooks.ts";
 import {useTranslation} from "react-i18next";
 import StagesDataGrid from "./StagesDataGrid.tsx";
 import EventTokenDataGrid from "./EventTokenDataGrid.tsx";
+import DeleteEventButton from "./DeleteEventButton.tsx";
 
 
 export default function EventAdmin ()  {
@@ -31,9 +32,12 @@ export default function EventAdmin ()  {
             <Typography>{t('EventAdmin.EventId')+`: ${detail?.id}`}</Typography>
             <EventTokenDataGrid event_id={detail? detail.id : ""} />
           </Box>
+          <Box sx={{marginY:'2em'}}>
+            <Typography variant={'h3'}>{t('EventAdmin.DangerArea')}</Typography>
+            {detail? <DeleteEventButton event={detail} /> : <></> }
+          </Box>
         </Container>
       }
-
     </Container>
   )
 }

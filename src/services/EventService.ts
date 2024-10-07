@@ -73,6 +73,18 @@ export async function postEvent(
 }
 
 /**
+ * Make HTTP request to the backend to delete an event
+ * @param id Id of the event to be deleted
+ * @param token Authentication token
+ */
+export async function deleteEvent(
+  id:string,
+  token:string|null,
+) {
+  return await deleteRequest(`api/v1/events/${id}`,token)
+}
+
+/**
  * Make HTTP Request to the backend to create a stage in a given event
  * @param eventId
  * @param stageName

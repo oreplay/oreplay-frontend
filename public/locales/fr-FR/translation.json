@@ -15,6 +15,7 @@
   "EmailAddress": "adresse e-mail",
   "Password": "Mot de passe",
   "GoBack": "Retourner",
+  "This action cannot be undone": "_This action cannot be undone.",
   "Home": {
     "Home": "Accueil",
     "WelcomeMsg": "Bienvenue sur O-Replay",
@@ -39,6 +40,7 @@
     "RememberMe": "Souviens-toi de moi"
   },
   "EventAdmin": {
+    "EventData": "_Event's information",
     "EventName": "Nom de l'événement",
     "StartDate": "Date de début",
     "FinishDate": "Date de fin",
@@ -61,7 +63,10 @@
     "NewStage": "Nouvelle étape",
     "WipeOutRunners": "Éliminez tous les coureurs à cette étape",
     "EventSecurityTokens": "Clés de sécurité",
-    "EventId": "ID de l'événement"
+    "EventId": "ID de l'événement",
+    "DangerArea": "_Danger area",
+    "DeleteEvent": "_Delete event",
+    "Do you want to delete this event?": "_Do you want to delete this event?"
   },
   "Language": {
     "Language": "Langue",
