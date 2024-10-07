@@ -30,7 +30,6 @@ export default function EventAdmin ()  {
           </Box>
           <Box sx={{marginY:'2em'}}>
             <Typography variant={'h3'}>{t('EventAdmin.EventSecurityTokens')}</Typography>
-            <Typography>{t('EventAdmin.EventId')+`: ${detail?.id}`}</Typography>
             <EventTokenDataGrid event_id={detail? detail.id : ""} />
           </Box>
           <Box sx={{marginY:'2em'}}>

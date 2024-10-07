@@ -6,7 +6,7 @@ import {
   RunnerModel,
   Data,
   PostEventResponse,
-  PostStageResponse, PostEventTokenResponse
+  PostStageResponse, PostEventTokenResponse, GetEventTokenResponse
 } from "../shared/EntityTypes";
 import {deleteRequest, get, post} from "./ApiConfig";
 import {DateTime, DurationLikeObject} from "luxon";
@@ -148,6 +148,18 @@ export async function postEventToken(eventId:string, token:string,expiresIn:Dura
       expires:DateTime.now().plus(expiresIn).toUTC()
     },
     token
+  )
+}
+
+/**
+ * Get the security token of a given event
+ * @param eventId Id of the event that we want to gather the token from.
+ * @param userToken user's event owner authentication token.
+ */
+export async function getEventToken(eventId:string, userToken:string|null) {
+  return get<Data<[GetEventTokenResponse]>>(
+    baseUrl+`/${eventId}/tokens/`,
+    userToken
   )
 }
 

@@ -145,3 +145,9 @@ export interface PostEventTokenResponse {
   expires:string,
   token:string,
 }
+
+export interface GetEventTokenResponse {
+  token:string,
+  expires:string,
+  created:string
+}

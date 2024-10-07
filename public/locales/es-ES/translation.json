@@ -1,4 +1,6 @@
 {
+
+  "Loading": "Cargando...",
   "Dates": "Fecha",
   "Event": "Evento",
   "Events": "Eventos",
@@ -62,11 +64,16 @@
     },
     "NewStage": "Nueva etapa",
     "WipeOutRunners": "Borrar todos los corredores de esta etapa",
-    "EventSecurityTokens": "Claves de seguridad",
+    "EventSecurityTokens": "Clave de seguridad",
+    "Do you want to renew the security key?": "¿Desea renovar la clave de seguridad?",
+    "RenewEventTokenMsg": "Si renueva la clave de seguridad la antigua será invalidada. Nadie con la clave de seguridad antigua podrá subir resultados a este evento.",
+    "Renew": "Renovar",
     "EventId": "ID del evento",
     "DangerArea": "Zona de peligro",
     "DeleteEvent": "Borrar evento",
-    "Do you want to delete this event?": "¿Desea borrar el evento?"
+    "Do you want to delete this event?": "¿Desea borrar el evento?",
+    "Renew security keys": "Generar una nueva clave de seguridad",
+    "Create security keys": "Crear una clave de seguridad"
   },
   "Language": {
     "Language": "Idioma",

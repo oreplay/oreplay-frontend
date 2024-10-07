@@ -1,4 +1,6 @@
 {
+
+  "Loading": "_Loading...",
   "Dates": "Dates",
   "Event": "Événement",
   "Events": "Événements",
@@ -62,11 +64,16 @@
     },
     "NewStage": "Nouvelle étape",
     "WipeOutRunners": "Éliminez tous les coureurs à cette étape",
-    "EventSecurityTokens": "Clés de sécurité",
+    "EventSecurityTokens": "_Security key",
     "EventId": "ID de l'événement",
     "DangerArea": "_Danger area",
     "DeleteEvent": "_Delete event",
-    "Do you want to delete this event?": "_Do you want to delete this event?"
+    "Do you want to delete this event?": "_Do you want to delete this event?",
+    "Renew security keys": "_Generate a new security key",
+    "Create security keys": "_Create a security key",
+    "Do you want to renew the security key?": "_Do you want to renew the security key?",
+    "RenewEventTokenMsg": "_If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
+    "Renew": "_Renew"
   },
   "Language": {
     "Language": "Langue",
