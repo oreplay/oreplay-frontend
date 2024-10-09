@@ -61,7 +61,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
           required
           label={t('EventAdmin.EventName')}
           {...style_props}
-          defaultValue={ props.eventDetail ? props.eventDetail.description : undefined  }
+          defaultValue={ props.eventDetail ? props.eventDetail.description : ""  }
         />
         <TextField
           id="organizer"
@@ -75,19 +75,19 @@ export default function EventAdminForm(props: EventAdminFormProps){
           name={'startDate'}
           label={t('EventAdmin.StartDate')+' *'}
           slotProps={{textField: {...style_props} }}
-          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : undefined}
+          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null}
         />
         <DatePicker label={t('EventAdmin.FinishDate')+' *'}
           name={'endDate'}
           slotProps={{textField: {...style_props} }}
-          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : undefined}
+          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
         />
         <TextField
           id="website"
           name="website"
           label={t('EventAdmin.Website')}
           {...style_props}
-          defaultValue={ props.eventDetail ? props.eventDetail.website : undefined}
+          defaultValue={ props.eventDetail ? props.eventDetail.website : ""}
         />
         <FormControl  sx={{minWidth:'10em'}} required>
           <InputLabel id='scope-label' >{t('EventAdmin.Scopes.Scope')}</InputLabel>
@@ -97,7 +97,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
             disabled={!props.canEdit}
             labelId='scope-label'
             label={t('EventAdmin.Scopes.Scope')}
-            defaultValue={props.eventDetail ? props.eventDetail.scope : undefined}
+            defaultValue={props.eventDetail ? props.eventDetail.scope : ""}
           >
             <MenuItem value={'int'}>{t('EventAdmin.Scopes.International')}</MenuItem>
             <MenuItem value={'nat'}>{t('EventAdmin.Scopes.National')}</MenuItem>
