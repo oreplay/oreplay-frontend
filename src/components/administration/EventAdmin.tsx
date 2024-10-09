@@ -43,7 +43,6 @@ export default function EventAdmin ()  {
   const handleCancelEditingEvent = () => {
     setIsEventEditing(false)
     //BUG, return to previous state
-    // BUG, Public cannot be edited
   }
 
   const handleClickEditEvent = () => setIsEventEditing(true)

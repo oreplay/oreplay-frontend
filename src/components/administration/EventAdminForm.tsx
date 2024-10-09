@@ -14,7 +14,7 @@ import {DateTime} from "luxon";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Checkbox from '@mui/material/Checkbox';
-import React from "react";
+import React, {useState} from "react";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from "@mui/icons-material/Edit";
@@ -45,6 +45,10 @@ interface EventAdminFormProps {
  */
 export default function EventAdminForm(props: EventAdminFormProps){
   const {t} = useTranslation();
+
+  const [isEventPublic,setIsEventPublic] = useState<boolean>(
+    props.eventDetail? !(props.eventDetail.is_hidden) : false
+  )
 
   const style_props:TextFieldProps = {
     margin:'normal',
@@ -120,7 +124,8 @@ export default function EventAdminForm(props: EventAdminFormProps){
           <FormControlLabel
             id={'isPublic'}
             name={'isPublic'}
-            control={<Checkbox checked={props.eventDetail? !(props.eventDetail.is_hidden) : true} />}
+            control={<Checkbox checked={isEventPublic} />}
+            onChange={()=>setIsEventPublic(!isEventPublic)}
             label={t('EventAdmin.Public')}
             disabled={!props.canEdit}
           />
