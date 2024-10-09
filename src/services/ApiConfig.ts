@@ -58,3 +58,26 @@ export async function deleteRequest(url:string, token?:string|null) {
     }
   )
 }
+
+/**
+ * Generic backend patch request
+ * @param url to make the request to
+ * @param body Content to be patched on the server
+ * @param token User authentication token
+ */
+export async function patch(url: string, body?: object,token?:string|null) {
+  const headers = new Headers({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  })
+  if (token) {
+    headers.append('Authorization', `Bearer ${token}`);
+  }
+  return await fetch(API_DOMAIN + url,
+    {
+      method: 'PATCH',
+      headers: headers,
+      body: (body ? JSON.stringify(body) : undefined)
+    }
+  )
+}
