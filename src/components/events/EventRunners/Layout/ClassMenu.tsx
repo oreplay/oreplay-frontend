@@ -1,13 +1,10 @@
 import Button from "@mui/material/Button";
-import {Box, Typography} from "@mui/material";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import {Box, ButtonGroup, Dialog, DialogContent, DialogTitle, Typography} from "@mui/material";
+
 import {useEffect, useState} from "react";
 import {getClassesInStage} from "../../../../services/EventService.ts";
 import {ClassModel} from "../../../../shared/EntityTypes.ts";
 import {useTranslation} from "react-i18next";
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 /**
  * Get a state with a list of classes.
@@ -59,10 +56,17 @@ function ClassItems(props:ClassItemsProps) {
       <>
         {
           props.classesList.map( (classEntity)=>{
-            return <MenuItem
+            return <Button
               onClick={()=>{props.setActiveClass(classEntity)}}
               key={classEntity.id}
-            >{classEntity.short_name}</MenuItem>
+              sx={{
+                color: 'text.secondary',
+                border: 0,
+                justifyContent: 'left',
+              }}
+            >
+              {classEntity.short_name}
+            </Button>
           })
         }
       </>
@@ -81,43 +85,38 @@ export default function ClassMenu(props:ClassMenuProps) {
   };
 
   return(
-    <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
+    <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center', maxWidth:1/5}}>
+
       <Button
         sx={{m:'auto'}}
-        variant="contained"
         onClick={handleClick}
+        fullWidth
       >
-        {isMenuOpen ? (
-          <ExpandMoreIcon sx={{ color: 'white' }} />
-        ) : (
-          <ExpandLessIcon sx={{ color: 'white' }} />
-        )}
-        <Typography sx={{color:'white'}}>{props.activeClass ? props.activeClass.short_name : t('Results.shortClass')}</Typography>
+        <Typography sx={{color:'text.secondary'}}>{props.activeClass ? props.activeClass.short_name : t('Results.shortClass')}</Typography>
       </Button>
 
-      <Menu
+      <Dialog
         open={isMenuOpen}
         onClick={handleClick}
         onClose={handleClick}
-        anchorReference={'none'}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'center'
-        }}
-        sx={{
-          minWidth: '20px',
-          maxWidth: '80%',
-          marginX: 'auto',
-          marginY: 'auto',
-          paddingX: 'auto'
-        }}
+        scroll={'paper'}
+        maxWidth={'xs'}
+        fullWidth={true}
       >
-        <ClassItems
-          classesList={classesList}
-          loading={areClassesLoading}
-          setActiveClass={props.setActiveClass}
-        />
-      </Menu>
+        <DialogTitle id='classes-dialog'>{t('Results.Classes')}</DialogTitle>
+        <DialogContent>
+          <ButtonGroup
+            orientation={'vertical'}
+            fullWidth
+          >
+            <ClassItems
+              classesList={classesList}
+              loading={areClassesLoading}
+              setActiveClass={props.setActiveClass}
+            />
+          </ButtonGroup>
+        </DialogContent>
+      </Dialog>
     </Box>
   )
 }

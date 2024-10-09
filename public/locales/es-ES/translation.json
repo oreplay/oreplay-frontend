@@ -18,7 +18,7 @@
   "Password": "Contraseña",
   "GoBack": "Volver atrás",
   "This action cannot be undone": "Esta acción no puede deshacerse.",
-  "Copied to the clipboard" : "Copiado al portapapeles",
+  "Copied to the clipboard": "Copiado al portapapeles",
   "Copy": "Copiar",
   "Home": {
     "Home": "Inicio",
@@ -30,6 +30,7 @@
   "Results": {
     "shortClass": "Cat.",
     "Class": "Categoría",
+    "Classes": "Categorías",
     "Start": "Salida",
     "Finish": "Meta",
     "SiCard": "Pinza",

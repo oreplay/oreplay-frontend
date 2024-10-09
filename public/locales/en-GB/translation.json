@@ -17,7 +17,7 @@
   "Password": "Password",
   "GoBack": "Go back",
   "This action cannot be undone": "This action cannot be undone.",
-  "Copied to the clipboard" : "Copied to the clipboard.",
+  "Copied to the clipboard": "Copied to the clipboard.",
   "Copy": "Copy",
   "Home": {
     "Home": "Home",
@@ -29,6 +29,7 @@
   "Results": {
     "shortClass": "Class",
     "Class": "Class",
+    "Classes": "Classes",
     "Start": "Start",
     "Finish": "Finish",
     "SiCard": "SI Card",
