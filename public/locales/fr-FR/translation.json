@@ -18,6 +18,8 @@
   "Password": "Mot de passe",
   "GoBack": "Retourner",
   "This action cannot be undone": "_This action cannot be undone.",
+  "Copied to the clipboard" : "_Copied to the clipboard.",
+  "Copy": "_Copy",
   "Home": {
     "Home": "Accueil",
     "WelcomeMsg": "Bienvenue sur O-Replay",

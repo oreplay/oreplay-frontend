@@ -14,6 +14,7 @@ import {useTranslation} from "react-i18next";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
+import {CopyToClipBoardButton} from "../../shared/Components.tsx";
 
 interface Props {
   event_id : string,
@@ -35,16 +36,21 @@ function RefreshButton (props: RefreshButtonParams) {
 
   return (
     <>
-      <IconButton >
-        {props.eventToken==''?
+      {props.eventToken==''?
+        <IconButton >
           <Tooltip title={t('EventAdmin.Create security keys')}>
             <AddIcon onClick={()=>props.handleRenewToken()}/>
-          </Tooltip>  :
-          <Tooltip title={t('EventAdmin.Renew security keys')}>
-            <AutorenewIcon onClick={()=>setIsDialogOpen(true)}/>
           </Tooltip>
-        }
-      </IconButton>
+        </IconButton> :
+        <>
+          <IconButton>
+            <Tooltip title={t('EventAdmin.Renew security keys')}>
+              <AutorenewIcon onClick={()=>setIsDialogOpen(true)}/>
+            </Tooltip>
+          </IconButton>
+          <CopyToClipBoardButton value={props.eventToken} />
+        </>
+      }
       <Dialog
         open={isDialogOpen}
         onClose={handleClose}
@@ -130,6 +136,7 @@ export default function EventTokenDataGrid( props:Props ) {
           defaultValue={props.event_id}
           disabled
           sx={{marginY:'1em'}}
+          InputProps={{endAdornment: <CopyToClipBoardButton value={props.event_id} />}}
         />
         <TextField
           fullWidth
