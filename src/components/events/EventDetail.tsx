@@ -1,12 +1,12 @@
 import {Box, Button, Typography} from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
-import { EventDetailModel } from "../../shared/EntityTypes";
+import {EventDetailModel} from "../../shared/EntityTypes";
 import loadingIcon from "./../../assets/loading.svg";
-import { useEffect, useState } from "react";
-import { getEventDetail } from "../../services/EventService";
+import {useEffect, useState} from "react";
+import {getEventDetail} from "../../services/EventService";
 import {useTranslation} from "react-i18next";
-import { parseDate } from "../../shared/Functions";
-import { ArrowForward, Launch } from "@mui/icons-material";
+import {parseDate} from "../../shared/Functions";
+import {ArrowForward, Launch} from "@mui/icons-material";
 
 export default function EventDetail() {
 
@@ -20,7 +20,7 @@ export default function EventDetail() {
   const styles = {
     titleEvent: {
       marginTop: "6px",
-      fontWeight:"bold",
+      fontWeight: "bold",
       fontSize: "x-large",
       marginLeft: "48px",
       marginRight: "48px"
@@ -47,29 +47,29 @@ export default function EventDetail() {
     }
   }, [id]);
 
-  function getDatesOfEvent(){
-    if (detail?.initial_date && detail?.final_date)
-    {
+  function getDatesOfEvent() {
+    if (detail?.initial_date && detail?.final_date) {
       const initDateParse = parseDate(detail.initial_date);
       const finalDateParse = parseDate(detail.final_date);
 
-      if (initDateParse == finalDateParse)
-      {
-        return <Typography style={styles.aligns} >{initDateParse}</Typography>
-      }
-      else {
-        return <Typography style={styles.aligns} marginTop={"6px"}>{initDateParse} - {finalDateParse}</Typography>
+      if (initDateParse == finalDateParse) {
+        return <Typography style={styles.aligns}>{initDateParse}</Typography>
+      } else {
+        return <Typography style={styles.aligns}
+          marginTop={"6px"}>{initDateParse} - {finalDateParse}</Typography>
       }
     }
     return null;
   }
 
-  function getButtonWebsite()
-  {
+  function getButtonWebsite() {
     if (detail?.website) {
       return (
-        <Button style={styles.aligns} sx={{width: "min-content", marginTop: "12px", color: "white"}} variant="contained"
-          onClick={() => {window.open(detail?.website,'_blank','noopener,noreferrer')}} endIcon={<Launch />}>
+        <Button style={styles.aligns} sx={{width: "min-content", marginTop: "12px", color: "white"}}
+          variant="contained"
+          onClick={() => {
+            window.open(detail?.website, '_blank', 'noopener,noreferrer')
+          }} endIcon={<Launch/>}>
           {detail.website}
         </Button>
       )
@@ -79,37 +79,47 @@ export default function EventDetail() {
 
   if (loadingData) {
     return (
-      <Box sx={{width:"100%", height:"90%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+      <Box sx={{
+        width: "100%",
+        height: "90%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
         <img alt={'loading icon'} height={50} width={50} src={loadingIcon}></img>
       </Box>
     )
   } else return (
     <Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
-      <Box width={"100%"} minHeight={"35%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} sx={{
-        bgcolor:"primary.light",
-      }}>
+      <Box width={"100%"} minHeight={"35%"} display={"flex"} flexDirection={"column"}
+        justifyContent={"center"} sx={{
+          bgcolor: "primary.light",
+        }}>
 
         <Typography style={styles.aligns}>Club organizador</Typography>
-        <Typography color={"secondary.main"} style={styles.titleEvent}>{detail?.description}</Typography>
+        <Typography color={"secondary.main"}
+          style={styles.titleEvent}>{detail?.description}</Typography>
         {getDatesOfEvent()}
         {getButtonWebsite()}
       </Box>
       <Box height={"100%"} sx={{
-        bgcolor:"secondary.main",
+        bgcolor: "secondary.main",
       }}>
         <Box paddingTop={"48px"}>
-          <Typography fontWeight={"bold"} paddingBottom={"48px"} style={styles.aligns} color={"primary.light"}>{t('Stages')}</Typography>
+          <Typography fontWeight={"bold"} paddingBottom={"48px"} style={styles.aligns}
+            color={"primary.light"}>{t('Stages')}</Typography>
 
           {detail?.stages.map(
-            (stage)=>{
+            (stage) => {
               return (
-                <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"} key={stage.id} 
-                onClick={()=>navigate(`/competitions/${id}/${stage.id}`, 
-                {state: {eventName: detail?.description, stageName: stage.description}})}>
+                <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"}
+                  key={stage.id}
+                  onClick={() => navigate(`/competitions/${id}/${stage.id}`,
+                    {state: {eventName: detail?.description, stageName: stage.description}})}>
                   <Typography color={"primary.light"}>
                     {stage.description}
                   </Typography>
-                  <ArrowForward sx={{color:"primary.light"}}/>
+                  <ArrowForward sx={{color: "primary.light"}}/>
                 </Box>
               )
             }
