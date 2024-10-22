@@ -94,5 +94,19 @@
     "LiveToday": "Live today",
     "FutureEvents": "Future events",
     "PastEvents": "Past events"
+  },
+  "StageHeader": {
+    "Departures": "Starting time",
+    "Results": "Results",
+    "Splits": "Splits"
+  },
+  "ResultsStage": {
+    "Class": "Category",
+    "Position": "Position",
+    "Name": "Name",
+    "Club": "Club",
+    "StartTime": "Start",
+    "FinishTime": "Finish",
+    "Times": "Times"
   }
 }

@@ -95,5 +95,19 @@
     "LiveToday": "En vivo hoy",
     "FutureEvents": "Eventos futuros",
     "PastEvents": "Eventos pasados"
+  },
+  "StageHeader": {
+    "Departures": "Horas de salida",
+    "Results": "Resultados",
+    "Splits": "Parciales"
+  },
+  "ResultsStage": {
+    "Class": "Categoría",
+    "Position": "Posición",
+    "Name": "Nombre",
+    "Club": "Club",
+    "StartTime": "H.Salida",
+    "FinishTime": "Total",
+    "Times": "Tiempos"
   }
 }
