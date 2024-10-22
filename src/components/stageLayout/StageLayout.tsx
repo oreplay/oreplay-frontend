@@ -17,7 +17,7 @@ export default function StageLayout()
     }, []);
 
     return <Box sx={{height:"100%", width: "100%", display: "flex", flexDirection: "column"}}>        
-        <Typography sx={{paddingTop: "46px", paddingLeft: "46px"}}>{eventName} - {stageName}</Typography>
+        <Typography sx={{fontWeight: "bold", paddingTop: "46px", paddingLeft: "46px"}}>{eventName} - {stageName}</Typography>
         <Outlet/>
         <StageHeader/>
     </Box>
