@@ -84,7 +84,7 @@ export default function EventDetail() {
       </Box>
     )
   } else return (
-    <Box width={"100%"} height={"100%"}>
+    <Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
       <Box width={"100%"} minHeight={"35%"} display={"flex"} flexDirection={"column"} justifyContent={"center"} sx={{
         bgcolor:"primary.light",
       }}>
@@ -103,7 +103,9 @@ export default function EventDetail() {
           {detail?.stages.map(
             (stage)=>{
               return (
-                <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"} key={stage.id} onClick={()=>navigate(`/competitions/${id}/${stage.id}/results`)}>
+                <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"} key={stage.id} 
+                onClick={()=>navigate(`/competitions/${id}/${stage.id}`, 
+                {state: {eventName: detail?.description, stageName: stage.description}})}>
                   <Typography color={"primary.light"}>
                     {stage.description}
                   </Typography>

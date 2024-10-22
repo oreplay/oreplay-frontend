@@ -3,11 +3,7 @@ import Layout from './components/layout/Layout'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import EventsList from './components/events/EventsList'
 import EventDetail from './components/events/EventDetail'
-import FootOResults from "./components/events/EventRunners/FootOResults/FootOResults.tsx";
 import Home from "./components/Home/Home.tsx";
-import EventRunnersLayout from "./components/events/EventRunners/Layout/EventRunnersLayout.tsx";
-import StartList from "./components/events/EventRunners/StartList.tsx";
-import Splits from "./components/events/EventRunners/Splits.tsx";
 import {AuthProvider} from "./shared/AuthProvider.tsx";
 import PrivateRoute from "./components/users/PrivateRoute.tsx";
 import {Dashboard} from "./components/administration/Dashboard.tsx";
@@ -18,6 +14,10 @@ import CreateEvent from "./components/administration/CreateEvent.tsx";
 import Authentication from "./components/users/Authentication.tsx";
 import InItSignIn from "./components/users/InItSignIn.tsx";
 import SignIn from "./components/users/SignIn.tsx";
+import StageLayout from './components/stageLayout/StageLayout.tsx'
+import StartTimesStage from './components/stageDetail/StartTimesStage.tsx'
+import ResultsStage from './components/stageDetail/ResultsStage.tsx'
+import SplitsStage from './components/stageDetail/SplitsStage.tsx'
 
 export default function App() {
 
@@ -49,10 +49,10 @@ export default function App() {
                 <Route index element={<Home />} />
                 <Route path='competitions' element={<EventsList/>} />
                 <Route path='competitions/:id' element={<EventDetail/>} />
-                <Route path='competitions/:eventId/:stageId' element={<EventRunnersLayout/>}>
-                  <Route path={'start-list'} element={<StartList/>} />
-                  <Route path={'results'} element={<FootOResults/>} />
-                  <Route path={'splits'} element={<Splits />} />
+                <Route path='competitions/:eventId/:stageId' element={<StageLayout/>}>
+                  <Route path='startList' element={<StartTimesStage/>}/>
+                  <Route path='results' element={<ResultsStage/>}/>
+                  <Route path='splits' element={<SplitsStage/>}/>
                 </Route>
                 <Route  element={<PrivateRoute />}>
                   <Route path={'/dashboard'} element={<Dashboard />} />
