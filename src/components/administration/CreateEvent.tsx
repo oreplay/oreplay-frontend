@@ -9,6 +9,8 @@ export default function CreateEvent (){
   const {token} = useAuth() as {token: string};
   const navigate = useNavigate()
 
+  const handleCancel = () => navigate("/dashboard")
+
   const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -33,6 +35,7 @@ export default function CreateEvent (){
     <EventAdminForm
       canEdit
       handleSubmit={handleSubmit}
+      handleCancel={handleCancel}
     />
   )
 }

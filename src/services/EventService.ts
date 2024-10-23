@@ -6,9 +6,9 @@ import {
   RunnerModel,
   Data,
   PostEventResponse,
-  PostStageResponse, PostEventTokenResponse
+  PostStageResponse, PostEventTokenResponse, GetEventTokenResponse
 } from "../shared/EntityTypes";
-import {deleteRequest, get, post} from "./ApiConfig";
+import {deleteRequest, get, patch, post} from "./ApiConfig";
 import {DateTime, DurationLikeObject} from "luxon";
 const baseUrl = "api/v1/events"
 
@@ -73,6 +73,56 @@ export async function postEvent(
 }
 
 /**
+ * Make HTTP patch to the backend updating an existing event
+ * @param event_id Id of the event we want to edit
+ * @param description Event's name
+ * @param startDate Event's start date in SQL format, i.e. YYYY-MM-DD
+ * @param endDate Event's end date in SQL format, i.e. YYYY-MM-DD
+ * @param scope Event's scope string.
+ * @param is_public True if the event is publicly available on O-Replay main events searcher, false otherwise.
+ * @param token Auth token of the user creating the event
+ * @param website URL to the event's webpage on the organizer website
+ * @param federation_id federation id of the data source
+ */
+export async function patchEvent(
+  event_id:string,
+  description:string,
+  startDate:string,
+  endDate:string,
+  scope:'international'|'national'|'regional.high'|'regional.low'|'local'|'club'|string,
+  is_public:boolean,
+  token:string,
+  website?:string,
+  federation_id?:string,
+) {
+  return patch(
+    `${baseUrl}/${event_id}`,
+    {
+      description:description,
+      is_hidden: !is_public,
+      initial_date:startDate,
+      final_date:endDate,
+      scope:scope,
+      federation_id:federation_id ? federation_id : null,
+      website: website ? website : null,
+    },
+    token
+  )
+}
+
+/**
+ * Make HTTP request to the backend to delete an event
+ * @param id Id of the event to be deleted
+ * @param token Authentication token
+ */
+export async function deleteEvent(
+  id:string,
+  token:string|null,
+) {
+  return await deleteRequest(`api/v1/events/${id}`,token)
+}
+
+/**
  * Make HTTP Request to the backend to create a stage in a given event
  * @param eventId
  * @param stageName
@@ -87,6 +137,28 @@ export async function postStage(
     baseUrl+`/${eventId}/stages/`,
     {
       description:stageName,
+    },
+    token
+  )
+}
+
+/**
+ * Make an HTTP request to the backend to update stage's information
+ * @param eventId Id of the event the stage belongs to
+ * @param stageId Id of the stage we want to edit
+ * @param description New name of the stage
+ * @param token User's authentication token
+ */
+export async function patchStage(
+  eventId:string,
+  stageId:string,
+  description:string,
+  token:string
+){
+  return patch(
+    `/api/v1/events/${eventId}/stages/${stageId}`,
+    {
+      description:description,
     },
     token
   )
@@ -136,6 +208,18 @@ export async function postEventToken(eventId:string, token:string,expiresIn:Dura
       expires:DateTime.now().plus(expiresIn).toUTC()
     },
     token
+  )
+}
+
+/**
+ * Get the security token of a given event
+ * @param eventId Id of the event that we want to gather the token from.
+ * @param userToken user's event owner authentication token.
+ */
+export async function getEventToken(eventId:string, userToken:string|null) {
+  return get<Data<[GetEventTokenResponse]>>(
+    baseUrl+`/${eventId}/tokens/`,
+    userToken
   )
 }
 

@@ -16,3 +16,8 @@ export function parseLuxon(dateString: string)
   const locale = i18next.language;
   return DateTime.fromISO(dateString, { locale });
 }
+
+export function parseDateOnlyTime(dateString: string)
+{
+  return parseLuxon(dateString).toLocaleString(DateTime.TIME_24_SIMPLE);
+}

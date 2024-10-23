@@ -6,8 +6,10 @@ export default function Layout() {
 
   return (
     <Box sx={{height: "100vh"}}>
-      <Header />
-      <Outlet />
+      <Box sx={{height:"100%", display:"flex", flexDirection:"column"}}>
+        <Header />
+        <Outlet />
+      </Box>
     </Box>
   )
 }

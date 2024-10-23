@@ -1,0 +1,75 @@
+import {useState} from "react";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from "@mui/material";
+import {useTranslation} from "react-i18next";
+import {EventDetailModel} from "../../shared/EntityTypes.ts";
+import {deleteEvent} from "../../services/EventService.ts";
+import {useAuth} from "../../shared/hooks.ts";
+import {useNavigate} from "react-router-dom";
+
+interface DeleteEventButtonProps {
+  event: EventDetailModel;
+}
+
+export default function DeleteEventButton(props:DeleteEventButtonProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const {t} = useTranslation();
+  const navigate = useNavigate()
+  const {token} = useAuth()
+
+  const handleClose = ()=>{setIsOpen(false)}
+
+  const handleDeleteEvent = async () => {
+    try {
+      const response = await deleteEvent(props.event.id,token)
+      if (response.ok) {
+        navigate('/dashboard')
+      } else {
+        alert('An error occurred deleting the event')
+      }
+    } catch(error) {
+      console.log('error in deleting the event ',error)
+    }
+  }
+
+  return (
+    <>
+      <Button
+        variant="outlined"
+        color="error"
+        startIcon={<DeleteIcon />}
+        onClick={() => setIsOpen(true) }
+      >
+        {t('EventAdmin.DeleteEvent')}
+      </Button>
+      <Dialog
+        open={isOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t("EventAdmin.Do you want to delete this event?")}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t("This action cannot be undone")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outlined" onClick={handleClose}>{t('Cancel')}</Button>
+          <Button variant="contained" onClick={handleDeleteEvent} color='error' autoFocus>
+            {t('Delete')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
+}

@@ -14,18 +14,25 @@ import {DateTime} from "luxon";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Checkbox from '@mui/material/Checkbox';
-import React from "react";
+import React, {useState} from "react";
+import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from "@mui/icons-material/Edit";
 
 /**
  * @property eventDetail an event to be displayed in the form
  * @property canEdit weather the form can be edited
  * @property handleSubmit action to be performed when pressing save. Caution! Remember that handle
  * submit must call `event.preventDefault()`.
+ * @property handleCancel action to be performed when pressing Cancel button.
+ * @property handleEdit action to be performed when pressing Edit button
  */
 interface EventAdminFormProps {
   eventDetail?:EventDetailModel,
   canEdit? : boolean,
   handleSubmit? : (event: React.FormEvent<HTMLFormElement>)=>void
+  handleCancel? : ()=>void,
+  handleEdit?: ()=> void,
 }
 
 
@@ -39,6 +46,10 @@ interface EventAdminFormProps {
 export default function EventAdminForm(props: EventAdminFormProps){
   const {t} = useTranslation();
 
+  const [isEventPublic,setIsEventPublic] = useState<boolean>(
+    props.eventDetail? !(props.eventDetail.is_hidden) : false
+  )
+
   const style_props:TextFieldProps = {
     margin:'normal',
     variant:'outlined',
@@ -49,9 +60,11 @@ export default function EventAdminForm(props: EventAdminFormProps){
     <Container component="form" onSubmit={props.handleSubmit} >
       <Box
         sx={{
+          display: 'flex',
           flexWrap: 'wrap',
+          alignItems: 'strerch',
           flexGrow: 1,
-          marginY:'2em'
+          justifyContent: 'space-between',
         }}
       >
         <TextField
@@ -61,7 +74,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
           required
           label={t('EventAdmin.EventName')}
           {...style_props}
-          defaultValue={ props.eventDetail ? props.eventDetail.description : undefined  }
+          defaultValue={ props.eventDetail ? props.eventDetail.description : ""  }
         />
         <TextField
           id="organizer"
@@ -71,23 +84,23 @@ export default function EventAdminForm(props: EventAdminFormProps){
           {...style_props}
           defaultValue={ 'No viene club' }
         />
-        <DatePicker
+        <DatePicker // BUG, can be edited even when disabled
           name={'startDate'}
           label={t('EventAdmin.StartDate')+' *'}
           slotProps={{textField: {...style_props} }}
-          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : undefined}
+          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null}
         />
-        <DatePicker label={t('EventAdmin.FinishDate')+' *'}
+        <DatePicker label={t('EventAdmin.FinishDate')+' *'} // BUG, can be edited even when disabled
           name={'endDate'}
           slotProps={{textField: {...style_props} }}
-          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : undefined}
+          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
         />
         <TextField
           id="website"
           name="website"
           label={t('EventAdmin.Website')}
           {...style_props}
-          defaultValue={ props.eventDetail ? props.eventDetail.website : undefined}
+          defaultValue={ props.eventDetail ? props.eventDetail.website : ""}
         />
         <FormControl  sx={{minWidth:'10em'}} required>
           <InputLabel id='scope-label' >{t('EventAdmin.Scopes.Scope')}</InputLabel>
@@ -97,7 +110,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
             disabled={!props.canEdit}
             labelId='scope-label'
             label={t('EventAdmin.Scopes.Scope')}
-            defaultValue={props.eventDetail ? props.eventDetail.scope : undefined}
+            defaultValue={props.eventDetail ? props.eventDetail.scope : ""}
           >
             <MenuItem value={'int'}>{t('EventAdmin.Scopes.International')}</MenuItem>
             <MenuItem value={'nat'}>{t('EventAdmin.Scopes.National')}</MenuItem>
@@ -111,18 +124,50 @@ export default function EventAdminForm(props: EventAdminFormProps){
           <FormControlLabel
             id={'isPublic'}
             name={'isPublic'}
-            control={<Checkbox checked={props.eventDetail? !(props.eventDetail.is_hidden) : true} />}
+            control={<Checkbox checked={isEventPublic} />}
+            onChange={()=>setIsEventPublic(!isEventPublic)}
             label={t('EventAdmin.Public')}
             disabled={!props.canEdit}
           />
         </FormControl>
       </Box>
-      {
-        props.canEdit ? <Button
-          type='submit'
-          variant='contained'
-        >{t('EventAdmin.Save')}</Button> : <></>
-      }
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          flexWrap:'nowrap',
+          gap:'1em',
+        }}
+      >
+        {
+          props.canEdit ?
+            <>
+              <Button
+                variant='outlined'
+                startIcon={<CloseIcon />}
+                onClick={props.handleCancel}
+              >
+                {t('Cancel')}
+              </Button>
+              <Button
+                type='submit'
+                variant='contained'
+                startIcon={<SaveIcon />}
+              >
+                {t('EventAdmin.Save')}
+              </Button>
+            </>
+            :
+            <Button
+              variant='outlined'
+              startIcon={<EditIcon />}
+              onClick={props.handleEdit}
+            >
+              {t('Edit')}
+            </Button>
+        }
+      </Box>
     </Container>
   )
 }

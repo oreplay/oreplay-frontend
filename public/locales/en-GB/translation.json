@@ -1,4 +1,5 @@
 {
+  "Loading": "Loading...",
   "Dates": "Dates",
   "Event": "Event",
   "Events": "Events",
@@ -15,6 +16,9 @@
   "EmailAddress": "Email Address",
   "Password": "Password",
   "GoBack": "Go back",
+  "This action cannot be undone": "This action cannot be undone.",
+  "Copied to the clipboard": "Copied to the clipboard.",
+  "Copy": "Copy",
   "Home": {
     "Home": "Home",
     "WelcomeMsg": "Welcome to O-Replay",
@@ -25,12 +29,10 @@
   "Results": {
     "shortClass": "Class",
     "Class": "Class",
+    "Classes": "Classes",
     "Start": "Start",
     "Finish": "Finish",
-    "SiCard": "SI Card",
-    "start list": "Start list",
-    "results": "Results",
-    "splits": "Splits"
+    "SiCard": "SI Card"
   },
   "Sign in": {
     "Sign in": "Sign in",
@@ -39,6 +41,7 @@
     "RememberMe": "Remember me"
   },
   "EventAdmin": {
+    "EventData": "Event's information",
     "EventName": "Event's name",
     "StartDate": "Start date",
     "FinishDate": "Finish date",
@@ -60,8 +63,16 @@
     },
     "NewStage": "New stage",
     "WipeOutRunners": "Wipe out all runners in this stage",
-    "EventSecurityTokens": "Security keys",
-    "EventId": "Event's ID"
+    "EventSecurityTokens": "Security key",
+    "Do you want to renew the security key?": "Do you want to renew the security key?",
+    "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
+    "Renew": "Renew",
+    "EventId": "Event's ID",
+    "DangerArea": "Danger zone",
+    "DeleteEvent": "Delete Event",
+    "Do you want to delete this event?": "Do you want to delete this event?",
+    "Renew security keys": "Generate a new security key",
+    "Create security keys": "Create a security key"
   },
   "Language": {
     "Language": "Language",
@@ -80,5 +91,19 @@
     "LiveToday": "Live today",
     "FutureEvents": "Future events",
     "PastEvents": "Past events"
+  },
+  "StageHeader": {
+    "StartTime": "Starting time",
+    "Results": "Results",
+    "Splits": "Splits"
+  },
+  "ResultsStage": {
+    "Class": "Category",
+    "Position": "Position",
+    "Name": "Name",
+    "Club": "Club",
+    "StartTime": "Start",
+    "FinishTime": "Finish",
+    "Times": "Times"
   }
 }
