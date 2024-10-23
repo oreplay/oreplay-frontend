@@ -32,10 +32,7 @@
     "Classes": "Classes",
     "Start": "Start",
     "Finish": "Finish",
-    "SiCard": "SI Card",
-    "start list": "Start list",
-    "results": "Results",
-    "splits": "Splits"
+    "SiCard": "SI Card"
   },
   "Sign in": {
     "Sign in": "Sign in",
@@ -96,7 +93,7 @@
     "PastEvents": "Past events"
   },
   "StageHeader": {
-    "Departures": "Starting time",
+    "StartTime": "Starting time",
     "Results": "Results",
     "Splits": "Splits"
   },

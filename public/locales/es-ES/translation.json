@@ -33,10 +33,7 @@
     "Classes": "Categorías",
     "Start": "Salida",
     "Finish": "Meta",
-    "SiCard": "Pinza",
-    "start list": "Salida",
-    "results": "Resultados",
-    "splits": "Parciales"
+    "SiCard": "Pinza"
   },
   "Sign in": {
     "Sign in": "Iniciar sesión",
@@ -97,7 +94,7 @@
     "PastEvents": "Eventos pasados"
   },
   "StageHeader": {
-    "Departures": "Horas de salida",
+    "StartTime": "Horas de salida",
     "Results": "Resultados",
     "Splits": "Parciales"
   },

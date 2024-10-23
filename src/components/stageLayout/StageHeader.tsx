@@ -1,18 +1,20 @@
-import {AccessTime, EmojiEvents, HorizontalSplit} from "@mui/icons-material";
-import {AppBar, Box, IconButton, Toolbar, Tooltip, Typography} from "@mui/material";
+import {
+  AppBar,
+  BottomNavigation, BottomNavigationAction,
+  Box,
+} from "@mui/material";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useNavigate, useParams} from "react-router-dom";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import TimerIcon from '@mui/icons-material/Timer';
+import {AccessTime} from "@mui/icons-material";
 
 export default function StageHeader() {
   const {t} = useTranslation();
   const navigate = useNavigate();
   const {eventId, stageId} = useParams();
   const [selectedMenu, setSelectedMenu] = useState(1);
-
-  function changeSelectedMenu(newValueSelected: number) {
-    setSelectedMenu(newValueSelected);
-  }
 
   useEffect(() => {
     switch (selectedMenu) {
@@ -32,45 +34,14 @@ export default function StageHeader() {
   return (
     <Box sx={{marginTop: "auto", width: "100%"}}>
       <AppBar position="static" sx={{backgroundColor: "white"}}>
-        <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-          <Box>
-            <Tooltip title={t('StageHeader.Departures')}>
-              <IconButton color={selectedMenu == 0 ? "secondary" : "primary"}
-                sx={{display: "flex", flexDirection: "column"}}
-                onClick={() => {
-                  changeSelectedMenu(0);
-                }}>
-                <AccessTime/>
-                <Typography>{t("StageHeader.Departures")}</Typography>
-              </IconButton>
-            </Tooltip>
-          </Box>
-          <Box>
-            <Tooltip title={t('StageHeader.Results')}>
-              <IconButton color={selectedMenu == 1 ? "secondary" : "primary"}
-                sx={{display: "flex", flexDirection: "column"}}
-                onClick={
-                  () => {
-                    changeSelectedMenu(1);
-                  }}>
-                <EmojiEvents/>
-                <Typography>{t("StageHeader.Results")}</Typography>
-              </IconButton>
-            </Tooltip>
-          </Box>
-          <Box>
-            <Tooltip title={t('StageHeader.Splits')}>
-              <IconButton color={selectedMenu == 2 ? "secondary" : "primary"}
-                sx={{display: "flex", flexDirection: "column"}}
-                onClick={() => {
-                  changeSelectedMenu(2);
-                }}>
-                <HorizontalSplit/>
-                <Typography>{t("StageHeader.Splits")}</Typography>
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Toolbar>
+        <BottomNavigation
+          value={selectedMenu}
+          onChange={(_,newValue)=> {setSelectedMenu(newValue)}}
+        >
+          <BottomNavigationAction label={t('StageHeader.StartTime')} icon={<AccessTime/>} />
+          <BottomNavigationAction label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />
+          <BottomNavigationAction label={t('StageHeader.Splits')} icon={<TimerIcon />} />
+        </BottomNavigation>
       </AppBar>
     </Box>
   )

@@ -97,17 +97,17 @@
     "PastEvents": "Événements passés"
   },
   "StageHeader": {
-    "Departures": "Horas de salida",
-    "Results": "Resultados",
-    "Splits": "Parciales"
+    "StartTime": "_Start time",
+    "Results": "_Results",
+    "Splits": "_Splits"
   },
   "ResultsStage": {
-    "Class": "Categoría",
+    "Class": "_Class",
     "Position": "Position",
-    "Name": "Name",
-    "Club": "Club",
-    "StartTime": "Start",
-    "FinishTime": "Finish",
-    "Times": "Times"
+    "Name": "_Name",
+    "Club": "_Club",
+    "StartTime": "_Start",
+    "FinishTime": "_Finish",
+    "Times": "_Times"
   }
 }
