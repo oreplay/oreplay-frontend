@@ -142,6 +142,28 @@ export async function postStage(
   )
 }
 
+/**
+ * Make an HTTP request to the backend to update stage's information
+ * @param eventId Id of the event the stage belongs to
+ * @param stageId Id of the stage we want to edit
+ * @param description New name of the stage
+ * @param token User's authentication token
+ */
+export async function patchStage(
+  eventId:string,
+  stageId:string,
+  description:string,
+  token:string
+){
+  return patch(
+    `/api/v1/events/${eventId}/stages/${stageId}`,
+    {
+      description:description,
+    },
+    token
+  )
+}
+
 export async function deleteStage(
   eventId:string,
   stageId:string,

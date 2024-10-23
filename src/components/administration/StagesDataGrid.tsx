@@ -22,7 +22,7 @@ import {
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {EventDetailModel} from "../../shared/EntityTypes.ts";
-import {deleteStage, postStage, wipeOutStage} from "../../services/EventService.ts";
+import {deleteStage, patchStage, postStage, wipeOutStage} from "../../services/EventService.ts";
 import {useAuth} from "../../shared/hooks.ts";
 import {DateTime} from "luxon";
 import Tooltip from "@mui/material/Tooltip";
@@ -153,7 +153,11 @@ export default function StagesDataGrid(props:Props) {
 
     } else // Case Row is patched to the server
     {
-      alert('Stages cannot be edited yet!')
+      try {
+        await patchStage(props.eventDetail.id, newRow.stageId, newRow.stageName, token as string)
+      } catch (error) {
+        console.log("Something bad happened while updating the stage")
+      }
     }
 
     // Update DataGridView
