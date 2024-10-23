@@ -62,6 +62,18 @@
       "Local": "Local",
       "Club": "Club"
     },
+    "Stages": {
+      "StagesTypes": {
+        "StageType": "Tipo",
+        "FootO": "O-Pie",
+        "Relay": "Relevo",
+        "Rogaine": "Rogaine",
+        "TrailO": "Trail-O",
+        "Raid": "Raid",
+        "MassStart": "Salida en masa",
+        "ChaseStart": "Salida a la caza"
+      }
+    },
     "NewStage": "Nueva etapa",
     "WipeOutRunners": "Borrar todos los corredores de esta etapa",
     "EventSecurityTokens": "Clave de seguridad",

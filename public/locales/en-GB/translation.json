@@ -61,6 +61,18 @@
       "Local": "Local",
       "Club": "Club"
     },
+    "Stages": {
+      "StagesTypes": {
+        "StageType": "Type",
+        "FootO": "Foot-O",
+        "Relay": "Relay",
+        "Rogaine": "Rogaine",
+        "TrailO": "Trail-O",
+        "Raid": "Raid",
+        "MassStart": "Mass start",
+        "ChaseStart": "Chase start"
+      }
+    },
     "NewStage": "New stage",
     "WipeOutRunners": "Wipe out all runners in this stage",
     "EventSecurityTokens": "Security key",

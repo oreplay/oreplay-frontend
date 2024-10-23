@@ -26,6 +26,7 @@ import {deleteStage, patchStage, postStage, wipeOutStage} from "../../services/E
 import {useAuth} from "../../shared/hooks.ts";
 import {DateTime} from "luxon";
 import Tooltip from "@mui/material/Tooltip";
+import {stageTypes} from "../../shared/Constants.ts";
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -73,6 +74,7 @@ interface StageRow {
   id:string
   stageId:string
   stageName:string,
+  stageTypeId:string,
   isNew?:boolean,
   isEdit?:boolean
 }
@@ -83,7 +85,7 @@ export default function StagesDataGrid(props:Props) {
 
   const initialRows : GridRowsProp<StageRow> = props.eventDetail.stages.map(
     (stage)=>(
-      {id:stage.id,stageId:stage.id, stageName:stage.description }
+      {id:stage.id,stageId:stage.id, stageName:stage.description, stageTypeId:stage.stage_type.id }
     )
   )
 
@@ -144,6 +146,7 @@ export default function StagesDataGrid(props:Props) {
         const response = await postStage(
           props.eventDetail.id,
           newRow.stageName,
+          newRow.stageTypeId,
           token
         )
         updatedRow.id = response.data.id
@@ -154,7 +157,12 @@ export default function StagesDataGrid(props:Props) {
     } else // Case Row is patched to the server
     {
       try {
-        await patchStage(props.eventDetail.id, newRow.stageId, newRow.stageName, token as string)
+        await patchStage(
+          props.eventDetail.id,
+          newRow.stageId,
+          newRow.stageName,
+          newRow.stageTypeId,
+          token as string)
       } catch (error) {
         console.log("Something bad happened while updating the stage")
       }
@@ -175,6 +183,16 @@ export default function StagesDataGrid(props:Props) {
       headerName:t('Name'),
       flex:1,
       type: 'string',
+      align: 'left',
+      headerAlign : 'left',
+      editable:true
+    },
+    {
+      field:'stageTypeId',
+      headerName:t('EventAdmin.Stages.StagesTypes.StageType'),
+      width:150,
+      type: 'singleSelect',
+      valueOptions: stageTypes.map( (item:{value:string,label:string})=> {return {value:item.value,label:t(`EventAdmin.Stages.StagesTypes.${item.label}`)} }  ),//Object.keys(stageTypesId),
       align: 'left',
       headerAlign : 'left',
       editable:true

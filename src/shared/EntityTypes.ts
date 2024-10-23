@@ -55,9 +55,15 @@ export interface EventDetailModel {
   stages: StageModel[]
 }
 
+export interface StageTypeModel {
+  id: string,
+  description: "Chase Start"|"Foot-O, MTBO, Ski-O"|"Rogaine"|"Relay"|"Raid"|"Mass Start"|"Trail-O",
+}
+
 export interface StageModel {
   id: string,
   description: string,
+  stage_type: StageTypeModel
 }
 
 export interface FederationModel {

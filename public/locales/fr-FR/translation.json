@@ -65,6 +65,18 @@
       "Local": "Locale",
       "Club": "Club"
     },
+    "Stages": {
+      "StagesTypes": {
+        "StageType": "_Type",
+        "FootO": "_Foot-O",
+        "Relay": "_Relay",
+        "Rogaine": "_Rogaine",
+        "TrailO": "_Trail-O",
+        "Raid": "_Raid",
+        "MassStart": "_Mass start",
+        "ChaseStart": "_Chase start"
+      }
+    },
     "NewStage": "Nouvelle étape",
     "WipeOutRunners": "Éliminez tous les coureurs à cette étape",
     "EventSecurityTokens": "_Security key",

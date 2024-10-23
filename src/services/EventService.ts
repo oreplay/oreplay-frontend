@@ -126,17 +126,20 @@ export async function deleteEvent(
  * Make HTTP Request to the backend to create a stage in a given event
  * @param eventId
  * @param stageName
+ * @param stageTypeId
  * @param token
  */
 export async function postStage(
   eventId: string,
   stageName: string,
+  stageTypeId:string,
   token: string | null
 ):Promise<Data<PostStageResponse>> {
   return post(
     baseUrl+`/${eventId}/stages/`,
     {
       description:stageName,
+      stage_type_id: stageTypeId,
     },
     token
   )
@@ -146,6 +149,7 @@ export async function postStage(
  * Make an HTTP request to the backend to update stage's information
  * @param eventId Id of the event the stage belongs to
  * @param stageId Id of the stage we want to edit
+ * @param stageTypeId Id of the type the stage has
  * @param description New name of the stage
  * @param token User's authentication token
  */
@@ -153,12 +157,14 @@ export async function patchStage(
   eventId:string,
   stageId:string,
   description:string,
+  stageTypeId:string,
   token:string
 ){
   return patch(
     `/api/v1/events/${eventId}/stages/${stageId}`,
     {
       description:description,
+      stage_type_id:stageTypeId
     },
     token
   )
