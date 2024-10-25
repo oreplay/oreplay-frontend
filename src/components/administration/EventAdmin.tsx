@@ -70,7 +70,7 @@ export default function EventAdmin ()  {
             <Typography variant={'h3'}>{t('EventAdmin.EventSecurityTokens')}</Typography>
             <EventTokenDataGrid event_id={detail? detail.id : ""} />
           </Box>
-          <Box sx={{marginY:'2em'}}>
+          <Box sx={{marginY:'12em'}}>
             <Typography variant={'h3'}>{t('EventAdmin.DangerArea')}</Typography>
             {detail? <DeleteEventButton event={detail} /> : <></> }
           </Box>

@@ -79,7 +79,7 @@
     },
     "NewStage": "Nouvelle étape",
     "WipeOutRunners": "Éliminez tous les coureurs à cette étape",
-    "EventSecurityTokens": "_Security key",
+    "EventSecurityTokens": "_Security key (Desktop login token)",
     "EventId": "ID de l'événement",
     "DangerArea": "_Danger area",
     "DeleteEvent": "_Delete event",

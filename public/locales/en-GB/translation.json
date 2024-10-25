@@ -75,7 +75,7 @@
     },
     "NewStage": "New stage",
     "WipeOutRunners": "Wipe out all runners in this stage",
-    "EventSecurityTokens": "Security key",
+    "EventSecurityTokens": "Security key (Desktop login token)",
     "Do you want to renew the security key?": "Do you want to renew the security key?",
     "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
     "Renew": "Renew",
