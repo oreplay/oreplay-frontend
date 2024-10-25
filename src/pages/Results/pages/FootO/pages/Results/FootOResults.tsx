@@ -19,7 +19,7 @@ import {useTranslation} from "react-i18next";
 import {ClassModel, RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
 
-export default function ResultsStage() {
+export default function FootOResults() {
   const {eventId, stageId} = useParams();
   const [classesList, setClassesList] = useState<ClassModel[] | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>();

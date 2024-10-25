@@ -8,16 +8,13 @@ import {AuthProvider} from "./shared/AuthProvider.tsx";
 import {Dashboard} from "./pages/Administration/pages/Dashboard/Dashboard.tsx";
 import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
 import {LocalizationProvider} from "@mui/x-date-pickers";
-import StageLayout from "./pages/Results/components/StageLayout.tsx";
-import StartTimesStage from "./pages/Results/pages/FootO/pages/StartTime/StartTimesStage.tsx";
-import ResultsStage from "./pages/Results/pages/FootO/pages/Results/ResultsStage.tsx";
-import SplitsStage from "./pages/Results/pages/FootO/pages/Splits/SplitsStage.tsx";
 import CreateEvent from "./pages/Administration/pages/EventAdmin/pages/CreateEvent/CreateEvent.tsx";
 import InItSignIn from "./pages/Administration/pages/Authentication/pages/InItSignIn.tsx";
 import SignIn from "./pages/Administration/pages/Authentication/pages/SignIn.tsx";
 import Authentication from "./pages/Administration/pages/Authentication/pages/Authentication.tsx";
 import PrivateRoute from "./pages/Administration/pages/Authentication/components/PrivateRoute.tsx";
 import EventAdmin from "./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx";
+import StageLayout from "./pages/Results/pages/components/StageLayout.tsx";
 
 export default function App() {
 
@@ -49,10 +46,7 @@ export default function App() {
                 <Route index element={<Home />} />
                 <Route path='competitions' element={<EventsList/>} />
                 <Route path='competitions/:id' element={<EventDetail/>} />
-                <Route path='competitions/:eventId/:stageId' element={<StageLayout/>}>
-                  <Route path='startList' element={<StartTimesStage/>}/>
-                  <Route path='results' element={<ResultsStage/>}/>
-                  <Route path='splits' element={<SplitsStage/>}/>
+                <Route path='competitions/:eventId/:stageId' element={<StageLayout />}>
                 </Route>
                 <Route  element={<PrivateRoute />}>
                   <Route path={'/dashboard'} element={<Dashboard />} />

@@ -107,7 +107,9 @@
   "StageHeader": {
     "StartTime": "Horas de salida",
     "Results": "Resultados",
-    "Splits": "Parciales"
+    "Splits": "Parciales",
+    "ScorePoints" : "Puntos"
+
   },
   "ResultsStage": {
     "Class": "Categoría",

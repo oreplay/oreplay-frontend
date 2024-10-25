@@ -115,7 +115,7 @@ export default function EventDetail() {
                 <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"}
                   key={stage.id}
                   onClick={() => navigate(`/competitions/${id}/${stage.id}`,
-                    {state: {eventName: detail?.description, stageName: stage.description}})}>
+                    {state: {eventName: detail?.description, stageName: stage.description, stageTypeId:stage.stage_type.id}})}>
                   <Typography color={"primary.light"}>
                     {stage.description}
                   </Typography>

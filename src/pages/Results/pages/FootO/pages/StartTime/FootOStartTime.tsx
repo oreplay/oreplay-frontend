@@ -1,9 +1,9 @@
 import {Box} from "@mui/material";
 
-export default function SplitsStage() {
+export default function FootOStartTime() {
   return (
     <Box sx={{height: "100%", padding: "24px 48px"}}>
-      SPLITS
+      START TIMES
     </Box>
   )
 }

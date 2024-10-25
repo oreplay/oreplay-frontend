@@ -33,6 +33,9 @@
     "Start": "Départ",
     "Finish": "Arrivée",
     "SiCard": "SiCard",
+    "start list": "Liste de départ",
+    "results": "Résultats",
+    "splits": "Détails"
   },
   "Sign in": {
     "Sign in": "Se connecter",
@@ -107,7 +110,8 @@
   "StageHeader": {
     "StartTime": "Heure de départ",
     "Results": "Résultats",
-    "Splits": "Intermédiaires"
+    "Splits": "Intermédiaires",
+    "ScorePoints" : "_Points"
   },
   "ResultsStage": {
     "Class": "Class",

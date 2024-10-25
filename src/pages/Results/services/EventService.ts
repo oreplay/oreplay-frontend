@@ -1,4 +1,3 @@
-
 import {get} from "../../../services/ApiConfig.ts";
 import {
   ClassModel,
@@ -6,7 +5,7 @@ import {
   EventDetailModel,
   EventModel,
   Page,
-  RunnerModel
+  RunnerModel, StageModel
 } from "../../../shared/EntityTypes.ts";
 const baseUrl = "api/v1/events"
 
@@ -16,6 +15,10 @@ export async function getEventList(): Promise<Page<EventModel>> {
 
 export async function getEventDetail(id:string,token?:string|null): Promise<Data<EventDetailModel>> {
   return await get<Data<EventDetailModel>>(`${baseUrl}/${id}`,token);
+}
+
+export async function getStageDetail(eventId:string,stageId:string,token?:string|null):Promise<Data<StageModel>> {
+  return await get<Data<StageModel>>(`${baseUrl}/${eventId}/stages/${stageId}`,token);
 }
 
 export async function getClassesInStage(event_id:string, stage_id:string): Promise<Page<ClassModel>> {

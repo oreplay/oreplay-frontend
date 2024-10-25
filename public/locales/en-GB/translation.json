@@ -105,9 +105,10 @@
     "PastEvents": "Past events"
   },
   "StageHeader": {
-    "StartTime": "Starting time",
+    "StartTime": "Start time",
     "Results": "Results",
-    "Splits": "Splits"
+    "Splits": "Splits",
+    "ScorePoints" : "Points"
   },
   "ResultsStage": {
     "Class": "Category",
