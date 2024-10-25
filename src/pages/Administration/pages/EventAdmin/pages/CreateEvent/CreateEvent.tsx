@@ -1,9 +1,9 @@
-import EventAdminForm from "./EventAdminForm.tsx";
+import EventAdminForm from "../../components/EventAdminForm.tsx";
 import React from "react";
-import {useAuth} from "../../shared/hooks.ts";
-import {postEvent} from "../../services/EventService.ts";
+import {postEvent} from "../../../../services/EventAdminService.ts";
 import {DateTime} from "luxon";
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../../../../../shared/hooks.ts";
 
 export default function CreateEvent (){
   const {token} = useAuth() as {token: string};

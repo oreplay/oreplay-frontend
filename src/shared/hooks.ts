@@ -1,8 +1,8 @@
 import {useContext, useEffect, useState} from "react";
 import {activeResultBottomMenuContext} from "./Context.ts";
 import {ClassModel, EventDetailModel, RunnerModel} from "./EntityTypes.ts";
-import {getEventDetail, getRunnersInStage} from "../services/EventService.ts";
 import {AuthContext, AuthContextInterface} from "./AuthProvider.tsx";
+import {getEventDetail, getRunnersInStage} from "../pages/Results/services/EventService.ts";
 
 /**
  * Set the bottom navigation bar focus on one of the possible submenus. This way, the focus is

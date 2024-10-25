@@ -1,6 +1,10 @@
 import React, {createContext, useState} from "react";
-import {deleteToken, getUserData, validateSignIn} from "../services/UsersService.ts";
 import {UserModel} from "./EntityTypes.ts";
+import {
+  deleteToken,
+  getUserData,
+  validateSignIn
+} from "../pages/Administration/services/AuthenticationService.ts";
 
 /**
  * Available information when calling useAuth() hook

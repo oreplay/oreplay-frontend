@@ -9,10 +9,10 @@ import {
   DialogTitle
 } from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {EventDetailModel} from "../../shared/EntityTypes.ts";
-import {deleteEvent} from "../../services/EventService.ts";
-import {useAuth} from "../../shared/hooks.ts";
+import {deleteEvent} from "../../../../../services/EventAdminService.ts";
 import {useNavigate} from "react-router-dom";
+import {EventDetailModel} from "../../../../../../../shared/EntityTypes.ts";
+import {useAuth} from "../../../../../../../shared/hooks.ts";
 
 interface DeleteEventButtonProps {
   event: EventDetailModel;

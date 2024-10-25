@@ -1,5 +1,6 @@
-import {deleteRequest, get, post, API_DOMAIN} from './ApiConfig.ts'
-import {UserModel, Data} from "../shared/EntityTypes.ts";
+import {API_DOMAIN, deleteRequest, get, post} from "../../../services/ApiConfig.ts";
+import {Data, UserModel} from "../../../shared/EntityTypes.ts";
+
 
 const clientId: number = 2658
 

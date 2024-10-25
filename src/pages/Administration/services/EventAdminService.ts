@@ -1,36 +1,14 @@
-import {
-  ClassModel,
-  EventDetailModel,
-  EventModel,
-  Page,
-  RunnerModel,
-  Data,
-  PostEventResponse,
-  PostStageResponse, PostEventTokenResponse, GetEventTokenResponse
-} from "../shared/EntityTypes";
-import {deleteRequest, get, patch, post} from "./ApiConfig";
+
 import {DateTime, DurationLikeObject} from "luxon";
+import {
+  Data,
+  EventModel, GetEventTokenResponse,
+  Page,
+  PostEventResponse, PostEventTokenResponse,
+  PostStageResponse
+} from "../../../shared/EntityTypes.ts";
+import {deleteRequest, get, patch, post} from "../../../services/ApiConfig.ts";
 const baseUrl = "api/v1/events"
-
-export async function getEventList(): Promise<Page<EventModel>> {
-  return await get<Page<EventModel>>(baseUrl);
-}
-
-export async function getEventDetail(id:string,token?:string|null): Promise<Data<EventDetailModel>> {
-  return await get<Data<EventDetailModel>>(`${baseUrl}/${id}`,token);
-}
-
-export async function getClassesInStage(event_id:string, stage_id:string): Promise<Page<ClassModel>> {
-  return await get<Page<ClassModel>>(baseUrl + `/${event_id}/stages/${stage_id}/classes`);
-}
-
-export async function getRunnersInStage(event_id:string, stage_id:string, class_id?:string): Promise<Page<RunnerModel>> {
-  let url = `/${event_id}/stages/${stage_id}/runners`;
-  if (class_id) {
-    url = url + `?class_id=${class_id}`;
-  }
-  return await get<Page<RunnerModel>>(baseUrl + url)
-}
 
 export async function getEventsFromUser(user_id:string, token:string, page:number=1,limit:number=10): Promise<Page<EventModel>> {
   return get<Page<EventModel>>(baseUrl+`?user_id=${user_id}&show_hidden=1&page=${page}&limit=${limit}`,token)

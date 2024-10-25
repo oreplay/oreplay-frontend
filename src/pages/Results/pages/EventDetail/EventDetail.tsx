@@ -1,12 +1,12 @@
 import {Box, Button, Typography} from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
-import {EventDetailModel} from "../../shared/EntityTypes";
-import loadingIcon from "./../../assets/loading.svg";
+import loadingIcon from "../../../../assets/loading.svg";
 import {useEffect, useState} from "react";
-import {getEventDetail} from "../../services/EventService";
+import {getEventDetail} from "../../services/EventService.ts";
 import {useTranslation} from "react-i18next";
-import {parseDate} from "../../shared/Functions";
 import {ArrowForward, Launch} from "@mui/icons-material";
+import {EventDetailModel} from "../../../../shared/EntityTypes.ts";
+import {parseDate} from "../../../../shared/Functions.tsx";
 
 export default function EventDetail() {
 

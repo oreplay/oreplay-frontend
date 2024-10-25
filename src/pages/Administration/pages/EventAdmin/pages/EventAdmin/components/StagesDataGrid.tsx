@@ -21,12 +21,12 @@ import {
 } from '@mui/x-data-grid';
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
-import {EventDetailModel} from "../../shared/EntityTypes.ts";
-import {deleteStage, patchStage, postStage, wipeOutStage} from "../../services/EventService.ts";
-import {useAuth} from "../../shared/hooks.ts";
+import {deleteStage, patchStage, postStage, wipeOutStage} from "../../../../../services/EventAdminService.ts";
 import {DateTime} from "luxon";
 import Tooltip from "@mui/material/Tooltip";
-import {stageTypes} from "../../shared/Constants.ts";
+import {EventDetailModel} from "../../../../../../../shared/EntityTypes.ts";
+import {useAuth} from "../../../../../../../shared/hooks.ts";
+import {stageTypes} from "../../../../../../../shared/Constants.ts";
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid

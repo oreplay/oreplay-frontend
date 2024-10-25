@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
-import {useAuth} from "../../shared/hooks.ts";
-import {getEventToken, invalidateEventToken, postEventToken} from "../../services/EventService.ts";
+import {getEventToken, invalidateEventToken, postEventToken} from "../../../../../services/EventAdminService.ts";
 import {
   Box, Button,
   Container,
@@ -14,7 +13,8 @@ import {useTranslation} from "react-i18next";
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
-import {CopyToClipBoardButton} from "../../shared/Components.tsx";
+import {CopyToClipBoardButton} from "../../../../../../../shared/Components.tsx";
+import {useAuth} from "../../../../../../../shared/hooks.ts";
 
 interface Props {
   event_id : string,

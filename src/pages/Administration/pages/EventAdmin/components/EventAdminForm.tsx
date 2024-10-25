@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {DatePicker} from "@mui/x-date-pickers";
-import {EventDetailModel} from "../../shared/EntityTypes.ts";
 import {DateTime} from "luxon";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
@@ -18,6 +17,7 @@ import React, {useState} from "react";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from "@mui/icons-material/Edit";
+import {EventDetailModel} from "../../../../../shared/EntityTypes.ts";
 
 /**
  * @property eventDetail an event to be displayed in the form

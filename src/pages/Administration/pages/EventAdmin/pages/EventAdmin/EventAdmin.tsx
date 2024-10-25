@@ -1,14 +1,14 @@
-import {EventDetailModel, useRequiredParams} from "../../shared/EntityTypes.ts";
-import EventAdminForm from "./EventAdminForm.tsx";
+import EventAdminForm from "../../components/EventAdminForm.tsx";
 import {Box, Container, Typography} from "@mui/material";
-import {useAuth, useEventDetail} from "../../shared/hooks.ts";
 import {useTranslation} from "react-i18next";
-import StagesDataGrid from "./StagesDataGrid.tsx";
-import EventTokenDataGrid from "./EventTokenDataGrid.tsx";
-import DeleteEventButton from "./DeleteEventButton.tsx";
+import StagesDataGrid from "./components/StagesDataGrid.tsx";
+import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx";
+import DeleteEventButton from "./components/DeleteEventButton.tsx";
 import React, {useState} from "react";
-import {patchEvent} from "../../services/EventService.ts";
+import {patchEvent} from "../../../../services/EventAdminService.ts";
 import {DateTime} from "luxon";
+import {EventDetailModel, useRequiredParams} from "../../../../../../shared/EntityTypes.ts";
+import {useAuth, useEventDetail} from "../../../../../../shared/hooks.ts";
 
 
 export default function EventAdmin ()  {

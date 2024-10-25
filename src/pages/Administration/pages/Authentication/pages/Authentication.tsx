@@ -1,9 +1,9 @@
-import {popStoredLoginCodeVerifier, popStoredLoginState} from "../../services/UsersService.ts";
-import {useAuth} from "../../shared/hooks.ts";
+import {popStoredLoginCodeVerifier, popStoredLoginState} from "../../../services/AuthenticationService.ts";
 import {Navigate, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
-import loadingIcon from "../../assets/loading.svg";
+import loadingIcon from "../../../../../assets/loading.svg";
+import {useAuth} from "../../../../../shared/hooks.ts";
 
 function MakeRequest(props:{code:string,code_verifier:string}) {
   const [loading,setLoading] = useState<boolean>(true);

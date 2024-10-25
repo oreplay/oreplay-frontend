@@ -1,23 +1,23 @@
 import { ThemeProvider, createTheme } from '@mui/material'
-import Layout from './components/layout/Layout'
+import Layout from './components/layout/Layout.tsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import EventsList from './components/events/EventsList'
-import EventDetail from './components/events/EventDetail'
-import Home from "./components/Home/Home.tsx";
+import EventsList from './pages/Results/pages/EventList/EventsList.tsx'
+import EventDetail from './pages/Results/pages/EventDetail/EventDetail.tsx'
+import Home from "./pages/Home/Home.tsx";
 import {AuthProvider} from "./shared/AuthProvider.tsx";
-import PrivateRoute from "./components/users/PrivateRoute.tsx";
-import {Dashboard} from "./components/administration/Dashboard.tsx";
-import EventAdmin from "./components/administration/EventAdmin.tsx";
+import {Dashboard} from "./pages/Administration/pages/Dashboard/Dashboard.tsx";
 import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
 import {LocalizationProvider} from "@mui/x-date-pickers";
-import CreateEvent from "./components/administration/CreateEvent.tsx";
-import Authentication from "./components/users/Authentication.tsx";
-import InItSignIn from "./components/users/InItSignIn.tsx";
-import SignIn from "./components/users/SignIn.tsx";
-import StageLayout from './components/stageLayout/StageLayout.tsx'
-import StartTimesStage from './components/stageDetail/StartTimesStage.tsx'
-import ResultsStage from './components/stageDetail/ResultsStage.tsx'
-import SplitsStage from './components/stageDetail/SplitsStage.tsx'
+import StageLayout from "./pages/Results/components/StageLayout.tsx";
+import StartTimesStage from "./pages/Results/pages/FootO/pages/StartTime/StartTimesStage.tsx";
+import ResultsStage from "./pages/Results/pages/FootO/pages/Results/ResultsStage.tsx";
+import SplitsStage from "./pages/Results/pages/FootO/pages/Splits/SplitsStage.tsx";
+import CreateEvent from "./pages/Administration/pages/EventAdmin/pages/CreateEvent/CreateEvent.tsx";
+import InItSignIn from "./pages/Administration/pages/Authentication/pages/InItSignIn.tsx";
+import SignIn from "./pages/Administration/pages/Authentication/pages/SignIn.tsx";
+import Authentication from "./pages/Administration/pages/Authentication/pages/Authentication.tsx";
+import PrivateRoute from "./pages/Administration/pages/Authentication/components/PrivateRoute.tsx";
+import EventAdmin from "./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx";
 
 export default function App() {
 

@@ -1,12 +1,12 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import loadingIcon from "./../../assets/loading.svg";
-import { getEventList } from "../../services/EventService";
-import { EventModel } from "../../shared/EntityTypes";
+import loadingIcon from "../../../../assets/loading.svg";
+import { getEventList } from "../../services/EventService.ts";
 import { useTranslation } from "react-i18next";
 import { DateTime } from 'luxon'
-import { parseDate } from "../../shared/Functions";
+import {EventModel} from "../../../../shared/EntityTypes.ts";
+import {parseDate} from "../../../../shared/Functions.tsx";
 
 export default function EventsList() {
 
@@ -38,7 +38,7 @@ export default function EventsList() {
       const actualDataList: EventModel[] = [];
       const previousDataList: EventModel[] = [];
       const nextDataList: EventModel[] = [];
-      response.data.forEach(event => {
+      response.data.forEach((event:EventModel) => {
 
         const initDate = DateTime.fromISO(event.initial_date);
         const endDate = DateTime.fromISO(event.final_date);

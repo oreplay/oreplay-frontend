@@ -1,5 +1,5 @@
 import {Box, Typography} from "@mui/material";
-import StageHeader from "./StageHeader";
+import StageHeader from "./StageHeader.tsx";
 import {Outlet, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 

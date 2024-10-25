@@ -1,6 +1,6 @@
-import {getSignInUrl} from "../../services/UsersService.ts";
+import {getSignInUrl} from "../../../services/AuthenticationService.ts";
 import {Box} from "@mui/material";
-import loadingIcon from "../../assets/loading.svg";
+import loadingIcon from "../../../../../assets/loading.svg";
 import {useEffect} from "react";
 
 export default function InItSignIn() {

@@ -6,10 +6,10 @@ import {
   TextField,
   Typography
 } from "@mui/material";
-import {API_DOMAIN} from '../../services/ApiConfig.ts'
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {Navigate, useSearchParams} from "react-router-dom";
+import {API_DOMAIN} from "../../../../../services/ApiConfig.ts";
 
 
 export default function SignIn(){

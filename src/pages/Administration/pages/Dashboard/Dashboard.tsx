@@ -2,12 +2,12 @@ import { Box, Container, Typography } from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {GridColDef, DataGrid, GridRowParams} from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
-import {getEventsFromUser} from "../../services/EventService.ts";
-import {useAuth} from "../../shared/hooks.ts";
-import {UserModel} from "../../shared/EntityTypes.ts";
+import {getEventsFromUser} from "../../services/EventAdminService.ts";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import AddIcon from '@mui/icons-material/Add';
+import {EventModel, UserModel} from "../../../../shared/EntityTypes.ts";
+import {useAuth} from "../../../../shared/hooks.ts";
 
 
 interface EventDataGridColumns {
@@ -36,7 +36,7 @@ export function Dashboard() {
     const response = getEventsFromUser((user as UserModel).id,token as string,page+1,rowsPerPage)
     response.then((response)=>{
       setRows(
-        response.data.map((event):EventDataGridColumns=> (
+        response.data.map((event:EventModel):EventDataGridColumns=> (
           {id:event.id, startDate:event.initial_date,endDate:event.final_date,Name:event.description}
         )
         )

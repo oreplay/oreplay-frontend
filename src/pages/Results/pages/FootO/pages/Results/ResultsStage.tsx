@@ -14,10 +14,10 @@ import {
 } from "@mui/material";
 import {SetStateAction, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {getClassesInStage, getRunnersInStage} from "../../services/EventService";
-import {ClassModel, RunnerModel} from "../../shared/EntityTypes";
+import {getClassesInStage, getRunnersInStage} from "../../../../services/EventService.ts";
 import {useTranslation} from "react-i18next";
-import {parseDateOnlyTime} from "../../shared/Functions";
+import {ClassModel, RunnerModel} from "../../../../../../shared/EntityTypes.ts";
+import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
 
 export default function ResultsStage() {
   const {eventId, stageId} = useParams();
