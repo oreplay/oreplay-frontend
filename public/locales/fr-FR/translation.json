@@ -1,6 +1,5 @@
 {
-
-  "Loading": "_Loading...",
+  "Loading": "Chargement...",
   "Dates": "Dates",
   "Event": "Événement",
   "Events": "Événements",
@@ -17,9 +16,9 @@
   "EmailAddress": "adresse e-mail",
   "Password": "Mot de passe",
   "GoBack": "Retourner",
-  "This action cannot be undone": "_This action cannot be undone.",
-  "Copied to the clipboard": "_Copied to the clipboard.",
-  "Copy": "_Copy",
+  "This action cannot be undone": "Cette action ne peut pas être annulée.",
+  "Copied to the clipboard": "Copié dans le presse-papiers.",
+  "Copy": "Copier",
   "Home": {
     "Home": "Accueil",
     "WelcomeMsg": "Bienvenue sur O-Replay",
@@ -30,13 +29,10 @@
   "Results": {
     "shortClass": "Cla.",
     "Class": "Classe",
-    "Classes": "_Classes",
+    "Classes": "Classes",
     "Start": "Départ",
     "Finish": "Arrivée",
     "SiCard": "SiCard",
-    "start list": "Liste de départ",
-    "results": "Résultats",
-    "splits": "Détails"
   },
   "Sign in": {
     "Sign in": "Se connecter",
@@ -45,7 +41,7 @@
     "RememberMe": "Souviens-toi de moi"
   },
   "EventAdmin": {
-    "EventData": "_Event's information",
+    "EventData": "Informations sur l'événement",
     "EventName": "Nom de l'événement",
     "StartDate": "Date de début",
     "FinishDate": "Date de fin",
@@ -67,28 +63,28 @@
     },
     "Stages": {
       "StagesTypes": {
-        "StageType": "_Type",
-        "FootO": "_Foot-O",
-        "Relay": "_Relay",
-        "Rogaine": "_Rogaine",
-        "TrailO": "_Trail-O",
-        "Raid": "_Raid",
-        "MassStart": "_Mass start",
-        "ChaseStart": "_Chase start"
+        "StageType": "Type",
+        "FootO": "CO à Pied",
+        "Relay": "Relais",
+        "Rogaine": "Rogaine",
+        "TrailO": "CO de précision",
+        "Raid": "Raid",
+        "MassStart": "Départ en masse",
+        "ChaseStart": "Poursuite"
       }
     },
     "NewStage": "Nouvelle étape",
     "WipeOutRunners": "Éliminez tous les coureurs à cette étape",
-    "EventSecurityTokens": "_Security key (Desktop login token)",
+    "EventSecurityTokens": "Clé de sécurité (token de connexion au bureau)",
+    "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
+    "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
+    "Renew": "Renouveler",
     "EventId": "ID de l'événement",
-    "DangerArea": "_Danger area",
-    "DeleteEvent": "_Delete event",
-    "Do you want to delete this event?": "_Do you want to delete this event?",
-    "Renew security keys": "_Generate a new security key",
-    "Create security keys": "_Create a security key",
-    "Do you want to renew the security key?": "_Do you want to renew the security key?",
-    "RenewEventTokenMsg": "_If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
-    "Renew": "_Renew"
+    "DangerArea": "Zone dangereuse",
+    "DeleteEvent": "Supprimer l'événement",
+    "Do you want to delete this event?": "Voulez-vous supprimer cet événement ?",
+    "Renew security keys": "Créer une nouvelle clé de sécurité",
+    "Create security keys": "Créer une clé de sécurité",
   },
   "Language": {
     "Language": "Langue",
@@ -109,17 +105,17 @@
     "PastEvents": "Événements passés"
   },
   "StageHeader": {
-    "StartTime": "_Start time",
-    "Results": "_Results",
-    "Splits": "_Splits"
+    "StartTime": "Heure de départ",
+    "Results": "Résultats",
+    "Splits": "Intermédiaires"
   },
   "ResultsStage": {
-    "Class": "_Class",
+    "Class": "Class",
     "Position": "Position",
-    "Name": "_Name",
-    "Club": "_Club",
-    "StartTime": "_Start",
-    "FinishTime": "_Finish",
-    "Times": "_Times"
+    "Name": "Nom",
+    "Club": "Club",
+    "StartTime": "Départ",
+    "FinishTime": "Arrivée",
+    "Times": "Temps"
   }
 }
