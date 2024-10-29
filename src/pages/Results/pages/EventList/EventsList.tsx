@@ -93,7 +93,7 @@ export default function EventsList() {
             {
               actualEventList.map((event, index) => {
                 return (
-                  <Box borderRadius={"6px"} display={"flex"} flexDirection={"column"} justifyContent={"space-between"} bgcolor={ index%2 == 0 ? "primary.main": "secondary.main"}
+                  <Box key={event.id} borderRadius={"6px"} display={"flex"} flexDirection={"column"} justifyContent={"space-between"} bgcolor={ index%2 == 0 ? "primary.main": "secondary.main"}
                     minWidth={"220px"} width={"220px"} height={"160px"} marginRight={"24px"} onClick={() => navigate(`/competitions/${event.id}`)}>
                     <Typography style={styles.typographyBox} fontWeight={"bolder"}>{event.description}</Typography>
                     <Typography style={styles.typographyBox}>{event.federation_id}</Typography>
@@ -113,7 +113,7 @@ export default function EventsList() {
           {
             getTabList().map((nextEvent) => {
               return (
-                <Box sx={{backgroundColor: "#EEEDED", width: "45%", height:"120px", padding: "12px", marginBottom: "24px"}} onClick={() => navigate(`/competitions/${nextEvent.id}`)}>
+                <Box key={nextEvent.id} sx={{backgroundColor: "#EEEDED", width: "45%", height:"120px", padding: "12px", marginBottom: "24px"}} onClick={() => navigate(`/competitions/${nextEvent.id}`)}>
                   <Typography color={"primary.main"}>{parseDate(nextEvent.initial_date)}</Typography>
                   <Typography style={styles.titleEvents}>{nextEvent.description}</Typography>
                   <Typography style={styles.titleEvents}>{nextEvent.federation_id}</Typography>

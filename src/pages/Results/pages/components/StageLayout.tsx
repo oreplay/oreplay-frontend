@@ -64,9 +64,9 @@ export default function StageLayout () {
             ]}
             menuOptions={
               [
-                <BottomNavigationAction label={t('StageHeader.StartTime')} icon={<AccessTime/>} />,
-                <BottomNavigationAction label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
-                <BottomNavigationAction label={t('StageHeader.Splits')} icon={<TimerIcon />} />,
+                <BottomNavigationAction key={"FootOStartTimeMenu"} label={t('StageHeader.StartTime')} icon={<AccessTime/>} />,
+                <BottomNavigationAction key={"FootOResultsMenu"} label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
+                <BottomNavigationAction key={"FootOSplitsMenu"} label={t('StageHeader.Splits')} icon={<TimerIcon />} />,
               ]
             }
             menuOptionsLabels={['startTimes','results','splits']}
@@ -82,8 +82,8 @@ export default function StageLayout () {
             ]}
             menuOptions={
               [
-                <BottomNavigationAction label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
-                <BottomNavigationAction label={t('StageHeader.Splits')} icon={<TimerIcon />} />,
+                <BottomNavigationAction key={"RelayResultsMenu"} label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
+                <BottomNavigationAction key={"RelaySplitsMenu"} label={t('StageHeader.Splits')} icon={<TimerIcon />} />,
               ]
             }
             menuOptionsLabels={['results','splits']}
@@ -99,8 +99,8 @@ export default function StageLayout () {
           ]}
           menuOptions={
             [
-              <BottomNavigationAction label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
-              <BottomNavigationAction label={t('StageHeader.ScorePoints')} icon={<TimelineIcon />} />,
+              <BottomNavigationAction key={"rogaineRseultsMenu"} label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
+              <BottomNavigationAction key={"RogaineScorePointsMenu"} label={t('StageHeader.ScorePoints')} icon={<TimelineIcon />} />,
             ]
           }
           menuOptionsLabels={['results','splits']}
