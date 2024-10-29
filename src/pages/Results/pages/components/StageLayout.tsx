@@ -15,10 +15,13 @@ import RelayResults from "../Relay/pages/RelayResults/RelayResults.tsx";
 import RelaySplits from "../Relay/pages/RelaySplits/RelaySplits.tsx";
 import RogaineResults from "../Rogaine/pages/RogaineResults/RogaineResults.tsx";
 import RogainePoints from "../Rogaine/pages/RogainePoints/RogainePoints.tsx";
+import ClassSelector from "./ClassSelector.tsx";
+import {useFetchClasses} from "../../shared/hooks.ts";
 
 export default function StageLayout () {
   const {token} = useAuth()
   const {t} = useTranslation()
+
 
   // Recover event info
   const {eventId, stageId} = useParams()
