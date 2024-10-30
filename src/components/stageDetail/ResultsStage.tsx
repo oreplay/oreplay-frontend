@@ -32,7 +32,16 @@ export default function ResultsStage() {
   };
 
   const orderedRunners = () => {
-    return runnersData
+    if (!runnersData || !runnersData.sort) {
+      return runnersData
+    }
+    return runnersData.sort((a, b) => {
+      const posA = a.runner_results[0]?.position
+      const posB = b.runner_results[0]?.position
+      if (!posA) return 1 // Place 'a' after 'b' if 'a' has no position
+      if (!posB) return -1 // Place 'b' after 'a' if 'b' has no position
+      return Number(posA - posB)
+    });
   }
   const finishTimeWithPoints = (runner) => {
     const hasPoints = runner.runner_results[0].points_final !== undefined && runner.runner_results[0].points_final > 0
