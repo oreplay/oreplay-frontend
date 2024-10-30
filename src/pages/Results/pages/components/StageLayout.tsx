@@ -20,8 +20,12 @@ function useStageComponent(stageTypeId:string):
 
   const {t} = useTranslation()
 
+  const FOOT_O = "29d5050b-4769-4be5-ace4-7e5973f68e3c"//TODO: use constants from external file
+  const RELAY = "9a918410-6dda-4c58-bec9-23839b336e59"
+  const ROGAINING = "2b5de3d0-9bc9-435a-8bd9-2d4060b86e45"
+
   switch (stageTypeId) {
-    case "29d5050b-4769-4be5-ace4-7e5973f68e3c": //footO //TODO: use constant array
+    case FOOT_O:
       return {
         defaultMenu:1,
         pages:[
@@ -37,7 +41,7 @@ function useStageComponent(stageTypeId:string):
         menuOptionsLabels:['startTimes','results','splits']
       }
 
-    case "9a918410-6dda-4c58-bec9-23839b336e59": //Relay //TODO: use constant array
+    case RELAY:
       return {
         defaultMenu:0,
         pages:[
@@ -51,7 +55,7 @@ function useStageComponent(stageTypeId:string):
         menuOptionsLabels:['results','splits']
       }
 
-    case "2b5de3d0-9bc9-435a-8bd9-2d4060b86e45": //Rogaine //TODO: use constant array
+    case ROGAINING:
       return {
         defaultMenu:0,
         pages:[
