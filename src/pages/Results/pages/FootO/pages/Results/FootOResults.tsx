@@ -12,7 +12,7 @@ import {getRunnersInStage} from "../../../../services/EventService.ts";
 import {useTranslation} from "react-i18next";
 import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
-import {SelectedClassContext} from "../../../shared/context.ts";
+import {SelectedClassContext} from "../../../../shared/context.ts";
 import {useEventInfo} from "../../../../shared/hooks.ts";
 
 export default function FootOResults() {

@@ -13,7 +13,7 @@ import {useEventInfo, useFetchClasses, useSelectedMenu} from "../../shared/hooks
 import ClassSelector from "./ClassSelector.tsx";
 import {useTranslation} from "react-i18next";
 import FootOSplits from "../FootO/pages/Splits/FootOSplits.tsx";
-import {SelectedClassContext} from "../shared/context.ts";
+import {SelectedClassContext} from "../../shared/context.ts";
 
 function useStageComponent(stageTypeId:string):
   {defaultMenu:number,pages:JSX.Element[],menuOptions:JSX.Element[],menuOptionsLabels:string[]} {
