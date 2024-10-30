@@ -75,8 +75,7 @@ export function useSelectedMenu(defaultMenu:number,menuOptionsLabels:string[]):[
       setSearchParams(searchParams)
     }
 
-    //es-lint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  },[defaultMenu, menuOptionsLabels, searchParams, setSearchParams])
 
   // update page when navigating
   const handleMenuChange = useCallback((newValue:number) => {
