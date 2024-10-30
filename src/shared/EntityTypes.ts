@@ -90,6 +90,11 @@ export interface RunnerResultModel {
   position:bigint,
   status_code:string|null,
   time_behind: bigint,
+  points_final:bigint,
+  points_adjusted:bigint,
+  points_penalty:bigint,
+  points_bonus:bigint,
+  leg_number: bigint,
   split: SplitsModel[],
 }
 
@@ -97,7 +102,7 @@ export interface SplitsModel {
   id: string,
   reading_time:string,
   points: bigint|null,
-  control: bigint|null,
+  control: bigint|null, //TODO: write what it really returns
 }
 
 export interface ClassModel {

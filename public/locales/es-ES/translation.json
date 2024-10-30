@@ -117,7 +117,8 @@
     "Name": "Nombre",
     "Club": "Club",
     "StartTime": "H.Salida",
-    "FinishTime": "Total",
-    "Times": "Tiempos"
+    "FinishTime": "Tiempo",
+    "Times": "Tiempos",
+    "Points": "Puntos"
   }
 }

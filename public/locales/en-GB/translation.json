@@ -117,6 +117,7 @@
     "Club": "Club",
     "StartTime": "Start",
     "FinishTime": "Finish",
-    "Times": "Times"
+    "Times": "Time",
+    "Points": "Points"
   }
 }
