@@ -31,6 +31,15 @@ export default function ResultsStage() {
     setWidthWindow(window.innerWidth);
   };
 
+  const orderedRunners = () => {
+    return runnersData
+  }
+  const finishTimeWithPoints = (runner) => {
+    const hasPoints = runner.runner_results[0].points_final !== undefined && runner.runner_results[0].points_final > 0
+    return (runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "-") +
+      (hasPoints ? ` (${runner.runner_results[0].points_final})` : "")
+  }
+
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange);
     return () => {
@@ -103,7 +112,7 @@ export default function ResultsStage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {runnersData?.map((runner) => {
+              {orderedRunners()?.map((runner) => {
                 return (
                   <TableRow sx={{width: {md: "100%", sx: "200px"}}}>
                     <TableCell>{runner.runner_results[0].position.toString()}</TableCell>
@@ -126,10 +135,10 @@ export default function ResultsStage() {
                       <TableCell>
                         <Typography>{parseDateOnlyTime(runner.runner_results[0].start_time)}</Typography>
                         <br></br>
-                        <Typography>{runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "-"}</Typography>
+                        <Typography>{finishTimeWithPoints(runner)}</Typography>
                       </TableCell>}
                     {widthWindow > 768 ? (
-                      <TableCell>{runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "-"}</TableCell>
+                      <TableCell>{finishTimeWithPoints(runner)}</TableCell>
                     ) : null}
                   </TableRow>
                 )

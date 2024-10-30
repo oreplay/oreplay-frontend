@@ -87,6 +87,7 @@ export interface RunnerResultModel {
   start_time: string,
   finish_time: string,
   time_seconds:string,
+  points_final: number
   position:bigint,
   status_code:string|null,
   time_behind: bigint,
