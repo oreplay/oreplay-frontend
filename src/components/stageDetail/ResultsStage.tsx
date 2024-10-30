@@ -43,7 +43,7 @@ export default function ResultsStage() {
       return Number(posA - posB)
     });
   }
-  const finishTimeWithPoints = (runner) => {
+  const finishTimeWithPoints = (runner: RunnerModel) => {
     const hasPoints = runner.runner_results[0].points_final !== undefined && runner.runner_results[0].points_final > 0
     return (runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "-") +
       (hasPoints ? ` (${runner.runner_results[0].points_final})` : "")
