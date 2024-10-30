@@ -118,6 +118,14 @@
     "StartTime": "Start",
     "FinishTime": "Finish",
     "Times": "Time",
-    "Points": "Points"
+    "Points": "Points",
+    "statusCodes": {
+      "ok": "ok",
+      "dns": "dns",
+      "dnf": "dnf",
+      "mp": "mp",
+      "disqualified": "disq.",
+      "ot": "ot"
+    }
   }
 }

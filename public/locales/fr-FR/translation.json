@@ -121,6 +121,14 @@
     "StartTime": "Départ",
     "FinishTime": "Arrivée",
     "Times": "Temps",
-    "Points": "_Points"
+    "Points": "_Points",
+    "statusCodes": {
+      "ok": "_ok",
+      "dns": "_dns",
+      "dnf": "_dnf",
+      "mp": "_mp",
+      "disqualified": "_disq.",
+      "ot": "_ot"
+    }
   }
 }

@@ -11,6 +11,7 @@ import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
 import {RunnersContext} from "../../../../shared/context.ts";
+import {parseResultStatus} from "../../../../shared/functions.ts";
 
 export default function FootOResults() {
   const [widthWindow, setWidthWindow] = useState<number>(0);
@@ -53,9 +54,12 @@ export default function FootOResults() {
           </TableHead>
           <TableBody>
             {runnersList?.map((runner) => {
+
+              const status = parseResultStatus(runner.runner_results[0].status_code as string)
+
               return (
                 <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={runner.id}>
-                  <TableCell key={`${runner.id}`}>{runner.runner_results[0].position.toString()}</TableCell>
+                  <TableCell key={`${runner.id}`}>{(status==="ok")? runner.runner_results[0].position.toString() : ""}</TableCell>
                   {widthWindow > 768 ? (
                     <TableCell>{runner.first_name} {runner.last_name}</TableCell>
                   ) :
@@ -75,10 +79,10 @@ export default function FootOResults() {
                     <TableCell>
                       <Typography>{parseDateOnlyTime(runner.runner_results[0].start_time)}</Typography>
                       <br></br>
-                      <Typography>{runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "-"}</Typography>
+                      <Typography>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
                     </TableCell>}
                   {widthWindow > 768 ? (
-                    <TableCell>{runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "-"}</TableCell>
+                    <TableCell>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "") : t(`ResultsStage.statusCodes.${status}`)}</TableCell>
                   ) : null}
                 </TableRow>
               )

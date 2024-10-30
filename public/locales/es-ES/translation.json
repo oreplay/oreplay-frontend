@@ -119,6 +119,14 @@
     "StartTime": "H.Salida",
     "FinishTime": "Tiempo",
     "Times": "Tiempos",
-    "Points": "Puntos"
+    "Points": "Puntos",
+    "statusCodes": {
+      "ok": "ok",
+      "dns": "NS",
+      "dnf": "Aban",
+      "mp": "ET",
+      "disqualified": "Des.",
+      "ot": "FC"
+    }
   }
 }

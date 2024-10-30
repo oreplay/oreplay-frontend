@@ -104,7 +104,6 @@ export default function StageLayout () {
   if (!stageTypeId) {
     return (<p>{t('Loading')}</p>)
   } else {
-    console.log(defaultMenu)
     return (
       <>
         <Box sx={{
