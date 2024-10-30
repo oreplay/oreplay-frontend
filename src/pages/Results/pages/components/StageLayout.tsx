@@ -9,11 +9,11 @@ import RelayResults from "../Relay/pages/RelayResults/RelayResults.tsx";
 import RelaySplits from "../Relay/pages/RelaySplits/RelaySplits.tsx";
 import RogaineResults from "../Rogaine/pages/RogaineResults/RogaineResults.tsx";
 import RogainePoints from "../Rogaine/pages/RogainePoints/RogainePoints.tsx";
-import {useEventInfo, useFetchClasses, useSelectedMenu} from "../../shared/hooks.ts";
+import {useEventInfo, useFetchClasses, useRunners, useSelectedMenu} from "../../shared/hooks.ts";
 import ClassSelector from "./ClassSelector.tsx";
 import {useTranslation} from "react-i18next";
 import FootOSplits from "../FootO/pages/Splits/FootOSplits.tsx";
-import {SelectedClassContext} from "../../shared/context.ts";
+import {RunnersContext, SelectedClassContext} from "../../shared/context.ts";
 
 function useStageComponent(stageTypeId:string):
   {defaultMenu:number,pages:JSX.Element[],menuOptions:JSX.Element[],menuOptionsLabels:string[]} {
@@ -94,6 +94,9 @@ export default function StageLayout () {
   // Get classes
   const [activeClass,setActiveClassId,classesList,areClassesLoading] = useFetchClasses(eventId,stageId)
 
+  // Get runners
+  const [runnersList,areRunnersLoading] = useRunners(eventId,stageId,activeClass)
+
   if (!stageTypeId) {
     return (<p>{t('Loading')}</p>)
   } else {
@@ -118,7 +121,9 @@ export default function StageLayout () {
           </Box>
           <Box sx={{marginTop: "12px", position: 'relative', flex: 1}}>
             <SelectedClassContext.Provider value={activeClass}>
-              {pages[selectedMenu]}
+              <RunnersContext.Provider value={[runnersList,areRunnersLoading]}>
+                {pages[selectedMenu]}
+              </RunnersContext.Provider>
             </SelectedClassContext.Provider>
           </Box>
         </Box>

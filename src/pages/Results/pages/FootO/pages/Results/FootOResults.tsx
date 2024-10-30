@@ -8,21 +8,13 @@ import {
   Typography
 } from "@mui/material";
 import {useContext, useEffect, useState} from "react";
-import {getRunnersInStage} from "../../../../services/EventService.ts";
 import {useTranslation} from "react-i18next";
-import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
-import {SelectedClassContext} from "../../../../shared/context.ts";
-import {useEventInfo} from "../../../../shared/hooks.ts";
+import {RunnersContext} from "../../../../shared/context.ts";
 
 export default function FootOResults() {
-  const [isLoading,setIsLoading] = useState<boolean>(true)
-  const [runnersData, setRunnersData] = useState<RunnerModel[] | null>(null);
   const [widthWindow, setWidthWindow] = useState<number>(0);
   const {t} = useTranslation();
-
-  const {eventId,stageId} = useEventInfo()
-  const selectedClass = useContext(SelectedClassContext);
 
   const handleWindowSizeChange = () => {
     setWidthWindow(window.innerWidth);
@@ -35,27 +27,15 @@ export default function FootOResults() {
     }
   }, [])
 
+  const [runnersList,isLoading] = useContext(RunnersContext)
 
-  useEffect(() => {
-    if (selectedClass !== null && selectedClass !== undefined && eventId !== undefined && stageId !== undefined) {
-      getRunnersInStage(eventId, stageId, selectedClass.id).then((response) => {
-        setRunnersData(response.data);
-      })
-      setIsLoading(false)
-
-      return () => setIsLoading(true)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedClass])
-
-  console.log("Runners Data ",runnersData)
 
   if (isLoading) {
     return (<p>{t('Loading')}</p>)
   } else {
     return (
       <TableContainer sx={{height: '100%', flex: 1, position: 'absolute'}}>
-        <Table key={`${eventId}-${selectedClass}`} stickyHeader>
+        <Table stickyHeader>
           <TableHead>
             <TableRow key={"table Head"}>
               <TableCell></TableCell>
@@ -72,7 +52,7 @@ export default function FootOResults() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {runnersData?.map((runner) => {
+            {runnersList?.map((runner) => {
               return (
                 <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={runner.id}>
                   <TableCell key={`${runner.id}`}>{runner.runner_results[0].position.toString()}</TableCell>
