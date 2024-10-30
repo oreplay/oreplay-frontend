@@ -1,7 +1,8 @@
-import {useEffect, useState} from "react";
-import {getClassesInStage} from "../services/EventService.ts";
+import {useCallback, useEffect, useState} from "react";
+import {getClassesInStage, getStageDetail} from "../services/EventService.ts";
 import {ClassModel} from "../../../shared/EntityTypes.ts";
-import {useSearchParams} from "react-router-dom";
+import {useLocation, useParams, useSearchParams} from "react-router-dom";
+import {useAuth} from "../../../shared/hooks.ts";
 
 export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null,(class_id:string)=>void,ClassModel[],boolean] {
   const ACTIVE_CLASS_SEARCH_PARAM = "class_id"
@@ -37,7 +38,6 @@ export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null
         } finally {
           setIsLoading(false)
         }
-
       }
 
       fetchClasses()
@@ -58,4 +58,68 @@ export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null
   }
 
   return [activeClass,setActiveClassId,classesList,isLoading]
+}
+
+export function useSelectedMenu(defaultMenu:number,menuOptionsLabels:string[]):[number,(newMenu:number) => void] {
+  const [selectedMenu, setSelectedMenu] = useState<number>(defaultMenu);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const ACTIVE_MENU_SEARCH_PARAM = 'menu'
+
+  // Pick the right menu from Search Params
+  useEffect(()=>{
+    const desired_active_menu = searchParams.get(ACTIVE_MENU_SEARCH_PARAM)
+    if (desired_active_menu) {
+      setSelectedMenu(menuOptionsLabels.indexOf(desired_active_menu))
+    } else {
+      searchParams.set(ACTIVE_MENU_SEARCH_PARAM,menuOptionsLabels[defaultMenu])
+      setSearchParams(searchParams)
+    }
+
+    //es-lint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  // update page when navigating
+  const handleMenuChange = useCallback((newValue:number) => {
+    setSelectedMenu(newValue)
+    searchParams.set(ACTIVE_MENU_SEARCH_PARAM,menuOptionsLabels[newValue])
+    setSearchParams(searchParams)
+  },[menuOptionsLabels,searchParams,setSearchParams])
+
+  return [selectedMenu,handleMenuChange];
+}
+
+export function useEventInfo() {
+  const {token} = useAuth()
+
+  const {eventId, stageId} = useParams()
+  const {state} = useLocation()
+
+  const [eventName, setEventName] = useState<string>("")
+  const [stageName, setStageName] = useState<string>("")
+  const [stageTypeId, setStageTypeId] = useState<string>("")
+
+  useEffect(
+    () => {
+      //Check if state is empty. If it is, gather info from backend. It will ve empty if the user has not landed in this page navigating
+      if (state === null) {
+        console.log("Null states")
+        getStageDetail(eventId as string,stageId as string,token).then(
+          (response) => {
+            setEventName(""); //TODO: modify back to get this info
+            setStageName(response.data.description)
+            setStageTypeId(response.data.stage_type.id)
+          }
+        )
+
+        //Stage info came from router state. No extra backend call required
+      } else {
+        setEventName(state.eventName)
+        setStageName(state.stageName)
+        setStageTypeId(state.stageTypeId)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    ,[])
+
+  return {eventId:eventId as string,eventName:eventName,stageId:stageId as string,stageName:stageName,stageTypeId:stageTypeId}
 }

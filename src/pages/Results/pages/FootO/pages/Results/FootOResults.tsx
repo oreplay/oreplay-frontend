@@ -1,5 +1,4 @@
 import {
-  Box,
   Table,
   TableBody,
   TableCell,
@@ -8,16 +7,22 @@ import {
   TableRow,
   Typography
 } from "@mui/material";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getRunnersInStage} from "../../../../services/EventService.ts";
 import {useTranslation} from "react-i18next";
 import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
+import {SelectedClassContext} from "../../../shared/context.ts";
+import {useEventInfo} from "../../../../shared/hooks.ts";
 
 export default function FootOResults() {
+  const [isLoading,setIsLoading] = useState<boolean>(true)
   const [runnersData, setRunnersData] = useState<RunnerModel[] | null>(null);
   const [widthWindow, setWidthWindow] = useState<number>(0);
   const {t} = useTranslation();
+
+  const {eventId,stageId} = useEventInfo()
+  const selectedClass = useContext(SelectedClassContext);
 
   const handleWindowSizeChange = () => {
     setWidthWindow(window.innerWidth);
@@ -30,33 +35,29 @@ export default function FootOResults() {
     }
   }, [])
 
-  useEffect(() => {
-    if (eventId !== undefined && stageId !== undefined) {
-      getClassesInStage(eventId, stageId).then((response) => {
-        setClassesList(response.data);
-      });
-    }
-  }, [eventId, stageId])
 
   useEffect(() => {
-    if (selectedCategory !== null && selectedCategory !== undefined && eventId !== undefined && stageId !== undefined) {
-      getRunnersInStage(eventId, stageId, selectedCategory).then((response) => {
+    if (selectedClass !== null && selectedClass !== undefined && eventId !== undefined && stageId !== undefined) {
+      getRunnersInStage(eventId, stageId, selectedClass.id).then((response) => {
         setRunnersData(response.data);
       })
+      setIsLoading(false)
+
+      return () => setIsLoading(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory])
+  }, [selectedClass])
 
-  const handleChangeClass = (event: { target: { value: SetStateAction<string | undefined>; }; }) => {
-    setSelectedCategory(event.target.value);
-  }
+  console.log("Runners Data ",runnersData)
 
-  return (
-    <Box sx={{marginTop: "12px", position: 'relative', flex: 1}}>
+  if (isLoading) {
+    return (<p>{t('Loading')}</p>)
+  } else {
+    return (
       <TableContainer sx={{height: '100%', flex: 1, position: 'absolute'}}>
-        <Table stickyHeader>
+        <Table key={`${eventId}-${selectedClass}`} stickyHeader>
           <TableHead>
-            <TableRow>
+            <TableRow key={"table Head"}>
               <TableCell></TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Name')}</TableCell>
               {widthWindow > 768 ? (
@@ -73,8 +74,8 @@ export default function FootOResults() {
           <TableBody>
             {runnersData?.map((runner) => {
               return (
-                <TableRow sx={{width: {md: "100%", sx: "200px"}}}>
-                  <TableCell>{runner.runner_results[0].position.toString()}</TableCell>
+                <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={runner.id}>
+                  <TableCell key={`${runner.id}`}>{runner.runner_results[0].position.toString()}</TableCell>
                   {widthWindow > 768 ? (
                     <TableCell>{runner.first_name} {runner.last_name}</TableCell>
                   ) :
@@ -105,7 +106,6 @@ export default function FootOResults() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
-
-  )
+    )
+  }
 }
