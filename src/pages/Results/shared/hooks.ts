@@ -51,7 +51,7 @@ export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null
     if (new_active_class) {
       setActiveClassState(new_active_class)
       searchParams.set(ACTIVE_CLASS_SEARCH_PARAM,newActiveClassId)
-      setSearchParams( searchParams )
+      setSearchParams(searchParams,{replace:true})
     } else {
       console.error("The selected class is not valid")
     }
@@ -72,7 +72,7 @@ export function useSelectedMenu(defaultMenu:number,menuOptionsLabels:string[]):[
       setSelectedMenu(menuOptionsLabels.indexOf(desired_active_menu))
     } else {
       searchParams.set(ACTIVE_MENU_SEARCH_PARAM,menuOptionsLabels[defaultMenu])
-      setSearchParams(searchParams)
+      setSearchParams(searchParams,{replace:true})
     }
 
   },[defaultMenu, menuOptionsLabels, searchParams, setSearchParams])
@@ -81,7 +81,7 @@ export function useSelectedMenu(defaultMenu:number,menuOptionsLabels:string[]):[
   const handleMenuChange = useCallback((newValue:number) => {
     setSelectedMenu(newValue)
     searchParams.set(ACTIVE_MENU_SEARCH_PARAM,menuOptionsLabels[newValue])
-    setSearchParams(searchParams)
+    setSearchParams(searchParams,{replace:true})
   },[menuOptionsLabels,searchParams,setSearchParams])
 
   return [selectedMenu,handleMenuChange];
