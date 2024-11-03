@@ -1,5 +1,9 @@
 import {useCallback, useEffect, useState} from "react";
-import {getClassesInStage, getRunnersInStage, getStageDetail} from "../services/EventService.ts";
+import {
+  getClassesInStage,
+  getEventDetail,
+  getRunnersInStage,
+} from "../services/EventService.ts";
 import {ClassModel, RunnerModel} from "../../../shared/EntityTypes.ts";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import {useAuth} from "../../../shared/hooks.ts";
@@ -105,11 +109,16 @@ export function useEventInfo() {
       //Check if state is empty. If it is, gather info from backend. It will ve empty if the user has not landed in this page navigating
       if (state === null) {
         console.log("Null states")
-        getStageDetail(eventId as string,stageId as string,token).then(
+        getEventDetail(eventId as string,token).then(
           (response) => {
-            setEventName(""); //TODO: modify back to get this info
-            setStageName(response.data.description)
-            setStageTypeId(response.data.stage_type.id)
+            setEventName(response.data.description);
+            const current_stage = response.data.stages.find(stage=> stage.id === stageId);
+            if (current_stage) {
+              setStageName(response.data.description)
+              setStageTypeId(current_stage.stage_type.id)
+            } else {
+              throw new Error(`The stage ${stageId} does not belong to ${eventId} (${response.data.description}).`) //TODO: redirect to 404 not found
+            }
           }
         )
 
