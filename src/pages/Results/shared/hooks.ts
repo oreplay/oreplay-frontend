@@ -68,14 +68,17 @@ export function useSelectedMenu(defaultMenu:number,menuOptionsLabels:string[]):[
   // Pick the right menu from Search Params
   useEffect(()=>{
     const desired_active_menu = searchParams.get(ACTIVE_MENU_SEARCH_PARAM)
-    if (desired_active_menu) {
-      setSelectedMenu(menuOptionsLabels.indexOf(desired_active_menu))
+    if (desired_active_menu && menuOptionsLabels.includes(desired_active_menu)) {
+      // Set selected menu to the index of the active menu from URL params if it exists
+      setSelectedMenu(menuOptionsLabels.indexOf(desired_active_menu));
     } else {
-      searchParams.set(ACTIVE_MENU_SEARCH_PARAM,menuOptionsLabels[defaultMenu])
-      setSearchParams(searchParams,{replace:true})
+      // Otherwise, set the URL to the default menu
+      const defaultMenuLabel = menuOptionsLabels[defaultMenu];
+      searchParams.set(ACTIVE_MENU_SEARCH_PARAM, defaultMenuLabel);
+      setSearchParams(searchParams, { replace: true });  // Use replace: true to avoid history stack changes
+      setSelectedMenu(defaultMenu);
     }
-
-  },[defaultMenu, menuOptionsLabels, searchParams, setSearchParams])
+  }, [defaultMenu, menuOptionsLabels, searchParams, setSearchParams]);
 
   // update page when navigating
   const handleMenuChange = useCallback((newValue:number) => {

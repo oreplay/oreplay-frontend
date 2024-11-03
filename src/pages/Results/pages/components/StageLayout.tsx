@@ -93,7 +93,7 @@ export default function StageLayout () {
   const {defaultMenu,pages,menuOptions,menuOptionsLabels} = useStageComponent(stageTypeId)
 
   // Get functionality for the menu change
-  const [selectedMenu,handleMenuChange] = useSelectedMenu(defaultMenu,menuOptionsLabels) //TODO: FIX BUG: it doesn't load properly
+  const [selectedMenu,handleMenuChange] = useSelectedMenu(defaultMenu,menuOptionsLabels)
 
   // Get classes
   const [activeClass,setActiveClassId,classesList,areClassesLoading] = useFetchClasses(eventId,stageId)
