@@ -122,10 +122,10 @@
     "Points": "Puntos",
     "statusCodes": {
       "ok": "ok",
-      "dns": "NS",
+      "dns": "DNS",
       "dnf": "Aban",
-      "mp": "ET",
-      "disqualified": "Des.",
+      "mp": "MP",
+      "disqualified": "DSQ",
       "ot": "FC"
     }
   }

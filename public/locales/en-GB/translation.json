@@ -121,11 +121,11 @@
     "Points": "Points",
     "statusCodes": {
       "ok": "ok",
-      "dns": "dns",
-      "dnf": "dnf",
-      "mp": "mp",
-      "disqualified": "disq.",
-      "ot": "ot"
+      "dns": "DNS",
+      "dnf": "DNF",
+      "mp": "MP",
+      "disqualified": "DSQ",
+      "ot": "OT"
     }
   }
 }
