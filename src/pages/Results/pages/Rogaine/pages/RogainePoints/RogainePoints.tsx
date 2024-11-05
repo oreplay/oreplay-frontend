@@ -23,6 +23,8 @@ export default function RogainePoints() {
             <TableRow key={"table Head"}>
               <TableCell></TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Name')}</TableCell>
+              <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.BonusPoints')}</TableCell>
+              <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.PenaltyPoints')}</TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Points')}</TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.FinishTime')}</TableCell>
               {
@@ -47,6 +49,12 @@ export default function RogainePoints() {
                     <TableCell sx={{minWidth: "200px"}} key={`runner${runner.id}name`}>
                       <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
                       <Typography>{runner.club.short_name}</Typography>
+                    </TableCell>
+                    <TableCell key={`runner${runner.id}bonus`}>
+                      {(status==="ok")? `+${runner.runner_results[0].points_bonus}` : ""}
+                    </TableCell>
+                    <TableCell key={`runner${runner.id}penalty`}>
+                      {(status==="ok")? `${runner.runner_results[0].points_penalty}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}points`}>
                       {(status==="ok")? `${runner.runner_results[0].points_final}` : ""}

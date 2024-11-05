@@ -122,6 +122,8 @@
     "FinishTime": "Arrivée",
     "Times": "Temps",
     "Points": "_Points",
+    "BonusPoints": "_Bonus",
+    "PenaltyPoints": "_Penalty",
     "statusCodes": {
       "ok": "_ok",
       "dns": "_dns",

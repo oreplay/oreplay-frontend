@@ -21,3 +21,7 @@ export function parseDateOnlyTime(dateString: string)
 {
   return parseLuxon(dateString).toLocaleString(DateTime.TIME_24_SIMPLE);
 }
+
+export function parseSecondsToMMSS(seconds: number) {
+  return DateTime.fromSeconds(seconds).toUTC().toFormat("mm:ss");
+}
