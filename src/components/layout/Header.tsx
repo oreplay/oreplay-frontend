@@ -7,12 +7,14 @@ import Tooltip from "@mui/material/Tooltip";
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../../shared/hooks.ts";
 import {AccountCircle, ArrowBack} from "@mui/icons-material";
+import React from "react";
 
 type Props = {
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
+  ref: React.MutableRefObject<HTMLDivElement>
 }
 
-export default function Header({setOpenSidebar}: Props) {
+const Header = React.forwardRef((props:Props, ref) => {
 
   const {user} = useAuth(); //Control authentication
   const navigate = useNavigate()
@@ -21,7 +23,7 @@ export default function Header({setOpenSidebar}: Props) {
 
 
   return (
-    <Box>
+    <Box ref={ref}>
       <AppBar position="static">
         <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
           <Box>
@@ -69,7 +71,7 @@ export default function Header({setOpenSidebar}: Props) {
                 <IconButton
                   size="large"
                   sx= {{color: "white"}}
-                  onClick={() => setOpenSidebar(prev => !prev)}
+                  onClick={() => props.setOpenSidebar(prev => !prev)}
                 >
                   <DehazeIcon/>
                 </IconButton>
@@ -80,4 +82,6 @@ export default function Header({setOpenSidebar}: Props) {
       </AppBar>
     </Box>
   )
-}
+})
+
+export default Header
