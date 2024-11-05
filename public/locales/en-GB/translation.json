@@ -119,6 +119,8 @@
     "FinishTime": "Finish",
     "Times": "Time",
     "Points": "Points",
+    "BonusPoints": "Bonus",
+    "PenaltyPoints": "Penalty",
     "statusCodes": {
       "ok": "ok",
       "dns": "DNS",
