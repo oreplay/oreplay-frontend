@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import {RunnersContext} from "../../../../shared/context.ts";
 import {useTranslation} from "react-i18next";
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import {getUniqueStationNumbers} from "../../shared/Functions.ts";
 import {parseResultStatus} from "../../../../shared/functions.ts";
 import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
@@ -17,13 +17,12 @@ export default function RogainePoints() {
     return (<p>{t('Loading')}</p>)
   } else {
     return(
-      <TableContainer sx={{height: '100%', flex: 1, position: 'absolute'}}>
+      <TableContainer sx={{height: '100%', flex: 1}}>
         <Table>
           <TableHead>
             <TableRow key={"table Head"}>
               <TableCell></TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Name')}</TableCell>
-              <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Club')}</TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Points')}</TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.FinishTime')}</TableCell>
               {
@@ -45,11 +44,9 @@ export default function RogainePoints() {
                     <TableCell key={`runner${runner.id}pos`}>
                       {(status==="ok")? runner.runner_results[0].position.toString() : ""}
                     </TableCell>
-                    <TableCell key={`runner${runner.id}name`}>
-                      {`${runner.first_name} ${runner.last_name}`}
-                    </TableCell>
-                    <TableCell key={`runner${runner.id}club`}>
-                      {runner.club.short_name}
+                    <TableCell sx={{minWidth: "200px"}} key={`runner${runner.id}name`}>
+                      <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
+                      <Typography>{runner.club.short_name}</Typography>
                     </TableCell>
                     <TableCell key={`runner${runner.id}points`}>
                       {(status==="ok")? `${runner.runner_results[0].points_final}` : ""}

@@ -1,4 +1,4 @@
-import {AppBar, BottomNavigation, BottomNavigationAction, Box, Typography} from "@mui/material";
+import {BottomNavigation, BottomNavigationAction, Box, Paper, Typography} from "@mui/material";
 import FootOStartTime from "../FootO/pages/StartTime/FootOStartTime.tsx";
 import FootOResults from "../FootO/pages/Results/FootOResults.tsx";
 import {AccessTime} from "@mui/icons-material";
@@ -122,7 +122,7 @@ export default function StageLayout () {
           <Box>
             <ClassSelector activeClass={activeClass} setActiveClassId={setActiveClassId} classesList={classesList} isLoading={areClassesLoading} />
           </Box>
-          <Box sx={{marginTop: "12px", position: 'relative', flex: 1}}>
+          <Box sx={{marginTop: "12px", flex: 1, paddingBottom: '56px'}}>
             <SelectedClassContext.Provider value={activeClass}>
               <RunnersContext.Provider value={[runnersList,areRunnersLoading]}>
                 {pages[selectedMenu]}
@@ -130,14 +130,15 @@ export default function StageLayout () {
             </SelectedClassContext.Provider>
           </Box>
         </Box>
-        <AppBar position="static" sx={{backgroundColor: "white"}}>
+        <Paper sx={{position: "fixed", bottom: 0, right: 0, left:0}}>
           <BottomNavigation
             value={selectedMenu}
             onChange={(_,newValue)=> {handleMenuChange(newValue)}}
           >
             {menuOptions}
           </BottomNavigation>
-        </AppBar>
+        </Paper>
+        
       </>
     )
   }
