@@ -33,19 +33,6 @@ export default function RogainePoints () {
   // Gather runners data
   const [runnersList,isLoading] = useContext(RunnersContext)
 
-  const orderedRunners = () => {
-    if (!runnersList || !runnersList.sort) {
-      return runnersList
-    }
-    return runnersList.sort((a, b) => {
-      const posA = a.runner_results[0]?.position
-      const posB = b.runner_results[0]?.position
-      if (!posA) return 1 // Place 'a' after 'b' if 'a' has no position
-      if (!posB) return -1 // Place 'b' after 'a' if 'b' has no position
-      return Number(posA - posB)
-    });
-  }
-
   // Render component
   if (isLoading) {
     return (<p>{t('Loading')}</p>)
@@ -69,7 +56,7 @@ export default function RogainePoints () {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orderedRunners()?.map((runner) => {
+            {runnersList?.map((runner) => {
 
               const status = parseResultStatus(runner.runner_results[0].status_code as string)
 

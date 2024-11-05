@@ -1,4 +1,5 @@
 import {RESULT_STATUS} from "./constants.ts";
+import {RunnerModel} from "../../../shared/EntityTypes.ts";
 
 export function parseResultStatus(status: string): string {
 
@@ -18,4 +19,18 @@ export function parseResultStatus(status: string): string {
     default:
       throw new Error(`Unknown status: ${status}`)
   }
+}
+
+/**
+ * Order a list of runners by their position
+ * @param runnersList List of runners to be ordered
+ */
+export function orderedRunners (runnersList:RunnerModel[])  {
+  return runnersList.sort((a, b) => {
+    const posA = a.runner_results[0]?.position
+    const posB = b.runner_results[0]?.position
+    if (!posA) return 1 // Place 'a' after 'b' if 'a' has no position
+    if (!posB) return -1 // Place 'b' after 'a' if 'b' has no position
+    return Number(posA - posB)
+  });
 }
