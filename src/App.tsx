@@ -1,9 +1,8 @@
 import { ThemeProvider, createTheme } from '@mui/material'
 import Layout from './components/layout/Layout.tsx'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import EventsList from './pages/Results/pages/EventList/EventsList.tsx'
 import EventDetail from './pages/Results/pages/EventDetail/EventDetail.tsx'
-import Home from "./pages/Home/Home.tsx";
 import {AuthProvider} from "./shared/AuthProvider.tsx";
 import {Dashboard} from "./pages/Administration/pages/Dashboard/Dashboard.tsx";
 import {AdapterLuxon} from "@mui/x-date-pickers/AdapterLuxon";
@@ -15,6 +14,7 @@ import Authentication from "./pages/Administration/pages/Authentication/pages/Au
 import PrivateRoute from "./pages/Administration/pages/Authentication/components/PrivateRoute.tsx";
 import EventAdmin from "./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx";
 import StageLayout from "./pages/Results/pages/components/StageLayout.tsx";
+import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 
 export default function App() {
 
@@ -43,8 +43,9 @@ export default function App() {
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<Layout/>} >
-                <Route index element={<Home />} />
-                <Route path='competitions' element={<EventsList/>} />
+                <Route index element={<EventsList />} />
+                <Route path='competitions' element={<Navigate to={"/"}/>} />
+                <Route path='About-us' element={<AboutUs />} />
                 <Route path='competitions/:id' element={<EventDetail/>} />
                 <Route path='competitions/:eventId/:stageId' element={<StageLayout />}>
                 </Route>

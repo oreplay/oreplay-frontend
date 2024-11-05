@@ -1,5 +1,6 @@
 {
   "Loading": "Cargando...",
+  "Menu": "Menu",
   "Dates": "Fecha",
   "Event": "Evento",
   "Events": "Eventos",
@@ -19,12 +20,15 @@
   "This action cannot be undone": "Esta acción no puede deshacerse.",
   "Copied to the clipboard": "Copiado al portapapeles",
   "Copy": "Copiar",
-  "Home": {
-    "Home": "Inicio",
+  "AboutUs": {
+    "AboutUs": "Sobre nosotros",
     "WelcomeMsg": "Bienvenido a O-Replay",
     "ProjectDescription": "Hogar de los resultados de orientación (aún en versión pre-alfa).",
     "Go to competitions": "Ir a competiciones",
     "DevelopersHelpMessage": "Estamos orgullosos de ser un proyecto de código abierto. Visita nuestro repositorio <1>github.com/oreplay</1> para encontrar ayuda desarrollando con O-Replay o contribuyendo al proyecto. También puedes consultar la <3>documentación de nuestra API pública</3>."
+  },
+  "Home": {
+    "Home": "Inicio"
   },
   "Results": {
     "shortClass": "Cat.",
