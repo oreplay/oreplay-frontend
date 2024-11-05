@@ -13,12 +13,13 @@ const ControlBadge: React.FC<ControlBadgeProps> = ({ number, punched = false }) 
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 36,           // Circle diameter
-        height: 36,          // Circle diameter
-        borderRadius: '50%', // Makes it a circle
-        backgroundColor: punched ? 'primary.main' : 'gray',
-        color: 'white',
-        fontSize: '16px'
+        width: 32,           // Circle diameter
+        height: 32,          // Circle diameter
+        borderRadius: '50%', // Makes it a circle,
+        borderColor: punched ? undefined : 'text.secondary',
+        border: punched ? 0 : 1,
+        backgroundColor: punched ? 'secondary.main' : undefined,
+        color: punched ? 'white' : 'text.secondary'
       }}
     >
       {number.toString()}
