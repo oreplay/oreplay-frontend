@@ -16,7 +16,7 @@ const ControlBadge: React.FC<ControlBadgeProps> = ({ number, punched = false }) 
         width: 40,           // Circle diameter
         height: 40,          // Circle diameter
         borderRadius: '50%', // Makes it a circle
-        backgroundColor: punched ? 'green' : 'gray',
+        backgroundColor: punched ? 'primary.main' : 'gray',
         color: 'white',
         fontSize: '16px',
         fontWeight: 'bold',
