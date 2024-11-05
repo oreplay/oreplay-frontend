@@ -86,23 +86,34 @@ export interface RunnerResultModel {
   result_type_id: string,
   start_time: string,
   finish_time: string,
-  time_seconds:string,
-  position:bigint,
-  status_code:string|null,
+  time_seconds: string,
+  position: bigint,
+  status_code: string|null,
   time_behind: bigint,
-  points_final:bigint,
-  points_adjusted:bigint,
-  points_penalty:bigint,
-  points_bonus:bigint,
+  points_final: bigint,
+  points_adjusted: bigint,
+  points_penalty: bigint,
+  points_bonus: bigint,
   leg_number: bigint,
-  split: SplitsModel[],
+  splits:SplitModel[],
 }
 
-export interface SplitsModel {
+export interface SplitModel {
   id: string,
-  reading_time:string,
+  reading_time: string,
   points: bigint|null,
-  control: bigint|null, //TODO: write what it really returns
+  control: ControlModel,
+}
+
+export interface ControlModel {
+  id: string,
+  station: bigint,
+  control_type: ControlTypeModel
+}
+
+export interface ControlTypeModel {
+  id: string,
+  description: string,
 }
 
 export interface ClassModel {
@@ -112,7 +123,7 @@ export interface ClassModel {
 
 export interface ClubModel{
   id: string,
-  short_name:string
+  short_name: string
 }
 
 export interface UserModel {
