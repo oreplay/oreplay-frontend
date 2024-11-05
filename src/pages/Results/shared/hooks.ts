@@ -7,6 +7,7 @@ import {
 import {ClassModel, RunnerModel} from "../../../shared/EntityTypes.ts";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import {useAuth} from "../../../shared/hooks.ts";
+import {orderedRunners} from "./functions.ts";
 
 export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null,(class_id:string)=>void,ClassModel[],boolean] {
   const ACTIVE_CLASS_SEARCH_PARAM = "class_id"
@@ -154,7 +155,7 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
   useEffect(() => {
     if (activeClass){
       getRunnersInStage(event_id,stage_id,activeClass.id).then((response)=>{
-        setRunnerList(response.data)
+        setRunnerList( orderedRunners(response.data) )
         setIsLoading(false)
       },(error)=>{
         console.log(error);
