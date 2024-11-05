@@ -1,5 +1,7 @@
 import {Trans, useTranslation} from "react-i18next";
 import {Box, Container, Link} from "@mui/material";
+const VERSION_NUMBER = import.meta.env.VITE_VERSION_NUMBER;
+const VERSION_TYPE = import.meta.env.VITE_VERSION_TYPE;
 
 export default function AboutUs() {
   const {t} = useTranslation();
@@ -12,7 +14,7 @@ export default function AboutUs() {
         </h1>
         <img alt='O-Replay logo' src="/logo.svg" width="124px"></img>
         <Box sx={{mt: "30px"}}>
-          {t('AboutUs.ProjectDescription')} v0.1.13
+          {t('AboutUs.ProjectDescription')} {`${VERSION_TYPE}) v${VERSION_NUMBER}`}
         </Box>
         <Box sx={{mt: "30px"}}>
           <Trans i18nKey="AboutUs.DevelopersHelpMessage">
