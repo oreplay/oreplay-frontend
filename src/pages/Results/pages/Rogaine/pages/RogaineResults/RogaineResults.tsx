@@ -38,7 +38,7 @@ export default function RogainePoints () {
     return (<p>{t('Loading')}</p>)
   } else {
     return (
-      <TableContainer sx={{height: '100%', flex: 1, position: 'absolute'}}>
+      <TableContainer sx={{height: '100%', flex: 1}}>
         <Table stickyHeader>
           <TableHead>
             <TableRow key={"table Head"}>
