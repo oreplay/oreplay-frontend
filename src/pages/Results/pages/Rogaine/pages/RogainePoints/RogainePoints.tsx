@@ -48,7 +48,7 @@ export default function RogainePoints() {
                     </TableCell>
                     <TableCell sx={{minWidth: "200px"}} key={`runner${runner.id}name`}>
                       <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
-                      <Typography>{runner.club.short_name}</Typography>
+                      <Typography sx={{color:'text.secondary'}}>{runner.club.short_name}</Typography>
                     </TableCell>
                     <TableCell key={`runner${runner.id}bonus`}>
                       {(status==="ok")? `+${runner.runner_results[0].points_bonus}` : ""}

@@ -67,11 +67,11 @@ export default function FootOResults() {
                       <Typography>{runner.first_name}</Typography>
                       <Typography>{runner.last_name}</Typography>
                       <br></br>
-                      <Typography>{runner.club.short_name}</Typography>
+                      <Typography sx={{color:'text.secondary'}}>{runner.club.short_name}</Typography>
                     </TableCell>}
 
                   {widthWindow > 768 ? (
-                    <TableCell>{runner.club.short_name}</TableCell>
+                    <TableCell><Typography>{runner.club.short_name}</Typography></TableCell>
                   ) : null}
                   {widthWindow > 768 ? (
                     <TableCell>{parseDateOnlyTime(runner.runner_results[0].start_time)}</TableCell>
