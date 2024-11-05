@@ -70,7 +70,7 @@ export default function RogainePoints () {
                       <Typography>{runner.first_name}</Typography>
                       <Typography>{runner.last_name}</Typography>
                       <br></br>
-                      <Typography>{runner.club.short_name}</Typography>
+                      <Typography sx={{color:'text.secondary'}}>{runner.club.short_name}</Typography>
                     </TableCell>}
 
                   {widthWindow > 768 ? (
