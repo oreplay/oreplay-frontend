@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import {useContext, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
+import {parseDateOnlyTime, parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import {RunnersContext} from "../../../../shared/context.ts";
 import {parseResultStatus} from "../../../../shared/functions.ts";
 
@@ -79,10 +79,10 @@ export default function FootOResults() {
                     <TableCell>
                       <Typography>{parseDateOnlyTime(runner.runner_results[0].start_time)}</Typography>
                       <br></br>
-                      <Typography>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
+                      <Typography>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
                     </TableCell>}
                   {widthWindow > 768 ? (
-                    <TableCell>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "") : t(`ResultsStage.statusCodes.${status}`)}</TableCell>
+                    <TableCell>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "") : t(`ResultsStage.statusCodes.${status}`)}</TableCell>
                   ) : null}
                 </TableRow>
               )

@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import {getUniqueStationNumbers} from "../../shared/Functions.ts";
 import {parseResultStatus} from "../../../../shared/functions.ts";
-import {parseDateOnlyTime} from "../../../../../../shared/Functions.tsx";
+import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import ControlBadge from "./components/ControlBadge.tsx";
 
 export default function RogainePoints() {
@@ -60,7 +60,7 @@ export default function RogainePoints() {
                       {(status==="ok")? `${runner.runner_results[0].points_final}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}time`}>
-                      {(status==="ok")? (runner.runner_results[0].finish_time != null ? parseDateOnlyTime(runner.runner_results[0].finish_time) : "-") : t(`ResultsStage.statusCodes.${status}`) }
+                      {(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }
                     </TableCell>
                     {
                       controlNumbers.map((control)=>{
