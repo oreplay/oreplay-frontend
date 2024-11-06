@@ -1,5 +1,5 @@
 import {Box, Button, Typography} from "@mui/material";
-import {useNavigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import loadingIcon from "../../../../assets/loading.svg";
 import {useEffect, useState} from "react";
 import {getEventDetail} from "../../services/EventService.ts";
@@ -89,6 +89,12 @@ export default function EventDetail() {
         <img alt={'loading icon'} height={50} width={50} src={loadingIcon}></img>
       </Box>
     )
+  } else if (detail?.stages.length == 1) {// navigate to stage for single stage events
+    return <Navigate
+      to={`/competitions/${id}/${detail.stages[0].id}`}
+      state={{eventName: detail.description, stageName: detail.stages[0].description, stageTypeId:detail.stages[0].stage_type.id, singleStage:true}}
+      replace={true}
+    />
   } else return (
     <Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
       <Box width={"100%"} minHeight={"35%"} display={"flex"} flexDirection={"column"}
@@ -115,7 +121,7 @@ export default function EventDetail() {
                 <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"}
                   key={stage.id}
                   onClick={() => navigate(`/competitions/${id}/${stage.id}`,
-                    {state: {eventName: detail?.description, stageName: stage.description, stageTypeId:stage.stage_type.id}})}>
+                    {state: {eventName: detail?.description, stageName: stage.description, stageTypeId:stage.stage_type.id, singleStage:false}})}>
                   <Typography color={"primary.light"}>
                     {stage.description}
                   </Typography>
