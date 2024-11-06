@@ -11,7 +11,7 @@ Before pushing, remember to run the linter (you should also set it up in your ID
 
 # Deployment
 
-In order to deploy, change the version from docker-compose and any other file where the version is placed
+In order to deploy, change the version from the .env file where the version is placed
 (review the last version commit).
 
 Remember to **properly define the .env** `VITE_API_DOMAIN` (development: http://localhost/ and production: https://www.oreplay.es/)
