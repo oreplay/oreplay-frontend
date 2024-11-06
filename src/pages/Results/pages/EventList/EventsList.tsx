@@ -29,7 +29,7 @@ export default function EventsList() {
 
   const [futureEventList,isFutureLoading,futurePage,setFuturePage,futureNumPages] = useFetchEvents('future')
   const [pastEventList,isPastLoading,pastPage,setPastPage,pastNumPages] = useFetchEvents('past')
-  const [todayEventList,isTodayLoading,,,] = useFetchEvents('today',1000)
+  const [todayEventList,isTodayLoading] = useFetchEvents('today',100)
 
   function getTabList(): EventModel[] {
     switch(selectedTab){
@@ -42,7 +42,7 @@ export default function EventsList() {
     }
   }
 
-  if (isFutureLoading||isPastLoading||isTodayLoading) {
+  if (isFutureLoading&&isPastLoading&&isTodayLoading) {
     return (
       <Box sx={{width:"100%", height:"90%", display: "flex", justifyContent: "center", alignItems: "center"}}>
         <img alt={'loading icon'} height={50} width={50} src={loadingIcon}></img>
