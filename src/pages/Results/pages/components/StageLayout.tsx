@@ -1,4 +1,4 @@
-import {BottomNavigation, BottomNavigationAction, Box, Paper, Typography} from "@mui/material";
+import {BottomNavigation, BottomNavigationAction, Box, Paper} from "@mui/material";
 import FootOStartTime from "../FootO/pages/StartTime/FootOStartTime.tsx";
 import FootOResults from "../FootO/pages/Results/FootOResults.tsx";
 import {AccessTime} from "@mui/icons-material";
@@ -14,6 +14,7 @@ import ClassSelector from "./ClassSelector.tsx";
 import {useTranslation} from "react-i18next";
 import FootOSplits from "../FootO/pages/Splits/FootOSplits.tsx";
 import {RunnersContext, SelectedClassContext} from "../../shared/context.ts";
+import EventStageBanner from "./EventStageBanner.tsx";
 
 function useStageComponent(stageTypeId:string):
   {defaultMenu:number,pages:JSX.Element[],menuOptions:JSX.Element[],menuOptionsLabels:string[]} {
@@ -87,7 +88,7 @@ export default function StageLayout () {
   const {t} = useTranslation()
 
   // Recover event info
-  const {eventId,eventName,stageId,stageName,stageTypeId} = useEventInfo()
+  const {eventId,eventName,stageId,stageName,stageTypeId,singleStage} = useEventInfo()
 
   // Get components for the stageTypeId
   const {defaultMenu,pages,menuOptions,menuOptionsLabels} = useStageComponent(stageTypeId)
@@ -106,6 +107,7 @@ export default function StageLayout () {
   } else {
     return (
       <>
+        <EventStageBanner eventName={eventName} stageName={stageName} singleStage={singleStage} />
         <Box sx={{
           height: "calc(100% - 64px)",
           padding: "24px 48px",
@@ -113,12 +115,6 @@ export default function StageLayout () {
           flexDirection: 'column',
           minHeight: 0
         }}>
-          <Box>
-            <Typography sx={{
-              fontWeight: "bold",
-              paddingBottom: "1em",
-            }}>{eventName} - {stageName}</Typography>
-          </Box>
           <Box>
             <ClassSelector activeClass={activeClass} setActiveClassId={setActiveClassId} classesList={classesList} isLoading={areClassesLoading} />
           </Box>
@@ -138,7 +134,7 @@ export default function StageLayout () {
             {menuOptions}
           </BottomNavigation>
         </Paper>
-        
+
       </>
     )
   }
