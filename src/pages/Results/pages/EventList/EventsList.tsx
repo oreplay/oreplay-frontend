@@ -1,21 +1,16 @@
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import {Box, Pagination, Tab, Tabs, Typography} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import loadingIcon from "../../../../assets/loading.svg";
-import { getEventList } from "../../services/EventService.ts";
 import { useTranslation } from "react-i18next";
-import { DateTime } from 'luxon'
 import {EventModel} from "../../../../shared/EntityTypes.ts";
 import {parseDate} from "../../../../shared/Functions.tsx";
+import {useFetchEvents} from "../../shared/hooks.ts";
 
 export default function EventsList() {
 
   const navigate = useNavigate();
   const {t} = useTranslation();
-  const [actualEventList, setActualEventList] = useState<EventModel[]>([]);
-  const [previousEventList, setPreviousEventList] = useState<EventModel[]>([]);
-  const [nextEventList, setNextEventList] = useState<EventModel[]>([]);
-  const [loadingData, setLoadingData] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChangeTab = (_event: React.SyntheticEvent, newValue: number) => {
@@ -32,45 +27,22 @@ export default function EventsList() {
     }
   }
 
-  useEffect(() => {
-    getEventList().then((response) => {
-      const actualDate = DateTime.now();
-      const actualDataList: EventModel[] = [];
-      const previousDataList: EventModel[] = [];
-      const nextDataList: EventModel[] = [];
-      response.data.forEach((event:EventModel) => {
-
-        const initDate = DateTime.fromISO(event.initial_date);
-        const endDate = DateTime.fromISO(event.final_date);
-
-        if (initDate>actualDate){
-          nextDataList.push(event);
-        } else if (endDate<actualDate) {
-          previousDataList.push(event);
-        } else {
-          actualDataList.push(event);
-        }
-      });
-      setActualEventList(actualDataList);
-      setPreviousEventList(previousDataList);
-      setNextEventList(nextDataList);
-      setLoadingData(false);
-
-    });
-  },[]);
+  const [futureEventList,isFutureLoading,futurePage,setFuturePage,futureNumPages] = useFetchEvents('future')
+  const [pastEventList,isPastLoading,pastPage,setPastPage,pastNumPages] = useFetchEvents('past')
+  const [todayEventList,isTodayLoading,,,] = useFetchEvents('today',1000)
 
   function getTabList(): EventModel[] {
     switch(selectedTab){
       case 0:
-        return nextEventList;
+        return futureEventList;
       case 1:
-        return previousEventList;
+        return pastEventList;
       default:
         return [];
     }
   }
 
-  if (loadingData){
+  if (isFutureLoading||isPastLoading||isTodayLoading) {
     return (
       <Box sx={{width:"100%", height:"90%", display: "flex", justifyContent: "center", alignItems: "center"}}>
         <img alt={'loading icon'} height={50} width={50} src={loadingIcon}></img>
@@ -78,8 +50,9 @@ export default function EventsList() {
     )
   } else
     return (
+      //
       <Box sx={{m: "50px"}}>
-        {actualEventList.length != 0 &&
+        {todayEventList.length != 0 &&
           <Box width={"100%"} display={"flex"} alignItems={"center"}>
             <Box height={"16px"} width={"16px"} borderRadius={"50%"} bgcolor={"orange"}></Box>
             <Box marginLeft={"12px"}>
@@ -88,10 +61,10 @@ export default function EventsList() {
           </Box>
         }
 
-        {actualEventList.length != 0 &&
-          <Box hidden={actualEventList.length == 0} sx={{overflowY: 'hidden'}} width={"100%"} minHeight={"160px"} marginTop={"24px"} marginBottom={"24px"} display={"flex"}>
+        {todayEventList.length != 0 &&
+          <Box hidden={todayEventList.length == 0} sx={{overflowY: 'hidden'}} width={"100%"} minHeight={"160px"} marginTop={"24px"} marginBottom={"24px"} display={"flex"}>
             {
-              actualEventList.map((event, index) => {
+              todayEventList.map((event, index) => {
                 return (
                   <Box key={event.id} borderRadius={"6px"} display={"flex"} flexDirection={"column"} justifyContent={"space-between"} bgcolor={ index%2 == 0 ? "primary.main": "secondary.main"}
                     minWidth={"220px"} width={"220px"} height={"160px"} marginRight={"24px"} onClick={() => navigate(`/competitions/${event.id}`)}>
@@ -121,6 +94,9 @@ export default function EventsList() {
               )
             })
           }
+        </Box>
+        <Box sx={{display:'flex',justifyContent:'center',marginBottom:2}}>
+          <Pagination count={selectedTab === 0 ? futureNumPages : pastNumPages} page={selectedTab === 0 ? futurePage : pastPage} onChange={selectedTab === 0 ? (_,page)=>setFuturePage(page) : (_,page)=>setPastPage(page)} />
         </Box>
       </Box>
     )

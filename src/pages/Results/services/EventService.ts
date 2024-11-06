@@ -9,8 +9,20 @@ import {
 } from "../../../shared/EntityTypes.ts";
 const baseUrl = "api/v1/events"
 
-export async function getEventList(): Promise<Page<EventModel>> {
-  return await get<Page<EventModel>>(baseUrl);
+export async function getEventList(page:number=1, when?:'today'|'past'|'future',token?:string|null,limit?:number): Promise<Page<EventModel>> {
+  const searchParams = new URLSearchParams();
+
+  // set different search params
+  searchParams.set("page",page.toString())
+  if (when) {
+    searchParams.set("when", when);
+  }
+  if (limit) {
+    searchParams.set("limit", limit.toString())
+  }
+
+  // return query
+  return await get<Page<EventModel>>(`${baseUrl}?${searchParams.toString()}`,token);
 }
 
 export async function getEventDetail(id:string,token?:string|null): Promise<Data<EventDetailModel>> {

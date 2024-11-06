@@ -1,10 +1,10 @@
 import {useCallback, useEffect, useState} from "react";
 import {
   getClassesInStage,
-  getEventDetail,
+  getEventDetail, getEventList,
   getRunnersInStage,
 } from "../services/EventService.ts";
-import {ClassModel, RunnerModel} from "../../../shared/EntityTypes.ts";
+import {ClassModel, EventModel, RunnerModel} from "../../../shared/EntityTypes.ts";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import {useAuth} from "../../../shared/hooks.ts";
 import {orderedRunners} from "./functions.ts";
@@ -63,6 +63,30 @@ export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null
   }
 
   return [activeClass,setActiveClassId,classesList,isLoading]
+}
+
+export function useFetchEvents(when?:'today'|'past'|'future',limit?:number):[EventModel[],boolean,number,(page:number)=>void,number] {
+  const {token} = useAuth()
+
+  // Required states
+  const [events,setEvents] = useState<EventModel[]>([]);
+  const [isLoading,setIsLoading] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
+  const [numPages,setNumPages] = useState<number>(1);
+
+  // HTTP query
+  useEffect(() => {
+    getEventList(page,when,token,limit).then((response) => {
+      setEvents(response.data)
+      setIsLoading(false)
+      setNumPages( Math.ceil(response.total/response.limit) )
+
+      return () => setIsLoading(true)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+  return [events,isLoading,page,setPage,numPages];
 }
 
 export function useSelectedMenu(defaultMenu:number,menuOptionsLabels:string[]):[number,(newMenu:number) => void] {
