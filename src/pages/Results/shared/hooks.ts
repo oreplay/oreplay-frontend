@@ -104,15 +104,25 @@ export function useEventInfo() {
   const [eventName, setEventName] = useState<string>("")
   const [stageName, setStageName] = useState<string>("")
   const [stageTypeId, setStageTypeId] = useState<string>("")
+  const [singleStage, setSingleStage] = useState<boolean>(false)
 
   useEffect(
     () => {
       //Check if state is empty. If it is, gather info from backend. It will ve empty if the user has not landed in this page navigating
       if (state === null) {
-        console.log("Null states")
         getEventDetail(eventId as string,token).then(
           (response) => {
+            // Event name
             setEventName(response.data.description);
+
+            // Single stage
+            if (response.data.stages.length==1) {
+              setSingleStage(true)
+            } else {
+              setSingleStage(false)
+            }
+
+            // Stage info
             const current_stage = response.data.stages.find(stage=> stage.id === stageId);
             if (current_stage) {
               setStageName(response.data.description)
@@ -128,12 +138,20 @@ export function useEventInfo() {
         setEventName(state.eventName)
         setStageName(state.stageName)
         setStageTypeId(state.stageTypeId)
+        setSingleStage(state.singleStage)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     ,[])
 
-  return {eventId:eventId as string,eventName:eventName,stageId:stageId as string,stageName:stageName,stageTypeId:stageTypeId}
+  return {
+    eventId:eventId as string,
+    eventName:eventName,
+    stageId:stageId as string,
+    stageName:stageName,
+    stageTypeId:stageTypeId,
+    singleStage:singleStage
+  }
 }
 
 /**
