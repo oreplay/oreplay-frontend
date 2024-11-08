@@ -67,6 +67,17 @@
       "Club": "Club"
     },
     "Stages": {
+      "NewStage": "Nueva etapa",
+      "DeleteStage" : {
+        "Tooltip" : "Borrar etapa",
+        "DialogTitle": "Desea borrar esta etapa?",
+        "DialogBody": "La etapa y todos sus resultados se borrarán. Esta acción no puede deshacerse."
+      },"WipeOutRunners": {
+        "Tooltip": "Borrar todos los corredores de esta etapa",
+        "DialogTitle": "Desea borrar todos los corredores de esta etapa?",
+        "DialogBody": "Se borrarán todos los resultados y horas de salida subidos a esta etapa. Después, puedes volverlos a subir. Esta opción se utiliza para corregir errores en los datos subidos.",
+        "DialogConfirm": "Borrar"
+      },
       "StagesTypes": {
         "StageType": "Tipo",
         "FootO": "O-Pie",
@@ -78,8 +89,6 @@
         "ChaseStart": "Salida a la caza"
       }
     },
-    "NewStage": "Nueva etapa",
-    "WipeOutRunners": "Borrar todos los corredores de esta etapa",
     "EventSecurityTokens": "Clave de seguridad (Desktop login token)",
     "Do you want to renew the security key?": "¿Desea renovar la clave de seguridad?",
     "RenewEventTokenMsg": "Si renueva la clave de seguridad la antigua será invalidada. Nadie con la clave de seguridad antigua podrá subir resultados a este evento.",

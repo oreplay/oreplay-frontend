@@ -27,6 +27,7 @@ import Tooltip from "@mui/material/Tooltip";
 import {EventDetailModel} from "../../../../../../../shared/EntityTypes.ts";
 import {useAuth} from "../../../../../../../shared/hooks.ts";
 import {stageTypes} from "../../../../../../../shared/Constants.ts";
+import GridActionsCellItemDialog from "./GridActionsCellItemDialog.tsx";
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -54,7 +55,7 @@ function EditToolbar(props: EditToolbarProps) {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        {t('EventAdmin.NewStage')}
+        {t('EventAdmin.Stages.NewStage')}
       </Button>
     </GridToolbarContainer>
   );
@@ -107,7 +108,7 @@ export default function StagesDataGrid(props:Props) {
     setRowModesModel({ ...rowModesModel, [row.id]: { mode: GridRowModes.View } });
   };
 
-  const handleDeleteClick = (row:GridRowParams<StageRow>) => () => {
+  const handleDeleteClick = (row:GridRowParams<StageRow>) => {
     deleteStage(
       props.eventDetail.id,
       row.row.stageId,
@@ -117,7 +118,7 @@ export default function StagesDataGrid(props:Props) {
     )
   };
 
-  const handleWipeOutRunnersClick = (row:GridRowParams<StageRow>) => ()=> {
+  const handleWipeOutRunnersClick = (row:GridRowParams<StageRow>)=> {
     wipeOutStage(
       props.eventDetail.id,
       row.row.stageId,
@@ -240,22 +241,26 @@ export default function StagesDataGrid(props:Props) {
               color="inherit"
             />
           </Tooltip>,
-          <Tooltip title={t('Delete')}>
-            <GridActionsCellItem
-              icon={<DeleteIcon />}
-              label="Delete"
-              onClick={handleDeleteClick(row)}
-              color="inherit"
-            />
-          </Tooltip>,
-          <Tooltip title={t('EventAdmin.WipeOutRunners')}>
-            <GridActionsCellItem
-              icon={<PersonOffIcon />}
-              label="WipeOutRunners"
-              onClick={handleWipeOutRunnersClick(row)}
-              color={"inherit"}
-            />
-          </Tooltip>
+          <GridActionsCellItemDialog
+            icon={<DeleteIcon />}
+            iconLabel={"Delete"}
+            tooltipText={t('EventAdmin.Stages.DeleteStage.Tooltip')}
+            action={()=>handleDeleteClick(row)}
+            dialogTitle={t('EventAdmin.Stages.DeleteStage.DialogTitle')}
+            dialogBody={t('EventAdmin.Stages.DeleteStage.DialogBody')}
+            dialogCancelButtonText={t('Cancel')}
+            dialogConfirmButtonText={t('Delete')}
+          />,
+          <GridActionsCellItemDialog
+            icon={<PersonOffIcon />}
+            iconLabel={"WipeOutRunners"}
+            tooltipText={t('EventAdmin.Stages.WipeOutRunners.Tooltip')}
+            action={()=>handleWipeOutRunnersClick(row)}
+            dialogTitle={t('EventAdmin.Stages.WipeOutRunners.DialogTitle')}
+            dialogBody={t('EventAdmin.Stages.WipeOutRunners.DialogBody')}
+            dialogCancelButtonText={t('Cancel')}
+            dialogConfirmButtonText={t('EventAdmin.Stages.WipeOutRunners.DialogConfirm')}
+          />
         ];
       },
     },

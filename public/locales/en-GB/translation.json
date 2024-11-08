@@ -67,6 +67,17 @@
       "Club": "Club"
     },
     "Stages": {
+      "NewStage": "New stage",
+      "DeleteStage" : {
+        "Tooltip" : "Delete stage",
+        "DialogTitle": "Do you want to delete this stage?",
+        "DialogBody": "The stage and all of its results will be deleted. This action cannot be undone."
+      },"WipeOutRunners": {
+        "Tooltip": "Wipe out all runners in this stage",
+        "DialogTitle": "Do you want to wipe out all runners in this stage?",
+        "DialogBody": "This will delete all of the results or start times uploaded to this stage. Afterwards, you can upload them again. This option is used to correct errors on uploaded data.",
+        "DialogConfirm": "Wipe out"
+      },
       "StagesTypes": {
         "StageType": "Type",
         "FootO": "Foot-O",
@@ -78,8 +89,6 @@
         "ChaseStart": "Chase start"
       }
     },
-    "NewStage": "New stage",
-    "WipeOutRunners": "Wipe out all runners in this stage",
     "EventSecurityTokens": "Security key (Desktop login token)",
     "Do you want to renew the security key?": "Do you want to renew the security key?",
     "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
