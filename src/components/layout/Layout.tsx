@@ -23,32 +23,29 @@ export default function Layout() {
 
   return (
     <Box sx={{ height: "100vh" }}>
-      <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <Header setOpenSidebar={setIsSideBarOpen} ref={headerRef} />
+      <Sidebar openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
 
-        <Header setOpenSidebar={setIsSideBarOpen} ref={headerRef} />
-        <Sidebar openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
+      {/* Render Popper once headerEl is available */}
+      {headerEl && (
+        <Popper
+          open={isDevelopmentMsgOpen}
+          anchorEl={headerEl}
+          placement="bottom"
+        >
+          <Fade in={isDevelopmentMsgOpen}>
+            <Alert
+              severity="info"
+              icon={<ScienceIcon />}
+              onClose={() => setIsDevelopmentMsgOpen(false)}
+            >
+              {t('AboutUs.VersionMessage')+`${VERSION_TYPE} ${VERSION_NUMBER}`}
+            </Alert>
+          </Fade>
+        </Popper>
+      )}
 
-        {/* Render Popper once headerEl is available */}
-        {headerEl && (
-          <Popper
-            open={isDevelopmentMsgOpen}
-            anchorEl={headerEl}
-            placement="bottom"
-          >
-            <Fade in={isDevelopmentMsgOpen}>
-              <Alert
-                severity="info"
-                icon={<ScienceIcon />}
-                onClose={() => setIsDevelopmentMsgOpen(false)}
-              >
-                {t('AboutUs.VersionMessage')+`${VERSION_TYPE} ${VERSION_NUMBER}`}
-              </Alert>
-            </Fade>
-          </Popper>
-        )}
-
-        <Outlet />
-      </Box>
+      <Outlet />
     </Box>
   );
 }
