@@ -68,8 +68,8 @@
     },
     "Stages": {
       "NewStage": "Nueva etapa",
-      "DeleteStage" : {
-        "Tooltip" : "Borrar etapa",
+      "DeleteStage": {
+        "Tooltip": "Borrar etapa",
         "DialogTitle": "Desea borrar esta etapa?",
         "DialogBody": "La etapa y todos sus resultados se borrarán. Esta acción no puede deshacerse."
       },"WipeOutRunners": {
