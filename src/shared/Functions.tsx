@@ -23,5 +23,12 @@ export function parseDateOnlyTime(dateString: string)
 }
 
 export function parseSecondsToMMSS(seconds: number|string) {
-  return DateTime.fromSeconds(seconds as number).toUTC().toFormat("hh:mm:ss");
+  const duration = DateTime.fromSeconds(Number(seconds)).toUTC();
+
+  // Determina si es menor a una hora
+  if (Number(seconds) < 3600) {
+    return duration.toFormat("mm:ss");
+  } else {
+    return duration.toFormat("HH:mm:ss");
+  }
 }
