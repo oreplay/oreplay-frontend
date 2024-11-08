@@ -49,8 +49,8 @@ export function Dashboard() {
 
   const columns :GridColDef[] = [
     {field:'startDate',headerName:t('Dashboard.StartDate'),width:150},
-    {field:'endDate',headerName:t('Dashboard.FinishDate'),width:150},
-    {field:'Name',headerName:t('Dashboard.Name'),width:150}
+    {field:'endDate',headerName:t('Dashboard.FinishDate'),width:130},
+    {field:'Name',headerName:t('Dashboard.Name'),flex:1,minWidth:200}
   ]
 
   return  (
