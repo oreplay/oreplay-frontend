@@ -44,20 +44,20 @@ export default function RogainePoints() {
                 return (
                   <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={`runner${runner.id}`}>
                     <TableCell key={`runner${runner.id}pos`}>
-                      {(status==="ok")? runner.runner_results[0].position.toString() : ""}
+                      {runner.runner_results[0].position? runner.runner_results[0].position.toString() : ""}
                     </TableCell>
                     <TableCell sx={{minWidth: "200px"}} key={`runner${runner.id}name`}>
                       <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
                       <Typography sx={{color:'text.secondary'}}>{runner.club.short_name}</Typography>
                     </TableCell>
                     <TableCell key={`runner${runner.id}bonus`}>
-                      {(status==="ok")? `+${runner.runner_results[0].points_bonus}` : ""}
+                      {(runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `+${runner.runner_results[0].points_bonus}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}penalty`}>
-                      {(status==="ok")? `${runner.runner_results[0].points_penalty}` : ""}
+                      {(runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_penalty}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}points`}>
-                      {(status==="ok")? `${runner.runner_results[0].points_final}` : ""}
+                      {(runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_final}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}time`}>
                       {(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }
@@ -66,10 +66,13 @@ export default function RogainePoints() {
                       controlNumbers.map((control)=>{
                         return (
                           <TableCell key={`runner${runner.id}control${control}`}>
-                            <ControlBadge
-                              number={control}
-                              punched={runnerPunchedControls.includes(control)}
-                            />
+                            {
+                              (runner.runner_results[0].points_final || runner.runner_results[0].finish_time)?
+                                <ControlBadge
+                                  number={control}
+                                  punched={runnerPunchedControls.includes(control)}
+                                /> : ""
+                            }
                           </TableCell>
                         )
                       })

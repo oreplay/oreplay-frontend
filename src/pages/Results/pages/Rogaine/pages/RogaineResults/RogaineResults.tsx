@@ -62,7 +62,7 @@ export default function RogainePoints () {
 
               return (
                 <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={runner.id}>
-                  <TableCell key={`${runner.id}`}>{(status==="ok")? runner.runner_results[0].position.toString() : ""}</TableCell>
+                  <TableCell key={`${runner.id}`}>{runner.runner_results[0].position ? runner.runner_results[0].position.toString() : ""}</TableCell>
                   {widthWindow > 768 ? (
                     <TableCell>{runner.first_name} {runner.last_name}</TableCell>
                   ) :
@@ -77,10 +77,10 @@ export default function RogainePoints () {
                     <TableCell>{runner.club.short_name}</TableCell>
                   ) : null}
                   {widthWindow > 768 ? (
-                    <TableCell>{(status==="ok")? `${runner.runner_results[0].points_final}` : ""}</TableCell>
+                    <TableCell>{runner.runner_results[0].position ? `${runner.runner_results[0].points_final}` : ""}</TableCell>
                   ) :
                     <TableCell>
-                      <Typography>{(status==="ok")? `${runner.runner_results[0].points_final}` : ""}</Typography>
+                      <Typography>{(status==="ok")? ( (runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_final}` : "")  : ""}</Typography>
                       <br></br>
                       <Typography>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
                     </TableCell>}
