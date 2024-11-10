@@ -101,6 +101,7 @@ export interface RunnerResultModel {
 export interface SplitModel {
   id: string,
   reading_time: string,
+  order_number: bigint|null,
   points: bigint|null,
   control: ControlModel,
 }
