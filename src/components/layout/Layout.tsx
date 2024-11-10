@@ -16,6 +16,10 @@ export default function Layout() {
 
   const {t} = useTranslation();
 
+  setTimeout(() => {
+    setIsDevelopmentMsgOpen(false)
+  }, 12000)
+
   useEffect(() => {
     // Update state when headerRef.current is ready
     setHeaderEl(headerRef.current);
