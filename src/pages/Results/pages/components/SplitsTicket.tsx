@@ -61,7 +61,7 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ runner }) => {
               <Grid item xs={6}>{/* empty */}</Grid>
               <Grid item xs={6}>
                 <Typography sx={{ color: 'secondary.main', fontWeight: 'bold', fontSize: '1.1em' }}>
-                  {runnerResults.points_final} points
+                  {runnerResults.points_final.toString()} points
                 </Typography>
               </Grid>
             </>
@@ -70,11 +70,11 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ runner }) => {
 
         {/* Headers Row 1 */}
         <Grid item xs={6} sx={{ mt: 2 }}>
-          <Typography variant="subtitle" sx={{ fontWeight: 'bold' }}>Parcial</Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Parcial</Typography>
           <Divider />
         </Grid>
         <Grid item xs={6} sx={{ mt: 2 }}>
-          <Typography variant="subtitle" sx={{ fontWeight: 'bold' }}>Comparación</Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Comparación</Typography>
           <Divider />
         </Grid>
         {/* Headers Row 2 */}
@@ -89,7 +89,7 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ runner }) => {
           <React.Fragment key={split.id}>
             <Grid item xs={2}>
               <Typography>
-                <span>{split.order_number}</span>
+                <span>{split.order_number?.toString()}</span>
                 <Typography
                   component="span"
                   sx={{ ml: '2px', color: 'text.secondary', fontSize: '0.875rem' }}
