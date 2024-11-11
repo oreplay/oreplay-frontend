@@ -1,18 +1,34 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {RunnersContext} from "../../../../shared/context.ts";
 import {useTranslation} from "react-i18next";
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Dialog, DialogTitle, DialogContent} from "@mui/material";
 import {getUniqueStationNumbers} from "../../shared/Functions.ts";
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import ControlBadge from "./components/ControlBadge.tsx";
+import SplitsTicket from '../../../components/SplitsTicket.tsx'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
+import { RunnerModel } from '../../../../../../shared/EntityTypes.ts'
 import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
 
 export default function RogainePoints() {
   const {t} = useTranslation();
   const [runnersList,isLoading] = useContext(RunnersContext)
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   const controlNumbers = getUniqueStationNumbers(runnersList)
+
+  const [selectedRunner, setSelectedRunner] = useState<RunnerModel | null>(null)
+  const handleRowClick = (runner: RunnerModel) => {
+    setSelectedRunner(runner)
+    setDialogOpen(true)
+  }
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false)
+    setSelectedRunner(null)
+  }
 
   if (isLoading) {
     return (<p>{t('Loading')}</p>)
@@ -44,7 +60,7 @@ export default function RogainePoints() {
                 const runnerPunchedControls = getUniqueStationNumbers([runner])
 
                 return (
-                  <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={`runner${runner.id}`}>
+                  <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={`runner${runner.id}`} onClick={() => handleRowClick(runner)}>
                     <TableCell key={`runner${runner.id}pos`}>
                       {getPositionOrNc(runner, t)}
                     </TableCell>
@@ -85,6 +101,42 @@ export default function RogainePoints() {
             }
           </TableBody>
         </Table>
+
+        <Dialog
+          open={dialogOpen}
+          onClose={handleCloseDialog}
+          sx={{
+            '& .MuiDialog-paper': {
+              width: '100%',
+              height: 'calc(100% - 5%)',
+              maxWidth: '430px',
+              maxHeight: 'none',
+            },
+          }}
+        >
+          <DialogTitle
+            sx={{
+              marginBottom: 2,
+            }}
+          >
+            <IconButton
+              aria-label="close"
+              onClick={handleCloseDialog}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent>
+            {selectedRunner ? <SplitsTicket runner={selectedRunner}/> : ""}
+          </DialogContent>
+        </Dialog>
+
       </TableContainer>
     )
   }
