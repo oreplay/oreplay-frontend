@@ -1,32 +1,14 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography
-} from "@mui/material";
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import {useTranslation} from "react-i18next";
-import {parseDateOnlyTime, parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import {RunnersContext} from "../../../../shared/context.ts";
-import {parseResultStatus} from "../../../../shared/functions.ts";
+import ResultListContainer from "../../components/ResultListContainer.tsx";
+import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
+import ResultListItem from "../../components/ResultListItem.tsx";
+import {Box, Typography} from "@mui/material";
+import {parseSecondsToMMSS, parseStartTime} from "../../../../../../shared/Functions.tsx";
 
 export default function FootOResults() {
-  const [widthWindow, setWidthWindow] = useState<number>(0);
   const {t} = useTranslation();
-
-  const handleWindowSizeChange = () => {
-    setWidthWindow(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange);
-    return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
-    }
-  }, [])
 
   const [runnersList,isLoading] = useContext(RunnersContext)
 
@@ -35,61 +17,80 @@ export default function FootOResults() {
     return (<p>{t('Loading')}</p>)
   } else {
     return (
-      <TableContainer sx={{height: '100%', flex: 1, position: 'absolute'}}>
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow key={"table Head"}>
-              <TableCell></TableCell>
-              <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Name')}</TableCell>
-              {widthWindow > 768 ? (
-                <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Club')}</TableCell>
-              ) : null}
-              {widthWindow > 768 ? (
-                <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.StartTime')}</TableCell>
-              ) : <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Times')}</TableCell>}
-              {widthWindow > 768 ? (
-                <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.FinishTime')}</TableCell>
-              ) : null}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {runnersList?.map((runner) => {
-
-              const status = parseResultStatus(runner.runner_results[0].status_code as string)
-
-              return (
-                <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={runner.id}>
-                  <TableCell key={`${runner.id}`}>{(status==="ok")? runner.runner_results[0].position.toString() : ""}</TableCell>
-                  {widthWindow > 768 ? (
-                    <TableCell>{runner.first_name} {runner.last_name}</TableCell>
-                  ) :
-                    <TableCell sx={{maxWidth: "180px"}}>
-                      <Typography>{runner.first_name}</Typography>
-                      <Typography>{runner.last_name}</Typography>
-                      <br></br>
-                      <Typography sx={{color:'text.secondary'}}>{runner.club.short_name}</Typography>
-                    </TableCell>}
-
-                  {widthWindow > 768 ? (
-                    <TableCell><Typography>{runner.club.short_name}</Typography></TableCell>
-                  ) : null}
-                  {widthWindow > 768 ? (
-                    <TableCell>{parseDateOnlyTime(runner.runner_results[0].start_time)}</TableCell>
-                  ) :
-                    <TableCell>
-                      <Typography>{parseDateOnlyTime(runner.runner_results[0].start_time)}</Typography>
-                      <br></br>
-                      <Typography>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
-                    </TableCell>}
-                  {widthWindow > 768 ? (
-                    <TableCell>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "") : t(`ResultsStage.statusCodes.${status}`)}</TableCell>
-                  ) : null}
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <ResultListContainer>
+        {
+          runnersList.map((runner: RunnerModel) => (
+            <ResultListItem
+              key={runner.id}
+            >
+              <Box
+                sx={{
+                  flexShrink: 0,
+                  display: "flex",          // Enables flex properties
+                  flexDirection: "column",  // Stack content vertically
+                  justifyContent: "flex-start",  // Align content to the top
+                  flexGrow: 1,
+                }}
+              >
+                <Typography sx={{color:'primary.main'}}>
+                  {`${runner.runner_results[0].position}.`}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display:'flex',
+                  flexShrink: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  width:'100%',
+                  marginLeft:'1em'
+                }}
+              >
+                <Box>
+                  <Typography>
+                    {`${runner.first_name} ${runner.last_name}`}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color:'text.secondary'
+                    }}
+                  >
+                    {`${runner.club.short_name}`}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: "space-between",
+                    width: '100%'
+                  }}
+                >
+                  <Box sx={{
+                    display:'inline-flex',
+                    flexDirection:'row',
+                    justifyContent:'space-between',
+                    gap:'.3em'
+                  }}>
+                    <Typography sx={{color:'secondary.main'}}>{`${t('ResultsStage.StartTime')}:`}</Typography>
+                    <Typography>{parseStartTime(runner.runner_results[0].start_time)}</Typography>
+                  </Box>
+                  <Box sx={{
+                    display:'inline-flex',
+                    flexDirection:'row',
+                    justifyContent:'space-between',
+                    gap:'.3em'
+                  }}>
+                    <Typography sx={{color:'secondary.main'}}>{`${t('ResultsStage.FinishTime')}:`}</Typography>
+                    <Typography>{parseSecondsToMMSS(runner.runner_results[0].time_seconds)}</Typography>
+                    <Typography sx={{color:'primary.main'}}>{`+${parseSecondsToMMSS(runner.runner_results[0].time_behind.toString())}`}</Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </ResultListItem>
+          ))
+        }
+      </ResultListContainer>
     )
   }
 }
