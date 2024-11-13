@@ -110,7 +110,7 @@ export default function StageLayout () {
         <EventStageBanner eventName={eventName} stageName={stageName} singleStage={singleStage} />
         <Box sx={{
           height: "calc(100% - 64px)",
-          padding: "24px 48px",
+          padding: "24px 24px",
           display: 'flex',
           flexDirection: 'column',
           minHeight: 0

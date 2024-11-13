@@ -13,7 +13,7 @@ export default function EventStageBanner(props:EventStageBannerProps) {
       sx={{
         fontWeight: "bold",
         paddingY: "1em", // Add left padding for a consistent margin
-        paddingX: '48px',
+        paddingX: '24px',
         backgroundColor: '#efefef',
         textAlign: "left" // Ensure all text within this Box is left-aligned
       }}
