@@ -22,6 +22,11 @@ export function parseDateOnlyTime(dateString: string)
   return parseLuxon(dateString).toLocaleString(DateTime.TIME_24_SIMPLE);
 }
 
+export function parseStartTime(dateString: string)
+{
+  return parseLuxon(dateString).toFormat('HH:mm:ss');
+}
+
 export function parseSecondsToMMSS(seconds: number|string) {
   const duration = DateTime.fromSeconds(Number(seconds)).toUTC();
   const oneHour = 3600
