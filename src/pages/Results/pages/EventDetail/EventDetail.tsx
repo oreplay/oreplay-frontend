@@ -1,12 +1,13 @@
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import loadingIcon from "../../../../assets/loading.svg";
 import {useEffect, useState} from "react";
 import {getEventDetail} from "../../services/EventService.ts";
 import {useTranslation} from "react-i18next";
-import {ArrowForward, Launch} from "@mui/icons-material";
+import {ArrowForward} from "@mui/icons-material";
 import {EventDetailModel} from "../../../../shared/EntityTypes.ts";
 import {parseDate} from "../../../../shared/Functions.tsx";
+import EventDetailURLButton from "./components/EventDetailURLButton.tsx";
 
 export default function EventDetail() {
 
@@ -62,21 +63,6 @@ export default function EventDetail() {
     return null;
   }
 
-  function getButtonWebsite() {
-    if (detail?.website) {
-      return (
-        <Button style={styles.aligns} sx={{width: "min-content", marginTop: "12px", color: "white"}}
-          variant="contained"
-          onClick={() => {
-            window.open(detail?.website, '_blank', 'noopener,noreferrer')
-          }} endIcon={<Launch/>}>
-          {detail.website}
-        </Button>
-      )
-    }
-
-  }
-
   if (loadingData) {
     return (
       <Box sx={{
@@ -106,7 +92,7 @@ export default function EventDetail() {
         <Typography color={"secondary.main"}
           style={styles.titleEvent}>{detail?.description}</Typography>
         {getDatesOfEvent()}
-        {getButtonWebsite()}
+        <EventDetailURLButton url={detail?.website} marginLeft={styles.aligns.marginLeft} marginRight={styles.aligns.marginRight}/>
       </Box>
       <Box height={"100%"} sx={{
         bgcolor: "secondary.main",
