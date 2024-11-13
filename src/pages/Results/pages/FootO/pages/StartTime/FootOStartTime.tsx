@@ -17,8 +17,7 @@ export default function FootOStartTime() {
 
   useEffect(() => {
     setRunnersByStartTime( orderRunnersByStartTime(rawRunnersList) )
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [runnersByStartTime]);
+  }, [rawRunnersList]);
 
   if (isLoading) {
     return t('Loading')
