@@ -1,9 +1,15 @@
-import {Box} from "@mui/material";
+
+import ResultListContainer from "../../components/ResultListContainer.tsx";
+import {Alert} from "@mui/material";
+import ScienceIcon from "@mui/icons-material/Science";
+import {useTranslation} from "react-i18next";
 
 export default function FootOSplits() {
+  const {t} = useTranslation();
+
   return (
-    <Box sx={{height: "100%", padding: "24px 48px"}}>
-      SPLITS
-    </Box>
+    <ResultListContainer>
+      <Alert icon={<ScienceIcon />} severity="info">{t('ThisFunctionalityNotImplementedMsg')}</Alert>
+    </ResultListContainer>
   )
 }
