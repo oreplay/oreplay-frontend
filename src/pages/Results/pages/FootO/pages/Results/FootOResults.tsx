@@ -33,8 +33,9 @@ export default function FootOResults() {
                     display: "flex",          // Enables flex properties
                     flexDirection: "column",  // Stack content vertically
                     justifyContent: "flex-start",  // Align content to the top
+                    alignItems: "flex-end",
                     flexGrow: 1,
-                    width:'5px'
+                    width:'10px'
                   }}
                 >
                   <Typography sx={{color:'primary.main'}}>
@@ -48,7 +49,7 @@ export default function FootOResults() {
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     width:'100%',
-                    marginLeft:'1em'
+                    marginLeft:'.3em'
                   }}
                 >
                   <Box>
