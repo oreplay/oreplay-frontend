@@ -73,21 +73,21 @@ export default function SignIn(){
               id="login_challenge"
               value={loginChallenge}
               type="hidden"
-              inputProps={{ style: { display: 'none' } }}
+              sx={{display: "none"}}
             />
             <TextField
               name="client_id"
               value="2658"
               id="client_id"
               type="hidden"
-              inputProps={{ style: { display: 'none' } }}
+              sx={{display: "none"}}
             />
             <TextField
               name="grant_type"
               value="password"
               id="grant_type"
               type="hidden"
-              inputProps={{ style: { display: 'none' } }}
+              sx={{display: "none"}}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
