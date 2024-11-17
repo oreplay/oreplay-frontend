@@ -129,6 +129,7 @@
     "ScorePoints": "_Points"
   },
   "ResultsStage": {
+    "NoStartTime": "_No start time",
     "Class": "Class",
     "Position": "Position",
     "Name": "Nom",

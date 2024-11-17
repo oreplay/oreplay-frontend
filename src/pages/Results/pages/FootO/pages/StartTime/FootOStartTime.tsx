@@ -4,9 +4,9 @@ import {RunnersContext} from "../../../../shared/context.ts";
 import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import {orderRunnersByStartTime} from "./shared/functions.ts";
 import {useTranslation} from "react-i18next";
-import {parseStartTime} from "../../../../../../shared/Functions.tsx";
 import ResultListContainer from "../../components/ResultListContainer.tsx";
 import ResultListItem from "../../components/ResultListItem.tsx";
+import StartTime from '../../../components/StartTime.tsx'
 
 export default function FootOStartTime() {
   const {t} = useTranslation()
@@ -55,7 +55,7 @@ export default function FootOStartTime() {
                   textAlign: "center", // Center the text itself inside each Typography component
                 }}
               >
-                <Typography>{parseStartTime(runner.runner_results[0].start_time)}</Typography>
+                <StartTime time={runner.runner_results[0].start_time}></StartTime>
                 <Typography sx={{color:'text.secondary'}}>{`${runner.sicard}`}</Typography>
               </Box>
             </ResultListItem>

@@ -5,9 +5,10 @@ import ResultListContainer from "../../components/ResultListContainer.tsx";
 import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import ResultListItem from "../../components/ResultListItem.tsx";
 import {Box, Typography} from "@mui/material";
-import {parseSecondsToMMSS, parseStartTime} from "../../../../../../shared/Functions.tsx";
+import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
 import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
+import StartTime from '../../../components/StartTime.tsx'
 
 export default function FootOResults() {
   const {t} = useTranslation();
@@ -81,7 +82,7 @@ export default function FootOResults() {
                       gap:'.1em'
                     }}>
                       <Typography sx={{color:'secondary.main'}}>{`${t('ResultsStage.StartTime')}:`}</Typography>
-                      <Typography>{parseStartTime(runner.runner_results[0].start_time)}</Typography>
+                      <StartTime time={runner.runner_results[0].start_time}></StartTime>
                     </Box>
                     <Box sx={{
                       display:'inline-flex',

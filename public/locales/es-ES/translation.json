@@ -127,6 +127,7 @@
 
   },
   "ResultsStage": {
+    "NoStartTime": "Sin hora de salida",
     "Class": "Categoría",
     "Position": "Posición",
     "Name": "Nombre",
