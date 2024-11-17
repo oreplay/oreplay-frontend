@@ -1,6 +1,6 @@
 import {EventModel} from "../../../../../shared/EntityTypes.ts";
 import {useTranslation} from "react-i18next";
-import {Box, Typography} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import TodayEventButton from "./TodayEventButton.tsx";
 
 interface TodayEventsProps {

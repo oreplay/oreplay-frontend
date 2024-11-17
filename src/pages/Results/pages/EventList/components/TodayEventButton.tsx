@@ -2,6 +2,7 @@ import {Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {EventModel} from "../../../../../shared/EntityTypes.ts";
 import Button from "@mui/material/Button";
+import { Launch } from '@mui/icons-material'
 
 interface TodayEventButtonProps {
   event: EventModel;
@@ -33,6 +34,7 @@ export default function TodayEventButton(props:TodayEventButtonProps) {
         minWidth:"220px",
         width:"220px",
         height:"160px",
+        padding: "6px 8px",
         marginRight:"24px",
         transition: "transform 0.2s, box-shadow 0.2s, background-color 0.2s",
         transformOrigin: "center",  // Scale from the center without shifting position
@@ -41,6 +43,8 @@ export default function TodayEventButton(props:TodayEventButtonProps) {
           transform: "scale(1.05)",  // Slightly scale up on hover
         },
       }}
+      variant="contained"
+      endIcon={<Launch sx={{color: "white", position: "absolute", bottom:"12px", right:"16px"}}/>}
       onClick={() => navigate(`/competitions/${props.event.id}`)}
     >
       <Typography sx={styles.typographyBox} fontWeight={"bolder"}>
