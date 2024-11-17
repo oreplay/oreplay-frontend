@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import loadingIcon from "../../../../assets/loading.svg";
 import {useEffect, useState} from "react";
@@ -31,11 +31,10 @@ export default function EventDetail() {
       marginRight: "48px"
     },
     listStages: {
-      borderBottom: "1px solid white",
       marginLeft: "48px",
       marginRight: "48px",
       height: "min-content",
-      padding: "24px 0px"
+      padding: "12px 0px"
     }
   }
 
@@ -105,13 +104,29 @@ export default function EventDetail() {
             (stage) => {
               return (
                 <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"}
-                  key={stage.id}
-                  onClick={() => navigate(`/competitions/${id}/${stage.id}`,
-                    {state: {eventName: detail?.description, stageName: stage.description, stageTypeId:stage.stage_type.id, singleStage:false}})}>
-                  <Typography color={"primary.light"}>
-                    {stage.description}
-                  </Typography>
-                  <ArrowForward sx={{color: "primary.light"}}/>
+                  key={stage.id}>
+                  <Button
+                    onClick={() => navigate(`/competitions/${id}/${stage.id}`,
+                      {state: {eventName: detail?.description, stageName: stage.description, stageTypeId:stage.stage_type.id, singleStage:false}})}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#ffffff",
+                      color: "secondary.main",
+                      fontSize: "1.1rem",
+                      padding: "12px 16px",
+                      justifyContent: "space-between",
+                      '&:hover': {
+                        backgroundColor: "#dddddd",
+                      },
+                    }}
+                  >
+                    <Typography color="secondary.main" sx={{ fontWeight: "bold" }}>
+                      {stage.description}
+                    </Typography>
+                    <ArrowForward sx={{color: "secondary.main"}}/>
+                  </Button>
                 </Box>
               )
             }
