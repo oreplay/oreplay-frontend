@@ -91,6 +91,7 @@ export default function SignIn(){
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
+              sx={{display: "none"}}
               label={t('Sign in.RememberMe')}
             />
             <Button
@@ -101,7 +102,7 @@ export default function SignIn(){
             >
               {t('Sign in.Sign in')}
             </Button>
-            <Grid container>
+            <Grid container sx={{display: "none"}}>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   {t('Sign in.ForgotPassword')}
