@@ -17,7 +17,7 @@ export function parseResultStatus(status: string): string {
     case RESULT_STATUS.ot:
       return "ot"
     default:
-      throw new Error(`Unknown status: ${status}`)
+      return "unknown" + status
   }
 }
 
