@@ -6,7 +6,8 @@ import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import ResultListItem from "../../components/ResultListItem.tsx";
 import {Box, Typography} from "@mui/material";
 import {parseSecondsToMMSS, parseStartTime} from "../../../../../../shared/Functions.tsx";
-import {parseResultStatus} from "../../../../shared/functions.ts";
+import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
+import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
 
 export default function FootOResults() {
   const {t} = useTranslation();
@@ -22,6 +23,7 @@ export default function FootOResults() {
         {
           runnersList.map((runner: RunnerModel) => {
             const status = parseResultStatus(runner.runner_results[0].status_code as string)
+            const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
             return (
               <ResultListItem
@@ -39,7 +41,7 @@ export default function FootOResults() {
                   }}
                 >
                   <Typography sx={{color:'primary.main'}}>
-                    {runner.runner_results[0].position ? `${runner.runner_results[0].position}.` : ''}
+                    {getPositionOrNc(runner, t)}
                   </Typography>
                 </Box>
                 <Box
@@ -88,10 +90,10 @@ export default function FootOResults() {
                       gap:'.15em',
                     }}>
                       <Typography sx={{color:'secondary.main'}}>{`${t('ResultsStage.FinishTime')}:`}</Typography>
-                      <Typography>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
+                      <Typography>{(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
                       <Typography sx={{color:'primary.main'}}>
                         {
-                          ((status==="ok")&&(runner.runner_results[0].finish_time != null))
+                          ((statusOkOrNc)&&(runner.runner_results[0].finish_time != null))
                             ?
                           `+${parseSecondsToMMSS(runner.runner_results[0].time_behind.toString())}`
                             :

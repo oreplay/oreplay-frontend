@@ -11,7 +11,8 @@ import {
   Typography
 } from "@mui/material";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
-import {parseResultStatus} from "../../../../shared/functions.ts";
+import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
+import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
 
 export default function RogainePoints () {
   const {t} = useTranslation();
@@ -59,10 +60,11 @@ export default function RogainePoints () {
             {runnersList?.map((runner) => {
 
               const status = parseResultStatus(runner.runner_results[0].status_code as string)
+              const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
               return (
                 <TableRow sx={{width: {md: "100%", sx: "200px"}}} key={runner.id}>
-                  <TableCell key={`${runner.id}`}>{runner.runner_results[0].position ? runner.runner_results[0].position.toString() : ""}</TableCell>
+                  <TableCell key={`${runner.id}`}>{getPositionOrNc(runner, t)}</TableCell>
                   {widthWindow > 768 ? (
                     <TableCell>{runner.first_name} {runner.last_name}</TableCell>
                   ) :
@@ -80,12 +82,12 @@ export default function RogainePoints () {
                     <TableCell>{runner.runner_results[0].position ? `${runner.runner_results[0].points_final}` : ""}</TableCell>
                   ) :
                     <TableCell>
-                      <Typography>{(status==="ok")? ( (runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_final}` : "")  : ""}</Typography>
+                      <Typography>{(statusOkOrNc)? ( (runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_final}` : "")  : ""}</Typography>
                       <br></br>
-                      <Typography>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
+                      <Typography>{(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
                     </TableCell>}
                   {widthWindow > 768 ? (
-                    <TableCell>{(status==="ok")? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</TableCell>
+                    <TableCell>{(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</TableCell>
                   ) : null}
                 </TableRow>
               )

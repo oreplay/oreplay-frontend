@@ -1,24 +1,35 @@
-import {RESULT_STATUS} from "./constants.ts";
+import {RESULT_STATUS, RESULT_STATUS_TEXT} from "./constants.ts";
 import {RunnerModel} from "../../../shared/EntityTypes.ts";
+import { TFunction } from 'i18next'
 
 export function parseResultStatus(status: string): string {
 
   switch(status) {
     case RESULT_STATUS.ok:
-      return "ok"
+      return RESULT_STATUS_TEXT.ok
     case RESULT_STATUS.dns:
-      return "dns"
+      return RESULT_STATUS_TEXT.dns
     case RESULT_STATUS.dnf:
-      return "dnf"
+      return RESULT_STATUS_TEXT.dnf
     case RESULT_STATUS.mp:
-      return "mp"
+      return RESULT_STATUS_TEXT.mp
     case RESULT_STATUS.disqualified:
-      return "disqualified"
+      return RESULT_STATUS_TEXT.disqualified
     case RESULT_STATUS.ot:
-      return "ot"
+      return RESULT_STATUS_TEXT.ot
+    case RESULT_STATUS.nc:
+      return RESULT_STATUS_TEXT.nc
     default:
       return "unknown" + status
   }
+}
+
+export function getPositionOrNc(runner: RunnerModel, t: TFunction<"translation",undefined>): string {
+  const status = parseResultStatus(runner.runner_results[0].status_code as string)
+  if (status === RESULT_STATUS_TEXT.nc) {
+    return t('ResultsStage.statusCodes.nc')
+  }
+  return runner.runner_results[0].position? runner.runner_results[0].position.toString() : ""
 }
 
 /**

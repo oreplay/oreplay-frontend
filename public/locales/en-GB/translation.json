@@ -137,6 +137,7 @@
     "BonusPoints": "Bonus",
     "PenaltyPoints": "Penalty",
     "statusCodes": {
+      "nc": "NC",
       "ok": "ok",
       "dns": "DNS",
       "dnf": "DNF",
