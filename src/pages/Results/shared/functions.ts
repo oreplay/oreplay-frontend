@@ -29,7 +29,7 @@ export function getPositionOrNc(runner: RunnerModel, t: TFunction<"translation",
   if (status === RESULT_STATUS_TEXT.nc) {
     return t('ResultsStage.statusCodes.nc')
   }
-  return runner.runner_results[0].position? runner.runner_results[0].position.toString() : ""
+  return runner.runner_results[0].position ? `${runner.runner_results[0].position}.` : ""
 }
 
 /**
