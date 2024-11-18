@@ -28,7 +28,7 @@ export default function SettingsMenu() {
           <IconButton
             onClick={handleClick}
             size="large"
-            sx={{color: "white" }}
+            sx={{color: "text.secondary" }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}

@@ -1,15 +1,24 @@
-import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Theme, useTheme } from "@mui/material";
+import {
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText
+} from "@mui/material";
 import EventIcon from '@mui/icons-material/Event';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next"
+import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {
   openSidebar: boolean,
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
-  const theme: Theme = useTheme();
   const navigate = useNavigate();
 
   /* Language support */
@@ -29,26 +38,37 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
         onClose={() => setOpenSidebar(prev => !prev)}
         sx={{
           '&.MuiDrawer-root .MuiDrawer-paper': {
-            background: theme.palette.primary.main,
-            mt: "64px"
+            background: 'white',
           }
         }}
       >
+        {/* Close button */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 1, // Padding for spacing
+          }}
+        >
+          <IconButton onClick={() => setOpenSidebar((prev) => !prev)}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
         <List>
           <ListItem>
             <ListItemButton onClick={() => {navigate("/competitions"); setOpenSidebar(prev => !prev)}}>
-              <ListItemIcon sx= {{color: "white"}}>
+              <ListItemIcon>
                 <EventIcon/>
               </ListItemIcon>
-              <ListItemText sx= {{color: "white"}} primary={t("Events")}/>
+              <ListItemText primary={t("Events")}/>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton onClick={() => {navigate("/About-us"); setOpenSidebar(prev => !prev)}}>
-              <ListItemIcon sx= {{color: "white"}}>
+              <ListItemIcon>
                 <InfoIcon/>
               </ListItemIcon>
-              <ListItemText sx= {{color: "white"}} primary={t("AboutUs.AboutUs")}/>
+              <ListItemText primary={t("AboutUs.AboutUs")}/>
             </ListItemButton>
           </ListItem>
         </List>

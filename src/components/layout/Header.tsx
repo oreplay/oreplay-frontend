@@ -24,16 +24,16 @@ const Header = React.forwardRef((props:Props, ref) => {
 
   return (
     <Box ref={ref}>
-      <AppBar position="static">
+      <AppBar sx={{backgroundColor:'white'}} elevation={0} position="static">
         <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
           <Box>
             { location?.key !== "default" && <Tooltip title={t('GoBack')}>
               <IconButton
                 size="large"
-                sx={{color: "white"}}
+                sx={{color: "text.secondary"}}
                 onClick={() => { navigate(-1) }}
               >
-                <ArrowBack sx={{color: "white"}}/>
+                <ArrowBack sx={{color: "text.secondary"}}/>
               </IconButton>
             </Tooltip>}
           </Box>
@@ -44,7 +44,7 @@ const Header = React.forwardRef((props:Props, ref) => {
                   <Tooltip title={t('Sign in.Sign in')}>
                     <IconButton
                       size="large"
-                      sx= {{color: "white"}}
+                      sx= {{color: "text.secondary"}}
                       onClick={() => navigate('/signin')}
                     >
                       <LoginIcon />
@@ -54,7 +54,7 @@ const Header = React.forwardRef((props:Props, ref) => {
                   <Tooltip title={t('Dashboard.YourEvents')}>
                     <IconButton
                       size="large"
-                      sx= {{color: "white"}}
+                      sx= {{color: "text.secondary"}}
                       onClick={() => { navigate('/dashboard') }}
                     >
                       <AccountCircle />
@@ -70,7 +70,7 @@ const Header = React.forwardRef((props:Props, ref) => {
               <Tooltip title={t('Menu')}>
                 <IconButton
                   size="large"
-                  sx= {{color: "white"}}
+                  sx= {{color: "text.secondary"}}
                   onClick={() => props.setOpenSidebar(prev => !prev)}
                 >
                   <DehazeIcon/>
