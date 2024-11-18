@@ -33,10 +33,10 @@ const EditeDetailURLButton: React.FC<MyComponentProps> = ({ url,marginLeft, marg
           sx={{
             width: "min-content",
             marginTop: "12px",
-            color: "white",
-            textTransform: "lowercase"
+            textTransform: "lowercase",
+            paddingX:0
           }}
-          variant="contained"
+          variant="text"
           onClick={() => {
             window.open(urlObject, '_blank', 'noopener,noreferrer')
           }}
