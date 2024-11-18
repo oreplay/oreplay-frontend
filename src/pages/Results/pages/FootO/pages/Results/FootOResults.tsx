@@ -8,7 +8,6 @@ import {Box, Typography} from "@mui/material";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
 import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
-import StartTime from '../../../components/StartTime.tsx'
 
 export default function FootOResults() {
   const {t} = useTranslation();
@@ -37,7 +36,7 @@ export default function FootOResults() {
                     flexDirection: "column",  // Stack content vertically
                     justifyContent: "flex-start",  // Align content to the top
                     alignItems: "flex-end",
-                    flexGrow: 1,
+                    flexGrow: 0,
                     width:'10px'
                   }}
                 >
@@ -48,61 +47,44 @@ export default function FootOResults() {
                 <Box
                   sx={{
                     display:'flex',
-                    flexShrink: 1,
+                    flexGrow:1,
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    width:'100%',
-                    marginLeft:'.3em'
+                    width:'calc(100% -20px)',
+                    marginLeft:'.3em',
                   }}
                 >
-                  <Box>
-                    <Typography>
-                      {`${runner.first_name} ${runner.last_name}`}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color:'text.secondary'
-                      }}
-                    >
-                      {`${runner.club.short_name}`}
-                    </Typography>
-                  </Box>
-                  <Box
+                  <Typography>
+                    {`${runner.first_name} ${runner.last_name}`}
+                  </Typography>
+                  <Typography
                     sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: "space-between",
-                      width: '100%'
+                      color:'text.secondary'
                     }}
                   >
-                    <Box sx={{
-                      display:'inline-flex',
-                      flexDirection:'row',
-                      justifyContent:'space-between',
-                      gap:'.1em'
-                    }}>
-                      <Typography sx={{color:'secondary.main'}}>{`${t('ResultsStage.StartTime')}:`}</Typography>
-                      <StartTime time={runner.runner_results[0].start_time}></StartTime>
-                    </Box>
-                    <Box sx={{
-                      display:'inline-flex',
-                      flexDirection:'row',
-                      justifyContent:'flex-start',
-                      gap:'.15em',
-                    }}>
-                      <Typography sx={{color:'secondary.main'}}>{`${t('ResultsStage.FinishTime')}:`}</Typography>
-                      <Typography>{(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
-                      <Typography sx={{color:'primary.main'}}>
-                        {
-                          ((statusOkOrNc)&&(runner.runner_results[0].finish_time != null))
-                            ?
-                          `+${parseSecondsToMMSS(runner.runner_results[0].time_behind.toString())}`
-                            :
-                            ""
-                        }
-                      </Typography>
-                    </Box>
-                  </Box>
+                    {`${runner.club.short_name}`}
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    flexShrink: 0,
+                    display: "flex",          // Enables flex properties
+                    flexDirection: "column",  // Stack content vertically
+                    justifyContent: "flex-start",  // Align content to the top
+                    alignItems: "flex-end",
+                    flexGrow: 1,
+                  }}
+                >
+                  <Typography sx={{color:'secondary.main'}}>{(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
+                  <Typography sx={{color:'primary.main',fontSize:14}}>
+                    {
+                      ((statusOkOrNc)&&(runner.runner_results[0].finish_time != null))
+                        ?
+                      `+${parseSecondsToMMSS(runner.runner_results[0].time_behind.toString())}`
+                        :
+                        ""
+                    }
+                  </Typography>
                 </Box>
               </ResultListItem>
             )

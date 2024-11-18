@@ -51,7 +51,7 @@ export default function FootOStartTime() {
                   display: "flex", // Add this line to enable flex properties for the box
                   flexDirection: "column", // Stack text vertically
                   alignItems: "center", // Center the content horizontally in the box
-                  justifyContent: "center", // Center the content vertically in the box
+                  justifyContent: "flex-start ", // Center the content vertically in the box
                   textAlign: "center", // Center the text itself inside each Typography component
                 }}
               >

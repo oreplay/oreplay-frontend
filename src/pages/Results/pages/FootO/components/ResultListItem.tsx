@@ -10,7 +10,7 @@ const ResultListItem: React.FC<ResultListItemProps> = ({children,}) => {
     <Box
       display="flex"
       justifyContent="flex-start"
-      sx={{ flexDirection: 'row' }}
+      sx={{ flexDirection: 'row',borderBottom:'1px solid #f2f2f2',marginY:'0 !important',paddingY:'.8em' }}
     >
       {children}
     </Box>
