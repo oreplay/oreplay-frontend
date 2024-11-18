@@ -88,7 +88,7 @@ export default function EventDetail() {
           bgcolor: "primary.light",
         }}>
 
-        <Typography style={styles.aligns}>Club organizador</Typography>
+        {/**<Typography style={styles.aligns}>Club organizador</Typography>**/}
         <Typography color={"secondary.main"}
           style={styles.titleEvent}>{detail?.description}</Typography>
         {getDatesOfEvent()}
