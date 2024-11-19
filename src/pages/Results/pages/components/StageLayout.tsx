@@ -16,6 +16,12 @@ import FootOSplits from "../FootO/pages/Splits/FootOSplits.tsx";
 import {RunnersContext, SelectedClassContext} from "../../shared/context.ts";
 import EventStageBanner from "./EventStageBanner.tsx";
 
+const FOOT_O_MENU_OPTIONS_LABELS = ['startTimes','results','splits'];
+const RELAY_MENU_OPTIONS_LABELS = ['results','splits'];
+const ROGAINING_MENU_OPTIONS_LABELS = ['results','splits'];
+const EMPTY_MENU_OPTIONS_LABELS: string[] = [];
+
+
 function useStageComponent(stageTypeId:string):
   {defaultMenu:number,pages:JSX.Element[],menuOptions:JSX.Element[],menuOptionsLabels:string[]} {
 
@@ -39,7 +45,7 @@ function useStageComponent(stageTypeId:string):
           <BottomNavigationAction key={"FootOResultsMenu"} label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
           <BottomNavigationAction key={"FootOSplitsMenu"} label={t('StageHeader.Splits')} icon={<TimerIcon />} />,
         ],
-        menuOptionsLabels:['startTimes','results','splits']
+        menuOptionsLabels: FOOT_O_MENU_OPTIONS_LABELS
       }
 
     case RELAY:
@@ -53,7 +59,7 @@ function useStageComponent(stageTypeId:string):
           <BottomNavigationAction key={"RelayResultsMenu"} label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
           <BottomNavigationAction key={"RelaySplitsMenu"} label={t('StageHeader.Splits')} icon={<TimerIcon />} />,
         ],
-        menuOptionsLabels:['results','splits']
+        menuOptionsLabels: RELAY_MENU_OPTIONS_LABELS
       }
 
     case ROGAINING:
@@ -67,7 +73,7 @@ function useStageComponent(stageTypeId:string):
           <BottomNavigationAction key={"rogaineRseultsMenu"} label={t('StageHeader.Results')} icon={<EmojiEventsIcon />} />,
           <BottomNavigationAction key={"RogaineScorePointsMenu"} label={t('StageHeader.ScorePoints')} icon={<TimelineIcon />} />,
         ],
-        menuOptionsLabels:['results','splits']
+        menuOptionsLabels: ROGAINING_MENU_OPTIONS_LABELS
       }
     default:
       if (stageTypeId) {
@@ -76,8 +82,8 @@ function useStageComponent(stageTypeId:string):
         return {
           defaultMenu:0,
           pages:[],
-          menuOptions:[],
-          menuOptionsLabels:[]
+          menuOptions: [],
+          menuOptionsLabels: EMPTY_MENU_OPTIONS_LABELS
         }
       }
   }
