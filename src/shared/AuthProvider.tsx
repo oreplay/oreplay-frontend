@@ -1,4 +1,4 @@
-import React, {createContext, useState} from "react";
+import React, {createContext, useCallback, useState} from "react";
 import {UserModel} from "./EntityTypes.ts";
 import {
   deleteToken,
@@ -41,7 +41,7 @@ export function AuthProvider (props:{children: React.ReactNode}) {
    * @param codeVerifier code verifier created in the frontend during auth init
    * @returns A promise that is
    */
-  const loginAction = async (code:string,codeVerifier:string):Promise<boolean> => {
+  const loginAction = useCallback(async (code:string,codeVerifier:string):Promise<boolean> => {
     try {
       const responseSignInToken = await validateSignIn(code,codeVerifier)
       setToken(responseSignInToken.data.access_token)
@@ -57,14 +57,13 @@ export function AuthProvider (props:{children: React.ReactNode}) {
       console.log('signIn error',error)
       return false
     }
-
-  }
+  }, []);
 
   /**
    * Perform logout action in the server. Also, it sets token and user from useAuth() hook to null.
    * @returns true if logout successful, false if logout unsuccessful
    */
-  const logoutAction = async () : Promise<boolean> => {
+  const logoutAction = useCallback(async () : Promise<boolean> => {
     if (token) {
       try {
         await deleteToken(token)
@@ -79,7 +78,7 @@ export function AuthProvider (props:{children: React.ReactNode}) {
       console.log('User was logged out')
       return true
     }
-  }
+  }, [token])
 
   return (
     <AuthContext.Provider value={{token,user,loginAction,logoutAction}}>
