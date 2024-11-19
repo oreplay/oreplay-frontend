@@ -13,7 +13,7 @@ function MakeRequest(props:{code:string,code_verifier:string}) {
     loginAction(props.code, props.code_verifier).then(()=>{
       setLoading(false);
     })
-  }, );
+  }, [loginAction, props.code, props.code_verifier]);
 
   if (loading) {
     return (
