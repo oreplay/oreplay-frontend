@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import loadingIcon from "../../../../assets/loading.svg";
 import {useEffect, useState} from "react";
@@ -104,14 +104,32 @@ export default function EventDetail() {
           {detail?.stages.map(
             (stage) => {
               return (
-                <Box style={styles.listStages} display={"flex"} justifyContent={"space-between"}
+                <Box
+                  style={styles.listStages}
+                  display={"flex"}
+                  justifyContent={"space-between"}
                   key={stage.id}
+                  sx={{
+                    cursor: "pointer",
+                  }}
                   onClick={() => navigate(`/competitions/${id}/${stage.id}`,
                     {state: {eventName: detail?.description, stageName: stage.description, stageTypeId:stage.stage_type.id, singleStage:false}})}>
                   <Typography color={"primary.light"}>
                     {stage.description}
                   </Typography>
-                  <ArrowForward sx={{color: "primary.light"}}/>
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    sx={{
+                      borderColor: "white",
+                      '&:hover': {
+                        borderColor: "white",
+                        backgroundColor: "#ffffff30",
+                      },
+                    }}
+                  >
+                    <ArrowForward sx={{color: "white"}}/>
+                  </Button>
                 </Box>
               )
             }
