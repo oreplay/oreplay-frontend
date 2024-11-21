@@ -116,6 +116,7 @@
   },
   "EventList": {
     "LiveToday": "Live today",
+    "NoLiveEventsToday": "There aren't events today",
     "FutureEvents": "Future events",
     "PastEvents": "Past events"
   },

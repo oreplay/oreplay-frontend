@@ -41,6 +41,13 @@ export default function TodayEvents(props:TodayEventsProps) {
       </>
     )
   } else {
-    return (<></>)
+    return (
+      <Box width={"100%"} display={"flex"} alignItems={"center"}>
+        <Box height={"16px"} width={"16px"} borderRadius={"50%"} bgcolor={"gray"}></Box>
+        <Box marginLeft={"12px"}>
+          <Typography sx={{color:'text.secondary'}}>{t('EventList.NoLiveEventsToday')}</Typography>
+        </Box>
+      </Box>
+    )
   }
 }
