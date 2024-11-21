@@ -128,6 +128,7 @@
   "ResultsStage": {
     "NoStartTime": "No start time",
     "Class": "Category",
+    "Refresh": "Refresh runners",
     "Position": "Position",
     "Name": "Name",
     "Club": "Club",

@@ -1,4 +1,4 @@
-import {BottomNavigation, BottomNavigationAction, Box, Paper} from "@mui/material";
+import {BottomNavigation, BottomNavigationAction, Box, IconButton, Paper} from "@mui/material";
 import FootOStartTime from "../FootO/pages/StartTime/FootOStartTime.tsx";
 import FootOResults from "../FootO/pages/Results/FootOResults.tsx";
 import {AccessTime} from "@mui/icons-material";
@@ -15,6 +15,8 @@ import {useTranslation} from "react-i18next";
 import FootOSplits from "../FootO/pages/Splits/FootOSplits.tsx";
 import {RunnersContext, SelectedClassContext} from "../../shared/context.ts";
 import EventStageBanner from "./EventStageBanner.tsx";
+import RefreshIcon from '@mui/icons-material/Refresh';
+import Tooltip from "@mui/material/Tooltip";
 
 const FOOT_O_MENU_OPTIONS_LABELS = ['startTimes','results','splits'];
 const RELAY_MENU_OPTIONS_LABELS = ['results','splits'];
@@ -103,10 +105,16 @@ export default function StageLayout () {
   const [selectedMenu,handleMenuChange] = useSelectedMenu(defaultMenu,menuOptionsLabels)
 
   // Get classes
-  const [activeClass,setActiveClassId,classesList,areClassesLoading] = useFetchClasses(eventId,stageId)
+  const [activeClass,setActiveClassId,classesList,areClassesLoading,refreshClasses] = useFetchClasses(eventId,stageId)
 
   // Get runners
-  const [runnersList,areRunnersLoading] = useRunners(eventId,stageId,activeClass)
+  const [runnersList,areRunnersLoading,refreshRunners] = useRunners(eventId,stageId,activeClass)
+
+  // Refresh button
+  const handleRefreshClick = () => {
+    refreshClasses()
+    refreshRunners()
+  }
 
   if (!stageTypeId) {
     return (<p>{t('Loading')}</p>)
@@ -121,8 +129,19 @@ export default function StageLayout () {
           flexDirection: 'column',
           minHeight: 0
         }}>
-          <Box>
+          <Box sx={{
+            display:'flex',
+            flexDirection:'row',
+            justifyContent:'space-between',
+            alignItems:'center',
+            maxWidth:'600px'
+          }}>
             <ClassSelector activeClass={activeClass} setActiveClassId={setActiveClassId} classesList={classesList} isLoading={areClassesLoading} />
+            <Tooltip title={t('')}>
+              <IconButton onClick={() => handleRefreshClick()}>
+                <RefreshIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
           <Box sx={{marginTop: "12px", flex: 1, paddingBottom: '56px'}}>
             <SelectedClassContext.Provider value={activeClass}>

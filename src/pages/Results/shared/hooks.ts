@@ -9,7 +9,7 @@ import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import {useAuth} from "../../../shared/hooks.ts";
 import {orderedRunners} from "./functions.ts";
 
-export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null,(class_id:string)=>void,ClassModel[],boolean] {
+export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null,(class_id:string)=>void,ClassModel[],boolean,()=>void] {
   const ACTIVE_CLASS_SEARCH_PARAM = "class_id"
   const [searchParams,setSearchParams] = useSearchParams();
 
@@ -17,6 +17,7 @@ export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null
   const [isLoading,setIsLoading] = useState<boolean>(true);
   const [classesList,setClassesList] = useState<ClassModel[]>([]);
   const [activeClass,setActiveClassState] = useState<ClassModel|null>(null);
+  const [refreshTrigger,setRefreshTrigger] = useState(0);
 
   // HTTP request
   useEffect(
@@ -48,7 +49,7 @@ export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null
       fetchClasses()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    ,[])
+    ,[refreshTrigger])
 
   // Set selected class function. It handles the search param usage
   const setActiveClassId = (newActiveClassId:string) => {
@@ -62,7 +63,11 @@ export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null
     }
   }
 
-  return [activeClass,setActiveClassId,classesList,isLoading]
+  const refresh = () => {
+    setRefreshTrigger((prev)=>prev+1)
+  }
+
+  return [activeClass,setActiveClassId,classesList,isLoading,refresh]
 }
 
 export function useFetchEvents(when?:'today'|'past'|'future',limit?:number):[EventModel[],boolean,number,(page:number)=>void,number] {
@@ -189,9 +194,10 @@ export function useEventInfo() {
  * @returns runnersList:RunnerModel[] state with the desired runners
  * @returns isLoading:boolean state to know when result are being fetch
  */
-export function useRunners(event_id:string,stage_id:string,activeClass:ClassModel|null):[RunnerModel[],boolean] {
+export function useRunners(event_id:string,stage_id:string,activeClass:ClassModel|null):[RunnerModel[],boolean,()=>void] {
   const [isLoading,setIsLoading] = useState(true);
   const [runnerList, setRunnerList] = useState<RunnerModel[]>([])
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // Trigger for refresh
 
   //fetch from back-end
   useEffect(() => {
@@ -210,7 +216,10 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
     return () => {
       setIsLoading(true)
     }
-  },[event_id,stage_id,activeClass])
+  },[event_id,stage_id,activeClass,refreshTrigger])
 
-  return [runnerList,isLoading]
+  // Function to trigger a refresh
+  const refresh = () => setRefreshTrigger((prev) => prev + 1);
+
+  return [runnerList, isLoading, refresh];
 }

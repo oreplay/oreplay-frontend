@@ -130,6 +130,7 @@
   },
   "ResultsStage": {
     "NoStartTime": "_No start time",
+    "Refresh": "_Refresh runners",
     "Class": "Class",
     "Position": "Position",
     "Name": "Nom",
