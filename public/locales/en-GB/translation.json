@@ -126,9 +126,9 @@
     "ScorePoints": "Points"
   },
   "ResultsStage": {
-    "NoStartTime": "No start time",
-    "Class": "Category",
     "Refresh": "Refresh runners",
+    "NoStartTime": "-",
+    "Class": "Class",
     "Position": "Position",
     "Name": "Name",
     "Club": "Club",

@@ -127,8 +127,8 @@
 
   },
   "ResultsStage": {
-    "NoStartTime": "Sin hora de salida",
     "Refresh": "Recargar corredores",
+    "NoStartTime": "-",
     "Class": "Categoría",
     "Position": "Posición",
     "Name": "Nombre",
