@@ -24,7 +24,7 @@ export function parseDateOnlyTime(dateString: string)
 
 export function parseStartTime(dateString: string)
 {
-  return parseLuxon(dateString).toFormat('HH:mm:ss');
+  return parseLuxon(dateString).minus({ hours: 1 }).toFormat('HH:mm:ss');
 }
 
 export function parseSecondsToMMSS(seconds: number|string) {
