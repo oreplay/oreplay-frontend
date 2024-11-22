@@ -101,18 +101,21 @@ export function useSelectedMenu(defaultMenu:number,menuOptionsLabels:string[]):[
 
   // Pick the right menu from Search Params
   useEffect(()=>{
-    const desired_active_menu = searchParams.get(ACTIVE_MENU_SEARCH_PARAM)
-    if (desired_active_menu && menuOptionsLabels.includes(desired_active_menu)) {
-      // Set selected menu to the index of the active menu from URL params if it exists
-      setSelectedMenu(menuOptionsLabels.indexOf(desired_active_menu));
-    } else {
-      // Otherwise, set the URL to the default menu
-      const defaultMenuLabel = menuOptionsLabels[defaultMenu];
-      searchParams.set(ACTIVE_MENU_SEARCH_PARAM, defaultMenuLabel);
-      setSearchParams(searchParams, { replace: true });  // Use replace: true to avoid history stack changes
-      setSelectedMenu(defaultMenu);
+    if (menuOptionsLabels.length > 0) { // We have to wait for menuOptionLabels to be known until the back returns the stageType
+      const desired_active_menu = searchParams.get(ACTIVE_MENU_SEARCH_PARAM)
+      if ( (desired_active_menu) && (menuOptionsLabels.includes(desired_active_menu))) {
+        // Set selected menu to the index of the active menu from URL params if it exists
+        setSelectedMenu(menuOptionsLabels.indexOf(desired_active_menu));
+      } else {
+        // Otherwise, set the URL to the default menu
+        const defaultMenuLabel = menuOptionsLabels[defaultMenu];
+        searchParams.set(ACTIVE_MENU_SEARCH_PARAM, defaultMenuLabel);
+        setSearchParams(searchParams, { replace: true });  // Use replace: true to avoid history stack changes
+        setSelectedMenu(defaultMenu);
+      }
     }
-  }, [defaultMenu, menuOptionsLabels, searchParams, setSearchParams]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuOptionsLabels]);
 
   // update page when navigating
   const handleMenuChange = useCallback((newValue:number) => {
