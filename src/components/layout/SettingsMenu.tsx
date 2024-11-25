@@ -78,7 +78,7 @@ export default function SettingsMenu() {
             {"\ud83c\uddea\ud83c\uddf8"}
           </ListItemIcon>
           <ListItemText
-            onClick={()=>{i18n.changeLanguage('es-ES')}}
+            onClick={()=>{i18n.changeLanguage('es')}}
           >
             {t('Language.Spanish')}
           </ListItemText>
@@ -88,7 +88,7 @@ export default function SettingsMenu() {
             {"\ud83c\uddec\ud83c\udde7"}
           </ListItemIcon>
           <ListItemText
-            onClick={()=>{i18n.changeLanguage('en-GB')}}
+            onClick={()=>{i18n.changeLanguage('en')}}
           >
             {t('Language.English')}
           </ListItemText>
@@ -98,7 +98,7 @@ export default function SettingsMenu() {
             {"\ud83c\uddeb\ud83c\uddf7"}
           </ListItemIcon>
           <ListItemText
-            onClick={()=>{i18n.changeLanguage('fr-FR')}}
+            onClick={()=>{i18n.changeLanguage('fr')}}
           >
             {t('Language.French')}
           </ListItemText>

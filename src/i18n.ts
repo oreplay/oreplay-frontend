@@ -8,6 +8,6 @@ i18n
   .use(initReactI18next)
   .init({
     debug: true,
-    fallbackLng: 'en-GB',
+    fallbackLng: 'en',
   });
 export default i18n;
