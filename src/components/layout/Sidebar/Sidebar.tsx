@@ -13,9 +13,11 @@ import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next"
 import CloseIcon from "@mui/icons-material/Close";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import React from "react";
 import LanguageDropdown from "./components/LanguageDropdown.tsx";
 import AuthenticationSidebarItem from "./components/AuthenticationSidebarItem.tsx";
+import {useAuth} from "../../../shared/hooks.ts";
 
 type Props = {
   openSidebar: boolean,
@@ -24,6 +26,7 @@ type Props = {
 export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const {user} = useAuth();
 
   return (
     <Box>
@@ -72,6 +75,19 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
             </ListItemButton>
           </ListItem>
           <Divider />
+          {
+            user ?
+              <ListItem>
+                <ListItemButton onClick={() => {navigate("/dashboard"); setOpenSidebar(prev => !prev)}}>
+                  <ListItemIcon>
+                    <DashboardIcon/>
+                  </ListItemIcon>
+                  <ListItemText primary={t("Dashboard.Dashboard")}/>
+                </ListItemButton>
+              </ListItem>
+              :
+              <></>
+          }
           <AuthenticationSidebarItem />
           <LanguageDropdown />
         </List>
