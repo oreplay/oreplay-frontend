@@ -1,18 +1,20 @@
 import {
-  Box,
+  Box, Divider,
   Drawer,
   IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from "@mui/material";
 import EventIcon from '@mui/icons-material/Event';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next"
 import CloseIcon from "@mui/icons-material/Close";
+import React from "react";
+import LanguageDropdown from "./LanguageDropdown.tsx";
 
 type Props = {
   openSidebar: boolean,
@@ -20,11 +22,8 @@ type Props = {
 }
 export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  /* Language support */
-  const { t } = useTranslation()
-
-  /* Component */
   return (
     <Box>
       <Drawer
@@ -71,6 +70,8 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
               <ListItemText primary={t("AboutUs.AboutUs")}/>
             </ListItemButton>
           </ListItem>
+          <Divider />
+          <LanguageDropdown />
         </List>
       </Drawer>
     </Box>

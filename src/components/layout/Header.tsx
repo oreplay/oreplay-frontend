@@ -1,7 +1,6 @@
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 import LoginIcon from '@mui/icons-material/Login';
 import DehazeIcon from '@mui/icons-material/Dehaze';
-import SettingsMenu from "./SettingsMenu.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import {useTranslation} from "react-i18next";
@@ -62,9 +61,6 @@ const Header = React.forwardRef((props:Props, ref) => {
                   </Tooltip>
                 )
               }
-            </Box>
-            <Box>
-              <SettingsMenu />
             </Box>
             <Box>
               <Tooltip title={t('Menu')}>
