@@ -2,7 +2,7 @@ import {Alert, Box, Fade, Popper} from "@mui/material";
 import Header from "./Header.tsx";
 import { Outlet } from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
-import Sidebar from "./Sidebar.tsx";
+import Sidebar from "./Sidebar/Sidebar.tsx";
 import ScienceIcon from '@mui/icons-material/Science';
 import {useTranslation} from "react-i18next";
 const VERSION_NUMBER =import.meta.env.VITE_VERSION_NUMBER

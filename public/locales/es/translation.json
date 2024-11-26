@@ -13,7 +13,6 @@
   "Cancel": "Cancelar",
   "Delete": "Borrar",
   "Save": "Guardar",
-  "Logout": "Cerrar sesion",
   "Settings": "Ajustes",
   "EmailAddress": "Correo electrónico",
   "Password": "Contraseña",
@@ -42,6 +41,7 @@
   },
   "Sign in": {
     "Sign in": "Iniciar sesión",
+    "Logout": "Cerrar sesion",
     "ForgotPassword": "¿Olvidaste tu contraseña?",
     "NoAccount": "¿No tienes cuenta? Regístrate",
     "RememberMe": "Recordarme"

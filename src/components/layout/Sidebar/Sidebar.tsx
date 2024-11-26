@@ -14,8 +14,8 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next"
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
-import LanguageDropdown from "./LanguageDropdown.tsx";
 import LanguageDropdown from "./components/LanguageDropdown.tsx";
+import AuthenticationSidebarItem from "./components/AuthenticationSidebarItem.tsx";
 
 type Props = {
   openSidebar: boolean,
@@ -72,6 +72,7 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
             </ListItemButton>
           </ListItem>
           <Divider />
+          <AuthenticationSidebarItem />
           <LanguageDropdown />
         </List>
       </Drawer>
