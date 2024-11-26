@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next"
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 import LanguageDropdown from "./LanguageDropdown.tsx";
+import LanguageDropdown from "./components/LanguageDropdown.tsx";
 
 type Props = {
   openSidebar: boolean,
