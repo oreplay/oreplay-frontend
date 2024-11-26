@@ -20,7 +20,7 @@ interface EventDataGridColumns {
 
 export function Dashboard() {
   const {t} = useTranslation()
-  const {user,token,logoutAction} = useAuth()
+  const {user,token} = useAuth()
   const [isLoading,setIsLoading] = useState<boolean>(true)
   const rowsPerPage = 5;
   const [totalRows,setTotalRows] = useState<number>(0)
@@ -71,7 +71,6 @@ export function Dashboard() {
         onPaginationModelChange={(model)=>{setPage(model.page)}}
         onRowClick={handleClick}
       />
-      <Button onClick={logoutAction} variant="contained" sx={{mt: "10px"}}>Logout</Button>{/** TODO: move to the navigation var */}
     </Container>
   )
 }

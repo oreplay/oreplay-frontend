@@ -13,7 +13,6 @@
   "Cancel": "Cancel",
   "Delete": "Delete",
   "Save": "Save",
-  "Logout": "Logout",
   "Settings": "Settings",
   "EmailAddress": "Email Address",
   "Password": "Password",
@@ -42,6 +41,7 @@
   },
   "Sign in": {
     "Sign in": "Sign in",
+    "Logout": "Logout",
     "ForgotPassword": "Forgot password?",
     "NoAccount": "Don't have an account? Sign Up",
     "RememberMe": "Remember me"

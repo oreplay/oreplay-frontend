@@ -13,7 +13,6 @@
   "Cancel": "Annuler",
   "Delete": "Supprimer",
   "Save": "Sauvegarder",
-  "Logout": "Fermer session",
   "Settings": "Paramètres",
   "EmailAddress": "adresse e-mail",
   "Password": "Mot de passe",
@@ -45,6 +44,7 @@
   },
   "Sign in": {
     "Sign in": "Se connecter",
+    "Logout": "Fermer session",
     "ForgotPassword": "Mot de passe oublié?",
     "NoAccount": "Vous n'avez pas de compte ? S'inscrire",
     "RememberMe": "Souviens-toi de moi"
