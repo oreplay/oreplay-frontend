@@ -149,5 +149,10 @@
       "disqualified": "DSQ",
       "ot": "FC"
     }
+  },
+  "404Page": {
+    "Header": "¿Perdido en el bosque?",
+    "Message": "No hemos podido encontrar la página que estabas buscando.",
+    "ButtonMessage": "Triángulo de salida"
   }
 }

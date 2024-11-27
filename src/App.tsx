@@ -15,6 +15,7 @@ import PrivateRoute from "./pages/Administration/pages/Authentication/components
 import EventAdmin from "./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx";
 import StageLayout from "./pages/Results/pages/components/StageLayout.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
+import NotFoundPage from "./pages/NotFoundError/NotFoundPage.tsx";
 
 export default function App() {
 
@@ -47,13 +48,13 @@ export default function App() {
                 <Route path='competitions' element={<Navigate to={"/"}/>} />
                 <Route path='About-us' element={<AboutUs />} />
                 <Route path='competitions/:id' element={<EventDetail/>} />
-                <Route path='competitions/:eventId/:stageId' element={<StageLayout />}>
-                </Route>
+                <Route path='competitions/:eventId/:stageId' element={<StageLayout />} />
                 <Route  element={<PrivateRoute />}>
                   <Route path={'/dashboard'} element={<Dashboard />} />
                   <Route path={'/admin/create-event'} element={<CreateEvent />} />
                   <Route path={'/admin/:eventId'} element={<EventAdmin />} />
                 </Route>
+                <Route path={'/*'} element={<NotFoundPage />}/>
               </Route>
               <Route path={'/signin'} >
                 <Route index element={<InItSignIn/>} />
