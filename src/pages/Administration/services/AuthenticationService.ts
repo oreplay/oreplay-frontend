@@ -39,7 +39,6 @@ const getRedirectUri = () => {
  * Get URL to initialize the login flow
  */
 export async function getSignInUrl(): Promise<string> {
-  console.log('xx getSignInUrl')
 
   const urlEncodeB64 = (input: string) => {
     const b64Chars: { [index: string]: string } = { '+': '-', '/': '_', '=': '' };
@@ -61,10 +60,9 @@ export async function getSignInUrl(): Promise<string> {
 
   const state = createRandomString()
   window.sessionStorage.setItem(loginStateKey, state);
-  console.log('xx getSignInUrl store state', state)
   const codeVerifier: string = createRandomString();
   const codeChallenge: string = bufferToBase64UrlEncoded(await sha256(codeVerifier));
-  console.log('xx loginCodeChallenge', codeChallenge, ' codeVerifier ', codeVerifier)// TODO
+  //console.log('xx loginCodeChallenge', codeChallenge, ' codeVerifier ', codeVerifier)// TODO
   // throw new Error();
   window.sessionStorage.setItem(loginCodeVerifierKey, codeVerifier);
   return `${API_DOMAIN}api/v1/authorize?response_type=code&client_id=${clientId}&state=${state}`
