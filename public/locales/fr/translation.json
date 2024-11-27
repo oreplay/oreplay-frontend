@@ -151,5 +151,10 @@
       "disqualified": "_dsq",
       "ot": "_ot"
     }
+  },
+  "404Page": {
+    "Header": "_Lost in the woods?",
+    "Message": "_We couldn't find the page you were looking for.",
+    "ButtonMessage": "_Start triangle"
   }
 }
