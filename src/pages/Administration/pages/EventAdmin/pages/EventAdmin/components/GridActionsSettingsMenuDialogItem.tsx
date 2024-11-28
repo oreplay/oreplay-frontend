@@ -1,27 +1,26 @@
-import {GridActionsCellItem} from "@mui/x-data-grid";
-import Tooltip from "@mui/material/Tooltip";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle, ListItemIcon, ListItemText
 } from "@mui/material";
 import {useCallback, useState} from "react";
+import MenuItem from "@mui/material/MenuItem";
 
 interface Props {
   icon: JSX.Element
-  iconLabel: string
-  tooltipText: string
+  menuText: string
   action: ()=>void
+  menuCloseAction: ()=>void
   dialogTitle: string
   dialogBody: string
   dialogCancelButtonText: string
   dialogConfirmButtonText: string
 }
 
-export default function GridActionsCellItemDialog(props:Props) {
+export default function GridActionsSettingsMenuDialogItem(props:Props) {
   // Internal states
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
 
@@ -40,14 +39,14 @@ export default function GridActionsCellItemDialog(props:Props) {
   // Component
   return (
     <>
-      <Tooltip title={props.tooltipText}>
-        <GridActionsCellItem
-          icon={props.icon}
-          label={props.iconLabel}
-          onClick={handleOpen}
-          color={"inherit"}
-        />
-      </Tooltip>
+      <MenuItem onClick={handleOpen}>
+        <ListItemIcon>
+          {props.icon}
+        </ListItemIcon>
+        <ListItemText>
+          {props.menuText}
+        </ListItemText>
+      </MenuItem>
       <Dialog open={isDialogOpen} >
         <DialogTitle id="alert-dialog-title">
           {props.dialogTitle}
@@ -58,7 +57,7 @@ export default function GridActionsCellItemDialog(props:Props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleClose}>
+          <Button variant="outlined" onClick={()=>{handleClose();props.menuCloseAction()}}>
             {props.dialogCancelButtonText}
           </Button>
           <Button variant="contained"

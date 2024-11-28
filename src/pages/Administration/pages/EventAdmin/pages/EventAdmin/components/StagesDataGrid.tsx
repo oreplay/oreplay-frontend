@@ -1,9 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import PersonOffIcon from '@mui/icons-material/PersonOff';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import {
@@ -72,7 +69,7 @@ interface Props {
 /**
  * Possible properties of a row in the stages DataGrid
  */
-interface StageRow {
+export interface StageRow {
   id:string
   stageId:string
   stageName:string,
@@ -101,7 +98,8 @@ export default function StagesDataGrid(props:Props) {
     }
   };
 
-  const handleEditClick = (row:GridRowParams<StageRow>) => () => {
+  const handleEditClick = (row:GridRowParams<StageRow>) => {
+    console.log("handleEditClick function with row",row)
     setRowModesModel({ ...rowModesModel, [row.id]: { mode: GridRowModes.Edit } });
   };
 
@@ -203,7 +201,7 @@ export default function StagesDataGrid(props:Props) {
       field: 'actions',
       type: 'actions',
       headerName: '',
-      width: 135,
+      width: 100,
       cellClassName: 'actions',
       getActions: (row:GridRowParams<StageRow>) => {
         const isInEditMode = rowModesModel[row.id]?.mode === GridRowModes.Edit;
@@ -234,10 +232,9 @@ export default function StagesDataGrid(props:Props) {
 
         return [
           <GridActionsSettingsMenu
-            row={row}
-            handleEditClick={handleEditClick}
-            handleDeleteClick={handleDeleteClick}
-            handleWipeOutRunnersClick={handleWipeOutRunnersClick}
+            handleEditClick={()=>handleEditClick(row)}
+            handleDeleteClick={()=>handleDeleteClick(row)}
+            handleWipeOutRunnersClick={()=>handleWipeOutRunnersClick(row)}
           />,
           <Tooltip title={t('EventAdmin.Stages.GoToStage')}>
             <GridActionsCellItem
