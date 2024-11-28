@@ -27,7 +27,8 @@ import Tooltip from "@mui/material/Tooltip";
 import {EventDetailModel} from "../../../../../../../shared/EntityTypes.ts";
 import {useAuth} from "../../../../../../../shared/hooks.ts";
 import {stageTypes} from "../../../../../../../shared/Constants.ts";
-import GridActionsCellItemDialog from "./GridActionsCellItemDialog.tsx";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx";
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -232,35 +233,25 @@ export default function StagesDataGrid(props:Props) {
         }
 
         return [
-          <Tooltip title={t('Edit')}>
-            <GridActionsCellItem
-              icon={<EditIcon />}
-              label="Edit"
-              className="textPrimary"
-              onClick={handleEditClick(row)}
-              color="inherit"
-            />
-          </Tooltip>,
-          <GridActionsCellItemDialog
-            icon={<DeleteIcon />}
-            iconLabel={"Delete"}
-            tooltipText={t('EventAdmin.Stages.DeleteStage.Tooltip')}
-            action={()=>handleDeleteClick(row)}
-            dialogTitle={t('EventAdmin.Stages.DeleteStage.DialogTitle')}
-            dialogBody={t('EventAdmin.Stages.DeleteStage.DialogBody')}
-            dialogCancelButtonText={t('Cancel')}
-            dialogConfirmButtonText={t('Delete')}
+          <GridActionsSettingsMenu
+            row={row}
+            handleEditClick={handleEditClick}
+            handleDeleteClick={handleDeleteClick}
+            handleWipeOutRunnersClick={handleWipeOutRunnersClick}
           />,
-          <GridActionsCellItemDialog
-            icon={<PersonOffIcon />}
-            iconLabel={"WipeOutRunners"}
-            tooltipText={t('EventAdmin.Stages.WipeOutRunners.Tooltip')}
-            action={()=>handleWipeOutRunnersClick(row)}
-            dialogTitle={t('EventAdmin.Stages.WipeOutRunners.DialogTitle')}
-            dialogBody={t('EventAdmin.Stages.WipeOutRunners.DialogBody')}
-            dialogCancelButtonText={t('Cancel')}
-            dialogConfirmButtonText={t('EventAdmin.Stages.WipeOutRunners.DialogConfirm')}
-          />
+          <Tooltip title={t('EventAdmin.Stages.GoToStage')}>
+            <GridActionsCellItem
+              icon={<ArrowForwardIcon />}
+              label="View"
+              className="textPrimary"
+              color="inherit"
+              onClick={
+                ()=>{
+                  window.open(`/competitions/${props.eventDetail.id}/${row.row.stageId}`,"_blank")
+                }
+              }
+            />
+          </Tooltip>
         ];
       },
     },
