@@ -132,6 +132,8 @@
   },
   "ResultsStage": {
     "Refresh": "_Refresh",
+    "ChooseClass": "_Please, choose a class",
+    "NoData": "_Sorry, no data is available",
     "NoStartTime": "-",
     "Class": "Class",
     "Position": "Position",

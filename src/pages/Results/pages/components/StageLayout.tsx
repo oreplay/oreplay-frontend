@@ -1,4 +1,11 @@
-import {BottomNavigation, BottomNavigationAction, Box, IconButton, Paper} from "@mui/material";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  IconButton,
+  Paper,
+  Typography
+} from "@mui/material";
 import FootOStartTime from "../FootO/pages/StartTime/FootOStartTime.tsx";
 import FootOResults from "../FootO/pages/Results/FootOResults.tsx";
 import {AccessTime} from "@mui/icons-material";
@@ -146,7 +153,25 @@ export default function StageLayout () {
           <Box sx={{marginTop: "12px", flex: 1, paddingBottom: '56px'}}>
             <SelectedClassContext.Provider value={activeClass}>
               <RunnersContext.Provider value={[runnersList,areRunnersLoading]}>
-                {pages[selectedMenu]}
+                {
+                  classesList.length > 0 ? //TODO: handle this properly
+                    (
+                      activeClass ? //TODO: handle this properly
+                        (
+                          <>{pages[selectedMenu]}</>
+                        )
+                        :
+                        (
+                          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70%' }}>
+                            <Typography sx={{fontSize:'20px'}}>{t('ResultsStage.ChooseClass')}</Typography>
+                          </Box>
+                        )
+                    )
+                    :
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70%' }}>
+                      <Typography sx={{fontSize:'20px'}}>{t('ResultsStage.NoData')}</Typography>
+                    </Box>
+                }
               </RunnersContext.Provider>
             </SelectedClassContext.Provider>
           </Box>

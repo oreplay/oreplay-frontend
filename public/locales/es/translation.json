@@ -130,6 +130,8 @@
   },
   "ResultsStage": {
     "Refresh": "Refrescar",
+    "ChooseClass": "Por favor, seleccione una categoría",
+    "NoData": "Lo sentimos, no hay datos",
     "NoStartTime": "-",
     "Class": "Categoría",
     "Position": "Posición",
