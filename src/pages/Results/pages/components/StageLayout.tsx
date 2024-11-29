@@ -137,8 +137,8 @@ export default function StageLayout () {
             maxWidth:'600px'
           }}>
             <ClassSelector activeClass={activeClass} setActiveClassId={setActiveClassId} classesList={classesList} isLoading={areClassesLoading} />
-            <Tooltip title={t('')}>
-              <IconButton onClick={() => handleRefreshClick()}>
+            <Tooltip title={t('ResultsStage.Refresh')}>
+              <IconButton onClick={handleRefreshClick}>
                 <RefreshIcon />
               </IconButton>
             </Tooltip>
