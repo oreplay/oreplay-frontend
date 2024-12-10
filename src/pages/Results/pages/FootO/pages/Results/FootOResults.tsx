@@ -8,11 +8,14 @@ import {Box, Typography} from "@mui/material";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
 import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
+import {useVirtualTicket} from "../../../shared/hooks.ts";
+import SplitsTicket from "../../../components/SplitsTicket.tsx";
 
 export default function FootOResults() {
   const {t} = useTranslation();
 
   const [runnersList,isLoading] = useContext(RunnersContext)
+  const [isVirtualTicketOpen,selectedRunner, handleRowClick, handleCloseVirtualTicket] = useVirtualTicket()
 
 
   if (isLoading) {
@@ -28,6 +31,7 @@ export default function FootOResults() {
             return (
               <ResultListItem
                 key={runner.id}
+                onClick={()=>handleRowClick(runner)}
               >
                 <Box
                   sx={{
@@ -90,6 +94,11 @@ export default function FootOResults() {
             )
           })
         }
+        <SplitsTicket
+          isTicketOpen={isVirtualTicketOpen}
+          runner={selectedRunner}
+          handleCloseTicket={handleCloseVirtualTicket}
+        />
       </ResultListContainer>
     )
   }
