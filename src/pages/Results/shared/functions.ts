@@ -37,6 +37,23 @@ export function getPositionOrNc(runner: RunnerModel, t: TFunction<"translation",
  * @param runnersList List of runners to be ordered
  */
 export function orderedRunners (runnersList:RunnerModel[])  {
+
+  // Order splits
+  runnersList.forEach((runner)=>{
+    runner.runner_results.forEach(runnerResult=>{
+      runnerResult.splits.sort((a,b)=>{
+        const ordA = a.order_number
+        const ordB = b.order_number
+
+        if (!ordA) return 1 // Place 'a' after 'b' if 'a' has no position
+        if (!ordB) return -1 // Place 'b' after 'a' if 'b' has no position
+
+        return Number(ordA-ordB)
+      })
+    })
+  })
+
+  // Order runners by position
   return runnersList.sort((a, b) => {
     const posA = a.runner_results[0]?.position
     const posB = b.runner_results[0]?.position
