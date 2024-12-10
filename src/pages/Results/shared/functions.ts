@@ -33,6 +33,31 @@ export function getPositionOrNc(runner: RunnerModel, t: TFunction<"translation",
 }
 
 /**
+ * Assign each status code a number with the priority it should appear on result
+ * @param status A valid RUNNER_STATUS
+ */
+function statusOrder(status:string|null) {
+  switch (status) {
+    case RESULT_STATUS.ok:
+      return 0
+    case RESULT_STATUS.ot:
+      return 1
+    case RESULT_STATUS.mp:
+      return 2
+    case RESULT_STATUS.disqualified:
+      return 3
+    case RESULT_STATUS.dnf:
+      return 4
+    case RESULT_STATUS.dns:
+      return 5
+    case RESULT_STATUS.nc:
+      return 6
+    default:
+      return 10
+  }
+}
+
+/**
  * Order a list of runners by their position
  * @param runnersList List of runners to be ordered
  */
@@ -53,12 +78,23 @@ export function orderedRunners (runnersList:RunnerModel[])  {
     })
   })
 
-  // Order runners by position
+  // Order runners
   return runnersList.sort((a, b) => {
-    const posA = a.runner_results[0]?.position
-    const posB = b.runner_results[0]?.position
-    if (!posA) return 1 // Place 'a' after 'b' if 'a' has no position
-    if (!posB) return -1 // Place 'b' after 'a' if 'b' has no position
-    return Number(posA - posB)
+
+    // Order by status
+    const statusA = statusOrder(a.runner_results[0]?.status_code)
+    const statusB = statusOrder(b.runner_results[0]?.status_code)
+
+    if (statusA !== undefined && statusB !== undefined && statusA !== statusB) {
+      return statusA - statusB; // Smaller status comes first
+    }
+
+    // Fallback to position comparison
+    const posA = Number(a.runner_results[0]?.position)
+    const posB = Number(b.runner_results[0]?.position)
+
+    if (posA === undefined) return 1; // Place 'a' after 'b' if 'a' has no position
+    if (posB === undefined) return -1; // Place 'b' after 'a' if 'b' has no position
+    return posA - posB; // Compare positions numerically
   });
 }
