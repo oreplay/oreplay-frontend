@@ -178,6 +178,7 @@ export default function StageLayout () {
         </Box>
         <Paper sx={{position: "fixed", bottom: 0, right: 0, left:0}}>
           <BottomNavigation
+            showLabels
             value={selectedMenu}
             onChange={(_,newValue)=> {handleMenuChange(newValue)}}
           >
