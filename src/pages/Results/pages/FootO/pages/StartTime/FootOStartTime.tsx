@@ -1,19 +1,19 @@
 import {Box, Stack, Typography} from "@mui/material";
 import {useContext, useEffect, useState} from "react";
 import {RunnersContext} from "../../../../shared/context.ts";
-import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import {orderRunnersByStartTime} from "./shared/functions.ts";
 import {useTranslation} from "react-i18next";
 import ResultListContainer from "../../components/ResultListContainer.tsx";
 import ResultListItem from "../../components/ResultListItem.tsx";
 import StartTime from '../../../components/StartTime.tsx'
+import {ProcessedRunnerModel} from "../../../shared/EntityTypes.ts";
 
 export default function FootOStartTime() {
   const {t} = useTranslation()
 
   // Get runners and order by start time
   const [rawRunnersList,isLoading] = useContext(RunnersContext)
-  const [runnersByStartTime,setRunnersByStartTime] = useState<RunnerModel[]>(rawRunnersList)
+  const [runnersByStartTime,setRunnersByStartTime] = useState<ProcessedRunnerModel[]>(rawRunnersList)
 
   useEffect(() => {
     setRunnersByStartTime( orderRunnersByStartTime(rawRunnersList) )

@@ -1,11 +1,11 @@
 import {useState} from "react";
-import {RunnerModel} from "../../../../shared/EntityTypes.ts";
+import {ProcessedRunnerModel} from "./EntityTypes.ts";
 
-export function useVirtualTicket():[boolean, RunnerModel|null,(runner:RunnerModel) => void,()=>void] {
+export function useVirtualTicket():[boolean, ProcessedRunnerModel|null,(runner:ProcessedRunnerModel) => void,()=>void] {
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [selectedRunner, setSelectedRunner] = useState<RunnerModel|null>(null)
+  const [selectedRunner, setSelectedRunner] = useState<ProcessedRunnerModel|null>(null)
 
-  const handleRowClick = (runner: RunnerModel) => {
+  const handleRowClick = (runner: ProcessedRunnerModel) => {
     setSelectedRunner(runner)
     setDialogOpen(true)
   }
