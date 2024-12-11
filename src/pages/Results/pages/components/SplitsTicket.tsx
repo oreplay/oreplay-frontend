@@ -7,13 +7,13 @@ import {
   DialogContent, Dialog, Divider
 } from "@mui/material";
 import React from "react";
-import { RunnerModel, SplitModel } from '../../../../shared/EntityTypes.ts'
 import { parseDateOnlyTime, parseSecondsToMMSS } from '../../../../shared/Functions.tsx'
 import CloseIcon from "@mui/icons-material/Close";
+import {ProcessedRunnerModel, ProcessedSplitModel} from "../shared/EntityTypes.ts";
 
 interface SplitsTicketProps {
   isTicketOpen: boolean
-  runner: RunnerModel|null
+  runner: ProcessedRunnerModel|null
   handleCloseTicket: ()=>void
 }
 
@@ -116,16 +116,16 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ isTicketOpen,runner,handleC
                   <Grid item xs={3}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Dif.</Typography></Grid>
 
                   {/* Times Rows */}
-                  {runnerResults.splits.map((split: SplitModel) => (
+                  {runnerResults.splits.map((split: ProcessedSplitModel) => (
                     <React.Fragment key={split.id}>
                       <Grid item xs={2}>
                         <Typography>
-                          <span>{split.order_number?.toString()}</span>
+                          {split.order_number?.toString()}
                           <Typography
                             component="span"
-                            sx={{ ml: '2px', color: 'text.secondary', fontSize: '0.875rem' }}
+                            sx={{ ml: '2px', color: 'text.secondary' }}
                           >
-                            ({split.control.station.toString()})
+                            ({split.control?.station.toString()})
                           </Typography>
                         </Typography>
                         <Typography>
@@ -133,17 +133,16 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ isTicketOpen,runner,handleC
                         </Typography>
                       </Grid>
                       <Grid item xs={2}>
-                        <Typography>{parseDateOnlyTime(split.reading_time)}</Typography>
+                        <Typography>{split.time ? `${parseSecondsToMMSS(split.time)}` : ""}</Typography>
                       </Grid>
                       <Grid item xs={3}>
-                        <Typography>{`+${Math.floor(Math.random() * 60)}:${Math.floor(Math.random() * 60)} (${Math.floor(Math.random() * 10)})`}</Typography>
-                        <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>{`+${60 + Math.floor(Math.random() * 60)}:${Math.floor(Math.random() * 60)} (${Math.floor(Math.random() * 10)})`}</Typography>
+                        <Typography>{`+${split.time_behind} (${split.position})`}</Typography>
                       </Grid>
                       <Grid item xs={2}>
-                        <Typography>{parseDateOnlyTime(split.reading_time)}</Typography>
+                        <Typography>{split.cumulative_time ? `${parseSecondsToMMSS(split.cumulative_time)}` : ""}</Typography>
                       </Grid>
                       <Grid item xs={3}>
-                        <Typography>{`+${Math.floor(Math.random() * 60)}`}</Typography>
+                        <Typography>{`+${split.cumulative_behind} (${split.cumulative_position})`}</Typography>
                       </Grid>
                     </React.Fragment>
                   ))}

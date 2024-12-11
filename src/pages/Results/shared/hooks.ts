@@ -4,10 +4,11 @@ import {
   getEventDetail, getEventList,
   getRunnersInStage,
 } from "../services/EventService.ts";
-import {ClassModel, EventModel, RunnerModel} from "../../../shared/EntityTypes.ts";
+import {ClassModel, EventModel} from "../../../shared/EntityTypes.ts";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import {useAuth} from "../../../shared/hooks.ts";
-import {orderedRunners} from "./functions.ts";
+import {processRunnerData} from "../pages/shared/virtualTicketFunctions.ts";
+import {ProcessedRunnerModel} from "../pages/shared/EntityTypes.ts";
 
 export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null,(class_id:string)=>void,ClassModel[],boolean,()=>void] {
   const ACTIVE_CLASS_SEARCH_PARAM = "class_id"
@@ -197,17 +198,20 @@ export function useEventInfo() {
  * @returns runnersList:RunnerModel[] state with the desired runners
  * @returns isLoading:boolean state to know when result are being fetch
  */
-export function useRunners(event_id:string,stage_id:string,activeClass:ClassModel|null):[RunnerModel[],boolean,()=>void] {
+export function useRunners(event_id:string,stage_id:string,activeClass:ClassModel|null):[ProcessedRunnerModel[],boolean,()=>void] {
   const [isLoading,setIsLoading] = useState(true);
-  const [runnerList, setRunnerList] = useState<RunnerModel[]>([])
+  const [runnerList, setRunnerList] = useState<ProcessedRunnerModel[]>([])
   const [refreshTrigger, setRefreshTrigger] = useState(0); // Trigger for refresh
 
   //fetch from back-end
   useEffect(() => {
     if (activeClass){
       getRunnersInStage(event_id,stage_id,activeClass.id).then((response)=>{
-        setRunnerList( orderedRunners(response.data) )
+        const processRunnerList = processRunnerData(response.data)
+
+        setRunnerList( processRunnerList )
         setIsLoading(false)
+        console.log(processRunnerList)
       },(error)=>{
         console.log(error);
         setIsLoading(false)

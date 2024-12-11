@@ -1,6 +1,7 @@
 import {RESULT_STATUS, RESULT_STATUS_TEXT} from "./constants.ts";
 import {RunnerModel} from "../../../shared/EntityTypes.ts";
 import { TFunction } from 'i18next'
+import {ProcessedRunnerModel} from "../pages/shared/EntityTypes.ts";
 
 export function parseResultStatus(status: string): string {
 
@@ -24,7 +25,7 @@ export function parseResultStatus(status: string): string {
   }
 }
 
-export function getPositionOrNc(runner: RunnerModel, t: TFunction<"translation",undefined>): string {
+export function getPositionOrNc(runner: ProcessedRunnerModel, t: TFunction<"translation",undefined>): string {
   const status = parseResultStatus(runner.runner_results[0].status_code as string)
   if (status === RESULT_STATUS_TEXT.nc) {
     return t('ResultsStage.statusCodes.nc')

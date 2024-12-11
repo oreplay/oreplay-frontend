@@ -2,7 +2,6 @@ import {useContext} from "react";
 import {useTranslation} from "react-i18next";
 import {RunnersContext} from "../../../../shared/context.ts";
 import ResultListContainer from "../../components/ResultListContainer.tsx";
-import {RunnerModel} from "../../../../../../shared/EntityTypes.ts";
 import ResultListItem from "../../components/ResultListItem.tsx";
 import {Box, Typography} from "@mui/material";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
@@ -10,6 +9,7 @@ import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions
 import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
 import {useVirtualTicket} from "../../../shared/hooks.ts";
 import SplitsTicket from "../../../components/SplitsTicket.tsx";
+import {ProcessedRunnerModel} from "../../../shared/EntityTypes.ts";
 
 export default function FootOResults() {
   const {t} = useTranslation();
@@ -24,7 +24,7 @@ export default function FootOResults() {
     return (
       <ResultListContainer>
         {
-          runnersList.map((runner: RunnerModel) => {
+          runnersList.map((runner: ProcessedRunnerModel) => {
             const status = parseResultStatus(runner.runner_results[0].status_code as string)
             const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
