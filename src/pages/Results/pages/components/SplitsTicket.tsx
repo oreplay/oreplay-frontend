@@ -2,10 +2,9 @@ import {
   Box,
   Typography,
   Grid,
-  Divider,
   DialogTitle,
   IconButton,
-  DialogContent, Dialog
+  DialogContent, Dialog, Divider
 } from "@mui/material";
 import React from "react";
 import { RunnerModel, SplitModel } from '../../../../shared/EntityTypes.ts'
@@ -60,37 +59,32 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ isTicketOpen,runner,handleC
               <Box>
                 <Grid container spacing={1}>
                   <Grid item xs={12} sx={{ mb: 1 }}>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                    <Typography sx={{ fontWeight: 'bold' }}>
                       {`${runner.first_name} ${runner.last_name}`}
                     </Typography>
-
-                    <Grid container spacing={1}>
-                      <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography>Club: </Typography>
-                        <Typography sx={{ color: 'primary.main', fontSize: '1.1rem', fontWeight: 'bold', ml: 1 }}>
-                          {runner.club.short_name}
-                        </Typography>
-                      </Grid>
-
-                      <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography sx={{ fontWeight: 'bold' }}>{runner.class.short_name}</Typography>
-                      </Grid>
-                    </Grid>
-
-                    <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>
-                      {`SportIdent: ${runner.sicard}`}
-                    </Typography>
+                    <Box sx={{
+                      width:'100%',
+                      display:'inline-flex',
+                      justifyContent:'space-between'
+                    }}>
+                      <Typography sx={{color:'text.secondary'}}>
+                        {runner.club.short_name}
+                      </Typography>
+                      <Typography>
+                        {runner.class.short_name}
+                      </Typography>
+                    </Box>
                   </Grid>
 
                   {runnerResults.start_time && (
                     <Grid item xs={6}>
-                      <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>{`Start Time: ${parseDateOnlyTime(runnerResults.start_time)}`}</Typography>
+                      <Typography sx={{ color: 'text.secondary'}}>{`Start Time: ${parseDateOnlyTime(runnerResults.start_time)}`}</Typography>
                     </Grid>
                   )}
                   <Grid item xs={6}>
                     <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
                       <Typography>Finish Time: </Typography>
-                      <Typography sx={{ color: 'secondary.main', fontWeight: 'bold', fontSize: '1.1em', ml: 1 }}>
+                      <Typography sx={{color: 'secondary.main'}}>
                         {parseSecondsToMMSS(runnerResults.time_seconds)}
                       </Typography>
                     </Box>
@@ -99,30 +93,21 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ isTicketOpen,runner,handleC
                     runnerResults.points_final ? (
                       <>
                         <Grid item xs={6}>
-                          <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>{`Points bonus: ${runnerResults.points_bonus}`}</Typography>
+                          <Typography sx={{ color: 'text.secondary' }}>{`Points bonus: ${runnerResults.points_bonus}`}</Typography>
                         </Grid>
                         <Grid item xs={6}>
-                          <Typography sx={{ color: 'text.secondary', fontSize: '0.875rem' }}>{`Points penalty: ${runnerResults.points_penalty}`}</Typography>
+                          <Typography sx={{ color: 'text.secondary' }}>{`Points penalty: ${runnerResults.points_penalty}`}</Typography>
                         </Grid>
                         <Grid item xs={6}>{/* empty */}</Grid>
                         <Grid item xs={6}>
-                          <Typography sx={{ color: 'secondary.main', fontWeight: 'bold', fontSize: '1.1em' }}>
+                          <Typography sx={{ color: 'secondary.main', fontWeight: 'bold'}}>
                             {runnerResults.points_final.toString()} points
                           </Typography>
                         </Grid>
                       </>
                     ) : null
                   }
-
-                  {/* Headers Row 1 */}
-                  <Grid item xs={6} sx={{ mt: 2 }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Parcial</Typography>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={6} sx={{ mt: 2 }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>Comparación</Typography>
-                    <Divider />
-                  </Grid>
+                  <Divider />
                   {/* Headers Row 2 */}
                   <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Control</Typography></Grid>
                   <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Tiempo</Typography></Grid>
