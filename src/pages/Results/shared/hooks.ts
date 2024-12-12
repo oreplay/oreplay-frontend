@@ -7,7 +7,10 @@ import {
 import {ClassModel, EventModel} from "../../../shared/EntityTypes.ts";
 import {useLocation, useParams, useSearchParams} from "react-router-dom";
 import {useAuth} from "../../../shared/hooks.ts";
-import {processRunnerData} from "../pages/shared/virtualTicketFunctions.ts";
+import {
+  calculatePositionsAndBehindsFootO,
+  processRunnerData
+} from "../pages/shared/virtualTicketFunctions.ts";
 import {ProcessedRunnerModel} from "../pages/shared/EntityTypes.ts";
 
 export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null,(class_id:string)=>void,ClassModel[],boolean,()=>void] {
@@ -207,11 +210,12 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
   useEffect(() => {
     if (activeClass){
       getRunnersInStage(event_id,stage_id,activeClass.id).then((response)=>{
-        const processRunnerList = processRunnerData(response.data)
+        let processRunnerList = processRunnerData(response.data)
+        processRunnerList = calculatePositionsAndBehindsFootO(processRunnerList)
 
         setRunnerList( processRunnerList )
         setIsLoading(false)
-        console.log(processRunnerList)
+        console.log("processRunnerList",processRunnerList)
       },(error)=>{
         console.log(error);
         setIsLoading(false)

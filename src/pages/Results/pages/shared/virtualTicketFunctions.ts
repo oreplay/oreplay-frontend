@@ -84,3 +84,66 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
     })
   });
 }
+
+export function calculatePositionsAndBehindsFootO(runners: ProcessedRunnerModel[]): ProcessedRunnerModel[] {
+
+  if (runners.length > 0) {
+    const splits = [...runners[0].runner_results[0].splits] ; // Clone the array to avoid mutation
+
+    // Generate time matrices
+    const timesTable = splits.map((_,index) => {
+      return runners.map((runner)=>{
+        if (runner.runner_results[0].splits[index]) {
+          return {runnerId:runner.id, time: runner.runner_results[0].splits[index].time}
+        } else {
+          return {runnerId: runner.id, time:null}
+        }
+      })
+    })
+    timesTable.forEach((splitList)=>{
+      splitList.sort((a,b)=>{
+        const timeA = a.time
+        const timeB = b.time
+
+        // Handle cases where time is null
+        if (timeA === null && timeB === null) return 0; // Both are null, consider equal
+        if (timeA === null) return 1; // Place `null` times after valid times
+        if (timeB === null) return -1; // Place valid times before `null`
+
+        // Both times are numbers, compare them
+        return timeA - timeB;
+      })
+    })
+    console.log("times table",timesTable)
+
+    // update runners
+    return runners.map((runner)=>{
+      if (runner.runner_results[0]) {
+        const newSplits = runner.runner_results[0].splits.map((split,index)=>{
+          const bestTime = timesTable[index][0].time
+          if (bestTime) {
+            return {
+              ...split,
+              time_behind : split.time? split.time-bestTime : null
+            }
+          } else {
+            return split
+          }
+        })
+        return {
+          ...runner,
+          runner_results: [
+            {
+              ...runner.runner_results[0],
+              splits: newSplits
+            }
+          ]
+        }
+      } else {
+        return runner
+      }
+    })
+  } else {
+    return []
+  }
+}
