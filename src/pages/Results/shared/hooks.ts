@@ -215,7 +215,6 @@ export function useRunners(event_id:string,stage_id:string,activeClass:ClassMode
 
         setRunnerList( processRunnerList )
         setIsLoading(false)
-        console.log("processRunnerList",processRunnerList)
       },(error)=>{
         console.log(error);
         setIsLoading(false)
