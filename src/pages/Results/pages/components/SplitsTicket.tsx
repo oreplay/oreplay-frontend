@@ -139,10 +139,10 @@ const SplitsTicket: React.FC<SplitsTicketProps> = ({ isTicketOpen,runner,handleC
                         <Typography>{(split.time_behind === null) ? "" : `+${parseSecondsToMMSS(split.time_behind)}` + ` (${split.position})`}</Typography>
                       </Grid>
                       <Grid item xs={2}>
-                        <Typography>{split.cumulative_time ? `${parseSecondsToMMSS(split.cumulative_time)}` : ""}</Typography>
+                        <Typography>{split.cumulative_time !== null ? `${parseSecondsToMMSS(split.cumulative_time)}` : "--"}</Typography>
                       </Grid>
                       <Grid item xs={3}>
-                        <Typography>{`+${split.cumulative_behind} (${split.cumulative_position})`}</Typography>
+                        <Typography>{split.cumulative_behind !== null ? `+${parseSecondsToMMSS(split.cumulative_behind)} (${split.cumulative_position})` : "--"}</Typography>
                       </Grid>
                     </React.Fragment>
                   ))}

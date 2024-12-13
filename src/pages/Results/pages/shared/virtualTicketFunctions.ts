@@ -94,41 +94,73 @@ export function calculatePositionsAndBehindsFootO(runners: ProcessedRunnerModel[
   if (runners.length > 0) {
     const splits = [...runners[0].runner_results[0].splits] ; // Clone the array to avoid mutation
 
-    // Generate time matrices
+    // Generate time matrices for splits
     const timesTable = splits.map((_,index) => {
       return runners.map((runner)=>{
         if (runner.runner_results[0].splits[index]) {
-          return {runnerId:runner.id, time: runner.runner_results[0].splits[index].time}
+          return runner.runner_results[0].splits[index].time
         } else {
-          return {runnerId: runner.id, time:null}
+          return null
         }
       })
     })
     timesTable.forEach((splitList)=>{
       splitList.sort((a,b)=>{
-        const timeA = a.time
-        const timeB = b.time
-
         // Handle cases where time is null
-        if (timeA === null && timeB === null) return 0; // Both are null, consider equal
-        if (timeA === null) return 1; // Place `null` times after valid times
-        if (timeB === null) return -1; // Place valid times before `null`
+        if (a === null && b === null) return 0; // Both are null, consider equal
+        if (a === null) return 1; // Place `null` times after valid times
+        if (b === null) return -1; // Place valid times before `null`
 
         // Both times are numbers, compare them
-        return timeA - timeB;
+        return a - b;
       })
     })
-    console.log("times table",timesTable)
+
+    // Generate time matrices for cumulative splits
+    const cumulativeTable  = splits.map((_,index) => {
+      return runners.map((runner)=>{
+        // only map times if the runner is ok
+        const missingPunchFrom = runner.runner_results[0].splits.findIndex((split)=> split.time === null)
+        if (runner.runner_results[0].splits[index] && (missingPunchFrom === -1 || missingPunchFrom > index)) {
+          return runner.runner_results[0].splits[index].cumulative_time
+        } else {
+          return null
+        }
+      })
+    })
+    cumulativeTable.forEach((splitList)=>{
+      splitList.sort((a,b)=>{
+        // Handle cases where time is null
+        if (a === null && b === null) return 0; // Both are null, consider equal
+        if (a === null) return 1; // Place `null` times after valid times
+        if (b === null) return -1; // Place valid times before `null`
+
+        // Both times are numbers, compare them
+        return a - b;
+      })
+    })
+
 
     // update runners
-    return runners.map((runner)=>{
+    return runners.map((runner):ProcessedRunnerModel=>{
       if (runner.runner_results[0]) {
-        const newSplits = runner.runner_results[0].splits.map((split,index)=>{
-          const bestTime = timesTable[index][0].time
-          if (bestTime) {
+        const newSplits = runner.runner_results[0].splits.map((split,index, splitsArray)=>{
+          const bestTime: number|null = timesTable[index][0]
+          const best_cumulative: number|null = cumulativeTable[index][0]
+          if (bestTime !== null && best_cumulative !== null) {
+            const missingPunchFrom = splitsArray.findIndex((split)=> split.time === null)
+            const position = timesTable[index].indexOf(split.time)+1
+            const cumulativePosition = cumulativeTable[index].indexOf(split.cumulative_time)+1
+
+            // Check when cumulative differences should be meaningful
+            const cumulative_difference = split.cumulative_time !== null && (missingPunchFrom === -1 || missingPunchFrom > index)
+
             return {
               ...split,
-              time_behind : split.time? split.time-bestTime : null
+              time_behind : split.time !== null ? split.time-bestTime : null,
+              position: split.time !== null ? position : null,
+              cumulative_behind: cumulative_difference && split.cumulative_time ? split.cumulative_time - best_cumulative : null,
+              cumulative_position: cumulative_difference ? cumulativePosition : null
             }
           } else {
             return split
