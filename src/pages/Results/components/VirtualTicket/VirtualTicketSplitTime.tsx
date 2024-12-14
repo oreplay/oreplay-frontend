@@ -16,12 +16,16 @@ type VirtualTicketSplitTimeProp = {
  * @constructor
  */
 const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({time,time_behind, position}) => {
+  const style = {
+    fontWeight: position == 1 ? 'bold' : undefined,
+  }
+
   return (<>
     <Grid item xs={2}>
-      <Typography>{time !== null ? `${parseSecondsToMMSS(time)}` : "--"}</Typography>
+      <Typography sx={style}>{time !== null ? `${parseSecondsToMMSS(time)}` : "--"}</Typography>
     </Grid>
     <Grid item xs={3}>
-      <Typography>{time_behind !== null ? `+${parseSecondsToMMSS(time_behind)} (${position})` : "--"}</Typography>
+      <Typography sx={style}>{time_behind !== null ? `+${parseSecondsToMMSS(time_behind)} (${position})` : "--"}</Typography>
     </Grid>
   </>)
 }
