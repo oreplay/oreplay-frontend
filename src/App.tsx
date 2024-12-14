@@ -13,7 +13,7 @@ import SignIn from "./pages/Administration/pages/Authentication/pages/SignIn.tsx
 import Authentication from "./pages/Administration/pages/Authentication/pages/Authentication.tsx";
 import PrivateRoute from "./pages/Administration/pages/Authentication/components/PrivateRoute.tsx";
 import EventAdmin from "./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx";
-import StageLayout from "./pages/Results/pages/components/StageLayout.tsx";
+import StageLayout from "./pages/Results/pages/Layout/StageLayout.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import NotFoundPage from "./pages/NotFoundError/NotFoundPage.tsx";
 

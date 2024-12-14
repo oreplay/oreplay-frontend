@@ -1,7 +1,7 @@
 import React from "react";
 import {
   parseStartTime
-} from '../../../../shared/Functions.tsx'
+} from '../../../shared/Functions.tsx'
 import {useTranslation} from "react-i18next";
 import { Typography } from '@mui/material'
 
