@@ -143,6 +143,13 @@
     "Points": "Puntos",
     "BonusPoints": "Bonus",
     "PenaltyPoints": "Pena",
+    "VirtualTicket": {
+      "FinishControl": "Meta",
+      "Control": "Control",
+      "Time": "Tiempo",
+      "TimeBehind": "Dif.",
+      "Position": "Pos."
+    },
     "statusCodes": {
       "nc": "NC",
       "ok": "ok",
