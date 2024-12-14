@@ -10,7 +10,7 @@ import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
 import {useVirtualTicket} from "../../../../components/VirtualTicket/shared/hooks.ts";
 import {ProcessedRunnerModel} from "../../../../components/VirtualTicket/shared/EntityTypes.ts";
 import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx";
-import FinishTime from "../../../../components/FinishTime.tsx";
+import RaceTime from "../../../../components/RaceTime.tsx";
 
 export default function FootOResults() {
   const {t} = useTranslation();
@@ -80,7 +80,7 @@ export default function FootOResults() {
                     flexGrow: 1,
                   }}
                 >
-                  <FinishTime
+                  <RaceTime
                     status={status}
                     finish_time={runner.runner_results[0].finish_time}
                     time_seconds={runner.runner_results[0].time_seconds}
