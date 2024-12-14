@@ -1,6 +1,6 @@
 import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {ClassModel} from "../../../../shared/EntityTypes.ts";
+import {ClassModel} from "../../../../../shared/EntityTypes.ts";
 
 interface ClassSelectorProps {
   activeClass: ClassModel|null,

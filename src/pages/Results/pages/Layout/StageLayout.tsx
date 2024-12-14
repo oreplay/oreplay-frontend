@@ -17,11 +17,11 @@ import RelaySplits from "../Relay/pages/RelaySplits/RelaySplits.tsx";
 import RogaineResults from "../Rogaine/pages/RogaineResults/RogaineResults.tsx";
 import RogainePoints from "../Rogaine/pages/RogainePoints/RogainePoints.tsx";
 import {useEventInfo, useFetchClasses, useRunners, useSelectedMenu} from "../../shared/hooks.ts";
-import ClassSelector from "./ClassSelector.tsx";
+import ClassSelector from "./components/ClassSelector.tsx";
 import {useTranslation} from "react-i18next";
 import FootOSplits from "../FootO/pages/Splits/FootOSplits.tsx";
 import {RunnersContext, SelectedClassContext} from "../../shared/context.ts";
-import EventStageBanner from "./EventStageBanner.tsx";
+import EventStageBanner from "./components/EventStageBanner.tsx";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Tooltip from "@mui/material/Tooltip";
 

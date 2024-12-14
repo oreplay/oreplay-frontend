@@ -5,7 +5,7 @@ import {orderRunnersByStartTime} from "./shared/functions.ts";
 import {useTranslation} from "react-i18next";
 import ResultListContainer from "../../components/ResultListContainer.tsx";
 import ResultListItem from "../../components/ResultListItem.tsx";
-import StartTime from '../../../components/StartTime.tsx'
+import StartTime from '../../../../components/StartTime.tsx'
 import {ProcessedRunnerModel} from "../../../shared/EntityTypes.ts";
 
 export default function FootOStartTime() {
