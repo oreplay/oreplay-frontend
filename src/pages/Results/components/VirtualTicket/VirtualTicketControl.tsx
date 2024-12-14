@@ -24,7 +24,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({order_
     return (
       <Grid item xs={2}>
         <Typography>
-          {t('ResultsStage.VirtualTicketContainer.FinishControl')}
+          {t('ResultsStage.VirtualTicket.FinishControl')}
         </Typography>
       </Grid>
     )
