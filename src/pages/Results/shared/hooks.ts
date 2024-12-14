@@ -10,8 +10,8 @@ import {useAuth} from "../../../shared/hooks.ts";
 import {
   calculatePositionsAndBehindsFootO,
   processRunnerData
-} from "../pages/shared/virtualTicketFunctions.ts";
-import {ProcessedRunnerModel} from "../pages/shared/EntityTypes.ts";
+} from "../components/VirtualTicket/shared/virtualTicketFunctions.ts";
+import {ProcessedRunnerModel} from "../components/VirtualTicket/shared/EntityTypes.ts";
 
 export function useFetchClasses(eventId:string, stageId:string):[ClassModel|null,(class_id:string)=>void,ClassModel[],boolean,()=>void] {
   const ACTIVE_CLASS_SEARCH_PARAM = "class_id"
