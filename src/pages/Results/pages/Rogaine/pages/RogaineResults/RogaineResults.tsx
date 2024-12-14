@@ -72,11 +72,11 @@ export default function RogainePoints () {
                       <Typography>{runner.first_name}</Typography>
                       <Typography>{runner.last_name}</Typography>
                       <br></br>
-                      <Typography sx={{color:'text.secondary'}}>{runner.club.short_name}</Typography>
+                      <Typography sx={{color:'text.secondary'}}>{runner.club ? `${runner.club.short_name}` : t('ResultsStage.NoClubMsg')}</Typography>
                     </TableCell>}
 
                   {widthWindow > 768 ? (
-                    <TableCell>{runner.club.short_name}</TableCell>
+                    <TableCell>{runner.club ? `${runner.club.short_name}` : t('ResultsStage.NoClubMsg')}</TableCell>
                   ) : null}
                   {widthWindow > 768 ? (
                     <TableCell>{runner.runner_results[0].position ? `${runner.runner_results[0].points_final}` : ""}</TableCell>

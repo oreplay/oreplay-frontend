@@ -140,6 +140,7 @@
     "Position": "Position",
     "Name": "Nom",
     "Club": "Club",
+    "NoClubMsg": "No club",
     "StartTime": "Départ",
     "FinishTime": "Arrivée",
     "Times": "Temps",

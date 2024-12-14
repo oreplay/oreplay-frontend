@@ -137,6 +137,7 @@
     "Position": "Position",
     "Name": "Name",
     "Club": "Club",
+    "NoClubMsg": "No club",
     "StartTime": "Start",
     "FinishTime": "Finish",
     "Times": "Time",

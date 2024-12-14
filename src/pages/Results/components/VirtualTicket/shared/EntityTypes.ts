@@ -7,7 +7,7 @@ export interface ProcessedRunnerModel {
   bib_number:string,
   sicard: bigint|null,
   class: ClassModel,
-  club: ClubModel,
+  club: ClubModel|null,
   runner_results : ProcessedRunnerResultModel[],
 }
 

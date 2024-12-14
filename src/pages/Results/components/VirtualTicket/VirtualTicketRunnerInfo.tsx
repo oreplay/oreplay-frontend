@@ -2,6 +2,7 @@ import React from 'react'
 import {ProcessedRunnerModel} from "./shared/EntityTypes.ts";
 import Grid from '@mui/material/Grid';
 import {Box, Typography} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 type VirtualTicketRunnerInfoProps = {
   runner: ProcessedRunnerModel
@@ -12,6 +13,8 @@ type VirtualTicketRunnerInfoProps = {
  * @param runner Runner to be displayed
  */
 const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({runner}) => {
+  const {t} = useTranslation()
+
   return (
     <Grid item xs={12} sx={{ mb: 1 }}>
       <Typography sx={{ fontWeight: 'bold' }}>
@@ -23,7 +26,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({runner
         justifyContent:'space-between'
       }}>
         <Typography sx={{color:'text.secondary'}}>
-          {runner.club.short_name}
+          {runner.club ? `${runner.club.short_name}` : t('ResultsStage.NoClubMsg')}
         </Typography>
         <Typography>
           {runner.class.short_name}

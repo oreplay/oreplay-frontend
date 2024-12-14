@@ -138,6 +138,7 @@
     "Position": "Posición",
     "Name": "Nombre",
     "Club": "Club",
+    "NoClubMsg": "Sin club",
     "StartTime": "Salida",
     "FinishTime": "Tiempo",
     "Times": "Tiempos",

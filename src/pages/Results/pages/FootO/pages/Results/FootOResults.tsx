@@ -67,7 +67,7 @@ export default function FootOResults() {
                       color:'text.secondary'
                     }}
                   >
-                    {`${runner.club.short_name}`}
+                    {runner.club ? `${runner.club.short_name}` : t('ResultsStage.NoClubMsg')}
                   </Typography>
                 </Box>
                 <Box

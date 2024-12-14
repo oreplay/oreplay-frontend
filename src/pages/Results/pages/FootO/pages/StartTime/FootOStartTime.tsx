@@ -41,7 +41,7 @@ export default function FootOStartTime() {
                     {`${runner.first_name} ${runner.last_name}`}
                   </Typography>
                   <Typography sx={{color:'text.secondary'}}>
-                    {`${runner.club.short_name}`}
+                    {runner.club ? `${runner.club.short_name}` : t('ResultsStage.NoClubMsg')}
                   </Typography>
                 </Stack>
               </Box>
