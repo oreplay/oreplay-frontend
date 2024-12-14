@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { parseDateOnlyTime, parseSecondsToMMSS } from '../../../../shared/Functions.tsx'
 import CloseIcon from "@mui/icons-material/Close";
-import {ProcessedRunnerModel, ProcessedSplitModel} from "../shared/EntityTypes.ts";
+import {ProcessedRunnerModel, ProcessedSplitModel} from "./shared/EntityTypes.ts";
 
 interface SplitsTicketProps {
   isTicketOpen: boolean

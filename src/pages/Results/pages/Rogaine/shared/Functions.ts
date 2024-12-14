@@ -1,4 +1,4 @@
-import {ProcessedRunnerModel} from "../../shared/EntityTypes.ts";
+import {ProcessedRunnerModel} from "../../../components/VirtualTicket/shared/EntityTypes.ts";
 
 export function getUniqueStationNumbers(runners: ProcessedRunnerModel[]): bigint[] {
   const stationNumbers = new Set<bigint>();

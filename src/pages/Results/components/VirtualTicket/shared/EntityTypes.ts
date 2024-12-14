@@ -1,4 +1,4 @@
-import {ClassModel, ClubModel, ControlModel} from "../../../../shared/EntityTypes.ts";
+import {ClassModel, ClubModel, ControlModel} from "../../../../../shared/EntityTypes.ts";
 
 export interface ProcessedRunnerModel {
   id: string,

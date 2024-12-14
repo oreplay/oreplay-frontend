@@ -1,11 +1,11 @@
-import {RunnerModel} from "../../../../shared/EntityTypes.ts";
+import {RunnerModel} from "../../../../../shared/EntityTypes.ts";
 
 import {
   ProcessedRunnerModel,
   ProcessedRunnerResultModel,
   ProcessedSplitModel
 } from "./EntityTypes.ts";
-import {orderedRunners} from "../../shared/functions.ts";
+import {orderedRunners} from "../../../shared/functions.ts";
 import {DateTime} from "luxon";
 
 /**

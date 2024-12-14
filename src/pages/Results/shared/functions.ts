@@ -1,7 +1,7 @@
 import {RESULT_STATUS, RESULT_STATUS_TEXT} from "./constants.ts";
 import {RunnerModel} from "../../../shared/EntityTypes.ts";
 import { TFunction } from 'i18next'
-import {ProcessedRunnerModel} from "../pages/shared/EntityTypes.ts";
+import {ProcessedRunnerModel} from "../components/VirtualTicket/shared/EntityTypes.ts";
 
 export function parseResultStatus(status: string): string {
 

@@ -1,4 +1,4 @@
-import {ProcessedRunnerModel} from "../../../../shared/EntityTypes.ts";
+import {ProcessedRunnerModel} from "../../../../../components/VirtualTicket/shared/EntityTypes.ts";
 
 /**
  * This function orders runners in a class by their start times. The original

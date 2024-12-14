@@ -7,9 +7,9 @@ import {Box, Typography} from "@mui/material";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
 import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
-import {useVirtualTicket} from "../../../shared/hooks.ts";
-import SplitsTicket from "../../../components/SplitsTicket.tsx";
-import {ProcessedRunnerModel} from "../../../shared/EntityTypes.ts";
+import {useVirtualTicket} from "../../../../components/VirtualTicket/shared/hooks.ts";
+import SplitsTicket from "../../../../components/VirtualTicket/SplitsTicket.tsx";
+import {ProcessedRunnerModel} from "../../../../components/VirtualTicket/shared/EntityTypes.ts";
 
 export default function FootOResults() {
   const {t} = useTranslation();
