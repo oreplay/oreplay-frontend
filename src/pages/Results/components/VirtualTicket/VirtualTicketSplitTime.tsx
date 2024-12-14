@@ -27,7 +27,8 @@ const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({time,time
         display:'flex',
         flexDirection:'row',
         flexWrap:'wrap',
-        gap:1
+        columnGap:1,
+        rowGap:0,
       }}>
         <Typography sx={style}>
           {time !== null ? `${parseSecondsToMMSS(time)}` : "--"}
