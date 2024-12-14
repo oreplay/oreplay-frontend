@@ -1,7 +1,7 @@
 import React from 'react'
 import {ControlModel} from "../../../../shared/EntityTypes.ts";
 import Grid from '@mui/material/Grid';
-import {Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 type VirtualTicketRunnerInfoProps = {
@@ -22,7 +22,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({order_
   // Finish control
   if (order_number === Infinity) {
     return (
-      <Grid item xs={2}>
+      <Grid item xs={2.6}>
         <Typography>
           {t('ResultsStage.VirtualTicket.FinishControl')}
         </Typography>
@@ -32,22 +32,28 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({order_
   // Regular control
   else {
     return (
-      <Grid item xs={2}>
-        <Typography>
-          {order_number?.toString()}
+      <Grid item xs={2.6}>
+        <Box sx={{
+          display:'flex',
+          flexDirection:'row',
+          flexWrap:'wrap',
+        }}>
+          <Typography>
+            {order_number?.toString()}
+          </Typography>
           <Typography
-            component="span"
             sx={{ ml: '2px', color: 'text.secondary' }}
           >
             ({control?.station.toString()})
           </Typography>
-        </Typography>
-        { points ? (
-          <Typography>
-            {`[${points}]`}
-          </Typography>
-        ) : (<></>)
-        }
+          { points ? (
+            <Typography>
+              {`[${points}]`}
+            </Typography>
+          ) : (<></>)
+          }
+
+        </Box>
       </Grid>)
   }
 }

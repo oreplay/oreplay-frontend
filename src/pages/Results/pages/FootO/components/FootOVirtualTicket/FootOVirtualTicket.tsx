@@ -35,11 +35,9 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({isTicketOpen,runner,h
           <FootOVirtualTicketTimesBanner runnerResult={runner.runner_results[0]} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
-          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Control')}</Typography></Grid>
-          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Time')}</Typography></Grid>
-          <Grid item xs={3}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.TimeBehind')}</Typography></Grid>
-          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Time')}</Typography></Grid>
-          <Grid item xs={3}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.TimeBehind')}</Typography></Grid>
+          <Grid item xs={2.6}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Control')}</Typography></Grid>
+          <Grid item xs={4.7}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Partial')}</Typography></Grid>
+          <Grid item xs={4.7}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Cumulative')}</Typography></Grid>
           {
             runner.runner_results[0].splits.map((split) =>
               <FootOVirtualTicketSplit split={split} />
