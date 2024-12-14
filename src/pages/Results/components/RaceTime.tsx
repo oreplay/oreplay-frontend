@@ -12,7 +12,7 @@ type FinishTimeProps = {
 
 const style = {}
 
-const FinishTime: React.FC<FinishTimeProps> = ({status,finish_time,time_seconds}) => {
+const RaceTime: React.FC<FinishTimeProps> = ({status,finish_time,time_seconds}) => {
   const {t} = useTranslation();
 
   let parsedStyle = {
@@ -46,4 +46,4 @@ const FinishTime: React.FC<FinishTimeProps> = ({status,finish_time,time_seconds}
   }
 }
 
-export default FinishTime;
+export default RaceTime;

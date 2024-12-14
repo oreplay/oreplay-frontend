@@ -5,7 +5,7 @@ import {
   ProcessedRunnerResultModel
 } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts";
 import {parseResultStatus} from "../../../../../shared/functions.ts";
-import FinishTime from "../../../../../components/FinishTime.tsx";
+import RaceTime from "../../../../../components/RaceTime.tsx";
 import StartTime from "../../../../../components/StartTime.tsx";
 import {useTranslation} from "react-i18next";
 
@@ -29,7 +29,7 @@ const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps
       </Grid>
       <Grid item xs={6}>
         <Typography>{t('ResultsStage.VirtualTicket.RaceTime')}</Typography>
-        <FinishTime status={status} finish_time={runnerResult.finish_time} time_seconds={runnerResult.time_seconds} />
+        <RaceTime status={status} finish_time={runnerResult.finish_time} time_seconds={runnerResult.time_seconds} />
       </Grid>
     </>
   )

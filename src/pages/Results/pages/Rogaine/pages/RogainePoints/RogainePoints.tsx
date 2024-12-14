@@ -27,7 +27,7 @@ export default function RogainePoints() {
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.BonusPoints')}</TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.PenaltyPoints')}</TableCell>
               <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Points')}</TableCell>
-              <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.FinishTime')}</TableCell>
+              <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.RaceTime')}</TableCell>
               {
                 // add as many columns as controls
                 controlNumbers.map((controlNumber) => (

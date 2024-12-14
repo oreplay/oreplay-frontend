@@ -52,7 +52,7 @@ export default function RogainePoints () {
                 <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Points')}</TableCell>
               ) : <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.Times')}</TableCell>}
               {widthWindow > 768 ? (
-                <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.FinishTime')}</TableCell>
+                <TableCell sx={{fontWeight: "bold"}}>{t('ResultsStage.RaceTime')}</TableCell>
               ) : null}
             </TableRow>
           </TableHead>
