@@ -3,11 +3,14 @@ import {
   Grid,
   DialogTitle,
   IconButton,
-  DialogContent, Dialog,
+  DialogContent, Dialog, Alert,
 } from "@mui/material";
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import {ProcessedRunnerModel} from "./shared/EntityTypes.ts";
+import ScienceIcon from "@mui/icons-material/Science";
+import {useTranslation} from "react-i18next";
+
 
 export type VirtualTicketProps = {
   isTicketOpen: boolean
@@ -23,6 +26,7 @@ type VirtualTicketContainerProps = {
 }
 
 export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({ isTicketOpen,runner,handleCloseTicket, children }) => {
+  const {t} = useTranslation()
 
   if (runner) {
     return (
@@ -57,6 +61,9 @@ export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({ 
           </IconButton>
         </DialogTitle>
         <DialogContent>
+          <Alert severity="info" icon={<ScienceIcon />} sx={{marginBottom:'1em'}}>
+            {t('ExperimentalFeatureMsg')}
+          </Alert>
           {runner ?
             (
               <Box>
