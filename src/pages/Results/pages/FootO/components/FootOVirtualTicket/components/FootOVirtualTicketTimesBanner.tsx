@@ -7,6 +7,7 @@ import {
 import {parseResultStatus} from "../../../../../shared/functions.ts";
 import FinishTime from "../../../../../components/FinishTime.tsx";
 import StartTime from "../../../../../components/StartTime.tsx";
+import {useTranslation} from "react-i18next";
 
 type FootOVirtualTicketTimesBannerProps = {
   runnerResult: ProcessedRunnerResultModel
@@ -17,16 +18,17 @@ type FootOVirtualTicketTimesBannerProps = {
  * @param runner Runner to be displayed
  */
 const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps> = ({runnerResult}) => {
-  const status = parseResultStatus(runnerResult.status_code as string)
+  const {t} = useTranslation();
 
+  const status = parseResultStatus(runnerResult.status_code as string)
   return (
     <>
       <Grid item xs={6}>
-        <Typography>Start Time: </Typography>
+        <Typography>{t('ResultsStage.VirtualTicket.StartHour')}</Typography>
         <StartTime time={runnerResult.start_time} />
       </Grid>
       <Grid item xs={6}>
-        <Typography>Finish Time: </Typography>
+        <Typography>{t('ResultsStage.VirtualTicket.RaceTime')}</Typography>
         <FinishTime status={status} finish_time={runnerResult.finish_time} time_seconds={runnerResult.time_seconds} />
       </Grid>
     </>

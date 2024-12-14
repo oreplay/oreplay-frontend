@@ -147,7 +147,10 @@
       "Control": "Control",
       "Time": "Time",
       "TimeBehind": "Diff.",
-      "Position": "Pos."
+      "Position": "Pos.",
+      "StartHour": "Start time:",
+      "FinishHour": "Finish time:",
+      "RaceTime": "Time:"
     },
     "statusCodes": {
       "nc": "NC",
