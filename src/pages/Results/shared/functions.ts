@@ -36,23 +36,28 @@ export function getPositionOrNc(runner: ProcessedRunnerModel, t: TFunction<"tran
 /**
  * Assign each status code a number with the priority it should appear on result
  * @param status A valid RUNNER_STATUS
+ * @param position Position of the runner. It is used to place runners that have not finished after the finished oned
  */
-function statusOrder(status:string|null) {
+function statusOrder(status:string|null,position:bigint) {
   switch (status) {
     case RESULT_STATUS.ok:
-      return 0
+      if (position==BigInt(0)) {
+        return 2
+      } else {
+        return 0
+      }
     case RESULT_STATUS.ot:
       return 1
     case RESULT_STATUS.mp:
-      return 2
-    case RESULT_STATUS.disqualified:
       return 3
-    case RESULT_STATUS.dnf:
+    case RESULT_STATUS.disqualified:
       return 4
-    case RESULT_STATUS.dns:
+    case RESULT_STATUS.dnf:
       return 5
-    case RESULT_STATUS.nc:
+    case RESULT_STATUS.dns:
       return 6
+    case RESULT_STATUS.nc:
+      return 7
     default:
       return 10
   }
@@ -83,8 +88,8 @@ export function orderedRunners (runnersList:RunnerModel[])  {
   return runnersList.sort((a, b) => {
 
     // Order by status
-    const statusA = statusOrder(a.runner_results[0]?.status_code)
-    const statusB = statusOrder(b.runner_results[0]?.status_code)
+    const statusA = statusOrder(a.runner_results[0]?.status_code,a.runner_results[0]?.position)
+    const statusB = statusOrder(b.runner_results[0]?.status_code,b.runner_results[0]?.position)
 
     if (statusA !== undefined && statusB !== undefined && statusA !== statusB) {
       return statusA - statusB; // Smaller status comes first
