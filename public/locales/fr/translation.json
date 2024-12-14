@@ -150,7 +150,10 @@
       "Control": "_Control",
       "Time": "_Time",
       "TimeBehind": "_Diff.",
-      "Position": "_Pos."
+      "Position": "_Pos.",
+      "StartHour": "_Start time:",
+      "FinishHour": "_Finish time:",
+      "RaceTime": "_Time:"
     },
     "statusCodes": {
       "nc": "_NC",
