@@ -15,14 +15,14 @@ export type VirtualTicketProps = {
   handleCloseTicket: ()=>void
 }
 
-type BaseVirtualTicketProps = {
+type VirtualTicketContainerProps = {
   isTicketOpen: boolean
   runner: ProcessedRunnerModel|null
   handleCloseTicket: ()=>void
   children?: React.ReactNode
 }
 
-export const VirtualTicket: React.FC<BaseVirtualTicketProps> = ({ isTicketOpen,runner,handleCloseTicket, children }) => {
+export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({ isTicketOpen,runner,handleCloseTicket, children }) => {
 
   if (runner) {
     return (
