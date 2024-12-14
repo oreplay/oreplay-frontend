@@ -145,6 +145,13 @@
     "Points": "_Points",
     "BonusPoints": "_Bonus",
     "PenaltyPoints": "_Penalty",
+    "VirtualTicket": {
+      "FinishControl": "_Fin",
+      "Control": "_Control",
+      "Time": "_Time",
+      "TimeBehind": "_Diff.",
+      "Position": "_Pos."
+    },
     "statusCodes": {
       "nc": "_NC",
       "ok": "_ok",

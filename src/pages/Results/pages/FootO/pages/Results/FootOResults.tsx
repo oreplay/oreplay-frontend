@@ -8,8 +8,8 @@ import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";
 import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
 import {useVirtualTicket} from "../../../../components/VirtualTicket/shared/hooks.ts";
-import SplitsTicket from "../../../../components/VirtualTicket/SplitsTicket.tsx";
 import {ProcessedRunnerModel} from "../../../../components/VirtualTicket/shared/EntityTypes.ts";
+import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx";
 
 export default function FootOResults() {
   const {t} = useTranslation();
@@ -94,7 +94,7 @@ export default function FootOResults() {
             )
           })
         }
-        <SplitsTicket
+        <FootOVirtualTicket
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
