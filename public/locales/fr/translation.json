@@ -1,6 +1,7 @@
 {
   "Loading": "Chargement...",
   "ThisFunctionalityNotImplementedMsg": "_This feature has not been implemented yet.",
+  "ExperimentalFeatureMsg": "_Experimental feature",
   "Menu": "_Menu",
   "Dates": "Dates",
   "Event": "Événement",
