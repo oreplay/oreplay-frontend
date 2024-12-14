@@ -12,7 +12,7 @@ type FootOVirtualTicketProps = {
  * Display a foot-o splits line within a virtual ticket.
  * @param split Split to be displayed
  */
-const VirtualTicketRunnerInfo: React.FC<FootOVirtualTicketProps> = ({split}) => {
+const FootOVirtualTicketSplit: React.FC<FootOVirtualTicketProps> = ({split}) => {
   return (
     <>
       <VirtualTicketControl control={split.control} order_number={split.order_number} />
@@ -22,4 +22,4 @@ const VirtualTicketRunnerInfo: React.FC<FootOVirtualTicketProps> = ({split}) => 
   )
 }
 
-export default VirtualTicketRunnerInfo;
+export default FootOVirtualTicketSplit;

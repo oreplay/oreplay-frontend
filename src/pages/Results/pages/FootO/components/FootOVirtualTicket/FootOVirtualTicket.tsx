@@ -1,8 +1,8 @@
 import React from "react";
 import {
-  VirtualTicket,
+  VirtualTicketContainer,
   VirtualTicketProps
-} from "../../../../components/VirtualTicket/VirtualTicket.tsx";
+} from "../../../../components/VirtualTicket/VirtualTicketContainer.tsx";
 import {VirtualTicketHeader} from "../../../../components/VirtualTicket/VirtualTicketHeader.tsx";
 import {VirtualTicketSplits} from "../../../../components/VirtualTicket/VirtualTicketSplits.tsx";
 import VirtualTicketRunnerInfo
@@ -25,7 +25,7 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({isTicketOpen,runner,h
 
   if (runner) {
     return (
-      <VirtualTicket
+      <VirtualTicketContainer
         isTicketOpen={isTicketOpen}
         runner={runner}
         handleCloseTicket={handleCloseTicket}
@@ -35,18 +35,18 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({isTicketOpen,runner,h
           <FootOVirtualTicketTimesBanner runnerResult={runner.runner_results[0]} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
-          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Control')}</Typography></Grid>
-          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Time')}</Typography></Grid>
-          <Grid item xs={3}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.TimeBehind')}</Typography></Grid>
-          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.Time')}</Typography></Grid>
-          <Grid item xs={3}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicket.TimeBehind')}</Typography></Grid>
+          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicketContainer.Control')}</Typography></Grid>
+          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicketContainer.Time')}</Typography></Grid>
+          <Grid item xs={3}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicketContainer.TimeBehind')}</Typography></Grid>
+          <Grid item xs={2}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicketContainer.Time')}</Typography></Grid>
+          <Grid item xs={3}><Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>{t('ResultsStage.VirtualTicketContainer.TimeBehind')}</Typography></Grid>
           {
             runner.runner_results[0].splits.map((split) =>
               <FootOVirtualTicketSplit split={split} />
             )
           }
         </VirtualTicketSplits>
-      </VirtualTicket>
+      </VirtualTicketContainer>
     )
   } else {
     return <></>
