@@ -50,13 +50,13 @@ function statusOrder(status:string|null,position:bigint) {
       return 1
     case RESULT_STATUS.mp:
       return 3
-    case RESULT_STATUS.disqualified:
-      return 4
-    case RESULT_STATUS.dnf:
-      return 5
-    case RESULT_STATUS.dns:
-      return 6
     case RESULT_STATUS.nc:
+      return 4
+    case RESULT_STATUS.disqualified:
+      return 5
+    case RESULT_STATUS.dnf:
+      return 6
+    case RESULT_STATUS.dns:
       return 7
     default:
       return 10
