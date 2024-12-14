@@ -20,7 +20,6 @@ const RaceTime: React.FC<FinishTimeProps> = ({status,finish_time,time_seconds}) 
   }
 
   if(status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc) {
-    console.log("status ok")
     return (
       <Typography sx={parsedStyle}>
         {finish_time != null && time_seconds !== null ? parseSecondsToMMSS(time_seconds) : "-"}
