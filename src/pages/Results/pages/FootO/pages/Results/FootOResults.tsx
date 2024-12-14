@@ -10,6 +10,7 @@ import { RESULT_STATUS_TEXT } from '../../../../shared/constants.ts'
 import {useVirtualTicket} from "../../../../components/VirtualTicket/shared/hooks.ts";
 import {ProcessedRunnerModel} from "../../../../components/VirtualTicket/shared/EntityTypes.ts";
 import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx";
+import FinishTime from "../../../../components/FinishTime.tsx";
 
 export default function FootOResults() {
   const {t} = useTranslation();
@@ -79,7 +80,11 @@ export default function FootOResults() {
                     flexGrow: 1,
                   }}
                 >
-                  <Typography sx={{color:'secondary.main'}}>{(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
+                  <FinishTime
+                    status={status}
+                    finish_time={runner.runner_results[0].finish_time}
+                    time_seconds={runner.runner_results[0].time_seconds}
+                  />
                   <Typography sx={{color:'primary.main',fontSize:14}}>
                     {
                       ((statusOkOrNc)&&(runner.runner_results[0].finish_time != null))

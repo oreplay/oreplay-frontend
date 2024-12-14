@@ -1,10 +1,12 @@
 import React from 'react'
 import Grid from '@mui/material/Grid';
-import {Box, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {
   ProcessedRunnerResultModel
 } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts";
-import {parseDateOnlyTime, parseSecondsToMMSS} from "../../../../../../../shared/Functions.tsx";
+import {parseResultStatus} from "../../../../../shared/functions.ts";
+import FinishTime from "../../../../../components/FinishTime.tsx";
+import StartTime from "../../../../../components/StartTime.tsx";
 
 type FootOVirtualTicketTimesBannerProps = {
   runnerResult: ProcessedRunnerResultModel
@@ -15,21 +17,17 @@ type FootOVirtualTicketTimesBannerProps = {
  * @param runner Runner to be displayed
  */
 const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps> = ({runnerResult}) => {
+  const status = parseResultStatus(runnerResult.status_code as string)
 
   return (
     <>
       <Grid item xs={6}>
-        <Typography sx={{ color: 'text.secondary'}}>
-          {`Start Time: ${parseDateOnlyTime(runnerResult.start_time)}`}
-        </Typography>
+        <Typography>Start Time: </Typography>
+        <StartTime time={runnerResult.start_time} />
       </Grid>
       <Grid item xs={6}>
-        <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
-          <Typography>Finish Time: </Typography>
-          <Typography sx={{color: 'secondary.main'}}>
-            {parseSecondsToMMSS(runnerResult.time_seconds)}
-          </Typography>
-        </Box>
+        <Typography>Finish Time: </Typography>
+        <FinishTime status={status} finish_time={runnerResult.finish_time} time_seconds={runnerResult.time_seconds} />
       </Grid>
     </>
   )
