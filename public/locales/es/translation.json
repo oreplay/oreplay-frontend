@@ -146,12 +146,11 @@
     "VirtualTicket": {
       "FinishControl": "Meta",
       "Control": "Control",
-      "Time": "Tiempo",
-      "TimeBehind": "Dif.",
-      "Position": "Pos.",
       "StartHour": "Hora de salida:",
       "FinishHour": "Hora de meta:",
-      "RaceTime": "Tiempo:"
+      "RaceTime": "Tiempo:",
+      "Partial": "Parcial",
+      "Cumulative": "Acumulado"
     },
     "statusCodes": {
       "nc": "NC",
