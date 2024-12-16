@@ -7,10 +7,13 @@ import {Box, Typography} from "@mui/material";
 import {getPositionOrNc, parseResultStatus} from "../../../../shared/functions.ts";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import {RESULT_STATUS_TEXT} from "../../../../shared/constants.ts";
+import {useVirtualTicket} from "../../../../components/VirtualTicket/shared/hooks.ts";
+import RogaineVirtualTicket from "../../components/RogaineVirtualTicket/RogaineVirtualTicket.tsx";
 
 export default function RogainePoints () {
   const {t} = useTranslation();
 
+  const [isVirtualTicketOpen,selectedRunner, handleRowClick, handleCloseVirtualTicket] = useVirtualTicket()
 
   // Gather runners data
   const [runnersList,isLoading] = useContext(RunnersContext)
@@ -27,7 +30,10 @@ export default function RogainePoints () {
             const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
             return (
-              <ResultListItem key={runner.id}>
+              <ResultListItem
+                key={runner.id}
+                onClick={()=>handleRowClick(runner)}
+              >
                 <Box
                   sx={{
                     flexShrink: 0,
@@ -82,6 +88,11 @@ export default function RogainePoints () {
             )
           })
         }
+        <RogaineVirtualTicket
+          isTicketOpen={isVirtualTicketOpen}
+          runner={selectedRunner}
+          handleCloseTicket={handleCloseVirtualTicket}
+        />
       </ResultListContainer>
     )
   }
