@@ -6,7 +6,7 @@ export function getUniqueStationNumbers(runners: ProcessedRunnerModel[]): bigint
   runners.forEach(runner => {
     runner.runner_results[0].splits.forEach(split => {
       if (split.control) {
-        stationNumbers.add(split.control.station);
+        stationNumbers.add(BigInt(split.control.station));
       }
     });
   });
