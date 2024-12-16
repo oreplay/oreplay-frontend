@@ -19,7 +19,6 @@ import {
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {deleteStage, patchStage, postStage, wipeOutStage} from "../../../../../services/EventAdminService.ts";
-import {DateTime} from "luxon";
 import Tooltip from "@mui/material/Tooltip";
 import {EventDetailModel} from "../../../../../../../shared/EntityTypes.ts";
 import {useAuth} from "../../../../../../../shared/hooks.ts";
@@ -42,7 +41,7 @@ function EditToolbar(props: EditToolbarProps) {
   const { setRows, setRowModesModel } = props;
 
   const handleClick = () => {
-    const id = DateTime.now().toSeconds(); // Random key generation
+    const id = "newlyCreatedStage"
     setRows((oldRows) => [...oldRows, { id:id, stageName: '', isNew: true, isEdit:false}]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
@@ -99,7 +98,6 @@ export default function StagesDataGrid(props:Props) {
   };
 
   const handleEditClick = (row:GridRowParams<StageRow>) => {
-    console.log("handleEditClick function with row",row)
     setRowModesModel({ ...rowModesModel, [row.id]: { mode: GridRowModes.Edit } });
   };
 
@@ -139,7 +137,6 @@ export default function StagesDataGrid(props:Props) {
 
   const processRowUpdate = async (newRow: GridRowModel<StageRow>) => {
     const updatedRow:GridRowModel<StageRow> = { ...newRow, isEdit: false, isNew: false };
-
     if (newRow.isNew) // Case row is posted to the server
     {
       try {
@@ -150,8 +147,9 @@ export default function StagesDataGrid(props:Props) {
           token
         )
         updatedRow.id = response.data.id
+        updatedRow.stageId = response.data.id
       } catch (error) {
-        console.log("Something bad happened while posting the stage")
+        console.error("Something bad happened while posting the stage: ",error)
       }
 
     } else // Case Row is patched to the server
@@ -164,12 +162,13 @@ export default function StagesDataGrid(props:Props) {
           newRow.stageTypeId,
           token as string)
       } catch (error) {
-        console.log("Something bad happened while updating the stage")
+        console.error("Something bad happened while updating the stage: ",error)
       }
     }
 
     // Update DataGridView
-    setRows(rows.map((row):GridRowModel<StageRow> => (row.id === newRow.id ? updatedRow : row)));
+    console.log(rows)
+    setRows(rows.map((row):GridRowModel<StageRow> => (row.id === newRow.id || row.id == "newlyCreatedStage" ? updatedRow : row)));
     return updatedRow;
   };
 
