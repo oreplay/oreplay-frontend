@@ -33,6 +33,13 @@ export function parseSecondsToMMSS(seconds: number|string) {
   if (Number(seconds) < oneHour) {
     return duration.toFormat("mm:ss");
   } else {
-    return duration.toFormat("HH:mm:ss");
+    const durationString = duration.toFormat("HH:mm:ss");
+
+    // Remove leading 0
+    if (durationString.at(0) == '0') {
+      return durationString.substring(1)
+    } else {
+      return durationString
+    }
   }
 }
