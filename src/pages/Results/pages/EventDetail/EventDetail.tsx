@@ -1,13 +1,14 @@
 import {Box, Typography} from "@mui/material";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import loadingIcon from "../../../../assets/loading.svg";
-import {useEffect, useState} from "react";
 import {getEventDetail} from "../../services/EventService.ts";
 import {useTranslation} from "react-i18next";
 import {ArrowForward} from "@mui/icons-material";
-import {EventDetailModel} from "../../../../shared/EntityTypes.ts";
+import {Data, EventDetailModel} from "../../../../shared/EntityTypes.ts";
 import {parseDate} from "../../../../shared/Functions.tsx";
 import EventDetailURLButton from "./components/EventDetailURLButton.tsx";
+import {useQuery} from "react-query";
+import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx";
 
 const styles = {
   titleEvent: {
@@ -36,17 +37,15 @@ export default function EventDetail() {
   const {t} = useTranslation();
   const navigate = useNavigate();
 
-  const [detail, setDetail] = useState<EventDetailModel>();
-  const [loadingData, setLoadingData] = useState(true);
-
-  useEffect(() => {
-    if (id) {
-      getEventDetail(id).then((response) => {
-        setDetail(response.data);
-        setLoadingData(false);
-      })
+  const {data,isLoading,error} = useQuery<Data<EventDetailModel>>(
+    ['eventDetail', id], // Query key
+    () => getEventDetail(id as string), // Query function
+    {
+      enabled: !!id, // Only fetch if id exists
     }
-  }, [id]);
+  )
+
+  const detail = data?.data
 
   function getDatesOfEvent() {
     if (detail?.initial_date && detail?.final_date) {
@@ -63,7 +62,7 @@ export default function EventDetail() {
     return null;
   }
 
-  if (loadingData) {
+  if (isLoading) {
     return (
       <Box sx={{
         width: "100%",
@@ -75,6 +74,8 @@ export default function EventDetail() {
         <img alt={'loading icon'} height={50} width={50} src={loadingIcon}></img>
       </Box>
     )
+  } else if (error) {
+    return <NotFoundPage />
   } else if (detail?.stages.length == 1) {// navigate to stage for single stage events
     return <Navigate
       to={`/competitions/${id}/${detail.stages[0].id}`}

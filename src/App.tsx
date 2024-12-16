@@ -16,6 +16,7 @@ import EventAdmin from "./pages/Administration/pages/EventAdmin/pages/EventAdmin
 import StageLayout from "./pages/Results/pages/Layout/StageLayout.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import NotFoundPage from "./pages/NotFoundError/NotFoundPage.tsx";
+import {QueryClient, QueryClientProvider} from "react-query";
 
 // Customize style of app
 const theme = createTheme({
@@ -35,36 +36,41 @@ const theme = createTheme({
 
 })
 
+// Make queries though TanStack Query
+const queryClient = new QueryClient()
+
 export default function App() {
 
   return (
-    <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={'es-ES'}> {/** TODO: manage real location**/}
-        <AuthProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<Layout/>} >
-                <Route index element={<EventsList />} />
-                <Route path='competitions' element={<Navigate to={"/"}/>} />
-                <Route path='About-us' element={<AboutUs />} />
-                <Route path='competitions/:id' element={<EventDetail/>} />
-                <Route path='competitions/:eventId/:stageId' element={<StageLayout />} />
-                <Route  element={<PrivateRoute />}>
-                  <Route path={'/dashboard'} element={<Dashboard />} />
-                  <Route path={'/admin/create-event'} element={<CreateEvent />} />
-                  <Route path={'/admin/:eventId'} element={<EventAdmin />} />
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={'es-ES'}> {/** TODO: manage real location**/}
+          <AuthProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path='/' element={<Layout/>} >
+                  <Route index element={<EventsList />} />
+                  <Route path='competitions' element={<Navigate to={"/"}/>} />
+                  <Route path='About-us' element={<AboutUs />} />
+                  <Route path='competitions/:id' element={<EventDetail/>} />
+                  <Route path='competitions/:eventId/:stageId' element={<StageLayout />} />
+                  <Route  element={<PrivateRoute />}>
+                    <Route path={'/dashboard'} element={<Dashboard />} />
+                    <Route path={'/admin/create-event'} element={<CreateEvent />} />
+                    <Route path={'/admin/:eventId'} element={<EventAdmin />} />
+                  </Route>
+                  <Route path={'/*'} element={<NotFoundPage />}/>
                 </Route>
-                <Route path={'/*'} element={<NotFoundPage />}/>
-              </Route>
-              <Route path={'/signin'} >
-                <Route index element={<InItSignIn/>} />
-                <Route path={'form'} element={<SignIn/>} />
-                <Route path={'auth'} element={<Authentication />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </AuthProvider>
-      </LocalizationProvider>
-    </ThemeProvider>
+                <Route path={'/signin'} >
+                  <Route index element={<InItSignIn/>} />
+                  <Route path={'form'} element={<SignIn/>} />
+                  <Route path={'auth'} element={<Authentication />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </AuthProvider>
+        </LocalizationProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   )
 }
