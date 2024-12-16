@@ -15,9 +15,17 @@ type FootOVirtualTicketProps = {
 const FootOVirtualTicketSplit: React.FC<FootOVirtualTicketProps> = ({split}) => {
   return (
     <>
-      <VirtualTicketControl control={split.control} order_number={split.order_number} />
-      <VirtualTicketSplitTime time={split.time} time_behind={split.time_behind} position={split.position} />
-      <VirtualTicketSplitTime time={split.cumulative_time} time_behind={split.cumulative_behind} position={split.cumulative_position} />
+      <VirtualTicketControl control={split.control} order_number={split.order_number} gridWidth={2.6} />
+      <VirtualTicketSplitTime
+        time={split.time}
+        time_behind={split.time_behind}
+        position={split.position}
+      />
+      <VirtualTicketSplitTime
+        time={split.cumulative_time}
+        time_behind={split.cumulative_behind}
+        position={split.cumulative_position}
+      />
     </>
   )
 }
