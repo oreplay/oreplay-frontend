@@ -17,25 +17,25 @@ import StageLayout from "./pages/Results/pages/Layout/StageLayout.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import NotFoundPage from "./pages/NotFoundError/NotFoundPage.tsx";
 
-export default function App() {
-
-  // Customize style of app
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#ff710a",
-        light: "#f5f5f5"
-      },
-      text: {
-        secondary: "#646464"
-      },
-      secondary: {
-        main: "#5e2572",
-        light: "#efefef"
-      }
+// Customize style of app
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#ff710a",
+      light: "#f5f5f5"
     },
+    text: {
+      secondary: "#646464"
+    },
+    secondary: {
+      main: "#5e2572",
+      light: "#efefef"
+    }
+  },
 
-  })
+})
+
+export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
