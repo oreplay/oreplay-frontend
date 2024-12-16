@@ -143,37 +143,44 @@ export function calculatePositionsAndBehindsFootO(runners: ProcessedRunnerModel[
 
     // update runners
     return runners.map((runner):ProcessedRunnerModel=>{
+
       if (runner.runner_results[0]) {
-        const newSplits = runner.runner_results[0].splits.map((split,index, splitsArray)=>{
-          const bestTime: number|null = timesTable[index][0]
-          const best_cumulative: number|null = cumulativeTable[index][0]
-          if (bestTime !== null && best_cumulative !== null) {
-            const missingPunchFrom = splitsArray.findIndex((split)=> split.time === null)
-            const position = timesTable[index].indexOf(split.time)+1
-            const cumulativePosition = cumulativeTable[index].indexOf(split.cumulative_time)+1
+        try {
+          const newSplits = runner.runner_results[0].splits.map((split,index, splitsArray)=>{
+            const bestTime: number|null = timesTable[index][0]
+            const best_cumulative: number|null = cumulativeTable[index][0]
+            if (bestTime !== null && best_cumulative !== null) {
+              const missingPunchFrom = splitsArray.findIndex((split)=> split.time === null)
+              const position = timesTable[index].indexOf(split.time)+1
+              const cumulativePosition = cumulativeTable[index].indexOf(split.cumulative_time)+1
 
-            // Check when cumulative differences should be meaningful
-            const cumulative_difference = split.cumulative_time !== null && (missingPunchFrom === -1 || missingPunchFrom > index)
+              // Check when cumulative differences should be meaningful
+              const cumulative_difference = split.cumulative_time !== null && (missingPunchFrom === -1 || missingPunchFrom > index)
 
-            return {
-              ...split,
-              time_behind : split.time !== null ? split.time-bestTime : null,
-              position: split.time !== null ? position : null,
-              cumulative_behind: cumulative_difference && split.cumulative_time ? split.cumulative_time - best_cumulative : null,
-              cumulative_position: cumulative_difference ? cumulativePosition : null
+              return {
+                ...split,
+                time_behind : split.time !== null ? split.time-bestTime : null,
+                position: split.time !== null ? position : null,
+                cumulative_behind: cumulative_difference && split.cumulative_time ? split.cumulative_time - best_cumulative : null,
+                cumulative_position: cumulative_difference ? cumulativePosition : null
+              }
+            } else {
+              return split
             }
-          } else {
-            return split
+          })
+          return {
+            ...runner,
+            runner_results: [
+              {
+                ...runner.runner_results[0],
+                splits: newSplits
+              }
+            ]
           }
-        })
-        return {
-          ...runner,
-          runner_results: [
-            {
-              ...runner.runner_results[0],
-              splits: newSplits
-            }
-          ]
+        } catch (error) {
+          // if an error happens return the runner without updating it
+          console.error("Error updating runner in `calculatePositionsAndBehindsFootO`."+` Runner ${runner.id}, ${runner.first_name} ${runner.last_name} could not be updated.\n\n`,error)
+          return runner
         }
       } else {
         return runner
