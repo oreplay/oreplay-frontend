@@ -108,7 +108,7 @@ export interface SplitModel {
 
 export interface ControlModel {
   id: string,
-  station: bigint,
+  station: string,
   control_type: ControlTypeModel
 }
 
