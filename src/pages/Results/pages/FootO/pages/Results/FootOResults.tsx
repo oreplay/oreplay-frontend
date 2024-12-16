@@ -1,8 +1,8 @@
 import {useContext} from "react";
 import {useTranslation} from "react-i18next";
 import {RunnersContext} from "../../../../shared/context.ts";
-import ResultListContainer from "../../components/ResultListContainer.tsx";
-import ResultListItem from "../../components/ResultListItem.tsx";
+import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx";
+import ResultListItem from "../../../../components/ResultsList/ResultListItem.tsx";
 import {Box, Typography} from "@mui/material";
 import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts";

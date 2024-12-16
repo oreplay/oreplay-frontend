@@ -3,8 +3,8 @@ import {useContext, useEffect, useState} from "react";
 import {RunnersContext} from "../../../../shared/context.ts";
 import {orderRunnersByStartTime} from "./shared/functions.ts";
 import {useTranslation} from "react-i18next";
-import ResultListContainer from "../../components/ResultListContainer.tsx";
-import ResultListItem from "../../components/ResultListItem.tsx";
+import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx";
+import ResultListItem from "../../../../components/ResultsList/ResultListItem.tsx";
 import StartTime from '../../../../components/StartTime.tsx'
 import {ProcessedRunnerModel} from "../../../../components/VirtualTicket/shared/EntityTypes.ts";
 
