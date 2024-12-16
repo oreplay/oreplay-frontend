@@ -95,6 +95,16 @@ export function orderedRunners (runnersList:RunnerModel[])  {
       return statusA - statusB; // Smaller status comes first
     }
 
+    // If statuses are the same and not "ok", order by runner.last_name
+    const statusCodeA = a.runner_results[0]?.status_code;
+    const statusCodeB = b.runner_results[0]?.status_code;
+
+    if (statusCodeA !== RESULT_STATUS.ok && statusCodeA === statusCodeB) {
+      const lastNameA = a.last_name?.toLowerCase()
+      const lastNameB = b.last_name.toLowerCase()
+      return lastNameA.localeCompare(lastNameB); // Alphabetical order by last name
+    }
+
     // Fallback to position comparison
     const posA = Number(a.runner_results[0]?.position)
     const posB = Number(b.runner_results[0]?.position)
