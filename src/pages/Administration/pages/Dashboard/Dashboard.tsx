@@ -54,23 +54,25 @@ export function Dashboard() {
   ]
 
   return  (
-    <Container>
-      <Typography variant="h1" color="primary.main">{t('Dashboard.YourEvents')}</Typography>
-      <Box sx={{mb: "10px"}}>
-        <Button onClick={() =>navigate('/admin/create-event')} variant="contained">
-          <AddIcon />
-        </Button>
-      </Box>
-      <DataGrid
-        columns={columns}
-        loading={isLoading}
-        rows={rows}
-        rowCount={totalRows}
-        paginationMode={'server'}
-        paginationModel={{page:page,pageSize:rowsPerPage}}
-        onPaginationModelChange={(model)=>{setPage(model.page)}}
-        onRowClick={handleClick}
-      />
-    </Container>
+    <Box sx={{height:'100%'}}>
+      <Container>
+        <Typography variant="h1" color="primary.main">{t('Dashboard.YourEvents')}</Typography>
+        <Box sx={{mb: "10px"}}>
+          <Button onClick={() =>navigate('/admin/create-event')} variant="contained">
+            <AddIcon />
+          </Button>
+        </Box>
+        <DataGrid
+          columns={columns}
+          loading={isLoading}
+          rows={rows}
+          rowCount={totalRows}
+          paginationMode={'server'}
+          paginationModel={{page:page,pageSize:rowsPerPage}}
+          onPaginationModelChange={(model)=>{setPage(model.page)}}
+          onRowClick={handleClick}
+        />
+      </Container>
+    </Box>
   )
 }

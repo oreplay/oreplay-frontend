@@ -26,7 +26,7 @@ export default function Layout() {
   }, []);
 
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ height: "100vh", display:'flex', flexDirection:'column'}}>
       <Header setOpenSidebar={setIsSideBarOpen} ref={headerRef} />
       <Sidebar openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
 
