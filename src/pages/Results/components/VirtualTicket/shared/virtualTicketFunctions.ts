@@ -20,7 +20,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
 
   return runners.map((runner):ProcessedRunnerModel => {
     const processedRunnerResultList = runner.runner_results.map((result):ProcessedRunnerResultModel => {
-      const start_time = DateTime.fromISO(result.start_time)
+      const start_time = result.start_time ? DateTime.fromISO(result.start_time) : null
 
       const processedSplit = result.splits.map((split,index,array):ProcessedSplitModel=>{
 
@@ -29,7 +29,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
 
         if (result.start_time && result.finish_time && split.reading_time) {
           const reading_time = DateTime.fromISO(split.reading_time)
-          cumulative_time = reading_time.diff(start_time).as('seconds')
+          cumulative_time = start_time ? reading_time.diff(start_time).as('seconds') : null
 
           // first split
           if (index==0) {

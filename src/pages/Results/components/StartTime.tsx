@@ -6,19 +6,20 @@ import {useTranslation} from "react-i18next";
 import { Typography } from '@mui/material'
 
 interface StartTimeProps {
-  time: string;
+  time: string|null;
 }
 
 const StartTime: React.FC<StartTimeProps> = ({ time }) => {
   const {t} = useTranslation();
   if (time === null || time === undefined) {
     return t('ResultsStage.NoStartTime')
-  }
-  const start = parseStartTime(time)
+  } else {
+    const start = parseStartTime(time)
 
-  return (
-    <Typography>{start}</Typography>
-  );
+    return (
+      <Typography>{start}</Typography>
+    );
+  }
 };
 
 export default StartTime;

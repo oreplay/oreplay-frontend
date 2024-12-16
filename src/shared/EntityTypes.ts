@@ -84,8 +84,8 @@ export interface RunnerModel {
 
 export interface RunnerResultModel {
   result_type_id: string,
-  start_time: string,
-  finish_time: string,
+  start_time: string|null,
+  finish_time: string|null,
   time_seconds: string,
   position: bigint,
   status_code: string|null,
