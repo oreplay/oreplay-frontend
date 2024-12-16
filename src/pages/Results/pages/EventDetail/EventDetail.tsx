@@ -9,6 +9,27 @@ import {EventDetailModel} from "../../../../shared/EntityTypes.ts";
 import {parseDate} from "../../../../shared/Functions.tsx";
 import EventDetailURLButton from "./components/EventDetailURLButton.tsx";
 
+const styles = {
+  titleEvent: {
+    marginTop: "6px",
+    fontWeight: "bold",
+    fontSize: "x-large",
+    marginLeft: "48px",
+    marginRight: "48px"
+  },
+  aligns: {
+    marginLeft: "48px",
+    marginRight: "48px"
+  },
+  listStages: {
+    borderBottom: "1px solid white",
+    marginLeft: "48px",
+    marginRight: "48px",
+    height: "min-content",
+    padding: "24px 0px"
+  }
+}
+
 export default function EventDetail() {
 
   const {id} = useParams();
@@ -17,27 +38,6 @@ export default function EventDetail() {
 
   const [detail, setDetail] = useState<EventDetailModel>();
   const [loadingData, setLoadingData] = useState(true);
-
-  const styles = {
-    titleEvent: {
-      marginTop: "6px",
-      fontWeight: "bold",
-      fontSize: "x-large",
-      marginLeft: "48px",
-      marginRight: "48px"
-    },
-    aligns: {
-      marginLeft: "48px",
-      marginRight: "48px"
-    },
-    listStages: {
-      borderBottom: "1px solid white",
-      marginLeft: "48px",
-      marginRight: "48px",
-      height: "min-content",
-      padding: "24px 0px"
-    }
-  }
 
   useEffect(() => {
     if (id) {
