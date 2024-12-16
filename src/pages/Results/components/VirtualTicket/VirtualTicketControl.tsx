@@ -4,25 +4,32 @@ import Grid from '@mui/material/Grid';
 import {Box, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
-type VirtualTicketRunnerInfoProps = {
+type VirtualTicketControlProps = {
   order_number: number|bigint|null
   points?: bigint|number|null
   control: ControlModel|null
+  gridWidth: number
 }
 
 /**
  * Display a control with the order and its code number
- * @param order_number
- * @param points
- * @param control
+ * @param order_number punched order of the control
+ * @param points points given by this control
+ * @param control control that represents
+ * @param gridWidth xs width of the control element
  */
-const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({order_number,points,control}) => {
+const VirtualTicketControl: React.FC<VirtualTicketControlProps> = ({
+  order_number,
+  points,
+  control,
+  gridWidth
+}) => {
   const {t} = useTranslation()
 
   // Finish control
   if (order_number === Infinity) {
     return (
-      <Grid item xs={2.6}>
+      <Grid item xs={gridWidth}>
         <Typography>
           {t('ResultsStage.VirtualTicket.FinishControl')}
         </Typography>
@@ -32,7 +39,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({order_
   // Regular control
   else {
     return (
-      <Grid item xs={2.6}>
+      <Grid item xs={gridWidth}>
         <Box sx={{
           display:'flex',
           flexDirection:'row',
@@ -58,4 +65,4 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({order_
   }
 }
 
-export default VirtualTicketRunnerInfo;
+export default VirtualTicketControl;
