@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import {Box, Container, Typography} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {GridColDef, DataGrid, GridRowParams} from '@mui/x-data-grid';
 import {useEffect, useState} from "react";
@@ -6,6 +6,8 @@ import {getEventsFromUser} from "../../services/EventAdminService.ts";
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import AddIcon from '@mui/icons-material/Add';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {EventModel, UserModel} from "../../../../shared/EntityTypes.ts";
 import {useAuth} from "../../../../shared/hooks.ts";
 
@@ -14,7 +16,8 @@ interface EventDataGridColumns {
   id:string
   startDate:string,
   endDate:string,
-  Name:string,
+  name:string,
+  isHidden:boolean
 }
 
 
@@ -37,7 +40,7 @@ export function Dashboard() {
     response.then((response)=>{
       setRows(
         response.data.map((event:EventModel):EventDataGridColumns=> (
-          {id:event.id, startDate:event.initial_date,endDate:event.final_date,Name:event.description}
+          {id:event.id, startDate:event.initial_date,endDate:event.final_date,name:event.description,isHidden:event.is_hidden}
         )
         )
       )
@@ -50,7 +53,20 @@ export function Dashboard() {
   const columns :GridColDef[] = [
     {field:'startDate',headerName:t('Dashboard.StartDate'),width:150},
     {field:'endDate',headerName:t('Dashboard.FinishDate'),width:130},
-    {field:'Name',headerName:t('Dashboard.Name'),flex:1,minWidth:200}
+    {field:'name',headerName:t('Dashboard.Name'),flex:1,minWidth:200},
+    {
+      field:"visibility",
+      headerName:'',
+      width:20,
+      renderCell:(params)=> {
+        console.log(params)
+        if (params.row.isHidden) {
+          return <VisibilityOffIcon color={'disabled'}/>
+        } else {
+          return <VisibilityIcon color={'action'} />
+        }
+      }
+    }
   ]
 
   return  (

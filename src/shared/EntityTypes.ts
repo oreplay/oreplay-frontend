@@ -27,6 +27,7 @@ export function useRequiredParams<T>() {
 export interface EventModel {
   id: string,
   description: string,
+  is_hidden:boolean,
   picture:string|null,
   website:string|null,
   scope:null,
