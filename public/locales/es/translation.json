@@ -54,6 +54,7 @@
     "FinishDate": "Fecha de final",
     "Organizer": "Organizador",
     "Website": "Web del evento",
+    "InvalidURLMsg": "URL inválida",
     "Location": "Ubicación",
     "Public": "Público",
     "Hidden": "Privado",

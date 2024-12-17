@@ -35,6 +35,20 @@ interface EventAdminFormProps {
   handleEdit?: ()=> void,
 }
 
+/**
+ * Validate that an string matches a URL pattern
+ * @param url
+ */
+const validateURL = (url: string) => {
+  const urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+
+  return urlPattern.test(url);
+};
 
 /**
  * This is are all the fields that can be set in an event. It can display the data if an event is
@@ -49,6 +63,7 @@ export default function EventAdminForm(props: EventAdminFormProps){
   const [isEventPublic,setIsEventPublic] = useState<boolean>(
     props.eventDetail? !(props.eventDetail.is_hidden) : false
   )
+  const [isWebsiteValid, setIsWebsiteValid] = useState(true);
 
   const style_props:TextFieldProps = {
     margin:'normal',
@@ -100,7 +115,14 @@ export default function EventAdminForm(props: EventAdminFormProps){
           name="website"
           label={t('EventAdmin.Website')}
           {...style_props}
-          defaultValue={ props.eventDetail ? props.eventDetail.website : ""}
+          autoComplete="url"
+          defaultValue={props.eventDetail ? props.eventDetail.website : ""}
+          error={!isWebsiteValid}
+          helperText={!isWebsiteValid ? t('EventAdmin.InvalidURLMsg') : ""}
+          onBlur={(e) => {
+            const value = e.target.value;
+            setIsWebsiteValid(!value || validateURL(value)); // Allow empty or valid URL
+          }}
         />
         <FormControl  sx={{minWidth:'10em'}} required>
           <InputLabel id='scope-label' >{t('EventAdmin.Scopes.Scope')}</InputLabel>
