@@ -54,6 +54,7 @@
     "FinishDate": "Finish date",
     "Organizer": "Organizer",
     "Website": "Event's website",
+    "InvalidURLMsg": "Invalid URL",
     "Location": "Location",
     "Public": "Public",
     "Hidden": "Hidden",

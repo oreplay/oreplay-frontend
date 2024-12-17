@@ -57,6 +57,7 @@
     "FinishDate": "Date de fin",
     "Organizer": "Organisateur",
     "Website": "Site web",
+    "InvalidURLMsg": "_Invalid URL",
     "Location": "Emplacement",
     "Public": "Publique",
     "Hidden": "Caché",
