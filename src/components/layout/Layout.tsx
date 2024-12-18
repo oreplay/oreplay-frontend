@@ -3,7 +3,7 @@ import Header from "./Header.tsx";
 import { Outlet } from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import Sidebar from "./Sidebar/Sidebar.tsx";
-import ScienceIcon from '@mui/icons-material/Science';
+import ConstructionIcon from '@mui/icons-material/Construction';
 import {useTranslation} from "react-i18next";
 const VERSION_NUMBER =import.meta.env.VITE_VERSION_NUMBER
 const VERSION_TYPE =import.meta.env.VITE_VERSION_TYPE
@@ -40,7 +40,7 @@ export default function Layout() {
           <Fade in={isDevelopmentMsgOpen}>
             <Alert
               severity="info"
-              icon={<ScienceIcon />}
+              icon={<ConstructionIcon />}
               onClose={() => setIsDevelopmentMsgOpen(false)}
             >
               {t('AboutUs.VersionMessage')+`${VERSION_TYPE} ${VERSION_NUMBER}`}
