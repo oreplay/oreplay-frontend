@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import EventIcon from '@mui/icons-material/Event';
 import InfoIcon from '@mui/icons-material/Info';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next"
 import CloseIcon from "@mui/icons-material/Close";
@@ -72,6 +73,14 @@ export default function Sidebar({openSidebar, setOpenSidebar}: Props) {
                 <InfoIcon/>
               </ListItemIcon>
               <ListItemText primary={t("AboutUs.AboutUs")}/>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton onClick={()=>{navigate('organizers'); setOpenSidebar(prev => !prev)}} >
+              <ListItemIcon>
+                <SupervisedUserCircleIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('Organizers')} />
             </ListItemButton>
           </ListItem>
           <Divider />

@@ -16,5 +16,8 @@ i18n
     },
     supportedLngs: ['en', 'es', 'fr'], // Explicitly list supported languages
     load: 'languageOnly', // Ignore region-specific codes like es-ES
+    backend: {
+      loadPath:'/locales/{{lng}}/{{ns}}.json'
+    }
   });
 export default i18n;

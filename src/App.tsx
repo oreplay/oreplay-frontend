@@ -15,6 +15,8 @@ import EventAdmin from "./pages/Administration/pages/EventAdmin/pages/EventAdmin
 import StageLayout from "./pages/Results/pages/Layout/StageLayout.tsx";
 import AboutUs from "./pages/AboutUs/AboutUs.tsx";
 import NotFoundPage from "./pages/NotFoundError/NotFoundPage.tsx";
+import Organizers from "./pages/Organizers/organizers.tsx";
+import {Suspense} from "react";
 
 // Customize style of app
 const theme = createTheme({
@@ -46,6 +48,7 @@ export default function App() {
               <Route index element={<EventsList />} />
               <Route path='competitions' element={<Navigate to={"/"}/>} />
               <Route path='About-us' element={<AboutUs />} />
+              <Route path='organizers' element={<Suspense><Organizers /></Suspense>} />
               <Route path='competitions/:id' element={<EventDetail/>} />
               <Route path='competitions/:eventId/:stageId' element={<StageLayout />} />
               <Route  element={<PrivateRoute />}>
