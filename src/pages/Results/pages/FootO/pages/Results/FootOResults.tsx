@@ -84,6 +84,7 @@ export default function FootOResults() {
                     status={status}
                     finish_time={runner.runner_results[0].finish_time}
                     time_seconds={runner.runner_results[0].time_seconds}
+                    start_time={runner.runner_results[0].start_time}
                   />
                   <Typography sx={{color:'primary.main',fontSize:14}}>
                     {
