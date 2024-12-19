@@ -5,10 +5,10 @@ import ResultListContainer from "../../../../components/ResultsList/ResultListCo
 import ResultListItem from "../../../../components/ResultsList/ResultListItem.tsx";
 import {Box, Typography} from "@mui/material";
 import {getPositionOrNc, parseResultStatus} from "../../../../shared/functions.ts";
-import {parseSecondsToMMSS} from "../../../../../../shared/Functions.tsx";
 import {RESULT_STATUS_TEXT} from "../../../../shared/constants.ts";
 import {useVirtualTicket} from "../../../../components/VirtualTicket/shared/hooks.ts";
 import RogaineVirtualTicket from "../../components/RogaineVirtualTicket/RogaineVirtualTicket.tsx";
+import RaceTime from "../../../../components/RaceTime.tsx";
 
 export default function RogainePoints () {
   const {t} = useTranslation();
@@ -81,10 +81,14 @@ export default function RogainePoints () {
                     flexGrow: 1,
                   }}
                 >
-                  <Typography>{(statusOkOrNc)? ( (runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_final}` : "")  : ""}</Typography>
-                  <Typography>{(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }</Typography>
-
                   <Typography>{(statusOkOrNc)? ( (runnerResult.points_final || runnerResult.finish_time)? `${runnerResult.points_final}` : "")  : ""}</Typography>
+                  <RaceTime
+                    displayStatus
+                    status={status}
+                    start_time={runnerResult.start_time}
+                    finish_time={runnerResult.finish_time}
+                    time_seconds={runnerResult.time_seconds}
+                  />
                 </Box>
               </ResultListItem>
             )
