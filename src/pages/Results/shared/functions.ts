@@ -115,7 +115,6 @@ export function orderedRunners (runnersList:RunnerModel[])  {
       return -1 // Place 'b' after 'a' if 'b' has no position
     }
     if (posA == 0 && posB == 0) {
-      console.log('no positions')
       // use start time if available
       const startTimeA = a.runner_results[0]?.start_time;
       const startTimeB = b.runner_results[0]?.start_time;
