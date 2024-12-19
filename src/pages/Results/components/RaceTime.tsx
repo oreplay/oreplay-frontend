@@ -7,6 +7,7 @@ import {NowContext} from "../shared/context.ts";
 import {DateTime} from "luxon";
 
 type FinishTimeProps = {
+  displayStatus?:boolean,
   status:string|null,
   start_time?:string|null,
   finish_time:string|null,
@@ -15,8 +16,8 @@ type FinishTimeProps = {
 
 const style = {}
 
-const RaceTime: React.FC<FinishTimeProps> = ({status,finish_time,time_seconds}) => {
 const RaceTime: React.FC<FinishTimeProps> = ({
+  displayStatus,
   status,
   finish_time,
   time_seconds,
@@ -84,22 +85,26 @@ const RaceTime: React.FC<FinishTimeProps> = ({
       }
     }
   } else {
-    switch (status) {
-      case RESULT_STATUS_TEXT.mp:
-        parsedStyle = {
-          ...style,
-          color:'red'
-        }
-        break;
+    if (displayStatus) {
+      switch (status) {
+        case RESULT_STATUS_TEXT.mp:
+          parsedStyle = {
+            ...style,
+            color:'red'
+          }
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
+      return (
+        <Typography sx={parsedStyle}>
+          {t(`ResultsStage.statusCodes.${status}`)}
+        </Typography>
+      )
+    } else {
+      return ""
     }
-    return (
-      <Typography sx={parsedStyle}>
-        {t(`ResultsStage.statusCodes.${status}`)}
-      </Typography>
-    )
   }
 }
 
