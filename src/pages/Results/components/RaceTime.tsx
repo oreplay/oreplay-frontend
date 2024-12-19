@@ -79,7 +79,7 @@ const RaceTime: React.FC<FinishTimeProps> = ({
       } else {
         return (
           <Typography sx={parsedStyle}>
-            {t('ResultsStage.')}
+            {t('ResultsStage.NotStarted')}
           </Typography>
         )
       }
