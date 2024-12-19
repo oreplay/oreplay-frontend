@@ -39,7 +39,8 @@ export default function RogainePoints() {
           <TableBody>
             {
               runnersList.map((runner)=>{
-                const status = parseResultStatus(runner.runner_results[0].status_code as string)
+                const runnerResult = runner.runner_results[0]
+                const status = parseResultStatus(runnerResult?.status_code as string)
                 const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
                 const runnerPunchedControls = getUniqueStationNumbers([runner])
 
@@ -53,13 +54,13 @@ export default function RogainePoints() {
                       <Typography sx={{color:'text.secondary'}}>{runner.club ? `${runner.club.short_name}` : t('ResultsStage.NoClubMsg')}</Typography>
                     </TableCell>
                     <TableCell key={`runner${runner.id}bonus`}>
-                      {(runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `+${runner.runner_results[0].points_bonus}` : ""}
+                      {(runnerResult.points_final || runnerResult.finish_time)? `+${runnerResult.points_bonus}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}penalty`}>
-                      {(runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_penalty}` : ""}
+                      {(runnerResult.points_final || runnerResult.finish_time)? `${runnerResult.points_penalty}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}points`}>
-                      {(runner.runner_results[0].points_final || runner.runner_results[0].finish_time)? `${runner.runner_results[0].points_final}` : ""}
+                      {(runnerResult.points_final || runnerResult.finish_time)? `${runnerResult.points_final}` : ""}
                     </TableCell>
                     <TableCell key={`runner${runner.id}time`}>
                       {(statusOkOrNc)? (runner.runner_results[0].finish_time != null ? parseSecondsToMMSS(runner.runner_results[0].time_seconds) : "-") : t(`ResultsStage.statusCodes.${status}`) }
