@@ -86,7 +86,6 @@ export function orderedRunners (runnersList:RunnerModel[])  {
 
   // Order runners
   return runnersList.sort((a, b) => {
-
     // Order by status
     const statusA = statusOrder(a.runner_results[0]?.status_code,a.runner_results[0]?.position)
     const statusB = statusOrder(b.runner_results[0]?.status_code,b.runner_results[0]?.position)
@@ -99,18 +98,42 @@ export function orderedRunners (runnersList:RunnerModel[])  {
     const statusCodeA = a.runner_results[0]?.status_code;
     const statusCodeB = b.runner_results[0]?.status_code;
 
+    const lastNameA = a.last_name?.toLowerCase()
+    const lastNameB = b.last_name?.toLowerCase()
     if (statusCodeA !== RESULT_STATUS.ok && statusCodeA === statusCodeB) {
-      const lastNameA = a.last_name?.toLowerCase()
-      const lastNameB = b.last_name.toLowerCase()
       return lastNameA.localeCompare(lastNameB); // Alphabetical order by last name
     }
 
     // Fallback to position comparison
     const posA = Number(a.runner_results[0]?.position)
     const posB = Number(b.runner_results[0]?.position)
+    console.log("positions ",posA,posB)
 
-    if (posA === undefined) return 1; // Place 'a' after 'b' if 'a' has no position
-    if (posB === undefined) return -1; // Place 'b' after 'a' if 'b' has no position
+    if (posA == 0 && posB != 0) {
+      return 1 // Place 'a' after 'b' if 'a' has no position
+    }
+    if (posA != 0 && posB == 0) {
+      return -1 // Place 'b' after 'a' if 'b' has no position
+    }
+    if (posA == 0 && posB == 0) {
+      console.log('no positions')
+      // use start time if available
+      const startTimeA = a.runner_results[0]?.start_time;
+      const startTimeB = b.runner_results[0]?.start_time;
+      if (startTimeA == null && startTimeB != null) {
+        return 1 // Place 'a' after 'b' if 'a' has no startTime
+      }
+      if (startTimeA != null && startTimeB == null) {
+        return -1 // Place 'b' after 'a' if 'b' has no startTime
+      }
+      if (startTimeA != null && startTimeB != null) {
+        return startTimeB.localeCompare(startTimeA);
+      } else {
+        // none of the got start time: alphabetical order
+        return lastNameA.localeCompare(lastNameB); // Alphabetical order by last name
+      }
+    }
+
     return posA - posB; // Compare positions numerically
   });
 }
