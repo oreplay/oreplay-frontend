@@ -4,17 +4,25 @@ import {
 } from '../../../shared/Functions.tsx'
 import {useTranslation} from "react-i18next";
 import { Typography } from '@mui/material'
+import {RESULT_STATUS} from "../shared/constants.ts";
+import Status from "./Status.tsx";
 
-interface StartTimeProps {
-  time: string|null;
+type StartTimeProps = {
+  displayStatus?: boolean
+  startTime: string|null
+  status?: string
 }
 
-const StartTime: React.FC<StartTimeProps> = ({ time }) => {
+const StartTime: React.FC<StartTimeProps> = ({ startTime,status,displayStatus }) => {
   const {t} = useTranslation();
-  if (time === null || time === undefined) {
-    return t('ResultsStage.NoStartTime')
+  if (startTime == null) {
+    if ( status != RESULT_STATUS.ok && displayStatus && status) {
+      return <Status status={status}/>
+    } else {
+      return t('ResultsStage.NoStartTime')
+    }
   } else {
-    const start = parseStartTime(time)
+    const start = parseStartTime(startTime)
 
     return (
       <Typography>{start}</Typography>

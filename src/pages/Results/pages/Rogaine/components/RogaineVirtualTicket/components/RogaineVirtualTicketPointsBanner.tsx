@@ -37,7 +37,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
       </Grid>
       <Grid item xs={6}>
         <Typography>{t('ResultsStage.VirtualTicket.StartHour')}</Typography>
-        <StartTime time={runnerResult.start_time} />
+        <StartTime startTime={runnerResult.start_time} />
       </Grid>
       <Grid item xs={6}>
         <Typography>{t('ResultsStage.VirtualTicket.RaceTime')}</Typography>
