@@ -55,14 +55,22 @@ const RaceTime: React.FC<FinishTimeProps> = ({
                 const provTimeSeconds = provTime.as('seconds')
 
                 // In race
-                if (provTimeSeconds > 0) {
-                  return (
-                    <Typography sx={{...style,color:'text.secondary'}}>
-                      {`(${parseSecondsToMMSS(provTimeSeconds)})`}
-                    </Typography>
-                  )
+                if (startTime <= nowDateTime) {
+                  // Check if runner died
+                  if (provTime.as('days') >= 1.) {
+                    return ""
+
+                  // Still running
+                  } else {
+                    return (
+                      <Typography sx={{...style, color: 'text.secondary'}}>
+                        {`(${parseSecondsToMMSS(provTimeSeconds)})`}
+                      </Typography>
+                    )
+                  }
+
+                // not started
                 } else {
-                  // not started
                   return (
                     <Typography>
                       {t('ResultsStage.NotStarted')}
