@@ -5,6 +5,7 @@ import {parseSecondsToMMSS} from "../../../shared/Functions.tsx";
 import {useTranslation} from "react-i18next";
 import {NowContext} from "../shared/context.ts";
 import {DateTime} from "luxon";
+import Status from "./Status.tsx";
 
 type FinishTimeProps = {
   displayStatus?:boolean,
@@ -25,15 +26,11 @@ const RaceTime: React.FC<FinishTimeProps> = ({
 }) => {
   const {t} = useTranslation();
 
-  let parsedStyle = {
-    ...style
-  }
-
   if(status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc) {
     if (finish_time != null) {
       if (time_seconds !== null) {
         return (
-          <Typography sx={parsedStyle}>
+          <Typography sx={style}>
             {parseSecondsToMMSS(time_seconds)}
           </Typography>
         )
@@ -60,7 +57,7 @@ const RaceTime: React.FC<FinishTimeProps> = ({
                 // In race
                 if (provTimeSeconds > 0) {
                   return (
-                    <Typography sx={{...parsedStyle,color:'text.secondary'}}>
+                    <Typography sx={{...style,color:'text.secondary'}}>
                       {`(${parseSecondsToMMSS(provTimeSeconds)})`}
                     </Typography>
                   )
@@ -78,30 +75,15 @@ const RaceTime: React.FC<FinishTimeProps> = ({
         )
       } else {
         return (
-          <Typography sx={parsedStyle}>
+          <Typography sx={style}>
             {t('ResultsStage.NotStarted')}
           </Typography>
         )
       }
     }
   } else {
-    if (displayStatus) {
-      switch (status) {
-        case RESULT_STATUS_TEXT.mp:
-          parsedStyle = {
-            ...style,
-            color:'red'
-          }
-          break;
-
-        default:
-          break;
-      }
-      return (
-        <Typography sx={parsedStyle}>
-          {t(`ResultsStage.statusCodes.${status}`)}
-        </Typography>
-      )
+    if (displayStatus && status) {
+      return <Status status={status} style={style}/>
     } else {
       return ""
     }
