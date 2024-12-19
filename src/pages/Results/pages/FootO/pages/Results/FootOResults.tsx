@@ -81,6 +81,7 @@ export default function FootOResults() {
                   }}
                 >
                   <RaceTime
+                    displayStatus
                     status={status}
                     finish_time={runner.runner_results[0].finish_time}
                     time_seconds={runner.runner_results[0].time_seconds}
