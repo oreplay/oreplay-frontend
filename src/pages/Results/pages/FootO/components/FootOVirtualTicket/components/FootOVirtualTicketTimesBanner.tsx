@@ -30,6 +30,12 @@ const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps
       <Grid item xs={6}>
         <Typography>{t('ResultsStage.VirtualTicket.RaceTime')}</Typography>
         <RaceTime status={status} finish_time={runnerResult.finish_time} time_seconds={runnerResult.time_seconds} />
+        <RaceTime
+          status={status}
+          start_time={runnerResult.start_time}
+          finish_time={runnerResult.finish_time}
+          time_seconds={runnerResult.time_seconds}
+        />
       </Grid>
     </>
   )
