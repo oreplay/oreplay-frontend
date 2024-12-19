@@ -7,6 +7,7 @@ import ResultListContainer from "../../../../components/ResultsList/ResultListCo
 import ResultListItem from "../../../../components/ResultsList/ResultListItem.tsx";
 import StartTime from '../../../../components/StartTime.tsx'
 import {ProcessedRunnerModel} from "../../../../components/VirtualTicket/shared/EntityTypes.ts";
+import {parseResultStatus} from "../../../../shared/functions.ts";
 
 export default function FootOStartTime() {
   const {t} = useTranslation()
@@ -55,7 +56,7 @@ export default function FootOStartTime() {
                   textAlign: "center", // Center the text itself inside each Typography component
                 }}
               >
-                <StartTime time={runner.runner_results[0].start_time}></StartTime>
+                <StartTime displayStatus startTime={runner.runner_results[0].start_time} status={parseResultStatus(runner.runner_results[0]?.status_code as string)}></StartTime>
                 <Typography sx={{color:'text.secondary'}}>{`${runner.sicard}`}</Typography>
               </Box>
             </ResultListItem>

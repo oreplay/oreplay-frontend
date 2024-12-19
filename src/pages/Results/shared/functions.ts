@@ -107,7 +107,6 @@ export function orderedRunners (runnersList:RunnerModel[])  {
     // Fallback to position comparison
     const posA = Number(a.runner_results[0]?.position)
     const posB = Number(b.runner_results[0]?.position)
-    console.log("positions ",posA,posB)
 
     if (posA == 0 && posB != 0) {
       return 1 // Place 'a' after 'b' if 'a' has no position
