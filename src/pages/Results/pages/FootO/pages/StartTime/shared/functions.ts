@@ -12,7 +12,7 @@ export function orderRunnersByStartTime(runnersList: ProcessedRunnerModel[]): Pr
     const startTimeB = b.runner_results[0]?.start_time;
 
     // Handle cases where both start_time values are null/undefined
-    if (startTimeA == null && startTimeB == null) {
+    if ( (startTimeA == null && startTimeB == null) || (startTimeA == startTimeB) ) {
       const lastNameA = a.last_name.toLowerCase() || "";
       const lastNameB = b.last_name.toLowerCase() || "";
       return lastNameA.localeCompare(lastNameB); // Alphabetical order
