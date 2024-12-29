@@ -90,8 +90,7 @@ export interface OrganizerModel {
 
 export interface RunnerModel {
   id: string
-  first_name: string
-  last_name: string
+  full_name: string
   bib_number: string
   sicard: bigint | null
   class: ClassModel
