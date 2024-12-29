@@ -49,7 +49,7 @@ export default function FootOStartTime(
               }}
             >
               <Stack direction={"column"}>
-                <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
+                <Typography>{`${runner.full_name}`}</Typography>
                 <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
                   {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
                 </Typography>

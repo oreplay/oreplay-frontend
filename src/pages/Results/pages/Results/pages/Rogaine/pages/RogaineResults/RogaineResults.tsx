@@ -66,7 +66,7 @@ export default function RogainePoints(
                   marginLeft: ".3em",
                 }}
               >
-                <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
+                <Typography>{`${runner.full_name}`}</Typography>
                 <Typography
                   sx={{
                     color: "text.secondary",
