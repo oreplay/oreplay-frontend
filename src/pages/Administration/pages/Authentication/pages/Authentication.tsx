@@ -34,8 +34,6 @@ function MakeRequest(props:{code:string,code_verifier:string}) {
 }
 
 export default function Authentication() {
-  // TODO this function should get the login challenge from the router (maybe router in react, using window location is ugly)
-  // TODO after getting the param, the value should be removed from the URL (so it is not visible for the user)
 
   const [searchParams] = useSearchParams();
   const error = searchParams.get("error")
@@ -53,6 +51,7 @@ export default function Authentication() {
         + storedState + ', but got: ' + decodeURIComponent(loginState)
       )
     }
+    // TODO this is called twice in development, we should check why and fix it, to be able to also fix the todo in the pop funcion
     const loginCodeVerifier = popStoredLoginCodeVerifier()
     return <MakeRequest code={authenticationCode} code_verifier={loginCodeVerifier}/>
   } else if (error) {
