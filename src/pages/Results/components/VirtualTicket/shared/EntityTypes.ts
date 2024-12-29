@@ -2,8 +2,7 @@ import { ClassModel, ClubModel, ControlModel } from "../../../../../shared/Entit
 
 export interface ProcessedRunnerModel {
   id: string
-  first_name: string
-  last_name: string
+  full_name: string
   bib_number: string
   sicard: bigint | null
   class: ClassModel

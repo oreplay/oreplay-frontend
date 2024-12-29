@@ -99,8 +99,8 @@ export function orderedRunners(runnersList: RunnerModel[]) {
     const statusCodeA = a.runner_results[0]?.status_code
     const statusCodeB = b.runner_results[0]?.status_code
 
-    const lastNameA = a.last_name?.toLowerCase()
-    const lastNameB = b.last_name?.toLowerCase()
+    const lastNameA = a.full_name?.toLowerCase()
+    const lastNameB = b.full_name?.toLowerCase()
     if (statusCodeA !== RESULT_STATUS.ok && statusCodeA === statusCodeB) {
       return lastNameA.localeCompare(lastNameB) // Alphabetical order by last name
     }

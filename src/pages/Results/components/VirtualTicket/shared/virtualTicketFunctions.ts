@@ -191,7 +191,7 @@ export function calculatePositionsAndBehindsFootO(
           // if an error happens return the runner without updating it
           console.error(
             "Error updating runner in `calculatePositionsAndBehindsFootO`." +
-              ` Runner ${runner.id}, ${runner.first_name} ${runner.last_name} could not be updated.\n\n`,
+              ` Runner ${runner.id}, ${runner.full_name} could not be updated.\n\n`,
             error,
           )
           return runner

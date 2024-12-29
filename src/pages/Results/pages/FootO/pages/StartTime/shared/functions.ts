@@ -15,8 +15,8 @@ export function orderRunnersByStartTime(
 
     // Handle cases where both start_time values are null/undefined
     if ((startTimeA == null && startTimeB == null) || startTimeA == startTimeB) {
-      const lastNameA = a.last_name.toLowerCase() || ""
-      const lastNameB = b.last_name.toLowerCase() || ""
+      const lastNameA = a.full_name.toLowerCase() || ""
+      const lastNameB = b.full_name.toLowerCase() || ""
       return lastNameA.localeCompare(lastNameB) // Alphabetical order
     }
 
