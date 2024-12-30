@@ -1,4 +1,26 @@
 {
   "Header": "Información para organizadores",
-  "DevelopingMsg": "Está página está en construcción"
+  "DevelopingMsg": "Está página está en construcción",
+  "Events": {
+    "title": "Gestionar eventos",
+    "paragraph1": "Desde la página de eventos, haz clic en el gran + para crear un nuevo evento y rellena todos los campos.",
+    "paragraph2": "Asegúrate de marcar la casilla 'Público', para que tu evento se muestre públicamente, y haz clic en 'Guardar'.",
+    "paragraph3": "Una vez creado el evento, se debe añadir una nueva 'etapa' y crear el 'token' (el ID del evento y el token se usarán para conectar con el cliente de escritorio).",
+    "paragraph4": "La funcionalidad 'Borrar' eliminará toda la información de corredores, tiempos parciales, etc., cargada en el evento, manteniendo el evento y las etapas como si hubieran sido recién creados. Usa esta opción si algo sale mal con la carga o si hay corredores duplicados en el evento."
+  },
+  "Client": {
+    "title": "Gestionar el cliente para Windows",
+    "download": "Descargar el cliente",
+    "paragraph1": "Haz clic en el botón de abajo y descarga el archivo .exe para Windows desde la parte inferior de la página.",
+    "paragraph2": "Al abrir el exe, debemos realizar los siguientes pasos:",
+    "paragraph3": "1. Verificar conexión (pulsa el botón de Comprobar)",
+    "paragraph4": "2. Añadir el ID del evento y el token del evento (los que se obtienen desde la sección 'Gestionar eventos') y hacer clic en 'Iniciar sesión'. Esto mostrará la lista de etapas disponibles.",
+    "paragraph5": "Selecciona de la lista la etapa donde se deben cargar los resultados.",
+    "paragraph6": "3. Selecciona el directorio donde se almacenarán los archivos exportados desde el software de cronometraje (por ejemplo, OE, MeOS o cualquier software compatible) y haz clic en el botón 'Arrancar'.",
+    "paragraph7": "Mientras el cliente está en ejecución (puedes hacer clic en 'Detener' en cualquier momento), cualquier archivo con un formato válido que se agregue al directorio se cargará en el servidor.",
+    "paragraph8": "Los archivos que pueden ser procesados por el cliente son archivos xml de IOF.",
+    "paragraph9": "Se recomienda cargar los horarios de inicio (por categorías) antes de que comience el evento.",
+    "paragraph10": "Durante el evento, se debe configurar una exportación automática de Resultados parciales por categorías (incluidos los tiempos parciales).",
+    "paragraph11": "Ten en cuenta que cargar grandes cantidades de resultados con tiempos parciales puede tardar hasta 1 minuto. Si la carga tarda más de 1 minuto, el cliente mostrará un error. Puedes intentar cargar los mismos resultados de nuevo 2 o 3 veces de forma segura (incluso cuando el cliente muestra el error, algunos resultados se guardarán en cada intento, lo que te permitirá completar la carga después de varios intentos)."
+  }
 }

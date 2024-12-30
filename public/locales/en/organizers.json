@@ -1,4 +1,26 @@
 {
   "Header": "Information for organizers",
-  "DevelopingMsg": "This page is under construction"
+  "DevelopingMsg": "This page is under construction",
+  "Events": {
+    "title": "Manage events",
+    "paragraph1": "From the events page, click on the big + to create a new event and fill in all fields.",
+    "paragraph2": "Make sure you check the check 'Public', to make your event publicly available and click 'save'.",
+    "paragraph3": "Once the event is created, a new 'stage' needs to be added and the 'token' needs to be created (the Event ID and the token will be used to connect to the desktop client)",
+    "paragraph4": "The 'Wipe out' functionality, will erase all information from runners, splits, etc, uploaded to the event, keeping the event and stages as if they were newly created. Use this option if something goes wrong with the upload, or if there are duplicated runners in the event."
+  },
+  "Client": {
+    "title": "Manage the client for Windows",
+    "download": "Download the client",
+    "paragraph1": "Click the button below and download the .exe file for Windows from the bottom of the page",
+    "paragraph2": "When opening the exe, we must do the following steps:",
+    "paragraph3": "1. Check connection (click the check button)",
+    "paragraph4": "2. Add the Event ID and the Event Token (the ones you can get from the 'Manage events' section) and click 'Login'. This will display the list of available stages.",
+    "paragraph5": "Select from the list the stage where the results should be uploaded.",
+    "paragraph6": "3. Select the directory where we are going to store the files exported from the timing software (e.g. OE, MeOS, or any compatible software) and click the button 'Run'",
+    "paragraph7": "While the client is running (you can click 'Stop' any time), any file with a valid format that is added do the directory will be uploaded to the server.",
+    "paragraph8": "The files that can be processed by the client are IOF xml files.",
+    "paragraph9": "It is recommended to upload start times (by classes) before the event starts.",
+    "paragraph10": "During the event, an automatic export of Partial results by classes (including splits) should be set up.",
+    "paragraph11": "Keep in mind uploading big amounts of results with splits can take up to 1 minute. If the upload takes longer than 1 minute, the client will display an error. You can safely try to upload again the same results 2 or 3 times (even if the client displays the error, some results will be uploaded each time, allowing you to complete the upload after a few attempts)."
+  }
 }
