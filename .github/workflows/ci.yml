@@ -3,10 +3,10 @@ name: ci
 on:
   push:
     branches:
-      - '*'
+      - "*"
   pull_request:
     branches:
-      - '*'
+      - "*"
 
 # https://github.com/vitejs/vite/blob/main/.github/workflows/ci.yml
 env:
@@ -42,3 +42,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Format
+        run: npm run format:check
