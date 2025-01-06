@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc && vite build",
+    "format": "npx prettier . --write",
+    "format:check": "npx prettier . --check",
     "lint": "eslint . --ext ts,tsx,json --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --host 0.0.0.0"
   },
@@ -37,6 +39,7 @@
     "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
