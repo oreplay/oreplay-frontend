@@ -1,9 +1,9 @@
-import React, {createContext, useCallback, useState} from "react";
-import {UserModel} from "./EntityTypes.ts";
+import React, { createContext, useCallback, useState } from "react";
+import { UserModel } from "./EntityTypes.ts";
 import {
   deleteToken,
   getUserData,
-  validateSignIn
+  validateSignIn,
 } from "../pages/Administration/services/AuthenticationService.ts";
 
 /**
@@ -14,25 +14,24 @@ import {
  * @property logoutAction function to perform log out from server
  */
 export interface AuthContextInterface {
-  user:UserModel|null,
-  token:string|null,
-  loginAction: (code:string,codeVerifier:string)=>Promise<boolean>,
-  logoutAction:()=>Promise<boolean>
+  user: UserModel | null;
+  token: string | null;
+  loginAction: (code: string, codeVerifier: string) => Promise<boolean>;
+  logoutAction: () => Promise<boolean>;
 }
 
 /**
  * @private Global context used to provide authentication
  */
-export const AuthContext = createContext<AuthContextInterface|null>(null)
+export const AuthContext = createContext<AuthContextInterface | null>(null);
 
 /**
  * This component setups a context in which useAuth() hook can be called.
  * @param props it only accepts a children element
  */
-export function AuthProvider (props:{children: React.ReactNode}) {
-
-  const [token,setToken] = useState<string | null>(null);
-  const [user,setUser] = useState<UserModel | null>(null);
+export function AuthProvider(props: { children: React.ReactNode }) {
+  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<UserModel | null>(null);
 
   /**
    * Perform login. This function set the token and user information that
@@ -41,21 +40,21 @@ export function AuthProvider (props:{children: React.ReactNode}) {
    * @param codeVerifier code verifier created in the frontend during auth init
    * @returns A promise that is
    */
-  const loginAction = useCallback(async (code:string,codeVerifier:string):Promise<boolean> => {
+  const loginAction = useCallback(async (code: string, codeVerifier: string): Promise<boolean> => {
     try {
-      const responseSignInToken = await validateSignIn(code,codeVerifier)
-      setToken(responseSignInToken.data.access_token)
+      const responseSignInToken = await validateSignIn(code, codeVerifier);
+      setToken(responseSignInToken.data.access_token);
       try {
-        const responseUserData = await getUserData(responseSignInToken.data.access_token)
-        setUser(responseUserData.data)
-        return true
+        const responseUserData = await getUserData(responseSignInToken.data.access_token);
+        setUser(responseUserData.data);
+        return true;
       } catch (error) {
-        console.log('Failed getUserData',error)
-        return false
+        console.log("Failed getUserData", error);
+        return false;
       }
     } catch (error) {
-      console.log('signIn error',error)
-      return false
+      console.log("signIn error", error);
+      return false;
     }
   }, []);
 
@@ -63,26 +62,26 @@ export function AuthProvider (props:{children: React.ReactNode}) {
    * Perform logout action in the server. Also, it sets token and user from useAuth() hook to null.
    * @returns true if logout successful, false if logout unsuccessful
    */
-  const logoutAction = useCallback(async () : Promise<boolean> => {
+  const logoutAction = useCallback(async (): Promise<boolean> => {
     if (token) {
       try {
-        await deleteToken(token)
+        await deleteToken(token);
       } catch (error) {
         console.log(error);
-        return false
+        return false;
       }
       setToken(null);
       setUser(null);
-      return true
+      return true;
     } else {
-      console.log('User was logged out')
-      return true
+      console.log("User was logged out");
+      return true;
     }
-  }, [token])
+  }, [token]);
 
   return (
-    <AuthContext.Provider value={{token,user,loginAction,logoutAction}}>
+    <AuthContext.Provider value={{ token, user, loginAction, logoutAction }}>
       {props.children}
     </AuthContext.Provider>
-  )
+  );
 }

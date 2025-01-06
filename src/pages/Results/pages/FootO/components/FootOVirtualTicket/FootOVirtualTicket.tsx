@@ -1,16 +1,15 @@
 import React from "react";
 import {
   VirtualTicketContainer,
-  VirtualTicketProps
+  VirtualTicketProps,
 } from "../../../../components/VirtualTicket/VirtualTicketContainer.tsx";
-import {VirtualTicketHeader} from "../../../../components/VirtualTicket/VirtualTicketHeader.tsx";
-import {VirtualTicketSplits} from "../../../../components/VirtualTicket/VirtualTicketSplits.tsx";
-import VirtualTicketRunnerInfo
-  from "../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx";
+import { VirtualTicketHeader } from "../../../../components/VirtualTicket/VirtualTicketHeader.tsx";
+import { VirtualTicketSplits } from "../../../../components/VirtualTicket/VirtualTicketSplits.tsx";
+import VirtualTicketRunnerInfo from "../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx";
 import FootOVirtualTicketTimesBanner from "./components/FootOVirtualTicketTimesBanner.tsx";
 import FootOVirtualTicketSplit from "./components/FootOVirtualTicketSplit.tsx";
-import {Grid, Typography} from "@mui/material";
-import {useTranslation} from "react-i18next";
+import { Grid, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 /**
  * This is the Virtual Ticket for Foot-O results
@@ -20,8 +19,12 @@ import {useTranslation} from "react-i18next";
  * @param handleCloseTicket
  * @constructor
  */
-const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({isTicketOpen,runner,handleCloseTicket}) => {
-  const {t} = useTranslation();
+const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
+  isTicketOpen,
+  runner,
+  handleCloseTicket,
+}) => {
+  const { t } = useTranslation();
 
   if (runner) {
     return (
@@ -35,21 +38,30 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({isTicketOpen,runner,h
           <FootOVirtualTicketTimesBanner runnerResult={runner.runner_results[0]} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
-          <Grid item xs={2.6}><Typography variant="subtitle2" sx={{fontWeight: 'bold', textAlign:'center'}}>{t('ResultsStage.VirtualTicket.Control')}</Typography></Grid>
-          <Grid item xs={4.7}><Typography variant="subtitle2" sx={{fontWeight: 'bold', textAlign:'center'}}>{t('ResultsStage.VirtualTicket.Partial')}</Typography></Grid>
-          <Grid item xs={4.7}><Typography variant="subtitle2" sx={{fontWeight: 'bold', textAlign:'center'}}>{t('ResultsStage.VirtualTicket.Cumulative')}</Typography></Grid>
-          {
-            runner.runner_results[0].splits.map((split) =>
-              <FootOVirtualTicketSplit key={split.id} split={split} />
-            )
-          }
+          <Grid item xs={2.6}>
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
+              {t("ResultsStage.VirtualTicket.Control")}
+            </Typography>
+          </Grid>
+          <Grid item xs={4.7}>
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
+              {t("ResultsStage.VirtualTicket.Partial")}
+            </Typography>
+          </Grid>
+          <Grid item xs={4.7}>
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
+              {t("ResultsStage.VirtualTicket.Cumulative")}
+            </Typography>
+          </Grid>
+          {runner.runner_results[0].splits.map((split) => (
+            <FootOVirtualTicketSplit key={split.id} split={split} />
+          ))}
         </VirtualTicketSplits>
       </VirtualTicketContainer>
-    )
+    );
   } else {
-    return <></>
+    return <></>;
   }
-
-}
+};
 
 export default FootOVirtualTicket;

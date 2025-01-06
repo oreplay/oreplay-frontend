@@ -1,10 +1,10 @@
-import {ProcessedRunnerModel} from "../../../components/VirtualTicket/shared/EntityTypes.ts";
+import { ProcessedRunnerModel } from "../../../components/VirtualTicket/shared/EntityTypes.ts";
 
 export function getUniqueStationNumbers(runners: ProcessedRunnerModel[]): bigint[] {
   const stationNumbers = new Set<bigint>();
 
-  runners.forEach(runner => {
-    runner.runner_results[0].splits.forEach(split => {
+  runners.forEach((runner) => {
+    runner.runner_results[0].splits.forEach((split) => {
       if (split.control) {
         stationNumbers.add(BigInt(split.control.station));
       }

@@ -1,3 +1,3 @@
 export default function RelaySplits() {
-  return <p>Relay splits</p>
+  return <p>Relay splits</p>;
 }
