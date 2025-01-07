@@ -27,7 +27,7 @@ module.exports = {
         ImportDeclaration: 1,
         flatTernaryExpressions: false,
         ignoreComments: false,
-        ignoredNodes: ["TemplateLiteral *"],
+        ignoredNodes: ["TemplateLiteral *", "ConditionalExpression", "CallExpression"],
       },
     ],
     "jsonc/indent": ["error", 2], // Ensures 2 space indentation
