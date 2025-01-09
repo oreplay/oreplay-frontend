@@ -1,11 +1,10 @@
-import {RESULT_STATUS, RESULT_STATUS_TEXT} from "./constants.ts";
-import {RunnerModel} from "../../../shared/EntityTypes.ts";
-import { TFunction } from 'i18next'
-import {ProcessedRunnerModel} from "../components/VirtualTicket/shared/EntityTypes.ts";
+import { RESULT_STATUS, RESULT_STATUS_TEXT } from "./constants.ts"
+import { RunnerModel } from "../../../shared/EntityTypes.ts"
+import { TFunction } from "i18next"
+import { ProcessedRunnerModel } from "../components/VirtualTicket/shared/EntityTypes.ts"
 
 export function parseResultStatus(status: string): string {
-
-  switch(status) {
+  switch (status) {
     case RESULT_STATUS.ok:
       return RESULT_STATUS_TEXT.ok
     case RESULT_STATUS.dns:
@@ -25,10 +24,13 @@ export function parseResultStatus(status: string): string {
   }
 }
 
-export function getPositionOrNc(runner: ProcessedRunnerModel, t: TFunction<"translation",undefined>): string {
+export function getPositionOrNc(
+  runner: ProcessedRunnerModel,
+  t: TFunction<"translation", undefined>,
+): string {
   const status = parseResultStatus(runner.runner_results[0].status_code as string)
   if (status === RESULT_STATUS_TEXT.nc) {
-    return t('ResultsStage.statusCodes.nc')
+    return t("ResultsStage.statusCodes.nc")
   }
   return runner.runner_results[0].position ? `${runner.runner_results[0].position}.` : ""
 }
@@ -38,10 +40,10 @@ export function getPositionOrNc(runner: ProcessedRunnerModel, t: TFunction<"tran
  * @param status A valid RUNNER_STATUS
  * @param position Position of the runner. It is used to place runners that have not finished after the finished oned
  */
-function statusOrder(status:string|null,position:bigint) {
+function statusOrder(status: string | null, position: bigint) {
   switch (status) {
     case RESULT_STATUS.ok:
-      if (position==BigInt(0)) {
+      if (position == BigInt(0)) {
         return 2
       } else {
         return 0
@@ -67,19 +69,18 @@ function statusOrder(status:string|null,position:bigint) {
  * Order a list of runners by their position
  * @param runnersList List of runners to be ordered
  */
-export function orderedRunners (runnersList:RunnerModel[])  {
-
+export function orderedRunners(runnersList: RunnerModel[]) {
   // Order splits
-  runnersList.forEach((runner)=>{
-    runner.runner_results.forEach(runnerResult=>{
-      runnerResult.splits.sort((a,b)=>{
+  runnersList.forEach((runner) => {
+    runner.runner_results.forEach((runnerResult) => {
+      runnerResult.splits.sort((a, b) => {
         const ordA = a.order_number
         const ordB = b.order_number
 
         if (!ordA) return 1 // Place 'a' after 'b' if 'a' has no position
         if (!ordB) return -1 // Place 'b' after 'a' if 'b' has no position
 
-        return Number(ordA-ordB)
+        return Number(ordA - ordB)
       })
     })
   })
@@ -87,21 +88,21 @@ export function orderedRunners (runnersList:RunnerModel[])  {
   // Order runners
   return runnersList.sort((a, b) => {
     // Order by status
-    const statusA = statusOrder(a.runner_results[0]?.status_code,a.runner_results[0]?.position)
-    const statusB = statusOrder(b.runner_results[0]?.status_code,b.runner_results[0]?.position)
+    const statusA = statusOrder(a.runner_results[0]?.status_code, a.runner_results[0]?.position)
+    const statusB = statusOrder(b.runner_results[0]?.status_code, b.runner_results[0]?.position)
 
     if (statusA !== undefined && statusB !== undefined && statusA !== statusB) {
-      return statusA - statusB; // Smaller status comes first
+      return statusA - statusB // Smaller status comes first
     }
 
     // If statuses are the same and not "ok", order by runner.last_name
-    const statusCodeA = a.runner_results[0]?.status_code;
-    const statusCodeB = b.runner_results[0]?.status_code;
+    const statusCodeA = a.runner_results[0]?.status_code
+    const statusCodeB = b.runner_results[0]?.status_code
 
     const lastNameA = a.last_name?.toLowerCase()
     const lastNameB = b.last_name?.toLowerCase()
     if (statusCodeA !== RESULT_STATUS.ok && statusCodeA === statusCodeB) {
-      return lastNameA.localeCompare(lastNameB); // Alphabetical order by last name
+      return lastNameA.localeCompare(lastNameB) // Alphabetical order by last name
     }
 
     // Fallback to position comparison
@@ -116,8 +117,8 @@ export function orderedRunners (runnersList:RunnerModel[])  {
     }
     if (posA == 0 && posB == 0) {
       // use start time if available
-      const startTimeA = a.runner_results[0]?.start_time;
-      const startTimeB = b.runner_results[0]?.start_time;
+      const startTimeA = a.runner_results[0]?.start_time
+      const startTimeB = b.runner_results[0]?.start_time
       if (startTimeA == null && startTimeB != null) {
         return 1 // Place 'a' after 'b' if 'a' has no startTime
       }
@@ -125,13 +126,13 @@ export function orderedRunners (runnersList:RunnerModel[])  {
         return -1 // Place 'b' after 'a' if 'b' has no startTime
       }
       if (startTimeA != null && startTimeB != null) {
-        return startTimeB.localeCompare(startTimeA);
+        return startTimeB.localeCompare(startTimeA)
       } else {
         // none of the got start time: alphabetical order
-        return lastNameA.localeCompare(lastNameB); // Alphabetical order by last name
+        return lastNameA.localeCompare(lastNameB) // Alphabetical order by last name
       }
     }
 
-    return posA - posB; // Compare positions numerically
-  });
+    return posA - posB // Compare positions numerically
+  })
 }

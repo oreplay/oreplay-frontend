@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {ProcessedRunnerModel} from "./EntityTypes.ts";
+import { useState } from "react"
+import { ProcessedRunnerModel } from "./EntityTypes.ts"
 
 export function useVirtualTicket(): [
   boolean,
@@ -20,5 +20,5 @@ export function useVirtualTicket(): [
     setDialogOpen(false)
   }
 
-  return [dialogOpen,selectedRunner, handleRowClick, handleCloseDialog]
+  return [dialogOpen, selectedRunner, handleRowClick, handleCloseDialog]
 }

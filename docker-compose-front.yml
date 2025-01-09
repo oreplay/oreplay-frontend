@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   nodejs:
@@ -11,8 +11,8 @@ services:
     env_file:
       - .env
     ports:
-      - '8080:8080'
-      - '4173:4173'
+      - "8080:8080"
+      - "4173:4173"
     volumes:
       - .:/var/www
     extra_hosts:

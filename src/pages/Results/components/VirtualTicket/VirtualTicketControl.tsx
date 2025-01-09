@@ -1,13 +1,13 @@
-import React from 'react'
-import {ControlModel} from "../../../../shared/EntityTypes.ts";
-import Grid from '@mui/material/Grid';
-import {Box, Typography} from "@mui/material";
-import {useTranslation} from "react-i18next";
+import React from "react"
+import { ControlModel } from "../../../../shared/EntityTypes.ts"
+import Grid from "@mui/material/Grid"
+import { Box, Typography } from "@mui/material"
+import { useTranslation } from "react-i18next"
 
 type VirtualTicketControlProps = {
-  order_number: number|bigint|null
-  points?: bigint|number|null
-  control: ControlModel|null
+  order_number: number | bigint | null
+  points?: bigint | number | null
+  control: ControlModel | null
   gridWidth: number
 }
 
@@ -22,17 +22,15 @@ const VirtualTicketControl: React.FC<VirtualTicketControlProps> = ({
   order_number,
   points,
   control,
-  gridWidth
+  gridWidth,
 }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   // Finish control
   if (order_number === Infinity) {
     return (
       <Grid item xs={gridWidth}>
-        <Typography>
-          {t('ResultsStage.VirtualTicket.FinishControl')}
-        </Typography>
+        <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
       </Grid>
     )
   }
@@ -40,29 +38,22 @@ const VirtualTicketControl: React.FC<VirtualTicketControlProps> = ({
   else {
     return (
       <Grid item xs={gridWidth}>
-        <Box sx={{
-          display:'flex',
-          flexDirection:'row',
-          flexWrap:'wrap',
-        }}>
-          <Typography>
-            {order_number?.toString()}
-          </Typography>
-          <Typography
-            sx={{ ml: '2px', color: 'text.secondary' }}
-          >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          <Typography>{order_number?.toString()}</Typography>
+          <Typography sx={{ ml: "2px", color: "text.secondary" }}>
             ({control?.station.toString()})
           </Typography>
-          { points ? (
-            <Typography>
-              {`[${points}]`}
-            </Typography>
-          ) : (<></>)
-          }
-
+          {points ? <Typography>{`[${points}]`}</Typography> : <></>}
         </Box>
-      </Grid>)
+      </Grid>
+    )
   }
 }
 
-export default VirtualTicketControl;
+export default VirtualTicketControl
