@@ -20,8 +20,8 @@ const Organizers = (): React.ReactNode => {
       borderWidth: "4px",
       borderStyle: "solid",
       marginBottom: "8px",
-    }
-  }
+    },
+  };
 
   return (
     <Container>
@@ -29,7 +29,9 @@ const Organizers = (): React.ReactNode => {
       <Alert icon={<ConstructionIcon />} severity="info" sx={{ mt: "2em" }}>
         {t("DevelopingMsg")}
       </Alert>
-      <Typography variant={"h2"} sx={styles.h2}>{t("Events.title")}</Typography>
+      <Typography variant={"h2"} sx={styles.h2}>
+        {t("Events.title")}
+      </Typography>
       <Typography sx={styles.p}>{t("Events.paragraph1")}</Typography>
       <Typography sx={styles.p}>{t("Events.paragraph2")}</Typography>
       <Typography sx={styles.p}>{t("Events.paragraph3")}</Typography>
@@ -39,9 +41,17 @@ const Organizers = (): React.ReactNode => {
         alt={t("Events.paragraph3")}
         src="/organizers/editEvent.png"
       />
-      <Typography variant={"h2"} sx={styles.h2}>{t("Client.title")}</Typography>
+      <Typography variant={"h2"} sx={styles.h2}>
+        {t("Client.title")}
+      </Typography>
       <Typography sx={styles.p}>{t("Client.paragraph1")}</Typography>
-      <Button variant="contained" href="https://github.com/oreplay/desktop-client/releases/latest" target="_blank">{t("Client.download")}</Button>
+      <Button
+        variant="contained"
+        href="https://github.com/oreplay/desktop-client/releases/latest"
+        target="_blank"
+      >
+        {t("Client.download")}
+      </Button>
       <Typography sx={styles.p}>{t("Client.paragraph2")}</Typography>
       <Typography sx={styles.p}>{t("Client.paragraph3")}</Typography>
       <Typography sx={styles.p}>{t("Client.paragraph4")}</Typography>
