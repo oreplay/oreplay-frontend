@@ -5,7 +5,7 @@ export const RESULT_STATUS = {
   mp: "3", // missing punch
   disqualified: "4", //disqualified
   ot: "5", //out of time
-  nc: "9" // not competitive
+  nc: "9", // not competitive
 }
 
 export const RESULT_STATUS_TEXT = {
@@ -15,5 +15,5 @@ export const RESULT_STATUS_TEXT = {
   mp: "mp", // missing punch
   disqualified: "disqualified", //disqualified
   ot: "ot", //out of time
-  nc: "nc" // not competitive
+  nc: "nc", // not competitive
 }

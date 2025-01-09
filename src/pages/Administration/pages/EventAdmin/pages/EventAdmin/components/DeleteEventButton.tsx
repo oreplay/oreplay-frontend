@@ -1,41 +1,43 @@
-import {useState} from "react";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import { useState } from "react"
+import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
-} from "@mui/material";
-import {useTranslation} from "react-i18next";
-import {deleteEvent} from "../../../../../services/EventAdminService.ts";
-import {useNavigate} from "react-router-dom";
-import {EventDetailModel} from "../../../../../../../shared/EntityTypes.ts";
-import {useAuth} from "../../../../../../../shared/hooks.ts";
+  DialogTitle,
+} from "@mui/material"
+import { useTranslation } from "react-i18next"
+import { deleteEvent } from "../../../../../services/EventAdminService.ts"
+import { useNavigate } from "react-router-dom"
+import { EventDetailModel } from "../../../../../../../shared/EntityTypes.ts"
+import { useAuth } from "../../../../../../../shared/hooks.ts"
 
 interface DeleteEventButtonProps {
-  event: EventDetailModel;
+  event: EventDetailModel
 }
 
-export default function DeleteEventButton(props:DeleteEventButtonProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const {t} = useTranslation();
+export default function DeleteEventButton(props: DeleteEventButtonProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const { t } = useTranslation()
   const navigate = useNavigate()
-  const {token} = useAuth()
+  const { token } = useAuth()
 
-  const handleClose = ()=>{setIsOpen(false)}
+  const handleClose = () => {
+    setIsOpen(false)
+  }
 
   const handleDeleteEvent = async () => {
     try {
-      const response = await deleteEvent(props.event.id,token)
+      const response = await deleteEvent(props.event.id, token)
       if (response.ok) {
-        navigate('/dashboard')
+        navigate("/dashboard")
       } else {
-        alert('An error occurred deleting the event')
+        alert("An error occurred deleting the event")
       }
-    } catch(error) {
-      console.log('error in deleting the event ',error)
+    } catch (error) {
+      console.log("error in deleting the event ", error)
     }
   }
 
@@ -45,9 +47,9 @@ export default function DeleteEventButton(props:DeleteEventButtonProps) {
         variant="outlined"
         color="error"
         startIcon={<DeleteIcon />}
-        onClick={() => setIsOpen(true) }
+        onClick={() => setIsOpen(true)}
       >
-        {t('EventAdmin.DeleteEvent')}
+        {t("EventAdmin.DeleteEvent")}
       </Button>
       <Dialog
         open={isOpen}
@@ -64,9 +66,11 @@ export default function DeleteEventButton(props:DeleteEventButtonProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={handleClose}>{t('Cancel')}</Button>
-          <Button variant="contained" onClick={handleDeleteEvent} color='error' autoFocus>
-            {t('Delete')}
+          <Button variant="outlined" onClick={handleClose}>
+            {t("Cancel")}
+          </Button>
+          <Button variant="contained" onClick={handleDeleteEvent} color="error" autoFocus>
+            {t("Delete")}
           </Button>
         </DialogActions>
       </Dialog>

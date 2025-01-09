@@ -1,17 +1,26 @@
-
-import {DateTime, DurationLikeObject} from "luxon";
+import { DateTime, DurationLikeObject } from "luxon"
 import {
   Data,
-  EventModel, GetEventTokenResponse,
+  EventModel,
+  GetEventTokenResponse,
   Page,
-  PostEventResponse, PostEventTokenResponse,
-  PostStageResponse
-} from "../../../shared/EntityTypes.ts";
-import {deleteRequest, get, patch, post} from "../../../services/ApiConfig.ts";
+  PostEventResponse,
+  PostEventTokenResponse,
+  PostStageResponse,
+} from "../../../shared/EntityTypes.ts"
+import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
 const baseUrl = "api/v1/events"
 
-export async function getEventsFromUser(user_id:string, token:string, page:number=1,limit:number=10): Promise<Page<EventModel>> {
-  return get<Page<EventModel>>(baseUrl+`?user_id=${user_id}&show_hidden=1&page=${page}&limit=${limit}`,token)
+export async function getEventsFromUser(
+  user_id: string,
+  token: string,
+  page: number = 1,
+  limit: number = 10,
+): Promise<Page<EventModel>> {
+  return get<Page<EventModel>>(
+    baseUrl + `?user_id=${user_id}&show_hidden=1&page=${page}&limit=${limit}`,
+    token,
+  )
 }
 
 /**
@@ -26,27 +35,34 @@ export async function getEventsFromUser(user_id:string, token:string, page:numbe
  * @param federation_id federation id of the data source
  */
 export async function postEvent(
-  description:string,
-  startDate:string,
-  endDate:string,
-  scope:'international'|'national'|'regional.high'|'regional.low'|'local'|'club'|string,
-  is_public:boolean,
-  token:string,
-  website?:string,
-  federation_id?:string,
-):Promise<Data<PostEventResponse>> {
+  description: string,
+  startDate: string,
+  endDate: string,
+  scope:
+    | "international"
+    | "national"
+    | "regional.high"
+    | "regional.low"
+    | "local"
+    | "club"
+    | string,
+  is_public: boolean,
+  token: string,
+  website?: string,
+  federation_id?: string,
+): Promise<Data<PostEventResponse>> {
   return post(
     baseUrl,
     {
-      description:description,
+      description: description,
       is_hidden: !is_public,
-      initial_date:startDate,
-      final_date:endDate,
-      scope:scope,
-      federation_id:federation_id ? federation_id : null,
+      initial_date: startDate,
+      final_date: endDate,
+      scope: scope,
+      federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
     },
-    token
+    token,
   )
 }
 
@@ -63,28 +79,35 @@ export async function postEvent(
  * @param federation_id federation id of the data source
  */
 export async function patchEvent(
-  event_id:string,
-  description:string,
-  startDate:string,
-  endDate:string,
-  scope:'international'|'national'|'regional.high'|'regional.low'|'local'|'club'|string,
-  is_public:boolean,
-  token:string,
-  website?:string,
-  federation_id?:string,
+  event_id: string,
+  description: string,
+  startDate: string,
+  endDate: string,
+  scope:
+    | "international"
+    | "national"
+    | "regional.high"
+    | "regional.low"
+    | "local"
+    | "club"
+    | string,
+  is_public: boolean,
+  token: string,
+  website?: string,
+  federation_id?: string,
 ) {
   return patch(
     `${baseUrl}/${event_id}`,
     {
-      description:description,
+      description: description,
       is_hidden: !is_public,
-      initial_date:startDate,
-      final_date:endDate,
-      scope:scope,
-      federation_id:federation_id ? federation_id : null,
+      initial_date: startDate,
+      final_date: endDate,
+      scope: scope,
+      federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
     },
-    token
+    token,
   )
 }
 
@@ -93,11 +116,8 @@ export async function patchEvent(
  * @param id Id of the event to be deleted
  * @param token Authentication token
  */
-export async function deleteEvent(
-  id:string,
-  token:string|null,
-) {
-  return await deleteRequest(`api/v1/events/${id}`,token)
+export async function deleteEvent(id: string, token: string | null) {
+  return await deleteRequest(`api/v1/events/${id}`, token)
 }
 
 /**
@@ -110,16 +130,16 @@ export async function deleteEvent(
 export async function postStage(
   eventId: string,
   stageName: string,
-  stageTypeId:string,
-  token: string | null
-):Promise<Data<PostStageResponse>> {
+  stageTypeId: string,
+  token: string | null,
+): Promise<Data<PostStageResponse>> {
   return post(
-    baseUrl+`/${eventId}/stages/`,
+    baseUrl + `/${eventId}/stages/`,
     {
-      description:stageName,
+      description: stageName,
       stage_type_id: stageTypeId,
     },
-    token
+    token,
   )
 }
 
@@ -132,31 +152,24 @@ export async function postStage(
  * @param token User's authentication token
  */
 export async function patchStage(
-  eventId:string,
-  stageId:string,
-  description:string,
-  stageTypeId:string,
-  token:string
-){
+  eventId: string,
+  stageId: string,
+  description: string,
+  stageTypeId: string,
+  token: string,
+) {
   return patch(
     `/api/v1/events/${eventId}/stages/${stageId}`,
     {
-      description:description,
-      stage_type_id:stageTypeId
+      description: description,
+      stage_type_id: stageTypeId,
     },
-    token
+    token,
   )
 }
 
-export async function deleteStage(
-  eventId:string,
-  stageId:string,
-  token: string
-) {
-  return deleteRequest(
-    baseUrl+`/${eventId}/stages/${stageId}`,
-    token
-  )
+export async function deleteStage(eventId: string, stageId: string, token: string) {
+  return deleteRequest(baseUrl + `/${eventId}/stages/${stageId}`, token)
 }
 
 /**
@@ -167,15 +180,8 @@ export async function deleteStage(
  * @param stageId
  * @param token
  */
-export async function wipeOutStage(
-  eventId:string,
-  stageId:string,
-  token: string
-) {
-  return deleteRequest(
-    baseUrl+`/${eventId}/stages/${stageId}/?clean=1`,
-    token
-  )
+export async function wipeOutStage(eventId: string, stageId: string, token: string) {
+  return deleteRequest(baseUrl + `/${eventId}/stages/${stageId}/?clean=1`, token)
 }
 
 /**
@@ -185,13 +191,17 @@ export async function wipeOutStage(
  * @param token user authentication token.
  * @param expiresIn Time that the token will expire in from now. Default value is 1 month.
  */
-export async function postEventToken(eventId:string, token:string,expiresIn:DurationLikeObject={month:1}) {
+export async function postEventToken(
+  eventId: string,
+  token: string,
+  expiresIn: DurationLikeObject = { month: 1 },
+) {
   return post<Data<PostEventTokenResponse>>(
-    baseUrl+`/${eventId}/tokens`,
+    baseUrl + `/${eventId}/tokens`,
     {
-      expires:DateTime.now().plus(expiresIn).toUTC()
+      expires: DateTime.now().plus(expiresIn).toUTC(),
     },
-    token
+    token,
   )
 }
 
@@ -200,11 +210,8 @@ export async function postEventToken(eventId:string, token:string,expiresIn:Dura
  * @param eventId Id of the event that we want to gather the token from.
  * @param userToken user's event owner authentication token.
  */
-export async function getEventToken(eventId:string, userToken:string|null) {
-  return get<Data<[GetEventTokenResponse]>>(
-    baseUrl+`/${eventId}/tokens/`,
-    userToken
-  )
+export async function getEventToken(eventId: string, userToken: string | null) {
+  return get<Data<[GetEventTokenResponse]>>(baseUrl + `/${eventId}/tokens/`, userToken)
 }
 
 /**
@@ -213,9 +220,6 @@ export async function getEventToken(eventId:string, userToken:string|null) {
  * @param eventToken Token to be invalidated
  * @param authToken User's authentication token to perform de action
  */
-export async function invalidateEventToken(eventId:string,eventToken:string,authToken:string) {
-  return deleteRequest(
-    baseUrl+`/${eventId}/tokens/${eventToken}`,
-    authToken
-  )
+export async function invalidateEventToken(eventId: string, eventToken: string, authToken: string) {
+  return deleteRequest(baseUrl + `/${eventId}/tokens/${eventToken}`, authToken)
 }

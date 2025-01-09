@@ -1,37 +1,32 @@
-import {RESULT_STATUS_TEXT} from "../shared/constants.ts";
-import {Typography} from "@mui/material";
-import React from "react";
-import {useTranslation} from "react-i18next";
+import { RESULT_STATUS_TEXT } from "../shared/constants.ts"
+import { Typography } from "@mui/material"
+import React from "react"
+import { useTranslation } from "react-i18next"
 
 type StatusProps = {
   status: string
-  style?:object
+  style?: object
 }
 
-const Status:React.FC<StatusProps> = ({status,style}) => {
-  const {t} = useTranslation()
+const Status: React.FC<StatusProps> = ({ status, style }) => {
+  const { t } = useTranslation()
 
   let parsedStyle = {
-    ...style
+    ...style,
   }
 
   switch (status) {
-
     case RESULT_STATUS_TEXT.mp:
       parsedStyle = {
         ...style,
-        color:'red'
+        color: "red",
       }
-      break;
+      break
 
     default:
-      break;
+      break
   }
-  return (
-    <Typography sx={parsedStyle}>
-      {t(`ResultsStage.statusCodes.${status}`)}
-    </Typography>
-  )
+  return <Typography sx={parsedStyle}>{t(`ResultsStage.statusCodes.${status}`)}</Typography>
 }
 
-export default Status;
+export default Status

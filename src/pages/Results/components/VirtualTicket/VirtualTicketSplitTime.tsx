@@ -1,11 +1,11 @@
-import React from 'react'
-import {Box, Grid, Typography} from "@mui/material";
-import {parseSecondsToMMSS} from "../../../../shared/Functions.tsx";
+import React from "react"
+import { Box, Grid, Typography } from "@mui/material"
+import { parseSecondsToMMSS } from "../../../../shared/Functions.tsx"
 
 type VirtualTicketSplitTimeProp = {
-  time: number|null
-  time_behind: number|null
-  position: number|null
+  time: number | null
+  time_behind: number | null
+  position: number | null
 }
 
 /**
@@ -15,24 +15,28 @@ type VirtualTicketSplitTimeProp = {
  * @param position partial position
  * @constructor
  */
-const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({time,time_behind, position}) => {
+const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({
+  time,
+  time_behind,
+  position,
+}) => {
   const style = {
-    fontWeight: position == 1 ? 'bold' : undefined,
-    whiteSpace: 'nowrap'
+    fontWeight: position == 1 ? "bold" : undefined,
+    whiteSpace: "nowrap",
   }
 
   return (
     <Grid item xs={4.7}>
-      <Box sx={{
-        display:'flex',
-        flexDirection:'row',
-        flexWrap:'wrap',
-        columnGap:1,
-        rowGap:0,
-      }}>
-        <Typography sx={style}>
-          {time !== null ? `${parseSecondsToMMSS(time)}` : "--"}
-        </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          columnGap: 1,
+          rowGap: 0,
+        }}
+      >
+        <Typography sx={style}>{time !== null ? `${parseSecondsToMMSS(time)}` : "--"}</Typography>
         <Typography sx={style}>
           {time_behind !== null ? `+${parseSecondsToMMSS(time_behind)} (${position})` : "--"}
         </Typography>
@@ -41,4 +45,4 @@ const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({time,time
   )
 }
 
-export default VirtualTicketSplitTime;
+export default VirtualTicketSplitTime

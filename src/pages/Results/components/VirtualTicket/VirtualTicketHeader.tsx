@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 
 type VirtualTicketHeaderProps = {
-  children?: React.ReactNode;
+  children?: React.ReactNode
 }
 
-export const VirtualTicketHeader: React.FC<VirtualTicketHeaderProps> = ({children}) => {
+export const VirtualTicketHeader: React.FC<VirtualTicketHeaderProps> = ({ children }) => {
   return <>{children}</>
 }

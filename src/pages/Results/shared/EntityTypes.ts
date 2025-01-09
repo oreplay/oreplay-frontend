@@ -1,5 +1,5 @@
 export interface EventLocationStateModel {
-  eventName: string,
-  stageName: string,
+  eventName: string
+  stageName: string
   stageTypeId: string
 }
