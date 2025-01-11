@@ -9,6 +9,7 @@ import { RESULT_STATUS_TEXT } from "../../../../shared/constants.ts"
 import { useVirtualTicket } from "../../../../components/VirtualTicket/shared/hooks.ts"
 import RogaineVirtualTicket from "../../components/RogaineVirtualTicket/RogaineVirtualTicket.tsx"
 import RaceTime from "../../../../components/RaceTime.tsx"
+import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 
 export default function RogainePoints() {
   const { t } = useTranslation()
@@ -21,7 +22,7 @@ export default function RogainePoints() {
 
   // Render component
   if (isLoading) {
-    return <p>{t("Loading")}</p>
+    return <ResultsListSkeleton />
   } else {
     return (
       <ResultListContainer>

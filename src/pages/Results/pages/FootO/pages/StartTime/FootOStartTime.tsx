@@ -8,6 +8,7 @@ import ResultListItem from "../../../../components/ResultsList/ResultListItem.ts
 import StartTime from "../../../../components/StartTime.tsx"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { parseResultStatus } from "../../../../shared/functions.ts"
+import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 
 export default function FootOStartTime() {
   const { t } = useTranslation()
@@ -22,7 +23,7 @@ export default function FootOStartTime() {
   }, [rawRunnersList])
 
   if (isLoading) {
-    return t("Loading")
+    return <ResultsListSkeleton />
   } else {
     return (
       <ResultListContainer>

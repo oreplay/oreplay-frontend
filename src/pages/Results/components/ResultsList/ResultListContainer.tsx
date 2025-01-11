@@ -24,7 +24,6 @@ const ResultListContainer: React.FC<ResultListContainerProps> = ({ children }) =
         sx={{
           height: "100%",
           marginBottom: "2rem",
-          marginTop: "1em",
           maxWidth: "600px",
           width: "100%",
         }}
