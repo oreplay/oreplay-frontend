@@ -5,8 +5,6 @@ import Tabs from "@mui/material/Tabs"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { useTranslation } from "react-i18next"
-import ConstructionIcon from "@mui/icons-material/Construction"
-import { Alert } from "@mui/material"
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -82,9 +80,28 @@ export default function UploadStartTimesTabs() {
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Alert icon={<ConstructionIcon />} severity="info" sx={{ my: "2em" }}>
-          {t("DevelopingMsg")}
-        </Alert>
+        <Typography>{t("BeforeTheRace.UploadStartTimes.Tabs1.MeOS.p1")}</Typography>
+        <img
+          src={t("BeforeTheRace.UploadStartTimes.Tabs1.MeOS.img1.url")}
+          alt={t("BeforeTheRace.UploadStartTimes.Tabs1.MeOS.img1.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+        <Typography>{t("BeforeTheRace.UploadStartTimes.Tabs1.MeOS.p2")}</Typography>
+        <img
+          src={t("BeforeTheRace.UploadStartTimes.Tabs1.MeOS.img2.url")}
+          alt={t("BeforeTheRace.UploadStartTimes.Tabs1.MeOS.img2.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
       </CustomTabPanel>
     </Box>
   )
