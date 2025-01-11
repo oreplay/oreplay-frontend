@@ -19,7 +19,7 @@ interface EventDataGridColumns {
   isHidden: boolean
 }
 
-export function Dashboard() {
+export default function Dashboard() {
   const { t } = useTranslation()
   const { user, token } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(true)

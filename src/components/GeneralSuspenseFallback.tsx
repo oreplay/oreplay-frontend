@@ -2,14 +2,18 @@ import loadingIcon from "../assets/loading.svg"
 import Box from "@mui/material/Box"
 import { useTranslation } from "react-i18next"
 
-export default function GeneralSuspenseFallback() {
+type GeneralSuspenseFallbackProps = {
+  useViewPort?: boolean
+}
+
+export default function GeneralSuspenseFallback(props: GeneralSuspenseFallbackProps) {
   const { t } = useTranslation()
 
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "100%",
+        width: props.useViewPort ? "100vw" : "100%",
+        height: props.useViewPort ? "100vh" : "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
