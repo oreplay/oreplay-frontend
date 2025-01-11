@@ -15,6 +15,7 @@ import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions
 import { parseSecondsToMMSS } from "../../../../../../shared/Functions.tsx"
 import ControlBadge from "./components/ControlBadge.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../shared/constants.ts"
+import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx"
 
 export default function RogainePoints() {
   const { t } = useTranslation()
@@ -23,7 +24,7 @@ export default function RogainePoints() {
   const controlNumbers = getUniqueStationNumbers(runnersList)
 
   if (isLoading) {
-    return <p>{t("Loading")}</p>
+    return <GeneralSuspenseFallback />
   } else {
     return (
       <TableContainer sx={{ height: "100%", flex: 1 }}>

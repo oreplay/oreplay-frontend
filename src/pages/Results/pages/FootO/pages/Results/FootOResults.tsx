@@ -11,6 +11,7 @@ import { useVirtualTicket } from "../../../../components/VirtualTicket/shared/ho
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx"
 import RaceTime from "../../../../components/RaceTime.tsx"
+import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 
 export default function FootOResults() {
   const { t } = useTranslation()
@@ -20,7 +21,7 @@ export default function FootOResults() {
     useVirtualTicket()
 
   if (isLoading) {
-    return <p>{t("Loading")}</p>
+    return <ResultsListSkeleton />
   } else {
     return (
       <ResultListContainer>
