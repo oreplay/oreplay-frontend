@@ -17,6 +17,7 @@ import AboutUs from "./pages/AboutUs/AboutUs.tsx"
 import NotFoundPage from "./pages/NotFoundError/NotFoundPage.tsx"
 import Organizers from "./pages/Organizers/organizers.tsx"
 import { Suspense } from "react"
+import GeneralSuspenseFallback from "./components/GeneralSuspenseFallback.tsx"
 
 // Customize style of app
 const theme = createTheme({
@@ -50,7 +51,7 @@ export default function App() {
               <Route
                 path="organizers"
                 element={
-                  <Suspense>
+                  <Suspense fallback={<GeneralSuspenseFallback />}>
                     <Organizers />
                   </Suspense>
                 }

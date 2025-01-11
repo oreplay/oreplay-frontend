@@ -147,10 +147,9 @@ const Organizers = (): React.ReactNode => {
               <Typography component={"span"} sx={{ fontWeight: "bold" }}>
                 "Start"
               </Typography>
-              . The client will now monitor this directory for any `XML` file. When you export
-              start times or results from your timekeeping software, the client will read the file
-              and upload it to O-Replay. Files will be automatically deleted after successful
-              uploads.
+              . The client will now monitor this directory for any `XML` file. When you export start
+              times or results from your timekeeping software, the client will read the file and
+              upload it to O-Replay. Files will be automatically deleted after successful uploads.
             </Trans>
           </ListItem>
         </OrderedList>
@@ -172,9 +171,7 @@ const Organizers = (): React.ReactNode => {
           loading={"lazy"}
         />
         <Typography variant={"h3"}>{t("BeforeTheRace.UploadStartTimes.title")}</Typography>
-        <Typography>
-          {t("BeforeTheRace.UploadStartTimes.p1")}
-        </Typography>
+        <Typography>{t("BeforeTheRace.UploadStartTimes.p1")}</Typography>
         <OrderedList>
           <ListItem>{t("BeforeTheRace.UploadStartTimes.list1.item1")}</ListItem>
           <ListItem>{t("BeforeTheRace.UploadStartTimes.list1.item2")}</ListItem>
@@ -218,4 +215,4 @@ const Organizers = (): React.ReactNode => {
   )
 }
 
-export default Organizers;
+export default Organizers
