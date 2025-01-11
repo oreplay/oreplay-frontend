@@ -153,22 +153,30 @@ const Organizers = (): React.ReactNode => {
             </Trans>
           </ListItem>
         </OrderedList>
-        <Box
-          component="img"
+        <img
           src={t("Prerequisites.DesktopClient.ManageClient.img1.url")}
           alt={t("Prerequisites.DesktopClient.ManageClient.img1.alt")}
           loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
         />
         <Typography variant={"h2"}>{t("BeforeTheRace.title")}</Typography>
         <Typography variant={"h3"}>{t("BeforeTheRace.CreateEvent.title")}</Typography>
         <Typography>{t("BeforeTheRace.CreateEvent.p1")}</Typography>
         <Typography>{t("BeforeTheRace.CreateEvent.p2")}</Typography>
         <Typography>{t("BeforeTheRace.CreateEvent.p3")}</Typography>
-        <Box
-          component="img"
+        <img
           src={t("BeforeTheRace.CreateEvent.img1.url")}
           alt={t("BeforeTheRace.CreateEvent.img1.alt")}
           loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
         />
         <Typography variant={"h3"}>{t("BeforeTheRace.UploadStartTimes.title")}</Typography>
         <Typography>{t("BeforeTheRace.UploadStartTimes.p1")}</Typography>
@@ -203,11 +211,15 @@ const Organizers = (): React.ReactNode => {
         <Typography variant={"h3"}>{t("DuringRace.WhatIfAnythingWrong.title")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p1")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p2")}</Typography>
-        <Box
-          component="img"
+        <img
           src={t("DuringRace.WhatIfAnythingWrong.img1.url")}
           alt={t("DuringRace.WhatIfAnythingWrong.img1.alt")}
           loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
         />
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p3")}</Typography>
       </Container>

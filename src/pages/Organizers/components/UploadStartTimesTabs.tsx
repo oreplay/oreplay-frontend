@@ -48,25 +48,37 @@ export default function UploadStartTimesTabs() {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Typography>{t("BeforeTheRace.UploadStartTimes.Tabs1.OE.p1")}</Typography>
-        <Box
-          component="img"
+        <img
           src={t("BeforeTheRace.UploadStartTimes.Tabs1.OE.img1.url")}
           alt={t("BeforeTheRace.UploadStartTimes.Tabs1.OE.img1.alt")}
           loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
         />
         <Typography>{t("BeforeTheRace.UploadStartTimes.Tabs1.OE.p2")}</Typography>
-        <Box
-          component="img"
+        <img
           src={t("BeforeTheRace.UploadStartTimes.Tabs1.OE.img2.url")}
           alt={t("BeforeTheRace.UploadStartTimes.Tabs1.OE.img2.alt")}
           loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
         />
         <Typography>{t("BeforeTheRace.UploadStartTimes.Tabs1.OE.p3")}</Typography>
-        <Box
-          component="img"
+        <img
           src={t("BeforeTheRace.UploadStartTimes.Tabs1.OE.img3.url")}
           alt={t("BeforeTheRace.UploadStartTimes.Tabs1.OE.img3.alt")}
           loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
