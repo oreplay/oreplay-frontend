@@ -1,26 +1,146 @@
 {
   "Header": "Information for organizers",
   "DevelopingMsg": "This page is under construction",
-  "Events": {
-    "title": "Manage events",
-    "paragraph1": "From the events page, click on the big + to create a new event and fill in all fields.",
-    "paragraph2": "Make sure you check the check 'Public', to make your event publicly available and click 'save'.",
-    "paragraph3": "Once the event is created, a new 'stage' needs to be added and the 'token' needs to be created (the Event ID and the token will be used to connect to the desktop client)",
-    "paragraph4": "The 'Wipe out' functionality, will erase all information from runners, splits, etc, uploaded to the event, keeping the event and stages as if they were newly created. Use this option if something goes wrong with the upload, or if there are duplicated runners in the event."
+  "p1": "This page contains all the necessary information to upload results to O-Replay. Please read it carefully. If you have any issues or questions, feel free to contact us at <1>support@oreplay.es</1>. Note that O-Replay is completely free to use.",
+  "Prerequisites": {
+    "title": "Prerequisites",
+    "Registering": {
+      "title": "Registering with O-Replay",
+      "p1": "Currently, the only way to register is by sending an email to <1>support@oreplay.es</1> with the following information (we speak both English and Spanish):",
+      "list": {
+        "item1": "Name",
+        "item2": "Email address",
+        "item3": "Club name"
+      },
+      "p2": "Please note that O-Replay is in beta testing and active development. Many planned features are not yet available, and the system is not ready for use in major events."
+    },
+    "DesktopClient": {
+      "title": "O-Replay Desktop Client",
+      "DownloadClient": {
+        "title": "Downloading and Installing the client",
+        "p1": "Results are uploaded using a small program that must be installed on your computer. We provide an installer that works on Windows 11. Simply follow the installer instructions.",
+        "DownloadBtn": "Download O-Replay Desktop Client",
+        "p2": "For older Windows versions, such as Windows 10, you can still try the installer. You might encounter a warning that the program contains malware, but don’t worry, this is due to the absence of a digital signature not because we are a real malware.",
+        "p3": "If you are using other operating systems, such as Linux or macOS, or your Windows 10 installation fails you can still use the client via <1>manual installation</1>."
+      },
+      "ManageClient": {
+        "title": "Managing the client",
+        "p1": "Follow the next steps to upload files:",
+        "list1": {
+          "item1": "Open the O-Replay Desktop Client and click <1>\"Check connection\"</1>.",
+          "item2": "Paste the event ID and security token, then click <1>\"Enter\"</1> and select the stage you want to upload data to. You will get the event Id and security token when you create the event.",
+          "item3": "Choose the directory where you will export files to, then press <1>\"Start\"</1>. The client will now monitor this directory for any `XML` file. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
+        },
+        "img1": {
+          "url": "/organizers/en/DesktopClient/Client.png",
+          "alt": "Desktop client screenshot"
+        }
+      }
+    }
   },
-  "Client": {
-    "title": "Manage the client for Windows",
-    "download": "Download the client",
-    "paragraph1": "Click the button below and download the .exe file for Windows from the bottom of the page",
-    "paragraph2": "When opening the exe, we must do the following steps:",
-    "paragraph3": "1. Check connection (click the check button)",
-    "paragraph4": "2. Add the Event ID and the Event Token (the ones you can get from the 'Manage events' section) and click 'Login'. This will display the list of available stages.",
-    "paragraph5": "Select from the list the stage where the results should be uploaded.",
-    "paragraph6": "3. Select the directory where we are going to store the files exported from the timing software (e.g. OE, MeOS, or any compatible software) and click the button 'Run'",
-    "paragraph7": "While the client is running (you can click 'Stop' any time), any file with a valid format that is added do the directory will be uploaded to the server.",
-    "paragraph8": "The files that can be processed by the client are IOF xml files.",
-    "paragraph9": "It is recommended to upload start times (by classes) before the event starts.",
-    "paragraph10": "During the event, an automatic export of Partial results by classes (including splits) should be set up.",
-    "paragraph11": "Keep in mind uploading big amounts of results with splits can take up to 1 minute. If the upload takes longer than 1 minute, the client will display an error. You can safely try to upload again the same results 2 or 3 times (even if the client displays the error, some results will be uploaded each time, allowing you to complete the upload after a few attempts)."
+  "BeforeTheRace": {
+    "title": "Before the Race",
+    "CreateEvent": {
+      "title": "Creating an Event",
+      "p1": "Races in O-Replay are organized into events and stages. For example, if you are running a weekend championship with middle and long-distance races, you would create one event \"Championship\" with two stages: \"Middle Distance\" and \"Long Distance.\" Each stage can represent a different orienteering discipline.",
+      "p2": "When you log in, you will see all your events. You can also create new events. Begin by filling in the event details, then add as many stages as needed. If your event has only one race called \"My First Race,\" create an event named \"My First Race\" with one stage called \"Race\". Only the event's name will be displayed. Be sure to create at least one stage; otherwise, you will not be able to upload any data.",
+      "p3": "After creating the event and stages, generate a security token. This token acts as a secret password for uploading results and can be shared with your team of timekeepers without exposing your O-Replay credentials. Please note that tokens expires after one month after creation, but they can be renewed at any time. When they are renewed, the old token becomes invalid and a new one is generated. Use this option if your token gets compromised.",
+      "img1": {
+        "url": "/organizers/en/WebUI/GenerateToken.png",
+        "alt": "Menu to create security tokens for an event"
+      }
+    },
+    "UploadStartTimes": {
+      "title": "Uploading Start Times",
+      "p1": "Start times are uploaded for two purposes:",
+      "list1": {
+        "item1": "To display them for runners' information.",
+        "item2": "To show in-race times for runners."
+      },
+      "InfoBox1": {
+        "title": "Races without start times:",
+        "p1": "Even if you are using a start control and runners don’t have preassigned start times, it is recommended to upload start times. This allows to display all the entries, and competitors can see how many runners are yet to finish."
+      },
+      "p2": "We only support IOF XML v3 files. Get O-Replay Desktop Client ready for files and export the start times from your timekeeping software:",
+      "Tabs1": {
+        "OE": {
+          "title": "OE2010/OE12",
+          "p1": "You need to export the start times XML file. Go to Start list → start list reports → by classes:",
+          "img1": {
+            "url": "organizers/en/OE12/ExportStartTimesChoseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p2": "From the top menu, choose \"Export\"",
+          "img2": {
+            "url": "organizers/en/OE12/ExportStartTimesChooseExport.png",
+            "alt": "Export button"
+          },
+          "p3": "Save using IOF XML in the directory O-Replay Client is listening.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportStartTimesSetIOFXML.png",
+            "alt": "Save using IOF XML format"
+          }
+        },
+        "MeOS": {
+          "title": "MeOS",
+          "p1": "To do"
+        }
+      },
+      "p3": "If your event has multiple stages, you will have to upload start times for each of the stages.",
+      "WarnBox1": {
+        "title": "Uploading start times after results",
+        "p1": "No start times can be uploaded after uploading results. If you want to upload start times after uploading results you need to Reset the event first."
+      }
+    }
+  },
+  "DuringRace": {
+    "title": "During the Race",
+    "UploadingResults": {
+      "title": "Uploading Results",
+      "p1": "We support IOF XML v3 splits files for uploading results. Use an empty directory to save these files (you can reuse the directory created for start times).",
+      "p2": "Get the client ready and listening for new files, then export result from your timekeeping software:",
+      "Tabs1": {
+        "OE": {
+          "title": "OE2010/OE12",
+          "p1": "You need to export the splits XML file. Go to Results → Splits times → by classes:",
+          "img1": {
+            "url": "organizers/en/OE12/ExportSplitsChoseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p2": "Set the automatic report at your desired refresh interval.",
+          "img2": {
+            "url": "organizers/en/OE12/ExportSplitsSetAutomaticExport.png",
+            "alt": "Automatic report menu in OE12"
+          },
+          "p3": "Save using IOF XML in the directory O-Replay Client is listening.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportSplitsSetIOFXML.png",
+            "alt": "Save using IOF XML format"
+          }
+        },
+        "MeOS": {
+          "title": "MeOS",
+          "p1": "To do"
+        }
+      },
+      "WarnBox1": {
+        "title": "Regular results export (i.e. no splits)",
+        "p1": "While the client supports uploading results files without splits, this is strongly discouraged. Without splits, virtual tickets and split details cannot be displayed to runners."
+      },
+      "WarnBox2": {
+        "title": "Upload failing with large number of runners",
+        "p1": "If you are uploading a large number of results (e.g., about 1,000 runners) that have not been uploaded previously, the process may take up to a minute. If it takes longer than one minute, an error will occur. In this case, try uploading the same results again two or three more times. Some classes may already have been saved to the server, so the process will eventually be completed."
+      }
+    },
+    "WhatIfAnythingWrong": {
+      "title": "What to Do If Something Goes Wrong",
+      "p1": "If you encounter any issues while uploading start times or results (e.g., uploading data to the wrong stage), you can reset the stage. This will delete all the data uploaded to that stage, allowing you to start over. When you reset a stage, it will be completely empty—just as if it had been newly created—so you will need to re-upload the start times and results.",
+      "p2": "To reset a stage, go to the event page and click the settings wheel of that stage. Then click the \"Reset\" option.",
+      "img1": {
+        "url": "/organizers/en/WebUI/ResetStage.png",
+        "alt": "Reset button in web ui"
+      },
+      "p3": "This option is also helpful if there are issues with runner information not displaying correctly. For example, if a competitor’s class is changed, the system may treat it as a different person, causing the runner to appear in both the old and new classes. Resetting and re-uploading ensures that all information is accurately updated."
+    }
   }
 }
