@@ -1,10 +1,11 @@
 import { Alert, Box, Fade, Popper } from "@mui/material"
 import Header from "./Header.tsx"
 import { Outlet } from "react-router-dom"
-import { useEffect, useRef, useState } from "react"
+import { Suspense, useEffect, useRef, useState } from "react"
 import Sidebar from "./Sidebar/Sidebar.tsx"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import { useTranslation } from "react-i18next"
+import GeneralSuspenseFallback from "../GeneralSuspenseFallback.tsx"
 const VERSION_NUMBER = import.meta.env.VITE_VERSION_NUMBER
 const VERSION_TYPE = import.meta.env.VITE_VERSION_TYPE
 
@@ -44,8 +45,9 @@ export default function Layout() {
           </Fade>
         </Popper>
       )}
-
-      <Outlet />
+      <Suspense fallback={<GeneralSuspenseFallback />}>
+        <Outlet />
+      </Suspense>
     </Box>
   )
 }
