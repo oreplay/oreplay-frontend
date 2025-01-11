@@ -1,6 +1,5 @@
 {
   "Header": "Information for organizers",
-  "DevelopingMsg": "This page is under construction",
   "p1": "This page contains all the necessary information to upload results to O-Replay. Please read it carefully. If you have any issues or questions, feel free to contact us at <1>support@oreplay.es</1>. Note that O-Replay is completely free to use.",
   "Prerequisites": {
     "title": "Prerequisites",
@@ -83,7 +82,16 @@
         },
         "MeOS": {
           "title": "MeOS",
-          "p1": "To do"
+          "p1": "You need to export the start times XML file. Go to Competition → Export data → Start List",
+          "img1": {
+            "url": "organizers/en/MeOS/UploadStartTimes_Menu.png",
+            "alt": "Menu to export start list in MeOS"
+          },
+          "p2": "Select all the classes, choose \"IOF Start List\" and export the file to the directory the client is listening to.",
+          "img2": {
+            "url": "organizers/en/MeOS/UploadStartTimes_SetIOFXML.png",
+            "alt": "Menu to choose classes to export and set IOF XML format"
+          }
         }
       },
       "p3": "If your event has multiple stages, you will have to upload start times for each of the stages.",
@@ -120,7 +128,23 @@
         },
         "MeOS": {
           "title": "MeOS",
-          "p1": "To do"
+          "p1": "You need to export the splits XML file. Go to Services → Available Services → Results Online",
+          "img1": {
+            "url": "/organizers/en/MeOS/UploadResults_Menu.png",
+            "alt": "Menu to activate a service to export results in MeOS"
+          },
+          "p2": "This service has a lot of different configuration options. You have to set:",
+          "list1": {
+            "ServiceName": "<0>Service Name</0>: O-Replay (it is not mandatory)",
+            "TimeInterval": "<0>Time interval</0>: How frequent are the results updated. 30 seconds or 1 minute are common values.",
+            "Classes": "<0>Classes</0>: Choose all the classes.",
+            "ExportFormat": "<0>Export Format</0>: must be \"IOF XML 3.0\"",
+            "SaveToDisk": "<0>Save to disk</0>: Is the only option that has to be ticked. Choose the folder O-Replay Client is listening to."
+          },
+          "img2": {
+            "url": "/organizers/en/MeOS/UploadResults_StandartServiceConfig.png",
+            "alt": "Standart options of Results Online service to work with O-Replay in MeOS"
+          }
         }
       },
       "WarnBox1": {

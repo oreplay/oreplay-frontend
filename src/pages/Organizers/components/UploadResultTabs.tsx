@@ -4,9 +4,9 @@ import Tab from "@mui/material/Tab"
 import Tabs from "@mui/material/Tabs"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
-import { useTranslation } from "react-i18next"
-import ConstructionIcon from "@mui/icons-material/Construction"
-import { Alert } from "@mui/material"
+import { Trans, useTranslation } from "react-i18next"
+import OrderedList from "../../../components/OrderedList.tsx"
+import { ListItem } from "@mui/material"
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -82,9 +82,71 @@ export default function UploadResultTabs() {
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Alert icon={<ConstructionIcon />} severity="info" sx={{ my: "2em" }}>
-          {t("DevelopingMsg")}
-        </Alert>
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.MeOS.p1")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.MeOS.img1.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.MeOS.img1.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.MeOS.p2")}</Typography>
+        <OrderedList>
+          <ListItem>
+            <Trans t={t} i18nKey="DuringRace.UploadingResults.Tabs1.MeOS.list1.ServiceName">
+              <Typography component={"span"} sx={{ fontWeight: "bold" }}>
+                Service Name
+              </Typography>
+              : O-Replay (it is not mandatory).
+            </Trans>
+          </ListItem>
+          <ListItem>
+            <Trans t={t} i18nKey="DuringRace.UploadingResults.Tabs1.MeOS.list1.TimeInterval">
+              <Typography component={"span"} sx={{ fontWeight: "bold" }}>
+                Time Interval
+              </Typography>
+              : How frequent are the results updated. 30 seconds or 1 minute are common values.
+            </Trans>
+          </ListItem>
+          <ListItem>
+            <Trans t={t} i18nKey="DuringRace.UploadingResults.Tabs1.MeOS.list1.Classes">
+              <Typography component={"span"} sx={{ fontWeight: "bold" }}>
+                Classes
+              </Typography>
+              : Choose all the classes.
+            </Trans>
+          </ListItem>
+          <ListItem>
+            <Trans t={t} i18nKey="DuringRace.UploadingResults.Tabs1.MeOS.list1.ExportFormat">
+              <Typography component={"span"} sx={{ fontWeight: "bold" }}>
+                Export Format
+              </Typography>
+              : must be "IOF XML 3.0".
+            </Trans>
+          </ListItem>
+          <ListItem>
+            <Trans t={t} i18nKey="DuringRace.UploadingResults.Tabs1.MeOS.list1.SaveToDisk">
+              <Typography component={"span"} sx={{ fontWeight: "bold" }}>
+                Service Name
+              </Typography>
+              : Is the only option that has to be ticked. Choose the folder O-Replay Client is
+              listening to.
+            </Trans>
+          </ListItem>
+        </OrderedList>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.MeOS.img2.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.MeOS.img2.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
       </CustomTabPanel>
     </Box>
   )
