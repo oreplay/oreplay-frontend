@@ -79,10 +79,10 @@
         "DialogBody": "La etapa y todos sus resultados se borrarán. Esta acción no puede deshacerse."
       },
       "WipeOutRunners": {
-        "MenuText": "Limpiar",
-        "DialogTitle": "Desea borrar todos los corredores de esta etapa?",
+        "MenuText": "Reset",
+        "DialogTitle": "Desea resetear esta etapa?",
         "DialogBody": "Se borrarán todos los resultados y horas de salida subidos a esta etapa. Después, puedes volverlos a subir. Esta opción se utiliza para corregir errores en los datos subidos.",
-        "DialogConfirm": "Borrar"
+        "DialogConfirm": "Resetear"
       },
       "StagesTypes": {
         "StageType": "Tipo",
