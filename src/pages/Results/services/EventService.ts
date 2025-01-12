@@ -1,4 +1,4 @@
-import { get } from "../../../services/ApiConfig.ts"
+import { axiosInstance, get } from "../../../services/ApiConfig.ts"
 import {
   ClassModel,
   Data,
@@ -8,6 +8,7 @@ import {
   RunnerModel,
   StageModel,
 } from "../../../shared/EntityTypes.ts"
+import { AxiosResponse } from "axios"
 const baseUrl = "api/v1/events"
 
 export async function getEventList(
@@ -34,8 +35,16 @@ export async function getEventList(
 export async function getEventDetail(
   id: string,
   token?: string | null,
-): Promise<Data<EventDetailModel>> {
-  return await get<Data<EventDetailModel>>(`${baseUrl}/${id}`, token)
+): Promise<AxiosResponse<Data<EventDetailModel>>> {
+  if (token) {
+    return await axiosInstance.get(`events/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  } else {
+    return await axiosInstance.get(`events/${id}`)
+  }
 }
 
 export async function getStageDetail(

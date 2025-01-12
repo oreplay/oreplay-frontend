@@ -28,7 +28,7 @@ export function useEventDetail(event_id: string): [EventDetailModel | null, bool
   useEffect(() => {
     getEventDetail(event_id).then((response) => {
       //temporary removed token due to BACKs bug
-      setEventDetail(response.data)
+      setEventDetail(response.data.data)
       setIsLoading(false)
 
       return () => setIsLoading(true)

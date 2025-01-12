@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || "https://www.oreplay.es/"
 
 /**
@@ -74,3 +76,7 @@ export async function patch(url: string, body?: object, token?: string | null) {
     body: body ? JSON.stringify(body) : undefined,
   })
 }
+
+export const axiosInstance = axios.create({
+  baseURL: API_DOMAIN + "api/v1/",
+})
