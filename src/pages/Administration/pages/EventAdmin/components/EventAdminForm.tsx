@@ -95,14 +95,14 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           {...style_props}
           defaultValue={props.eventDetail ? props.eventDetail.description : ""}
         />
-        <TextField
+        {/**<TextField
           id="organizer"
           name="organizer"
           required
           label={t("EventAdmin.Organizer")}
           {...style_props}
           defaultValue={"No viene club"}
-        />
+        />**/}
         <DatePicker // BUG, can be edited even when disabled
           name={"startDate"}
           label={t("EventAdmin.StartDate") + " *"}
