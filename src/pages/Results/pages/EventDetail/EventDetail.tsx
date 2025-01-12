@@ -10,6 +10,7 @@ import { useQuery } from "react-query"
 import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import { AxiosError, AxiosResponse } from "axios"
+import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 
 const styles = {
   titleEvent: {
