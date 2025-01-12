@@ -1,4 +1,4 @@
-import { DateTime, DurationLikeObject } from "luxon"
+import { DateTime } from "luxon"
 import {
   Data,
   EventModel,
@@ -191,15 +191,13 @@ export async function wipeOutStage(eventId: string, stageId: string, token: stri
  * @param token user authentication token.
  * @param expiresIn Time that the token will expire in from now. Default value is 1 month.
  */
-export async function postEventToken(
-  eventId: string,
-  token: string,
-  expiresIn: DurationLikeObject = { month: 1 },
-) {
+export async function postEventToken(eventId: string, token: string, expiresIn?: DateTime) {
   return post<Data<PostEventTokenResponse>>(
     baseUrl + `/${eventId}/tokens`,
     {
-      expires: DateTime.now().plus(expiresIn).toUTC(),
+      expires: expiresIn
+        ? expiresIn.toUTC()
+        : DateTime.now().endOf("day").plus({ month: 1 }).toUTC(),
     },
     token,
   )
