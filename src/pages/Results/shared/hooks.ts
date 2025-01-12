@@ -165,26 +165,26 @@ export function useEventInfo() {
       if (state === null) {
         getEventDetail(eventId as string, token).then((response) => {
           // Event name
-          setEventName(response.data.description)
+          setEventName(response.data.data.description)
 
           // Organizer name
           setOrganizerName(response.data.organizer?.name as string)
 
           // Single stage
-          if (response.data.stages.length == 1) {
+          if (response.data.data.stages.length == 1) {
             setSingleStage(true)
           } else {
             setSingleStage(false)
           }
 
           // Stage info
-          const current_stage = response.data.stages.find((stage) => stage.id === stageId)
+          const current_stage = response.data.data.stages.find((stage) => stage.id === stageId)
           if (current_stage) {
-            setStageName(response.data.description)
+            setStageName(response.data.data.description)
             setStageTypeId(current_stage.stage_type.id)
           } else {
             throw new Error(
-              `The stage ${stageId} does not belong to ${eventId} (${response.data.description}).`,
+              `The stage ${stageId} does not belong to ${eventId} (${response.data.data.description}).`,
             ) //TODO: redirect to 404 not found
           }
         })

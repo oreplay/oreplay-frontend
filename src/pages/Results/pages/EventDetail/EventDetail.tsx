@@ -9,6 +9,7 @@ import EventDetailURLButton from "./components/EventDetailURLButton.tsx"
 import { useQuery } from "react-query"
 import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
+import { AxiosError, AxiosResponse } from "axios"
 
 const styles = {
   titleEvent: {
@@ -36,15 +37,25 @@ export default function EventDetail() {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  const { data, isLoading, error } = useQuery<Data<EventDetailModel>>(
+  const { data, isLoading, error, isError } = useQuery<
+    AxiosResponse<Data<EventDetailModel>>,
+    AxiosError
+  >(
     ["eventDetail", id], // Query key
-    () => getEventDetail(id as string), // Query function
+    () => getEventDetail(id as string, undefined), // Query function
     {
       enabled: !!id, // Only fetch if id exists
+      refetchOnWindowFocus: false,
+      retry: (failureCount, error) => {
+        if (error.response && error.response.status < 500) {
+          return false
+        }
+        return failureCount < 3
+      },
     },
   )
 
-  const detail = data?.data
+  const detail = data?.data.data
 
   function getDatesOfEvent() {
     if (detail?.initial_date && detail?.final_date) {
@@ -70,8 +81,12 @@ export default function EventDetail() {
 
   if (isLoading) {
     return <GeneralSuspenseFallback />
-  } else if (error) {
-    return <NotFoundPage />
+  } else if (isError) {
+    const error_status = error.response?.status
+    if (error_status == 403 || error_status == 404) {
+      return <NotFoundPage />
+    }
+    throw error
   } else if (detail?.stages.length == 1) {
     // navigate to stage for single stage events
     return (
