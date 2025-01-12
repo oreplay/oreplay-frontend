@@ -5,7 +5,6 @@ import {
   postEventToken,
 } from "../../../../../services/EventAdminService.ts"
 import {
-  Box,
   Button,
   Container,
   Dialog,
@@ -13,6 +12,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Grid,
   IconButton,
   TextField,
 } from "@mui/material"
@@ -22,6 +22,7 @@ import AddIcon from "@mui/icons-material/Add"
 import Tooltip from "@mui/material/Tooltip"
 import { CopyToClipBoardButton } from "../../../../../../../shared/Components.tsx"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
+import { DateTime } from "luxon"
 
 interface Props {
   event_id: string
@@ -87,6 +88,7 @@ export default function EventTokenDataGrid(props: Props) {
   const { token } = useAuth()
   const { t } = useTranslation()
   const [eventToken, setEventToken] = useState<string>("")
+  const [eventTokenExpireDate, setEventTokenExpireDate] = useState<DateTime | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -95,6 +97,7 @@ export default function EventTokenDataGrid(props: Props) {
       // Check if there are security tokens
       if (response.data.length > 0) {
         setEventToken(response.data[0].token)
+        setEventTokenExpireDate(DateTime.fromISO(response.data[0].expires))
       }
       setIsLoading(false)
 
@@ -125,38 +128,58 @@ export default function EventTokenDataGrid(props: Props) {
 
   return (
     <Container component="form">
-      <Box
+      <Grid
+        container
+        spacing={2}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignContent: "space-between",
           marginY: "2em",
         }}
       >
-        <TextField
-          fullWidth
-          id="eventId"
-          name="eventId"
-          label={t("EventAdmin.EventId")}
-          defaultValue={props.event_id}
-          disabled
-          sx={{ marginY: "1em" }}
-          InputProps={{ endAdornment: <CopyToClipBoardButton value={props.event_id} /> }}
-        />
-        <TextField
-          fullWidth
-          id="securityToken"
-          name="securityToken"
-          label={t("EventAdmin.EventSecurityTokens")}
-          value={isLoading ? t("Loading") : eventToken}
-          disabled
-          InputProps={{
-            endAdornment: (
-              <RefreshButton eventToken={eventToken} handleRenewToken={handleRenewToken} />
-            ),
-          }}
-        />
-      </Box>
+        <Grid item xs={12} md={12}>
+          <TextField
+            fullWidth
+            id="eventId"
+            name="eventId"
+            label={t("EventAdmin.EventId")}
+            defaultValue={props.event_id}
+            disabled
+            sx={{ marginY: "1em" }}
+            InputProps={{ endAdornment: <CopyToClipBoardButton value={props.event_id} /> }}
+          />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <TextField
+            fullWidth
+            id="securityToken"
+            name="securityToken"
+            label={t("EventAdmin.EventSecurityTokens")}
+            value={isLoading ? t("Loading") : eventToken}
+            disabled
+            InputProps={{
+              endAdornment: (
+                <RefreshButton eventToken={eventToken} handleRenewToken={handleRenewToken} />
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextField
+            fullWidth
+            id="tokenExpiracyDate"
+            name="token expiry date"
+            error={eventTokenExpireDate ? eventTokenExpireDate < DateTime.now() : false}
+            disabled
+            label={t("EventAdmin.EventSecurityTokensExpireDate")}
+            value={
+              isLoading
+                ? t("Loading")
+                : eventTokenExpireDate
+                  ? eventTokenExpireDate.toLocaleString(DateTime.DATE_SHORT)
+                  : ""
+            }
+          />
+        </Grid>
+      </Grid>
     </Container>
   )
 }

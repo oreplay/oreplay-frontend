@@ -99,6 +99,7 @@
       }
     },
     "EventSecurityTokens": "Clé de sécurité (token de connexion au bureau)",
+    "EventSecurityTokensExpireDate": "_Expires on",
     "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
     "Renew": "Renouveler",
