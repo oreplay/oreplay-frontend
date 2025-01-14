@@ -16,7 +16,7 @@ import RelayResults from "../Relay/pages/RelayResults/RelayResults.tsx"
 import RelaySplits from "../Relay/pages/RelaySplits/RelaySplits.tsx"
 import RogaineResults from "../Rogaine/pages/RogaineResults/RogaineResults.tsx"
 import RogainePoints from "../Rogaine/pages/RogainePoints/RogainePoints.tsx"
-import { useEventInfo, useFetchClasses, useRunners, useSelectedMenu } from "../../shared/hooks.ts"
+import { useFetchClasses, useRunners, useSelectedMenu } from "../../shared/hooks.ts"
 import ClassSelector from "./components/ClassSelector.tsx"
 import { useTranslation } from "react-i18next"
 import FootOSplits from "../FootO/pages/Splits/FootOSplits.tsx"
@@ -24,6 +24,9 @@ import { RunnersContext, SelectedClassContext } from "../../shared/context.ts"
 import EventStageBanner from "./components/EventStageBanner.tsx"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import Tooltip from "@mui/material/Tooltip"
+import { useFetchEventDetail } from "../../services/FetchHooks.ts"
+import { useParams } from "react-router-dom"
+import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 
 const FOOT_O_MENU_OPTIONS_LABELS = ["startTimes", "results", "splits"]
 const RELAY_MENU_OPTIONS_LABELS = ["results", "splits"]
@@ -122,22 +125,34 @@ function useStageComponent(stageTypeId: string): {
 export default function StageLayout() {
   const { t } = useTranslation()
 
+  // Get url info
+  const { eventId, stageId } = useParams<string>()
+
   // Recover event info
-  const { eventId, eventName, organizerName, stageId, stageName, stageTypeId, singleStage } =
-    useEventInfo()
+  const { data, isLoading } = useFetchEventDetail(eventId as string)
+  const eventDetail = data?.data.data
+  const singleStage: boolean = eventDetail?.stages.length == 1
+  const stageDetail = eventDetail?.stages.find((stage) => stage.id === stageId)
+  const organizerName = eventDetail?.organizer?.name
 
   // Get components for the stageTypeId
-  const { defaultMenu, pages, menuOptions, menuOptionsLabels } = useStageComponent(stageTypeId)
+  const { defaultMenu, pages, menuOptions, menuOptionsLabels } = useStageComponent(
+    stageDetail?.stage_type.id as string,
+  )
 
   // Get functionality for the menu change
   const [selectedMenu, handleMenuChange] = useSelectedMenu(defaultMenu, menuOptionsLabels)
 
   // Get classes
   const [activeClass, setActiveClassId, classesList, areClassesLoading, refreshClasses] =
-    useFetchClasses(eventId, stageId)
+    useFetchClasses(eventId as string, stageId as string)
 
   // Get runners
-  const [runnersList, areRunnersLoading, refreshRunners] = useRunners(eventId, stageId, activeClass)
+  const [runnersList, areRunnersLoading, refreshRunners] = useRunners(
+    eventId as string,
+    stageId as string,
+    activeClass,
+  )
 
   // Refresh button
   const handleRefreshClick = () => {
@@ -145,15 +160,15 @@ export default function StageLayout() {
     refreshRunners()
   }
 
-  if (!stageTypeId) {
-    return <p>{t("Loading")}</p>
+  if (isLoading) {
+    return <GeneralSuspenseFallback />
   } else {
     return (
       <>
         <EventStageBanner
-          eventName={eventName}
-          stageName={stageName}
-          organizerName={organizerName}
+          eventName={eventDetail?.description as string}
+          organizerName={organizerName as string}
+          stageName={stageDetail?.description as string}
           singleStage={singleStage}
         />
         <Box
