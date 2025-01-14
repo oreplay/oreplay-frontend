@@ -1,16 +1,12 @@
 import { Box, Typography } from "@mui/material"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
-import { getEventDetail } from "../../services/EventService.ts"
 import { useTranslation } from "react-i18next"
 import { ArrowForward } from "@mui/icons-material"
-import { Data, EventDetailModel } from "../../../../shared/EntityTypes.ts"
 import { parseDate } from "../../../../shared/Functions.tsx"
 import EventDetailURLButton from "./components/EventDetailURLButton.tsx"
-import { useQuery } from "react-query"
 import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
-import { AxiosError, AxiosResponse } from "axios"
-import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
+import { useFetchEventDetail } from "../../services/FetchHooks.ts"
 
 const styles = {
   titleEvent: {
@@ -38,23 +34,7 @@ export default function EventDetail() {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  const { data, isLoading, error, isError } = useQuery<
-    AxiosResponse<Data<EventDetailModel>>,
-    AxiosError
-  >(
-    ["eventDetail", id], // Query key
-    () => getEventDetail(id as string, undefined), // Query function
-    {
-      enabled: !!id, // Only fetch if id exists
-      refetchOnWindowFocus: false,
-      retry: (failureCount, error) => {
-        if (error.response && error.response.status < 500) {
-          return false
-        }
-        return failureCount < 3
-      },
-    },
-  )
+  const { data, isLoading, error, isError } = useFetchEventDetail(id as string)
 
   const detail = data?.data.data
 
@@ -90,18 +70,7 @@ export default function EventDetail() {
     throw error
   } else if (detail?.stages.length == 1) {
     // navigate to stage for single stage events
-    return (
-      <Navigate
-        to={`/competitions/${id}/${detail.stages[0].id}`}
-        state={{
-          eventName: detail.description,
-          stageName: detail.stages[0].description,
-          stageTypeId: detail.stages[0].stage_type.id,
-          singleStage: true,
-        }}
-        replace={true}
-      />
-    )
+    return <Navigate to={`/competitions/${id}/${detail.stages[0].id}`} replace={true} />
   } else
     return (
       <Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
