@@ -155,7 +155,7 @@
     "PenaltyPoints": "_Penalty",
     "VirtualTicket": {
       "FinishControl": "_Fin",
-      "Control": "_Control",
+      "Control": "_Ctrl",
       "StartHour": "_Start time:",
       "FinishHour": "_Finish time:",
       "RaceTime": "_Time:",

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import {
   VirtualTicketContainer,
   VirtualTicketProps,
@@ -25,6 +25,10 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
   handleCloseTicket,
 }) => {
   const { t } = useTranslation()
+  const textStyles: CSSProperties = {
+    fontWeight: "bold", 
+    textAlign: "left"
+  }
 
   if (runner) {
     return (
@@ -39,17 +43,17 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
         </VirtualTicketHeader>
         <VirtualTicketSplits>
           <Grid item xs={3}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "left" }}>
+            <Typography variant="subtitle2" sx={textStyles}>
               {t("ResultsStage.VirtualTicket.Control")}
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "left" }}>
+            <Typography variant="subtitle2" sx={textStyles}>
               {t("ResultsStage.VirtualTicket.Partial")}
             </Typography>
           </Grid>
           <Grid item xs={5}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "left" }}>
+            <Typography variant="subtitle2" sx={textStyles}>
               {t("ResultsStage.VirtualTicket.Cumulative")}
             </Typography>
           </Grid>

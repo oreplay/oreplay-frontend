@@ -23,10 +23,11 @@ const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({
   const style = {
     fontWeight: position == 1 ? "bold" : undefined,
     whiteSpace: "nowrap",
+    fontSize: "small"
   }
 
   return (
-    <Grid item xs={4.7}>
+    <Grid item xs={5}>
       <Box
         sx={{
           display: "flex",
@@ -34,6 +35,7 @@ const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({
           flexWrap: "wrap",
           columnGap: 1,
           rowGap: 0,
+          justifyContent: "center"
         }}
       >
         <Typography sx={style}>{time !== null ? `${parseSecondsToMMSS(time)}` : "--"}</Typography>
