@@ -36,7 +36,7 @@ export default function EventDetail() {
 
   const { data, isLoading, error, isError } = useFetchEventDetail(id as string)
 
-  const detail = data?.data.data
+  const detail = data?.data
 
   function getDatesOfEvent() {
     if (detail?.initial_date && detail?.final_date) {

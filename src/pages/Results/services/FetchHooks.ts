@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import { AxiosError, AxiosResponse } from "axios"
+import { AxiosError } from "axios"
 import { Data, EventDetailModel } from "../../../shared/EntityTypes.ts"
 import { getEventDetail } from "./EventService.ts"
 
@@ -17,11 +17,7 @@ function genericRetryHandler(failureCount: number, error: AxiosError): boolean {
 }
 
 export function useFetchEventDetail(id: string) {
-
-  return useQuery<
-    AxiosResponse<Data<EventDetailModel>, EmptyModel>,
-    AxiosError<Data<EventDetailModel>, EmptyModel>
-  >(
+  return useQuery<Data<EventDetailModel>, AxiosError<Data<EventDetailModel>, EmptyModel>>(
     ["eventDetail", id], // Query key
     () => getEventDetail(id, undefined), // Query function
     {
