@@ -30,13 +30,10 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
 
   const handleDeleteEvent = async () => {
     try {
-      const response = await deleteEvent(props.event.id, token)
-      if (response.ok) {
-        navigate("/dashboard")
-      } else {
-        alert("An error occurred deleting the event")
-      }
+      await deleteEvent(props.event.id, token)
+      navigate("/dashboard")
     } catch (error) {
+      alert("An error occurred deleting the event")
       console.log("error in deleting the event ", error)
     }
   }

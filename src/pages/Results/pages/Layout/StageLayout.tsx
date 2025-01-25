@@ -130,7 +130,7 @@ export default function StageLayout() {
 
   // Recover event info
   const { data, isLoading } = useFetchEventDetail(eventId as string)
-  const eventDetail = data?.data.data
+  const eventDetail = data?.data
   const singleStage: boolean = eventDetail?.stages.length == 1
   const stageDetail = eventDetail?.stages.find((stage) => stage.id === stageId)
   const organizerName = eventDetail?.organizer?.name

@@ -91,7 +91,7 @@ export async function validateSignIn(
 ): Promise<Data<UserTokenModel>> {
   const isRememberSessionChecked = getRedirectUri() === "alwaysFalse" // TODO implement remember logic
   const scope = isRememberSessionChecked ? "offline_access" : ""
-  return await post("api/v1/oauth/token", {
+  return await post("oauth/token", {
     code: code,
     code_verifier: code_verifier,
     grant_type: "authorization_code",
@@ -106,7 +106,7 @@ export async function validateSignIn(
  * @param token to be invalidated
  */
 export async function deleteToken(token: string): Promise<Response> {
-  return await deleteRequest(`api/v1/oauth/token/${token}`)
+  return await deleteRequest(`oauth/token/${token}`)
 }
 
 /**
@@ -114,5 +114,5 @@ export async function deleteToken(token: string): Promise<Response> {
  * @param token
  */
 export function getUserData(token: string): Promise<Data<UserModel>> {
-  return get<Data<UserModel>>("api/v1/me", token)
+  return get<Data<UserModel>>("me", token)
 }

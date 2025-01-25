@@ -10,8 +10,8 @@ import {
   OrganizerModel,
 } from "../../../shared/EntityTypes.ts"
 import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
+const baseUrl = "events"
 import { useQuery } from "react-query"
-const baseUrl = "api/v1/events"
 
 export async function getEventsFromUser(
   user_id: string,
@@ -167,7 +167,7 @@ export async function patchStage(
   token: string,
 ) {
   return patch(
-    `/api/v1/events/${eventId}/stages/${stageId}`,
+    `events/${eventId}/stages/${stageId}`,
     {
       description: description,
       stage_type_id: stageTypeId,
