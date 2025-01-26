@@ -54,6 +54,7 @@ export interface EventDetailModel {
   modified: string
   federation: FederationModel
   stages: StageModel[]
+  organizer: OrganizerModel
 }
 
 export interface StageTypeModel {
@@ -77,6 +78,13 @@ export interface StageModel {
 export interface FederationModel {
   id: string
   description: string
+}
+
+export interface OrganizerModel {
+  id: string
+  name: string
+  country: string
+  region: string
 }
 
 export interface RunnerModel {

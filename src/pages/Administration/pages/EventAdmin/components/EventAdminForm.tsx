@@ -6,6 +6,8 @@ import {
   InputLabel,
   Select,
   TextField,
+  Grid,
+  Autocomplete,
   TextFieldProps,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
@@ -18,7 +20,8 @@ import React, { useState } from "react"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import EditIcon from "@mui/icons-material/Edit"
-import { EventDetailModel } from "../../../../../shared/EntityTypes.ts"
+import { EventDetailModel, OrganizerModel } from "../../../../../shared/EntityTypes.ts"
+import { useOrganizerSearch } from "../../../services/EventAdminService.ts"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -34,6 +37,8 @@ interface EventAdminFormProps {
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
   handleCancel?: () => void
   handleEdit?: () => void
+  selectedOrganizer: OrganizerModel | null;
+  setSelectedOrganizer: React.Dispatch<React.SetStateAction<OrganizerModel | null>>;
 }
 
 /**
@@ -68,6 +73,9 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     props.eventDetail ? !props.eventDetail.is_hidden : false,
   )
   const [isWebsiteValid, setIsWebsiteValid] = useState(true)
+  const [searchTerm, setSearchTerm] = useState(""); // Estado del término de búsqueda
+  const { organizers, isLoading, error } = useOrganizerSearch(searchTerm); // Llamar al hook dentro del componente
+
 
   const style_props: TextFieldProps = {
     margin: "normal",
@@ -77,111 +85,138 @@ export default function EventAdminForm(props: EventAdminFormProps) {
 
   return (
     <Container component="form" onSubmit={props.handleSubmit}>
-      <Box
+      <Grid
+        container
+        spacing={2}
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "strerch",
-          flexGrow: 1,
-          justifyContent: "space-between",
+          marginY: "2em",
         }}
       >
-        <TextField
-          fullWidth
-          id="description"
-          name="description"
-          required
-          label={t("EventAdmin.EventName")}
-          {...style_props}
-          defaultValue={props.eventDetail ? props.eventDetail.description : ""}
-        />
-        {/**<TextField
-          id="organizer"
-          name="organizer"
-          required
-          label={t("EventAdmin.Organizer")}
-          {...style_props}
-          defaultValue={"No viene club"}
-        />**/}
-        <DatePicker // BUG, can be edited even when disabled
-          name={"startDate"}
-          label={t("EventAdmin.StartDate") + " *"}
-          slotProps={{ textField: { ...style_props } }}
-          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null}
-        />
-        <DatePicker
-          label={t("EventAdmin.FinishDate") + " *"} // BUG, can be edited even when disabled
-          name={"endDate"}
-          slotProps={{ textField: { ...style_props } }}
-          defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
-        />
-        <TextField
-          id="website"
-          name="website"
-          label={t("EventAdmin.Website")}
-          {...style_props}
-          autoComplete="url"
-          defaultValue={props.eventDetail ? props.eventDetail.website : ""}
-          error={!isWebsiteValid}
-          helperText={!isWebsiteValid ? t("EventAdmin.InvalidURLMsg") : ""}
-          onBlur={(e) => {
-            const value = e.target.value
-            setIsWebsiteValid(!value || validateURL(value)) // Allow empty or valid URL
-          }}
-        />
-        <FormControl sx={{ minWidth: "10em" }} required>
-          <InputLabel id="scope-label">{t("EventAdmin.Scopes.Scope")}</InputLabel>
-          <Select
-            id="scope"
-            name={"scope"}
-            disabled={!props.canEdit}
-            labelId="scope-label"
-            label={t("EventAdmin.Scopes.Scope")}
-            defaultValue={props.eventDetail ? props.eventDetail.scope : ""}
-          >
-            <MenuItem value={"int"}>{t("EventAdmin.Scopes.International")}</MenuItem>
-            <MenuItem value={"nat"}>{t("EventAdmin.Scopes.National")}</MenuItem>
-            <MenuItem value={"r.h"}>{t("EventAdmin.Scopes.RegionalHigh")}</MenuItem>
-            <MenuItem value={"r.l"}>{t("EventAdmin.Scopes.RegionalLow")}</MenuItem>
-            <MenuItem value={"loc"}>{t("EventAdmin.Scopes.Local")}</MenuItem>
-            <MenuItem value={"clu"}>{t("EventAdmin.Scopes.Club")}</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl sx={{ align: "center", minWidth: "6em" }}>
-          <FormControlLabel
-            id={"isPublic"}
-            name={"isPublic"}
-            control={<Checkbox checked={isEventPublic} />}
-            onChange={() => setIsEventPublic(!isEventPublic)}
-            label={t("EventAdmin.Public")}
-            disabled={!props.canEdit}
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            id="description"
+            name="description"
+            required
+            label={t("EventAdmin.EventName")}
+            {...style_props}
+            defaultValue={props.eventDetail ? props.eventDetail.description : ""}
           />
-        </FormControl>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          flexWrap: "nowrap",
-          gap: "1em",
-        }}
-      >
-        {props.canEdit ? (
-          <>
-            <Button variant="outlined" startIcon={<CloseIcon />} onClick={props.handleCancel}>
-              {t("Cancel")}
-            </Button>
-            <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
-              {t("EventAdmin.Save")}
-            </Button>
-          </>
-        ) : (
-          <Button variant="outlined" startIcon={<EditIcon />} onClick={props.handleEdit}>
-            {t("Edit")}
-          </Button>
-        )}
-      </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Autocomplete<OrganizerModel, false, false, false>
+            fullWidth
+            id="organizer"
+            defaultValue={props.eventDetail? props.eventDetail.organizer : null}
+            options={organizers}
+            getOptionLabel={(option) => option.name || ""}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t("EventAdmin.Organizer")}
+                required
+                {...style_props}
+              />
+            )}
+            onInputChange={(event, value) => setSearchTerm(value)}
+            onChange={(event, newValue) => props.setSelectedOrganizer(newValue)}
+            value={props.selectedOrganizer}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <DatePicker
+            name={"startDate"}
+            label={t("EventAdmin.StartDate") + " *"}
+            slotProps={{ textField: { ...style_props } }}
+            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <DatePicker
+            name={"endDate"}
+            label={t("EventAdmin.FinishDate") + " *"}
+            slotProps={{ textField: { ...style_props } }}
+            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
+          />
+        </Grid>
+
+        {/* Campo de website */}
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            id="website"
+            name="website"
+            label={t("EventAdmin.Website")}
+            {...style_props}
+            autoComplete="url"
+            defaultValue={props.eventDetail ? props.eventDetail.website : ""}
+            error={!isWebsiteValid}
+            helperText={!isWebsiteValid ? t("EventAdmin.InvalidURLMsg") : ""}
+            onBlur={(e) => {
+              const value = e.target.value;
+              setIsWebsiteValid(!value || validateURL(value)); // Allow empty or valid URL
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth required>
+            <InputLabel id="scope-label">{t("EventAdmin.Scopes.Scope")}</InputLabel>
+            <Select
+              id="scope"
+              name={"scope"}
+              disabled={!props.canEdit}
+              labelId="scope-label"
+              label={t("EventAdmin.Scopes.Scope")}
+              defaultValue={props.eventDetail ? props.eventDetail.scope : ""}
+            >
+              <MenuItem value={"int"}>{t("EventAdmin.Scopes.International")}</MenuItem>
+              <MenuItem value={"nat"}>{t("EventAdmin.Scopes.National")}</MenuItem>
+              <MenuItem value={"r.h"}>{t("EventAdmin.Scopes.RegionalHigh")}</MenuItem>
+              <MenuItem value={"r.l"}>{t("EventAdmin.Scopes.RegionalLow")}</MenuItem>
+              <MenuItem value={"loc"}>{t("EventAdmin.Scopes.Local")}</MenuItem>
+              <MenuItem value={"clu"}>{t("EventAdmin.Scopes.Club")}</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth>
+            <FormControlLabel
+              id={"isPublic"}
+              name={"isPublic"}
+              control={<Checkbox checked={isEventPublic} />}
+              onChange={() => setIsEventPublic(!isEventPublic)}
+              label={t("EventAdmin.Public")}
+              disabled={!props.canEdit}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              gap: "1em",
+            }}
+          >
+            {props.canEdit ? (
+              <>
+                <Button variant="outlined" startIcon={<CloseIcon />} onClick={props.handleCancel}>
+                  {t("Cancel")}
+                </Button>
+                <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
+                  {t("EventAdmin.Save")}
+                </Button>
+              </>
+            ) : (
+              <Button variant="outlined" startIcon={<EditIcon />} onClick={props.handleEdit}>
+                {t("Edit")}
+              </Button>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
     </Container>
   )
 }

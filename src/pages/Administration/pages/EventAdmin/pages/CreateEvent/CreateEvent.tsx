@@ -22,6 +22,8 @@ export default function CreateEvent() {
       !!data.get("isPublic"),
       token,
       data.get("website") ? (data.get("website") as string) : undefined,
+      undefined,
+      data.get("organizer") as string,
     )
     response.then(
       (response) => {

@@ -7,8 +7,10 @@ import {
   PostEventResponse,
   PostEventTokenResponse,
   PostStageResponse,
+  OrganizerModel,
 } from "../../../shared/EntityTypes.ts"
 import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
+import { useQuery } from "react-query";
 const baseUrl = "api/v1/events"
 
 export async function getEventsFromUser(
@@ -33,6 +35,7 @@ export async function getEventsFromUser(
  * @param token Auth token of the user creating the event
  * @param website URL to the event's webpage on the organizer website
  * @param federation_id federation id of the data source
+ * @param organizer_id organizer id of the data source
  */
 export async function postEvent(
   description: string,
@@ -50,6 +53,7 @@ export async function postEvent(
   token: string,
   website?: string,
   federation_id?: string,
+  organizer_id?: string,
 ): Promise<Data<PostEventResponse>> {
   return post(
     baseUrl,
@@ -61,6 +65,7 @@ export async function postEvent(
       scope: scope,
       federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
+      organizer_id: organizer_id ? organizer_id : null,
     },
     token,
   )
@@ -77,6 +82,7 @@ export async function postEvent(
  * @param token Auth token of the user creating the event
  * @param website URL to the event's webpage on the organizer website
  * @param federation_id federation id of the data source
+ * @param organizer_id organizer id of the data source
  */
 export async function patchEvent(
   event_id: string,
@@ -95,6 +101,7 @@ export async function patchEvent(
   token: string,
   website?: string,
   federation_id?: string,
+  organizer_id?: string,
 ) {
   return patch(
     `${baseUrl}/${event_id}`,
@@ -106,6 +113,7 @@ export async function patchEvent(
       scope: scope,
       federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
+      organizer_id: organizer_id ? organizer_id : null,
     },
     token,
   )
@@ -220,4 +228,41 @@ export async function getEventToken(eventId: string, userToken: string | null) {
  */
 export async function invalidateEventToken(eventId: string, eventToken: string, authToken: string) {
   return deleteRequest(baseUrl + `/${eventId}/tokens/${eventToken}`, authToken)
+}
+
+export async function getOrganizerList(
+  search?: string | null
+): Promise<Page<OrganizerModel>> {
+  const searchParams = new URLSearchParams()
+
+  // set different search params
+  if (search) {
+    searchParams.set("search", search.toString())
+  }
+
+  // return query
+  return await get<Page<OrganizerModel>>(`${"api/v1/organizers"}?${searchParams.toString()}`)
+}
+
+/**
+ * Custom hook to manage organizer search using React Query.
+ *
+ * @param {string} search - The search query.
+ * @returns The query result, including data, loading, and error state.
+ */
+export function useOrganizerSearch(search: string) {
+  const { data, isLoading, error } = useQuery<Page<OrganizerModel>>(
+    ["organizers", search], // Query key
+    () => getOrganizerList(search), // Query function
+    {
+      enabled: !!search, // Only fetch if search is not empty
+      staleTime: 5 * 60 * 1000, // Optional: cache results for 5 minutes
+    }
+  );
+
+  return {
+    organizers: data?.data || [],
+    isLoading,
+    error,
+  };
 }
