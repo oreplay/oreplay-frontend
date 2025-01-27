@@ -17,8 +17,10 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload"
 import UploadStartTimesTabs from "./components/UploadStartTimesTabs.tsx"
 import UploadResultTabs from "./components/UploadResultTabs.tsx"
 import OrderedList from "../../components/OrderedList.tsx"
+import { useQuery } from "react-query"
+import getLatestClientVersion from "./services/DesktopClientService.ts"
 
-const DESKTOP_CLIENT_VERSION = import.meta.env.VITE_DESKTOP_CLIENT_VERSION
+const DESKTOP_CLIENT_VERSION_FALLBACK = import.meta.env.VITE_DESKTOP_CLIENT_VERSION_FALLBACK
 
 const organizersTheme = (theme: Theme) =>
   createTheme({
@@ -61,6 +63,16 @@ const style = {
 const Organizers = (): React.ReactNode => {
   const { t } = useTranslation("organizers")
 
+  const { data: version, isSuccess: successfullInVersionNumber } = useQuery(
+    "desktop-client-version",
+    getLatestClientVersion,
+    {
+      retry: false,
+    },
+  )
+
+  const client_version = successfullInVersionNumber ? version : DESKTOP_CLIENT_VERSION_FALLBACK
+
   return (
     <ThemeProvider theme={organizersTheme}>
       <Container>
@@ -96,7 +108,7 @@ const Organizers = (): React.ReactNode => {
         <Box sx={{ display: "flex", justifyContent: "center", my: "1em" }}>
           <Button
             variant="outlined"
-            href={`https://github.com/oreplay/desktop-client/releases/download/${DESKTOP_CLIENT_VERSION}/OReplayDesktop.exe`}
+            href={`https://github.com/oreplay/desktop-client/releases/download/${client_version}/OReplayDesktop.exe`}
             target="_blank"
             startIcon={<FileDownloadIcon />}
           >
@@ -110,7 +122,7 @@ const Organizers = (): React.ReactNode => {
             installation fails you can still use the client via{" "}
             <Link
               target={"_blank"}
-              href={`https://github.com/oreplay/desktop-client/releases/tag/${DESKTOP_CLIENT_VERSION}`}
+              href={`https://github.com/oreplay/desktop-client/releases/tag/${client_version}`}
             >
               manual installation
             </Link>
