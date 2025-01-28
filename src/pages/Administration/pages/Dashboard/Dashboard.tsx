@@ -67,7 +67,6 @@ export default function Dashboard() {
       headerName: "",
       width: 20,
       renderCell: (params) => {
-        console.log(params)
         if (params.row.isHidden) {
           return <VisibilityOffIcon color={"disabled"} />
         } else {

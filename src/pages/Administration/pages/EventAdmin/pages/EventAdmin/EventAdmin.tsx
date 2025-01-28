@@ -39,12 +39,11 @@ export default function EventAdmin() {
       undefined,
       organizerId,
     )
-    console.log(organizerId)
     response.then(
       () => {
         setIsEventEditing(false)
       },
-      () => console.log("Create event failed", response),
+      () => console.error("Create event failed", response),
     )
   }
 
@@ -69,8 +68,8 @@ export default function EventAdmin() {
               handleEdit={handleClickEditEvent}
               handleSubmit={handleUpdateEvent}
               canEdit={isEventEditing}
-              selectedOrganizer={selectedOrganizer} // Pasamos el valor actual
-              setSelectedOrganizer={setSelectedOrganizer} // Pasamos la función para actualizar el valor
+              selectedOrganizer={selectedOrganizer}
+              setSelectedOrganizer={setSelectedOrganizer}
             />
           </Box>
           <Box sx={{ marginY: "2em" }}>
