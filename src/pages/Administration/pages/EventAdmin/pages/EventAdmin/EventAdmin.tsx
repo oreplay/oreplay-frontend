@@ -13,6 +13,7 @@ import {
   OrganizerModel,
 } from "../../../../../../shared/EntityTypes.ts"
 import { useAuth, useEventDetail } from "../../../../../../shared/hooks.ts"
+import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx";
 
 export default function EventAdmin() {
   const { eventId } = useRequiredParams<{ eventId: string }>()
@@ -57,7 +58,7 @@ export default function EventAdmin() {
   return (
     <Container>
       {isLoadingEventData ? (
-        <p>Loading...</p>
+        <GeneralSuspenseFallback />
       ) : (
         <Container>
           <Box sx={{ marginY: "2em" }}>
