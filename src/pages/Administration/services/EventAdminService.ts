@@ -10,7 +10,7 @@ import {
   OrganizerModel,
 } from "../../../shared/EntityTypes.ts"
 import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
-import { useQuery } from "react-query";
+import { useQuery } from "react-query"
 const baseUrl = "api/v1/events"
 
 export async function getEventsFromUser(
@@ -230,9 +230,7 @@ export async function invalidateEventToken(eventId: string, eventToken: string, 
   return deleteRequest(baseUrl + `/${eventId}/tokens/${eventToken}`, authToken)
 }
 
-export async function getOrganizerList(
-  search?: string | null
-): Promise<Page<OrganizerModel>> {
+export async function getOrganizerList(search?: string | null): Promise<Page<OrganizerModel>> {
   const searchParams = new URLSearchParams()
 
   // set different search params
@@ -257,12 +255,12 @@ export function useOrganizerSearch(search: string) {
     {
       enabled: !!search, // Only fetch if search is not empty
       staleTime: 5 * 60 * 1000, // Optional: cache results for 5 minutes
-    }
-  );
+    },
+  )
 
   return {
     organizers: data?.data || [],
     isLoading,
     error,
-  };
+  }
 }

@@ -7,7 +7,11 @@ import DeleteEventButton from "./components/DeleteEventButton.tsx"
 import React, { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
 import { DateTime } from "luxon"
-import { EventDetailModel, useRequiredParams, OrganizerModel } from "../../../../../../shared/EntityTypes.ts"
+import {
+  EventDetailModel,
+  useRequiredParams,
+  OrganizerModel,
+} from "../../../../../../shared/EntityTypes.ts"
 import { useAuth, useEventDetail } from "../../../../../../shared/hooks.ts"
 
 export default function EventAdmin() {
@@ -15,7 +19,7 @@ export default function EventAdmin() {
   const [detail, isLoadingEventData] = useEventDetail(eventId)
   const { t } = useTranslation()
   const { token } = useAuth()
-  const [selectedOrganizer, setSelectedOrganizer] = useState<OrganizerModel | null>(null);
+  const [selectedOrganizer, setSelectedOrganizer] = useState<OrganizerModel | null>(null)
 
   // Functions to handle Event update
   const [isEventEditing, setIsEventEditing] = useState<boolean>(false)
@@ -65,7 +69,7 @@ export default function EventAdmin() {
               handleEdit={handleClickEditEvent}
               handleSubmit={handleUpdateEvent}
               canEdit={isEventEditing}
-              selectedOrganizer={selectedOrganizer}  // Pasamos el valor actual
+              selectedOrganizer={selectedOrganizer} // Pasamos el valor actual
               setSelectedOrganizer={setSelectedOrganizer} // Pasamos la función para actualizar el valor
             />
           </Box>

@@ -37,8 +37,8 @@ interface EventAdminFormProps {
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
   handleCancel?: () => void
   handleEdit?: () => void
-  selectedOrganizer: OrganizerModel | null;
-  setSelectedOrganizer: React.Dispatch<React.SetStateAction<OrganizerModel | null>>;
+  selectedOrganizer: OrganizerModel | null
+  setSelectedOrganizer: React.Dispatch<React.SetStateAction<OrganizerModel | null>>
 }
 
 /**
@@ -73,12 +73,10 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     props.eventDetail ? !props.eventDetail.is_hidden : false,
   )
   const [isWebsiteValid, setIsWebsiteValid] = useState(true)
-  const [searchTerm, setSearchTerm] = useState(""); // Estado del término de búsqueda
-  const { organizers, isLoading, error } = useOrganizerSearch(searchTerm); // Llamar al hook dentro del componente
-
+  const [searchTerm, setSearchTerm] = useState("") // Estado del término de búsqueda
+  const { organizers } = useOrganizerSearch(searchTerm) // Llamar al hook dentro del componente
 
   const style_props: TextFieldProps = {
-    margin: "normal",
     variant: "outlined",
     disabled: !props.canEdit,
   }
@@ -92,7 +90,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           marginY: "2em",
         }}
       >
-        <Grid item xs={12}>
+        <Grid item xs={12} md={12} lg={12}>
           <TextField
             fullWidth
             id="description"
@@ -103,46 +101,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             defaultValue={props.eventDetail ? props.eventDetail.description : ""}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Autocomplete<OrganizerModel, false, false, false>
-            fullWidth
-            id="organizer"
-            defaultValue={props.eventDetail? props.eventDetail.organizer : null}
-            options={organizers}
-            getOptionLabel={(option) => option.name || ""}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={t("EventAdmin.Organizer")}
-                required
-                {...style_props}
-              />
-            )}
-            onInputChange={(event, value) => setSearchTerm(value)}
-            onChange={(event, newValue) => props.setSelectedOrganizer(newValue)}
-            value={props.selectedOrganizer}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <DatePicker
-            name={"startDate"}
-            label={t("EventAdmin.StartDate") + " *"}
-            slotProps={{ textField: { ...style_props } }}
-            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <DatePicker
-            name={"endDate"}
-            label={t("EventAdmin.FinishDate") + " *"}
-            slotProps={{ textField: { ...style_props } }}
-            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
-          />
-        </Grid>
-
-        {/* Campo de website */}
-        <Grid item xs={12}>
+        <Grid item xs={12} md={8} lg={12}>
           <TextField
             fullWidth
             id="website"
@@ -154,12 +113,46 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             error={!isWebsiteValid}
             helperText={!isWebsiteValid ? t("EventAdmin.InvalidURLMsg") : ""}
             onBlur={(e) => {
-              const value = e.target.value;
-              setIsWebsiteValid(!value || validateURL(value)); // Allow empty or valid URL
+              const value = e.target.value
+              setIsWebsiteValid(!value || validateURL(value)) // Allow empty or valid URL
             }}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4} lg={4}>
+          <Autocomplete<OrganizerModel, false, false, false>
+            fullWidth
+            id="organizer"
+            defaultValue={props.eventDetail ? props.eventDetail.organizer : null}
+            options={organizers}
+            getOptionLabel={(option) => option.name || ""}
+            renderInput={(params) => (
+              <TextField {...params} label={t("EventAdmin.Organizer")} required {...style_props} />
+            )}
+            onInputChange={(_, value) => setSearchTerm(value)}
+            onChange={(_, newValue) => props.setSelectedOrganizer(newValue)}
+            value={props.selectedOrganizer}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+          />
+        </Grid>
+        <Grid item xs={12} md={2.7} lg={2}>
+          <DatePicker
+            name={"startDate"}
+            label={t("EventAdmin.StartDate") + " *"}
+            slotProps={{ textField: { ...style_props, fullWidth:true } }}
+            defaultValue={
+              props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={2.7} lg={2}>
+          <DatePicker
+            name={"endDate"}
+            label={t("EventAdmin.FinishDate") + " *"}
+            slotProps={{ textField: { ...style_props, fullWidth:true } }}
+            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
+          />
+        </Grid>
+        <Grid item xs={12} md={2.6} lg={2.5}>
           <FormControl fullWidth required>
             <InputLabel id="scope-label">{t("EventAdmin.Scopes.Scope")}</InputLabel>
             <Select
@@ -179,7 +172,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={2} lg={1.5}>
           <FormControl fullWidth>
             <FormControlLabel
               id={"isPublic"}
@@ -191,31 +184,31 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              gap: "1em",
-            }}
-          >
-            {props.canEdit ? (
-              <>
-                <Button variant="outlined" startIcon={<CloseIcon />} onClick={props.handleCancel}>
-                  {t("Cancel")}
-                </Button>
-                <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
-                  {t("EventAdmin.Save")}
-                </Button>
-              </>
-            ) : (
-              <Button variant="outlined" startIcon={<EditIcon />} onClick={props.handleEdit}>
-                {t("Edit")}
+      </Grid>
+      <Grid item xs={12} md={12} lg={12}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            gap: "1em",
+          }}
+        >
+          {props.canEdit ? (
+            <>
+              <Button variant="outlined" startIcon={<CloseIcon />} onClick={props.handleCancel}>
+                {t("Cancel")}
               </Button>
-            )}
-          </Box>
-        </Grid>
+              <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
+                {t("EventAdmin.Save")}
+              </Button>
+            </>
+          ) : (
+            <Button variant="outlined" startIcon={<EditIcon />} onClick={props.handleEdit}>
+              {t("Edit")}
+            </Button>
+          )}
+        </Box>
       </Grid>
     </Container>
   )
