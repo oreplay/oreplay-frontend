@@ -54,7 +54,7 @@ export interface EventDetailModel {
   modified: string
   federation: FederationModel
   stages: StageModel[]
-  organizer: OrganizerModel
+  organizer: OrganizerModel | null
 }
 
 export interface StageTypeModel {

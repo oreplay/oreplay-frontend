@@ -13,7 +13,7 @@ import {
   OrganizerModel,
 } from "../../../../../../shared/EntityTypes.ts"
 import { useAuth, useEventDetail } from "../../../../../../shared/hooks.ts"
-import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx";
+import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx"
 
 export default function EventAdmin() {
   const { eventId } = useRequiredParams<{ eventId: string }>()

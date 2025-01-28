@@ -230,37 +230,18 @@ export async function invalidateEventToken(eventId: string, eventToken: string, 
   return deleteRequest(baseUrl + `/${eventId}/tokens/${eventToken}`, authToken)
 }
 
-export async function getOrganizerList(search?: string | null): Promise<Page<OrganizerModel>> {
-  const searchParams = new URLSearchParams()
-
-  // set different search params
-  if (search) {
-    searchParams.set("search", search.toString())
-  }
-
-  // return query
-  return await get<Page<OrganizerModel>>(`${"api/v1/organizers"}?${searchParams.toString()}`)
+export async function getOrganizerList(): Promise<Page<OrganizerModel>> {
+  return await get<Page<OrganizerModel>>("api/v1/organizers")
 }
 
 /**
  * Custom hook to manage organizer search using React Query.
  *
- * @param {string} search - The search query.
- * @returns The query result, including data, loading, and error state.
+ * @returns The query result.
  */
-export function useOrganizerSearch(search: string) {
-  const { data, isLoading, error } = useQuery<Page<OrganizerModel>>(
-    ["organizers", search], // Query key
-    () => getOrganizerList(search), // Query function
-    {
-      enabled: !!search, // Only fetch if search is not empty
-      staleTime: 5 * 60 * 1000, // Optional: cache results for 5 minutes
-    },
+export function useOrganizerSearch() {
+  return useQuery<Page<OrganizerModel>>(
+    ["organizers"], // Query key
+    () => getOrganizerList(),
   )
-
-  return {
-    organizers: data?.data || [],
-    isLoading,
-    error,
-  }
 }

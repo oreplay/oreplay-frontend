@@ -73,8 +73,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     props.eventDetail ? !props.eventDetail.is_hidden : false,
   )
   const [isWebsiteValid, setIsWebsiteValid] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("") // Estado del término de búsqueda
-  const { organizers } = useOrganizerSearch(searchTerm) // Llamar al hook dentro del componente
+  const { data: organizersData, isSuccess: areOrganizersSuccess } = useOrganizerSearch()
 
   const style_props: TextFieldProps = {
     variant: "outlined",
@@ -122,13 +121,19 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <Autocomplete<OrganizerModel, false, false, false>
             fullWidth
             id="organizer"
-            defaultValue={props.eventDetail ? props.eventDetail.organizer : null}
-            options={organizers}
+            defaultValue={
+              props.eventDetail
+                ? props.eventDetail.organizer
+                  ? props.eventDetail.organizer
+                  : null
+                : null
+            }
+            disabled={style_props.disabled}
+            options={areOrganizersSuccess ? organizersData?.data : []}
             getOptionLabel={(option) => option.name || ""}
             renderInput={(params) => (
               <TextField {...params} label={t("EventAdmin.Organizer")} required {...style_props} />
             )}
-            onInputChange={(_, value) => setSearchTerm(value)}
             onChange={(_, newValue) => props.setSelectedOrganizer(newValue)}
             value={props.selectedOrganizer}
             isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -138,7 +143,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <DatePicker
             name={"startDate"}
             label={t("EventAdmin.StartDate") + " *"}
-            slotProps={{ textField: { ...style_props, fullWidth:true } }}
+            slotProps={{ textField: { ...style_props, fullWidth: true } }}
             defaultValue={
               props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null
             }
@@ -148,7 +153,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <DatePicker
             name={"endDate"}
             label={t("EventAdmin.FinishDate") + " *"}
-            slotProps={{ textField: { ...style_props, fullWidth:true } }}
+            slotProps={{ textField: { ...style_props, fullWidth: true } }}
             defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
           />
         </Grid>
