@@ -37,8 +37,6 @@ interface EventAdminFormProps {
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
   handleCancel?: () => void
   handleEdit?: () => void
-  selectedOrganizer: OrganizerModel | null
-  setSelectedOrganizer: React.Dispatch<React.SetStateAction<OrganizerModel | null>>
 }
 
 /**
@@ -79,6 +77,8 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     variant: "outlined",
     disabled: !props.canEdit,
   }
+
+  const [selectedOrganizer, setSelectedOrganizer] = useState<OrganizerModel | null>(null)
 
   return (
     <Container
@@ -122,21 +122,27 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <Autocomplete<OrganizerModel, false, false, false>
             fullWidth
             id="organizer"
-            defaultValue={
-              props.eventDetail
-                ? props.eventDetail.organizer
-                  ? props.eventDetail.organizer
-                  : null
-                : null
-            }
+            value={selectedOrganizer}
+            onChange={(_, newOrganizer) => setSelectedOrganizer(newOrganizer)}
             disabled={style_props.disabled}
             options={areOrganizersSuccess ? organizersData?.data : []}
             getOptionLabel={(option) => option.name || ""}
             renderInput={(params) => (
-              <TextField {...params} label={t("EventAdmin.Organizer")} required {...style_props} />
+              <>
+                <TextField
+                  {...params}
+                  label={t("EventAdmin.Organizer")}
+                  required
+                  {...style_props}
+                />
+                <input
+                  type={"hidden"}
+                  id="organizerId"
+                  name="organizerId"
+                  value={selectedOrganizer?.id || ""}
+                />
+              </>
             )}
-            onChange={(_, newValue) => props.setSelectedOrganizer(newValue)}
-            value={props.selectedOrganizer}
             isOptionEqualToValue={(option, value) => option.id === value.id}
           />
         </Grid>

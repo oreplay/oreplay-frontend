@@ -7,11 +7,7 @@ import DeleteEventButton from "./components/DeleteEventButton.tsx"
 import React, { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
 import { DateTime } from "luxon"
-import {
-  EventDetailModel,
-  useRequiredParams,
-  OrganizerModel,
-} from "../../../../../../shared/EntityTypes.ts"
+import { EventDetailModel, useRequiredParams } from "../../../../../../shared/EntityTypes.ts"
 import { useAuth, useEventDetail } from "../../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx"
 
@@ -20,11 +16,9 @@ export default function EventAdmin() {
   const [detail, isLoadingEventData] = useEventDetail(eventId)
   const { t } = useTranslation()
   const { token } = useAuth()
-  const [selectedOrganizer, setSelectedOrganizer] = useState<OrganizerModel | null>(null)
 
   // Functions to handle Event update
   const [isEventEditing, setIsEventEditing] = useState<boolean>(false)
-  const organizerId = selectedOrganizer ? selectedOrganizer.id : undefined
   const handleUpdateEvent = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -38,7 +32,7 @@ export default function EventAdmin() {
       token as string,
       data.get("website") ? (data.get("website") as string) : undefined,
       undefined,
-      organizerId,
+      data.get("organizerId") ? (data.get("organizerId") as string) : undefined,
     )
     response.then(
       () => {
@@ -69,8 +63,6 @@ export default function EventAdmin() {
               handleEdit={handleClickEditEvent}
               handleSubmit={handleUpdateEvent}
               canEdit={isEventEditing}
-              selectedOrganizer={selectedOrganizer}
-              setSelectedOrganizer={setSelectedOrganizer}
             />
           </Box>
           <Box sx={{ marginY: "2em" }}>
