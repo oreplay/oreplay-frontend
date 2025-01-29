@@ -81,14 +81,15 @@ export default function EventAdminForm(props: EventAdminFormProps) {
   }
 
   return (
-    <Container component="form" onSubmit={props.handleSubmit}>
-      <Grid
-        container
-        spacing={2}
-        sx={{
-          marginY: "2em",
-        }}
-      >
+    <Container
+      component="form"
+      onSubmit={props.handleSubmit}
+      disableGutters
+      sx={{
+        marginY: "1em",
+      }}
+    >
+      <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={12}>
           <TextField
             fullWidth

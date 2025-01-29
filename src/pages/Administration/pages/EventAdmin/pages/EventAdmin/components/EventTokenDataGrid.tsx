@@ -127,7 +127,7 @@ export default function EventTokenDataGrid(props: Props) {
   }
 
   return (
-    <Container component="form">
+    <Container component="form" disableGutters>
       <Grid
         container
         spacing={2}
