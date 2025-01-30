@@ -78,7 +78,9 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     disabled: !props.canEdit,
   }
 
-  const [selectedOrganizer, setSelectedOrganizer] = useState<OrganizerModel | null>(null)
+  const [selectedOrganizer, setSelectedOrganizer] = useState<OrganizerModel | null>(
+    props.eventDetail?.organizer ? props.eventDetail.organizer : null,
+  )
 
   return (
     <Container
