@@ -123,7 +123,8 @@ export default function StageLayout() {
   const { t } = useTranslation()
 
   // Recover event info
-  const { eventId, eventName, stageId, stageName, stageTypeId, singleStage } = useEventInfo()
+  const { eventId, eventName, organizerName, stageId, stageName, stageTypeId, singleStage } =
+    useEventInfo()
 
   // Get components for the stageTypeId
   const { defaultMenu, pages, menuOptions, menuOptionsLabels } = useStageComponent(stageTypeId)
@@ -149,7 +150,12 @@ export default function StageLayout() {
   } else {
     return (
       <>
-        <EventStageBanner eventName={eventName} stageName={stageName} singleStage={singleStage} />
+        <EventStageBanner
+          eventName={eventName}
+          stageName={stageName}
+          organizerName={organizerName}
+          singleStage={singleStage}
+        />
         <Box
           sx={{
             height: "calc(100% - 64px)",

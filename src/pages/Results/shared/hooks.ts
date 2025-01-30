@@ -154,6 +154,7 @@ export function useEventInfo() {
   const { state } = useLocation()
 
   const [eventName, setEventName] = useState<string>("")
+  const [organizerName, setOrganizerName] = useState<string>("")
   const [stageName, setStageName] = useState<string>("")
   const [stageTypeId, setStageTypeId] = useState<string>("")
   const [singleStage, setSingleStage] = useState<boolean>(false)
@@ -165,6 +166,9 @@ export function useEventInfo() {
         getEventDetail(eventId as string, token).then((response) => {
           // Event name
           setEventName(response.data.description)
+
+          // Organizer name
+          setOrganizerName(response.data.organizer?.name as string)
 
           // Single stage
           if (response.data.stages.length == 1) {
@@ -200,6 +204,7 @@ export function useEventInfo() {
   return {
     eventId: eventId as string,
     eventName: eventName,
+    organizerName: organizerName,
     stageId: stageId as string,
     stageName: stageName,
     stageTypeId: stageTypeId,

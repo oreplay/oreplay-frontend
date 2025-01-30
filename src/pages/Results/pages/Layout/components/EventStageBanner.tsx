@@ -3,10 +3,18 @@ import { Box, Stack, Typography } from "@mui/material"
 interface EventStageBannerProps {
   eventName: string
   stageName: string
+  organizerName: string
   singleStage: boolean
 }
 
 export default function EventStageBanner(props: EventStageBannerProps) {
+  const styles = {
+    organizerStyles: {
+      color: "text.secondary",
+      fontSize: "small",
+    },
+  }
+
   return (
     <Box
       sx={{
@@ -18,14 +26,17 @@ export default function EventStageBanner(props: EventStageBannerProps) {
       }}
     >
       {props.singleStage ? (
-        <Typography
-          sx={{
-            color: "secondary.main",
-            fontSize: "1.1rem",
-          }}
-        >
-          {props.eventName}
-        </Typography>
+        <>
+          <Typography
+            sx={{
+              color: "secondary.main",
+              fontSize: "1.1rem",
+            }}
+          >
+            {props.eventName}
+          </Typography>
+          <Typography sx={styles.organizerStyles}>{props.organizerName}</Typography>
+        </>
       ) : (
         <Stack direction="column" spacing={1}>
           <Typography
@@ -36,13 +47,8 @@ export default function EventStageBanner(props: EventStageBannerProps) {
           >
             {props.stageName}
           </Typography>
-          <Typography
-            sx={{
-              color: "text.secondary",
-              fontSize: ".8rem",
-            }}
-          >
-            {props.eventName}
+          <Typography sx={styles.organizerStyles}>
+            {props.eventName} — {props.organizerName}
           </Typography>
         </Stack>
       )}
