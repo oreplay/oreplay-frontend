@@ -65,7 +65,7 @@ export async function postEvent(
       scope: scope,
       federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
-      organizer_id: organizer_id ? organizer_id : null,
+      organizer_id: organizer_id,
     },
     token,
   )
@@ -113,7 +113,7 @@ export async function patchEvent(
       scope: scope,
       federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
-      organizer_id: organizer_id ? organizer_id : null,
+      organizer_id: organizer_id,
     },
     token,
   )

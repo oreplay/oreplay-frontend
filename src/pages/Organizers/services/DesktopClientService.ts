@@ -21,7 +21,7 @@ export default async function getLatestClientVersion(): Promise<string> {
     const regex = /^v(\d+\.\d+\.\d+)$/
     const match = regex.exec(property.value)
 
-    if (match && match[1]) {
+    if (match?.[1]) {
       return match[1]
     } else {
       throw new Error("The version number doesn't match the pattern vX.X.X")
