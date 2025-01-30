@@ -52,10 +52,14 @@ export default function EventDetail() {
       const finalDateParse = parseDate(detail.final_date)
 
       if (initDateParse == finalDateParse) {
-        return <Typography style={styles.aligns}>{initDateParse}</Typography>
+        return (
+          <Typography style={styles.aligns} sx={{ color: "text.secondary" }}>
+            {initDateParse}
+          </Typography>
+        )
       } else {
         return (
-          <Typography style={styles.aligns} marginTop={"6px"}>
+          <Typography style={styles.aligns} sx={{ color: "text.secondary" }} marginTop={"6px"}>
             {initDateParse} - {finalDateParse}
           </Typography>
         )
@@ -107,6 +111,9 @@ export default function EventDetail() {
             bgcolor: "primary.light",
           }}
         >
+          <Typography style={styles.aligns} sx={{ color: "text.secondary", fontSize: "small" }}>
+            {detail?.organizer?.name}
+          </Typography>
           <Typography color={"secondary.main"} style={styles.titleEvent}>
             {detail?.description}
           </Typography>
