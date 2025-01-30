@@ -206,6 +206,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             flexDirection: "row",
             justifyContent: "flex-end",
             gap: "1em",
+            marginTop: "24px",
           }}
         >
           {props.canEdit ? (

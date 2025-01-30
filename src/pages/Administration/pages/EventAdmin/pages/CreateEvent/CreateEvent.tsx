@@ -4,6 +4,7 @@ import { postEvent } from "../../../../services/EventAdminService.ts"
 import { DateTime } from "luxon"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../../../../shared/hooks.ts"
+import { Container } from "@mui/material"
 
 export default function CreateEvent() {
   const { token } = useAuth() as { token: string }
@@ -33,5 +34,9 @@ export default function CreateEvent() {
     )
   }
 
-  return <EventAdminForm canEdit handleSubmit={handleSubmit} handleCancel={handleCancel} />
+  return (
+    <Container>
+      <EventAdminForm canEdit handleSubmit={handleSubmit} handleCancel={handleCancel} />
+    </Container>
+  )
 }
