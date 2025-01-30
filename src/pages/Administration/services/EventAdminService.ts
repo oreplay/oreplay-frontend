@@ -231,7 +231,7 @@ export async function invalidateEventToken(eventId: string, eventToken: string, 
 }
 
 export async function getOrganizerList(): Promise<Page<OrganizerModel>> {
-  return await get<Page<OrganizerModel>>("api/v1/organizers")
+  return await get<Page<OrganizerModel>>("organizers")
 }
 
 /**
