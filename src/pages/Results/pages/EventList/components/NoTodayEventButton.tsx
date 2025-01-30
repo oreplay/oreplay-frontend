@@ -21,6 +21,10 @@ export default function NoTodayEventButton(props: Props) {
       //whiteSpace: 'nowrap',        // Prevent line wrapping
       //textOverflow: 'ellipsis',    // Add ellipsis for overflow
     },
+    clubNames: {
+      color: "text.secondary",
+      fontSize: "small",
+    },
   }
 
   return (
@@ -41,6 +45,11 @@ export default function NoTodayEventButton(props: Props) {
     >
       <Typography color={"primary.main"}>{parseDate(props.event.initial_date)}</Typography>
       <Typography sx={styles.titleEvents}>{props.event.description}</Typography>
+      {props.event.organizer ? (
+        <Typography sx={styles.clubNames}>{props.event.organizer.name}</Typography>
+      ) : (
+        <></>
+      )}
     </Button>
   )
 }

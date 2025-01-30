@@ -13,11 +13,20 @@ export default function TodayEventButton(props: TodayEventButtonProps) {
   const navigate = useNavigate()
 
   const styles = {
-    typographyBox: {
+    typographyBoxEventName: {
       color: "white",
-      margin: "12px",
+      marginX: "12px",
+      marginTop: "12px",
+      marginBottom: "6px",
       textAlign: "left",
       textTransform: "none",
+    },
+    typographyBoxOrganizerName: {
+      color: "white",
+      marginX: "12px",
+      textAlign: "left",
+      textTransform: "none",
+      fontSize: "small",
     },
   }
 
@@ -28,7 +37,7 @@ export default function TodayEventButton(props: TodayEventButtonProps) {
         borderRadius: "6px",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         alignItems: "flex-start",
         backgroundColor: props.index % 2 == 0 ? "primary.main" : "secondary.main",
         minWidth: "220px",
@@ -49,9 +58,14 @@ export default function TodayEventButton(props: TodayEventButtonProps) {
       }
       onClick={() => navigate(`/competitions/${props.event.id}`)}
     >
-      <Typography sx={styles.typographyBox} fontWeight={"bolder"}>
+      <Typography sx={styles.typographyBoxEventName} fontWeight={"bolder"}>
         {props.event.description}
       </Typography>
+      {props.event.organizer ? (
+        <Typography sx={styles.typographyBoxOrganizerName}>{props.event.organizer.name}</Typography>
+      ) : (
+        <></>
+      )}
     </Button>
   )
 }

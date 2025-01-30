@@ -37,6 +37,7 @@ export interface EventModel {
   federation_id: string
   created: string
   modified: string
+  organizer: OrganizerModel
 }
 
 export interface EventDetailModel {
