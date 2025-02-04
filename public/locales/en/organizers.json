@@ -28,7 +28,7 @@
         "list1": {
           "item1": "Open the O-Replay Desktop Client and click <1>\"Check connection\"</1>.",
           "item2": "Paste the event ID and security token, then click <2>\"Enter\"</2> and select the stage you want to upload data to. You will get the event Id and security token when you create the event.",
-          "item3": "Choose the directory where you will export files to, then press <2>\"Start\"</2>. The client will now monitor this directory for any `XML` file. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
+          "item3": "Choose the directory where you will export files to, then press <2>\"Start\"</2>. The client will now monitor this folder for any `XML` file. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
         },
         "img1": {
           "url": "/organizers/en/DesktopClient/Client.png",
@@ -43,7 +43,7 @@
       "title": "Creating an Event",
       "p1": "Races in O-Replay are organized into events and stages. For example, if you are running a weekend championship with middle and long-distance races, you would create one event \"Championship\" with two stages: \"Middle Distance\" and \"Long Distance.\" Each stage can represent a different orienteering discipline.",
       "p2": "When you log in, you will see all your events. You can also create new events. Begin by filling in the event details, then add as many stages as needed. If your event has only one race called \"My First Race,\" create an event named \"My First Race\" with one stage called \"Race\". Only the event's name will be displayed. Be sure to create at least one stage; otherwise, you will not be able to upload any data.",
-      "p3": "After creating the event and stages, generate a security token. This token acts as a secret password for uploading results and can be shared with your team of timekeepers without exposing your O-Replay credentials. Please note that tokens expires after one month after creation, but they can be renewed at any time. When they are renewed, the old token becomes invalid and a new one is generated. Use this option if your token gets compromised.",
+      "p3": "After creating the event and stages, generate a security token. This token acts as a secret password for uploading results and can be shared with your team of timekeepers without exposing your O-Replay credentials. Please note that tokens expires one month after creation, but they can be renewed at any time. When they are renewed, the old token becomes invalid and a new one is generated. Use this option if your token gets compromised.",
       "img1": {
         "url": "/organizers/en/WebUI/GenerateToken.png",
         "alt": "Menu to create security tokens for an event"
@@ -54,7 +54,7 @@
       "p1": "Start times are uploaded for two purposes:",
       "list1": {
         "item1": "To display them for runners' information.",
-        "item2": "To show in-race times for runners."
+        "item2": "To show in-race times."
       },
       "InfoBox1": {
         "title": "Races without start times:",
@@ -74,7 +74,7 @@
             "url": "organizers/en/OE12/ExportStartTimesChooseExport.png",
             "alt": "Export button"
           },
-          "p3": "Save using IOF XML in the directory O-Replay Client is listening.",
+          "p3": "Save using IOF XML in the folder O-Replay Client is listening.",
           "img3": {
             "url": "organizers/en/OE12/ExportStartTimesSetIOFXML.png",
             "alt": "Save using IOF XML format"
@@ -87,7 +87,7 @@
             "url": "organizers/en/MeOS/UploadStartTimes_Menu.png",
             "alt": "Menu to export start list in MeOS"
           },
-          "p2": "Select all the classes, choose \"IOF Start List\" and export the file to the directory the client is listening to.",
+          "p2": "Select all the classes, choose \"IOF Start List\" and export the file to the folder the client is listening to.",
           "img2": {
             "url": "organizers/en/MeOS/UploadStartTimes_SetIOFXML.png",
             "alt": "Menu to choose classes to export and set IOF XML format"
@@ -105,7 +105,7 @@
     "title": "During the Race",
     "UploadingResults": {
       "title": "Uploading Results",
-      "p1": "We support IOF XML v3 splits files for uploading results. Use an empty directory to save these files (you can reuse the directory created for start times).",
+      "p1": "We support IOF XML v3 splits files for uploading results. Use an empty folder to save these files (you can reuse the folder created for start times).",
       "p2": "Get the client ready and listening for new files, then export result from your timekeeping software:",
       "Tabs1": {
         "OE": {
@@ -120,7 +120,7 @@
             "url": "organizers/en/OE12/ExportSplitsSetAutomaticExport.png",
             "alt": "Automatic report menu in OE12"
           },
-          "p3": "Save using IOF XML in the directory O-Replay Client is listening.",
+          "p3": "Save using IOF XML in the folder O-Replay Client is listening.",
           "img3": {
             "url": "organizers/en/OE12/ExportSplitsSetIOFXML.png",
             "alt": "Save using IOF XML format"
@@ -135,7 +135,7 @@
           },
           "p2": "This service has a lot of different configuration options. You have to set:",
           "list1": {
-            "ServiceName": "<0>Service Name</0>: O-Replay (it is not mandatory)",
+            "ServiceName": "<0>Service Name</0>: O-Replay (optional)",
             "TimeInterval": "<0>Time interval</0>: How frequent are the results updated. 30 seconds or 1 minute are common values.",
             "Classes": "<0>Classes</0>: Choose all the classes.",
             "ExportFormat": "<0>Export Format</0>: must be \"IOF XML 3.0\"",
@@ -149,7 +149,7 @@
       },
       "WarnBox1": {
         "title": "Regular results export (i.e. no splits)",
-        "p1": "While the client supports uploading results files without splits, this is strongly discouraged. Without splits, virtual tickets and split details cannot be displayed to runners."
+        "p1": "While the client supports uploading results files without splits, this is strongly discouraged. Without splits, virtual tickets and split details cannot be displayed."
       },
       "WarnBox2": {
         "title": "Upload failing with large number of runners",
