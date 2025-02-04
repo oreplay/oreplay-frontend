@@ -1,8 +1,8 @@
 {
   "Loading": "Chargement...",
-  "ThisFunctionalityNotImplementedMsg": "_This feature has not been implemented yet.",
-  "ExperimentalFeatureMsg": "_Experimental feature",
-  "Menu": "_Menu",
+  "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
+  "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
+  "Menu": "Menu",
   "Dates": "Dates",
   "Event": "Événement",
   "Events": "Événements",
@@ -21,9 +21,9 @@
   "This action cannot be undone": "Cette action ne peut pas être annulée.",
   "Copied to the clipboard": "Copié dans le presse-papiers.",
   "Copy": "Copier",
-  "Organizers": "_Organizer's info",
+  "Organizers": "Info sur l'organisateur",
   "AboutUs": {
-    "AboutUs": "_About us",
+    "AboutUs": "À propos",
     "WelcomeMsg": "Bienvenue sur O-Replay",
     "ProjectDescription": "Accueil des résultats d'orientation (toujours en version",
     "Go to competitions": "Aller aux compétitions",
@@ -40,9 +40,6 @@
     "Start": "Départ",
     "Finish": "Arrivée",
     "SiCard": "SiCard",
-    "start list": "Liste de départ",
-    "results": "Résultats",
-    "splits": "Détails"
   },
   "Sign in": {
     "Sign in": "Se connecter",
@@ -58,7 +55,7 @@
     "FinishDate": "Date de fin",
     "Organizer": "Organisateur",
     "Website": "Site web",
-    "InvalidURLMsg": "_Invalid URL",
+    "InvalidURLMsg": "URL invalide",
     "Location": "Emplacement",
     "Public": "Publique",
     "Hidden": "Caché",
@@ -75,17 +72,17 @@
     },
     "Stages": {
       "NewStage": "Nouvelle étape",
-      "GoToStage": "_Go to the stage",
+      "GoToStage": "Aller sur l'étape",
       "DeleteStage": {
-        "MenuText": "_Delete stage",
-        "DialogTitle": "_Do you want to delete this stage?",
-        "DialogBody": "_The stage and all of its results will be deleted. This action cannot be undone."
+        "MenuText": "Supprimer",
+        "DialogTitle": "Voulez-vous supprimer cette étape?",
+        "DialogBody": "L'étape et tous ses résultats seront supprimés. Cette action ne peut pas être annulée."
       },
       "WipeOutRunners": {
-        "MenuText": "_Reset",
-        "DialogTitle": "_Do you want to reset this stage?",
-        "DialogBody": "_This will delete all of the results or start times uploaded to this stage. Afterwards, you can upload them again. This option is used to correct errors on uploaded data.",
-        "DialogConfirm": "_Reset"
+        "MenuText": "Réinitialiser",
+        "DialogTitle": "Voulez-vous réinitialiser cette étape ?",
+        "DialogBody": "Cette option supprimera tous les résultats ou heures de départ téléchargés à cette étape. Vous pourrez ensuite les télécharger à nouveau. Cette option permet de corriger les erreurs sur les données téléchargées.",
+        "DialogConfirm": "Réinitialiser"
       },
       "StagesTypes": {
         "StageType": "Type",
@@ -99,7 +96,7 @@
       }
     },
     "EventSecurityTokens": "Clé de sécurité (token de connexion au bureau)",
-    "EventSecurityTokensExpireDate": "_Expires on",
+    "EventSecurityTokensExpireDate": "Expire le",
     "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
     "Renew": "Renouveler",
@@ -125,7 +122,7 @@
   },
   "EventList": {
     "LiveToday": "Aujourd'hui en direct",
-    "NoLiveEventsToday": "_There aren't events today",
+    "NoLiveEventsToday": "Il n'y a pas d'événements aujourd'hui",
     "FutureEvents": "Événements à venir",
     "PastEvents": "Événements passés"
   },
@@ -133,12 +130,12 @@
     "StartTime": "Départ",
     "Results": "Résultats",
     "Splits": "Intermédiaires",
-    "ScorePoints": "_Points"
+    "ScorePoints": "Points"
   },
   "ResultsStage": {
-    "Refresh": "_Refresh",
-    "ChooseClass": "_Please, choose a class",
-    "NoData": "_Sorry, no data is available",
+    "Refresh": "Rafraîchir",
+    "ChooseClass": "S'il vous plaît, choisissez une classe",
+    "NoData": "Désolé, aucune donnée n'est disponible",
     "NoStartTime": "-",
     "NotStarted": "-",
     "Class": "Class",
@@ -150,31 +147,31 @@
     "RaceTime": "Temp",
     "FinishTime": "Arrivée",
     "Times": "Temps",
-    "Points": "_Points",
-    "BonusPoints": "_Bonus",
-    "PenaltyPoints": "_Penalty",
+    "Points": "Points",
+    "BonusPoints": "Bonus",
+    "PenaltyPoints": "Pénalité",
     "VirtualTicket": {
-      "FinishControl": "_Fin",
-      "Control": "_Control",
-      "StartHour": "_Start time:",
-      "FinishHour": "_Finish time:",
-      "RaceTime": "_Time:",
-      "Partial": "_Split",
-      "Cumulative": "_Cumulative"
+      "FinishControl": "Fin",
+      "Control": "Contrôle",
+      "StartHour": "Heure de départ:",
+      "FinishHour": "Heure de Arrivée:",
+      "RaceTime": "Temps:",
+      "Partial": "Intermédiaire",
+      "Cumulative": "Cumulatif"
     },
     "statusCodes": {
-      "nc": "_NC",
-      "ok": "_ok",
-      "dns": "_dns",
-      "dnf": "_dnf",
-      "mp": "_mp",
-      "disqualified": "_dsq",
-      "ot": "_ot"
+      "nc": "NC",
+      "ok": "ok",
+      "dns": "DNS",
+      "dnf": "Abandon",
+      "mp": "MP",
+      "disqualified": "DSQ",
+      "ot": "H.Délai"
     }
   },
   "404Page": {
-    "Header": "_Lost in the woods?",
-    "Message": "_We couldn't find the page you were looking for.",
-    "ButtonMessage": "_Start triangle"
+    "Header": "Perdu dans les bois ?",
+    "Message": "Nous n'avons pas pu trouver la page que vous recherchiez.",
+    "ButtonMessage": "Triangle de départ"
   }
 }
