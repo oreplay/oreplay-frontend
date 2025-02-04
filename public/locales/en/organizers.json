@@ -1,11 +1,11 @@
 {
   "Header": "Information for organizers",
-  "p1": "This page contains all the necessary information to upload results to O-Replay. Please read it carefully. If you have any issues or questions, feel free to contact us at <1>support@oreplay.es</1>. Note that O-Replay is completely free to use.",
+  "p1": "This page contains all the necessary information to upload results to O-Replay. Please read it carefully. If you have any issues or questions, feel free to contact us at <2>support@oreplay.es</2>. Note that O-Replay is completely free to use.",
   "Prerequisites": {
     "title": "Prerequisites",
     "Registering": {
       "title": "Registering with O-Replay",
-      "p1": "Currently, the only way to register is by sending an email to <1>support@oreplay.es</1> with the following information (we speak both English and Spanish):",
+      "p1": "Currently, the only way to register is by sending an email to <2>support@oreplay.es</2> with the following information (we speak both English and Spanish):",
       "list": {
         "item1": "Name",
         "item2": "Email address",
@@ -27,8 +27,8 @@
         "p1": "Follow the next steps to upload files:",
         "list1": {
           "item1": "Open the O-Replay Desktop Client and click <1>\"Check connection\"</1>.",
-          "item2": "Paste the event ID and security token, then click <1>\"Enter\"</1> and select the stage you want to upload data to. You will get the event Id and security token when you create the event.",
-          "item3": "Choose the directory where you will export files to, then press <1>\"Start\"</1>. The client will now monitor this directory for any `XML` file. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
+          "item2": "Paste the event ID and security token, then click <2>\"Enter\"</2> and select the stage you want to upload data to. You will get the event Id and security token when you create the event.",
+          "item3": "Choose the directory where you will export files to, then press <2>\"Start\"</2>. The client will now monitor this directory for any `XML` file. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
         },
         "img1": {
           "url": "/organizers/en/DesktopClient/Client.png",
