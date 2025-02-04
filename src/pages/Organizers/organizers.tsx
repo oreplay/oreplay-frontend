@@ -113,6 +113,9 @@ const Organizers = (): React.ReactNode => {
             startIcon={<FileDownloadIcon />}
           >
             {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
+            <Typography component={"span"} sx={{ textTransform: "none" }}>
+              {`\u00A0(v${client_version})`}
+            </Typography>
           </Button>
         </Box>
         <Typography>{t("Prerequisites.DesktopClient.DownloadClient.p2")}</Typography>
