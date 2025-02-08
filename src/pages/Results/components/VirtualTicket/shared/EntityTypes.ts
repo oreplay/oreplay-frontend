@@ -7,6 +7,7 @@ export interface ProcessedRunnerModel {
   sicard: bigint | null
   class: ClassModel
   club: ClubModel | null
+  overall: ProcessedRunnerResultModel
   runner_results: ProcessedRunnerResultModel[]
 }
 

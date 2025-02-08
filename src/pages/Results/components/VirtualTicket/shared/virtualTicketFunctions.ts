@@ -94,13 +94,13 @@ export function calculatePositionsAndBehindsFootO(
   runners: ProcessedRunnerModel[],
 ): ProcessedRunnerModel[] {
   if (runners.length > 0) {
-    const splits = [...runners[0].runner_results[0].splits] // Clone the array to avoid mutation
+    const splits = [...runners[0].overall.splits] // Clone the array to avoid mutation
 
     // Generate time matrices for splits
     const timesTable = splits.map((_, index) => {
       return runners.map((runner) => {
-        if (runner.runner_results[0].splits[index]) {
-          return runner.runner_results[0].splits[index].time
+        if (runner.overall.splits[index]) {
+          return runner.overall.splits[index].time
         } else {
           return null
         }
@@ -122,14 +122,14 @@ export function calculatePositionsAndBehindsFootO(
     const cumulativeTable = splits.map((_, index) => {
       return runners.map((runner) => {
         // only map times if the runner is ok
-        const missingPunchFrom = runner.runner_results[0].splits.findIndex(
+        const missingPunchFrom = runner.overall.splits.findIndex(
           (split) => split.time === null,
         )
         if (
-          runner.runner_results[0].splits[index] &&
+          runner.overall.splits[index] &&
           (missingPunchFrom === -1 || missingPunchFrom > index)
         ) {
-          return runner.runner_results[0].splits[index].cumulative_time
+          return runner.overall.splits[index].cumulative_time
         } else {
           return null
         }
@@ -149,9 +149,9 @@ export function calculatePositionsAndBehindsFootO(
 
     // update runners
     return runners.map((runner): ProcessedRunnerModel => {
-      if (runner.runner_results[0]) {
+      if (runner.overall) {
         try {
-          const newSplits = runner.runner_results[0].splits.map((split, index, splitsArray) => {
+          const newSplits = runner.overall.splits.map((split, index, splitsArray) => {
             const bestTime: number | null = timesTable[index][0]
             const best_cumulative: number | null = cumulativeTable[index][0]
             if (bestTime !== null && best_cumulative !== null) {
@@ -182,7 +182,7 @@ export function calculatePositionsAndBehindsFootO(
             ...runner,
             runner_results: [
               {
-                ...runner.runner_results[0],
+                ...runner.overall,
                 splits: newSplits,
               },
             ],

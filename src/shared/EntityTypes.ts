@@ -95,6 +95,7 @@ export interface RunnerModel {
   sicard: bigint | null
   class: ClassModel
   club: ClubModel | null
+  overall: RunnerResultModel
   runner_results: RunnerResultModel[]
 }
 
