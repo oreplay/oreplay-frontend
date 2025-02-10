@@ -14,7 +14,6 @@ type FootOVirtualTicketProps = {
  * @param split Split to be displayed
  */
 const FootOVirtualTicketSplit: React.FC<FootOVirtualTicketProps> = ({ split, index }) => {
-  console.log(index);
   return (
     <Grid style={{display: "flex", width: "100%", backgroundColor: index % 2 ? "white" : "#fcefde"}}>
       <VirtualTicketControl

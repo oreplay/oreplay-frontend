@@ -150,9 +150,9 @@
     "RaceTime": "Temp",
     "FinishTime": "Arrivée",
     "Times": "Temps",
-    "Points": "_Points",
-    "BonusPoints": "_Bonus",
-    "PenaltyPoints": "_Penalty",
+    "Points": "_Points:",
+    "BonusPoints": "_Bonus:",
+    "PenaltyPoints": "_Penalty:",
     "VirtualTicket": {
       "FinishControl": "_Fin",
       "Control": "_Ctrl",
