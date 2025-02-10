@@ -2,7 +2,7 @@ version: "3"
 
 services:
   nodejs:
-    image: freefri/oreplay-front:${VITE_VERSION_NUMBER}
+    image: oreplay/frontend:${VITE_VERSION_NUMBER}
     build:
       context: .
       dockerfile: docker/Dockerfile
