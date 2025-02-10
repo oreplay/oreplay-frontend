@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - "*"
+    tags:
+      - "*" # Runs when a tag is pushed
   pull_request:
     branches:
       - "*"
@@ -47,6 +49,8 @@ jobs:
         run: npm run format:check
 
   docker-build-push:
+    needs: build
+    #if: startsWith(github.ref, 'refs/tags/') # run only with tags
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
