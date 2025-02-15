@@ -12,6 +12,7 @@ import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/share
 import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx"
 import RaceTime from "../../../../components/RaceTime.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
+import ParticipantName from '../../../../components/ParticipantName.tsx'
 
 export default function FootOResults() {
   const { t } = useTranslation()
@@ -44,25 +45,10 @@ export default function FootOResults() {
               >
                 <Typography sx={{ color: "primary.main" }}>{getPositionOrNc(runner, t)}</Typography>
               </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexGrow: 1,
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  width: "calc(100% -20px)",
-                  marginLeft: ".3em",
-                }}
-              >
-                <Typography>{`${runner.full_name}`}</Typography>
-                <Typography
-                  sx={{
-                    color: "text.secondary",
-                  }}
-                >
-                  {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
-                </Typography>
-              </Box>
+              <ParticipantName
+                name={runner.full_name}
+                subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+              />
               <Box
                 sx={{
                   flexShrink: 0,

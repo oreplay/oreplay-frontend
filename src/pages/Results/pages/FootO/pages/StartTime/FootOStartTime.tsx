@@ -9,6 +9,7 @@ import StartTime from "../../../../components/StartTime.tsx"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { parseResultStatus } from "../../../../shared/functions.ts"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
+import ParticipantName from '../../../../components/ParticipantName.tsx'
 
 export default function FootOStartTime() {
   const { t } = useTranslation()
@@ -39,10 +40,10 @@ export default function FootOStartTime() {
               }}
             >
               <Stack direction={"column"}>
-                <Typography>{`${runner.full_name}`}</Typography>
-                <Typography sx={{ color: "text.secondary" }}>
-                  {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
-                </Typography>
+                <ParticipantName
+                  name={runner.full_name}
+                  subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+                />
               </Stack>
             </Box>
             <Box
