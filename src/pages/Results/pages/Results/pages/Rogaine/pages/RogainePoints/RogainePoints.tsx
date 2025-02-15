@@ -6,13 +6,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material"
 import { getUniqueStationNumbers } from "../../shared/Functions.ts"
 import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
 import ControlBadge from "./components/ControlBadge.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
+import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
+import ParticipantName from '../../../../../../components/ParticipantName.tsx'
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
@@ -64,10 +65,10 @@ export default function RogainePoints(
                 <TableRow sx={{ width: { md: "100%", sx: "200px" } }} key={`runner${runner.id}`}>
                   <TableCell key={`runner${runner.id}pos`}>{getPositionOrNc(runner, t)}</TableCell>
                   <TableCell sx={{ minWidth: "200px" }} key={`runner${runner.id}name`}>
-                    <Typography>{`${runner.full_name}`}</Typography>
-                    <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
-                      {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
-                    </Typography>
+                    <ParticipantName
+                      name={runner.full_name}
+                      subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+                    />
                   </TableCell>
                   <TableCell key={`runner${runner.id}bonus`}>
                     {runnerResult.points_final || runnerResult.finish_time
