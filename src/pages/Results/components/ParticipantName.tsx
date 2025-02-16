@@ -12,7 +12,7 @@ const ParticipantName = ({ name, subtitle, color }) => {
         marginLeft: ".3em",
       }}
     >
-      <Typography sx={{ color: color || "inherit" }}>{name}</Typography>
+      <Typography sx={{ fontSize: "1em", color: color || "inherit" }}>{name}</Typography>
       <Typography
         sx={{
           color: "text.secondary",

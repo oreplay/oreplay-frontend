@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, SxProps, Theme } from "@mui/material";
 import { ReactNode } from "react";
 
 interface FlexColProps {
@@ -6,9 +6,10 @@ interface FlexColProps {
   alignItems?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
   width?: string | number;
   flexGrow?: number; // Optional flexGrow prop
+  sx?: SxProps<Theme>; // Optional sx prop
 }
 
-const FlexCol: React.FC<FlexColProps> = ({ children, alignItems = "flex-end", width, flexGrow }) => {
+const FlexCol: React.FC<FlexColProps> = ({ children, sx, alignItems = "flex-end", width, flexGrow }) => {
   return (
     <Box
       sx={{
@@ -19,6 +20,7 @@ const FlexCol: React.FC<FlexColProps> = ({ children, alignItems = "flex-end", wi
         alignItems: alignItems, // Align the content horizontally in the box
         ...(width ? { width } : { width: "10px" }), // Use prop if provided, else default
         ...(flexGrow !== undefined ? { flexGrow } : {}), // Apply flexGrow if provided
+        ...sx, // Apply the custom sx styles
       }}
     >
       {children}
