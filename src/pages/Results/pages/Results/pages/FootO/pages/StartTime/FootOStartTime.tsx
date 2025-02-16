@@ -58,9 +58,12 @@ export default function FootOStartTime(
                   <RunnerSicard runner={runner}></RunnerSicard>
                 </FlexCol>
               </FlexRow>
-              {(runner.runners || []).map((teamRunner) => (
-                <TeamRunnerRow key={teamRunner.id} runner={teamRunner}></TeamRunnerRow>
-              ))}
+              {(runner.runners || [])
+                .slice() // Create a shallow copy to avoid mutating the original array
+                .sort((a, b) => (a?.overall?.leg_number || 0) - (b?.overall?.leg_number || 0))
+                .map((teamRunner) => (
+                  <TeamRunnerRow key={teamRunner.id} runner={teamRunner}></TeamRunnerRow>
+                ))}
             </FlexCol>
           </ResultListItem>
         ))}
