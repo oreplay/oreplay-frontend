@@ -15,8 +15,15 @@ const TeamRunnerRow: React.FC<TeamRunnerRowProps> = ({ runner }) => {
     leg = '(' + runner.leg_number + ')'
   }
   return (
-    <FlexRow sx={{ marginTop: "8px", color: "text.secondary", justifyContent: "space-between" }}>
-      <Box sx={{ marginInlineStart:"12px", color: "text.secondary" }}>{ leg }</Box>
+    <FlexRow
+      sx={{
+        marginTop: "2px",
+        fontSize: "12px",
+        color: "text.secondary",
+        justifyContent: "space-between"
+      }}
+    >
+      <Box sx={{ marginInlineStart:"12px" }}>{ leg }</Box>
       <ParticipantName name={ name } color="text.secondary"/>
       <Box sx={{ color: "text.secondary" }}>{ card }</Box>
     </FlexRow>
