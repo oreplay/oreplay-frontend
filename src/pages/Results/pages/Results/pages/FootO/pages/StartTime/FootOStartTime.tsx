@@ -1,4 +1,3 @@
-import { Box, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { orderRunnersByStartTime } from "./shared/functions.ts"
 import { useTranslation } from "react-i18next"
@@ -9,6 +8,8 @@ import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket
 import { parseResultStatus } from "../../../../../../shared/functions.ts"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import ParticipantName from '../../../../../../components/ParticipantName.tsx'
+import FlexCol from '../../../../../../components/FlexCol.tsx'
+import RunnerSicard from '../../../../../../components/RunnerSicard.tsx'
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
@@ -40,41 +41,18 @@ export default function FootOStartTime(
       <ResultListContainer>
         {runnersByStartTime.map((runner) => (
           <ResultListItem key={runner.id}>
-            <Box
-              sx={{
-                flexGrow: 1, // Make this element flexible
-                flexShrink: 1, // Allow shrinking if needed
-                flexBasis: 0, // Allow it to take as much space as needed
-                overflowWrap: "break-word", // Allow text to wrap
-                wordBreak: "break-word", // Break long words to fit
-              }}
-            >
-              <Stack direction={"column"}>
-                <ParticipantName
-                  name={runner.full_name}
-                  subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
-                />
-              </Stack>
-            </Box>
-            <Box
-              sx={{
-                flexShrink: 0,
-                display: "flex", // Add this line to enable flex properties for the box
-                flexDirection: "column", // Stack text vertically
-                alignItems: "center", // Center the content horizontally in the box
-                justifyContent: "flex-start ", // Center the content vertically in the box
-                textAlign: "center", // Center the text itself inside each Typography component
-              }}
-            >
+            <ParticipantName
+              name={runner.full_name}
+              subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+            />
+            <FlexCol>
               <StartTime
                 displayStatus
                 startTime={runner.overall.start_time}
                 status={parseResultStatus(runner.overall?.status_code as string)}
               ></StartTime>
-              <Typography
-                sx={{ color: "text.secondary", fontSize: "small" }}
-              >{`${runner.sicard}`}</Typography>
-            </Box>
+              <RunnerSicard runner={runner}></RunnerSicard>
+            </FlexCol>
           </ResultListItem>
         ))}
       </ResultListContainer>
