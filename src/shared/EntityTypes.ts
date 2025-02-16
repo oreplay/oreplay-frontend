@@ -93,7 +93,6 @@ export interface RunnerModel {
   full_name: string
   bib_number: string
   sicard: bigint | null
-  leg_number: bigint | null
   class: ClassModel
   club: ClubModel | null
   overall: RunnerResultModel
