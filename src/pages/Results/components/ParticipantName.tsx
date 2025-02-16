@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const ParticipantName = ({ name, subtitle }) => {
+const ParticipantName = ({ name, subtitle, color }) => {
   return (
     <Box
       sx={{
@@ -12,7 +12,7 @@ const ParticipantName = ({ name, subtitle }) => {
         marginLeft: ".3em",
       }}
     >
-      <Typography>{name}</Typography>
+      <Typography sx={{ color: color || "inherit" }}>{name}</Typography>
       <Typography
         sx={{
           color: "text.secondary",

@@ -1,4 +1,3 @@
-import { Box, Stack, Typography } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import { RunnersContext } from "../../../../shared/context.ts"
 import { orderRunnersByStartTime } from "./shared/functions.ts"
@@ -12,6 +11,8 @@ import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSk
 import ParticipantName from '../../../../components/ParticipantName.tsx'
 import FlexCol from '../../../../components/FlexCol.tsx'
 import RunnerSicard from '../../../../components/RunnerSicard.tsx'
+import FlexRow from '../../../../components/FlexRow.tsx'
+import TeamRunnerRow from '../../../../components/TeamRunnerRow.tsx'
 
 export default function FootOStartTime() {
   const { t } = useTranslation()
@@ -32,17 +33,24 @@ export default function FootOStartTime() {
       <ResultListContainer>
         {runnersByStartTime.map((runner) => (
           <ResultListItem key={runner.id}>
-            <ParticipantName
-              name={runner.full_name}
-              subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
-            />
-            <FlexCol>
-              <StartTime
-                displayStatus
-                startTime={runner.overall.start_time}
-                status={parseResultStatus(runner.overall?.status_code as string)}
-              ></StartTime>
-              <RunnerSicard runner={runner}></RunnerSicard>
+            <FlexCol width="100%">
+              <FlexRow>
+                <ParticipantName
+                  name={runner.full_name}
+                  subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+                />
+                <FlexCol>
+                  <StartTime
+                    displayStatus
+                    startTime={runner.overall.start_time}
+                    status={parseResultStatus(runner.overall?.status_code as string)}
+                  ></StartTime>
+                  <RunnerSicard runner={runner}></RunnerSicard>
+                </FlexCol>
+              </FlexRow>
+              {(runner.runners || []).map((teamRunner) => (
+                <TeamRunnerRow runner={teamRunner}></TeamRunnerRow>
+              ))}
             </FlexCol>
           </ResultListItem>
         ))}
