@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import { RunnersContext } from "../../../../shared/context.ts"
 import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
 import ResultListItem from "../../../../components/ResultsList/ResultListItem.tsx"
-import { Box, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
 import { parseSecondsToMMSS } from "../../../../../../shared/Functions.tsx"
 import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts"
 import { RESULT_STATUS_TEXT } from "../../../../shared/constants.ts"
@@ -13,6 +13,7 @@ import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtual
 import RaceTime from "../../../../components/RaceTime.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import ParticipantName from '../../../../components/ParticipantName.tsx'
+import FlexCol from '../../../../components/FlexCol.tsx'
 
 export default function FootOResults() {
   const { t } = useTranslation()
@@ -32,33 +33,14 @@ export default function FootOResults() {
 
           return (
             <ResultListItem key={runner.id} onClick={() => handleRowClick(runner)}>
-              <Box
-                sx={{
-                  flexShrink: 0,
-                  display: "flex", // Enables flex properties
-                  flexDirection: "column", // Stack content vertically
-                  justifyContent: "flex-start", // Align content to the top
-                  alignItems: "flex-end",
-                  flexGrow: 0,
-                  width: "10px",
-                }}
-              >
+              <FlexCol width="10px">
                 <Typography sx={{ color: "primary.main" }}>{getPositionOrNc(runner, t)}</Typography>
-              </Box>
+              </FlexCol>
               <ParticipantName
                 name={runner.full_name}
                 subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
               />
-              <Box
-                sx={{
-                  flexShrink: 0,
-                  display: "flex", // Enables flex properties
-                  flexDirection: "column", // Stack content vertically
-                  justifyContent: "flex-start", // Align content to the top
-                  alignItems: "flex-end",
-                  flexGrow: 1,
-                }}
-              >
+              <FlexCol flexGrow="1">
                 <RaceTime
                   displayStatus
                   status={status}
@@ -71,7 +53,7 @@ export default function FootOResults() {
                     ? `+${parseSecondsToMMSS(runner.overall.time_behind.toString())}`
                     : ""}
                 </Typography>
-              </Box>
+              </FlexCol>
             </ResultListItem>
           )
         })}
