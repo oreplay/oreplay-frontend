@@ -59,7 +59,7 @@ export default function FootOStartTime(
                 </FlexCol>
               </FlexRow>
               {(runner.runners || []).map((teamRunner) => (
-                <TeamRunnerRow runner={teamRunner}></TeamRunnerRow>
+                <TeamRunnerRow key={teamRunner.id} runner={teamRunner}></TeamRunnerRow>
               ))}
             </FlexCol>
           </ResultListItem>
