@@ -19,7 +19,9 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
   runners = orderedRunners(runners)
 
   return runners.map((runner): ProcessedRunnerModel => {
-    const processedRunnerResultList = runner.runner_results.map(
+    const runnerResults = []
+    runnerResults.push(runner.overall) // TODO refactor
+    const processedRunnerResultList = runnerResults.map(
       (result): ProcessedRunnerResultModel => {
         const start_time = result.start_time ? DateTime.fromISO(result.start_time) : null
 
@@ -85,7 +87,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
     )
     return {
       ...runner,
-      runner_results: processedRunnerResultList,
+      overall: processedRunnerResultList[0],
     }
   })
 }
@@ -180,13 +182,12 @@ export function calculatePositionsAndBehindsFootO(
           })
           return {
             ...runner,
-            runner_results: [
-              {
-                ...runner.overall,
-                splits: newSplits,
-              },
-            ],
-          }
+            overall: {
+              ...runner.overall,
+              splits: newSplits,
+            },
+          };
+
         } catch (error) {
           // if an error happens return the runner without updating it
           console.error(

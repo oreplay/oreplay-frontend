@@ -72,7 +72,9 @@ function statusOrder(status: string | null, position: bigint) {
 export function orderedRunners(runnersList: RunnerModel[]) {
   // Order splits
   runnersList.forEach((runner) => {
-    runner.runner_results.forEach((runnerResult) => {
+    const runnerResults = []
+    runnerResults.push(runner.overall) // TODO refactor
+    runnerResults.forEach((runnerResult) => {
       runnerResult.splits.sort((a, b) => {
         const ordA = a.order_number
         const ordB = b.order_number

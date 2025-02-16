@@ -96,7 +96,6 @@ export interface RunnerModel {
   class: ClassModel
   club: ClubModel | null
   overall: RunnerResultModel
-  runner_results: RunnerResultModel[]
 }
 
 export interface RunnerResultModel {

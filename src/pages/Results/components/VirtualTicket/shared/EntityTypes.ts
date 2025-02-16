@@ -1,4 +1,9 @@
-import { ClassModel, ClubModel, ControlModel } from "../../../../../shared/EntityTypes.ts"
+import {
+  ClassModel,
+  ClubModel,
+  ControlModel,
+  RunnerModel
+} from "../../../../../shared/EntityTypes.ts"
 
 export interface ProcessedRunnerModel {
   id: string
@@ -6,9 +11,9 @@ export interface ProcessedRunnerModel {
   bib_number: string
   sicard: bigint | null
   class: ClassModel
+  runners: RunnerModel[] | null
   club: ClubModel | null
   overall: ProcessedRunnerResultModel
-  runner_results: ProcessedRunnerResultModel[]
 }
 
 export interface ProcessedRunnerResultModel {
