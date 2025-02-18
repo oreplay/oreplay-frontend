@@ -1,10 +1,10 @@
 import { Box, Tab, Tabs } from "@mui/material"
 import React, { useState } from "react"
-import loadingIcon from "../../../../assets/loading.svg"
 import { useTranslation } from "react-i18next"
 import { useFetchEvents } from "../../shared/hooks.ts"
 import TodayEvents from "./components/TodayEvents.tsx"
 import NoTodayEvents from "./components/NoTodayEvents.tsx"
+import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 
 export default function EventsList() {
   const { t } = useTranslation()
@@ -23,19 +23,7 @@ export default function EventsList() {
 
   // Loading page
   if (isFutureLoading && isPastLoading && isTodayLoading) {
-    return (
-      <Box
-        sx={{
-          width: "100%",
-          height: "90%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img alt={"loading icon"} height={50} width={50} src={loadingIcon}></img>
-      </Box>
-    )
+    return <GeneralSuspenseFallback />
   } else
     // Component
     return (

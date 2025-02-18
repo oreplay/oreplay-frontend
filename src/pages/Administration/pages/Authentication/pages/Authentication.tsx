@@ -4,9 +4,8 @@ import {
 } from "../../../services/AuthenticationService.ts"
 import { Navigate, useSearchParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { Box } from "@mui/material"
-import loadingIcon from "../../../../../assets/loading.svg"
 import { useAuth } from "../../../../../shared/hooks.ts"
+import GeneralSuspenseFallback from "../../../../../components/GeneralSuspenseFallback.tsx"
 
 function MakeRequest(props: { code: string; code_verifier: string }) {
   const [loading, setLoading] = useState<boolean>(true)
@@ -20,17 +19,7 @@ function MakeRequest(props: { code: string; code_verifier: string }) {
 
   if (loading) {
     return (
-      <Box
-        sx={{
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img alt={"loading icon"} height={50} width={50} src={loadingIcon}></img>
-      </Box>
+      <GeneralSuspenseFallback />
     )
   } else {
     return <Navigate to={"/Dashboard"} /> //TODO: Sometimes the application gets crazy because user state is not set yet and an infinate redirection loop happens from here to private route to initsignin and back here.
