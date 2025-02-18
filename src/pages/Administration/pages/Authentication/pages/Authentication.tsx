@@ -18,9 +18,7 @@ function MakeRequest(props: { code: string; code_verifier: string }) {
   }, [loginAction, props.code, props.code_verifier])
 
   if (loading) {
-    return (
-      <GeneralSuspenseFallback />
-    )
+    return <GeneralSuspenseFallback />
   } else {
     return <Navigate to={"/Dashboard"} /> //TODO: Sometimes the application gets crazy because user state is not set yet and an infinate redirection loop happens from here to private route to initsignin and back here.
   }
