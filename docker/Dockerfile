@@ -1,4 +1,4 @@
-FROM node:20.12.2
+FROM node:22.14.0
 ADD . /var/www
 RUN cd /var/www && npm install
 RUN cd /var/www && npm run build --ignore-scripts
