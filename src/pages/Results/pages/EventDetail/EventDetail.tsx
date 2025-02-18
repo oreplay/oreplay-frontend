@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
-import loadingIcon from "../../../../assets/loading.svg"
 import { getEventDetail } from "../../services/EventService.ts"
 import { useTranslation } from "react-i18next"
 import { ArrowForward } from "@mui/icons-material"
@@ -9,6 +8,7 @@ import { parseDate } from "../../../../shared/Functions.tsx"
 import EventDetailURLButton from "./components/EventDetailURLButton.tsx"
 import { useQuery } from "react-query"
 import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
+import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 
 const styles = {
   titleEvent: {
@@ -69,19 +69,7 @@ export default function EventDetail() {
   }
 
   if (isLoading) {
-    return (
-      <Box
-        sx={{
-          width: "100%",
-          height: "90%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img alt={"loading icon"} height={50} width={50} src={loadingIcon}></img>
-      </Box>
-    )
+    return <GeneralSuspenseFallback />
   } else if (error) {
     return <NotFoundPage />
   } else if (detail?.stages.length == 1) {
