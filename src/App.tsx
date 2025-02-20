@@ -6,6 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers"
 
 import GeneralSuspenseFallback from "./components/GeneralSuspenseFallback.tsx"
 import Layout from "./components/layout/Layout.tsx"
+import { NotificationsProvider } from "@toolpad/core"
 
 const EventsList = lazy(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
 const EventDetail = lazy(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
@@ -53,31 +54,33 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={"es-ES"}>
         {/** TODO: manage real location**/}
-        <Suspense fallback={<GeneralSuspenseFallback useViewPort />}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<EventsList />} />
-                <Route path="competitions" element={<Navigate to={"/"} />} />
-                <Route path="About-us" element={<AboutUs />} />
-                <Route path="organizers" element={<Organizers />} />
-                <Route path="competitions/:id" element={<EventDetail />} />
-                <Route path="competitions/:eventId/:stageId" element={<StageLayout />} />
-                <Route element={<PrivateRoute />}>
-                  <Route path={"/dashboard"} element={<Dashboard />} />
-                  <Route path={"/admin/create-event"} element={<CreateEvent />} />
-                  <Route path={"/admin/:eventId"} element={<EventAdmin />} />
+        <NotificationsProvider>
+          <Suspense fallback={<GeneralSuspenseFallback useViewPort />}>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<EventsList />} />
+                  <Route path="competitions" element={<Navigate to={"/"} />} />
+                  <Route path="About-us" element={<AboutUs />} />
+                  <Route path="organizers" element={<Organizers />} />
+                  <Route path="competitions/:id" element={<EventDetail />} />
+                  <Route path="competitions/:eventId/:stageId" element={<StageLayout />} />
+                  <Route element={<PrivateRoute />}>
+                    <Route path={"/dashboard"} element={<Dashboard />} />
+                    <Route path={"/admin/create-event"} element={<CreateEvent />} />
+                    <Route path={"/admin/:eventId"} element={<EventAdmin />} />
+                  </Route>
+                  <Route path={"/*"} element={<NotFoundPage />} />
                 </Route>
-                <Route path={"/*"} element={<NotFoundPage />} />
-              </Route>
-              <Route path={"/signin"}>
-                <Route index element={<InItSignIn />} />
-                <Route path={"form"} element={<SignIn />} />
-                <Route path={"auth"} element={<Authentication />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </Suspense>
+                <Route path={"/signin"}>
+                  <Route index element={<InItSignIn />} />
+                  <Route path={"form"} element={<SignIn />} />
+                  <Route path={"auth"} element={<Authentication />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </Suspense>
+        </NotificationsProvider>
       </LocalizationProvider>
     </ThemeProvider>
   )
