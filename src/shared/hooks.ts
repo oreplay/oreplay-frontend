@@ -23,16 +23,16 @@ export function useAuth() {
 export function useEventDetail(event_id: string): [EventDetailModel | null, boolean] {
   const [EventDetail, setEventDetail] = useState<EventDetailModel | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  //const {token} = useAuth()
+  const { token } = useAuth()
 
   useEffect(() => {
-    getEventDetail(event_id).then((response) => {
+    getEventDetail(event_id, token).then((response) => {
       //temporary removed token due to BACKs bug
       setEventDetail(response.data)
       setIsLoading(false)
 
       return () => setIsLoading(true)
     })
-  }, [event_id]) //,token])
+  }, [event_id, token])
   return [EventDetail, isLoading]
 }
