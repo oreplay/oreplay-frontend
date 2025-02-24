@@ -105,7 +105,12 @@ export default function EventDetail() {
           }}
         >
           <Box paddingTop={"48px"} paddingBottom={5}>
-            <Typography fontWeight={"bold"} paddingBottom={"48px"} style={styles.aligns}>
+            <Typography
+              fontWeight={"bold"}
+              paddingBottom={"12px"}
+              sx={{ fontSize: "large" }}
+              style={styles.aligns}
+            >
               {t("Stages")}
             </Typography>
 
