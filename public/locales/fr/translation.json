@@ -4,6 +4,7 @@
     "title": "_An unexpected error happened",
     "msg": "_Try refreshing the page. If the error persist, please try again later."
   },
+  "ForbiddenAccess": "_Forbidden access",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
   "Menu": "Menu",
