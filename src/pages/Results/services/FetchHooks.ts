@@ -2,6 +2,7 @@ import { useQuery } from "react-query"
 import { AxiosError } from "axios"
 import { Data, EventDetailModel } from "../../../shared/EntityTypes.ts"
 import { getEventDetail } from "./EventService.ts"
+import { useAuth } from "../../../shared/hooks.ts"
 
 interface EmptyModel {}
 
@@ -9,7 +10,7 @@ interface EmptyModel {}
 //  return useQuery<T, D>({})
 //}
 
-function genericRetryHandler(failureCount: number, error: AxiosError): boolean {
+export function genericRetryHandler(failureCount: number, error: AxiosError): boolean {
   if (error.response && error.response.status < 500) {
     return false
   }
@@ -17,9 +18,11 @@ function genericRetryHandler(failureCount: number, error: AxiosError): boolean {
 }
 
 export function useFetchEventDetail(id: string) {
+  const { token } = useAuth()
+
   return useQuery<Data<EventDetailModel>, AxiosError<Data<EventDetailModel>, EmptyModel>>(
     ["eventDetail", id], // Query key
-    () => getEventDetail(id, undefined), // Query function
+    () => getEventDetail(id, token ? token : undefined), // Query function
     {
       enabled: !!id, // Only fetch if id exists
       refetchOnWindowFocus: false,
