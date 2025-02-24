@@ -152,6 +152,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <DatePicker
             name={"startDate"}
             label={t("EventAdmin.StartDate") + " *"}
+            disabled={style_props.disabled}
             slotProps={{ textField: { ...style_props, fullWidth: true } }}
             defaultValue={
               props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null
@@ -162,17 +163,17 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <DatePicker
             name={"endDate"}
             label={t("EventAdmin.FinishDate") + " *"}
+            disabled={style_props.disabled}
             slotProps={{ textField: { ...style_props, fullWidth: true } }}
             defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
           />
         </Grid>
         <Grid item xs={12} md={2.6} lg={2.5}>
-          <FormControl fullWidth required>
+          <FormControl fullWidth required disabled={style_props.disabled}>
             <InputLabel id="scope-label">{t("EventAdmin.Scopes.Scope")}</InputLabel>
             <Select
               id="scope"
               name={"scope"}
-              disabled={!props.canEdit}
               labelId="scope-label"
               label={t("EventAdmin.Scopes.Scope")}
               defaultValue={props.eventDetail ? props.eventDetail.scope : ""}
