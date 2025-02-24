@@ -18,8 +18,10 @@ export function parseDateOnlyTime(dateString: string) {
   return parseLuxon(dateString).toLocaleString(DateTime.TIME_24_SIMPLE)
 }
 
-export function parseStartTime(dateString: string) {
-  return parseLuxon(dateString).toFormat("HH:mm:ss")
+export function parseStartTime(dateString: null | string) {
+  if (dateString) {
+    return parseLuxon(dateString).toFormat("HH:mm:ss")
+  } else return null
 }
 
 export function parseSecondsToMMSS(seconds: number | string) {
