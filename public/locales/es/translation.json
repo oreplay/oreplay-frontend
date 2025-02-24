@@ -157,8 +157,8 @@
     "PenaltyPoints": "Pena",
     "VirtualTicket": {
       "FinishControl": "Meta",
-      "Control": "Control",
-      "StartHour": "Hora de salida:",
+      "Control": "Ctrl",
+      "StartHour": "H.salida:",
       "FinishHour": "Hora de meta:",
       "RaceTime": "Tiempo:",
       "Partial": "Parcial",
