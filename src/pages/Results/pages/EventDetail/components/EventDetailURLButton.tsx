@@ -32,6 +32,7 @@ const EditeDetailURLButton: React.FC<MyComponentProps> = ({ url, marginLeft, mar
             marginTop: "12px",
             textTransform: "lowercase",
             paddingX: 0,
+            color: "text.secondary",
           }}
           variant="text"
           onClick={() => {
