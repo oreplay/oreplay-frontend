@@ -16,6 +16,7 @@ export default function NoTodayEvents(props: Props) {
         sx={{
           marginTop: "24px",
           display: "flex",
+          flexGrow: 1,
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "space-between",
