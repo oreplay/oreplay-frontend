@@ -17,8 +17,11 @@ export default function EventsList() {
 
   // Events queries
   const [futureEventList, isFutureLoading, futurePage, setFuturePage, futureNumPages] =
-    useFetchEvents("future")
-  const [pastEventList, isPastLoading, pastPage, setPastPage, pastNumPages] = useFetchEvents("past")
+    useFetchEvents("future", 6)
+  const [pastEventList, isPastLoading, pastPage, setPastPage, pastNumPages] = useFetchEvents(
+    "past",
+    6,
+  )
   const [todayEventList, isTodayLoading] = useFetchEvents("today", 100)
 
   // Loading page
@@ -27,7 +30,7 @@ export default function EventsList() {
   } else
     // Component
     return (
-      <Box sx={{ m: "50px" }}>
+      <Box sx={{ m: "50px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
         {/** Today events **/}
         <TodayEvents eventList={todayEventList} />
 
