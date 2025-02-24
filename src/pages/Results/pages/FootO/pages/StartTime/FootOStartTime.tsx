@@ -40,7 +40,7 @@ export default function FootOStartTime() {
             >
               <Stack direction={"column"}>
                 <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
-                <Typography sx={{ color: "text.secondary" }}>
+                <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
                   {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
                 </Typography>
               </Stack>
@@ -60,7 +60,9 @@ export default function FootOStartTime() {
                 startTime={runner.runner_results[0].start_time}
                 status={parseResultStatus(runner.runner_results[0]?.status_code as string)}
               ></StartTime>
-              <Typography sx={{ color: "text.secondary" }}>{`${runner.sicard}`}</Typography>
+              <Typography
+                sx={{ color: "text.secondary", fontSize: "small" }}
+              >{`${runner.sicard}`}</Typography>
             </Box>
           </ResultListItem>
         ))}

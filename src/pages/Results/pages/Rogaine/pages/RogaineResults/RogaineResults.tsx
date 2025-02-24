@@ -60,6 +60,7 @@ export default function RogainePoints() {
                 <Typography
                   sx={{
                     color: "text.secondary",
+                    fontSize: "small",
                   }}
                 >
                   {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}

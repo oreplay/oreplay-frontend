@@ -58,6 +58,7 @@ export default function FootOResults() {
                 <Typography
                   sx={{
                     color: "text.secondary",
+                    fontSize: "small",
                   }}
                 >
                   {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}

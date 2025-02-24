@@ -58,7 +58,7 @@ export default function RogainePoints() {
                   <TableCell key={`runner${runner.id}pos`}>{getPositionOrNc(runner, t)}</TableCell>
                   <TableCell sx={{ minWidth: "200px" }} key={`runner${runner.id}name`}>
                     <Typography>{`${runner.first_name} ${runner.last_name}`}</Typography>
-                    <Typography sx={{ color: "text.secondary" }}>
+                    <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
                       {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
                     </Typography>
                   </TableCell>
