@@ -12,6 +12,7 @@ import {
 import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
 const baseUrl = "events"
 import { useQuery } from "react-query"
+import { AxiosError } from "axios"
 
 export async function getEventsFromUser(
   user_id: string,
@@ -240,7 +241,7 @@ export async function getOrganizerList(): Promise<Page<OrganizerModel>> {
  * @returns The query result.
  */
 export function useOrganizerSearch() {
-  return useQuery<Page<OrganizerModel>>(
+  return useQuery<Page<OrganizerModel>, AxiosError<Page<OrganizerModel>>>(
     ["organizers"], // Query key
     () => getOrganizerList(),
   )
