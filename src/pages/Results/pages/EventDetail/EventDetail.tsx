@@ -73,7 +73,7 @@ export default function EventDetail() {
     return <Navigate to={`/competitions/${id}/${detail.stages[0].id}`} replace={true} />
   } else
     return (
-      <Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
+      <Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"} >
         <Box
           width={"100%"}
           minHeight={"35%"}
@@ -103,7 +103,7 @@ export default function EventDetail() {
             bgcolor: "secondary.main",
           }}
         >
-          <Box paddingTop={"48px"}>
+          <Box paddingTop={"48px"} paddingBottom={5}>
             <Typography
               fontWeight={"bold"}
               paddingBottom={"48px"}
