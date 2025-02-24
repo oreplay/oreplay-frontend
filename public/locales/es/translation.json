@@ -4,6 +4,7 @@
     "title": "Ha ocurrido un error inesperado",
     "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde"
   },
+  "ForbiddenAccess": "Acceso denegado",
   "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
   "ExperimentalFeatureMsg": "Funcionalidad experimental",
   "Menu": "Menu",

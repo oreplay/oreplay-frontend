@@ -1,5 +1,5 @@
 import EventAdminForm from "../../components/EventAdminForm.tsx"
-import { Box, Container, Typography } from "@mui/material"
+import { Alert, AlertTitle, Box, Container, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import StagesDataGrid from "./components/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
@@ -8,12 +8,16 @@ import React, { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
 import { DateTime } from "luxon"
 import { EventDetailModel, useRequiredParams } from "../../../../../../shared/EntityTypes.ts"
-import { useAuth, useEventDetail } from "../../../../../../shared/hooks.ts"
+import { useAuth } from "../../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx"
+import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
+import { useFetchEventDetail } from "../../../../../Results/services/FetchHooks.ts"
+import NotFoundPage from "../../../../../NotFoundError/NotFoundPage.tsx"
 
 export default function EventAdmin() {
   const { eventId } = useRequiredParams<{ eventId: string }>()
-  const [detail, isLoadingEventData] = useEventDetail(eventId)
+  const { data: eventData, error, isError, isLoading } = useFetchEventDetail(eventId)
+  const detail = eventData?.data
   const { t } = useTranslation()
   const { token } = useAuth()
 
@@ -49,36 +53,47 @@ export default function EventAdmin() {
 
   const handleClickEditEvent = () => setIsEventEditing(true)
 
-  return (
-    <Container>
-      {isLoadingEventData ? (
-        <GeneralSuspenseFallback />
-      ) : (
-        <Container>
-          <Box sx={{ marginY: "2em" }}>
-            <Typography variant={"h3"}>{t("EventAdmin.EventData")}</Typography>
-            <EventAdminForm
-              eventDetail={detail as EventDetailModel}
-              handleCancel={handleCancelEditingEvent}
-              handleEdit={handleClickEditEvent}
-              handleSubmit={handleUpdateEvent}
-              canEdit={isEventEditing}
-            />
-          </Box>
-          <Box sx={{ marginY: "2em" }}>
-            <Typography variant={"h3"}>{t("Stages")}</Typography>
-            {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
-          </Box>
-          <Box sx={{ marginY: "2em" }}>
-            <Typography variant={"h3"}>{t("EventAdmin.EventSecurityTokens")}</Typography>
-            <EventTokenDataGrid event_id={detail ? detail.id : ""} />
-          </Box>
-          <Box sx={{ marginY: "12em" }}>
-            <Typography variant={"h3"}>{t("EventAdmin.DangerArea")}</Typography>
-            {detail ? <DeleteEventButton event={detail} /> : <></>}
-          </Box>
-        </Container>
-      )}
-    </Container>
-  )
+  if (isLoading) {
+    return <GeneralSuspenseFallback />
+  } else if (isError) {
+    const error_status = error.response?.status
+    if (error_status == 404) {
+      return <NotFoundPage />
+    } else if (error_status == 403) {
+      return (
+        <Alert severity={"error"} variant={"outlined"} sx={{ margin: 5 }}>
+          <AlertTitle>{t("ForbiddenAccess")}</AlertTitle>
+        </Alert>
+      )
+    }
+
+    return <GeneralErrorFallback />
+  } else {
+    return (
+      <Container>
+        <Box sx={{ marginY: "2em" }}>
+          <Typography variant={"h3"}>{t("EventAdmin.EventData")}</Typography>
+          <EventAdminForm
+            eventDetail={detail as EventDetailModel}
+            handleCancel={handleCancelEditingEvent}
+            handleEdit={handleClickEditEvent}
+            handleSubmit={handleUpdateEvent}
+            canEdit={isEventEditing}
+          />
+        </Box>
+        <Box sx={{ marginY: "2em" }}>
+          <Typography variant={"h3"}>{t("Stages")}</Typography>
+          {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
+        </Box>
+        <Box sx={{ marginY: "2em" }}>
+          <Typography variant={"h3"}>{t("EventAdmin.EventSecurityTokens")}</Typography>
+          <EventTokenDataGrid event_id={detail ? detail.id : ""} />
+        </Box>
+        <Box sx={{ marginY: "12em" }}>
+          <Typography variant={"h3"}>{t("EventAdmin.DangerArea")}</Typography>
+          {detail ? <DeleteEventButton event={detail} /> : <></>}
+        </Box>
+      </Container>
+    )
+  }
 }
