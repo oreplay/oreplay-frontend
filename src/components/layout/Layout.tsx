@@ -6,6 +6,8 @@ import Sidebar from "./Sidebar/Sidebar.tsx"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import { useTranslation } from "react-i18next"
 import GeneralSuspenseFallback from "../GeneralSuspenseFallback.tsx"
+import { ErrorBoundary } from "react-error-boundary"
+import GeneralErrorFallback from "../GeneralErrorFallback.tsx"
 const VERSION_NUMBER = import.meta.env.VITE_VERSION_NUMBER
 const VERSION_TYPE = import.meta.env.VITE_VERSION_TYPE
 
@@ -45,8 +47,10 @@ export default function Layout() {
           </Fade>
         </Popper>
       )}
-      <Suspense fallback={<GeneralSuspenseFallback />}>
-        <Outlet />
+      <Suspense fallback={<GeneralSuspenseFallback />} key={location.pathname}>
+        <ErrorBoundary fallback={<GeneralErrorFallback displayMsg />}>
+          <Outlet />
+        </ErrorBoundary>
       </Suspense>
     </Box>
   )
