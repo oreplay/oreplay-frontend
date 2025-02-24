@@ -119,6 +119,7 @@ export default function EventTokenDataGrid(props: Props) {
     try {
       const response = await postEventToken(props.event_id, token as string)
       setEventToken(response.data.token)
+      setEventTokenExpireDate(DateTime.fromISO(response.data.expires))
       setIsLoading(false)
     } catch (error) {
       console.log("error in postEventToken", error)
