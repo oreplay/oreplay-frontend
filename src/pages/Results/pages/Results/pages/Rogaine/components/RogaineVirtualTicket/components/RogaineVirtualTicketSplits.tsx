@@ -1,8 +1,8 @@
 import React from "react"
-import { ProcessedSplitModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import VirtualTicketControl from "../../../../../components/VirtualTicket/VirtualTicketControl.tsx"
+import { ProcessedSplitModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import VirtualTicketControl from "../../../../../../../components/VirtualTicket/VirtualTicketControl.tsx"
 import { Grid, Typography } from "@mui/material"
-import { parseSecondsToMMSS } from "../../../../../../../shared/Functions.tsx"
+import { parseSecondsToMMSS } from "../../../../../../../../../shared/Functions.tsx"
 
 type RogaineVirtualTicketProps = {
   split: ProcessedSplitModel

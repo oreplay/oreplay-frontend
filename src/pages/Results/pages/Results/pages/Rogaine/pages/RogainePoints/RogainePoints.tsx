@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { RunnersContext } from "../../../../shared/context.ts"
+import { RunnersContext } from "../../../../../../shared/context.ts"
 import { useTranslation } from "react-i18next"
 import {
   Table,
@@ -11,11 +11,11 @@ import {
   Typography,
 } from "@mui/material"
 import { getUniqueStationNumbers } from "../../shared/Functions.ts"
-import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts"
-import { parseSecondsToMMSS } from "../../../../../../shared/Functions.tsx"
+import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
+import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
 import ControlBadge from "./components/ControlBadge.tsx"
-import { RESULT_STATUS_TEXT } from "../../../../shared/constants.ts"
-import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx"
+import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
+import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
 
 export default function RogainePoints() {
   const { t } = useTranslation()

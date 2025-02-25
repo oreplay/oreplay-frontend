@@ -1,34 +1,32 @@
 import { useContext } from "react"
 import { useTranslation } from "react-i18next"
-import { RunnersContext } from "../../../../shared/context.ts"
-import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
-import ResultListItem from "../../../../components/ResultsList/ResultListItem.tsx"
+import { RunnersContext } from "../../../../../../shared/context.ts"
+import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
+import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
 import { Box, Typography } from "@mui/material"
-import { getPositionOrNc, parseResultStatus } from "../../../../shared/functions.ts"
-import { RESULT_STATUS_TEXT } from "../../../../shared/constants.ts"
-import { useVirtualTicket } from "../../../../components/VirtualTicket/shared/hooks.ts"
-import RogaineVirtualTicket from "../../components/RogaineVirtualTicket/RogaineVirtualTicket.tsx"
-import RaceTime from "../../../../components/RaceTime.tsx"
-import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
+import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
+import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
+import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
+import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
+import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx"
+import RaceTime from "../../../../../../components/RaceTime.tsx"
+import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 
-export default function RogainePoints() {
+export default function FootOResults() {
   const { t } = useTranslation()
 
+  const [runnersList, isLoading] = useContext(RunnersContext)
   const [isVirtualTicketOpen, selectedRunner, handleRowClick, handleCloseVirtualTicket] =
     useVirtualTicket()
 
-  // Gather runners data
-  const [runnersList, isLoading] = useContext(RunnersContext)
-
-  // Render component
   if (isLoading) {
     return <ResultsListSkeleton />
   } else {
     return (
       <ResultListContainer>
-        {runnersList.map((runner) => {
-          const runnerResult = runner.runner_results[0]
-          const status = parseResultStatus(runnerResult?.status_code as string)
+        {runnersList.map((runner: ProcessedRunnerModel) => {
+          const status = parseResultStatus(runner.runner_results[0].status_code as string)
           const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
           return (
@@ -76,25 +74,23 @@ export default function RogainePoints() {
                   flexGrow: 1,
                 }}
               >
-                <Typography>
-                  {statusOkOrNc
-                    ? runnerResult.points_final || runnerResult.finish_time
-                      ? `${runnerResult.points_final}`
-                      : ""
-                    : ""}
-                </Typography>
                 <RaceTime
                   displayStatus
                   status={status}
-                  start_time={runnerResult.start_time}
-                  finish_time={runnerResult.finish_time}
-                  time_seconds={runnerResult.time_seconds}
+                  finish_time={runner.runner_results[0].finish_time}
+                  time_seconds={runner.runner_results[0].time_seconds}
+                  start_time={runner.runner_results[0].start_time}
                 />
+                <Typography sx={{ color: "primary.main", fontSize: 14 }}>
+                  {statusOkOrNc && runner.runner_results[0].finish_time != null
+                    ? `+${parseSecondsToMMSS(runner.runner_results[0].time_behind.toString())}`
+                    : ""}
+                </Typography>
               </Box>
             </ResultListItem>
           )
         })}
-        <RogaineVirtualTicket
+        <FootOVirtualTicket
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
