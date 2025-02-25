@@ -1,4 +1,4 @@
-import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
+import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import { Alert } from "@mui/material"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import { useTranslation } from "react-i18next"

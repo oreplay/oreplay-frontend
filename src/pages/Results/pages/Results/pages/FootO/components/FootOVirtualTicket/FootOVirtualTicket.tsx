@@ -2,12 +2,12 @@ import React from "react"
 import {
   VirtualTicketContainer,
   VirtualTicketProps,
-} from "../../../../components/VirtualTicket/VirtualTicketContainer.tsx"
-import { VirtualTicketHeader } from "../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
-import { VirtualTicketSplits } from "../../../../components/VirtualTicket/VirtualTicketSplits.tsx"
-import VirtualTicketRunnerInfo from "../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
-import RogaineVirtualTicketPointsBanner from "./components/RogaineVirtualTicketPointsBanner.tsx"
-import RogaineVirtualTicketSplit from "./components/RogaineVirtualTicketSplits.tsx"
+} from "../../../../../../components/VirtualTicket/VirtualTicketContainer.tsx"
+import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
+import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits.tsx"
+import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
+import FootOVirtualTicketTimesBanner from "./components/FootOVirtualTicketTimesBanner.tsx"
+import FootOVirtualTicketSplit from "./components/FootOVirtualTicketSplit.tsx"
 import { Grid, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next"
  * @param handleCloseTicket
  * @constructor
  */
-const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
+const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
   isTicketOpen,
   runner,
   handleCloseTicket,
@@ -35,26 +35,26 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
       >
         <VirtualTicketHeader>
           <VirtualTicketRunnerInfo runner={runner} />
-          <RogaineVirtualTicketPointsBanner runnerResult={runner.runner_results[0]} />
+          <FootOVirtualTicketTimesBanner runnerResult={runner.runner_results[0]} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
-          <Grid item xs={3}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "left" }}>
+          <Grid item xs={2.6}>
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
               {t("ResultsStage.VirtualTicket.Control")}
             </Typography>
           </Grid>
-          <Grid item xs={4}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "left" }}>
+          <Grid item xs={4.7}>
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
               {t("ResultsStage.VirtualTicket.Partial")}
             </Typography>
           </Grid>
-          <Grid item xs={5}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "left" }}>
+          <Grid item xs={4.7}>
+            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
               {t("ResultsStage.VirtualTicket.Cumulative")}
             </Typography>
           </Grid>
           {runner.runner_results[0].splits.map((split) => (
-            <RogaineVirtualTicketSplit key={split.id} split={split} />
+            <FootOVirtualTicketSplit key={split.id} split={split} />
           ))}
         </VirtualTicketSplits>
       </VirtualTicketContainer>
@@ -64,4 +64,4 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
   }
 }
 
-export default RogaineVirtualTicket
+export default FootOVirtualTicket

@@ -1,7 +1,7 @@
 import React from "react"
-import { ProcessedSplitModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import VirtualTicketControl from "../../../../../components/VirtualTicket/VirtualTicketControl.tsx"
-import VirtualTicketSplitTime from "../../../../../components/VirtualTicket/VirtualTicketSplitTime.tsx"
+import { ProcessedSplitModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import VirtualTicketControl from "../../../../../../../components/VirtualTicket/VirtualTicketControl.tsx"
+import VirtualTicketSplitTime from "../../../../../../../components/VirtualTicket/VirtualTicketSplitTime.tsx"
 
 type FootOVirtualTicketProps = {
   split: ProcessedSplitModel
