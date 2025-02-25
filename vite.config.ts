@@ -8,6 +8,10 @@ export default defineConfig({
   },
   plugins: [react()],
   server: {
+    allowedHosts: [".oreplay.es"],
     port: 8080,
+  },
+  preview: {
+    allowedHosts: [".oreplay.es"],
   },
 })
