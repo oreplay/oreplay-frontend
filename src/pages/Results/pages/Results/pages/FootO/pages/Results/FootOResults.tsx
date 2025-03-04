@@ -17,6 +17,7 @@ import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import FlexCol from "../../../../../../components/FlexCol.tsx"
+import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 
 export default function FootOResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -48,7 +49,7 @@ export default function FootOResults(
               </FlexCol>
               <ParticipantName
                 name={runner.full_name}
-                subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
+                subtitle={runnerService.getClubName(runner, t)}
               />
               <FlexCol flexGrow="1">
                 <RaceTime

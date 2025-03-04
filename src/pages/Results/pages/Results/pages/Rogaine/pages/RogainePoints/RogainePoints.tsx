@@ -6,6 +6,7 @@ import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx
 import ControlBadge from "./components/ControlBadge.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
 import ParticipantName from "../../../../../../components/ParticipantName.tsx"
+import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
@@ -59,7 +60,7 @@ export default function RogainePoints(
                   <TableCell sx={{ minWidth: "200px" }} key={`runner${runner.id}name`}>
                     <ParticipantName
                       name={runner.full_name}
-                      subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
+                      subtitle={runnerService.getClubName(runner, t)}
                     />
                   </TableCell>
                   <TableCell key={`runner${runner.id}bonus`}>
