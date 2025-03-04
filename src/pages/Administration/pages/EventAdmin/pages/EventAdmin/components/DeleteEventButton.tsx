@@ -13,6 +13,7 @@ import { deleteEvent } from "../../../../../services/EventAdminService.ts"
 import { useNavigate } from "react-router-dom"
 import { EventDetailModel } from "../../../../../../../shared/EntityTypes.ts"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
+import { useNotifications } from '@toolpad/core/useNotifications'
 
 interface DeleteEventButtonProps {
   event: EventDetailModel
@@ -23,6 +24,7 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { token } = useAuth()
+  const notifications = useNotifications()
 
   const handleClose = () => {
     setIsOpen(false)
@@ -33,7 +35,10 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
       await deleteEvent(props.event.id, token)
       await navigate("/dashboard")
     } catch (error) {
-      alert("An error occurred deleting the event")
+      notifications.show("An error occurred deleting the event.", {
+        autoHideDuration: 3000,
+        severity: "error", // Could be 'success', 'error', 'warning', 'info'.
+      })
       console.log("error in deleting the event ", error)
     }
   }
@@ -66,7 +71,7 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
           <Button variant="outlined" onClick={handleClose}>
             {t("Cancel")}
           </Button>
-          <Button variant="contained" onClick={void handleDeleteEvent} color="error" autoFocus>
+          <Button variant="contained" onClick={ () => void handleDeleteEvent() } color="error" autoFocus>
             {t("Delete")}
           </Button>
         </DialogActions>
