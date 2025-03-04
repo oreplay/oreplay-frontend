@@ -10,18 +10,19 @@ const AuthenticationSidebarItem = () => {
   const { t } = useTranslation()
   const { user, logoutAction } = useAuth()
 
+  function onLogoutClick() {
+    void (async () => {
+      await logoutAction()
+      //TODO: Implement real logout within logoutAction
+      await navigate("/")
+    })()
+  }
+
   if (user) {
     // Logout option
     return (
       <ListItem>
-        <ListItemButton
-          onClick={() => {
-            logoutAction().then(() => {
-              //TODO: Implement real logout within logoutAction
-              navigate("/")
-            })
-          }}
-        >
+        <ListItemButton onClick={onLogoutClick}>
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>

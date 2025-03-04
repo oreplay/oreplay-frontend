@@ -109,14 +109,14 @@ export default function StagesDataGrid(props: Props) {
     setRowModesModel({ ...rowModesModel, [row.id]: { mode: GridRowModes.View } })
   }
 
-  const handleDeleteClick = (row: GridRowParams<StageRow>) => {
-    deleteStage(props.eventDetail.id, row.row.stageId, token as string).then(() =>
+  const handleDeleteClick = async (row: GridRowParams<StageRow>) => {
+    await deleteStage(props.eventDetail.id, row.row.stageId, token as string).then(() =>
       setRows(rows.filter((thisRow) => thisRow.id !== row.id)),
     )
   }
 
-  const handleWipeOutRunnersClick = (row: GridRowParams<StageRow>) => {
-    wipeOutStage(props.eventDetail.id, row.row.stageId, token as string).then(() => {})
+  const handleWipeOutRunnersClick = async (row: GridRowParams<StageRow>) => {
+    await wipeOutStage(props.eventDetail.id, row.row.stageId, token as string).then(() => {})
   }
 
   const handleCancelClick = (row: GridRowParams<StageRow>) => () => {
@@ -236,8 +236,8 @@ export default function StagesDataGrid(props: Props) {
         return [
           <GridActionsSettingsMenu
             handleEditClick={() => handleEditClick(row)}
-            handleDeleteClick={() => handleDeleteClick(row)}
-            handleWipeOutRunnersClick={() => handleWipeOutRunnersClick(row)}
+            handleDeleteClick={() => void handleDeleteClick(row)}
+            handleWipeOutRunnersClick={() => void handleWipeOutRunnersClick(row)}
           />,
           <Tooltip title={t("EventAdmin.Stages.GoToStage")}>
             <GridActionsCellItem

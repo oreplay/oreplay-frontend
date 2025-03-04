@@ -51,7 +51,7 @@ export default function FootOResults(
                 name={runner.full_name}
                 subtitle={runnerService.getClubName(runner, t)}
               />
-              <FlexCol flexGrow="1">
+              <FlexCol flexGrow={1}>
                 <RaceTime
                   displayStatus
                   status={status}

@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "format": "npx prettier . --write",
     "format:check": "npx prettier . --check",
-    "lint": "eslint . --ext ts,tsx,json --report-unused-disable-directives --max-warnings 30",
+    "lint": "eslint . --ext ts,tsx,json --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --host 0.0.0.0"
   },
   "engines": {
