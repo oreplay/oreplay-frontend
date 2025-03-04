@@ -127,7 +127,7 @@ export async function patchEvent(
  * @param token Authentication token
  */
 export async function deleteEvent(id: string, token: string | null) {
-  return await deleteRequest(`api/v1/events/${id}`, token)
+  return await deleteRequest(`/events/${id}`, token)
 }
 
 /**

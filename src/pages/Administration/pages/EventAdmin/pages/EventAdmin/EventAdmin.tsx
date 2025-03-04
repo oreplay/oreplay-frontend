@@ -82,7 +82,7 @@ export default function EventAdmin() {
             eventDetail={detail as EventDetailModel}
             handleCancel={handleCancelEditingEvent}
             handleEdit={handleClickEditEvent}
-            handleSubmit={void handleUpdateEvent}
+            handleSubmit={(evt) => void handleUpdateEvent(evt)}
             canEdit={isEventEditing}
           />
         </Box>
