@@ -4,84 +4,15 @@ import {
   invalidateEventToken,
   postEventToken,
 } from "../../../../../services/EventAdminService.ts"
-import {
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Grid,
-  IconButton,
-  TextField,
-} from "@mui/material"
+import { Container, Grid, TextField } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import AutorenewIcon from "@mui/icons-material/Autorenew"
-import AddIcon from "@mui/icons-material/Add"
-import Tooltip from "@mui/material/Tooltip"
 import { CopyToClipBoardButton } from "../../../../../../../shared/Components.tsx"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
 import { DateTime } from "luxon"
+import RefreshButton from "./RefreshButton.tsx"
 
 interface Props {
   event_id: string
-}
-
-interface RefreshButtonParams {
-  handleRenewToken: () => void
-  eventToken: string
-}
-
-function RefreshButton(props: RefreshButtonParams) {
-  const { t } = useTranslation()
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
-  const handleClose = () => {
-    setIsDialogOpen(false)
-  }
-  const handleRenewAndClose = () => {
-    props.handleRenewToken()
-    setIsDialogOpen(false)
-  }
-
-  return (
-    <>
-      {props.eventToken == "" ? (
-        <IconButton>
-          <Tooltip title={t("EventAdmin.Create security keys")}>
-            <AddIcon onClick={() => props.handleRenewToken()} />
-          </Tooltip>
-        </IconButton>
-      ) : (
-        <>
-          <IconButton>
-            <Tooltip title={t("EventAdmin.Renew security keys")}>
-              <AutorenewIcon onClick={() => setIsDialogOpen(true)} />
-            </Tooltip>
-          </IconButton>
-          <CopyToClipBoardButton value={props.eventToken} />
-        </>
-      )}
-      <Dialog open={isDialogOpen} onClose={handleClose}>
-        <DialogTitle id="alert-dialog-title">
-          {t("EventAdmin.Do you want to renew the security key?")}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {t("EventAdmin.RenewEventTokenMsg")}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="outlined" onClick={handleClose}>
-            {t("Cancel")}
-          </Button>
-          <Button variant="contained" onClick={handleRenewAndClose} autoFocus>
-            {t("EventAdmin.Renew")}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  )
 }
 
 export default function EventTokenDataGrid(props: Props) {
@@ -93,6 +24,7 @@ export default function EventTokenDataGrid(props: Props) {
 
   useEffect(() => {
     const getResponse = getEventToken(props.event_id, token)
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     getResponse.then((response) => {
       // Check if there are security tokens
       if (response.data.length > 0) {
@@ -105,8 +37,10 @@ export default function EventTokenDataGrid(props: Props) {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const handleRenewToken = async () => {
+  const handleRenewToken = () => {
+    void handleRenewToken2()
+  }
+  const handleRenewToken2 = async () => {
     setIsLoading(true)
     if (eventToken != "") {
       try {
@@ -158,7 +92,7 @@ export default function EventTokenDataGrid(props: Props) {
             disabled
             InputProps={{
               endAdornment: (
-                <RefreshButton eventToken={eventToken} handleRenewToken={handleRenewToken} />
+                <RefreshButton eventToken={eventToken || ""} handleRenewToken={handleRenewToken} />
               ),
             }}
           />
