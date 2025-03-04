@@ -13,8 +13,12 @@ import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspens
 import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
 import { useFetchEventDetail } from "../../../../../Results/services/FetchHooks.ts"
 import NotFoundPage from "../../../../../NotFoundError/NotFoundPage.tsx"
+import { ApiError } from "../../../../../../domain/models/ApiError.ts"
+import { apiErrorService } from "../../../../../../domain/services/ApiErrorService.ts"
+import { useNotifications } from "@toolpad/core/useNotifications"
 
 export default function EventAdmin() {
+  const notifications = useNotifications()
   const { eventId } = useRequiredParams<{ eventId: string }>()
   const { data: eventData, error, isError, isLoading } = useFetchEventDetail(eventId)
   const detail = eventData?.data
@@ -23,27 +27,30 @@ export default function EventAdmin() {
 
   // Functions to handle Event update
   const [isEventEditing, setIsEventEditing] = useState<boolean>(false)
-  const handleUpdateEvent = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdateEvent = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const response = patchEvent(
-      eventId,
-      data.get("description") as string,
-      DateTime.fromFormat(data.get("startDate") as string, "dd/MM/yyyy").toSQLDate() as string,
-      DateTime.fromFormat(data.get("endDate") as string, "dd/MM/yyyy").toSQLDate() as string,
-      data.get("scope") as string,
-      !!data.get("isPublic"),
-      token as string,
-      data.get("website") ? (data.get("website") as string) : undefined,
-      undefined,
-      data.get("organizerId") ? (data.get("organizerId") as string) : undefined,
-    )
-    response.then(
-      () => {
-        setIsEventEditing(false)
-      },
-      () => console.error("Create event failed", response),
-    )
+    try {
+      await patchEvent(
+        eventId,
+        data.get("description") as string,
+        DateTime.fromFormat(data.get("startDate") as string, "dd/MM/yyyy").toSQLDate() as string,
+        DateTime.fromFormat(data.get("endDate") as string, "dd/MM/yyyy").toSQLDate() as string,
+        data.get("scope") as string,
+        !!data.get("isPublic"),
+        token as string,
+        data.get("website") ? (data.get("website") as string) : undefined,
+        undefined,
+        data.get("organizerId") ? (data.get("organizerId") as string) : undefined,
+      )
+      setIsEventEditing(false)
+    } catch (e) {
+      const data: ApiError = e?.response?.data
+      notifications.show("Edit event failed. " + apiErrorService.toString(data), {
+        autoHideDuration: 3000,
+        severity: "error", // Could be 'success', 'error', 'warning', 'info'.
+      })
+    }
   }
 
   const handleCancelEditingEvent = () => {
