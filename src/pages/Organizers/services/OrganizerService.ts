@@ -1,6 +1,6 @@
 import { OrganizerModel, Page } from "../../../shared/EntityTypes.ts"
 import { get } from "../../../services/ApiConfig.ts"
-const baseUrl = "api/v1/organizers"
+const baseUrl = "/organizers"
 
 export async function getOrganizerList(search?: string | null): Promise<Page<OrganizerModel>> {
   const searchParams = new URLSearchParams()
