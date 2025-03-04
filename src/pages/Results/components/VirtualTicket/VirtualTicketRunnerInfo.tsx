@@ -21,9 +21,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({ runne
 
   return (
     <Grid item xs={12} sx={{ mb: 1 }}>
-      <Typography sx={{ fontWeight: "bold" }}>
-        {`${runner.full_name}`}
-      </Typography>
+      <Typography sx={{ fontWeight: "bold" }}>{`${runner.full_name}`}</Typography>
       <Box
         sx={{
           width: "100%",

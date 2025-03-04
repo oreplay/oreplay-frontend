@@ -10,13 +10,13 @@ import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket
 import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx"
 import RaceTime from "../../../../../../components/RaceTime.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
-import ParticipantName from '../../../../../../components/ParticipantName.tsx'
+import ParticipantName from "../../../../../../components/ParticipantName.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import { AxiosError } from "axios"
-import FlexCol from '../../../../../../components/FlexCol.tsx'
+import FlexCol from "../../../../../../components/FlexCol.tsx"
 
 export default function FootOResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -48,7 +48,7 @@ export default function FootOResults(
               </FlexCol>
               <ParticipantName
                 name={runner.full_name}
-                subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+                subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
               />
               <FlexCol flexGrow="1">
                 <RaceTime

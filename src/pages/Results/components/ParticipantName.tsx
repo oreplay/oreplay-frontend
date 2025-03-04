@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material"
 
 const ParticipantName = ({ name, subtitle, color }) => {
   return (
@@ -22,7 +22,7 @@ const ParticipantName = ({ name, subtitle, color }) => {
         {subtitle}
       </Typography>
     </Box>
-  );
-};
+  )
+}
 
-export default ParticipantName;
+export default ParticipantName

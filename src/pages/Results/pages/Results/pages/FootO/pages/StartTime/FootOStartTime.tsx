@@ -7,16 +7,16 @@ import StartTime from "../../../../../../components/StartTime.tsx"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { parseResultStatus } from "../../../../../../shared/functions.ts"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
-import ParticipantName from '../../../../../../components/ParticipantName.tsx'
-import FlexCol from '../../../../../../components/FlexCol.tsx'
-import RunnerSicard from '../../../../../../components/RunnerSicard.tsx'
-import FlexRow from '../../../../../../components/FlexRow.tsx'
-import TeamRunnerRow from '../../../../../../components/TeamRunnerRow.tsx'
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
+import ParticipantName from "../../../../../../components/ParticipantName.tsx"
+import FlexCol from "../../../../../../components/FlexCol.tsx"
+import RunnerSicard from "../../../../../../components/RunnerSicard.tsx"
+import FlexRow from "../../../../../../components/FlexRow.tsx"
+import TeamRunnerRow from "../../../../../../components/TeamRunnerRow.tsx"
 
 export default function FootOStartTime(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -47,7 +47,7 @@ export default function FootOStartTime(
               <FlexRow>
                 <ParticipantName
                   name={runner.full_name}
-                  subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+                  subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
                 />
                 <FlexCol>
                   <StartTime

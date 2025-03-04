@@ -21,70 +21,68 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
   return runners.map((runner): ProcessedRunnerModel => {
     const runnerResults = []
     runnerResults.push(runner.overall) // TODO refactor
-    const processedRunnerResultList = runnerResults.map(
-      (result): ProcessedRunnerResultModel => {
-        const start_time = result.start_time ? DateTime.fromISO(result.start_time) : null
+    const processedRunnerResultList = runnerResults.map((result): ProcessedRunnerResultModel => {
+      const start_time = result.start_time ? DateTime.fromISO(result.start_time) : null
 
-        const processedSplit = result.splits.map((split, index, array): ProcessedSplitModel => {
-          let time: null | number = null
-          let cumulative_time: null | number = null
+      const processedSplit = result.splits.map((split, index, array): ProcessedSplitModel => {
+        let time: null | number = null
+        let cumulative_time: null | number = null
 
-          if (result.start_time && result.finish_time && split.reading_time) {
-            const reading_time = DateTime.fromISO(split.reading_time)
-            cumulative_time = start_time ? reading_time.diff(start_time).as("seconds") : null
+        if (result.start_time && result.finish_time && split.reading_time) {
+          const reading_time = DateTime.fromISO(split.reading_time)
+          cumulative_time = start_time ? reading_time.diff(start_time).as("seconds") : null
 
-            // first split
-            if (index == 0) {
-              time = cumulative_time
-              // second to last-1 splits
-            } else {
-              const prev_reading_time_string = array[index - 1].reading_time
-              if (prev_reading_time_string) {
-                time = reading_time.diff(DateTime.fromISO(prev_reading_time_string)).as("seconds")
-              }
+          // first split
+          if (index == 0) {
+            time = cumulative_time
+            // second to last-1 splits
+          } else {
+            const prev_reading_time_string = array[index - 1].reading_time
+            if (prev_reading_time_string) {
+              time = reading_time.diff(DateTime.fromISO(prev_reading_time_string)).as("seconds")
             }
           }
-
-          return {
-            ...split,
-            time: time,
-            time_behind: null,
-            position: null,
-            cumulative_time: cumulative_time,
-            cumulative_behind: null,
-            cumulative_position: null,
-          }
-        })
-
-        // finish split
-        // TODO: handle the case were the missing punch is due to not punching the finish line
-        if (result.splits.length > 0 && result.start_time && result.finish_time) {
-          const finish_time = DateTime.fromISO(result.finish_time)
-          // @ts-expect-error linter doesn't know that the length of splits is at least 1
-          const prev_reading_time_string = result.splits.at(-1).reading_time
-          processedSplit.push({
-            id: `${runner.id}-finishSplit`,
-            reading_time: result.finish_time,
-            order_number: Infinity,
-            points: BigInt(0),
-            time: prev_reading_time_string
-              ? finish_time.diff(DateTime.fromISO(prev_reading_time_string)).as("seconds")
-              : null, //time in seconds for this split
-            time_behind: null, //time behind best runner in seconds for this split
-            position: null, // position in this split
-            cumulative_time: prev_reading_time_string ? Number(result.time_seconds) : null, //time in seconds since start
-            cumulative_behind: null, //time in seconds behind the best runner
-            cumulative_position: null, //position from start
-            control: null,
-          })
         }
 
         return {
-          ...result,
-          splits: processedSplit,
+          ...split,
+          time: time,
+          time_behind: null,
+          position: null,
+          cumulative_time: cumulative_time,
+          cumulative_behind: null,
+          cumulative_position: null,
         }
-      },
-    )
+      })
+
+      // finish split
+      // TODO: handle the case were the missing punch is due to not punching the finish line
+      if (result.splits.length > 0 && result.start_time && result.finish_time) {
+        const finish_time = DateTime.fromISO(result.finish_time)
+        // @ts-expect-error linter doesn't know that the length of splits is at least 1
+        const prev_reading_time_string = result.splits.at(-1).reading_time
+        processedSplit.push({
+          id: `${runner.id}-finishSplit`,
+          reading_time: result.finish_time,
+          order_number: Infinity,
+          points: BigInt(0),
+          time: prev_reading_time_string
+            ? finish_time.diff(DateTime.fromISO(prev_reading_time_string)).as("seconds")
+            : null, //time in seconds for this split
+          time_behind: null, //time behind best runner in seconds for this split
+          position: null, // position in this split
+          cumulative_time: prev_reading_time_string ? Number(result.time_seconds) : null, //time in seconds since start
+          cumulative_behind: null, //time in seconds behind the best runner
+          cumulative_position: null, //position from start
+          control: null,
+        })
+      }
+
+      return {
+        ...result,
+        splits: processedSplit,
+      }
+    })
     return {
       ...runner,
       overall: processedRunnerResultList[0],
@@ -124,13 +122,8 @@ export function calculatePositionsAndBehindsFootO(
     const cumulativeTable = splits.map((_, index) => {
       return runners.map((runner) => {
         // only map times if the runner is ok
-        const missingPunchFrom = runner.overall.splits.findIndex(
-          (split) => split.time === null,
-        )
-        if (
-          runner.overall.splits[index] &&
-          (missingPunchFrom === -1 || missingPunchFrom > index)
-        ) {
+        const missingPunchFrom = runner.overall.splits.findIndex((split) => split.time === null)
+        if (runner.overall.splits[index] && (missingPunchFrom === -1 || missingPunchFrom > index)) {
           return runner.overall.splits[index].cumulative_time
         } else {
           return null
@@ -186,8 +179,7 @@ export function calculatePositionsAndBehindsFootO(
               ...runner.overall,
               splits: newSplits,
             },
-          };
-
+          }
         } catch (error) {
           // if an error happens return the runner without updating it
           console.error(

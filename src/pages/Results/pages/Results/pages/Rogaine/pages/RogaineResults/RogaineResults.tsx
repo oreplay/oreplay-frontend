@@ -8,13 +8,13 @@ import { useVirtualTicket } from "../../../../../../components/VirtualTicket/sha
 import RogaineVirtualTicket from "../../components/RogaineVirtualTicket/RogaineVirtualTicket.tsx"
 import RaceTime from "../../../../../../components/RaceTime.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
-import ParticipantName from '../../../../../../components/ParticipantName.tsx'
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
+import ParticipantName from "../../../../../../components/ParticipantName.tsx"
 
 export default function RogainePoints(
   props: ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>>,
@@ -59,7 +59,7 @@ export default function RogainePoints(
               </Box>
               <ParticipantName
                 name={runner.full_name}
-                subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+                subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
               />
               <Box
                 sx={{

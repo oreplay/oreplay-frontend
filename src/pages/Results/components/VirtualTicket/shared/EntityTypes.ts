@@ -2,7 +2,7 @@ import {
   ClassModel,
   ClubModel,
   ControlModel,
-  RunnerModel
+  RunnerModel,
 } from "../../../../../shared/EntityTypes.ts"
 
 export interface ProcessedRunnerModel {

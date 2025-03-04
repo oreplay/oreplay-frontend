@@ -1,19 +1,11 @@
 import { useTranslation } from "react-i18next"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material"
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { getUniqueStationNumbers } from "../../shared/Functions.ts"
 import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
 import ControlBadge from "./components/ControlBadge.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
-import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
-import ParticipantName from '../../../../../../components/ParticipantName.tsx'
+import ParticipantName from "../../../../../../components/ParticipantName.tsx"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
@@ -67,7 +59,7 @@ export default function RogainePoints(
                   <TableCell sx={{ minWidth: "200px" }} key={`runner${runner.id}name`}>
                     <ParticipantName
                       name={runner.full_name}
-                      subtitle={(runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg"))}
+                      subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
                     />
                   </TableCell>
                   <TableCell key={`runner${runner.id}bonus`}>
@@ -95,8 +87,7 @@ export default function RogainePoints(
                   {controlNumbers?.map((control) => {
                     return (
                       <TableCell key={`runner${runner.id}control${control}`}>
-                        {runner.overall.points_final ||
-                        runner.overall.finish_time ? (
+                        {runner.overall.points_final || runner.overall.finish_time ? (
                           <ControlBadge
                             number={control}
                             punched={runnerPunchedControls.includes(control)}
