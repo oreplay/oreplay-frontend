@@ -15,6 +15,7 @@ import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ParticipantName from "../../../../../../components/ParticipantName.tsx"
+import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 
 export default function RogainePoints(
   props: ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>>,
@@ -59,7 +60,7 @@ export default function RogainePoints(
               </Box>
               <ParticipantName
                 name={runner.full_name}
-                subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
+                subtitle={runnerService.getClubName(runner, t)}
               />
               <Box
                 sx={{

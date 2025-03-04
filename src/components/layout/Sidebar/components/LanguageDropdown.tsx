@@ -14,7 +14,7 @@ const LanguageNestedList = () => {
   }
 
   const handleLanguageChange = (lang: string) => {
-    i18n.changeLanguage(lang)
+    void i18n.changeLanguage(lang)
   }
 
   return (

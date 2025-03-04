@@ -17,6 +17,7 @@ import FlexCol from "../../../../../../components/FlexCol.tsx"
 import RunnerSicard from "../../../../../../components/RunnerSicard.tsx"
 import FlexRow from "../../../../../../components/FlexRow.tsx"
 import TeamRunnerRow from "../../../../../../components/TeamRunnerRow.tsx"
+import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 
 export default function FootOStartTime(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -47,7 +48,7 @@ export default function FootOStartTime(
               <FlexRow>
                 <ParticipantName
                   name={runner.full_name}
-                  subtitle={runner.club ? runner.club.short_name : t("ResultsStage.NoClubMsg")}
+                  subtitle={runnerService.getClubName(runner, t)}
                 />
                 <FlexCol>
                   <StartTime
