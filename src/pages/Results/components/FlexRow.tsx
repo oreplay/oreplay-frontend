@@ -1,9 +1,9 @@
-import { Box, SxProps, Theme } from "@mui/material";
-import { ReactNode } from "react";
+import { Box, SxProps, Theme } from "@mui/material"
+import { ReactNode } from "react"
 
 interface FlexRowProps {
-  children: ReactNode;
-  sx?: SxProps<Theme>; // Optional sx prop
+  children: ReactNode
+  sx?: SxProps<Theme> // Optional sx prop
 }
 
 const FlexRow: React.FC<FlexRowProps> = ({ children, sx }) => {
@@ -19,7 +19,7 @@ const FlexRow: React.FC<FlexRowProps> = ({ children, sx }) => {
     >
       {children}
     </Box>
-  );
-};
+  )
+}
 
-export default FlexRow;
+export default FlexRow

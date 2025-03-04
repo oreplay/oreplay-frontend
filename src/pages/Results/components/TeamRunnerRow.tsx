@@ -1,18 +1,18 @@
-import { Box } from "@mui/material";
-import ParticipantName from "./ParticipantName";
-import FlexRow from './FlexRow.tsx'
-import { RunnerModel } from '../../../shared/EntityTypes.ts'
+import { Box } from "@mui/material"
+import ParticipantName from "./ParticipantName"
+import FlexRow from "./FlexRow.tsx"
+import { RunnerModel } from "../../../shared/EntityTypes.ts"
 
 interface TeamRunnerRowProps {
-  runner: RunnerModel;
+  runner: RunnerModel
 }
 
 const TeamRunnerRow: React.FC<TeamRunnerRowProps> = ({ runner }) => {
   const name = runner.full_name
-  const card= '' + runner.sicard
-  let leg = ''
+  const card = "" + runner.sicard
+  let leg = ""
   if (runner?.overall?.leg_number) {
-    leg = '(' + runner?.overall?.leg_number + ')'
+    leg = "(" + runner?.overall?.leg_number + ")"
   }
   return (
     <FlexRow
@@ -20,14 +20,14 @@ const TeamRunnerRow: React.FC<TeamRunnerRowProps> = ({ runner }) => {
         marginTop: "2px",
         fontSize: "12px",
         color: "text.secondary",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
       }}
     >
-      <Box sx={{ marginInlineStart:"12px" }}>{ leg }</Box>
-      <ParticipantName name={ name } color="text.secondary"/>
-      <Box sx={{ color: "text.secondary" }}>{ card }</Box>
+      <Box sx={{ marginInlineStart: "12px" }}>{leg}</Box>
+      <ParticipantName name={name} color="text.secondary" />
+      <Box sx={{ color: "text.secondary" }}>{card}</Box>
     </FlexRow>
-  );
-};
+  )
+}
 
-export default TeamRunnerRow;
+export default TeamRunnerRow
