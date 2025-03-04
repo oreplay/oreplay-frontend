@@ -35,7 +35,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
       >
         <VirtualTicketHeader>
           <VirtualTicketRunnerInfo runner={runner} />
-          <RogaineVirtualTicketPointsBanner runnerResult={runner.runner_results[0]} />
+          <RogaineVirtualTicketPointsBanner runnerResult={runner.overall} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
           <Grid item xs={3}>
@@ -53,7 +53,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
               {t("ResultsStage.VirtualTicket.Cumulative")}
             </Typography>
           </Grid>
-          {runner.runner_results[0].splits.map((split) => (
+          {runner.overall.splits.map((split) => (
             <RogaineVirtualTicketSplit key={split.id} split={split} />
           ))}
         </VirtualTicketSplits>

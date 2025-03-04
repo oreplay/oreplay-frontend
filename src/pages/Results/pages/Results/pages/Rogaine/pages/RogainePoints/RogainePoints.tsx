@@ -54,7 +54,7 @@ export default function RogainePoints(
           </TableHead>
           <TableBody>
             {runnersList?.map((runner) => {
-              const runnerResult = runner.runner_results[0]
+              const runnerResult = runner.overall
               const status = parseResultStatus(runnerResult?.status_code as string)
               const statusOkOrNc =
                 status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
@@ -86,16 +86,16 @@ export default function RogainePoints(
                   </TableCell>
                   <TableCell key={`runner${runner.id}time`}>
                     {statusOkOrNc
-                      ? runner.runner_results[0].finish_time != null
-                        ? parseSecondsToMMSS(runner.runner_results[0].time_seconds)
+                      ? runner.overall.finish_time != null
+                        ? parseSecondsToMMSS(runner.overall.time_seconds)
                         : "-"
                       : t(`ResultsStage.statusCodes.${status}`)}
                   </TableCell>
                   {controlNumbers?.map((control) => {
                     return (
                       <TableCell key={`runner${runner.id}control${control}`}>
-                        {runner.runner_results[0].points_final ||
-                        runner.runner_results[0].finish_time ? (
+                        {runner.overall.points_final ||
+                        runner.overall.finish_time ? (
                           <ControlBadge
                             number={control}
                             punched={runnerPunchedControls.includes(control)}

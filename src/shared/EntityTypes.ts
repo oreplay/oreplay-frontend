@@ -95,7 +95,7 @@ export interface RunnerModel {
   sicard: bigint | null
   class: ClassModel
   club: ClubModel | null
-  runner_results: RunnerResultModel[]
+  overall: RunnerResultModel
 }
 
 export interface RunnerResultModel {
@@ -110,7 +110,7 @@ export interface RunnerResultModel {
   points_adjusted: bigint
   points_penalty: bigint
   points_bonus: bigint
-  leg_number: bigint
+  leg_number: number
   splits: SplitModel[]
 }
 
