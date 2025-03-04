@@ -29,7 +29,7 @@ export default function Dashboard() {
   const navigate = useNavigate()
 
   function handleClick(params: GridRowParams) {
-    navigate(`/admin/${params.id}`)
+    void navigate(`/admin/${params.id}`)
   }
 
   const [rows, setRows] = useState<EventDataGridColumns[]>([])
@@ -40,6 +40,7 @@ export default function Dashboard() {
       page + 1,
       rowsPerPage,
     )
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     response.then((response) => {
       setRows(
         response.data.map(
@@ -84,7 +85,7 @@ export default function Dashboard() {
           {t("Dashboard.YourEvents")}
         </Typography>
         <Box sx={{ mb: "10px" }}>
-          <Button onClick={() => navigate("/admin/create-event")} variant="contained">
+          <Button onClick={() => void navigate("/admin/create-event")} variant="contained">
             <AddIcon />
           </Button>
         </Box>

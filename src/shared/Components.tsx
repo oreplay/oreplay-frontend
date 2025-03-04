@@ -22,7 +22,7 @@ export function CopyToClipBoardButton(props: CopyToClipBoardButtonParams) {
 
   const handleClick = () => {
     const response = navigator.clipboard.writeText(props.value)
-    response.then(() => setOpen(true))
+    void response.then(() => setOpen(true))
   }
 
   return (

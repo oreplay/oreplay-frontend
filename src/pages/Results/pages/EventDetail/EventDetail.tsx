@@ -122,7 +122,7 @@ export default function EventDetail() {
                   justifyContent={"space-between"}
                   key={stage.id}
                   onClick={() =>
-                    navigate(`/competitions/${id}/${stage.id}`, {
+                    void navigate(`/competitions/${id}/${stage.id}`, {
                       state: {
                         eventName: detail?.description,
                         stageName: stage.description,

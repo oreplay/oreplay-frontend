@@ -60,7 +60,7 @@ export function useFetchClasses(): [
         }
       }
 
-      fetchClasses()
+      void fetchClasses()
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [refreshTrigger],
@@ -99,7 +99,7 @@ export function useFetchEvents(
 
   // HTTP query
   useEffect(() => {
-    getEventList(page, when, token, limit).then((response) => {
+    void getEventList(page, when, token, limit).then((response) => {
       setEvents(response.data)
       setIsLoading(false)
       setNumPages(Math.ceil(response.total / response.limit))
@@ -169,7 +169,7 @@ export function useEventInfo() {
     () => {
       //Check if state is empty. If it is, gather info from backend. It will ve empty if the user has not landed in this page navigating
       if (state === null) {
-        getEventDetail(eventId as string, token).then((response) => {
+        void getEventDetail(eventId as string, token).then((response) => {
           // Event name
           setEventName(response.data.description)
 

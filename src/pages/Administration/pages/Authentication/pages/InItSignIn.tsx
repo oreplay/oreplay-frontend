@@ -4,7 +4,7 @@ import GeneralSuspenseFallback from "../../../../../components/GeneralSuspenseFa
 
 export default function InItSignIn() {
   useEffect(() => {
-    getSignInUrl().then((url: string) => {
+    void getSignInUrl().then((url: string) => {
       window.location.replace(url)
     })
   }, [])

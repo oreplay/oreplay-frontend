@@ -63,7 +63,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
           <ListItem>
             <ListItemButton
               onClick={() => {
-                navigate("/competitions")
+                void navigate("/competitions")
                 setOpenSidebar((prev) => !prev)
               }}
             >
@@ -76,7 +76,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
           <ListItem>
             <ListItemButton
               onClick={() => {
-                navigate("/About-us")
+                void navigate("/About-us")
                 setOpenSidebar((prev) => !prev)
               }}
             >
@@ -89,7 +89,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
           <ListItem>
             <ListItemButton
               onClick={() => {
-                navigate("organizers")
+                void navigate("organizers")
                 setOpenSidebar((prev) => !prev)
               }}
             >
@@ -104,7 +104,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
             <ListItem>
               <ListItemButton
                 onClick={() => {
-                  navigate("/dashboard")
+                  void navigate("/dashboard")
                   setOpenSidebar((prev) => !prev)
                 }}
               >
