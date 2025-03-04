@@ -13,7 +13,7 @@ import { deleteEvent } from "../../../../../services/EventAdminService.ts"
 import { useNavigate } from "react-router-dom"
 import { EventDetailModel } from "../../../../../../../shared/EntityTypes.ts"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
-import { useNotifications } from '@toolpad/core/useNotifications'
+import { useNotifications } from "@toolpad/core/useNotifications"
 
 interface DeleteEventButtonProps {
   event: EventDetailModel
@@ -71,7 +71,12 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
           <Button variant="outlined" onClick={handleClose}>
             {t("Cancel")}
           </Button>
-          <Button variant="contained" onClick={ () => void handleDeleteEvent() } color="error" autoFocus>
+          <Button
+            variant="contained"
+            onClick={() => void handleDeleteEvent()}
+            color="error"
+            autoFocus
+          >
             {t("Delete")}
           </Button>
         </DialogActions>
