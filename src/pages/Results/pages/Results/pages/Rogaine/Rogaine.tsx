@@ -46,7 +46,7 @@ export default function Rogaine() {
   // Handle re-fetching
   const handleRefreshClick = useCallback(() => {
     refreshClasses()
-    runnersQueryByClasses.refetch()
+    void runnersQueryByClasses.refetch()
   }, [refreshClasses, runnersQueryByClasses])
 
   return (

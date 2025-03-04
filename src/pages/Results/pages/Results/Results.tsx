@@ -40,10 +40,10 @@ export default function Results() {
       <Suspense fallback={<GeneralSuspenseFallback />}>
         <ErrorBoundary fallback={<GeneralErrorFallback />}>
           <EventStageBanner
-            key={`StageBanner${eventDetail?.id}`}
-            eventName={eventDetail?.description as string}
-            organizerName={eventDetail?.organizer?.name}
-            stageName={stageDetail?.description as string}
+            key={`StageBanner${eventDetail.id}`}
+            eventName={eventDetail.description}
+            organizerName={eventDetail.organizer?.name}
+            stageName={stageDetail.description}
             singleStage={singleStage}
           />
           <StageTypeSelector
