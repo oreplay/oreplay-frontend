@@ -16,7 +16,7 @@ function buildHeaders(token: string | null | undefined) {
   return {
     Authorization: token ? `Bearer ${token}` : undefined,
     "Content-Type": "application/json",
-    Accept: "application/json"
+    Accept: "application/json",
   }
 }
 

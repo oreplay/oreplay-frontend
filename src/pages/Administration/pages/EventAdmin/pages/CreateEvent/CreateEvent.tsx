@@ -5,8 +5,8 @@ import { DateTime } from "luxon"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../../../../shared/hooks.ts"
 import { Container } from "@mui/material"
-import { apiErrorService } from '../../../../../../domain/services/ApiErrorService.ts'
-import { useNotifications } from '@toolpad/core/useNotifications'
+import { apiErrorService } from "../../../../../../domain/services/ApiErrorService.ts"
+import { useNotifications } from "@toolpad/core/useNotifications"
 
 export default function CreateEvent() {
   const { token } = useAuth() as { token: string }
