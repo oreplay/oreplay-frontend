@@ -36,7 +36,7 @@ export default function FootOResults(
     return (
       <ResultListContainer>
         {runnersList?.map((runner: ProcessedRunnerModel) => {
-          const status = parseResultStatus(runner.runner_results[0].status_code as string)
+          const status = parseResultStatus(runner.overall.status_code as string)
           const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
           return (
@@ -87,13 +87,13 @@ export default function FootOResults(
                 <RaceTime
                   displayStatus
                   status={status}
-                  finish_time={runner.runner_results[0].finish_time}
-                  time_seconds={runner.runner_results[0].time_seconds}
-                  start_time={runner.runner_results[0].start_time}
+                  finish_time={runner.overall.finish_time}
+                  time_seconds={runner.overall.time_seconds}
+                  start_time={runner.overall.start_time}
                 />
                 <Typography sx={{ color: "primary.main", fontSize: 14 }}>
-                  {statusOkOrNc && runner.runner_results[0].finish_time != null
-                    ? `+${parseSecondsToMMSS(runner.runner_results[0].time_behind.toString())}`
+                  {statusOkOrNc && runner.overall.finish_time != null
+                    ? `+${parseSecondsToMMSS(runner.overall.time_behind.toString())}`
                     : ""}
                 </Typography>
               </Box>

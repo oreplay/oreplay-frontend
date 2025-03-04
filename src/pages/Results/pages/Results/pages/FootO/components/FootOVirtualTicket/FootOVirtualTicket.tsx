@@ -35,7 +35,7 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
       >
         <VirtualTicketHeader>
           <VirtualTicketRunnerInfo runner={runner} />
-          <FootOVirtualTicketTimesBanner runnerResult={runner.runner_results[0]} />
+          <FootOVirtualTicketTimesBanner runnerResult={runner.overall} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
           <Grid item xs={2.6}>
@@ -53,7 +53,7 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
               {t("ResultsStage.VirtualTicket.Cumulative")}
             </Typography>
           </Grid>
-          {runner.runner_results[0].splits.map((split) => (
+          {runner.overall.splits.map((split) => (
             <FootOVirtualTicketSplit key={split.id} split={split} />
           ))}
         </VirtualTicketSplits>

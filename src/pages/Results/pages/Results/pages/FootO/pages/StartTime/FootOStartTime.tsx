@@ -67,8 +67,8 @@ export default function FootOStartTime(
             >
               <StartTime
                 displayStatus
-                startTime={runner.runner_results[0].start_time}
-                status={parseResultStatus(runner.runner_results[0]?.status_code as string)}
+                startTime={runner.overall.start_time}
+                status={parseResultStatus(runner.overall?.status_code as string)}
               ></StartTime>
               <Typography
                 sx={{ color: "text.secondary", fontSize: "small" }}

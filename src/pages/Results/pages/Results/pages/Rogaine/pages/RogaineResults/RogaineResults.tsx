@@ -37,7 +37,7 @@ export default function RogainePoints(
     return (
       <ResultListContainer>
         {runnersList?.map((runner) => {
-          const runnerResult = runner.runner_results[0]
+          const runnerResult = runner.overall
           const status = parseResultStatus(runnerResult?.status_code as string)
           const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
