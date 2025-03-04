@@ -1,6 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material"
-import { useContext, useEffect, useState } from "react"
-import { RunnersContext } from "../../../../../../shared/context.ts"
+import { useEffect, useState } from "react"
 import { orderRunnersByStartTime } from "./shared/functions.ts"
 import { useTranslation } from "react-i18next"
 import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
@@ -9,21 +8,32 @@ import StartTime from "../../../../../../components/StartTime.tsx"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { parseResultStatus } from "../../../../../../shared/functions.ts"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
+import { ResultsPageProps } from "../../../../shared/commonProps.ts"
+import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
+import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
+import { AxiosError } from "axios"
+import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 
-export default function FootOStartTime() {
+export default function FootOStartTime(
+  props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
+) {
   const { t } = useTranslation()
 
   // Get runners and order by start time
-  const [rawRunnersList, isLoading] = useContext(RunnersContext)
-  const [runnersByStartTime, setRunnersByStartTime] =
-    useState<ProcessedRunnerModel[]>(rawRunnersList)
+  const rawRunnersList = props.runnersQuery.data
+  const [runnersByStartTime, setRunnersByStartTime] = useState<ProcessedRunnerModel[]>([])
 
   useEffect(() => {
-    setRunnersByStartTime(orderRunnersByStartTime(rawRunnersList))
+    setRunnersByStartTime(orderRunnersByStartTime(rawRunnersList ? rawRunnersList : []))
   }, [rawRunnersList])
 
-  if (isLoading) {
+  // Component
+  if (!props.activeClass) {
+    return <ChooseClassMsg />
+  } else if (props.runnersQuery.isFetching || props.runnersQuery.isLoading) {
     return <ResultsListSkeleton />
+  } else if (props.runnersQuery.isError) {
+    return <GeneralErrorFallback />
   } else {
     return (
       <ResultListContainer>

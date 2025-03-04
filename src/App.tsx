@@ -27,7 +27,7 @@ const PrivateRoute = lazy(
 const EventAdmin = lazy(
   () => import("./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx"),
 )
-const StageLayout = lazy(() => import("./pages/Results/pages/Layout/StageLayout.tsx"))
+const Results = lazy(() => import("./pages/Results/pages/Results/Results.tsx"))
 const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs.tsx"))
 const NotFoundPage = lazy(() => import("./pages/NotFoundError/NotFoundPage.tsx"))
 const Organizers = lazy(() => import("./pages/Organizers/organizers.tsx"))
@@ -64,7 +64,7 @@ export default function App() {
                   <Route path="About-us" element={<AboutUs />} />
                   <Route path="organizers" element={<Organizers />} />
                   <Route path="competitions/:id" element={<EventDetail />} />
-                  <Route path="competitions/:eventId/:stageId" element={<StageLayout />} />
+                  <Route path="competitions/:eventId/:stageId" element={<Results />} />
                   <Route element={<PrivateRoute />}>
                     <Route path={"/dashboard"} element={<Dashboard />} />
                     <Route path={"/admin/create-event"} element={<CreateEvent />} />
