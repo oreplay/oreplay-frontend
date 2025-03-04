@@ -8,7 +8,7 @@ const NotFoundPage = () => {
   const { t } = useTranslation()
 
   const handleHomeClick = () => {
-    navigate("/")
+    void navigate("/")
   }
 
   return (

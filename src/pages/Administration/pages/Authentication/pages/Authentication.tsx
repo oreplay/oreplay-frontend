@@ -12,7 +12,7 @@ function MakeRequest(props: { code: string; code_verifier: string }) {
   const { loginAction } = useAuth()
 
   useEffect(() => {
-    loginAction(props.code, props.code_verifier).then(() => {
+    void loginAction(props.code, props.code_verifier).then(() => {
       setLoading(false)
     })
   }, [loginAction, props.code, props.code_verifier])

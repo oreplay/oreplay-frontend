@@ -56,7 +56,7 @@ export default function TodayEventButton(props: TodayEventButtonProps) {
       endIcon={
         <Launch sx={{ color: "white", position: "absolute", bottom: "12px", right: "16px" }} />
       }
-      onClick={() => navigate(`/competitions/${props.event.id}`)}
+      onClick={() => void navigate(`/competitions/${props.event.id}`)}
     >
       <Typography sx={styles.typographyBoxEventName} fontWeight={"bolder"}>
         {props.event.description}

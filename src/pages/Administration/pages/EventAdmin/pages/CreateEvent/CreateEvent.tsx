@@ -10,7 +10,7 @@ export default function CreateEvent() {
   const { token } = useAuth() as { token: string }
   const navigate = useNavigate()
 
-  const handleCancel = () => navigate("/dashboard")
+  const handleCancel = () => void navigate("/dashboard")
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -28,7 +28,7 @@ export default function CreateEvent() {
     )
     response.then(
       (response) => {
-        navigate(`/admin/${response.data.id}`)
+        void navigate(`/admin/${response.data.id}`)
       },
       () => console.log("Create event failed", response),
     )

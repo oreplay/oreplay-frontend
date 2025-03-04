@@ -31,7 +31,7 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
   const handleDeleteEvent = async () => {
     try {
       await deleteEvent(props.event.id, token)
-      navigate("/dashboard")
+      await navigate("/dashboard")
     } catch (error) {
       alert("An error occurred deleting the event")
       console.log("error in deleting the event ", error)
@@ -66,7 +66,7 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
           <Button variant="outlined" onClick={handleClose}>
             {t("Cancel")}
           </Button>
-          <Button variant="contained" onClick={handleDeleteEvent} color="error" autoFocus>
+          <Button variant="contained" onClick={void handleDeleteEvent} color="error" autoFocus>
             {t("Delete")}
           </Button>
         </DialogActions>

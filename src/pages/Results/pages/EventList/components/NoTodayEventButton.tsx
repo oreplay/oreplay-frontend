@@ -41,7 +41,7 @@ export default function NoTodayEventButton(props: Props) {
         justifyContent: "flex-start",
         alignItems: "flex-start",
       }}
-      onClick={() => navigate(`/competitions/${props.event.id}`)}
+      onClick={() => void navigate(`/competitions/${props.event.id}`)}
     >
       <Typography color={"primary.main"}>{parseDate(props.event.initial_date)}</Typography>
       <Typography sx={styles.titleEvents}>{props.event.description}</Typography>

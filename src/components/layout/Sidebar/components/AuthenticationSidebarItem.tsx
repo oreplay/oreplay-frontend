@@ -33,7 +33,7 @@ const AuthenticationSidebarItem = () => {
     // Login option
     return (
       <ListItem>
-        <ListItemButton onClick={() => navigate("/signin")}>
+        <ListItemButton onClick={() => void navigate("/signin")}>
           <ListItemIcon>
             <LoginIcon />
           </ListItemIcon>
