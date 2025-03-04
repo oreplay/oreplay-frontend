@@ -61,7 +61,7 @@ export default function FootOStartTime(
               </FlexRow>
               {(runner.runners || [])
                 .slice() // Create a shallow copy to avoid mutating the original array
-                .sort((a, b) => (a?.overall?.leg_number || 0) - (b?.overall?.leg_number || 0))
+                .sort(runnerService.compareLegNumber)
                 .map((teamRunner) => (
                   <TeamRunnerRow key={teamRunner.id} runner={teamRunner}></TeamRunnerRow>
                 ))}

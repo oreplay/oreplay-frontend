@@ -13,7 +13,6 @@ import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspens
 import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
 import { useFetchEventDetail } from "../../../../../Results/services/FetchHooks.ts"
 import NotFoundPage from "../../../../../NotFoundError/NotFoundPage.tsx"
-import { ApiError } from "../../../../../../domain/models/ApiError.ts"
 import { apiErrorService } from "../../../../../../domain/services/ApiErrorService.ts"
 import { useNotifications } from "@toolpad/core/useNotifications"
 
@@ -45,8 +44,7 @@ export default function EventAdmin() {
       )
       setIsEventEditing(false)
     } catch (e) {
-      const data: ApiError = e?.response?.data
-      notifications.show("Edit event failed. " + apiErrorService.toString(data), {
+      notifications.show("Edit event failed. " + apiErrorService.toString(e), {
         autoHideDuration: 3000,
         severity: "error", // Could be 'success', 'error', 'warning', 'info'.
       })

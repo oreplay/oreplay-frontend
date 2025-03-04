@@ -22,8 +22,8 @@ module.exports = {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "@typescript-eslint/no-unsafe-member-access": "error",
     "@typescript-eslint/no-unsafe-assignment": "error",
-    "@typescript-eslint/no-floating-promises": "warn",
-    "@typescript-eslint/no-misused-promises": "warn",
+    "@typescript-eslint/no-unsafe-call": "error",
+    "@typescript-eslint/no-unsafe-return": "error",
     indent: "off",
     "jsonc/indent": ["error", 2], // Ensures 2 space indentation
     "jsonc/key-spacing": ["error", { beforeColon: false, afterColon: true }], // Ensures no space before colon and space after colon

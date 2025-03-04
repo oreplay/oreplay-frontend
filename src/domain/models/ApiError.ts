@@ -1,4 +1,4 @@
 export interface ApiError {
   error: string
-  error_fields: object
+  error_fields?: Record<string, Record<string, object>>
 }

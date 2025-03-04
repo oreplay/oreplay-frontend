@@ -1,6 +1,16 @@
 import { Box, Typography } from "@mui/material"
 
-const ParticipantName = ({ name, subtitle, color }) => {
+interface ParticipantNameProps {
+  name: string
+  subtitle?: string
+  color?: string
+}
+
+const ParticipantName: React.FC<ParticipantNameProps> = ({
+  name,
+  subtitle = "",
+  color = "inherit",
+}) => {
   return (
     <Box
       sx={{
@@ -8,11 +18,11 @@ const ParticipantName = ({ name, subtitle, color }) => {
         flexGrow: 1,
         flexDirection: "column",
         justifyContent: "space-between",
-        width: "calc(100% -20px)",
+        width: "calc(100% - 20px)",
         marginLeft: ".3em",
       }}
     >
-      <Typography sx={{ fontSize: "1em", color: color || "inherit" }}>{name}</Typography>
+      <Typography sx={{ fontSize: "1em", color: color }}>{name}</Typography>
       <Typography
         sx={{
           color: "text.secondary",
