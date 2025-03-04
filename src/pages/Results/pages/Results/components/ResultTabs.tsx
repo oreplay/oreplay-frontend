@@ -34,7 +34,7 @@ export default function ResultTabs(props: ResultTabsProps) {
         <BottomNavigation
           showLabels
           value={selectedMenu}
-          onChange={(_, newValue) => {
+          onChange={(_, newValue: number) => {
             handleMenuChange(newValue)
           }}
         >
