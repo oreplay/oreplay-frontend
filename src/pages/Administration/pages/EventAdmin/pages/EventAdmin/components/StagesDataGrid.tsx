@@ -193,7 +193,8 @@ export default function StagesDataGrid(props: Props) {
       width: 150,
       type: "singleSelect",
       valueOptions: stageTypes.map((item: { value: string; label: string }) => {
-        return { value: item.value, label: t(`EventAdmin.Stages.StagesTypes.${item.label}`) }
+        const label: string = t(`EventAdmin.Stages.StagesTypes.${item.label}`)
+        return { value: item.value, label: label }
       }), //Object.keys(stageTypesId),
       align: "left",
       headerAlign: "left",

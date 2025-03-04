@@ -27,7 +27,7 @@ const Header = React.forwardRef((props: Props, ref) => {
                   size="large"
                   sx={{ color: "text.secondary" }}
                   onClick={() => {
-                    navigate(-1)
+                    void navigate(-1)
                   }}
                 >
                   <ArrowBack sx={{ color: "text.secondary" }} />

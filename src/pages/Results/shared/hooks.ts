@@ -49,7 +49,7 @@ export function useFetchClasses(): [
               setActiveClassState(new_active_class)
             } else {
               console.log(
-                `Provided class id ${new_active_class_id} doesn't exist. The classes list is ${classesList}`,
+                `Provided class id ${new_active_class_id} doesn't exist. The classes list is ${classesList.toString()}`,
               )
             }
           }
@@ -156,6 +156,7 @@ export function useEventInfo() {
   const { token } = useAuth()
 
   const { eventId, stageId } = useParams()
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { state } = useLocation()
 
   const [eventName, setEventName] = useState<string>("")
@@ -196,9 +197,13 @@ export function useEventInfo() {
 
         //Stage info came from router state. No extra backend call required
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
         setEventName(state.eventName)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
         setStageName(state.stageName)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
         setStageTypeId(state.stageTypeId)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
         setSingleStage(state.singleStage)
       }
     },

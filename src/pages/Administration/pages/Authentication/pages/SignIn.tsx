@@ -26,7 +26,7 @@ export default function SignIn() {
   if (!loginChallenge) {
     return <Navigate to="/signin" />
   } else {
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
       const data = new FormData(event.currentTarget)
       data.set("login_challenge", loginChallenge)
