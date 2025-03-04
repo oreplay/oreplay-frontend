@@ -26,6 +26,7 @@ export async function getEventsFromUser(
   )
 }
 
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 /**
  * Make HTTP post to the backend creating an event
  * @param description Event's name

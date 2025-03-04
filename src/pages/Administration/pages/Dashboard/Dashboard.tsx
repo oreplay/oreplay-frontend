@@ -67,6 +67,7 @@ export default function Dashboard() {
       headerName: "",
       width: 20,
       renderCell: (params) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (params.row.isHidden) {
           return <VisibilityOffIcon color={"disabled"} />
         } else {

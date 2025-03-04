@@ -6,6 +6,7 @@ interface GithubProperty {
 const CLIENT_VERSION_PROPERTY_NAME = "oreplaydesktopclientver"
 
 export default async function getLatestClientVersion(): Promise<string> {
+  // eslint-disable-next-line
   const response: GithubProperty[] = await fetch(
     "https://api.github.com/repos/oreplay/desktop-client/properties/values",
     {
