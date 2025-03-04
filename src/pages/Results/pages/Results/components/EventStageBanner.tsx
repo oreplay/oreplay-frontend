@@ -35,13 +35,11 @@ export default function EventStageBanner(props: EventStageBannerProps) {
           >
             {props.eventName}
           </Typography>
-          {
-            props.organizerName ?
-              <Typography sx={styles.organizerStyles}>{props.organizerName}</Typography>
-              :
-              ""
-          }
-
+          {props.organizerName ? (
+            <Typography sx={styles.organizerStyles}>{props.organizerName}</Typography>
+          ) : (
+            ""
+          )}
         </>
       ) : (
         <Stack direction="column" spacing={1}>
@@ -54,11 +52,9 @@ export default function EventStageBanner(props: EventStageBannerProps) {
             {props.stageName}
           </Typography>
           <Typography sx={styles.organizerStyles}>
-            { props.organizerName ?
-              `${props.eventName} — ${props.organizerName}`
-              :
-              `${props.eventName}`
-            }
+            {props.organizerName
+              ? `${props.eventName} — ${props.organizerName}`
+              : `${props.eventName}`}
           </Typography>
         </Stack>
       )}

@@ -14,11 +14,16 @@ import {
 } from "../components/VirtualTicket/shared/virtualTicketFunctions.ts"
 import { ProcessedRunnerModel } from "../components/VirtualTicket/shared/EntityTypes.ts"
 
-export function useFetchClasses(
-  eventId: string,
-  stageId: string,
-): [ClassModel | null, (class_id: string) => void, ClassModel[], boolean, () => void] {
+export function useFetchClasses(): [
+  ClassModel | null,
+  (class_id: string) => void,
+  ClassModel[],
+  boolean,
+  () => void,
+] {
   const ACTIVE_CLASS_SEARCH_PARAM = "class_id"
+
+  const { eventId, stageId } = useParams()
   const [searchParams, setSearchParams] = useSearchParams()
 
   // Associated states
@@ -32,7 +37,7 @@ export function useFetchClasses(
     () => {
       const fetchClasses = async () => {
         try {
-          const response = await getClassesInStage(eventId, stageId)
+          const response = await getClassesInStage(eventId as string, stageId as string)
           // set Classes list
           setClassesList(response.data)
 
@@ -73,9 +78,9 @@ export function useFetchClasses(
     }
   }
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     setRefreshTrigger((prev) => prev + 1)
-  }
+  }, [])
 
   return [activeClass, setActiveClassId, classesList, isLoading, refresh]
 }

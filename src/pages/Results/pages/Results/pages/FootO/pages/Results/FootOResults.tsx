@@ -1,6 +1,4 @@
-import { useContext } from "react"
 import { useTranslation } from "react-i18next"
-import { RunnersContext } from "../../../../../../shared/context.ts"
 import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
 import { Box, Typography } from "@mui/material"
@@ -12,20 +10,32 @@ import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket
 import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx"
 import RaceTime from "../../../../../../components/RaceTime.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
+import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
+import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
+import { ResultsPageProps } from "../../../../shared/commonProps.ts"
+import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
+import { AxiosError } from "axios"
 
-export default function FootOResults() {
+export default function FootOResults(
+  props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
+) {
   const { t } = useTranslation()
 
-  const [runnersList, isLoading] = useContext(RunnersContext)
+  const runnersList = props.runnersQuery.data
   const [isVirtualTicketOpen, selectedRunner, handleRowClick, handleCloseVirtualTicket] =
     useVirtualTicket()
 
-  if (isLoading) {
+  if (!props.activeClass) {
+    return <ChooseClassMsg />
+  }
+  if (props.runnersQuery.isFetching) {
     return <ResultsListSkeleton />
+  } else if (props.runnersQuery.isError) {
+    return <GeneralErrorFallback />
   } else {
     return (
       <ResultListContainer>
-        {runnersList.map((runner: ProcessedRunnerModel) => {
+        {runnersList?.map((runner: ProcessedRunnerModel) => {
           const status = parseResultStatus(runner.runner_results[0].status_code as string)
           const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
