@@ -27,11 +27,11 @@ export default function Layout() {
 
   return (
     <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      <Header setOpenSidebar={setIsSideBarOpen} />
-      <Sidebar openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
+      <Header key={"AppHeader"} setOpenSidebar={setIsSideBarOpen} />
+      <Sidebar key={"AppSidebar"} openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
 
       <Suspense fallback={<GeneralSuspenseFallback />} key={location.pathname}>
-        <ErrorBoundary fallback={<GeneralErrorFallback displayMsg />}>
+        <ErrorBoundary key={"MainErrorBoundary"} fallback={<GeneralErrorFallback displayMsg />}>
           <Outlet />
         </ErrorBoundary>
       </Suspense>
