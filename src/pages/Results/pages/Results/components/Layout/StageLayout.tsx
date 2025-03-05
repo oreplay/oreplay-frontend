@@ -7,6 +7,7 @@ import { ClassModel } from "../../../../../../shared/EntityTypes.ts"
 import React from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
+import NoDataInStageMsg from "../NoDataInStageMsg.tsx"
 
 type StageLayoutProps = {
   handleRefreshClick: () => void
@@ -20,9 +21,9 @@ type StageLayoutProps = {
 export default function StageLayout(props: StageLayoutProps) {
   const { t } = useTranslation()
 
-  //if (props.classesList.length === 0) {
-  //  return "Fuck"
-  //}
+  if (props.classesList.length === 0) {
+    return <NoDataInStageMsg />
+  }
 
   return (
     <Box
