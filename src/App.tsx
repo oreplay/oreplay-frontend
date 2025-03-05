@@ -54,7 +54,13 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={"es-ES"}>
         {/** TODO: manage real location**/}
-        <NotificationsProvider>
+        <NotificationsProvider
+          slotProps={{
+            snackbar: {
+              anchorOrigin: { vertical: "top", horizontal: "center" },
+            },
+          }}
+        >
           <Suspense fallback={<GeneralSuspenseFallback useViewPort />}>
             <BrowserRouter>
               <Routes>
