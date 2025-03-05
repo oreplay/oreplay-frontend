@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ProcessedRunnerModel } from "./EntityTypes.ts"
+import { ProcessedRunnerModel } from "./EntityTypes"
 
 export function useVirtualTicket(): [
   boolean,
