@@ -17,6 +17,7 @@ import { CopyToClipBoardButton } from "../../../../../../../shared/Components.ts
 interface RefreshButtonParams {
   handleRenewToken: () => void
   eventToken: string
+  eventId: string
 }
 
 export default function RefreshButton(props: RefreshButtonParams) {
@@ -45,7 +46,7 @@ export default function RefreshButton(props: RefreshButtonParams) {
               <AutorenewIcon onClick={() => setIsDialogOpen(true)} />
             </Tooltip>
           </IconButton>
-          <CopyToClipBoardButton value={props.eventToken} />
+          <CopyToClipBoardButton value={`${props.eventToken}${props.eventId}`} />
         </>
       )}
       <Dialog open={isDialogOpen} onClose={handleClose}>
