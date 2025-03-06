@@ -6,7 +6,6 @@ import {
 } from "../../../../../services/EventAdminService.ts"
 import { Container, Grid, TextField } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import { CopyToClipBoardButton } from "../../../../../../../shared/Components.tsx"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
 import { DateTime } from "luxon"
 import RefreshButton from "./RefreshButton.tsx"
@@ -70,29 +69,21 @@ export default function EventTokenDataGrid(props: Props) {
           marginY: "2em",
         }}
       >
-        <Grid item xs={12} md={12}>
-          <TextField
-            fullWidth
-            id="eventId"
-            name="eventId"
-            label={t("EventAdmin.EventId")}
-            defaultValue={props.event_id}
-            disabled
-            sx={{ marginY: "1em" }}
-            InputProps={{ endAdornment: <CopyToClipBoardButton value={props.event_id} /> }}
-          />
-        </Grid>
         <Grid item xs={12} md={8}>
           <TextField
             fullWidth
             id="securityToken"
             name="securityToken"
             label={t("EventAdmin.EventSecurityTokens")}
-            value={isLoading ? t("Loading") : eventToken}
+            value={isLoading ? t("Loading") : eventToken ? `${props.event_id}${eventToken}` : ""}
             disabled
             InputProps={{
               endAdornment: (
-                <RefreshButton eventToken={eventToken || ""} handleRenewToken={handleRenewToken} />
+                <RefreshButton
+                  eventToken={eventToken || ""}
+                  handleRenewToken={handleRenewToken}
+                  eventId={props.event_id}
+                />
               ),
             }}
           />
