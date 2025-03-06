@@ -100,7 +100,7 @@
         "ChaseStart": "Salida a la caza"
       }
     },
-    "EventSecurityTokens": "Clave de seguridad (Desktop login token)",
+    "EventSecurityTokens": "Clave de seguridad para el cliente de escritorio",
     "EventSecurityTokensExpireDate": "Expira el",
     "Do you want to renew the security key?": "¿Desea renovar la clave de seguridad?",
     "RenewEventTokenMsg": "Si renueva la clave de seguridad la antigua será invalidada. Nadie con la clave de seguridad antigua podrá subir resultados a este evento.",
