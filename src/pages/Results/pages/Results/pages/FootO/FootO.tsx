@@ -85,7 +85,7 @@ export default function FootO() {
       >
         <FootOStartTime runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
         <FootOResults runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
-        <FootOSplits />
+        <FootOSplits runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
       </ResultTabs>
     </StageLayout>
   )
