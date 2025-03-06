@@ -23,7 +23,6 @@ export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({
   handleCloseTicket,
   children,
 }) => {
-
   if (runner) {
     return (
       <Dialog
