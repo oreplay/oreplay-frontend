@@ -46,7 +46,7 @@ export default function RefreshButton(props: RefreshButtonParams) {
               <AutorenewIcon onClick={() => setIsDialogOpen(true)} />
             </Tooltip>
           </IconButton>
-          <CopyToClipBoardButton value={`${props.eventToken}${props.eventId}`} />
+          <CopyToClipBoardButton value={`${props.eventId}${props.eventToken}`} />
         </>
       )}
       <Dialog open={isDialogOpen} onClose={handleClose}>
