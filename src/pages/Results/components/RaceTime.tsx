@@ -28,7 +28,7 @@ const RaceTime: React.FC<FinishTimeProps> = ({
 
   if (status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc) {
     if (finish_time != null) {
-      if (time_seconds !== null) {
+      if (time_seconds !== null && time_seconds !== 0) {
         return <Typography sx={style}>{parseSecondsToMMSS(time_seconds)}</Typography>
       } else {
         // TODO: Handle in a better way. Maybe throw an exception
