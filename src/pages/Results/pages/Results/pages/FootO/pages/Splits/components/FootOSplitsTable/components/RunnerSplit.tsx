@@ -19,17 +19,19 @@ export default function RunnerSplit({
   if (displayDiffs) {
     return (
       <>
-        <Typography>{difference ? `+${parseSecondsToMMSS(difference)}` : "--"}</Typography>
+        <Typography>{difference !== null ? `+${parseSecondsToMMSS(difference)}` : "--"}</Typography>
         <Typography>
-          {cumulativeDifference ? `+${parseSecondsToMMSS(cumulativeDifference)}` : "--"}
+          {cumulativeDifference !== null ? `+${parseSecondsToMMSS(cumulativeDifference)}` : "--"}
         </Typography>
       </>
     )
   } else {
     return (
       <>
-        <Typography>{time ? parseSecondsToMMSS(time) : "--"}</Typography>
-        <Typography>{cumulativeTime ? parseSecondsToMMSS(cumulativeTime) : "--"}</Typography>
+        <Typography>{time !== null ? parseSecondsToMMSS(time) : "--"}</Typography>
+        <Typography>
+          {cumulativeTime !== null ? parseSecondsToMMSS(cumulativeTime) : "--"}
+        </Typography>
       </>
     )
   }
