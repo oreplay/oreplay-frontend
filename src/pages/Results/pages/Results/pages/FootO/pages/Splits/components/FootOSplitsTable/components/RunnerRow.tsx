@@ -11,6 +11,7 @@ import RunnerSplit from "./RunnerSplit.tsx"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
+  showDiffs?: boolean
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.overall
@@ -51,6 +52,7 @@ export default function RunnerRow(props: RunnerRowProps) {
       {result.splits.map((split) => (
         <TableCell key={`split${props.runner.id}${split.id}`}>
           <RunnerSplit
+            displayDiffs={props.showDiffs}
             key={`runnerSplit${props.runner.id}${split.id}}`}
             split={split}
           />

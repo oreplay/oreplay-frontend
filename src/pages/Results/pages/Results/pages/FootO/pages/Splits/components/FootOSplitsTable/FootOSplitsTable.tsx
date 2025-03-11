@@ -2,13 +2,13 @@ import { ProcessedRunnerModel } from "../../../../../../../../components/Virtual
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
-import ExperimentalFeatureAlert from "../../../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import { getCourseFromRunner } from "./shared/footOSplitsTablefunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
 import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
+  showDiffs?: boolean
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
@@ -17,7 +17,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   return (
     <>
-      <ExperimentalFeatureAlert />
       <NowProvider>
         <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1 }}>
           <Table key={"SplitsTable"}>
@@ -45,7 +44,11 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
             </TableHead>
             <TableBody key={"TableBody"}>
               {props.runners.map((runner) => (
-                <RunnerRow key={`runnerRow${runner.id}`} runner={runner} />
+                <RunnerRow
+                  key={`runnerRow${runner.id}`}
+                  runner={runner}
+                  showDiffs={props.showDiffs}
+                />
               ))}
             </TableBody>
           </Table>
