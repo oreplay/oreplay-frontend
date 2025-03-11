@@ -2,10 +2,10 @@ import { ProcessedRunnerModel } from "../../../../../../../../components/Virtual
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
-import ResultListContainer from "../../../../../../../../components/ResultsList/ResultListContainer.tsx"
 import ExperimentalFeatureAlert from "../../../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import { getCourseFromRunner } from "./shared/footOSplitsTablefunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
+import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
@@ -18,7 +18,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   return (
     <>
       <ExperimentalFeatureAlert />
-      <ResultListContainer>
+      <NowProvider>
         <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1 }}>
           <Table key={"SplitsTable"}>
             <TableHead key={"TableHead"}>
@@ -50,7 +50,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
             </TableBody>
           </Table>
         </TableContainer>
-      </ResultListContainer>
+      </NowProvider>
     </>
   )
 }

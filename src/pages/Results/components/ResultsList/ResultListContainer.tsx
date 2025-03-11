@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from "react"
+import { ReactNode, FC } from "react"
 import { Box, Stack } from "@mui/material"
-import { DateTime } from "luxon"
-import { NowContext } from "../../shared/context.ts"
+import NowProvider from "../NowProvider.tsx"
 
 interface ResultListContainerProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
-const ResultListContainer: React.FC<ResultListContainerProps> = ({ children }) => {
-  const [now, setNow] = useState<DateTime>(DateTime.now())
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setNow(DateTime.now())
-    }, 1000)
-
-    return () => clearInterval(intervalId)
-  }, [])
-
+const ResultListContainer: FC<ResultListContainerProps> = ({
+  children,
+}: ResultListContainerProps) => {
   return (
-    <NowContext.Provider value={now}>
+    <NowProvider>
       <Box
         sx={{
           height: "100%",
@@ -32,7 +23,7 @@ const ResultListContainer: React.FC<ResultListContainerProps> = ({ children }) =
           {children}
         </Stack>
       </Box>
-    </NowContext.Provider>
+    </NowProvider>
   )
 }
 
