@@ -1,4 +1,7 @@
-import { ProcessedRunnerModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import {
+  ProcessedRunnerModel,
+  RadioSplitModel,
+} from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { TableCell, TableRow, Typography } from "@mui/material"
 import { getPositionOrNc, parseResultStatus } from "../../../../../../../../../shared/functions.ts"
 import { useTranslation } from "react-i18next"
@@ -8,9 +11,12 @@ import RaceTime from "../../../../../../../../../components/RaceTime.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../../../../shared/constants.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
 import RunnerSplit from "./RunnerSplit.tsx"
+import RunnerOnlineSplit from "./RunnerOnlineSplit.tsx"
+import { getOnlineSplits } from "../shared/footOSplitsTablefunctions.ts"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
+  onlyRadios?: boolean
   showDiffs?: boolean
 }
 
@@ -22,6 +28,10 @@ export default function RunnerRow(props: RunnerRowProps) {
 
   const status = parseResultStatus(result.status_code as string)
   const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
+
+  const splits = props.onlyRadios
+    ? getOnlineSplits(result.splits, result.start_time)
+    : result.splits
 
   return (
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
@@ -49,13 +59,17 @@ export default function RunnerRow(props: RunnerRowProps) {
             : ""}
         </Typography>
       </TableCell>
-      {result.splits.map((split) => (
+      {splits.map((split) => (
         <TableCell key={`split${props.runner.id}${split.id}`}>
-          <RunnerSplit
-            displayDiffs={props.showDiffs}
-            key={`runnerSplit${props.runner.id}${split.id}}`}
-            split={split}
-          />
+          {props.onlyRadios ? (
+            <RunnerOnlineSplit split={split as RadioSplitModel} />
+          ) : (
+            <RunnerSplit
+              displayDiffs={props.showDiffs}
+              key={`runnerSplit${props.runner.id}${split.id}}`}
+              split={split}
+            />
+          )}
         </TableCell>
       ))}
     </TableRow>

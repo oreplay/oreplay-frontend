@@ -1,19 +1,32 @@
-import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import {
+  ProcessedRunnerModel,
+  ProcessedSplitModel,
+} from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
-import { getCourseFromRunner } from "./shared/footOSplitsTablefunctions.ts"
+import {
+  getCourseFromRunner,
+  getOnlineControlsCourseFromClassSplits,
+} from "./shared/footOSplitsTablefunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
 import NowProvider from "../../../../../../../../components/NowProvider.tsx"
+import { SplitModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
+  onlyRadios?: boolean
   showDiffs?: boolean
+  radiosList?: SplitModel[] | ProcessedSplitModel[]
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const { t } = useTranslation()
-  const controlList = getCourseFromRunner(props.runners)
+  const controlList =
+    props.onlyRadios && props.radiosList
+      ? getOnlineControlsCourseFromClassSplits(props.radiosList)
+      : getCourseFromRunner(props.runners)
+  console.log(controlList)
 
   return (
     <>
@@ -48,6 +61,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   key={`runnerRow${runner.id}`}
                   runner={runner}
                   showDiffs={props.showDiffs}
+                  onlyRadios={props.onlyRadios}
                 />
               ))}
             </TableBody>
