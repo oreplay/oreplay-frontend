@@ -52,10 +52,7 @@ export default function RunnerRow(props: RunnerRowProps) {
         <TableCell key={`split${props.runner.id}${split.id}`}>
           <RunnerSplit
             key={`runnerSplit${props.runner.id}${split.id}}`}
-            time={split.time}
-            cumulativeTime={split.cumulative_time}
-            difference={split.time_behind}
-            cumulativeDifference={split.cumulative_behind}
+            split={split}
           />
         </TableCell>
       ))}
