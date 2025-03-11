@@ -13,6 +13,7 @@ import ExperimentalFeatureAlert from "../../../../../../../../components/Experim
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
+  const [onlyRadios, setOnlyRadios] = useState<boolean>(false)
   const [showDiffs, setShowDiffs] = useState<boolean>(false)
 
   if (!props.activeClass) {
@@ -28,8 +29,21 @@ export default function FootOSplits(
         <FormControlLabel
           control={<Switch checked={showDiffs} onChange={() => setShowDiffs((prev) => !prev)} />}
           label="Diff"
+          disabled={onlyRadios}
         />
+        {props.activeClass.splits.length > 0 ? (
+          <FormControlLabel
+            control={
+              <Switch checked={onlyRadios} onChange={() => setOnlyRadios((prev) => !prev)} />
+            }
+            label="Radios"
+          />
+        ) : (
+          <></>
+        )}
         <FootOSplitsTable
+          onlyRadios={onlyRadios}
+          radiosList={props.activeClass.splits}
           showDiffs={showDiffs}
           key={"FootOSplitsTable"}
           runners={props.runnersQuery.data ? props.runnersQuery.data : []}

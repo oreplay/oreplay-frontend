@@ -52,6 +52,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
           cumulative_time: cumulative_time,
           cumulative_behind: null,
           cumulative_position: null,
+          is_intermediate: result.is_intermediate,
         }
       })
 
@@ -75,6 +76,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
           cumulative_behind: null, //time in seconds behind the best runner
           cumulative_position: null, //position from start
           control: null,
+          is_intermediate: true, // Finish is always an online control
         })
       }
 

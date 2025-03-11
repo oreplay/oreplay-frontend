@@ -4,6 +4,7 @@ import {
   ControlModel,
   RunnerModel,
 } from "../../../../../shared/EntityTypes.ts"
+import { DateTime } from "luxon"
 
 export interface ProcessedRunnerModel {
   id: string
@@ -34,6 +35,7 @@ export interface ProcessedRunnerResultModel {
 
 export interface ProcessedSplitModel {
   id: string
+  is_intermediate: boolean
   reading_time: string
   order_number: bigint | number | null
   points: bigint | null
@@ -44,4 +46,8 @@ export interface ProcessedSplitModel {
   cumulative_behind: number | null //time in seconds behind the best runner
   cumulative_position: number | null //position from start
   control: ControlModel | null
+}
+
+export interface RadioSplitModel extends ProcessedSplitModel {
+  is_next: DateTime | null // indicates if it is the next radio control that the runner will punch
 }

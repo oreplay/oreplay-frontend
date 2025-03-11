@@ -99,6 +99,7 @@ export interface RunnerModel {
 }
 
 export interface RunnerResultModel {
+  is_intermediate: boolean
   result_type_id: string
   start_time: string | null
   finish_time: string | null
@@ -136,6 +137,7 @@ export interface ControlTypeModel {
 export interface ClassModel {
   id: string
   short_name: string
+  splits: SplitModel[]
 }
 
 export interface ClubModel {
