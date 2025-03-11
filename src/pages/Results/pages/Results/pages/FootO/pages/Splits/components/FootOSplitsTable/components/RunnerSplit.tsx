@@ -1,36 +1,33 @@
 import { Typography } from "@mui/material"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
+import {
+  ProcessedSplitModel
+} from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 
 type RunnerSplitProps = {
-  time: number | null
-  cumulativeTime: number | null
-  difference: number | null
-  cumulativeDifference: number | null
+  split: ProcessedSplitModel
   displayDiffs?: boolean
 }
 
 export default function RunnerSplit({
-  time,
-  cumulativeTime,
-  difference,
-  cumulativeDifference,
+  split,
   displayDiffs,
 }: RunnerSplitProps) {
   if (displayDiffs) {
     return (
       <>
-        <Typography>{difference !== null ? `+${parseSecondsToMMSS(difference)}` : "--"}</Typography>
+        <Typography>{split.time_behind !== null ? `+${parseSecondsToMMSS(split.time_behind)}` : "--"}</Typography>
         <Typography>
-          {cumulativeDifference !== null ? `+${parseSecondsToMMSS(cumulativeDifference)}` : "--"}
+          {split.cumulative_behind !== null ? `+${parseSecondsToMMSS(split.cumulative_behind)}` : "--"}
         </Typography>
       </>
     )
   } else {
     return (
       <>
-        <Typography>{time !== null ? parseSecondsToMMSS(time) : "--"}</Typography>
+        <Typography>{split.time !== null ? parseSecondsToMMSS(split.time) : "--"}</Typography>
         <Typography>
-          {cumulativeTime !== null ? parseSecondsToMMSS(cumulativeTime) : "--"}
+          {split.cumulative_time !== null ? parseSecondsToMMSS(split.cumulative_time) : "--"}
         </Typography>
       </>
     )
