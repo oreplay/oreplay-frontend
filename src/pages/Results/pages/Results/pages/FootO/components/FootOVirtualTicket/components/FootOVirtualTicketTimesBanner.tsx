@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import Grid from "@mui/material/Grid"
 import { Typography } from "@mui/material"
 import { ProcessedRunnerResultModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
@@ -19,17 +19,38 @@ const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps
   runnerResult,
 }) => {
   const { t } = useTranslation()
+  const status = parseResultStatus(runnerResult.status_code as string);
 
-  const status = parseResultStatus(runnerResult.status_code as string)
+  const gridStylesStartTime : CSSProperties = {
+    display: "flex",
+    padding: 8
+  };
+
+  const gridStylesTotalTime : CSSProperties = {
+    display: "flex",
+    padding: "8px 0px 8px 8px",
+    justifyContent: "flex-end"
+  };
+
+  const titleStyles : CSSProperties = {
+    fontWeight: "bold",
+    fontSize: "small"
+  };
+
+  const timesStyles : CSSProperties = {
+    fontSize: "small"
+  }
+
   return (
     <>
-      <Grid item xs={6}>
-        <Typography>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
-        <StartTime startTime={runnerResult.start_time} />
+      <Grid style={gridStylesStartTime} item xs={6}>
+        <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
+        <StartTime style={timesStyles} startTime={runnerResult.start_time} />
       </Grid>
-      <Grid item xs={6}>
-        <Typography>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
+      <Grid style={gridStylesTotalTime} item xs={6}>
+        <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
         <RaceTime
+          style={timesStyles}
           displayStatus
           status={status}
           start_time={runnerResult.start_time}

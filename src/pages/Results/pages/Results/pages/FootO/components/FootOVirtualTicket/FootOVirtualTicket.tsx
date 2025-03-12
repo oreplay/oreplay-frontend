@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import {
   VirtualTicketContainer,
   VirtualTicketProps,
@@ -26,6 +26,12 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
 }) => {
   const { t } = useTranslation()
 
+  const headersStyles: CSSProperties = {
+    fontWeight: "bold", 
+    fontSize: "medium",
+    textAlign: "center" 
+  }
+
   if (runner) {
     return (
       <VirtualTicketContainer
@@ -38,23 +44,23 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
           <FootOVirtualTicketTimesBanner runnerResult={runner.overall} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
-          <Grid item xs={2.6}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
+          <Grid item xs={2}>
+            <Typography sx={headersStyles}>
               {t("ResultsStage.VirtualTicket.Control")}
             </Typography>
           </Grid>
-          <Grid item xs={4.7}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
+          <Grid item xs={5}>
+            <Typography sx={headersStyles}>
               {t("ResultsStage.VirtualTicket.Partial")}
             </Typography>
           </Grid>
-          <Grid item xs={4.7}>
-            <Typography variant="subtitle2" sx={{ fontWeight: "bold", textAlign: "center" }}>
+          <Grid item xs={5}>
+            <Typography sx={headersStyles}>
               {t("ResultsStage.VirtualTicket.Cumulative")}
             </Typography>
           </Grid>
-          {runner.overall.splits.map((split) => (
-            <FootOVirtualTicketSplit key={split.id} split={split} />
+          {runner.overall.splits.map((split, index) => (
+            <FootOVirtualTicketSplit key={split.id} split={split} index={index}/>
           ))}
         </VirtualTicketSplits>
       </VirtualTicketContainer>

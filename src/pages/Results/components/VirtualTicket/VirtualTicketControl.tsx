@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { ControlModel } from "../../../../shared/EntityTypes.ts"
 import Grid from "@mui/material/Grid"
 import { Box, Typography } from "@mui/material"
@@ -26,11 +26,15 @@ const VirtualTicketControl: React.FC<VirtualTicketControlProps> = ({
 }) => {
   const { t } = useTranslation()
 
+  const textStyles : CSSProperties = {
+    fontSize: "small"
+  }
+
   // Finish control
   if (order_number === Infinity) {
     return (
-      <Grid item xs={gridWidth}>
-        <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
+      <Grid sx={{display: "flex", justifyContent: "center"}} item xs={gridWidth}>
+        <Typography sx={textStyles}>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
       </Grid>
     )
   }
@@ -43,13 +47,14 @@ const VirtualTicketControl: React.FC<VirtualTicketControlProps> = ({
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
+            justifyContent: "center"
           }}
         >
           <Typography>{order_number?.toString()}</Typography>
           <Typography sx={{ ml: "2px", color: "text.secondary" }}>
             ({control?.station.toString()})
           </Typography>
-          {points ? <Typography>{`[${points}]`}</Typography> : <></>}
+          {points ? <Typography sx={textStyles}>{`[${points}]`}</Typography> : <></>}
         </Box>
       </Grid>
     )

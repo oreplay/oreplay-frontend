@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { RESULT_STATUS_TEXT } from "../shared/constants.ts"
 import { Typography } from "@mui/material"
 import { parseSecondsToMMSS } from "../../../shared/Functions.tsx"
@@ -13,9 +13,8 @@ type FinishTimeProps = {
   start_time?: string | null
   finish_time: string | null
   time_seconds: number | string | null
+  style?: CSSProperties
 }
-
-const style = {}
 
 const RaceTime: React.FC<FinishTimeProps> = ({
   displayStatus,
@@ -23,6 +22,7 @@ const RaceTime: React.FC<FinishTimeProps> = ({
   finish_time,
   time_seconds,
   start_time,
+  style
 }) => {
   const { t } = useTranslation()
 
@@ -61,7 +61,7 @@ const RaceTime: React.FC<FinishTimeProps> = ({
 
                 // not started
               } else {
-                return <Typography>{t("ResultsStage.NotStarted")}</Typography>
+                return <Typography sx={style}>{t("ResultsStage.NotStarted")}</Typography>
               }
             }}
           </NowContext.Consumer>

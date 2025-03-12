@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import Grid from "@mui/material/Grid"
 import { Typography } from "@mui/material"
 import { ProcessedRunnerResultModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
@@ -20,40 +20,55 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
 }) => {
   const { t } = useTranslation()
 
+  const titleStyles : CSSProperties = {
+    fontWeight: "bold",
+    fontSize: "small"
+  };
+
+  const gridStyles : CSSProperties = {
+    display: "flex"
+  };
+
+  const textStyles : CSSProperties = {
+    fontSize: "small",
+    marginLeft: "6px"
+  }
+
   const status = parseResultStatus(runnerResult.status_code as string)
   return (
     <>
-      <Grid item xs={4}>
-        <Typography>{t("ResultsStage.BonusPoints")}</Typography>
-        <Typography>
+     <Grid style={gridStyles} item xs={4}>
+        <Typography style={titleStyles}>{t("ResultsStage.BonusPoints")}</Typography>
+        <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
             ? `+${runnerResult.points_bonus}`
             : ""}
         </Typography>
       </Grid>
-      <Grid item xs={4}>
-        <Typography>{t("ResultsStage.PenaltyPoints")}</Typography>
-        <Typography>
+      <Grid style={gridStyles} item xs={4}>
+        <Typography style={titleStyles}>{t("ResultsStage.PenaltyPoints")}</Typography>
+        <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
             ? `${runnerResult.points_penalty}`
             : ""}
         </Typography>
       </Grid>
-      <Grid item xs={4}>
-        <Typography>{t("ResultsStage.Points")}</Typography>
-        <Typography>
+      <Grid sx={{justifyContent: "flex-end"}} style={gridStyles} item xs={4}>
+        <Typography style={titleStyles}>{t("ResultsStage.Points")}</Typography>
+        <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
             ? `${runnerResult.points_final}`
             : ""}
         </Typography>
       </Grid>
-      <Grid item xs={6}>
-        <Typography>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
-        <StartTime startTime={runnerResult.start_time} />
+      <Grid style={gridStyles} item xs={6}>
+        <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
+        <StartTime style={textStyles} startTime={runnerResult.start_time} />
       </Grid>
-      <Grid item xs={6}>
-        <Typography>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
-        <RaceTime
+      <Grid style={gridStyles} sx={{justifyContent: "flex-end"}} item xs={6}>
+        <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
+        <RaceTime 
+          style={textStyles}
           status={status}
           start_time={runnerResult.start_time}
           finish_time={runnerResult.finish_time}
