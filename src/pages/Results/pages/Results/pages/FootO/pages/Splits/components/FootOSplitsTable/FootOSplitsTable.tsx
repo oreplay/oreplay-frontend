@@ -12,6 +12,8 @@ import {
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
 import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 import { SplitModel } from "../../../../../../../../../../shared/EntityTypes.ts"
+import { hasChipDownload } from "../../../../../../shared/functions.ts"
+import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
@@ -22,12 +24,19 @@ type FootOSplitsTableProps = {
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const { t } = useTranslation()
+  const runnerList = props.onlyRadios ? props.runners : props.runners.filter(hasChipDownload)
+
   const controlList =
     props.onlyRadios && props.radiosList
       ? getOnlineControlsCourseFromClassSplits(props.radiosList)
-      : getCourseFromRunner(props.runners)
-  console.log(controlList)
+      : getCourseFromRunner(runnerList)
 
+  // No runner hasDownloaded a chip
+  if (runnerList.length === 0) {
+    return <NoRunnerWithSplitsMsg />
+  }
+
+  // Runners have full splits that we may want to see
   return (
     <>
       <NowProvider>
@@ -57,7 +66,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
               </TableRow>
             </TableHead>
             <TableBody key={"TableBody"}>
-              {props.runners.map((runner) => (
+              {runnerList.map((runner) => (
                 <RunnerRow
                   key={`runnerRow${runner.id}`}
                   runner={runner}
