@@ -143,7 +143,6 @@
     "NoData": "Désolé, aucune donnée n'est disponible",
     "NoStartTime": "-",
     "NotStarted": "-",
-    "NoRunnersWithSplits": "_No runner has downloaded their chip.",
     "Class": "Class",
     "Position": "Position",
     "Name": "Nom",
@@ -173,6 +172,11 @@
       "mp": "MP",
       "disqualified": "DSQ",
       "ot": "H.Délai"
+    },
+    "SplitsTable": {
+      "NoRunnersWithSplits": ":No runner has downloaded their chip.",
+      "PartialTimes": "_Partials",
+      "CumulativeTimes": "_Cumulative"
     }
   },
   "404Page": {

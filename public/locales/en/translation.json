@@ -143,7 +143,6 @@
     "NoData": "Sorry, no data is available",
     "NoStartTime": "-",
     "NotStarted": "-",
-    "NoRunnersWithSplits": "No runner has downloaded their chip.",
     "Class": "Class",
     "Position": "Position",
     "Name": "Name",
@@ -173,6 +172,11 @@
       "mp": "MP",
       "disqualified": "DSQ",
       "ot": "OT"
+    },
+    "SplitsTable": {
+      "NoRunnersWithSplits": "No runner has downloaded their chip",
+      "PartialTimes": "Partials",
+      "CumulativeTimes": "Cumulative"
     }
   },
   "404Page": {

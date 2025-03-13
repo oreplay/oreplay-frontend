@@ -143,7 +143,6 @@
     "NoData": "Lo sentimos, no hay datos",
     "NoStartTime": "-",
     "NotStarted": "-",
-    "NoRunnersWithSplits": "Ningún corredor ha descargado su chip.",
     "Class": "Categoría",
     "Position": "Posición",
     "Name": "Nombre",
@@ -173,6 +172,11 @@
       "mp": "MP",
       "disqualified": "DSQ",
       "ot": "FC"
+    },
+    "SplitsTable": {
+      "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
+      "PartialTimes": "Parciales",
+      "CumulativeTimes": "Acumulados"
     }
   },
   "404Page": {
