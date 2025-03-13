@@ -143,6 +143,7 @@
     "NoData": "Sorry, no data is available",
     "NoStartTime": "-",
     "NotStarted": "-",
+    "NoRunnersWithSplits": "No runner has downloaded their chip.",
     "Class": "Class",
     "Position": "Position",
     "Name": "Name",

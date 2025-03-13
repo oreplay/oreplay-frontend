@@ -143,6 +143,7 @@
     "NoData": "Lo sentimos, no hay datos",
     "NoStartTime": "-",
     "NotStarted": "-",
+    "NoRunnersWithSplits": "Ningún corredor ha descargado su chip.",
     "Class": "Categoría",
     "Position": "Posición",
     "Name": "Nombre",
