@@ -1,4 +1,4 @@
-import { STAGE_TYPE_DATABASE_ID } from "../shared/StageTypesDatabaseID.ts"
+import { STAGE_TYPE_DATABASE_ID } from "../shared/constants.ts"
 import { lazy } from "react"
 const FootO = lazy(() => import("../pages/FootO/FootO.tsx"))
 const Relay = lazy(() => import("../pages/Relay/Relay.tsx"))
