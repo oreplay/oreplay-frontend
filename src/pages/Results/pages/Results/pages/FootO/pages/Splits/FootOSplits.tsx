@@ -9,12 +9,13 @@ import GeneralSuspenseFallback from "../../../../../../../../components/GeneralS
 import { useState } from "react"
 import { FormControlLabel, Switch } from "@mui/material"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
+import PartialCumulativeSwitch from "./components/PartialCumulativeSwitch.tsx"
 
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
   const [onlyRadios, setOnlyRadios] = useState<boolean>(false)
-  const [showDiffs, setShowDiffs] = useState<boolean>(false)
+  const [showCumulative, setShowCumulative] = useState<boolean>(false)
 
   if (!props.activeClass) {
     return <ChooseClassMsg />
@@ -26,9 +27,9 @@ export default function FootOSplits(
     return (
       <>
         <ExperimentalFeatureAlert />
-        <FormControlLabel
-          control={<Switch checked={showDiffs} onChange={() => setShowDiffs((prev) => !prev)} />}
-          label="Diff"
+        <PartialCumulativeSwitch
+          active={showCumulative}
+          setActive={setShowCumulative}
           disabled={onlyRadios}
         />
         {props.activeClass.splits.length > 0 ? (
@@ -44,7 +45,7 @@ export default function FootOSplits(
         <FootOSplitsTable
           onlyRadios={onlyRadios}
           radiosList={props.activeClass.splits}
-          showDiffs={showDiffs}
+          showCumulative={showCumulative}
           key={"FootOSplitsTable"}
           runners={props.runnersQuery.data ? props.runnersQuery.data : []}
         />

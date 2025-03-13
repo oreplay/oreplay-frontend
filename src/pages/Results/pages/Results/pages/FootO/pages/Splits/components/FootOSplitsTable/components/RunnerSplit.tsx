@@ -4,19 +4,22 @@ import { ProcessedSplitModel } from "../../../../../../../../../components/Virtu
 
 type RunnerSplitProps = {
   split: ProcessedSplitModel
-  displayDiffs?: boolean
+  showCumulative?: boolean
 }
 
-export default function RunnerSplit({ split, displayDiffs }: RunnerSplitProps) {
-  if (displayDiffs) {
+const styles = {
+  fontSize: "small",
+}
+
+export default function RunnerSplit({ split, showCumulative }: RunnerSplitProps) {
+  if (showCumulative) {
+    const isScratch = split.cumulative_position === 1
     return (
       <>
-        <Typography sx={{ fontWeight: split.position === 1 ? "bold" : undefined }}>
-          {split.time_behind !== null
-            ? `+${parseSecondsToMMSS(split.time_behind)} (${split.position})`
-            : "--"}
+        <Typography sx={{ fontWeight: isScratch ? "bold" : undefined, ...styles }}>
+          {split.cumulative_time !== null ? parseSecondsToMMSS(split.cumulative_time) : "--"}
         </Typography>
-        <Typography sx={{ fontWeight: split.cumulative_position === 1 ? "bold" : undefined }}>
+        <Typography sx={{ fontWeight: isScratch ? "bold" : undefined, ...styles }}>
           {split.cumulative_behind !== null
             ? `+${parseSecondsToMMSS(split.cumulative_behind)} (${split.cumulative_position})`
             : "--"}
@@ -24,14 +27,15 @@ export default function RunnerSplit({ split, displayDiffs }: RunnerSplitProps) {
       </>
     )
   } else {
+    const isScratch = split.position === 1
     return (
       <>
-        <Typography sx={{ fontWeight: split.position === 1 ? "bold" : undefined }}>
-          {split.time !== null ? `${parseSecondsToMMSS(split.time)} (${split.position})` : "--"}
+        <Typography sx={{ fontWeight: isScratch ? "bold" : undefined, ...styles }}>
+          {split.time !== null ? parseSecondsToMMSS(split.time) : "--"}
         </Typography>
-        <Typography sx={{ fontWeight: split.cumulative_position === 1 ? "bold" : undefined }}>
-          {split.cumulative_time !== null
-            ? `${parseSecondsToMMSS(split.cumulative_time)} (${split.position})`
+        <Typography sx={{ fontWeight: isScratch ? "bold" : undefined, ...styles }}>
+          {split.time_behind !== null
+            ? `+${parseSecondsToMMSS(split.time_behind)} (${split.position})`
             : "--"}
         </Typography>
       </>

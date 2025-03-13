@@ -17,7 +17,7 @@ import { getOnlineSplits } from "../shared/footOSplitsTablefunctions.ts"
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
   onlyRadios?: boolean
-  showDiffs?: boolean
+  showCumulative?: boolean
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.overall
@@ -65,7 +65,7 @@ export default function RunnerRow(props: RunnerRowProps) {
             <RunnerOnlineSplit split={split as RadioSplitModel} />
           ) : (
             <RunnerSplit
-              displayDiffs={props.showDiffs}
+              showCumulative={props.showCumulative}
               key={`runnerSplit${props.runner.id}${split.id}}`}
               split={split}
             />

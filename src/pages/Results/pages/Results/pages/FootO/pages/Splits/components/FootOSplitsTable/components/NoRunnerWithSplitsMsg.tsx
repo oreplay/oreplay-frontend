@@ -12,7 +12,7 @@ export default function NoRunnerWithSplitsMsg() {
         marginY: "2em",
       }}
     >
-      {t("ResultsStage.NoRunnersWithSplits")}
+      {t("ResultsStage.SplitsTable.NoRunnersWithSplits")}
     </Typography>
   )
 }

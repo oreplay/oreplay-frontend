@@ -18,7 +18,7 @@ import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
   onlyRadios?: boolean
-  showDiffs?: boolean
+  showCumulative?: boolean
   radiosList?: SplitModel[] | ProcessedSplitModel[]
 }
 
@@ -70,7 +70,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 <RunnerRow
                   key={`runnerRow${runner.id}`}
                   runner={runner}
-                  showDiffs={props.showDiffs}
+                  showCumulative={props.showCumulative}
                   onlyRadios={props.onlyRadios}
                 />
               ))}
