@@ -31,6 +31,7 @@ import { useAuth } from "../../../../../../../shared/hooks.ts"
 import { stageTypes } from "../../../../../../../shared/Constants.ts"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
+import { useNotifications } from "@toolpad/core/useNotifications"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -84,6 +85,7 @@ export interface StageRow {
 export default function StagesDataGrid(props: Props) {
   const { t } = useTranslation()
   const { token } = useAuth()
+  const notifications = useNotifications()
 
   const initialRows: GridRowsProp<StageRow> = props.eventDetail.stages.map((stage) => ({
     id: stage.id,
@@ -116,7 +118,23 @@ export default function StagesDataGrid(props: Props) {
   }
 
   const handleWipeOutRunnersClick = async (row: GridRowParams<StageRow>) => {
-    await wipeOutStage(props.eventDetail.id, row.row.stageId, token as string).then(() => {})
+    try {
+      const resetNotification = notifications.show("Reseting...", {
+        autoHideDuration: 30000,
+        severity: "info", // Could be 'success', 'error', 'warning', 'info'.
+      })
+      await wipeOutStage(props.eventDetail.id, row.row.stageId, token as string).then(() => {})
+      notifications.close(resetNotification)
+      notifications.show("Reset successful", {
+        autoHideDuration: 3000,
+        severity: "success", // Could be 'success', 'error', 'warning', 'info'.
+      })
+    } catch (e) {
+      notifications.show("An error occurred resetting the event.", {
+        autoHideDuration: 3000,
+        severity: "error", // Could be 'success', 'error', 'warning', 'info'.
+      })
+    }
   }
 
   const handleCancelClick = (row: GridRowParams<StageRow>) => () => {
