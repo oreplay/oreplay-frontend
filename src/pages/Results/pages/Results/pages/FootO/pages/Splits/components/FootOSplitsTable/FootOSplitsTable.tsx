@@ -50,6 +50,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                       key={`courseControlHeader${courseControl.control?.id}`}
                       control={courseControl.control}
                       order_number={courseControl.order_number}
+                      onlyRadios={props.onlyRadios}
                     />
                   )
                 })}

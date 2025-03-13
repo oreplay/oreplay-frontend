@@ -5,11 +5,13 @@ import { useTranslation } from "react-i18next"
 type CourseControlTableHeaderProps = {
   order_number: number | bigint
   control: ControlModel | null
+  onlyRadios?: boolean
 }
 
 export default function CourseControlTableHeader({
   order_number,
   control,
+  onlyRadios,
 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
 
@@ -24,9 +26,12 @@ export default function CourseControlTableHeader({
       throw new Error("Control is missing")
     }
 
+    const controlString = onlyRadios
+      ? `(${control.station})`
+      : `${order_number} (${control.station})`
     return (
       <TableCell key={control.id}>
-        <Typography>{`${order_number} (${control.station})`}</Typography>
+        <Typography>{controlString}</Typography>
       </TableCell>
     )
   }
