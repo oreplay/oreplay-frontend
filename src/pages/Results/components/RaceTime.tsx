@@ -22,7 +22,7 @@ const RaceTime: React.FC<FinishTimeProps> = ({
   finish_time,
   time_seconds,
   start_time,
-  style
+  style,
 }) => {
   const { t } = useTranslation()
 

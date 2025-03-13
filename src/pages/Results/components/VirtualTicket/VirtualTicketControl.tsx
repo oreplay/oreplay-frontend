@@ -26,14 +26,14 @@ const VirtualTicketControl: React.FC<VirtualTicketControlProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const textStyles : CSSProperties = {
-    fontSize: "small"
+  const textStyles: CSSProperties = {
+    fontSize: "small",
   }
 
   // Finish control
   if (order_number === Infinity) {
     return (
-      <Grid sx={{display: "flex", justifyContent: "center"}} item xs={gridWidth}>
+      <Grid sx={{ display: "flex", justifyContent: "center" }} item xs={gridWidth}>
         <Typography sx={textStyles}>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
       </Grid>
     )
@@ -47,7 +47,7 @@ const VirtualTicketControl: React.FC<VirtualTicketControlProps> = ({
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <Typography>{order_number?.toString()}</Typography>

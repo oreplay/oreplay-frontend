@@ -20,24 +20,24 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
 }) => {
   const { t } = useTranslation()
 
-  const titleStyles : CSSProperties = {
+  const titleStyles: CSSProperties = {
     fontWeight: "bold",
-    fontSize: "small"
-  };
-
-  const gridStyles : CSSProperties = {
-    display: "flex"
-  };
-
-  const textStyles : CSSProperties = {
     fontSize: "small",
-    marginLeft: "6px"
+  }
+
+  const gridStyles: CSSProperties = {
+    display: "flex",
+  }
+
+  const textStyles: CSSProperties = {
+    fontSize: "small",
+    marginLeft: "6px",
   }
 
   const status = parseResultStatus(runnerResult.status_code as string)
   return (
     <>
-     <Grid style={gridStyles} item xs={4}>
+      <Grid style={gridStyles} item xs={4}>
         <Typography style={titleStyles}>{t("ResultsStage.BonusPoints")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
@@ -53,7 +53,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
             : ""}
         </Typography>
       </Grid>
-      <Grid sx={{justifyContent: "flex-end"}} style={gridStyles} item xs={4}>
+      <Grid sx={{ justifyContent: "flex-end" }} style={gridStyles} item xs={4}>
         <Typography style={titleStyles}>{t("ResultsStage.Points")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
@@ -65,9 +65,9 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
         <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
         <StartTime style={textStyles} startTime={runnerResult.start_time} />
       </Grid>
-      <Grid style={gridStyles} sx={{justifyContent: "flex-end"}} item xs={6}>
+      <Grid style={gridStyles} sx={{ justifyContent: "flex-end" }} item xs={6}>
         <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
-        <RaceTime 
+        <RaceTime
           style={textStyles}
           status={status}
           start_time={runnerResult.start_time}

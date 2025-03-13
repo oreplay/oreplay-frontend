@@ -27,9 +27,9 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
   const { t } = useTranslation()
 
   const headersStyles: CSSProperties = {
-    fontWeight: "bold", 
+    fontWeight: "bold",
     fontSize: "medium",
-    textAlign: "center" 
+    textAlign: "center",
   }
 
   if (runner) {

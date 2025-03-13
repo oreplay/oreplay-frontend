@@ -19,26 +19,26 @@ const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps
   runnerResult,
 }) => {
   const { t } = useTranslation()
-  const status = parseResultStatus(runnerResult.status_code as string);
+  const status = parseResultStatus(runnerResult.status_code as string)
 
-  const gridStylesStartTime : CSSProperties = {
+  const gridStylesStartTime: CSSProperties = {
     display: "flex",
-    padding: 8
-  };
+    padding: 8,
+  }
 
-  const gridStylesTotalTime : CSSProperties = {
+  const gridStylesTotalTime: CSSProperties = {
     display: "flex",
     padding: "8px 0px 8px 8px",
-    justifyContent: "flex-end"
-  };
+    justifyContent: "flex-end",
+  }
 
-  const titleStyles : CSSProperties = {
+  const titleStyles: CSSProperties = {
     fontWeight: "bold",
-    fontSize: "small"
-  };
+    fontSize: "small",
+  }
 
-  const timesStyles : CSSProperties = {
-    fontSize: "small"
+  const timesStyles: CSSProperties = {
+    fontSize: "small",
   }
 
   return (
