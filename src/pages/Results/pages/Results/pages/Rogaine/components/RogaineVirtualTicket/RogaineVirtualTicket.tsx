@@ -44,12 +44,12 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
           <RogaineVirtualTicketPointsBanner runnerResult={runner.overall} />
         </VirtualTicketHeader>
         <VirtualTicketSplits>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <Typography variant="subtitle2" sx={headersStyles}>
               {t("ResultsStage.VirtualTicket.Control")}
             </Typography>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={4}>
             <Typography variant="subtitle2" sx={headersStyles}>
               {t("ResultsStage.VirtualTicket.Partial")}
             </Typography>
@@ -60,7 +60,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
             </Typography>
           </Grid>
           {runner.overall.splits.map((split, index) => (
-            <RogaineVirtualTicketSplit key={split.id} split={split} index={index}/>
+            <RogaineVirtualTicketSplit key={split.id} split={split} index={index} />
           ))}
         </VirtualTicketSplits>
       </VirtualTicketContainer>
