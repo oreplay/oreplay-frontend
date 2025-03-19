@@ -1,5 +1,6 @@
 import {
   ControlModel,
+  OnlineControlModel,
   RunnerModel,
   SplitModel,
 } from "../../../../../../../../../../../shared/EntityTypes.ts"
@@ -10,9 +11,9 @@ import {
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { DateTime } from "luxon"
 
-type CourseControlModel = {
+export type CourseControlModel = {
   control: ControlModel | null
-  order_number: bigint | number | null // TODO: It can't be null
+  order_number: number | null // TODO: It can't be null
 }
 
 export function getCourseFromRunner(
@@ -40,29 +41,26 @@ export function getCourseFromSplits(
 ): CourseControlModel[] {
   const splitListCopy = [...splitsList]
 
-  return splitListCopy
-    .map((split): CourseControlModel => {
-      return {
-        control: split.control,
-        order_number: split.order_number,
-      }
-    })
-    .filter((control) => control.order_number != null)
+  return splitListCopy.map((split): CourseControlModel => {
+    return {
+      control: split.control,
+      order_number: split.order_number,
+    }
+  })
 }
 
 export function getOnlineControlsCourseFromClassSplits(
-  splitsList: SplitModel[] | ProcessedSplitModel[],
-): CourseControlModel[] {
-  // parse controls
-  const controlList = getCourseFromSplits(splitsList)
+  controlList: OnlineControlModel[],
+): OnlineControlModel[] {
+  const controlListCopy = [...controlList] // TODO: avoid copying, this function should be called only once. Move it to classes call?
 
   // Add finish
-  controlList.push({
-    control: null,
-    order_number: Infinity,
+  controlListCopy.push({
+    station: Infinity,
+    id: "FinishOlineControl",
   })
 
-  return controlList
+  return controlListCopy
 }
 
 /**

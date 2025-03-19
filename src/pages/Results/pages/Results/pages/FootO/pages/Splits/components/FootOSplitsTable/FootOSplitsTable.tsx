@@ -1,35 +1,39 @@
-import {
-  ProcessedRunnerModel,
-  ProcessedSplitModel,
-} from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
 import {
+  CourseControlModel,
   getCourseFromRunner,
   getOnlineControlsCourseFromClassSplits,
 } from "./shared/footOSplitsTablefunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
 import NowProvider from "../../../../../../../../components/NowProvider.tsx"
-import { SplitModel } from "../../../../../../../../../../shared/EntityTypes.ts"
+import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
+import { useMemo } from "react"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
   onlyRadios?: boolean
   showCumulative?: boolean
-  radiosList?: SplitModel[] | ProcessedSplitModel[]
+  radiosList: OnlineControlModel[]
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const { t } = useTranslation()
   const runnerList = props.onlyRadios ? props.runners : props.runners.filter(hasChipDownload)
 
-  const controlList =
-    props.onlyRadios && props.radiosList
-      ? getOnlineControlsCourseFromClassSplits(props.radiosList)
-      : getCourseFromRunner(runnerList)
+  console.log("FootOSplitsTableRendered")
+
+  const onlineControlList = useMemo(
+    () => getOnlineControlsCourseFromClassSplits(props.radiosList),
+    [props.radiosList],
+  )
+  const courseControlList = useMemo(() => getCourseFromRunner(runnerList), [runnerList])
+
+  const controlList = props.onlyRadios && props.radiosList ? onlineControlList : courseControlList
 
   // No runner hasDownloaded a chip
   if (runnerList.length === 0) {
@@ -50,18 +54,26 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 </TableCell>
                 <TableCell key={"Time"}>{t("ResultsStage.Times")}</TableCell>
                 {controlList.map((courseControl) => {
-                  if (!courseControl.order_number) {
-                    return <></>
+                  if (props.onlyRadios) {
+                    courseControl = courseControl as OnlineControlModel
+                    return (
+                      <CourseControlTableHeader
+                        key={`courseControlHeader${courseControl.id}`}
+                        station={courseControl.station}
+                        onlyRadios={props.onlyRadios}
+                      />
+                    )
+                  } else {
+                    courseControl = courseControl as CourseControlModel
+                    return (
+                      <CourseControlTableHeader
+                        key={`courseControlHeader${courseControl.control?.id}`}
+                        station={courseControl.control?.station}
+                        order_number={courseControl.order_number}
+                        onlyRadios={props.onlyRadios}
+                      />
+                    )
                   }
-
-                  return (
-                    <CourseControlTableHeader
-                      key={`courseControlHeader${courseControl.control?.id}`}
-                      control={courseControl.control}
-                      order_number={courseControl.order_number}
-                      onlyRadios={props.onlyRadios}
-                    />
-                  )
                 })}
               </TableRow>
             </TableHead>

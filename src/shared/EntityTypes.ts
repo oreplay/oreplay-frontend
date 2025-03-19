@@ -119,9 +119,14 @@ export interface RunnerResultModel {
 export interface SplitModel {
   id: string
   reading_time: string
-  order_number: bigint | null
-  points: bigint | null
+  order_number: number | null
+  points: number | null
   control: ControlModel
+}
+
+export interface OnlineControlModel {
+  id: string
+  station: number
 }
 
 export interface ControlModel {
@@ -138,7 +143,7 @@ export interface ControlTypeModel {
 export interface ClassModel {
   id: string
   short_name: string
-  splits: SplitModel[]
+  splits: OnlineControlModel[]
 }
 
 export interface ClubModel {
