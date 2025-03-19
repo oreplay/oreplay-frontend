@@ -13,11 +13,13 @@ import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Func
 import RunnerSplit from "./RunnerSplit.tsx"
 import RunnerOnlineSplit from "./RunnerOnlineSplit.tsx"
 import { getOnlineSplits } from "../shared/footOSplitsTablefunctions.ts"
+import { OnlineControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
-  onlyRadios?: boolean
   showCumulative?: boolean
+  onlyRadios?: boolean
+  radiosList: OnlineControlModel[]
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.overall
@@ -30,7 +32,7 @@ export default function RunnerRow(props: RunnerRowProps) {
   const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
 
   const splits = props.onlyRadios
-    ? getOnlineSplits(result.splits, result.start_time)
+    ? getOnlineSplits(result.splits, props.radiosList, result.start_time)
     : result.splits
 
   return (

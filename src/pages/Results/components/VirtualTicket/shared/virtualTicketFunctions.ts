@@ -66,7 +66,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
           id: `${runner.id}-finishSplit`,
           reading_time: result.finish_time,
           order_number: Infinity,
-          points: BigInt(0),
+          points: 0,
           time: prev_reading_time_string
             ? finish_time.diff(DateTime.fromISO(prev_reading_time_string)).as("seconds")
             : null, //time in seconds for this split

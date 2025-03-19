@@ -126,7 +126,7 @@ export interface SplitModel {
 
 export interface OnlineControlModel {
   id: string
-  station: number
+  station: string
 }
 
 export interface ControlModel {
