@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next"
 import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
 import { Typography } from "@mui/material"
-import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
+import { parseTimeBehind } from "../../../../../../../../shared/Functions.tsx"
 import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
@@ -61,7 +61,7 @@ export default function FootOResults(
                 />
                 <Typography sx={{ color: "primary.main", fontSize: 14 }}>
                   {statusOkOrNc && runner.overall.finish_time != null
-                    ? `+${parseSecondsToMMSS(runner.overall.time_behind.toString())}`
+                    ? parseTimeBehind(runner.overall.time_behind)
                     : ""}
                 </Typography>
               </FlexCol>

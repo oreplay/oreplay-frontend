@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, Grid, Typography } from "@mui/material"
-import { parseSecondsToMMSS } from "../../../../shared/Functions.tsx"
+import { parseSecondsToMMSS, parseTimeBehind } from "../../../../shared/Functions.tsx"
 
 type VirtualTicketSplitTimeProp = {
   time: number | null
@@ -41,7 +41,7 @@ const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({
       >
         <Typography sx={style}>{time !== null ? `${parseSecondsToMMSS(time)}` : "--"}</Typography>
         <Typography sx={style}>
-          {time_behind !== null ? `+${parseSecondsToMMSS(time_behind)} (${position})` : "--"}
+          {time_behind !== null ? `${parseTimeBehind(time_behind)} (${position})` : "--"}
         </Typography>
       </Box>
     </Grid>

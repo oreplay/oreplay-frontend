@@ -1,5 +1,8 @@
 import { Typography } from "@mui/material"
-import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
+import {
+  parseSecondsToMMSS,
+  parseTimeBehind,
+} from "../../../../../../../../../../../shared/Functions.tsx"
 import { ProcessedSplitModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 
 type RunnerSplitProps = {
@@ -21,7 +24,7 @@ export default function RunnerSplit({ split, showCumulative }: RunnerSplitProps)
         </Typography>
         <Typography sx={{ fontWeight: isScratch ? "bold" : undefined, ...styles }}>
           {split.cumulative_behind !== null
-            ? `+${parseSecondsToMMSS(split.cumulative_behind)} (${split.cumulative_position})`
+            ? `${parseTimeBehind(split.cumulative_behind)} (${split.cumulative_position})`
             : "--"}
         </Typography>
       </>
@@ -35,7 +38,7 @@ export default function RunnerSplit({ split, showCumulative }: RunnerSplitProps)
         </Typography>
         <Typography sx={{ fontWeight: isScratch ? "bold" : undefined, ...styles }}>
           {split.time_behind !== null
-            ? `+${parseSecondsToMMSS(split.time_behind)} (${split.position})`
+            ? `${parseTimeBehind(split.time_behind)} (${split.position})`
             : "--"}
         </Typography>
       </>
