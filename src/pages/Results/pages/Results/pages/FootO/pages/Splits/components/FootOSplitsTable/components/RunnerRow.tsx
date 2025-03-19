@@ -9,7 +9,7 @@ import { runnerService } from "../../../../../../../../../../../domain/services/
 import ParticipantName from "../../../../../../../../../components/ParticipantName.tsx"
 import RaceTime from "../../../../../../../../../components/RaceTime.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../../../../shared/constants.ts"
-import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
+import { parseTimeBehind } from "../../../../../../../../../../../shared/Functions.tsx"
 import RunnerSplit from "./RunnerSplit.tsx"
 import RunnerOnlineSplit from "./RunnerOnlineSplit.tsx"
 import { getOnlineSplits } from "../shared/footOSplitsTablefunctions.ts"
@@ -56,9 +56,7 @@ export default function RunnerRow(props: RunnerRowProps) {
           start_time={result.start_time}
         />
         <Typography key={`diff${props.runner.id}`} sx={{ color: "primary.main", fontSize: 14 }}>
-          {statusOkOrNc && result.finish_time != null
-            ? `+${parseSecondsToMMSS(result.time_behind.toString())}`
-            : ""}
+          {statusOkOrNc && result.finish_time != null ? parseTimeBehind(result.time_behind) : ""}
         </Typography>
       </TableCell>
       {splits.map((split) => (

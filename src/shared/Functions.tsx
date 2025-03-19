@@ -1,5 +1,5 @@
 import i18next from "i18next"
-import { DateTime } from "luxon"
+import { DateTime, Duration } from "luxon"
 
 export function getCurrentDate() {
   return DateTime.now()
@@ -24,10 +24,19 @@ export function parseStartTime(dateString: null | string) {
   } else return null
 }
 
-export function parseSecondsToMMSS(seconds: number | string) {
-  const duration = DateTime.fromSeconds(Number(seconds)).toUTC()
+/**
+ * Parse a duration in seconds to MM:SS or HH:MM:SS format
+ *
+ * @param seconds Duration in seconds
+ */
+export function parseSecondsToMMSS(seconds: number | string): string {
+  // Parse duration
+  seconds = Number(seconds)
+  const duration = Duration.fromMillis(seconds * 1000)
+
+  // Choose HH:MM:SS or MM:SS formats
   const oneHour = 3600
-  if (Number(seconds) < oneHour) {
+  if (seconds < oneHour) {
     return duration.toFormat("mm:ss")
   } else {
     const durationString = duration.toFormat("HH:mm:ss")
@@ -39,4 +48,27 @@ export function parseSecondsToMMSS(seconds: number | string) {
       return durationString
     }
   }
+}
+
+/**
+ * Parse a time in seconds to a +/-mm:ss or +/-hh:mm:ss format
+ *
+ * @param seconds duration in seconds of the time behind
+ */
+export function parseTimeBehind(seconds: number | string): string {
+  // Parse Seconds
+  seconds = Number(seconds)
+
+  // compute sign
+  const sign = seconds < 0 ? "-" : "+"
+
+  // Parse duration
+  seconds = Math.abs(seconds) // Absolute avoids formating like "1:-24" in parseSecondsToMMSS
+  let durationString = parseSecondsToMMSS(seconds)
+
+  // Add + or -
+  durationString = sign + durationString
+
+  // Return
+  return durationString
 }

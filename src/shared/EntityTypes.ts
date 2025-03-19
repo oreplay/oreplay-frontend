@@ -107,7 +107,7 @@ export interface RunnerResultModel {
   time_seconds: string
   position: bigint
   status_code: string | null
-  time_behind: bigint
+  time_behind: number
   points_final: bigint
   points_adjusted: bigint
   points_penalty: bigint
