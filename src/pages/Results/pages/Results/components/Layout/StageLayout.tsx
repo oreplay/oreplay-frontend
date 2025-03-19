@@ -21,7 +21,7 @@ type StageLayoutProps = {
 export default function StageLayout(props: StageLayoutProps) {
   const { t } = useTranslation()
 
-  if (props.classesList.length === 0) {
+  if (props.classesList.length === 0 && !props.areClassesLoading) {
     return <NoDataInStageMsg />
   }
 
