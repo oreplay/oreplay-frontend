@@ -84,6 +84,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   runner={runner}
                   showCumulative={props.showCumulative}
                   onlyRadios={props.onlyRadios}
+                  radiosList={props.radiosList}
                 />
               ))}
             </TableBody>

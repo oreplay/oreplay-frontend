@@ -56,7 +56,7 @@ export function getOnlineControlsCourseFromClassSplits(
 
   // Add finish
   controlListCopy.push({
-    station: Infinity,
+    station: "Finish",
     id: "FinishOlineControl",
   })
 
@@ -66,14 +66,19 @@ export function getOnlineControlsCourseFromClassSplits(
 /**
  * Get online splits from a Processed Splits list and compute the next online control
  * @param splitList List of ProcessedSplitModel to extract online controls from
+ * @param radiosList List of OnlineControlModel with the online controls
  * @param startTime ISO string startTime of the runner
  */
 export function getOnlineSplits(
   splitList: ProcessedSplitModel[],
+  radiosList: OnlineControlModel[],
   startTime: string | null,
 ): RadioSplitModel[] {
   // Extract splits that are radio controls
-  const Splits = splitList.filter((split) => split.is_intermediate)
+  const onlineSplitStationsNumber = radiosList.map((control) => control.station)
+  const Splits = splitList.filter((split) =>
+    split.control ? onlineSplitStationsNumber.includes(split.control.station) : true,
+  )
 
   // Convert them to RadioSplitModel
   const RadioSplits = Splits.map((split): RadioSplitModel => ({ ...split, is_next: null }))

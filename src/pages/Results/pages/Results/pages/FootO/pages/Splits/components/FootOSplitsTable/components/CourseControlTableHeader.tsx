@@ -14,7 +14,7 @@ export default function CourseControlTableHeader({
 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
 
-  if (station === Infinity) {
+  if (station === "Finish") {
     return (
       <TableCell key={"Finish Control"}>
         <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
