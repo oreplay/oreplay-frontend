@@ -83,21 +83,9 @@ export default function FootO() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <FootOStartTime
-          runnersQuery={runnersQueryByClasses}
-          activeClass={activeClass}
-          areClassesLoading={areClassesLoading}
-        />
-        <FootOResults
-          runnersQuery={runnersQueryByClasses}
-          activeClass={activeClass}
-          areClassesLoading={areClassesLoading}
-        />
-        <FootOSplits
-          runnersQuery={runnersQueryByClasses}
-          activeClass={activeClass}
-          areClassesLoading={areClassesLoading}
-        />
+        <FootOStartTime runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
+        <FootOResults runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
+        <FootOSplits runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
       </ResultTabs>
     </StageLayout>
   )
