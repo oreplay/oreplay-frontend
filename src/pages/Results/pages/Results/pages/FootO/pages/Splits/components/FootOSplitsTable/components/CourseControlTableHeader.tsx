@@ -1,38 +1,31 @@
-import { ControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
 import { TableCell, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 type CourseControlTableHeaderProps = {
-  order_number: number | bigint
-  control: ControlModel | null
+  order_number?: number | null
+  station?: number | string | null
   onlyRadios?: boolean
 }
 
 export default function CourseControlTableHeader({
   order_number,
-  control,
+  station,
   onlyRadios,
 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
 
-  if (order_number === Infinity) {
+  if (station === Infinity) {
     return (
       <TableCell key={"Finish Control"}>
         <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
       </TableCell>
     )
-  } else {
-    if (!control) {
-      throw new Error("Control is missing")
-    }
-
-    const controlString = onlyRadios
-      ? `(${control.station})`
-      : `${order_number} (${control.station})`
-    return (
-      <TableCell key={control.id}>
-        <Typography>{controlString}</Typography>
-      </TableCell>
-    )
   }
+
+  const controlString = onlyRadios ? `(${station})` : `${order_number} (${station})`
+  return (
+    <TableCell key={`tableHeaderControl${station}`}>
+      <Typography>{controlString}</Typography>
+    </TableCell>
+  )
 }

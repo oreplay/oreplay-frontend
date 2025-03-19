@@ -38,7 +38,7 @@ export interface ProcessedSplitModel {
   id: string
   is_intermediate: boolean
   reading_time: string
-  order_number: bigint | number | null
+  order_number: number | null
   points: bigint | null
   time: number | null //time in seconds for this split
   time_behind: number | null //time behind best runner in seconds for this split
