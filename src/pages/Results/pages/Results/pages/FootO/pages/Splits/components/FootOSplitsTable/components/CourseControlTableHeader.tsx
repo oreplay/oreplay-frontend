@@ -14,7 +14,7 @@ export default function CourseControlTableHeader({
 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
 
-  if (station === "Finish") {
+  if (station === "Finish" || order_number === Infinity) {
     return (
       <TableCell key={"Finish Control"}>
         <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
@@ -24,7 +24,7 @@ export default function CourseControlTableHeader({
 
   const controlString = onlyRadios ? `(${station})` : `${order_number} (${station})`
   return (
-    <TableCell key={`tableHeaderControl${station}`}>
+    <TableCell key={`tableHeaderControl${order_number}(${station})`}>
       <Typography>{controlString}</Typography>
     </TableCell>
   )
