@@ -25,8 +25,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const { t } = useTranslation()
   const runnerList = props.onlyRadios ? props.runners : props.runners.filter(hasChipDownload)
 
-  console.log("FootOSplitsTableRendered")
-
   const onlineControlList = useMemo(
     () => getOnlineControlsCourseFromClassSplits(props.radiosList),
     [props.radiosList],
@@ -67,7 +65,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                     courseControl = courseControl as CourseControlModel
                     return (
                       <CourseControlTableHeader
-                        key={`courseControlHeader${courseControl.control?.id}`}
+                        key={`courseControlHeader${courseControl.order_number}${courseControl.control?.id}`}
                         station={courseControl.control?.station}
                         order_number={courseControl.order_number}
                         onlyRadios={props.onlyRadios}
