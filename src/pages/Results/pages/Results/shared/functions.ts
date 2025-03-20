@@ -1,6 +1,7 @@
 import { RunnerModel } from "../../../../../shared/EntityTypes.ts"
 import { ProcessedRunnerModel } from "../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { UPLOAD_TYPES } from "./constants.ts"
+import { RESULT_STATUS } from "../../../shared/constants.ts"
 
 /** Check if a runner has a final result
  *
@@ -24,4 +25,13 @@ export function hasChipDownload(runner: RunnerModel | ProcessedRunnerModel): boo
     default:
       throw new Error(`Unknown upload_type ${runner.overall.upload_type}`)
   }
+}
+
+/**
+ * Check if a runner has "no classify" status
+ *
+ * @param runner The runner to be checked
+ */
+export function isRunnerNC(runner: RunnerModel | ProcessedRunnerModel): boolean {
+  return runner.overall.status_code === RESULT_STATUS.nc
 }
