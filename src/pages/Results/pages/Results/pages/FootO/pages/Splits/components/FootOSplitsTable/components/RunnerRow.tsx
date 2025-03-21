@@ -2,8 +2,8 @@ import {
   ProcessedRunnerModel,
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { TableCell, TableRow, Typography } from "@mui/material"
-import { getPositionOrNc, parseResultStatus } from "../../../../../../../../../shared/functions.ts"
+import { TableCell, TableRow } from "@mui/material"
+import { parseResultStatus } from "../../../../../../../../../shared/functions.ts"
 import { useTranslation } from "react-i18next"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
 import ParticipantName from "../../../../../../../../../components/ParticipantName.tsx"
@@ -14,7 +14,10 @@ import RunnerOnlineSplit from "./RunnerOnlineSplit.tsx"
 import { getOnlineSplits } from "../shared/footOSplitsTablefunctions.ts"
 import { OnlineControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
 import RaceTimeBehind from "../../../../../../../../../components/RaceTimeBehind.tsx"
-import { hasChipDownload } from "../../../../../../../shared/functions.ts"
+import {
+  hasChipDownload as hasChipDownloadFunction,
+} from "../../../../../../../shared/functions.ts"
+import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
@@ -31,6 +34,7 @@ export default function RunnerRow(props: RunnerRowProps) {
 
   const status = parseResultStatus(result.status_code as string)
   const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
+  const hasChipDownload = hasChipDownloadFunction(props.runner)
 
   const splits = props.onlyRadios
     ? getOnlineSplits(result.splits, props.radiosList, result.start_time)
@@ -39,7 +43,11 @@ export default function RunnerRow(props: RunnerRowProps) {
   return (
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
       <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
-        <Typography sx={{ color: "primary.main" }}>{getPositionOrNc(props.runner, t)}</Typography>
+        <RacePosition
+          position={props.runner.overall.position}
+          isNC={status === RESULT_STATUS_TEXT.nc}
+          hasDownload={hasChipDownload}
+        />
       </TableCell>
       <TableCell key={`name${props.runner.id}`}>
         <ParticipantName
@@ -51,14 +59,14 @@ export default function RunnerRow(props: RunnerRowProps) {
         <RaceTime
           key={`raceTime${props.runner.id}`}
           displayStatus
-          isFinalTime={hasChipDownload(props.runner)}
+          isFinalTime={hasChipDownload}
           status={status}
           finish_time={result.finish_time}
           time_seconds={result.time_seconds}
           start_time={result.start_time}
         />
         <RaceTimeBehind
-          display={statusOkOrNc && result.finish_time != null && hasChipDownload(props.runner)}
+          display={statusOkOrNc && result.finish_time != null && hasChipDownload}
           time_behind={result.time_behind}
         />
       </TableCell>
