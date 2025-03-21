@@ -51,6 +51,7 @@ export default function RunnerRow(props: RunnerRowProps) {
         <RaceTime
           key={`raceTime${props.runner.id}`}
           displayStatus
+          isFinalTime={hasChipDownload(props.runner)}
           status={status}
           finish_time={result.finish_time}
           time_seconds={result.time_seconds}

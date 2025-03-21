@@ -1,5 +1,8 @@
-import { RunnerModel } from "../../../../../shared/EntityTypes.ts"
-import { ProcessedRunnerModel } from "../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { RunnerModel, RunnerResultModel } from "../../../../../shared/EntityTypes.ts"
+import {
+  ProcessedRunnerModel,
+  ProcessedRunnerResultModel,
+} from "../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { UPLOAD_TYPES } from "./constants.ts"
 import { RESULT_STATUS } from "../../../shared/constants.ts"
 
@@ -11,8 +14,16 @@ import { RESULT_STATUS } from "../../../shared/constants.ts"
  *
  * @param runner Runner we want to check
  */
-export function hasChipDownload(runner: RunnerModel | ProcessedRunnerModel): boolean {
-  switch (runner.overall.upload_type) {
+export function hasChipDownload(
+  runner: RunnerModel | ProcessedRunnerModel | RunnerResultModel | ProcessedRunnerResultModel,
+): boolean {
+  let uploadType: string
+  if (isRunnerModel(runner)) uploadType = runner.overall.upload_type
+  else {
+    uploadType = runner.upload_type
+  }
+
+  switch (uploadType) {
     case UPLOAD_TYPES.START_TIMES:
       return false
 
@@ -23,8 +34,18 @@ export function hasChipDownload(runner: RunnerModel | ProcessedRunnerModel): boo
       return true
 
     default:
-      throw new Error(`Unknown upload_type ${runner.overall.upload_type}`)
+      throw new Error(`Unknown upload_type ${uploadType}`)
   }
+}
+
+/**
+ * Auxiliary type predicative
+ * @param runner
+ */
+function isRunnerModel(
+  runner: RunnerModel | ProcessedRunnerModel | RunnerResultModel | ProcessedRunnerResultModel,
+): runner is RunnerModel | ProcessedRunnerModel {
+  return "overall" in runner
 }
 
 /**

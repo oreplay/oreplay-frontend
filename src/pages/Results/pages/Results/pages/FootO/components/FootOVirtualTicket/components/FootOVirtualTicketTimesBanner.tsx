@@ -6,6 +6,7 @@ import { parseResultStatus } from "../../../../../../../shared/functions.ts"
 import RaceTime from "../../../../../../../components/RaceTime.tsx"
 import StartTime from "../../../../../../../components/StartTime.tsx"
 import { useTranslation } from "react-i18next"
+import { hasChipDownload } from "../../../../../shared/functions.ts"
 
 type FootOVirtualTicketTimesBannerProps = {
   runnerResult: ProcessedRunnerResultModel
@@ -51,6 +52,7 @@ const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps
         <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
         <RaceTime
           style={timesStyles}
+          isFinalTime={hasChipDownload(runnerResult)}
           displayStatus
           status={status}
           start_time={runnerResult.start_time}

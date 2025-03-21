@@ -16,6 +16,7 @@ import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ParticipantName from "../../../../../../components/ParticipantName.tsx"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
+import { hasChipDownload } from "../../../../shared/functions.ts"
 
 export default function RogainePoints(
   props: ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>>,
@@ -82,6 +83,7 @@ export default function RogainePoints(
                 <RaceTime
                   displayStatus
                   status={status}
+                  isFinalTime={hasChipDownload(runnerResult)}
                   start_time={runnerResult.start_time}
                   finish_time={runnerResult.finish_time}
                   time_seconds={runnerResult.time_seconds}

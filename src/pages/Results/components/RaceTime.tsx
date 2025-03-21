@@ -9,6 +9,7 @@ import Status from "./Status.tsx"
 
 type FinishTimeProps = {
   displayStatus?: boolean
+  isFinalTime?: boolean
   status: string | null
   start_time?: string | null
   finish_time: string | null
@@ -18,6 +19,7 @@ type FinishTimeProps = {
 
 const RaceTime: React.FC<FinishTimeProps> = ({
   displayStatus,
+  isFinalTime,
   status,
   finish_time,
   time_seconds,
@@ -29,7 +31,15 @@ const RaceTime: React.FC<FinishTimeProps> = ({
   if (status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc) {
     if (finish_time != null) {
       if (time_seconds !== null && time_seconds !== 0) {
-        return <Typography sx={style}>{parseSecondsToMMSS(time_seconds)}</Typography>
+        if (isFinalTime) {
+          return <Typography sx={style}>{parseSecondsToMMSS(time_seconds)}</Typography>
+        } else {
+          return (
+            <Typography
+              sx={{ ...style, color: "text.secondary" }}
+            >{parseSecondsToMMSS(time_seconds)}</Typography>
+          )
+        }
       } else {
         // TODO: Handle in a better way. Maybe throw an exception
         console.error("If a runner has finish time it should has time_seconds")
