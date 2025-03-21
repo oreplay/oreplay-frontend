@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 
 type PartialCumulativeSwitchProps = {
   active: boolean
-  setActive: (newValue: (prev: boolean) => boolean) => void
+  setActive: (newValue: boolean) => void
   disabled?: boolean
 }
 
@@ -19,7 +19,14 @@ export default function PartialCumulativeSwitch({
       <Typography sx={{ color: disabled ? "text.disabled" : undefined }}>
         {t("ResultsStage.SplitsTable.PartialTimes")}
       </Typography>
-      <Switch disabled={disabled} checked={active} onChange={() => setActive((prev) => !prev)} />
+      <Switch
+        disabled={disabled}
+        checked={active}
+        value={active}
+        onChange={() => {
+          setActive(!active)
+        }}
+      />
       <Typography sx={{ color: disabled ? "text.disabled" : undefined }}>
         {t("ResultsStage.SplitsTable.CumulativeTimes")}
       </Typography>
