@@ -6,6 +6,7 @@ import { parseResultStatus } from "../../../../../../../shared/functions.ts"
 import RaceTime from "../../../../../../../components/RaceTime.tsx"
 import StartTime from "../../../../../../../components/StartTime.tsx"
 import { useTranslation } from "react-i18next"
+import { hasChipDownload } from "../../../../../shared/functions.ts"
 
 type RogaineVirtualTicketPointsBannerProps = {
   runnerResult: ProcessedRunnerResultModel
@@ -70,6 +71,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
         <RaceTime
           style={textStyles}
           status={status}
+          isFinalTime={hasChipDownload(runnerResult)}
           start_time={runnerResult.start_time}
           finish_time={runnerResult.finish_time}
           time_seconds={runnerResult.time_seconds}

@@ -55,6 +55,7 @@ export default function FootOResults(
               <FlexCol flexGrow={1}>
                 <RaceTime
                   displayStatus
+                  isFinalTime={hasChipDownload(runner)}
                   status={status}
                   finish_time={runner.overall.finish_time}
                   time_seconds={runner.overall.time_seconds}
