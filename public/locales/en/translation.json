@@ -162,7 +162,8 @@
       "FinishHour": "Finish time:",
       "RaceTime": "Time:",
       "Partial": "Split",
-      "Cumulative": "Cumulative"
+      "Cumulative": "Cumulative",
+      "NoDownloadMsg": "No chip reading"
     },
     "statusCodes": {
       "nc": "NC",

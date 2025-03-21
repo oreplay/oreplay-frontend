@@ -4,12 +4,13 @@ import {
   VirtualTicketProps,
 } from "../../../../../../components/VirtualTicket/VirtualTicketContainer.tsx"
 import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
-import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits.tsx"
+import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
 import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
 import RogaineVirtualTicketPointsBanner from "./components/RogaineVirtualTicketPointsBanner.tsx"
 import RogaineVirtualTicketSplit from "./components/RogaineVirtualTicketSplits.tsx"
 import { Grid, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
+import { hasChipDownload } from "../../../../shared/functions.ts"
 
 /**
  * This is the Virtual Ticket for Foot-O results
@@ -43,7 +44,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
           <VirtualTicketRunnerInfo runner={runner} />
           <RogaineVirtualTicketPointsBanner runnerResult={runner.overall} />
         </VirtualTicketHeader>
-        <VirtualTicketSplits>
+        <VirtualTicketSplits download={hasChipDownload(runner)}>
           <Grid item xs={3}>
             <Typography variant="subtitle2" sx={headersStyles}>
               {t("ResultsStage.VirtualTicket.Control")}

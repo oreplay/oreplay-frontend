@@ -4,12 +4,13 @@ import {
   VirtualTicketProps,
 } from "../../../../../../components/VirtualTicket/VirtualTicketContainer.tsx"
 import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
-import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits.tsx"
+import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
 import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
 import FootOVirtualTicketTimesBanner from "./components/FootOVirtualTicketTimesBanner.tsx"
 import FootOVirtualTicketSplit from "./components/FootOVirtualTicketSplit.tsx"
 import { Grid, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
+import { hasChipDownload } from "../../../../shared/functions.ts"
 
 /**
  * This is the Virtual Ticket for Foot-O results
@@ -43,7 +44,7 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
           <VirtualTicketRunnerInfo runner={runner} />
           <FootOVirtualTicketTimesBanner runnerResult={runner.overall} />
         </VirtualTicketHeader>
-        <VirtualTicketSplits>
+        <VirtualTicketSplits download={hasChipDownload(runner)}>
           <Grid item xs={2}>
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Control")}</Typography>
           </Grid>

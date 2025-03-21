@@ -1,4 +1,4 @@
-import { Box, Grid, DialogTitle, IconButton, DialogContent, Dialog } from "@mui/material"
+import { Grid, DialogTitle, IconButton, DialogContent, Dialog } from "@mui/material"
 import React from "react"
 import CloseIcon from "@mui/icons-material/Close"
 import { ProcessedRunnerModel } from "./shared/EntityTypes.ts"
@@ -58,11 +58,9 @@ export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({
         <DialogContent>
           <ExperimentalFeatureAlert />
           {runner ? (
-            <Box>
-              <Grid container spacing={1}>
-                {children}
-              </Grid>
-            </Box>
+            <Grid container spacing={1}>
+              {children}
+            </Grid>
           ) : (
             ""
           )}
