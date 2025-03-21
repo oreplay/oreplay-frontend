@@ -13,7 +13,8 @@ import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
+import { isWrongFileUploaded as isWrongFileUploadedFunction } from "../../shared/functions.ts"
 
 const menu_options_labels = ["results", "points"]
 
@@ -42,6 +43,10 @@ export default function Rogaine() {
       refetchOnWindowFocus: false,
     },
   )
+  const isWrongFileUploaded = useMemo(
+    () => isWrongFileUploadedFunction(runnersQueryByClasses.data?.[0] ?? []),
+    [runnersQueryByClasses],
+  )
 
   // Handle re-fetching
   const handleRefreshClick = useCallback(() => {
@@ -56,6 +61,7 @@ export default function Rogaine() {
       setActiveClassId={setActiveClassId}
       activeClass={activeClass}
       areClassesLoading={areClassesLoading}
+      isWrongFileUploaded={isWrongFileUploaded}
     >
       <ResultTabs
         defaultMenu={0}

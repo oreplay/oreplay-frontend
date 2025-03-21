@@ -14,9 +14,7 @@ import RunnerOnlineSplit from "./RunnerOnlineSplit.tsx"
 import { getOnlineSplits } from "../shared/footOSplitsTablefunctions.ts"
 import { OnlineControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
 import RaceTimeBehind from "../../../../../../../../../components/RaceTimeBehind.tsx"
-import {
-  hasChipDownload as hasChipDownloadFunction,
-} from "../../../../../../../shared/functions.ts"
+import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../../shared/functions.ts"
 import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
 
 type RunnerRowProps = {

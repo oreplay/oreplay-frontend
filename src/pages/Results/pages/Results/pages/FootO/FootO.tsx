@@ -1,6 +1,6 @@
 import StageLayout from "../../components/Layout/StageLayout.tsx"
 import ResultTabs from "../../components/ResultTabs.tsx"
-//import { useFetchClasses } from "../../../../shared/hooks.ts"
+import { isWrongFileUploaded as isWrongFileUploadedFunction } from "../../shared/functions.ts"
 import { BottomNavigationAction } from "@mui/material"
 import { AccessTime } from "@mui/icons-material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
@@ -10,7 +10,7 @@ import FootOStartTime from "./pages/StartTime/FootOStartTime.tsx"
 import FootOResults from "./pages/Results/FootOResults.tsx"
 import FootOSplits from "./pages/Splits/FootOSplits.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import { useQuery } from "react-query"
 import { getFootORunnersByClass } from "./services/FootOService.ts"
 import { useParams } from "react-router-dom"
@@ -45,6 +45,10 @@ export default function FootO() {
       refetchOnWindowFocus: false,
     },
   )
+  const isWrongFileUploaded = useMemo(
+    () => isWrongFileUploadedFunction(runnersQueryByClasses.data ? runnersQueryByClasses.data : []),
+    [runnersQueryByClasses],
+  )
 
   // Handle re-fetching
   const handleRefreshClick = useCallback(() => {
@@ -60,6 +64,7 @@ export default function FootO() {
       setActiveClassId={setActiveClassId}
       activeClass={activeClass}
       areClassesLoading={areClassesLoading}
+      isWrongFileUploaded={isWrongFileUploaded}
     >
       <ResultTabs
         key={"ResultTabs"}

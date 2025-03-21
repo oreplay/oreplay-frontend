@@ -8,6 +8,7 @@ import React from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
 import NoDataInStageMsg from "../NoDataInStageMsg.tsx"
+import WrongResultsFileUploadedMsg from "../WrongResultsFileUploadedMsg.tsx"
 
 type StageLayoutProps = {
   handleRefreshClick: () => void
@@ -15,6 +16,7 @@ type StageLayoutProps = {
   setActiveClassId: (newActiveClassId: string) => void
   activeClass: ClassModel | null
   areClassesLoading: boolean
+  isWrongFileUploaded?: boolean
   children: React.ReactNode
 }
 
@@ -35,6 +37,7 @@ export default function StageLayout(props: StageLayoutProps) {
         minHeight: 0,
       }}
     >
+      {props.isWrongFileUploaded ? <WrongResultsFileUploadedMsg /> : <></>}
       <Box
         sx={{
           display: "flex",

@@ -178,6 +178,10 @@
       "NoRunnersWithSplits": "No runner has downloaded their chip",
       "PartialTimes": "Partials",
       "CumulativeTimes": "Cumulative"
+    },
+    "WrongFileUploaded": {
+      "Title": "Results Without Splits!",
+      "Msg": "The timekeeper has uploaded final results without splits. These files should not be uploaded and may cause missing or incorrect data to be displayed. More information on how to upload results to our service can be found on the <2>Organizers</2> page."
     }
   },
   "404Page": {
