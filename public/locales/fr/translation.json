@@ -162,7 +162,8 @@
       "FinishHour": "Heure de Arrivée:",
       "RaceTime": "Temps:",
       "Partial": "Intermédiaire",
-      "Cumulative": "Cumulatif"
+      "Cumulative": "Cumulatif",
+      "NoDownloadMsg": "_No chip reading"
     },
     "statusCodes": {
       "nc": "NC",

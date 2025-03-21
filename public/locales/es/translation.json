@@ -162,7 +162,8 @@
       "FinishHour": "Hora de meta:",
       "RaceTime": "Tiempo:",
       "Partial": "Parcial",
-      "Cumulative": "Acumulado"
+      "Cumulative": "Acumulado",
+      "NoDownloadMsg": "No hay lectura del chip"
     },
     "statusCodes": {
       "nc": "NC",
