@@ -59,3 +59,17 @@ function isRunnerModel(
 export function isRunnerNC(runner: RunnerModel | ProcessedRunnerModel): boolean {
   return runner.overall.status_code === RESULT_STATUS.nc
 }
+
+/**
+ * Find if a wrong IOF XML file created a result in any of this runners
+ *
+ * Wrong files are those that upload final results without splits
+ * @param runnerList List of runners to check
+ */
+export function isWrongFileUploaded(runnerList: RunnerModel[] | ProcessedRunnerModel[]): boolean {
+  const filteredRunners = runnerList.filter(
+    (runner) => runner.overall.upload_type === UPLOAD_TYPES.FINAL_RESULT,
+  )
+
+  return filteredRunners.length !== 0 && runnerList.length !== 0
+}

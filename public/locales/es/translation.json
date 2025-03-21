@@ -178,6 +178,10 @@
       "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
       "PartialTimes": "Parciales",
       "CumulativeTimes": "Acumulados"
+    },
+    "WrongFileUploaded": {
+      "Title": "¡Resultados Sin Parciales!",
+      "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>."
     }
   },
   "404Page": {
