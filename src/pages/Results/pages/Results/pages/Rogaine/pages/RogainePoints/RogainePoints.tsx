@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { getUniqueStationNumbers } from "../../shared/Functions.ts"
-import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../shared/functions.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
 import ControlBadge from "./components/ControlBadge.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
@@ -14,6 +14,8 @@ import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
+import RacePosition from "../../../../../../components/RacePosition..tsx"
+import { hasChipDownload } from "../../../../shared/functions.ts"
 
 export default function RogainePoints(
   props: ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>>,
@@ -56,7 +58,13 @@ export default function RogainePoints(
 
               return (
                 <TableRow sx={{ width: { md: "100%", sx: "200px" } }} key={`runner${runner.id}`}>
-                  <TableCell key={`runner${runner.id}pos`}>{getPositionOrNc(runner, t)}</TableCell>
+                  <TableCell key={`runner${runner.id}pos`}>
+                    <RacePosition
+                      position={runner.overall.position}
+                      isNC={status === RESULT_STATUS_TEXT.nc}
+                      hasDownload={hasChipDownload(runner)}
+                    />
+                  </TableCell>
                   <TableCell sx={{ minWidth: "200px" }} key={`runner${runner.id}name`}>
                     <ParticipantName
                       name={runner.full_name}

@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next"
 import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
-import { Typography } from "@mui/material"
-import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../shared/functions.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
@@ -18,7 +17,8 @@ import { AxiosError } from "axios"
 import FlexCol from "../../../../../../components/FlexCol.tsx"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 import RaceTimeBehind from "../../../../../../components/RaceTimeBehind.tsx"
-import { hasChipDownload } from "../../../../shared/functions.ts"
+import { hasChipDownload as hasChipDownloadFunction } from "../../../../shared/functions.ts"
+import RacePosition from "../../../../../../components/RacePosition..tsx"
 
 export default function FootOResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -42,11 +42,16 @@ export default function FootOResults(
         {runnersList?.map((runner: ProcessedRunnerModel) => {
           const status = parseResultStatus(runner.overall.status_code as string)
           const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
+          const hasChipDownload = hasChipDownloadFunction(runner)
 
           return (
             <ResultListItem key={runner.id} onClick={() => handleRowClick(runner)}>
               <FlexCol width="10px">
-                <Typography sx={{ color: "primary.main" }}>{getPositionOrNc(runner, t)}</Typography>
+                <RacePosition
+                  position={runner.overall.position}
+                  hasDownload={hasChipDownload}
+                  isNC={status === RESULT_STATUS_TEXT.nc}
+                />
               </FlexCol>
               <ParticipantName
                 name={runner.full_name}
@@ -55,16 +60,14 @@ export default function FootOResults(
               <FlexCol flexGrow={1}>
                 <RaceTime
                   displayStatus
-                  isFinalTime={hasChipDownload(runner)}
+                  isFinalTime={hasChipDownload}
                   status={status}
                   finish_time={runner.overall.finish_time}
                   time_seconds={runner.overall.time_seconds}
                   start_time={runner.overall.start_time}
                 />
                 <RaceTimeBehind
-                  display={
-                    statusOkOrNc && runner.overall.finish_time != null && hasChipDownload(runner)
-                  }
+                  display={statusOkOrNc && runner.overall.finish_time != null && hasChipDownload}
                   time_behind={runner.overall.time_behind}
                 />
               </FlexCol>
