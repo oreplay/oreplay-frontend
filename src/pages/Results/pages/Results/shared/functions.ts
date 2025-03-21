@@ -30,7 +30,7 @@ export function hasChipDownload(
     case UPLOAD_TYPES.ONLINE_SPLITS:
       return false
 
-    case UPLOAD_TYPES.FINAL_RESULT:
+    case UPLOAD_TYPES.SPLIT_RESULT:
       return true
 
     default:

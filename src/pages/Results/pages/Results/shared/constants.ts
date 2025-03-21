@@ -6,6 +6,6 @@ export const STAGE_TYPE_DATABASE_ID = {
 
 export const UPLOAD_TYPES = {
   ONLINE_SPLITS: "res_intermediates",
-  FINAL_RESULT: "res_splits",
+  SPLIT_RESULT: "res_splits",
   START_TIMES: "start_list",
 }
