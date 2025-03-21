@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next"
 import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
 import { Typography } from "@mui/material"
-import { parseTimeBehind } from "../../../../../../../../shared/Functions.tsx"
 import { getPositionOrNc, parseResultStatus } from "../../../../../../shared/functions.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
@@ -18,6 +17,8 @@ import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import FlexCol from "../../../../../../components/FlexCol.tsx"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
+import RaceTimeBehind from "../../../../../../components/RaceTimeBehind.tsx"
+import { hasChipDownload } from "../../../../shared/functions.ts"
 
 export default function FootOResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -59,11 +60,12 @@ export default function FootOResults(
                   time_seconds={runner.overall.time_seconds}
                   start_time={runner.overall.start_time}
                 />
-                <Typography sx={{ color: "primary.main", fontSize: 14 }}>
-                  {statusOkOrNc && runner.overall.finish_time != null
-                    ? parseTimeBehind(runner.overall.time_behind)
-                    : ""}
-                </Typography>
+                <RaceTimeBehind
+                  display={
+                    statusOkOrNc && runner.overall.finish_time != null && hasChipDownload(runner)
+                  }
+                  time_behind={runner.overall.time_behind}
+                />
               </FlexCol>
             </ResultListItem>
           )

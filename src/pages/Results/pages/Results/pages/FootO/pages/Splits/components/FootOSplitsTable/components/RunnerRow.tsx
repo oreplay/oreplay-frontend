@@ -9,11 +9,12 @@ import { runnerService } from "../../../../../../../../../../../domain/services/
 import ParticipantName from "../../../../../../../../../components/ParticipantName.tsx"
 import RaceTime from "../../../../../../../../../components/RaceTime.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../../../../shared/constants.ts"
-import { parseTimeBehind } from "../../../../../../../../../../../shared/Functions.tsx"
 import RunnerSplit from "./RunnerSplit.tsx"
 import RunnerOnlineSplit from "./RunnerOnlineSplit.tsx"
 import { getOnlineSplits } from "../shared/footOSplitsTablefunctions.ts"
 import { OnlineControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
+import RaceTimeBehind from "../../../../../../../../../components/RaceTimeBehind.tsx"
+import { hasChipDownload } from "../../../../../../../shared/functions.ts"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
@@ -55,9 +56,10 @@ export default function RunnerRow(props: RunnerRowProps) {
           time_seconds={result.time_seconds}
           start_time={result.start_time}
         />
-        <Typography key={`diff${props.runner.id}`} sx={{ color: "primary.main", fontSize: 14 }}>
-          {statusOkOrNc && result.finish_time != null ? parseTimeBehind(result.time_behind) : ""}
-        </Typography>
+        <RaceTimeBehind
+          display={statusOkOrNc && result.finish_time != null && hasChipDownload(props.runner)}
+          time_behind={result.time_behind}
+        />
       </TableCell>
       {splits.map((split) => (
         <TableCell key={`split${props.runner.id}${split.id}`}>
