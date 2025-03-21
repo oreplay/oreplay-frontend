@@ -8,7 +8,7 @@ type RaceTimeBehindProps = {
 }
 
 const RaceTimeBehind: React.FC<RaceTimeBehindProps> = ({ display, time_behind }) => {
-  if (display && time_behind) {
+  if (display && time_behind !== null) {
     return (
       <Typography sx={{ color: "primary.main", fontSize: 14 }}>
         {parseTimeBehind(time_behind)}
