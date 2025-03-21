@@ -29,21 +29,15 @@ const RaceTime: React.FC<FinishTimeProps> = ({
   const { t } = useTranslation()
 
   if (status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc) {
-    if (finish_time != null) {
-      if (time_seconds !== null && time_seconds !== 0) {
-        if (isFinalTime) {
-          return <Typography sx={style}>{parseSecondsToMMSS(time_seconds)}</Typography>
-        } else {
-          return (
-            <Typography
-              sx={{ ...style, color: "text.secondary" }}
-            >{parseSecondsToMMSS(time_seconds)}</Typography>
-          )
-        }
+    if (finish_time != null && time_seconds !== null) {
+      if (isFinalTime) {
+        return <Typography sx={style}>{parseSecondsToMMSS(time_seconds)}</Typography>
       } else {
-        // TODO: Handle in a better way. Maybe throw an exception
-        console.error("If a runner has finish time it should has time_seconds")
-        return <Typography>Error</Typography>
+        return (
+          <Typography sx={{ ...style, color: "text.secondary" }}>
+            {parseSecondsToMMSS(time_seconds)}
+          </Typography>
+        )
       }
     } else {
       if (start_time != null) {
