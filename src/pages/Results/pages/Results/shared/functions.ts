@@ -33,6 +33,9 @@ export function hasChipDownload(
     case UPLOAD_TYPES.SPLIT_RESULT:
       return true
 
+    case UPLOAD_TYPES.FINAL_RESULT:
+      return true
+
     default:
       throw new Error(`Unknown upload_type ${uploadType}`)
   }
