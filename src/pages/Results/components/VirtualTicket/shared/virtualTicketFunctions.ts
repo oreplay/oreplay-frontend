@@ -30,7 +30,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
         let time: null | number = null
         let cumulative_time: null | number = null
 
-        if (result.start_time && result.finish_time && split.reading_time) {
+        if (result.start_time && split.reading_time) {
           const reading_time = DateTime.fromISO(split.reading_time)
           cumulative_time = start_time ? reading_time.diff(start_time).as("seconds") : null
 
@@ -166,61 +166,68 @@ export function calculatePositionsAndBehindsFootO(
 
     // update runners
     return runners.map((runner): ProcessedRunnerModel => {
-      try {
-        const isNC = isRunnerNC(runner)
-        const newSplits = runner.overall.splits.map((split, index, splitsArray) => {
-          const bestTime: number | null = timesTable[index][0]
-          const best_cumulative: number | null = cumulativeTable[index][0]
-          if (bestTime !== null && best_cumulative !== null) {
-            const missingPunchFrom = splitsArray.findIndex((split) => split.time === null)
-            const position = findPositionInTimesTable(
-              timesTable,
-              split.time,
-              index,
-              isNC,
-              excludeNC,
-            )
-            const cumulativePosition = findPositionInTimesTable(
-              cumulativeTable,
-              split.cumulative_time,
-              index,
-              isNC,
-              excludeNC,
-            )
+      // only compute for runners with downloads
+      if (hasChipDownload(runner)) {
+        try {
+          const isNC = isRunnerNC(runner)
+          const newSplits = runner.overall.splits.map((split, index, splitsArray) => {
+            const bestTime: number | null = timesTable[index][0]
+            const best_cumulative: number | null = cumulativeTable[index][0]
+            if (bestTime !== null && best_cumulative !== null) {
+              const missingPunchFrom = splitsArray.findIndex((split) => split.time === null)
+              const position = findPositionInTimesTable(
+                timesTable,
+                split.time,
+                index,
+                isNC,
+                excludeNC,
+              )
+              const cumulativePosition = findPositionInTimesTable(
+                cumulativeTable,
+                split.cumulative_time,
+                index,
+                isNC,
+                excludeNC,
+              )
 
-            // Check when cumulative differences should be meaningful
-            const cumulative_difference =
-              split.cumulative_time !== null &&
-              (missingPunchFrom === -1 || missingPunchFrom > index)
+              // Check when cumulative differences should be meaningful
+              const cumulative_difference =
+                split.cumulative_time !== null &&
+                (missingPunchFrom === -1 || missingPunchFrom > index)
 
-            return {
-              ...split,
-              time_behind: split.time !== null ? split.time - bestTime : null,
-              position: split.time !== null ? position : null,
-              cumulative_behind:
-                cumulative_difference && split.cumulative_time
-                  ? split.cumulative_time - best_cumulative
-                  : null,
-              cumulative_position: cumulative_difference ? cumulativePosition : null,
+              return {
+                ...split,
+                time_behind: split.time !== null ? split.time - bestTime : null,
+                position: split.time !== null ? position : null,
+                cumulative_behind:
+                  cumulative_difference && split.cumulative_time
+                    ? split.cumulative_time - best_cumulative
+                    : null,
+                cumulative_position: cumulative_difference ? cumulativePosition : null,
+              }
+            } else {
+              return split
             }
-          } else {
-            return split
+          })
+          return {
+            ...runner,
+            overall: {
+              ...runner.overall,
+              splits: newSplits,
+            },
           }
-        })
-        return {
-          ...runner,
-          overall: {
-            ...runner.overall,
-            splits: newSplits,
-          },
+        } catch (error) {
+          // if an error happens return the runner without updating it
+          console.error(
+            "Error updating runner in `calculatePositionsAndBehindsFootO`." +
+              ` Runner ${runner.id}, ${runner.full_name} could not be updated.\n\n`,
+            error,
+          )
+          return runner
         }
-      } catch (error) {
-        // if an error happens return the runner without updating it
-        console.error(
-          "Error updating runner in `calculatePositionsAndBehindsFootO`." +
-            ` Runner ${runner.id}, ${runner.full_name} could not be updated.\n\n`,
-          error,
-        )
+
+        // No download, no update
+      } else {
         return runner
       }
     })
