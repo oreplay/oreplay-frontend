@@ -62,7 +62,10 @@ export default function RunnerRow(props: RunnerRowProps) {
       {splits.map((split) => (
         <TableCell key={`split${props.runner.id}${split.id}`}>
           {props.onlyRadios ? (
-            <RunnerOnlineSplit split={split as RadioSplitModel} />
+            <RunnerOnlineSplit
+              split={split as RadioSplitModel}
+              startTimeTimestamp={props.runner.overall.start_time}
+            />
           ) : (
             <RunnerSplit
               showCumulative={props.showCumulative}

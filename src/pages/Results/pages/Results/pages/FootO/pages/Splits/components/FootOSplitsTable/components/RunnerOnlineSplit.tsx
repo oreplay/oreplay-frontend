@@ -2,15 +2,17 @@ import { Typography } from "@mui/material"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
 import { RadioSplitModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { NowContext } from "../../../../../../../../../shared/context.ts"
+import { DateTime } from "luxon"
 
 type RunnerOnlineSplitProps = {
   split: RadioSplitModel
+  startTimeTimestamp: string | null
 }
 
-export default function RunnerOnlineSplit({ split }: RunnerOnlineSplitProps) {
+export default function RunnerOnlineSplit({ split, startTimeTimestamp }: RunnerOnlineSplitProps) {
   // Reading for this split
-  if (split.time) {
-    return <Typography>{parseSecondsToMMSS(split.time)}</Typography>
+  if (split.cumulative_time) {
+    return <Typography>{parseSecondsToMMSS(split.cumulative_time)}</Typography>
 
     // No reading for this split
   } else {
@@ -19,12 +21,22 @@ export default function RunnerOnlineSplit({ split }: RunnerOnlineSplitProps) {
       return (
         <NowContext.Consumer>
           {(nowDateTime) => {
-            const provTime = nowDateTime.diff(split.is_next!)
+            // Compute difference
+            if (startTimeTimestamp === null) {
+              // no start time, to provisional time
+              return ""
+            }
+            const startTime = DateTime.fromISO(startTimeTimestamp)
+            const provTime = nowDateTime.diff(startTime)
 
             if (provTime.as("days") >= 1) {
               return ""
             } else {
-              return <Typography>{`(${parseSecondsToMMSS(provTime.as("seconds"))})`}</Typography>
+              return (
+                <Typography
+                  sx={{ color: "text.secondary" }}
+                >{`(${parseSecondsToMMSS(provTime.as("seconds"))})`}</Typography>
+              )
             }
           }}
         </NowContext.Consumer>
