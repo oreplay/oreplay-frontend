@@ -16,6 +16,7 @@ export default function FootOSplits(
 ) {
   const [onlyRadios, setOnlyRadios] = useState<boolean>(false)
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
+  const [showCumulativeDisplayed, setShowCumulativeDisplayed] = useState<boolean>(false)
 
   if (!props.activeClass) {
     return <ChooseClassMsg />
@@ -28,14 +29,26 @@ export default function FootOSplits(
       <>
         <ExperimentalFeatureAlert />
         <PartialCumulativeSwitch
-          active={showCumulative}
-          setActive={setShowCumulative}
+          active={showCumulativeDisplayed}
+          setActive={(newValue) => {
+            setShowCumulative(newValue)
+            setShowCumulativeDisplayed(newValue)
+          }}
           disabled={onlyRadios}
         />
         {props.activeClass.splits.length > 0 ? (
           <FormControlLabel
             control={
-              <Switch checked={onlyRadios} onChange={() => setOnlyRadios((prev) => !prev)} />
+              <Switch
+                value={onlyRadios}
+                checked={onlyRadios}
+                onChange={() => {
+                  setOnlyRadios(!onlyRadios)
+                  !onlyRadios
+                    ? setShowCumulativeDisplayed(true)
+                    : setShowCumulativeDisplayed(showCumulative)
+                }}
+              />
             }
             label="Radios"
           />
