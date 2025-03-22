@@ -29,10 +29,6 @@
   "Organizers": "Organizer's info",
   "AboutUs": {
     "AboutUs": "About us",
-    "WelcomeMsg": "Welcome to O-Replay",
-    "ProjectDescription": "Home to orienteering live results (still in version",
-    "Go to competitions": "Go to competitions",
-    "DevelopersHelpMessage": "We are proud of being an open source project. Please checkout out GitHub page <1>github.com/oreplay</1> to find guidance on developing with O-Replay or contributing. Also, checkout our <3>public API documentation</3>.",
     "VersionMessage": "We are under active development. You are using version "
   },
   "Home": {
