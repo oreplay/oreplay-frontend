@@ -117,7 +117,7 @@
       },
       "WarnBox1": {
         "title": "Uploading start times after results",
-        "p1": "No start times can be uploaded after uploading results. If you want to upload start times after uploading results you need to Reset the event first."
+        "p1": "No start times can be uploaded after uploading results. If you want to upload start times after uploading results you need to Reset the stage first."
       }
     }
   },
@@ -209,6 +209,58 @@
       "WarnBox2": {
         "title": "Upload failing with large number of runners",
         "p1": "If you are uploading a large number of results (e.g., about 1,000 runners) that have not been uploaded previously, the process may take up to a minute. If it takes longer than one minute, an error will occur. In this case, try uploading the same results again two or three more times. Some classes may already have been saved to the server, so the process will eventually be completed."
+      }
+    },
+    "UploadingOnlineControls": {
+      "title": "Upload Online Controls",
+      "p1": "If you are using online controls in your race, in addition to the previous steps, you must export and upload those online splits. If your are not using them, you can skip this section. We support IOF XML v3. You can export the files to the same folder you are exporting splits.",
+      "tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "You need to export the online splits XML file. Go to \"Speaker\" → \"Intermediate results\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_ChoseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p2": "We have to set the same settings as before. Export all competitors and uncheck \"Exclude dns\" option. Remember to set the report format to HH:MM:SS. Due to a bug in OE2010, exporting with decimal places will result in wrong times being displayed in O-Replay.",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_Settings.png",
+            "alt": "Settings that has to be applied"
+          },
+          "p3": "Export the file at your desired refresh interval.",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_AutomaticReport.png",
+            "alt": "Automatic report settings"
+          },
+          "p4": "Export using XML IOF v3",
+          "img4": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_SaveXML.png",
+            "alt": "Save format dialog"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "You need to export the online splits XML file. Go to \"Speaker\" → \"Intermediate results\":",
+          "img1": {
+            "url": "organizers/en/OE12/ExportOnlineControls_ChoseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p2": "We have to set the same settings as before. Export all competitors and uncheck \"Exclude dns\" option.",
+          "img2": {
+            "url": "organizers/en/OE12/ExportOnlineControls_Settings.png",
+            "alt": "Settings that has to be applied"
+          },
+          "p3": "Export the file at your desired refresh interval.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportOnlineControls_AutomaticReport.png",
+            "alt": "Automatic report settings"
+          },
+          "p4": "Export using XML IOF v3",
+          "img4": {
+            "url": "organizers/en/OE12/ExportOnlineControls_SaveXML.png",
+            "alt": "Save format dialog"
+          }
+        }
       }
     },
     "WhatIfAnythingWrong": {
