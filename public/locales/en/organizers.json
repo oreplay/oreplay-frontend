@@ -11,7 +11,7 @@
         "item2": "Email address",
         "item3": "Club name"
       },
-      "p2": "Please note that O-Replay is in beta testing and active development. Many planned features are not yet available, and the system is not ready for use in major events."
+      "p2": "Please note that O-Replay is in active development. Many planned features are not yet available, but the system is ready for is use."
     },
     "DesktopClient": {
       "title": "O-Replay Desktop Client",
