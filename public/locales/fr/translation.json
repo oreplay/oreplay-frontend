@@ -29,10 +29,6 @@
   "Organizers": "Info sur l'organisateur",
   "AboutUs": {
     "AboutUs": "À propos",
-    "WelcomeMsg": "Bienvenue sur O-Replay",
-    "ProjectDescription": "Accueil des résultats d'orientation (toujours en version",
-    "Go to competitions": "Aller aux compétitions",
-    "DevelopersHelpMessage": "Nous sommes fiers d'être un projet open source. Veuillez consulter la page GitHub <1>github.com/oreplay</1> pour obtenir des conseils sur le développement avec O-Replay ou sur la contribution. Consultez également notre <3>documentation API publique</3>.",
     "VersionMessage": "Nous sommes en développement actif. Vous utilisez la version "
   },
   "Home": {
