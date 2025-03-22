@@ -19,6 +19,7 @@ import UploadResultTabs from "./components/UploadResultTabs.tsx"
 import OrderedList from "../../components/OrderedList.tsx"
 import { useQuery } from "react-query"
 import getLatestClientVersion from "./services/DesktopClientService.ts"
+import UploadOnlineControlsTabs from "./components/UploadOnlineControlsTabs.tsx"
 
 const DESKTOP_CLIENT_VERSION_FALLBACK = import.meta.env.VITE_DESKTOP_CLIENT_VERSION_FALLBACK
 
@@ -226,7 +227,10 @@ const Organizers = (): React.ReactNode => {
         </Alert>
         <Typography>{t("DuringRace.UploadingResults.p3")}</Typography>
         <Typography>{t("DuringRace.UploadingResults.p4")}</Typography>
-
+        <Typography variant={"h3"}>{t("DuringRace.UploadingOnlineControls.title")}</Typography>
+        <Typography>{t("DuringRace.UploadingOnlineControls.p1")}</Typography>
+        <UploadOnlineControlsTabs />
+        <Typography />
         <Typography variant={"h3"}>{t("DuringRace.WhatIfAnythingWrong.title")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p1")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p2")}</Typography>
