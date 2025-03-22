@@ -27,13 +27,15 @@
         "p1": "Follow the next steps to upload files:",
         "list1": {
           "item1": "Open the O-Replay Desktop Client and click <1>\"Check connection\"</1>.",
-          "item2": "Paste the event ID and security token, then click <2>\"Enter\"</2> and select the stage you want to upload data to. You will get the event Id and security token when you create the event.",
-          "item3": "Choose the directory where you will export files to, then press <2>\"Start\"</2>. The client will now monitor this folder for any `XML` file. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
+          "item2": "Paste the security key (you will get it after creating the event on the web, we will se that later), then click <2>\"Enter\"</2> and select the stage you want to upload data to. You will get the event Id and security token when you create the event.",
+
+          "item3": "Choose the directory where you will export files to, then press <2>\"Start\"</2>. The client will now monitor this folder for any `XML` or `csv` files. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
         },
         "img1": {
           "url": "/organizers/en/DesktopClient/Client.png",
           "alt": "Desktop client screenshot"
-        }
+        },
+        "p2": "The option \"Split by class\" makes a different connection to the server for each class. This option was created for development purposes, it can be either checked or unchecked."
       }
     }
   },
@@ -42,7 +44,7 @@
     "CreateEvent": {
       "title": "Creating an Event",
       "p1": "Races in O-Replay are organized into events and stages. For example, if you are running a weekend championship with middle and long-distance races, you would create one event \"Championship\" with two stages: \"Middle Distance\" and \"Long Distance.\" Each stage can represent a different orienteering discipline.",
-      "p2": "When you log in, you will see all your events. You can also create new events. Begin by filling in the event details, then add as many stages as needed. If your event has only one race called \"My First Race,\" create an event named \"My First Race\" with one stage called \"Race\". Only the event's name will be displayed. Be sure to create at least one stage; otherwise, you will not be able to upload any data.",
+      "p2": "When you log in, you will see all your events. You can also create new events. Begin by filling in the event details, then add as many stages as needed. If your event has only one race called \"My First Race,\" create an event named \"My First Race\" with one stage called \"Race\". Only the event's name will be displayed. Make sure to create at least one stage; otherwise, you will not be able to upload any data.",
       "p3": "After creating the event and stages, generate a security token. This token acts as a secret password for uploading results and can be shared with your team of timekeepers without exposing your O-Replay credentials. Please note that tokens expires one month after creation, but they can be renewed at any time. When they are renewed, the old token becomes invalid and a new one is generated. Use this option if your token gets compromised.",
       "img1": {
         "url": "/organizers/en/WebUI/GenerateToken.png",
@@ -56,14 +58,28 @@
         "item1": "To display them for runners' information.",
         "item2": "To show in-race times."
       },
-      "InfoBox1": {
-        "title": "Races without start times:",
-        "p1": "Even if you are using a start control and runners don’t have preassigned start times, it is recommended to upload start times. This allows to display all the entries, and competitors can see how many runners are yet to finish."
-      },
       "p2": "We only support IOF XML v3 files. Get O-Replay Desktop Client ready for files and export the start times from your timekeeping software:",
       "Tabs1": {
-        "OE": {
-          "title": "OE2010/OE12",
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "You need to export the start times XML file. Go to \"Start list\" → \"Reports\" → \"Classes\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportStartTimes_ChooseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p2": "From the top menu, choose \"Export\":",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportStartTimes_Export.png",
+            "alt": "Export button"
+          },
+          "p3": "Save using IOF XML v3 in the folder O-Replay Client is listening.",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportStartTimes_ChooseIOFXMLv3.png",
+            "alt": "Choose format dialog"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
           "p1": "You need to export the start times XML file. Go to Start list → start list reports → by classes:",
           "img1": {
             "url": "organizers/en/OE12/ExportStartTimesChoseMenu.png",
@@ -95,6 +111,10 @@
         }
       },
       "p3": "If your event has multiple stages, you will have to upload start times for each of the stages.",
+      "InfoBox1": {
+        "title": "Races without start times:",
+        "p1": "If you are using a start control and runners don’t have preassigned start times, it is recommended to upload entries in IOF XML format. This allows to display all the entries, and competitors can see how many runners are yet to finish."
+      },
       "WarnBox1": {
         "title": "Uploading start times after results",
         "p1": "No start times can be uploaded after uploading results. If you want to upload start times after uploading results you need to Reset the event first."
@@ -108,20 +128,53 @@
       "p1": "We support IOF XML v3 splits files for uploading results. Use an empty folder to save these files (you can reuse the folder created for start times).",
       "p2": "Get the client ready and listening for new files, then export result from your timekeeping software:",
       "Tabs1": {
-        "OE": {
-          "title": "OE2010/OE12",
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "You need to export the splits XML file. Go to \"Results\" → \"Splits times\" → \"Classes\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p2": "Due to a bug in OE2010, you must export results without decimal places. In the settings menu at the left side, go to \"Report Formats\" and choose \"HH:MM:SS\" as the time format.",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseReportFormat.png",
+            "alt": "Report formats settings menu"
+          },
+          "p3": "You need to export all runners, including DNS. In the settings menu at the left side, go to \"More options\" → \"How many competitors?\" and choose \"All\". Uncheck \"ExcLude dns\".",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseAllRunners.png",
+            "alt": "More options settings menu"
+          },
+          "p4": "Export regularly the splits using Automatic report. In the left side settings menu, go to \"Automatic report\". Then, set the automatic actions only to \"export\" and your desired refresh interval. Finally, hit start.",
+          "img4": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_AutomaticReport.png",
+            "alt": "Automatic report settings menu"
+          },
+          "p5": "Save using IOF XML v3 in the folder O-Replay Client is listening.",
+          "img5": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_Save.png",
+            "alt": "Save dialog"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
           "p1": "You need to export the splits XML file. Go to Results → Splits times → by classes:",
           "img1": {
             "url": "organizers/en/OE12/ExportSplitsChoseMenu.png",
             "alt": "Menu that has to be chosen"
           },
-          "p2": "Set the automatic report at your desired refresh interval.",
+          "p2": "You need to export all the runners. Uncheck the option \"Exclude dns\".",
           "img2": {
+            "url": "organizers/en/OE12/ExportSplits_IncludeAllRunners.png",
+            "alt": "Automatic report menu in OE12"
+          },
+          "p3": "Set the automatic report at your desired refresh interval.",
+          "img3": {
             "url": "organizers/en/OE12/ExportSplitsSetAutomaticExport.png",
             "alt": "Automatic report menu in OE12"
           },
-          "p3": "Save using IOF XML in the folder O-Replay Client is listening.",
-          "img3": {
+          "p4": "Save using IOF XML in the folder O-Replay Client is listening.",
+          "img4": {
             "url": "organizers/en/OE12/ExportSplitsSetIOFXML.png",
             "alt": "Save using IOF XML format"
           }
@@ -147,6 +200,8 @@
           }
         }
       },
+      "p3": "Many people ask whether they can upload results to both Liveresultats and O-Replay simultaneously. Liveresultats has served us well for many years, and we truly appreciate its contributions. However, we firmly believe that O-Replay is the future, offering all the same features and many more in a more user-friendly way.",
+      "p4": "That said, if you choose to use both platforms, you must export the files to separate folders. Otherwise, both clients will compete for access—reading, processing, and deleting the same files—which will prevent either from functioning correctly.",
       "WarnBox1": {
         "title": "Regular results export (i.e. no splits)",
         "p1": "While the client supports uploading results files without splits, this is strongly discouraged. Without splits, virtual tickets and split details cannot be displayed."

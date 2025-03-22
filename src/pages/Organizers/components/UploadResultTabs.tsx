@@ -6,7 +6,7 @@ import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { Trans, useTranslation } from "react-i18next"
 import OrderedList from "../../../components/OrderedList.tsx"
-import { ListItem } from "@mui/material"
+import { Divider, ListItem } from "@mui/material"
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -31,7 +31,7 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export default function UploadResultTabs() {
-  const [value, setValue] = useState<number>(0)
+  const [value, setValue] = useState<number>(1)
   const { t } = useTranslation("organizers")
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -42,15 +42,16 @@ export default function UploadResultTabs() {
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label={t("DuringRace.UploadingResults.Tabs1.OE.title")} id={"OE"} />
+          <Tab label={t("DuringRace.UploadingResults.Tabs1.OE2010.title")} id={"OE2010"} />
+          <Tab label={t("DuringRace.UploadingResults.Tabs1.OE12.title")} id={"OE12"} />
           <Tab label={t("DuringRace.UploadingResults.Tabs1.MeOS.title")} id={"MeOS"} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE.p1")}</Typography>
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE2010.p1")}</Typography>
         <img
-          src={t("DuringRace.UploadingResults.Tabs1.OE.img1.url")}
-          alt={t("DuringRace.UploadingResults.Tabs1.OE.img1.alt")}
+          src={t("DuringRace.UploadingResults.Tabs1.OE2010.img1.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE2010.img1.alt")}
           loading={"lazy"}
           style={{
             maxWidth: "100%", // Image will not exceed the container's width
@@ -58,10 +59,10 @@ export default function UploadResultTabs() {
             objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
           }}
         />
-        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE.p2")}</Typography>
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE2010.p2")}</Typography>
         <img
-          src={t("DuringRace.UploadingResults.Tabs1.OE.img2.url")}
-          alt={t("DuringRace.UploadingResults.Tabs1.OE.img2.alt")}
+          src={t("DuringRace.UploadingResults.Tabs1.OE2010.img2.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE2010.img2.alt")}
           loading={"lazy"}
           style={{
             maxWidth: "100%", // Image will not exceed the container's width
@@ -69,10 +70,32 @@ export default function UploadResultTabs() {
             objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
           }}
         />
-        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE.p3")}</Typography>
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE2010.p3")}</Typography>
         <img
-          src={t("DuringRace.UploadingResults.Tabs1.OE.img3.url")}
-          alt={t("DuringRace.UploadingResults.Tabs1.OE.img3.alt")}
+          src={t("DuringRace.UploadingResults.Tabs1.OE2010.img3.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE2010.img3.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE2010.p4")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OE2010.img4.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE2010.img4.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE2010.p5")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OE2010.img5.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE2010.img5.alt")}
           loading={"lazy"}
           style={{
             maxWidth: "100%", // Image will not exceed the container's width
@@ -82,6 +105,52 @@ export default function UploadResultTabs() {
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE12.p1")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OE12.img1.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE12.img1.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE12.p2")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OE12.img2.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE12.img2.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE12.p3")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OE12.img3.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE12.img3.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OE12.p4")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OE12.img4.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OE12.img4.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%", // Image will not exceed the container's width
+            maxHeight: "100%", // Image will not exceed the container's height
+            objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
+          }}
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
         <Typography>{t("DuringRace.UploadingResults.Tabs1.MeOS.p1")}</Typography>
         <img
           src={t("DuringRace.UploadingResults.Tabs1.MeOS.img1.url")}
@@ -148,6 +217,7 @@ export default function UploadResultTabs() {
           }}
         />
       </CustomTabPanel>
+      <Divider />
     </Box>
   )
 }

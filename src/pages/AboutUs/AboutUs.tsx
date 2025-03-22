@@ -44,8 +44,8 @@ export default function AboutUs() {
         },
         subtitle1: {
           fontWeight: "bold",
-          color:"secondary.main",
-        }
+          color: "secondary.main",
+        },
       },
     })
 
