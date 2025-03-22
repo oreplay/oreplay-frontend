@@ -21,6 +21,7 @@ export default function CreateEvent() {
 
   const createEvent = async (event: React.FormEvent<HTMLFormElement>) => {
     const data = new FormData(event.currentTarget)
+    console.log(data)
     try {
       const response = await postEvent(
         data.get("description") as string,
@@ -31,7 +32,7 @@ export default function CreateEvent() {
         token,
         data.get("website") ? (data.get("website") as string) : undefined,
         undefined,
-        data.get("organizer") as string,
+        data.get("organizerId") as string,
       )
       await navigate(`/admin/${response.data.id}`)
     } catch (e) {
