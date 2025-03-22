@@ -178,6 +178,7 @@ const Organizers = (): React.ReactNode => {
             objectFit: "contain", // Ensures the image fits within its bounds while preserving aspect ratio
           }}
         />
+        <Typography>{t("Prerequisites.DesktopClient.ManageClient.p2")}</Typography>
         <Typography variant={"h2"}>{t("BeforeTheRace.title")}</Typography>
         <Typography variant={"h3"}>{t("BeforeTheRace.CreateEvent.title")}</Typography>
         <Typography>{t("BeforeTheRace.CreateEvent.p1")}</Typography>
@@ -199,13 +200,13 @@ const Organizers = (): React.ReactNode => {
           <ListItem>{t("BeforeTheRace.UploadStartTimes.list1.item1")}</ListItem>
           <ListItem>{t("BeforeTheRace.UploadStartTimes.list1.item2")}</ListItem>
         </OrderedList>
+        <Typography>{t("BeforeTheRace.UploadStartTimes.p2")}</Typography>
+        <UploadStartTimesTabs />
+        <Typography>{t("BeforeTheRace.UploadStartTimes.p3")}</Typography>
         <Alert severity="info" variant="outlined" sx={style.alert}>
           <AlertTitle>{t("BeforeTheRace.UploadStartTimes.InfoBox1.title")}</AlertTitle>
           {t("BeforeTheRace.UploadStartTimes.InfoBox1.p1")}
         </Alert>
-        <Typography>{t("BeforeTheRace.UploadStartTimes.p2")}</Typography>
-        <UploadStartTimesTabs />
-        <Typography>{t("BeforeTheRace.UploadStartTimes.p3")}</Typography>
         <Alert severity={"warning"} variant="outlined" sx={style.alert}>
           <AlertTitle>{t("BeforeTheRace.UploadStartTimes.WarnBox1.title")}</AlertTitle>
           {t("BeforeTheRace.UploadStartTimes.WarnBox1.p1")}
@@ -223,6 +224,9 @@ const Organizers = (): React.ReactNode => {
           <AlertTitle>{t("DuringRace.UploadingResults.WarnBox2.title")}</AlertTitle>
           {t("DuringRace.UploadingResults.WarnBox2.p1")}
         </Alert>
+        <Typography>{t("DuringRace.UploadingResults.p3")}</Typography>
+        <Typography>{t("DuringRace.UploadingResults.p4")}</Typography>
+
         <Typography variant={"h3"}>{t("DuringRace.WhatIfAnythingWrong.title")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p1")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p2")}</Typography>
