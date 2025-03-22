@@ -241,9 +241,12 @@ export async function getOrganizerList(): Promise<Page<OrganizerModel>> {
  *
  * @returns The query result.
  */
-export function useOrganizerSearch() {
+export function useOrganizerSearch(disabled?: boolean) {
   return useQuery<Page<OrganizerModel>, AxiosError<Page<OrganizerModel>>>(
     ["organizers"], // Query key
     () => getOrganizerList(),
+    {
+      enabled: !disabled,
+    },
   )
 }

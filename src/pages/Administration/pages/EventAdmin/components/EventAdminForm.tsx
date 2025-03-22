@@ -71,7 +71,9 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     props.eventDetail ? !props.eventDetail.is_hidden : false,
   )
   const [isWebsiteValid, setIsWebsiteValid] = useState(true)
-  const { data: organizersData, isSuccess: areOrganizersSuccess } = useOrganizerSearch()
+  const { data: organizersData, isSuccess: areOrganizersSuccess } = useOrganizerSearch(
+    !props.canEdit,
+  )
 
   const style_props: TextFieldProps = {
     variant: "outlined",
