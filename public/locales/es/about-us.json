@@ -1,3 +1,52 @@
 {
-  "Header": "Bienvenido a O-Replay"
+  "Header": "Bienvenido a O-Replay",
+  "subtitle": "Por orientadores, para orientadores",
+  "Introduction": {
+    "p1": "O-Replay es un servicio web moderno, completo y de código abierto para resultados en vivo de orientación. No solo nos enfocamos en carreras normales de O-Pie, sino que también soportamos otras disciplinas como Rogaining y Relevos. Algunas de nuestras características clave incluyen radio controles, ticket digital y una tabla de parciales, todo actualizado en tiempo real.",
+    "p2": "Olvídate de proporcionar infinitos enlaces a tus corredores para cada etapa y tipo de resultados; todo está unificado dentro de O-Replay.",
+    "p3": "Somos personas corrientes, como tú, que nos enamoramos profundamente de la orientación y decidimos emprender este proyecto. Dedicamos nuestro tiempo libre con el único propósito de beneficiar la orientación. O-Replay es —y siempre será— un servicio completamente gratuito.",
+    "p4": "Somos de código abierto, por lo que todo nuestro código está pública y gratuitamente disponible en <2>GitHub</2>. Cualquiera puede ayudarnos a mejorarlo."
+  },
+  "OngoingProject": {
+    "title": "Hoja de ruta",
+    "p1": "Somos un proyecto en desarrollo continuo, trabajando constantemente para agregar nuevas funcionalidades y mejorar las ya existentes.",
+    "SupportedDisciplines": {
+      "title": "Disciplinas de Orientación Admitidas",
+      "p1": "Actualmente, admitimos las siguientes disciplinas de orientación:",
+      "list1": {
+        "item1": "Foot-O/MTB-O/Ski-O",
+        "item2": "Rogaine",
+        "item3": "Relevos",
+        "item4": "Raid de aventura"
+      }
+    },
+    "AvailableFeatures": {
+      "title": "Características Disponibles",
+      "p1": "Actualmente, ofrecemos las siguientes funcionalidades:",
+      "list1": {
+        "item1": "Salidas por categorías",
+        "item2": "Resultados en vivo por categorías",
+        "item3": "Radio controles",
+        "item4": "Tickets digitales en tiempo real",
+        "item5": "Tabla de parciales en tiempo real",
+        "item6": "Resultados por equipos en O-Pie y Rogaine",
+        "item7": "Recorridos individuales (por ejemplo, one man relay)",
+        "item8": "Resultados del campeonato por categorías",
+        "item9": "Salida por clubes",
+        "item10": "Salidas de todas las etapas por clubes",
+        "item11": "Resultados por clubes",
+        "item12": "<0></0> Integración directa con proveedores de radiocontroles (como <3>ROC</3> y <7>CPI</7>)"
+      }
+    }
+  },
+  "Authors": {
+    "title": "Autores",
+    "p1": "Somos un grupo de orientadores y cronometradores españoles. El proyecto está liderado por <1>Sergio García Pajares</1> (interfaz de usuario y página web), <3>Adrián Pérez Alonso</3> (servidores y procesamiento de datos) y <5>Javier Arufe Varela</5> (subida de datos).",
+    "p2": "La lista completa de colaboradores incluye: <1>Sergio García Pajares</1>, <3>Adrián Pérez</3>, <5>Javier Arufe Varela</5>, <7>Andreu Espinosa Bajo</7>, <9>Jessica Penela</9>, <11>Brais Piñeiro</11>, <13>Guillem Serrallonga Rosell</13> y <17>Manuel Pedre</17>.",
+    "Acknowledgements": {
+      "title": "Agradecimientos",
+      "p1": "Queremos agradecer a <2>Paula Padilla Fernández</2> por el diseño original del logo.",
+      "p2": "También queremos a agradecer a la <2>FEGADO (Federación Gallega de Orientación)</2> por apoyar en algunos gastos del proyecto."
+    }
+  }
 }

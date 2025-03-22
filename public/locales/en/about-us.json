@@ -1,3 +1,52 @@
 {
-  "Header": "Bienvenue sur O-Replay"
+  "Header": "Bienvenue sur O-Replay",
+  "subtitle": "By orienteers, For orienteers",
+  "Introduction": {
+    "p1": "O-Replay is a modern, fully-featured, open-source web service for orienteering live results. We not only target regular Foot-O races but also support other disciplines such as Rogaining and Relays. Some of our key features include online controls, digital tickets, and a splits table—all updated live.",
+    "p2": "Forget about providing countless links to your runners for each stage and results type—everything is available on a single event page.",
+    "p3": "We are regular people, like you, who fell deeply in love with orienteering and decided to embrace this project. We dedicate our free time to this project, hoping it will be useful for the community. O-Replay is and will always be a completely free service.",
+    "p4": "We are open source, so all of our code is freely and publicly available on <2>GitHub</2>. We welcome everyone in the community to help us improve the project."
+  },
+  "OngoingProject": {
+    "title": "Ongoing Development",
+    "p1": "We are an ongoing project, continuously working on bringing new features and improve the existing ones.",
+    "SupportedDisciplines": {
+      "title": "Supported Orienteering Disciplines",
+      "p1": "As of now, we have support for the following orienteering disciplines:",
+      "list1": {
+        "item1": "Foot-O/MTB-O/Ski-O",
+        "item2": "Rogaining",
+        "item3": "Relay",
+        "item4": "Raid"
+      }
+    },
+    "AvailableFeatures": {
+      "title": "Available Features",
+      "p1": "We currently support the following features:",
+      "list1": {
+        "item1": "Start list by classes",
+        "item2": "Live results by classes",
+        "item3": "Live online controls",
+        "item4": "Live virtual tickets",
+        "item5": "Live splits table",
+        "item6": "Team results in FootO and Rogaining",
+        "item7": "Individual courses (for example, one man relays)",
+        "item8": "Overall championship results by classes",
+        "item9": "Start list by clubs",
+        "item10": "Championship start list by clubs",
+        "item11": "Results by clubs",
+        "item12": "<0></0> Direct integration with online controls providers (such as <3>ROC</3> and <7>CPI</7>)"
+      }
+    }
+  },
+  "Authors": {
+    "title": "Authors",
+    "p1": "We are a group of spanish orienteers and time keepers. The project is led by <1>Sergio García Pajares</1> (user interface and webpage), <3>Adrián Pérez Alonso</3> (servers and data processing), and <5>Javier Arufe Varela</5> (data uploading).",
+    "p2": "The full contributors list includes: <1>Sergio García Pajares</1>, <3>Adrián Pérez</3>, <5>Javier Arufe Varela</5>, <7>Andreu Espinosa Bajo</7>, <9>Jessica Penela</9>, <11>Brais Piñeiro</11>, <13>Guillem Serrallonga Rosell</13>, and <17>Manuel Pedre</17>.",
+    "Acknowledgements": {
+      "title": "Acknowledgements",
+      "p1": "We want to thank <2>Paula Padilla Fernández</2> for the original logo design.",
+      "p2": "We also extend our gratitude to <2>FEGADO (Spanish Galician Orienteering Federation)</2> for supporting some costs of the project."
+    }
+  }
 }
