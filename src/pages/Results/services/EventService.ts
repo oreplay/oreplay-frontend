@@ -60,7 +60,7 @@ export async function getRunnersInStage(
 ): Promise<Page<RunnerModel>> {
   let url = `/${event_id}/stages/${stage_id}/results`
   if (class_id) {
-    url = url + `?class_id=${class_id}`
+    url = url + `?class_id=${class_id}&forceSameDay=1`
   }
   return await get<Page<RunnerModel>>(baseUrl + url)
 }
