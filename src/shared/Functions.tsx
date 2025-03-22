@@ -32,14 +32,14 @@ export function parseStartTime(dateString: null | string) {
 export function parseSecondsToMMSS(seconds: number | string): string {
   // Parse duration
   seconds = Number(seconds)
-  const duration = Duration.fromMillis(seconds * 1000)
+  const duration = Duration.fromObject({ seconds: seconds })
 
   // Choose HH:MM:SS or MM:SS formats
   const oneHour = 3600
   if (seconds < oneHour) {
     return duration.toFormat("mm:ss")
   } else {
-    const durationString = duration.toFormat("HH:mm:ss")
+    const durationString = duration.toFormat("hh:mm:ss")
 
     // Remove leading 0
     if (durationString.at(0) == "0") {
