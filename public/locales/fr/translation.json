@@ -16,6 +16,7 @@
   "Organizer": "Organisateur",
   "Name": "Nom",
   "Edit": "Modifier",
+  "Success": "_Success",
   "Cancel": "Annuler",
   "Delete": "Supprimer",
   "Save": "Sauvegarder",
@@ -78,6 +79,12 @@
         "MenuText": "Supprimer",
         "DialogTitle": "Voulez-vous supprimer cette étape?",
         "DialogBody": "L'étape et tous ses résultats seront supprimés. Cette action ne peut pas être annulée."
+      },
+      "Stats": {
+        "MenuText": "_Stats",
+        "DialogTitle": "_See stages stats",
+        "DialogBody": "_Stages stats will be displayed.",
+        "DialogConfirm": "OK"
       },
       "WipeOutRunners": {
         "MenuText": "Réinitialiser",

@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next"
 import { useState } from "react"
 import {
   deleteStage,
+  getEventStats,
   patchStage,
   postStage,
   wipeOutStage,
@@ -32,6 +33,7 @@ import { stageTypes } from "../../../../../../../shared/Constants.ts"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
+import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -117,15 +119,39 @@ export default function StagesDataGrid(props: Props) {
     )
   }
 
+  const handleStatsClick = async (row: GridRowParams<StageRow>) => {
+    try {
+      const res = await getEventStats(props.eventDetail.id, row.row.stageId)
+      const dataProcessed = stageStatsService.processData(res.data)
+      const txtTable = stageStatsService.formatAsTxtTables(dataProcessed)
+      const htmlTable = stageStatsService.formatAsHtmlTables(dataProcessed)
+      await navigator.clipboard.writeText(txtTable)
+      notifications.show(
+        <span
+          dangerouslySetInnerHTML={{ __html: t("Copied to the clipboard") + "</br>" + htmlTable }}
+        />,
+        {
+          autoHideDuration: 15000,
+          severity: "success",
+        },
+      )
+    } catch (e) {
+      notifications.show("Error", {
+        autoHideDuration: 3000,
+        severity: "error",
+      })
+    }
+  }
+
   const handleWipeOutRunnersClick = async (row: GridRowParams<StageRow>) => {
     try {
-      const resetNotification = notifications.show("Reseting...", {
+      const resetNotification = notifications.show(t("Loading"), {
         autoHideDuration: 30000,
         severity: "info", // Could be 'success', 'error', 'warning', 'info'.
       })
       await wipeOutStage(props.eventDetail.id, row.row.stageId, token as string).then(() => {})
       notifications.close(resetNotification)
-      notifications.show("Reset successful", {
+      notifications.show(t("Success"), {
         autoHideDuration: 3000,
         severity: "success", // Could be 'success', 'error', 'warning', 'info'.
       })
@@ -255,6 +281,7 @@ export default function StagesDataGrid(props: Props) {
           <GridActionsSettingsMenu
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
+            handleStatsClick={() => void handleStatsClick(row)}
             handleWipeOutRunnersClick={() => void handleWipeOutRunnersClick(row)}
           />,
           <Tooltip title={t("EventAdmin.Stages.GoToStage")}>
