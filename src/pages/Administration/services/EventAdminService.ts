@@ -13,6 +13,7 @@ import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
 const baseUrl = "events"
 import { useQuery } from "react-query"
 import { AxiosError } from "axios"
+import { ApiStats } from "../../../domain/models/ApiStats.ts"
 
 export async function getEventsFromUser(
   user_id: string,
@@ -192,6 +193,19 @@ export async function deleteStage(eventId: string, stageId: string, token: strin
  */
 export async function wipeOutStage(eventId: string, stageId: string, token: string) {
   return deleteRequest(baseUrl + `/${eventId}/stages/${stageId}/?clean=1`, token)
+}
+
+export async function getEventStats(eventId: string, stageId: string): Promise<Data<ApiStats>> {
+  const sub20M = "U-10,M-12,M-14,M-16,M-16/18,M-18E,M-20E"
+  const sub20F = "U-10,F-12,F-14,F-16,F-16/18,F-18E,F-20E"
+  const senM =
+    "M-E,M-21A,M-21B,M-35,M-35B,M-35A,M-40,M-45,M-50,M-55,M-60,M-65,M-70,M-75,M-80,M-85,M-90,M-95"
+  const senF =
+    "F-E,F-21A,F-21B,F-35,F-35B,F-35A,F-40,F-45,F-50,F-55,F-60,F-65,F-70,F-75,F-80,F-85,F-90,F-95"
+  return get(
+    baseUrl +
+      `/${eventId}/stages/${stageId}/stats?officialSub20M=${sub20M}&officialSub20F=${sub20F}&officialSeniorM=${senM}&officialSeniorF=${senF}`,
+  )
 }
 
 /**

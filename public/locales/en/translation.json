@@ -16,6 +16,7 @@
   "Organizer": "Organizer",
   "Name": "Name",
   "Edit": "Edit",
+  "Success": "Success",
   "Cancel": "Cancel",
   "Delete": "Delete",
   "Save": "Save",
@@ -79,8 +80,14 @@
         "DialogTitle": "Do you want to delete this stage?",
         "DialogBody": "The stage and all of its results will be deleted. This action cannot be undone."
       },
+      "Stats": {
+        "MenuText": "Stats",
+        "DialogTitle": "See stages stats",
+        "DialogBody": "Stages stats will be displayed.",
+        "DialogConfirm": "OK"
+      },
       "WipeOutRunners": {
-        "MenuText": "Resetear",
+        "MenuText": "Reset",
         "DialogTitle": "Do you want to reset this stage?",
         "DialogBody": "This will delete all of the results or start times uploaded to this stage. Afterwards, you can upload them again. This option is used to correct errors on uploaded data.",
         "DialogConfirm": "Reset"

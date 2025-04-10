@@ -16,6 +16,7 @@
   "Organizer": "Organizador",
   "Name": "Nombre",
   "Edit": "Editar",
+  "Success": "Éxito!",
   "Cancel": "Cancelar",
   "Delete": "Borrar",
   "Save": "Guardar",
@@ -79,8 +80,14 @@
         "DialogTitle": "Desea borrar esta etapa?",
         "DialogBody": "La etapa y todos sus resultados se borrarán. Esta acción no puede deshacerse."
       },
+      "Stats": {
+        "MenuText": "Estadísticas",
+        "DialogTitle": "Ver estadísticas de la etapa",
+        "DialogBody": "Se mostrarán estadísticas de la etapa.",
+        "DialogConfirm": "OK"
+      },
       "WipeOutRunners": {
-        "MenuText": "Reset",
+        "MenuText": "Resetear",
         "DialogTitle": "Desea resetear esta etapa?",
         "DialogBody": "Se borrarán todos los resultados y horas de salida subidos a esta etapa. Después, puedes volverlos a subir. Esta opción se utiliza para corregir errores en los datos subidos.",
         "DialogConfirm": "Resetear"

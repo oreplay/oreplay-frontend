@@ -8,18 +8,21 @@ import MenuItem from "@mui/material/MenuItem"
 import EditIcon from "@mui/icons-material/Edit"
 import GridActionsSettingsMenuDialogItem from "./GridActionsSettingsMenuDialogItem.tsx"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
+import QueryStatsIcon from "@mui/icons-material/QueryStats"
 import PersonOffIcon from "@mui/icons-material/PersonOff"
 
 type GridActionsSettingsMenuProps = {
   handleDeleteClick: () => void
   handleEditClick: () => void
   handleWipeOutRunnersClick: () => void
+  handleStatsClick: () => void
 }
 
 const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
   handleDeleteClick,
   handleEditClick,
   handleWipeOutRunnersClick,
+  handleStatsClick,
 }) => {
   const { t } = useTranslation()
 
@@ -51,6 +54,19 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           </ListItemIcon>
           <ListItemText>{t("Edit")}</ListItemText>
         </MenuItem>
+        <GridActionsSettingsMenuDialogItem
+          icon={<QueryStatsIcon />}
+          menuText={t("EventAdmin.Stages.Stats.MenuText")}
+          action={() => {
+            handleClose()
+            handleStatsClick()
+          }}
+          menuCloseAction={handleClose}
+          dialogTitle={t("EventAdmin.Stages.Stats.DialogTitle")}
+          dialogBody={t("EventAdmin.Stages.Stats.DialogBody")}
+          dialogCancelButtonText={t("Cancel")}
+          dialogConfirmButtonText={t("EventAdmin.Stages.Stats.DialogConfirm")}
+        />
         <Divider />
         <GridActionsSettingsMenuDialogItem
           icon={<PersonOffIcon />}
