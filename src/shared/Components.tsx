@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { IconButton, Snackbar } from "@mui/material"
+import { IconButton } from "@mui/material"
 import ContentCopyIcon from "@mui/icons-material/ContentCopy"
 import Tooltip from "@mui/material/Tooltip"
 import { useTranslation } from "react-i18next"
+import { useNotifications } from "@toolpad/core/useNotifications"
 
 /**
  * Props of CopyToClipBoardButton
@@ -17,12 +17,15 @@ export interface CopyToClipBoardButtonParams {
  * @prop value: Value to be copied
  */
 export function CopyToClipBoardButton(props: CopyToClipBoardButtonParams) {
-  const [open, setOpen] = useState<boolean>(false)
   const { t } = useTranslation()
+  const notifications = useNotifications()
 
   const handleClick = () => {
-    const response = navigator.clipboard.writeText(props.value)
-    void response.then(() => setOpen(true))
+    void navigator.clipboard.writeText(props.value)
+    notifications.show(t("Copied to the clipboard"), {
+      autoHideDuration: 5000,
+      severity: "success",
+    })
   }
 
   return (
@@ -32,13 +35,6 @@ export function CopyToClipBoardButton(props: CopyToClipBoardButtonParams) {
           <ContentCopyIcon />
         </IconButton>
       </Tooltip>
-      <Snackbar
-        message={t("Copied to the clipboard")}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={2000}
-        onClose={() => setOpen(false)}
-        open={open}
-      />
     </>
   )
 }
