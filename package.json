@@ -9,7 +9,8 @@
     "format": "npx prettier . --write",
     "format:check": "npx prettier . --check",
     "lint": "eslint . --ext ts,tsx,json --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest"
   },
   "engines": {
     "node": "^22.14.0"
@@ -48,6 +49,7 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "prettier": "3.4.2",
     "typescript": "^5.2.2",
-    "vite": "^6.1.1"
+    "vite": "^6.1.1",
+    "vitest": "^3.1.1"
   }
 }
