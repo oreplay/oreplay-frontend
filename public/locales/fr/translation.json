@@ -138,7 +138,8 @@
     "StartTime": "Départ",
     "Results": "Résultats",
     "Splits": "Intermédiaires",
-    "ScorePoints": "Points"
+    "ScorePoints": "Points",
+    "RelayLegs": "_Legs"
   },
   "ResultsStage": {
     "Refresh": "Rafraîchir",
