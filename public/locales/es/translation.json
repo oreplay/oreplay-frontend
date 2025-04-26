@@ -138,7 +138,8 @@
     "StartTime": "Salida",
     "Results": "Resultados",
     "Splits": "Parciales",
-    "ScorePoints": "Puntos"
+    "ScorePoints": "Puntos",
+    "RelayLegs": "Postas"
   },
   "ResultsStage": {
     "Refresh": "Refrescar",

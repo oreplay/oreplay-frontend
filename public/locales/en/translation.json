@@ -138,7 +138,8 @@
     "StartTime": "Start time",
     "Results": "Results",
     "Splits": "Splits",
-    "ScorePoints": "Points"
+    "ScorePoints": "Points",
+    "RelayLegs": "Legs"
   },
   "ResultsStage": {
     "Refresh": "Refresh",
