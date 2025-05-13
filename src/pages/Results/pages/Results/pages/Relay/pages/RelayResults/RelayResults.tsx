@@ -7,7 +7,7 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import RelayResultItem from "./components/RelayResultItem.tsx"
-import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
+import ExperimentalFeatureAlert from '../../../../../../../../components/ExperimentalFeatureAlert.tsx'
 
 export default function RelayResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -28,7 +28,7 @@ export default function RelayResults(
   } else {
     return (
       <ResultListContainer>
-        <NotImplementedAlertBox />
+        <ExperimentalFeatureAlert />
         {runnersList?.map((runner: ProcessedRunnerModel) => (
           <RelayResultItem key={runner.id} runner={runner} handleRowClick={handleRowClick} />
         ))}
