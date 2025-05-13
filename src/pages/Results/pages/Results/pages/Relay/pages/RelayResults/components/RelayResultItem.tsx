@@ -12,6 +12,7 @@ import RelayResultLegItem from "./RelayResultLegItem.tsx"
 import { Box } from "@mui/material"
 import ResultListItem from "../../../../../../../components/ResultsList/ResultListItem.tsx"
 import { RunnerModel } from "../../../../../../../../../shared/EntityTypes.ts"
+import { hasChipDownload as hasChipDownloadFunction } from '../../../../../shared/functions.ts'
 
 export default function RelayResultItem({
   runner,
@@ -24,7 +25,7 @@ export default function RelayResultItem({
 
   const status = parseResultStatus(runner.overall.status_code as string)
   const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
-  const hasChipDownload = true //hasChipDownloadFunction(runner) // TODO: Uncomment after backend bug fix
+  const hasChipDownload = hasChipDownloadFunction(runner)
 
   return (
     <Box
@@ -64,7 +65,7 @@ export default function RelayResultItem({
         }}
       >
         {runner.runners?.map((runner, index) => (
-          <RelayResultLegItem runner={runner} handleRowClick={handleRowClick} legNumber={index} />
+          <RelayResultLegItem key={runner.id} runner={runner} handleRowClick={handleRowClick} legNumber={runner.leg_number} />
         ))}
       </Box>
     </Box>

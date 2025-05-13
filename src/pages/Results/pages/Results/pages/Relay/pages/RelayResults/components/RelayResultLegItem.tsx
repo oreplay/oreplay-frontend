@@ -22,7 +22,7 @@ export default function RelayResultLegItem({
   return (
     <ResultListItem onClick={() => handleRowClick(runner)}>
       <FlexCol width={"10px"}>
-        <Typography>{`${legNumber + 1}.`}</Typography>
+        <Typography>{`${legNumber}.`}</Typography>
       </FlexCol>
       <FlexCol flexGrow={1}>
         <Typography>{runner.full_name}</Typography>
