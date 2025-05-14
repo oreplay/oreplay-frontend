@@ -12,7 +12,7 @@ import RelayResultLegItem from "./RelayResultLegItem.tsx"
 import { Box } from "@mui/material"
 import ResultListItem from "../../../../../../../components/ResultsList/ResultListItem.tsx"
 import { RunnerModel } from "../../../../../../../../../shared/EntityTypes.ts"
-import { hasChipDownload as hasChipDownloadFunction } from '../../../../../shared/functions.ts'
+import { hasChipDownload as hasChipDownloadFunction } from "../../../../../shared/functions.ts"
 
 export default function RelayResultItem({
   runner,
@@ -64,8 +64,13 @@ export default function RelayResultItem({
           flexDirection: "column",
         }}
       >
-        {runner.runners?.map((runner, index) => (
-          <RelayResultLegItem key={runner.id} runner={runner} handleRowClick={handleRowClick} legNumber={runner.leg_number} />
+        {runner.runners?.map((runner) => (
+          <RelayResultLegItem
+            key={runner.id}
+            runner={runner}
+            handleRowClick={handleRowClick}
+            legNumber={runner.leg_number}
+          />
         ))}
       </Box>
     </Box>
