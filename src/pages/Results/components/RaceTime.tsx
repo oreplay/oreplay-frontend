@@ -40,8 +40,8 @@ const RaceTime: React.FC<FinishTimeProps> = ({
         )
       }
     } else {
-      if (start_time != null && !finish_time && time_seconds && isFinalTime) {
-        // Some relay exports do not have finish_time
+      if (!finish_time && time_seconds && isFinalTime) {
+        // Some relay exports do not have start_time nor finish_time
         return <Typography sx={style}>{parseSecondsToMMSS(time_seconds)}</Typography>
       } else if (start_time != null) {
         return (
