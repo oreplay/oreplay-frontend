@@ -18,7 +18,7 @@ export default function RelayResults(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleRowClick = (runner: RunnerModel) => {}
 
-  if (!props.activeClass) {
+  if (!props.activeItem) {
     return <ChooseClassMsg />
   }
   if (props.runnersQuery.isFetching) {
