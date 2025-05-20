@@ -5,7 +5,6 @@ import {
   ProcessedRunnerResultModel,
   ProcessedSplitModel,
 } from "./EntityTypes.ts"
-import { orderedRunners } from "../../../shared/functions.ts"
 import { DateTime } from "luxon"
 import { hasChipDownload, isRunnerNC } from "../../../pages/Results/shared/functions.ts"
 import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Splits/components/FootOSplitsTable/shared/footOSplitsTablefunctions.ts"
@@ -18,8 +17,6 @@ import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Sp
  * @param runners runners to process
  */
 export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[] {
-  runners = orderedRunners(runners)
-
   return runners.map((runner): ProcessedRunnerModel => {
     const runnerResults = []
     runnerResults.push(runner.overall) // TODO refactor
