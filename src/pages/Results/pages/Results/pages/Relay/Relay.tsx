@@ -80,8 +80,12 @@ export default function Relay() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <RelayResults runnersQuery={runnersQueryByClasses} activeItem={activeItem} isClass={isClass}/>
-        <RelayLegs runnersQuery={runnersQueryByClasses} activeItem={activeItem} isClass={isClass}/>
+        <RelayResults
+          runnersQuery={runnersQueryByClasses}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
+        <RelayLegs runnersQuery={runnersQueryByClasses} activeItem={activeItem} isClass={isClass} />
       </ResultTabs>
     </StageLayout>
   )
