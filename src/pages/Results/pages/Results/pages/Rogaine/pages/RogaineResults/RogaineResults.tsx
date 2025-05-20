@@ -31,7 +31,7 @@ export default function RogainePoints(
   const runnersList = props.runnersQuery.data ? props.runnersQuery.data[0] : null
 
   // Render component
-  if (!props.activeClass) {
+  if (!props.activeItem) {
     return <ChooseClassMsg />
   } else if (props.runnersQuery.isFetching || props.runnersQuery.isLoading) {
     return <ResultsListSkeleton />
@@ -67,7 +67,11 @@ export default function RogainePoints(
               </Box>
               <ParticipantName
                 name={runner.full_name}
-                subtitle={runnerService.getClubName(runner, t)}
+                subtitle={
+                  props.isClass
+                    ? runnerService.getClubName(runner, t)
+                    : runnerService.getClassName(runner)
+                }
               />
               <Box
                 sx={{

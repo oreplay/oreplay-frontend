@@ -26,35 +26,43 @@ export default function Relay() {
     throw new Error("Event Id or Stage Id is missing")
   }
 
-  const [activeClass, setActiveClassId, classesList, areClassesLoading, refreshClasses] =
-    useFetchClasses()
+  const {
+    activeItem,
+    classesQuery,
+    clubsQuery,
+    isClass,
+    setClassClubId,
+    refresh: refreshClassesClubs,
+  } = useFetchClasses()
 
   // Query runners
   const runnersQueryByClasses = useQuery<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>(
-    ["results", "classes", activeClass?.id],
+    ["results", "classes", activeItem?.id],
     () =>
-      activeClass
-        ? getRelayRunnersByClass(eventId, stageId, activeClass.id)
+      activeItem
+        ? getRelayRunnersByClass(eventId, stageId, activeItem.id)
         : Promise.reject(new Error("No active class")),
     {
-      enabled: !!activeClass,
+      enabled: !!activeItem && isClass,
       refetchOnWindowFocus: false,
     },
   )
 
   // Handle re-fetching
   const handleRefreshClick = useCallback(() => {
-    refreshClasses()
+    refreshClassesClubs()
     void runnersQueryByClasses.refetch()
-  }, [refreshClasses, runnersQueryByClasses])
+  }, [refreshClassesClubs, runnersQueryByClasses])
 
   return (
     <StageLayout
+      key={"stageLayout"}
+      activeItem={activeItem}
+      isClass={isClass}
+      classesQuery={classesQuery}
+      clubsQuery={clubsQuery}
+      setActiveClassClub={setClassClubId}
       handleRefreshClick={handleRefreshClick}
-      classesList={classesList}
-      setActiveClassId={setActiveClassId}
-      activeClass={activeClass}
-      areClassesLoading={areClassesLoading}
     >
       <ResultTabs
         defaultMenu={0}
@@ -72,8 +80,8 @@ export default function Relay() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <RelayResults runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
-        <RelayLegs runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
+        <RelayResults runnersQuery={runnersQueryByClasses} activeItem={activeItem} isClass={isClass}/>
+        <RelayLegs runnersQuery={runnersQueryByClasses} activeItem={activeItem} isClass={isClass}/>
       </ResultTabs>
     </StageLayout>
   )

@@ -1,6 +1,7 @@
 import { get } from "../../../services/ApiConfig.ts"
 import {
   ClassModel,
+  ClubModel,
   Data,
   EventDetailModel,
   EventModel,
@@ -53,14 +54,38 @@ export async function getClassesInStage(
   return await get<Page<ClassModel>>(baseUrl + `/${event_id}/stages/${stage_id}/classes`)
 }
 
+/**
+ * Fetch all clubs that belong to a given stage
+ * @param event_id ID of the event that the stage belongs to
+ * @param stage_id ID of the stage we want to gather data from
+ */
+export async function getClubsInStage(
+  event_id: string,
+  stage_id: string,
+): Promise<Page<ClubModel>> {
+  return await get<Page<ClubModel>>(`${baseUrl}/${event_id}/stages/${stage_id}/clubs`)
+}
+
 export async function getRunnersInStage(
   event_id: string,
   stage_id: string,
   class_id?: string,
+  club_id?: string,
 ): Promise<Page<RunnerModel>> {
   let url = `/${event_id}/stages/${stage_id}/results`
+
+  // Set url search params
+  const urlSearchParam = new URLSearchParams()
+
   if (class_id) {
-    url = url + `?class_id=${class_id}&forceSameDay=1`
+    urlSearchParam.set("class_id", class_id)
   }
+  if (club_id) {
+    urlSearchParam.set("club_id", club_id)
+  }
+
+  // Build final url and make query
+  url = url + `?${urlSearchParam.toString()}`
+
   return await get<Page<RunnerModel>>(baseUrl + url)
 }

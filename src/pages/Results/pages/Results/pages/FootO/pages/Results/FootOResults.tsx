@@ -29,7 +29,7 @@ export default function FootOResults(
   const [isVirtualTicketOpen, selectedRunner, handleRowClick, handleCloseVirtualTicket] =
     useVirtualTicket()
 
-  if (!props.activeClass) {
+  if (!props.activeItem) {
     return <ChooseClassMsg />
   }
   if (props.runnersQuery.isFetching) {
@@ -55,7 +55,11 @@ export default function FootOResults(
               </FlexCol>
               <ParticipantName
                 name={runner.full_name}
-                subtitle={runnerService.getClubName(runner, t)}
+                subtitle={
+                  props.isClass
+                    ? runnerService.getClubName(runner, t)
+                    : runnerService.getClassName(runner)
+                }
               />
               <FlexCol flexGrow={1}>
                 <RaceTime
