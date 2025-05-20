@@ -151,6 +151,8 @@
     "Position": "Posición",
     "Name": "Nombre",
     "Club": "Club",
+    "Clubs": "Clubs",
+    "Classes": "Categorías",
     "NoClubMsg": "Sin club",
     "StartTime": "Salida",
     "FinishTime": "Tiempo",
@@ -181,7 +183,11 @@
     "SplitsTable": {
       "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
       "PartialTimes": "Parciales",
-      "CumulativeTimes": "Acumulados"
+      "CumulativeTimes": "Acumulados",
+      "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías."
+    },
+    "PointsTable": {
+      "OnlyForClasses": "El visor de puntos solo está disponible para resultados por categorías"
     },
     "WrongFileUploaded": {
       "Title": "¡Resultados Sin Parciales!",

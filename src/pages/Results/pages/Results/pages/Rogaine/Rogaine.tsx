@@ -8,7 +8,7 @@ import RogaineResults from "./pages/RogaineResults/RogaineResults.tsx"
 import RogainePoints from "./pages/RogainePoints/RogainePoints.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { useParams } from "react-router-dom"
-import { getRoganineRunnersByClass } from "./services/RogaineService.ts"
+import { getRoganineRunnersByClass, getRoganineRunnersByClub } from "./services/RogaineService.ts"
 import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
@@ -28,21 +28,40 @@ export default function Rogaine() {
   }
 
   // Get classes
-  const [activeClass, setActiveClassId, classesList, areClassesLoading, refreshClasses] =
-    useFetchClasses()
+  const {
+    activeItem,
+    classesQuery,
+    clubsQuery,
+    isClass,
+    setClassClubId,
+    refresh: refreshClassesClubs,
+  } = useFetchClasses()
 
   // Fetch runners
   const runnersQueryByClasses = useQuery<
     [ProcessedRunnerModel[], bigint[]],
     AxiosError<RunnerModel[]>
   >(
-    ["results", "classes", activeClass?.id],
-    () => (activeClass ? getRoganineRunnersByClass(eventId, stageId, activeClass.id) : [[], []]),
+    [eventId, stageId, "results", "classes", activeItem?.id],
+    () => (activeItem ? getRoganineRunnersByClass(eventId, stageId, activeItem.id) : [[], []]),
     {
-      enabled: !!activeClass,
+      enabled: !!activeItem && isClass,
       refetchOnWindowFocus: false,
     },
   )
+
+  const runnersQueryByClubs = useQuery<
+    [ProcessedRunnerModel[], bigint[]],
+    AxiosError<RunnerModel[]>
+  >(
+    [eventId, stageId, "results", "clubs", activeItem?.id],
+    () => (activeItem ? getRoganineRunnersByClub(eventId, stageId, activeItem.id) : [[], []]),
+    {
+      enabled: !!activeItem && !isClass,
+      refetchOnWindowFocus: false,
+    },
+  )
+
   const isWrongFileUploaded = useMemo(
     () => isWrongFileUploadedFunction(runnersQueryByClasses.data?.[0] ?? []),
     [runnersQueryByClasses],
@@ -50,18 +69,24 @@ export default function Rogaine() {
 
   // Handle re-fetching
   const handleRefreshClick = useCallback(() => {
-    refreshClasses()
-    void runnersQueryByClasses.refetch()
-  }, [refreshClasses, runnersQueryByClasses])
+    refreshClassesClubs()
+
+    if (isClass) {
+      void runnersQueryByClasses.refetch()
+    } else {
+      void runnersQueryByClubs.refetch()
+    }
+  }, [refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs, isClass])
 
   return (
     <StageLayout
       handleRefreshClick={handleRefreshClick}
-      classesList={classesList}
-      setActiveClassId={setActiveClassId}
-      activeClass={activeClass}
-      areClassesLoading={areClassesLoading}
       isWrongFileUploaded={isWrongFileUploaded}
+      activeItem={activeItem}
+      isClass={isClass}
+      classesQuery={classesQuery}
+      clubsQuery={clubsQuery}
+      setActiveClassClub={setClassClubId}
     >
       <ResultTabs
         defaultMenu={0}
@@ -79,8 +104,16 @@ export default function Rogaine() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <RogaineResults runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
-        <RogainePoints runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
+        <RogaineResults
+          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
+        <RogainePoints
+          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
       </ResultTabs>
     </StageLayout>
   )

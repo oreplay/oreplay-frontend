@@ -12,7 +12,7 @@ import FootOSplits from "./pages/Splits/FootOSplits.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { useCallback, useMemo } from "react"
 import { useQuery } from "react-query"
-import { getFootORunnersByClass } from "./services/FootOService.ts"
+import { getFootORunnersByClass, getFootORunnersByClub } from "./services/FootOService.ts"
 import { useParams } from "react-router-dom"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
@@ -29,41 +29,63 @@ export default function FootO() {
     throw new Error("Event Id or Stage Id is missing")
   }
 
-  // Fetch classes
-  const [activeClass, setActiveClassId, classesList, areClassesLoading, refreshClasses] =
-    useFetchClasses()
+  // Fetch classes and clubs
+  const {
+    activeItem,
+    classesQuery,
+    clubsQuery,
+    isClass,
+    setClassClubId,
+    refresh: refreshClassesClubs,
+  } = useFetchClasses()
 
   // Fetch runners
   const runnersQueryByClasses = useQuery<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>(
-    ["results", "classes", activeClass?.id],
+    [eventId, stageId, "results", "classes", activeItem?.id],
     () =>
-      activeClass
-        ? getFootORunnersByClass(eventId, stageId, activeClass.id)
+      activeItem
+        ? getFootORunnersByClass(eventId, stageId, activeItem.id)
         : Promise.reject(new Error("No active class")),
     {
-      enabled: !!activeClass,
+      enabled: !!activeItem && isClass,
       refetchOnWindowFocus: false,
     },
   )
+
+  const runnersQueryByClubs = useQuery<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>(
+    [eventId, stageId, "results", "classes", activeItem?.id],
+    () =>
+      activeItem
+        ? getFootORunnersByClub(eventId, stageId, activeItem?.id)
+        : Promise.reject(new Error("No active club")),
+    {
+      enabled: !!activeItem && !isClass,
+    },
+  )
+
+  const refetch = useCallback(() => {
+    refreshClassesClubs()
+    if (isClass) {
+      void runnersQueryByClasses.refetch()
+    } else {
+      void runnersQueryByClubs.refetch()
+    }
+  }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
+
   const isWrongFileUploaded = useMemo(
     () => isWrongFileUploadedFunction(runnersQueryByClasses.data ? runnersQueryByClasses.data : []),
     [runnersQueryByClasses],
   )
 
-  // Handle re-fetching
-  const handleRefreshClick = useCallback(() => {
-    refreshClasses()
-    void runnersQueryByClasses.refetch()
-  }, [refreshClasses, runnersQueryByClasses])
-
   return (
     <StageLayout
       key={"stageLayout"}
-      handleRefreshClick={handleRefreshClick}
-      classesList={classesList}
-      setActiveClassId={setActiveClassId}
-      activeClass={activeClass}
-      areClassesLoading={areClassesLoading}
+      activeItem={activeItem}
+      isClass={isClass}
+      classesQuery={classesQuery}
+      clubsQuery={clubsQuery}
+      setActiveClassClub={setClassClubId}
+      handleRefreshClick={refetch}
       isWrongFileUploaded={isWrongFileUploaded}
     >
       <ResultTabs
@@ -88,9 +110,21 @@ export default function FootO() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <FootOStartTime runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
-        <FootOResults runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
-        <FootOSplits runnersQuery={runnersQueryByClasses} activeClass={activeClass} />
+        <FootOStartTime
+          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
+        <FootOResults
+          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
+        <FootOSplits
+          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
       </ResultTabs>
     </StageLayout>
   )

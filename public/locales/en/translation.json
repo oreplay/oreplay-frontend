@@ -148,9 +148,11 @@
     "NoStartTime": "-",
     "NotStarted": "-",
     "Class": "Class",
+    "Classes": "Classes",
     "Position": "Position",
     "Name": "Name",
     "Club": "Club",
+    "Clubs": "Clubs",
     "NoClubMsg": "No club",
     "StartTime": "Start",
     "RaceTime": "Time",
@@ -181,7 +183,11 @@
     "SplitsTable": {
       "NoRunnersWithSplits": "No runner has downloaded their chip",
       "PartialTimes": "Partials",
-      "CumulativeTimes": "Cumulative"
+      "CumulativeTimes": "Cumulative",
+      "OnlyForClasses": "Splits table is accessible only in the class-based view."
+    },
+    "PointsTable": {
+      "OnlyForClasses": "Points view is accessible only in the class-based view."
     },
     "WrongFileUploaded": {
       "Title": "Results Without Splits!",

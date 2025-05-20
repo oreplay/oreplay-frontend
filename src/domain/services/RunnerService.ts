@@ -14,7 +14,12 @@ const compareLegNumber = (a: RunnerModel, b: RunnerModel): number => {
   return (a?.overall?.leg_number || 0) - (b?.overall?.leg_number || 0)
 }
 
+const getClassName = (runner: ProcessedRunnerModel) => {
+  return runner.class.short_name
+}
+
 export const runnerService = {
   getClubName,
+  getClassName,
   compareLegNumber,
 }

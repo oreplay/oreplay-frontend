@@ -1,6 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { getRunnersInStage } from "../../../../../services/EventService.ts"
-import { orderedRunners } from "../../../../../shared/functions.ts"
+import { orderedRunners, orderRunnersByClass } from "../../../../../shared/functions.ts"
 import { processRunnerData } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
 import { getUniqueStationNumbers } from "../shared/Functions.ts"
 
@@ -20,7 +20,7 @@ export async function getRoganineRunnersByClass(
   classId: string,
 ): Promise<[ProcessedRunnerModel[], bigint[]]> {
   // Make query
-  const runnersPage = await getRunnersInStage(eventId, stageId, classId)
+  const runnersPage = await getRunnersInStage(eventId, stageId, classId, undefined)
   let runnersList = runnersPage.data
 
   // Process runners
@@ -32,4 +32,21 @@ export async function getRoganineRunnersByClass(
 
   // return
   return [processedRunnersList, controls]
+}
+
+export async function getRoganineRunnersByClub(
+  eventId: string,
+  stageId: string,
+  clubId: string,
+): Promise<[ProcessedRunnerModel[], bigint[]]> {
+  // Make query
+  const runnersPage = await getRunnersInStage(eventId, stageId, undefined, clubId)
+  let runnersList = runnersPage.data
+
+  // Process runners
+  runnersList = orderedRunners(runnersList)
+  runnersList = orderRunnersByClass(runnersList)
+  const processedRunnersList = processRunnerData(runnersList)
+
+  return [processedRunnersList, []]
 }

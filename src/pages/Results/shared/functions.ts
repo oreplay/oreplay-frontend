@@ -138,3 +138,16 @@ export function orderedRunners(runnersList: RunnerModel[]) {
     return posA - posB // Compare positions numerically
   })
 }
+
+/**
+ * Sort a runner list by their class. Sorting is done in place
+ * @param runnersList Runners to be ordered
+ */
+export function orderRunnersByClass(runnersList: RunnerModel[]) {
+  return runnersList.sort((a, b) => {
+    const runnerClassA = a.class.short_name
+    const runnerClassB = b.class.short_name
+
+    return runnerClassA.localeCompare(runnerClassB)
+  })
+}

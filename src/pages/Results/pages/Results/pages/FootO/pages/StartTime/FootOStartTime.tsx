@@ -33,7 +33,7 @@ export default function FootOStartTime(
   }, [rawRunnersList])
 
   // Component
-  if (!props.activeClass) {
+  if (!props.activeItem) {
     return <ChooseClassMsg />
   } else if (props.runnersQuery.isFetching || props.runnersQuery.isLoading) {
     return <ResultsListSkeleton />
@@ -48,7 +48,11 @@ export default function FootOStartTime(
               <FlexRow>
                 <ParticipantName
                   name={runner.full_name}
-                  subtitle={runnerService.getClubName(runner, t)}
+                  subtitle={
+                    props.isClass
+                      ? runnerService.getClubName(runner, t)
+                      : runnerService.getClassName(runner)
+                  }
                 />
                 <FlexCol>
                   <StartTime

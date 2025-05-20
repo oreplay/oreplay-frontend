@@ -16,6 +16,7 @@ import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import RacePosition from "../../../../../../components/RacePosition..tsx"
 import { hasChipDownload } from "../../../../shared/functions.ts"
+import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
 
 export default function RogainePoints(
   props: ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>>,
@@ -26,8 +27,10 @@ export default function RogainePoints(
   const controlNumbers = props.runnersQuery.data ? props.runnersQuery.data[1] : null
 
   // Component
-  if (!props.activeClass) {
+  if (!props.activeItem) {
     return <ChooseClassMsg />
+  } else if (!props.isClass) {
+    return <OnlyForClassesMsg />
   } else if (props.runnersQuery.isFetching || props.runnersQuery.isLoading) {
     return <ResultsListSkeleton />
   } else if (props.runnersQuery.isError) {
