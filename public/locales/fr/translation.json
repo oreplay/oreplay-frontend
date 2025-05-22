@@ -1,5 +1,9 @@
 {
   "Loading": "Chargement...",
+  "Search": {
+    "Search": "_Search",
+    "ClearSearch": "_Clear search"
+  },
   "GeneralErrorFallback": {
     "title": "_An unexpected error happened",
     "msg": "_Try refreshing the page. If the error persist, please try again later."

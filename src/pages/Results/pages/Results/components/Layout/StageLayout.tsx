@@ -1,5 +1,5 @@
 import { Box, IconButton } from "@mui/material"
-import ClassSelector from "./components/ClassSelector.tsx"
+import ClassSelector from "./components/ClassSelector/ClassSelector.tsx"
 import Tooltip from "@mui/material/Tooltip"
 import RefreshIcon from "@mui/icons-material/Refresh"
 import { useTranslation } from "react-i18next"

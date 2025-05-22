@@ -5,20 +5,18 @@ import {
   FormControl,
   InputAdornment,
   InputLabel,
-  List,
-  ListItemButton,
-  ListItemText,
   OutlinedInput,
   Tab,
   Tabs,
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useTranslation } from "react-i18next"
-import { ClassModel, ClubModel, Page } from "../../../../../../../shared/EntityTypes.ts"
+import { ClassModel, ClubModel, Page } from "../../../../../../../../shared/EntityTypes.ts"
 import { ReactNode, useState } from "react"
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined"
 import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined"
 import { UseQueryResult } from "react-query"
+import AutocompleteList from "./components/autocompleteList/AutocompleteList.tsx"
 
 interface ClassSelectorProps {
   isClass: boolean
@@ -33,6 +31,10 @@ interface TabPanelProps {
   index: number
   value: number
 }
+
+// Auxiliary search normalize functions (to ignore some characters)
+const ignoreDashes = (query: string) => query.replace(/-/g, "")
+const ignoreDashesAndUnderscores = (query: string) => query.toLowerCase().replace(/[-_]/g, "")
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
@@ -53,9 +55,11 @@ function CustomTabPanel(props: TabPanelProps) {
 export default function ClassSelector(props: ClassSelectorProps) {
   const { t } = useTranslation()
 
+  // Internal states
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [currentTab, setCurrentTab] = useState<number>(0)
 
+  // Click handlers
   const handleClassClick = (newClass: ClassModel): void => {
     props.setActiveClassClubId(newClass.id, true)
     setIsOpen(false)
@@ -66,6 +70,7 @@ export default function ClassSelector(props: ClassSelectorProps) {
     setIsOpen(false)
   }
 
+  // Actual component
   return (
     <Box>
       <FormControl
@@ -111,24 +116,22 @@ export default function ClassSelector(props: ClassSelectorProps) {
             />
           </Tabs>
           <CustomTabPanel value={currentTab} index={0}>
-            <List>
-              {props.classesQuery.data?.data.map((item) => {
-                return (
-                  <ListItemButton key={item.id} onClick={() => handleClassClick(item)}>
-                    <ListItemText>{item.short_name}</ListItemText>
-                  </ListItemButton>
-                )
-              })}
-            </List>
+            <AutocompleteList
+              itemList={props.classesQuery.data ? props.classesQuery.data.data : []}
+              nameExtractor={(classItem: ClassModel) => classItem.short_name}
+              keyExtractor={(classItem: ClassModel) => classItem.id}
+              handleClick={handleClassClick}
+              normalizeQuery={ignoreDashes}
+            />
           </CustomTabPanel>
           <CustomTabPanel value={currentTab} index={1}>
-            {props.clubsQuery.data?.data.map((item) => {
-              return (
-                <ListItemButton key={item.id} onClick={() => handleClubClick(item)}>
-                  <ListItemText>{item.short_name}</ListItemText>
-                </ListItemButton>
-              )
-            })}
+            <AutocompleteList
+              itemList={props.clubsQuery.data ? props.clubsQuery.data.data : []}
+              nameExtractor={(club: ClubModel) => club.short_name}
+              keyExtractor={(club: ClubModel) => club.id}
+              handleClick={handleClubClick}
+              normalizeQuery={ignoreDashesAndUnderscores}
+            />
           </CustomTabPanel>
         </DialogContent>
       </Dialog>
