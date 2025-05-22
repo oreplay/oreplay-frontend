@@ -1,5 +1,9 @@
 {
   "Loading": "Cargando...",
+  "Search": {
+    "Search": "Buscar",
+    "ClearSearch": "Limpiar búsqueda"
+  },
   "GeneralErrorFallback": {
     "title": "Ha ocurrido un error inesperado",
     "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde"
