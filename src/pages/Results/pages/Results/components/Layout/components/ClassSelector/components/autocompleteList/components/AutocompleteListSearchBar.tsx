@@ -17,14 +17,14 @@ export default function AutocompleteListSearchBar({
 
   return (
     <TextField
-      fullWidth
       placeholder={t("Search.Search")}
-      variant="outlined"
+      variant="standard"
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      sx={{ marginBottom: 2 }}
+      sx={{ marginY: 2, width: "100%" }}
       slotProps={{
         input: {
+          sx: { mx: "10px", mt: "5px" },
           endAdornment: value ? (
             <InputAdornment position="end">
               <Tooltip title={t("Search.ClearSearch")}>

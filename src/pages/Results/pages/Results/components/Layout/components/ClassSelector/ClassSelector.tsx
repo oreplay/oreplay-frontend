@@ -47,7 +47,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box>{children}</Box>}
     </div>
   )
 }
@@ -101,8 +101,21 @@ export default function ClassSelector(props: ClassSelectorProps) {
           }}
         />
       </FormControl>
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)} maxWidth={"xs"} fullWidth>
-        <DialogContent>
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        maxWidth={"xs"}
+        sx={{
+          "& .MuiDialog-paper": {
+            height: "90%",
+            maxHeight: "none"
+          },
+        }}
+        fullWidth
+      >
+        <DialogContent
+
+        >
           <Tabs value={currentTab} onChange={(_, newValue: number) => setCurrentTab(newValue)}>
             <Tab
               label={t("ResultsStage.Classes")}
