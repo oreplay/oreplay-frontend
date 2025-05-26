@@ -10,6 +10,7 @@ interface AutocompleteListProps<T> {
   keyExtractor: (item: T) => string
   handleClick: (item: T) => void
   normalizeQuery?: (query: string) => string
+  isLoading?: boolean
 }
 
 export default function AutocompleteList<T>({
@@ -18,6 +19,7 @@ export default function AutocompleteList<T>({
   keyExtractor,
   handleClick,
   normalizeQuery,
+  isLoading,
 }: AutocompleteListProps<T>) {
   // Internal state
   const [query, setQuery] = useState<string>("")
@@ -40,9 +42,9 @@ export default function AutocompleteList<T>({
 
   // Actual component
   return (
-    <Box sx={{ padding: 0, width: "100%" }}>
+    <Box sx={{ padding: 0, width: "100%", height: "100%" }}>
       <AutocompleteListSearchBar value={query} setValue={setQuery} />
-      <AutocompleteListContainer>
+      <AutocompleteListContainer isLoading={isLoading}>
         {displayedList.map((item) => {
           return (
             <AutocompleteListItem

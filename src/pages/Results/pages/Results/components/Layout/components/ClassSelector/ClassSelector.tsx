@@ -40,15 +40,16 @@ function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
+      sx={{ height: "100%" }}
     >
-      {value === index && <Box>{children}</Box>}
-    </div>
+      {value === index && <Box sx={{ height: "100%" }}>{children}</Box>}
+    </Box>
   )
 }
 
@@ -108,14 +109,12 @@ export default function ClassSelector(props: ClassSelectorProps) {
         sx={{
           "& .MuiDialog-paper": {
             height: "90%",
-            maxHeight: "none"
+            maxHeight: "none",
           },
         }}
         fullWidth
       >
-        <DialogContent
-
-        >
+        <DialogContent sx={{ height: "100%" }}>
           <Tabs value={currentTab} onChange={(_, newValue: number) => setCurrentTab(newValue)}>
             <Tab
               label={t("ResultsStage.Classes")}
@@ -135,6 +134,7 @@ export default function ClassSelector(props: ClassSelectorProps) {
               keyExtractor={(classItem: ClassModel) => classItem.id}
               handleClick={handleClassClick}
               normalizeQuery={ignoreDashes}
+              isLoading={props.classesQuery.isLoading || props.classesQuery.isFetching}
             />
           </CustomTabPanel>
           <CustomTabPanel value={currentTab} index={1}>
@@ -144,6 +144,7 @@ export default function ClassSelector(props: ClassSelectorProps) {
               keyExtractor={(club: ClubModel) => club.id}
               handleClick={handleClubClick}
               normalizeQuery={ignoreDashesAndUnderscores}
+              isLoading={props.clubsQuery.isLoading || props.clubsQuery.isFetching}
             />
           </CustomTabPanel>
         </DialogContent>
