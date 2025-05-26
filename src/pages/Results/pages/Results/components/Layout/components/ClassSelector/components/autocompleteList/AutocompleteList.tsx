@@ -40,7 +40,7 @@ export default function AutocompleteList<T>({
 
   // Actual component
   return (
-    <Box sx={{ paddingY: "24px", paddingX: 0 }}>
+    <Box sx={{ padding: 0, width: "100%" }}>
       <AutocompleteListSearchBar value={query} setValue={setQuery} />
       <AutocompleteListContainer>
         {displayedList.map((item) => {
