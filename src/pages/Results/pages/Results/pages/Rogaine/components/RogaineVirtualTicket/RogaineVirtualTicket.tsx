@@ -11,6 +11,7 @@ import RogaineVirtualTicketSplit from "./components/RogaineVirtualTicketSplits.t
 import { Grid, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { hasChipDownload } from "../../../../shared/functions.ts"
+import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 
 /**
  * This is the Virtual Ticket for Foot-O results
@@ -44,7 +45,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
           <VirtualTicketRunnerInfo runner={runner} />
           <RogaineVirtualTicketPointsBanner runnerResult={runner.overall} />
         </VirtualTicketHeader>
-        <VirtualTicketSplits download={hasChipDownload(runner)}>
+        <VirtualTicketSplits download={hasChipDownload(runner)} isDNS={runnerService.isDNS(runner)}>
           <Grid item xs={3}>
             <Typography variant="subtitle2" sx={headersStyles}>
               {t("ResultsStage.VirtualTicket.Control")}

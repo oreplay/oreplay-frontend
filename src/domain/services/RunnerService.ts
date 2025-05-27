@@ -1,6 +1,7 @@
 import { ProcessedRunnerModel } from "../../pages/Results/components/VirtualTicket/shared/EntityTypes.ts"
 import { TFunction } from "i18next"
 import { RunnerModel } from "../../shared/EntityTypes.ts"
+import { RESULT_STATUS } from "../../pages/Results/shared/constants.ts"
 
 const getClubName = (
   runner: ProcessedRunnerModel,
@@ -18,8 +19,11 @@ const getClassName = (runner: ProcessedRunnerModel) => {
   return runner.class.short_name
 }
 
+const isDNS = (runner: ProcessedRunnerModel) => runner.overall.status_code === RESULT_STATUS.dns
+
 export const runnerService = {
   getClubName,
   getClassName,
   compareLegNumber,
+  isDNS,
 }

@@ -15,6 +15,7 @@ import GeneralErrorFallback from "../../../../../../../../components/GeneralErro
 import ListSkeleton from "../../../../../../../../components/ListSkeleton/ListSkeleton.tsx"
 import FootOVirtualTicketSplitSkeletonItem from "./components/FootOVirtualTicketSplitSkeletonItem.tsx"
 import { useFillClubRunner } from "./shared/hooks.ts"
+import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 
 interface FootOVirtualTicketProps extends VirtualTicketProps {
   isClass?: boolean
@@ -54,7 +55,10 @@ export default function FootOVirtualTicket({
           <VirtualTicketRunnerInfo runner={displayedRunner} />
           <FootOVirtualTicketTimesBanner runnerResult={displayedRunner.overall} />
         </VirtualTicketHeader>
-        <VirtualTicketSplits download={hasChipDownload(displayedRunner)}>
+        <VirtualTicketSplits
+          download={hasChipDownload(displayedRunner)}
+          isDNS={runnerService.isDNS(displayedRunner)}
+        >
           <Grid item xs={2}>
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Control")}</Typography>
           </Grid>

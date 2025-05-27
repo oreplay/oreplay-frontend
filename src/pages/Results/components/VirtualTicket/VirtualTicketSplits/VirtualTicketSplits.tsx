@@ -4,10 +4,16 @@ import VirtualTicketNoDownloadMsg from "./components/VirtualTicketNoDownloadMsg.
 type VirtualTicketSplitsProps = {
   children?: React.ReactNode
   download: boolean
+  isDNS?: boolean
 }
 
-export const VirtualTicketSplits: React.FC<VirtualTicketSplitsProps> = ({ children, download }) => {
-  if (download) {
+export const VirtualTicketSplits: React.FC<VirtualTicketSplitsProps> = ({
+  children,
+  download,
+  isDNS,
+}) => {
+  console.log(isDNS)
+  if (download && !isDNS) {
     return <>{children}</>
   } else {
     return <VirtualTicketNoDownloadMsg />
