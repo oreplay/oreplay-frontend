@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import { ProcessedRunnerModel } from "./shared/EntityTypes.ts"
 import ExperimentalFeatureAlert from "../../../../components/ExperimentalFeatureAlert.tsx"
 
-export type VirtualTicketProps = {
+export interface VirtualTicketProps {
   isTicketOpen: boolean
   runner: ProcessedRunnerModel | null
   handleCloseTicket: () => void
