@@ -35,7 +35,6 @@ export default function ListSkeleton({ SkeletonItem, style, className, gap }: Li
   useEffect(() => {
     if (skeletonHeight && containerRef.current) {
       const containerHeight = containerRef.current.clientHeight
-      console.log("ContainerHeight", containerHeight)
       const count = Math.floor(containerHeight / skeletonHeight)
       setSkeletonCount(count)
     }

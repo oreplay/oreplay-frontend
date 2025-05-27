@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { getClassesInStage, getClubsInStage, getEventList } from "../services/EventService.ts"
 import { ClassModel, ClubModel, EventModel, Page } from "../../../shared/EntityTypes.ts"
 import { useParams, useSearchParams } from "react-router-dom"
@@ -13,11 +13,7 @@ export function useFetchClasses(): {
   refresh: () => void
   setClassClubId: (newItemId: string, isClass: boolean) => void
 } {
-  //const ACTIVE_CLASS_SEARCH_PARAM = "class"
-  //const ACTIVE_CLUB_SEARCH_PARAM = "club"
-
   const { eventId, stageId } = useParams()
-  //const [searchParams, setSearchParams] = useSearchParams()
 
   // Associated states
   const [activeItem, setActiveItem] = useState<ClassModel | ClubModel | null>(null)
@@ -40,43 +36,41 @@ export function useFetchClasses(): {
     },
   )
 
-  // Set selected class function. It handles the search param usage
-  //const setActiveClassId = (newActiveId: string,isClass: boolean) => {
-  //if (isClass) {
-  // Handle class selected
-  //const new_active_class = classesList.find((e) => e.id === newActiveId)
-  //if (new_active_class) {
-  //setActiveClassState(new_active_class)
-  //searchParams.set(ACTIVE_CLASS_SEARCH_PARAM, newActiveId)
-  //setSearchParams(searchParams, { replace: true })
-  //} else {
-  //  console.error("The selected class is not valid")
-  //}
-  //} else {
-  // Handle club selected
-  //const new_active_club = clubsList.find((e) => e.id === newActiveId)
-  //if (new_active_club) {
-  //  setActiveClub(new_active_club)
-  //} else {
-  //  console.error("The selected club is not valid")
-  //}
-  //}
-  //}
+  const { setClassClubSearchParam, getClassClubSearchParamName } = useClassClubSearchParams()
 
-  const setClassClub = (newItemId: string, isClass: boolean): void => {
-    setIsClass(isClass)
+  const setClassClub = useCallback(
+    (newItemId: string, isClass: boolean): void => {
+      setIsClass(isClass)
 
-    const desiredQuery: UseQueryResult<Page<ClassModel>> | UseQueryResult<Page<ClubModel>> = isClass
-      ? classesQuery
-      : clubsQuery
-    const newItem: ClubModel | ClassModel | undefined = desiredQuery.data?.data.find(
-      (c) => c.id === newItemId,
-    )
+      const desiredQuery: UseQueryResult<Page<ClassModel>> | UseQueryResult<Page<ClubModel>> =
+        isClass ? classesQuery : clubsQuery
+      const newItem: ClubModel | ClassModel | undefined = desiredQuery.data?.data.find(
+        (c) => c.id === newItemId,
+      )
 
-    if (newItem) {
-      setActiveItem(newItem)
+      if (newItem) {
+        setActiveItem(newItem)
+        setClassClubSearchParam(newItem, isClass)
+      }
+    },
+    [classesQuery, clubsQuery, setClassClubSearchParam],
+  )
+
+  const hasInitialized = useRef(false)
+  useEffect(() => {
+    if (hasInitialized.current) return
+    if (!classesQuery.data || !clubsQuery.data) return
+    hasInitialized.current = true
+
+    const [itemName, isClassInSearchParams] = getClassClubSearchParamName()
+    if (itemName && isClassInSearchParams !== null) {
+      const item = findClassClub(isClassInSearchParams ? classesQuery : clubsQuery, itemName)
+      if (item) {
+        setIsClass(isClassInSearchParams)
+        setActiveItem(item)
+      }
     }
-  }
+  }, [classesQuery, classesQuery.data, clubsQuery, clubsQuery.data, getClassClubSearchParamName])
 
   const refresh = useCallback((): void => {
     void classesQuery.refetch()
@@ -90,6 +84,75 @@ export function useFetchClasses(): {
     clubsQuery: clubsQuery,
     refresh: refresh,
     setClassClubId: setClassClub,
+  }
+}
+
+function findClassClub(query: UseQueryResult<Page<ClassModel | ClubModel>>, name: string) {
+  return query.data?.data.find((value) => value.short_name === name)
+}
+
+const ACTIVE_CLASS_SEARCH_PARAM = "class"
+const ACTIVE_CLUB_SEARCH_PARAM = "club"
+
+export function useClassClubSearchParams(): {
+  setClassClubSearchParam: (newItem: ClassModel | ClubModel, isClass: boolean) => void
+  getClassClubSearchParamName: () => [string | null, boolean | null]
+} {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const setClassClubSearchParam = useCallback(
+    (newItem: ClassModel | ClubModel, isClass: boolean) => {
+      if (isClass) {
+        searchParams.set(ACTIVE_CLASS_SEARCH_PARAM, newItem.short_name)
+        searchParams.delete(ACTIVE_CLUB_SEARCH_PARAM)
+      } else {
+        searchParams.delete(ACTIVE_CLASS_SEARCH_PARAM)
+        searchParams.set(ACTIVE_CLUB_SEARCH_PARAM, newItem.short_name)
+      }
+
+      setSearchParams(searchParams, { replace: true })
+    },
+    [searchParams, setSearchParams],
+  )
+
+  const deleteAll = useCallback(() => {
+    searchParams.delete(ACTIVE_CLASS_SEARCH_PARAM)
+    searchParams.delete(ACTIVE_CLUB_SEARCH_PARAM)
+  }, [searchParams])
+
+  const getClassClubSearchParamName = useCallback((): [string | null, boolean | null] => {
+    // Get params
+    const classParamName = searchParams.get(ACTIVE_CLASS_SEARCH_PARAM)
+    const clubParamName = searchParams.get(ACTIVE_CLUB_SEARCH_PARAM)
+
+    // Class provided
+    if (classParamName) {
+      // Both provided, ignore
+      if (clubParamName) {
+        deleteAll()
+        return [null, null]
+      }
+
+      return [classParamName, true]
+
+      // Club provided
+    } else if (clubParamName) {
+      // Both provided, ignore
+      if (classParamName) {
+        deleteAll()
+        return [null, null]
+      }
+
+      return [clubParamName, false]
+      // No set
+    } else {
+      return [null, null]
+    }
+  }, [deleteAll, searchParams])
+
+  return {
+    setClassClubSearchParam: setClassClubSearchParam,
+    getClassClubSearchParamName: getClassClubSearchParamName,
   }
 }
 
