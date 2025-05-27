@@ -6,9 +6,16 @@ interface ListSkeletonProps {
   gap: string
   style?: CSSProperties
   className?: string
+  minItems?: number
 }
 
-export default function ListSkeleton({ SkeletonItem, style, className, gap }: ListSkeletonProps) {
+export default function ListSkeleton({
+  SkeletonItem,
+  style,
+  className,
+  gap,
+  minItems,
+}: ListSkeletonProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const skeletonRef = useRef<HTMLDivElement>(null)
   const [skeletonHeight, setSkeletonHeight] = useState<number | null>(null)
@@ -35,15 +42,19 @@ export default function ListSkeleton({ SkeletonItem, style, className, gap }: Li
   useEffect(() => {
     if (skeletonHeight && containerRef.current) {
       const containerHeight = containerRef.current.clientHeight
-      const count = Math.floor(containerHeight / skeletonHeight)
+      let count = Math.floor(containerHeight / skeletonHeight)
+      if (minItems && count < Math.floor(minItems)) {
+        count = minItems
+      }
+
       setSkeletonCount(count)
     }
-  }, [skeletonHeight])
+  }, [minItems, skeletonHeight])
 
   return (
     <Stack
       ref={containerRef}
-      style={{ height: "100%", overflow: "hidden", ...style }}
+      style={{ height: "100%", width: "100%", overflow: "hidden", ...style }}
       className={className}
       direction="column"
       gap={gap}
