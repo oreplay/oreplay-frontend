@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react"
+import { CSSProperties } from "react"
 import {
   VirtualTicketContainer,
   VirtualTicketProps,
@@ -11,20 +11,24 @@ import FootOVirtualTicketSplit from "./components/FootOVirtualTicketSplit.tsx"
 import { Grid, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { hasChipDownload } from "../../../../shared/functions.ts"
+import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
+import ListSkeleton from "../../../../../../../../components/ListSkeleton/ListSkeleton.tsx"
+import FootOVirtualTicketSplitSkeletonItem from "./components/FootOVirtualTicketSplitSkeletonItem.tsx"
+import { useFillClubRunner } from "./shared/hooks.ts"
+
+interface FootOVirtualTicketProps extends VirtualTicketProps {
+  isClass?: boolean
+}
 
 /**
  * This is the Virtual Ticket for Foot-O results
- *
- * @param isTicketOpen
- * @param runner
- * @param handleCloseTicket
- * @constructor
  */
-const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
+export default function FootOVirtualTicket({
   isTicketOpen,
   runner,
   handleCloseTicket,
-}) => {
+  isClass,
+}: FootOVirtualTicketProps) {
   const { t } = useTranslation()
 
   const headersStyles: CSSProperties = {
@@ -33,18 +37,24 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
     textAlign: "center",
   }
 
-  if (runner) {
+  const {
+    runner: displayedRunner,
+    isLoading,
+    isError,
+  } = useFillClubRunner(runner, !isClass && runner != null)
+
+  if (displayedRunner) {
     return (
       <VirtualTicketContainer
         isTicketOpen={isTicketOpen}
-        runner={runner}
+        runner={displayedRunner}
         handleCloseTicket={handleCloseTicket}
       >
         <VirtualTicketHeader>
-          <VirtualTicketRunnerInfo runner={runner} />
-          <FootOVirtualTicketTimesBanner runnerResult={runner.overall} />
+          <VirtualTicketRunnerInfo runner={displayedRunner} />
+          <FootOVirtualTicketTimesBanner runnerResult={displayedRunner.overall} />
         </VirtualTicketHeader>
-        <VirtualTicketSplits download={hasChipDownload(runner)}>
+        <VirtualTicketSplits download={hasChipDownload(displayedRunner)}>
           <Grid item xs={2}>
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Control")}</Typography>
           </Grid>
@@ -54,9 +64,19 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
           <Grid item xs={5}>
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Cumulative")}</Typography>
           </Grid>
-          {runner.overall.splits.map((split, index) => (
-            <FootOVirtualTicketSplit key={split.id} split={split} index={index} />
-          ))}
+          {!isLoading ? (
+            displayedRunner.overall.splits.map((split, index) => (
+              <FootOVirtualTicketSplit key={split.id} split={split} index={index} />
+            ))
+          ) : isError ? (
+            <GeneralErrorFallback />
+          ) : (
+            <ListSkeleton
+              SkeletonItem={FootOVirtualTicketSplitSkeletonItem}
+              gap={"10px"}
+              minItems={10}
+            />
+          )}
         </VirtualTicketSplits>
       </VirtualTicketContainer>
     )
@@ -64,5 +84,3 @@ const FootOVirtualTicket: React.FC<VirtualTicketProps> = ({
     return <></>
   }
 }
-
-export default FootOVirtualTicket
