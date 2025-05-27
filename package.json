@@ -1,7 +1,7 @@
 {
   "name": "oreplay-frontend",
   "private": true,
-  "version": "0.2.23",
+  "version": "0.2.24",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
