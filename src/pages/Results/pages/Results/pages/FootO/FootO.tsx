@@ -60,6 +60,7 @@ export default function FootO() {
         : Promise.reject(new Error("No active club")),
     {
       enabled: !!activeItem && !isClass,
+      refetchOnWindowFocus: false,
     },
   )
 
