@@ -12,11 +12,12 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useTranslation } from "react-i18next"
 import { ClassModel, ClubModel, Page } from "../../../../../../../../shared/EntityTypes.ts"
-import { ReactNode, useState } from "react"
+import { ReactNode, useEffect, useRef, useState } from "react"
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined"
 import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined"
 import { UseQueryResult } from "react-query"
 import AutocompleteList from "./components/autocompleteList/AutocompleteList.tsx"
+import { useClassClubSearchParams } from "../../../../../../shared/hooks.ts"
 
 interface ClassSelectorProps {
   isClass: boolean
@@ -59,6 +60,31 @@ export default function ClassSelector(props: ClassSelectorProps) {
   // Internal states
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [currentTab, setCurrentTab] = useState<number>(0)
+
+  // Check if it should be opened or closed
+  const { getClassClubSearchParamName } = useClassClubSearchParams()
+
+  const hasInitialized = useRef(false)
+  useEffect(() => {
+    if (hasInitialized.current) return
+
+    const [item, isClassInSearchParam] = getClassClubSearchParamName()
+    hasInitialized.current = true
+
+    if (item !== null && isClassInSearchParam !== null) {
+      // Provided in the searchParam
+      if (isClassInSearchParam) {
+        // isClass
+        setCurrentTab(0)
+      } else {
+        // isClub
+        setCurrentTab(1)
+      }
+    } else {
+      // Prompt user to choose class
+      setIsOpen(true)
+    }
+  }, [getClassClubSearchParamName])
 
   // Click handlers
   const handleClassClick = (newClass: ClassModel): void => {
