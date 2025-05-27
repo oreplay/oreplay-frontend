@@ -1,12 +1,12 @@
-import React from "react"
 import { Box } from "@mui/material"
+import { ReactNode } from "react"
 
 interface ResultListItemProps {
-  children: React.ReactNode
+  children: ReactNode
   onClick?: () => void
 }
 
-const ResultListItem: React.FC<ResultListItemProps> = ({ children, onClick }) => {
+export default function ResultListItem({ children, onClick }: ResultListItemProps) {
   return (
     <Box
       display="flex"
@@ -16,6 +16,10 @@ const ResultListItem: React.FC<ResultListItemProps> = ({ children, onClick }) =>
         borderBottom: "1px solid #f2f2f2",
         marginY: "0 !important",
         paddingY: ".8em",
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: "#fffbf0",
+        },
       }}
       onClick={onClick}
     >
@@ -23,5 +27,3 @@ const ResultListItem: React.FC<ResultListItemProps> = ({ children, onClick }) =>
     </Box>
   )
 }
-
-export default ResultListItem
