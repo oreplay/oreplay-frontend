@@ -16,6 +16,8 @@ export default function StageTypeSelector(props: StageTypeSelectorProps) {
       return <Rogaine />
     case STAGE_TYPE_DATABASE_ID.Relay:
       return <Relay />
+    case STAGE_TYPE_DATABASE_ID.Totals:
+      return <FootO />
     default:
       throw new Error("Unknown stage type")
   }
