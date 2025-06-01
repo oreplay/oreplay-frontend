@@ -87,6 +87,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
       }
     })
     return {
+      overalls: null,
       ...runner,
       stage: processedRunnerResultList[0],
     }
