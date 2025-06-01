@@ -41,7 +41,7 @@ export default function RogainePoints(
     return (
       <ResultListContainer>
         {runnersList?.map((runner) => {
-          const runnerResult = runner.overall
+          const runnerResult = runner.stage
           const status = parseResultStatus(runnerResult?.status_code as string)
           const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
           const hasDownload = hasChipDownloadFunction(runner)
@@ -60,7 +60,7 @@ export default function RogainePoints(
                 }}
               >
                 <RacePosition
-                  position={runner.overall.position}
+                  position={runner.stage.position}
                   isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
                   hasDownload={hasDownload}
                 />

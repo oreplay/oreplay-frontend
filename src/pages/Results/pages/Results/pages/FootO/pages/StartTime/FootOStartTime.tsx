@@ -57,8 +57,8 @@ export default function FootOStartTime(
                 <FlexCol>
                   <StartTime
                     displayStatus
-                    startTime={runner.overall.start_time}
-                    status={parseResultStatus(runner.overall?.status_code as string)}
+                    startTime={runner.stage.start_time}
+                    status={parseResultStatus(runner.stage?.status_code as string)}
                   ></StartTime>
                   <RunnerSicard runner={runner}></RunnerSicard>
                 </FlexCol>

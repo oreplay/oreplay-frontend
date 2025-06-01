@@ -17,7 +17,7 @@ import { runnerService } from "../../../../../../../../domain/services/RunnerSer
  * This is the Virtual Ticket for Foot-O results
  *
  * @param isTicketOpen
- * @param runner
+ * @param runner: ProcessedRunnerModel|RunnerResultModel
  * @param handleCloseTicket
  * @constructor
  */
@@ -43,7 +43,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
       >
         <VirtualTicketHeader>
           <VirtualTicketRunnerInfo runner={runner} />
-          <RogaineVirtualTicketPointsBanner runnerResult={runner.overall} />
+          <RogaineVirtualTicketPointsBanner runnerResult={runner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits download={hasChipDownload(runner)} isDNS={runnerService.isDNS(runner)}>
           <Grid item xs={3}>
@@ -61,7 +61,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
               {t("ResultsStage.VirtualTicket.Cumulative")}
             </Typography>
           </Grid>
-          {runner.overall.splits.map((split, index) => (
+          {runner.stage.splits.map((split, index) => (
             <RogaineVirtualTicketSplit key={split.id} split={split} index={index} />
           ))}
         </VirtualTicketSplits>

@@ -4,7 +4,7 @@ export function getUniqueStationNumbers(runners: ProcessedRunnerModel[]): bigint
   const stationNumbers = new Set<bigint>()
 
   runners.forEach((runner) => {
-    runner.overall.splits.forEach((split) => {
+    runner.stage.splits.forEach((split) => {
       if (split.control) {
         stationNumbers.add(BigInt(split.control.station))
       }

@@ -28,11 +28,11 @@ export function getPositionOrNc(
   runner: ProcessedRunnerModel,
   t: TFunction<"translation", undefined>,
 ): string {
-  const status = parseResultStatus(runner.overall.status_code as string)
+  const status = parseResultStatus(runner.stage.status_code as string)
   if (status === RESULT_STATUS_TEXT.nc) {
     return t("ResultsStage.statusCodes.nc")
   }
-  return runner.overall.position ? `${runner.overall.position}.` : ""
+  return runner.stage.position ? `${runner.stage.position}.` : ""
 }
 
 /**
@@ -72,8 +72,8 @@ function statusOrder(status: string | null, position: bigint) {
 export function orderedRunners(runnersList: RunnerModel[]) {
   // Order splits
   runnersList.forEach((runner) => {
-    if (runner.overall) {
-      runner.overall.splits.sort((a, b) => {
+    if (runner.stage) {
+      runner.stage.splits.sort((a, b) => {
         const ordA = a.order_number
         const ordB = b.order_number
 
@@ -88,16 +88,16 @@ export function orderedRunners(runnersList: RunnerModel[]) {
   // Order runners
   return runnersList.sort((a, b) => {
     // Order by status
-    const statusA = statusOrder(a.overall?.status_code, a.overall?.position)
-    const statusB = statusOrder(b.overall?.status_code, b.overall?.position)
+    const statusA = statusOrder(a.stage?.status_code, a.stage?.position)
+    const statusB = statusOrder(b.stage?.status_code, b.stage?.position)
 
     if (statusA !== undefined && statusB !== undefined && statusA !== statusB) {
       return statusA - statusB // Smaller status comes first
     }
 
     // If statuses are the same and not "ok", order by runner.last_name
-    const statusCodeA = a.overall?.status_code
-    const statusCodeB = b.overall?.status_code
+    const statusCodeA = a.stage?.status_code
+    const statusCodeB = b.stage?.status_code
 
     const lastNameA = a.full_name?.toLowerCase()
     const lastNameB = b.full_name?.toLowerCase()
@@ -106,8 +106,8 @@ export function orderedRunners(runnersList: RunnerModel[]) {
     }
 
     // Fallback to position comparison
-    const posA = Number(a.overall?.position)
-    const posB = Number(b.overall?.position)
+    const posA = Number(a.stage?.position)
+    const posB = Number(b.stage?.position)
 
     if (posA == 0 && posB != 0) {
       return 1 // Place 'a' after 'b' if 'a' has no position
@@ -117,8 +117,8 @@ export function orderedRunners(runnersList: RunnerModel[]) {
     }
     if (posA == 0 && posB == 0) {
       // use start time if available
-      const startTimeA = a.overall?.start_time
-      const startTimeB = b.overall?.start_time
+      const startTimeA = a.stage?.start_time
+      const startTimeB = b.stage?.start_time
       if (startTimeA == null && startTimeB != null) {
         return 1 // Place 'a' after 'b' if 'a' has no startTime
       }

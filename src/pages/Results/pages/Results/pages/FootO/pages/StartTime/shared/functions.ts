@@ -10,8 +10,8 @@ export function orderRunnersByStartTime(
 ): ProcessedRunnerModel[] {
   // Make a shallow copy to avoid mutating the original data
   return [...runnersList].sort((a, b) => {
-    const startTimeA = a.overall?.start_time
-    const startTimeB = b.overall?.start_time
+    const startTimeA = a.stage?.start_time
+    const startTimeB = b.stage?.start_time
 
     // Handle cases where both start_time values are null/undefined
     if ((startTimeA == null && startTimeB == null) || startTimeA == startTimeB) {

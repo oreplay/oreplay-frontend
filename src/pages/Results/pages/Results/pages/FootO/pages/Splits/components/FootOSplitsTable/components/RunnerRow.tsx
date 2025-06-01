@@ -24,7 +24,7 @@ type RunnerRowProps = {
   radiosList: OnlineControlModel[]
 }
 
-const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.overall
+const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
 
 export default function RunnerRow(props: RunnerRowProps) {
   const { t } = useTranslation()
@@ -42,7 +42,7 @@ export default function RunnerRow(props: RunnerRowProps) {
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
       <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
         <RacePosition
-          position={props.runner.overall.position}
+          position={props.runner.stage.position}
           isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
           hasDownload={hasChipDownload}
         />
@@ -73,7 +73,7 @@ export default function RunnerRow(props: RunnerRowProps) {
           {props.onlyRadios ? (
             <RunnerOnlineSplit
               split={split as RadioSplitModel}
-              startTimeTimestamp={props.runner.overall.start_time}
+              startTimeTimestamp={props.runner.stage.start_time}
             />
           ) : (
             <RunnerSplit

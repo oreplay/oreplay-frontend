@@ -53,7 +53,7 @@ export default function FootOVirtualTicket({
       >
         <VirtualTicketHeader>
           <VirtualTicketRunnerInfo runner={displayedRunner} />
-          <FootOVirtualTicketTimesBanner runnerResult={displayedRunner.overall} />
+          <FootOVirtualTicketTimesBanner runnerResult={displayedRunner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits
           download={hasChipDownload(displayedRunner)}
@@ -69,7 +69,7 @@ export default function FootOVirtualTicket({
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Cumulative")}</Typography>
           </Grid>
           {!isLoading ? (
-            displayedRunner.overall.splits.map((split, index) => (
+            displayedRunner.stage.splits.map((split, index) => (
               <FootOVirtualTicketSplit key={split.id} split={split} index={index} />
             ))
           ) : isError ? (

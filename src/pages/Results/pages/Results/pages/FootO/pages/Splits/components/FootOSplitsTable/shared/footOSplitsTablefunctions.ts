@@ -22,7 +22,8 @@ export function getCourseFromRunner(
   let courseControlList: CourseControlModel[] = []
 
   for (let i = 0; i < runnerList.length; i++) {
-    const splitList = runnerList[i].overall.splits
+    const runner: ProcessedRunnerModel | RunnerModel = runnerList[i]
+    const splitList = runner.stage.splits
 
     if (splitList) {
       try {

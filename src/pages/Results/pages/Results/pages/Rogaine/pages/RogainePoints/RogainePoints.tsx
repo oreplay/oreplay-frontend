@@ -53,7 +53,7 @@ export default function RogainePoints(
           </TableHead>
           <TableBody>
             {runnersList?.map((runner) => {
-              const runnerResult = runner.overall
+              const runnerResult = runner.stage
               const status = parseResultStatus(runnerResult?.status_code as string)
               const statusOkOrNc =
                 status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
@@ -63,7 +63,7 @@ export default function RogainePoints(
                 <TableRow sx={{ width: { md: "100%", sx: "200px" } }} key={`runner${runner.id}`}>
                   <TableCell key={`runner${runner.id}pos`}>
                     <RacePosition
-                      position={runner.overall.position}
+                      position={runner.stage.position}
                       isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
                       hasDownload={hasChipDownload(runner)}
                     />
@@ -91,15 +91,15 @@ export default function RogainePoints(
                   </TableCell>
                   <TableCell key={`runner${runner.id}time`}>
                     {statusOkOrNc
-                      ? runner.overall.finish_time != null
-                        ? parseSecondsToMMSS(runner.overall.time_seconds)
+                      ? runner.stage.finish_time != null
+                        ? parseSecondsToMMSS(runner.stage.time_seconds)
                         : "-"
                       : t(`ResultsStage.statusCodes.${status}`)}
                   </TableCell>
                   {controlNumbers?.map((control) => {
                     return (
                       <TableCell key={`runner${runner.id}control${control}`}>
-                        {runner.overall.points_final || runner.overall.finish_time ? (
+                        {runner.stage.points_final || runner.stage.finish_time ? (
                           <ControlBadge
                             number={control}
                             punched={runnerPunchedControls.includes(control)}
