@@ -21,7 +21,7 @@ describe("functions.orderedRunners", () => {
         id: "string",
         short_name: "string",
       },
-      overall: {
+      stage: {
         is_intermediate: false,
         result_type_id: "string",
         start_time: "string",
@@ -69,7 +69,7 @@ describe("functions.orderedRunners", () => {
       },
     }
     const ordered = orderedRunners([runner])
-    expect(ordered[0].overall.splits[0].control.station).toEqual("31")
-    expect(ordered[0].overall.splits[1].control.station).toEqual("32")
+    expect(ordered[0].stage.splits[0].control.station).toEqual("31")
+    expect(ordered[0].stage.splits[1].control.station).toEqual("32")
   })
 })

@@ -98,7 +98,7 @@ export interface RunnerModel {
   leg_number: number
   class: ClassModel
   club: ClubModel | null
-  overall: RunnerResultModel
+  stage: RunnerResultModel
 }
 
 export interface RunnerResultModel {

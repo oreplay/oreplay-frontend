@@ -12,7 +12,7 @@ export const VirtualTicketSplits: React.FC<VirtualTicketSplitsProps> = ({
   download,
   isDNS,
 }) => {
-  console.log(isDNS)
+  // console.log(isDNS)
   if (download && !isDNS) {
     return <>{children}</>
   } else {

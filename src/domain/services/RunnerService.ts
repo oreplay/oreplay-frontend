@@ -12,14 +12,14 @@ const getClubName = (
 }
 
 const compareLegNumber = (a: RunnerModel, b: RunnerModel): number => {
-  return (a?.overall?.leg_number || 0) - (b?.overall?.leg_number || 0)
+  return (a?.stage?.leg_number || 0) - (b?.stage?.leg_number || 0)
 }
 
 const getClassName = (runner: ProcessedRunnerModel) => {
   return runner.class.short_name
 }
 
-const isDNS = (runner: ProcessedRunnerModel) => runner.overall.status_code === RESULT_STATUS.dns
+const isDNS = (runner: ProcessedRunnerModel) => runner.stage.status_code === RESULT_STATUS.dns
 
 export const runnerService = {
   getClubName,

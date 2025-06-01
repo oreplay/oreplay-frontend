@@ -19,8 +19,8 @@ import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Sp
 export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[] {
   return runners.map((runner): ProcessedRunnerModel => {
     const runnerResults = []
-    if (runner.overall) {
-      runnerResults.push(runner.overall) // TODO refactor
+    if (runner.stage) {
+      runnerResults.push(runner.stage) // TODO refactor
     }
     const processedRunnerResultList = runnerResults.map((result): ProcessedRunnerResultModel => {
       const start_time = result.start_time ? DateTime.fromISO(result.start_time) : null
@@ -88,7 +88,7 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
     })
     return {
       ...runner,
-      overall: processedRunnerResultList[0],
+      stage: processedRunnerResultList[0],
     }
   })
 }
@@ -104,12 +104,12 @@ export function calculatePositionsAndBehindsFootO(
     const timesTable = splits.map((_, index) => {
       return runners.map((runner) => {
         // Compute for runner with coherent splits and download
-        if (runner.overall.splits[index] && hasChipDownload(runner)) {
+        if (runner.stage.splits[index] && hasChipDownload(runner)) {
           // handle NC
           if (isRunnerNC(runner) && excludeNC) {
             return null
           } else {
-            return runner.overall.splits[index].time
+            return runner.stage.splits[index].time
           }
         } else {
           return null
@@ -132,11 +132,11 @@ export function calculatePositionsAndBehindsFootO(
     const cumulativeTable = splits.map((_, index) => {
       return runners.map((runner) => {
         // only map times if the runner is ok
-        const missingPunchFrom = runner.overall.splits.findIndex((split) => split.time === null)
+        const missingPunchFrom = runner.stage.splits.findIndex((split) => split.time === null)
 
         // Exclude runners without download
         if (
-          runner.overall.splits[index] &&
+          runner.stage.splits[index] &&
           hasChipDownload(runner) &&
           (missingPunchFrom === -1 || missingPunchFrom > index)
         ) {
@@ -144,7 +144,7 @@ export function calculatePositionsAndBehindsFootO(
           if (isRunnerNC(runner) && excludeNC) {
             return null
           } else {
-            return runner.overall.splits[index].cumulative_time
+            return runner.stage.splits[index].cumulative_time
           }
         } else {
           return null
@@ -169,7 +169,7 @@ export function calculatePositionsAndBehindsFootO(
       if (hasChipDownload(runner)) {
         try {
           const isNC = isRunnerNC(runner)
-          const newSplits = runner.overall.splits.map((split, index, splitsArray) => {
+          const newSplits = runner.stage.splits.map((split, index, splitsArray) => {
             const bestTime: number | null = timesTable[index][0]
             const best_cumulative: number | null = cumulativeTable[index][0]
             if (bestTime !== null && best_cumulative !== null) {
@@ -210,8 +210,8 @@ export function calculatePositionsAndBehindsFootO(
           })
           return {
             ...runner,
-            overall: {
-              ...runner.overall,
+            stage: {
+              ...runner.stage,
               splits: newSplits,
             },
           }

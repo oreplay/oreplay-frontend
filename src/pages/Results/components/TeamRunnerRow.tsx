@@ -11,8 +11,8 @@ const TeamRunnerRow: React.FC<TeamRunnerRowProps> = ({ runner }) => {
   const name = runner.full_name
   const card = "" + runner.sicard
   let leg = ""
-  if (runner?.overall?.leg_number) {
-    leg = "(" + runner?.overall?.leg_number + ")"
+  if (runner?.stage?.leg_number) {
+    leg = "(" + runner?.stage?.leg_number + ")"
   }
   return (
     <FlexRow

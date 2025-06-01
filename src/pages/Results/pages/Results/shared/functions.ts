@@ -18,7 +18,7 @@ export function hasChipDownload(
   runner: RunnerModel | ProcessedRunnerModel | RunnerResultModel | ProcessedRunnerResultModel,
 ): boolean {
   let uploadType: string
-  if (isRunnerModel(runner)) uploadType = runner.overall.upload_type
+  if (isRunnerModel(runner)) uploadType = runner.stage.upload_type
   else {
     uploadType = runner.upload_type
   }
@@ -48,7 +48,7 @@ export function hasChipDownload(
 function isRunnerModel(
   runner: RunnerModel | ProcessedRunnerModel | RunnerResultModel | ProcessedRunnerResultModel,
 ): runner is RunnerModel | ProcessedRunnerModel {
-  return "overall" in runner
+  return "stage" in runner
 }
 
 /**
@@ -57,7 +57,7 @@ function isRunnerModel(
  * @param runner The runner to be checked
  */
 export function isRunnerNC(runner: RunnerModel | ProcessedRunnerModel): boolean {
-  return runner.overall.status_code === RESULT_STATUS.nc
+  return runner.stage.status_code === RESULT_STATUS.nc
 }
 
 /**
@@ -67,8 +67,8 @@ export function isRunnerNC(runner: RunnerModel | ProcessedRunnerModel): boolean 
  * @param runnerList List of runners to check
  */
 export function isWrongFileUploaded(runnerList: RunnerModel[] | ProcessedRunnerModel[]): boolean {
-  const filteredRunners = runnerList.filter(
-    (runner) => runner.overall.upload_type === UPLOAD_TYPES.FINAL_RESULT,
+  const filteredRunners: (RunnerModel | ProcessedRunnerModel)[] = runnerList.filter(
+    (runner) => runner.stage.upload_type === UPLOAD_TYPES.FINAL_RESULT,
   )
 
   return filteredRunners.length !== 0 && runnerList.length !== 0

@@ -16,7 +16,7 @@ export default function RelayResultLegItem({
   handleRowClick,
   legNumber,
 }: RelayResultLegItemProps) {
-  const status = parseResultStatus(runner.overall.status_code as string)
+  const status = parseResultStatus(runner.stage.status_code as string)
   const hasChipDownload = true //hasChipDownloadFunction(runner) // TODO: Uncomment after backend bug fix
 
   return (
@@ -32,9 +32,9 @@ export default function RelayResultLegItem({
           displayStatus
           isFinalTime={hasChipDownload}
           status={status}
-          finish_time={runner.overall.finish_time}
-          time_seconds={runner.overall.time_seconds}
-          start_time={runner.overall.start_time}
+          finish_time={runner.stage.finish_time}
+          time_seconds={runner.stage.time_seconds}
+          start_time={runner.stage.start_time}
         />
       </FlexCol>
     </ResultListItem>
