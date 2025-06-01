@@ -3,9 +3,9 @@ version: "3"
 services:
   nodejs:
     image: oreplay/frontend:v${VITE_VERSION_NUMBER}
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    #build:
+    #  context: .
+    #  dockerfile: docker/Dockerfile
     command: bash -c "cd /var/www && npm install --ignore-scripts && npm run dev"
     #command: sh -c "tail -f /dev/null"
     env_file:

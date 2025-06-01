@@ -61,7 +61,7 @@ export default function RogainePoints(
               >
                 <RacePosition
                   position={runner.overall.position}
-                  isNC={status === RESULT_STATUS_TEXT.nc}
+                  isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
                   hasDownload={hasDownload}
                 />
               </Box>

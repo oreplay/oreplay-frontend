@@ -43,7 +43,7 @@ export default function RunnerRow(props: RunnerRowProps) {
       <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
         <RacePosition
           position={props.runner.overall.position}
-          isNC={status === RESULT_STATUS_TEXT.nc}
+          isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
           hasDownload={hasChipDownload}
         />
       </TableCell>

@@ -92,6 +92,8 @@ export interface RunnerModel {
   id: string
   full_name: string
   bib_number: string
+  is_nc: boolean
+  eligibility: string
   sicard: bigint | null
   leg_number: number
   class: ClassModel
