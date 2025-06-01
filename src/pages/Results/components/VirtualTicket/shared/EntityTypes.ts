@@ -17,7 +17,7 @@ export interface ProcessedRunnerModel {
   runners?: RunnerModel[] | null
   club: ClubModel | null
   stage: ProcessedRunnerResultModel
-  overalls: OverallsModel
+  overalls: OverallsModel | null
 }
 
 export interface OverallsModel {

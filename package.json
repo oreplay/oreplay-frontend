@@ -9,6 +9,7 @@
     "format": "npx prettier . --write",
     "format:check": "npx prettier . --check",
     "lint": "eslint . --ext ts,tsx,json --report-unused-disable-directives --max-warnings 0",
+    "before-commit": "npm run format && npm run lint && npm run build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest"
   },

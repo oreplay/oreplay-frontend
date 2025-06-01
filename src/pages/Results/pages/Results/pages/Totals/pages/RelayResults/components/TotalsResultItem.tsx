@@ -18,7 +18,12 @@ export default function TotalsResultItem({
   const { t } = useTranslation()
 
   const hasChipDownload = true
-  const result = runner.overalls.overall
+  const result = runner.overalls?.overall
+
+  if (!result) {
+    console.error("Totals results without overalls", runner)
+    return <Box></Box>
+  }
 
   return (
     <Box
@@ -47,7 +52,7 @@ export default function TotalsResultItem({
           flexDirection: "column",
         }}
       >
-        {runner.overalls.parts?.map((stage) => <StageResultItem key={stage.id} stage={stage} />)}
+        {runner.overalls?.parts?.map((stage) => <StageResultItem key={stage.id} stage={stage} />)}
       </Box>
     </Box>
   )
