@@ -10,6 +10,8 @@ export interface ProcessedRunnerModel {
   id: string
   full_name: string
   bib_number: string
+  is_nc: boolean
+  eligibility: string
   sicard: bigint | null
   class: ClassModel
   runners?: RunnerModel[] | null

@@ -39,7 +39,7 @@ export default function RelayResultItem({
           <RacePosition
             position={runner.overall.position}
             hasDownload={hasChipDownload}
-            isNC={status === RESULT_STATUS_TEXT.nc}
+            isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
           />
         </FlexCol>
         <ParticipantName name={runner.full_name} subtitle={runnerService.getClubName(runner, t)} />
