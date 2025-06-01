@@ -1,4 +1,4 @@
-import { STAGE_TYPE_DATABASE_ID } from '../pages/Results/pages/Results/shared/constants.ts'
+import { STAGE_TYPE_DATABASE_ID } from "../pages/Results/pages/Results/shared/constants.ts"
 
 export const stageTypes = [
   { value: STAGE_TYPE_DATABASE_ID.FootO, label: "FootO" },

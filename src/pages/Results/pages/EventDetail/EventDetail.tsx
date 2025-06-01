@@ -7,7 +7,7 @@ import EventDetailURLButton from "./components/EventDetailURLButton.tsx"
 import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import { useFetchEventDetail } from "../../services/FetchHooks.ts"
-import { STAGE_TYPE_DATABASE_ID } from '../Results/shared/constants.ts'
+import { STAGE_TYPE_DATABASE_ID } from "../Results/shared/constants.ts"
 
 const styles = {
   titleEvent: {
