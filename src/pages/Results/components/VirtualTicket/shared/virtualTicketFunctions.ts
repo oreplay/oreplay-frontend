@@ -19,7 +19,9 @@ import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Sp
 export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[] {
   return runners.map((runner): ProcessedRunnerModel => {
     const runnerResults = []
-    runnerResults.push(runner.overall) // TODO refactor
+    if (runner.overall) {
+      runnerResults.push(runner.overall) // TODO refactor
+    }
     const processedRunnerResultList = runnerResults.map((result): ProcessedRunnerResultModel => {
       const start_time = result.start_time ? DateTime.fromISO(result.start_time) : null
 

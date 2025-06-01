@@ -3,6 +3,7 @@ import { lazy } from "react"
 const FootO = lazy(() => import("../pages/FootO/FootO.tsx"))
 const Relay = lazy(() => import("../pages/Relay/Relay.tsx"))
 const Rogaine = lazy(() => import("../pages/Rogaine/Rogaine.tsx"))
+const Totals = lazy(() => import("../pages/Totals/Totals.tsx"))
 
 type StageTypeSelectorProps = {
   stageType: string
@@ -17,7 +18,7 @@ export default function StageTypeSelector(props: StageTypeSelectorProps) {
     case STAGE_TYPE_DATABASE_ID.Relay:
       return <Relay />
     case STAGE_TYPE_DATABASE_ID.Totals:
-      return <FootO />
+      return <Totals />
     default:
       throw new Error("Unknown stage type")
   }

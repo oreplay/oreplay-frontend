@@ -17,6 +17,20 @@ export interface ProcessedRunnerModel {
   runners?: RunnerModel[] | null
   club: ClubModel | null
   overall: ProcessedRunnerResultModel
+  overalls: OverallsModel
+}
+
+export interface OverallsModel {
+  parts: OverallModel[]
+  overall: OverallModel
+}
+
+export interface OverallModel {
+  id: string
+  stage_order: string
+  position: bigint
+  time_seconds: string
+  points_final: string
 }
 
 export interface ProcessedRunnerResultModel {
