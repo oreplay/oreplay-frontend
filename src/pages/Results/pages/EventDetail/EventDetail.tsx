@@ -7,6 +7,7 @@ import EventDetailURLButton from "./components/EventDetailURLButton.tsx"
 import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import { useFetchEventDetail } from "../../services/FetchHooks.ts"
+import { STAGE_TYPE_DATABASE_ID } from '../Results/shared/constants.ts'
 
 const styles = {
   titleEvent: {
@@ -115,6 +116,10 @@ export default function EventDetail() {
             </Typography>
 
             {detail?.stages.map((stage) => {
+              let description = stage.description
+              if (stage.stage_type.id === STAGE_TYPE_DATABASE_ID.Totals) {
+                description = t("EventAdmin.Stages.StagesTypes.Totals")
+              }
               return (
                 <Box
                   style={styles.listStages}
@@ -132,7 +137,7 @@ export default function EventDetail() {
                     })
                   }
                 >
-                  <Typography color={"text.primary"}>{stage.description}</Typography>
+                  <Typography color={"text.primary"}>{description}</Typography>
                   <ArrowForward sx={{ color: "text.primary" }} />
                 </Box>
               )
