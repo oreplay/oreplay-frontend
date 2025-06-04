@@ -15,7 +15,7 @@ const RaceTimeBehind: React.FC<RaceTimeBehindProps> = ({ display, time_behind })
       </Typography>
     )
   } else {
-    return <Typography sx={{ color: "primary.main", fontSize: 14 }}></Typography>
+    return <></>
   }
 }
 

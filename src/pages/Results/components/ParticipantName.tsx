@@ -19,14 +19,18 @@ const ParticipantName = ({ name, subtitle = "", color = "inherit" }: Participant
       }}
     >
       <Typography sx={{ fontSize: "1em", color: color }}>{name}</Typography>
-      <Typography
-        sx={{
-          color: "text.secondary",
-          fontSize: "small",
-        }}
-      >
-        {subtitle}
-      </Typography>
+      {subtitle ? (
+        <Typography
+          sx={{
+            color: "text.secondary",
+            fontSize: "small",
+          }}
+        >
+          {subtitle}
+        </Typography>
+      ) : (
+        <></>
+      )}
     </Box>
   )
 }
