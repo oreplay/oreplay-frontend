@@ -1,4 +1,3 @@
-import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
@@ -8,6 +7,7 @@ import ResultsListSkeleton from "../../../../../../components/ResultsList/Result
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import RelayResultItem from "./components/RelayResultItem.tsx"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
+import RelayResultContainer from "./components/RelayResultContainer.tsx"
 
 export default function RelayResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -16,7 +16,7 @@ export default function RelayResults(
 
   // @ts-expect-error TS6133: variable is declared but never used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleRowClick = (runner: RunnerModel) => {}
+  const handleRowClick = (runner: ProcessedRunnerModel) => {}
 
   if (!props.activeItem) {
     return <ChooseClassMsg />
@@ -27,12 +27,14 @@ export default function RelayResults(
     return <GeneralErrorFallback />
   } else {
     return (
-      <ResultListContainer>
+      <>
         <ExperimentalFeatureAlert />
-        {runnersList?.map((runner: ProcessedRunnerModel) => (
-          <RelayResultItem key={runner.id} runner={runner} handleRowClick={handleRowClick} />
-        ))}
-      </ResultListContainer>
+        <RelayResultContainer>
+          {runnersList?.map((runner: ProcessedRunnerModel) => (
+            <RelayResultItem key={runner.id} runner={runner} handleRowClick={handleRowClick} />
+          ))}
+        </RelayResultContainer>
+      </>
     )
   }
 }
