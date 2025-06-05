@@ -8,6 +8,7 @@ export interface VirtualTicketProps {
   isTicketOpen: boolean
   runner: ProcessedRunnerModel | null
   handleCloseTicket: () => void
+  setClassClubId: (newClassOrClubId: string, isClass: boolean) => void
 }
 
 type VirtualTicketContainerProps = {

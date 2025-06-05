@@ -113,6 +113,7 @@ export default function FootO() {
           runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
           activeItem={activeItem}
           isClass={isClass}
+          setClassClubId={setClassClubId}
         />
         <FootOSplits
           runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
