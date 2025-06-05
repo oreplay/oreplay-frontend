@@ -57,7 +57,7 @@ function isRunnerModel(
  * @param runner The runner to be checked
  */
 export function isRunnerNC(runner: RunnerModel | ProcessedRunnerModel): boolean {
-  return runner.stage.status_code === RESULT_STATUS.nc
+  return runner.stage.status_code === RESULT_STATUS.nc || runner.is_nc
 }
 
 /**
