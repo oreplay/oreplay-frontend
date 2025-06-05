@@ -100,7 +100,7 @@ export interface RunnerModel {
   class: ClassModel
   club: ClubModel | null
   stage: RunnerResultModel
-  overalls: OverallsModel
+  overalls: OverallsModel | null
   runners: RunnerModel[] | null
 }
 

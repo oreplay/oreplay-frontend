@@ -67,6 +67,8 @@ describe("functions.orderedRunners", () => {
           },
         ],
       },
+      runners: null,
+      overalls: null,
     }
     const ordered = orderedRunners([runner])
     expect(ordered[0].stage.splits[0].control.station).toEqual("31")
