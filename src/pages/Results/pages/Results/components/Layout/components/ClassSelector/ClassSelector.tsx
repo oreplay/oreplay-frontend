@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogContent,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -18,6 +19,7 @@ import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined"
 import { UseQueryResult } from "react-query"
 import AutocompleteList from "./components/autocompleteList/AutocompleteList.tsx"
 import { useClassClubSearchParams } from "../../../../../../shared/hooks.ts"
+import CloseIcon from "@mui/icons-material/Close"
 
 interface ClassSelectorProps {
   isClass: boolean
@@ -141,18 +143,48 @@ export default function ClassSelector(props: ClassSelectorProps) {
         fullWidth
       >
         <DialogContent sx={{ height: "100%" }}>
-          <Tabs value={currentTab} onChange={(_, newValue: number) => setCurrentTab(newValue)}>
-            <Tab
-              label={t("ResultsStage.Classes")}
-              icon={<LeaderboardOutlinedIcon />}
-              iconPosition={"start"}
-            />
-            <Tab
-              label={t("ResultsStage.Clubs")}
-              icon={<GroupsOutlinedIcon />}
-              iconPosition={"start"}
-            />
-          </Tabs>
+          <Box
+            sx={{
+              display: "inline-flex",
+              justifyContent: "space-between",
+              width: "100px",
+              boxSizing: "border-box",
+            }}
+          >
+            <Box sx={{ flexShrink: 1, flexGrow: 1 }}>
+              <Tabs
+                variant="scrollable"
+                scrollButtons="auto"
+                value={currentTab}
+                onChange={(_, newValue: number) => setCurrentTab(newValue)}
+              >
+                <Tab
+                  label={t("ResultsStage.Classes")}
+                  icon={<LeaderboardOutlinedIcon />}
+                  iconPosition={"start"}
+                />
+                <Tab
+                  label={t("ResultsStage.Clubs")}
+                  icon={<GroupsOutlinedIcon />}
+                  iconPosition={"start"}
+                />
+              </Tabs>
+            </Box>
+            <Box>
+              <IconButton
+                aria-label="close"
+                onClick={() => setIsOpen(false)}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: (theme) => theme.palette.grey[500],
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Box>
           <CustomTabPanel value={currentTab} index={0}>
             <AutocompleteList
               itemList={props.classesQuery.data ? props.classesQuery.data.data : []}
