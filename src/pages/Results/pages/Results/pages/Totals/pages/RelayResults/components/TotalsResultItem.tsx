@@ -8,6 +8,7 @@ import StageResultItem from "./StageResultItem.tsx"
 import { Box, Typography } from "@mui/material"
 import ResultListItem from "../../../../../../../components/ResultsList/ResultListItem.tsx"
 import { RunnerModel } from "../../../../../../../../../shared/EntityTypes.ts"
+import { parseSecondsToMMSS } from "../../../../../../../../../shared/Functions.tsx"
 
 export default function TotalsResultItem({
   runner,
@@ -42,8 +43,10 @@ export default function TotalsResultItem({
         </FlexCol>
         <ParticipantName name={runner.full_name} subtitle={runnerService.getClubName(runner, t)} />
         <FlexCol flexGrow={1}>
-          <Typography>{`${result.time_seconds}_secs`}</Typography>
-          <Typography>{`${result.points_final}_pts`}</Typography>
+          <Typography>
+            {result.time_seconds ? parseSecondsToMMSS(result.time_seconds) : "null"}
+          </Typography>
+          <Typography>{result.points_final}</Typography>
         </FlexCol>
       </ResultListItem>
       <Box
