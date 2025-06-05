@@ -1,22 +1,28 @@
-import React, { CSSProperties } from "react"
+import React from "react"
 import { ProcessedRunnerModel } from "./shared/EntityTypes.ts"
 import Grid from "@mui/material/Grid"
-import { Box, Typography } from "@mui/material"
+import { Box, Link, SxProps, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 type VirtualTicketRunnerInfoProps = {
   runner: ProcessedRunnerModel
+  setClassClubId: (newClassOrClubId: string, isClass: boolean) => void
 }
 
 /**
  * Display a runners name, club and class within a virtual ticket.
  * @param runner Runner to be displayed
+ * @param setClassClubId The function to change to another class or club. It is used to provide links with-in the club and club fields
  */
-const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({ runner }) => {
+const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({
+  runner,
+  setClassClubId,
+}) => {
   const { t } = useTranslation()
-  const textStyles: CSSProperties = {
+  const textStyles: SxProps = {
     fontSize: "small",
     color: "text.secondary",
+    textDecoration: "none",
   }
 
   return (
@@ -29,10 +35,34 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({ runne
           justifyContent: "space-between",
         }}
       >
-        <Typography sx={textStyles}>
+        <Link
+          sx={{
+            ...textStyles,
+            cursor: runner.club ? "pointer" : undefined,
+            "&hover": {
+              backgroundColor: runner.club ? "#fffbf0" : undefined,
+            },
+          }}
+          onClick={
+            runner.club
+              ? () => setClassClubId(runner.club?.id ? runner.club.id : "", false) // the inner ternary operator is for type safety
+              : undefined
+          }
+        >
           {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
-        </Typography>
-        <Typography sx={textStyles}>{runner.class.short_name}</Typography>
+        </Link>
+        <Link
+          sx={{
+            ...textStyles,
+            cursor: "pointer",
+            "&hover": {
+              backgroundColor: "#fffbf0",
+            },
+          }}
+          onClick={() => setClassClubId(runner.class.id, true)}
+        >
+          {runner.class.short_name}
+        </Link>
       </Box>
     </Grid>
   )

@@ -25,6 +25,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
   isTicketOpen,
   runner,
   handleCloseTicket,
+  setClassClubId,
 }) => {
   const { t } = useTranslation()
 
@@ -42,7 +43,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
         handleCloseTicket={handleCloseTicket}
       >
         <VirtualTicketHeader>
-          <VirtualTicketRunnerInfo runner={runner} />
+          <VirtualTicketRunnerInfo runner={runner} setClassClubId={setClassClubId} />
           <RogaineVirtualTicketPointsBanner runnerResult={runner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits download={hasChipDownload(runner)} isDNS={runnerService.isDNS(runner)}>

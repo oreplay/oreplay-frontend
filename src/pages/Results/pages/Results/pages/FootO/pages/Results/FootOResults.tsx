@@ -20,9 +20,12 @@ import RaceTimeBehind from "../../../../../../components/RaceTimeBehind.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../shared/functions.ts"
 import RacePosition from "../../../../../../components/RacePosition..tsx"
 
-export default function FootOResults(
-  props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
-) {
+interface FootOResultProps
+  extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
+  setClassClubId: (newClassClubId: string, isClass: boolean) => void
+}
+
+export default function FootOResults(props: FootOResultProps) {
   const { t } = useTranslation()
 
   const runnersList = props.runnersQuery.data
@@ -82,6 +85,7 @@ export default function FootOResults(
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
+          setClassClubId={props.setClassClubId}
         />
       </ResultListContainer>
     )

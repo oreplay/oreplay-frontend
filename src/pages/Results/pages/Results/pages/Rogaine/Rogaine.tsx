@@ -101,6 +101,7 @@ export default function Rogaine() {
           runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
           activeItem={activeItem}
           isClass={isClass}
+          setClassClubId={setClassClubId}
         />
         <RogainePoints
           runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
