@@ -7,8 +7,12 @@ import { ErrorBoundary } from "react-error-boundary"
 import EventStageBanner from "./components/EventStageBanner.tsx"
 import StageTypeSelector from "./components/StageTypeSelector.tsx"
 import { Suspense } from "react"
+import { useTranslation } from "react-i18next"
+import { STAGE_TYPE_DATABASE_ID } from "./shared/constants.ts"
 
 export default function Results() {
+  const { t } = useTranslation()
+
   // Get url info
   const { eventId, stageId } = useParams<string>()
 
@@ -43,7 +47,11 @@ export default function Results() {
             key={`StageBanner${eventDetail.id}`}
             eventName={eventDetail.description}
             organizerName={eventDetail.organizer?.name}
-            stageName={stageDetail.description}
+            stageName={
+              stageDetail.stage_type.id !== STAGE_TYPE_DATABASE_ID.Totals
+                ? stageDetail.description
+                : t("EventAdmin.Stages.StagesTypes.Totals")
+            }
             singleStage={singleStage}
           />
           <StageTypeSelector
