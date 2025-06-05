@@ -31,6 +31,7 @@ const Results = lazy(() => import("./pages/Results/pages/Results/Results.tsx"))
 const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs.tsx"))
 const NotFoundPage = lazy(() => import("./pages/NotFoundError/NotFoundPage.tsx"))
 const Organizers = lazy(() => import("./pages/Organizers/organizers.tsx"))
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy/PrivacyPolicy.tsx"))
 
 // Customize style of app
 const theme = createTheme({
@@ -76,6 +77,7 @@ export default function App() {
                     <Route path={"/admin/create-event"} element={<CreateEvent />} />
                     <Route path={"/admin/:eventId"} element={<EventAdmin />} />
                   </Route>
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path={"/*"} element={<NotFoundPage />} />
                 </Route>
                 <Route path={"/signin"}>
