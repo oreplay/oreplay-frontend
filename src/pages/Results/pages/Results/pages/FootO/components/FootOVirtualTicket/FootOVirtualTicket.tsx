@@ -29,6 +29,7 @@ export default function FootOVirtualTicket({
   runner,
   handleCloseTicket,
   isClass,
+  setClassClubId,
 }: FootOVirtualTicketProps) {
   const { t } = useTranslation()
 
@@ -52,7 +53,7 @@ export default function FootOVirtualTicket({
         handleCloseTicket={handleCloseTicket}
       >
         <VirtualTicketHeader>
-          <VirtualTicketRunnerInfo runner={displayedRunner} />
+          <VirtualTicketRunnerInfo runner={displayedRunner} setClassClubId={setClassClubId} />
           <FootOVirtualTicketTimesBanner runnerResult={displayedRunner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits
