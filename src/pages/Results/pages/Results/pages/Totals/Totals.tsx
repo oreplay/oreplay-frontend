@@ -1,25 +1,15 @@
 import TotalsResults from "./pages/RelayResults/TotalsResults.tsx"
 import StageLayout from "../../components/Layout/StageLayout.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
-import { BottomNavigationAction } from "@mui/material"
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
-import ResultTabs from "../../components/ResultTabs.tsx"
-import { useTranslation } from "react-i18next"
-import { Person } from "@mui/icons-material"
 import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useParams } from "react-router-dom"
 import { useCallback } from "react"
-import TotalsLegs from "./pages/RelayLegs/TotalsLegs.tsx"
 import { getTotalsByClass } from "./services/TotalsService.ts"
 
-const menu_options_labels = ["results", "legs"]
-
 export default function Totals() {
-  const { t } = useTranslation()
-
   // Get stage's and event's ids
   const { eventId, stageId } = useParams()
   if (!eventId || !stageId) {
@@ -64,33 +54,11 @@ export default function Totals() {
       setActiveClassClub={setClassClubId}
       handleRefreshClick={handleRefreshClick}
     >
-      <ResultTabs
-        defaultMenu={0}
-        menuOptions={[
-          <BottomNavigationAction
-            key={"relayResults"}
-            label={t("StageHeader.Results")}
-            icon={<EmojiEventsIcon />}
-          />,
-          <BottomNavigationAction
-            key={"RogaineScorePointsMenu"}
-            label={t("StageHeader.RelayLegs")}
-            icon={<Person />}
-          />,
-        ]}
-        menuOptionsLabels={menu_options_labels}
-      >
-        <TotalsResults
-          runnersQuery={runnersQueryByClasses}
-          activeItem={activeItem}
-          isClass={isClass}
-        />
-        <TotalsLegs
-          runnersQuery={runnersQueryByClasses}
-          activeItem={activeItem}
-          isClass={isClass}
-        />
-      </ResultTabs>
+      <TotalsResults
+        runnersQuery={runnersQueryByClasses}
+        activeItem={activeItem}
+        isClass={isClass}
+      />
     </StageLayout>
   )
 }
