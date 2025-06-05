@@ -40,6 +40,11 @@ export default function NoTodayEventButton(props: Props) {
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
+        transition: "transform 0.2s, box-shadow 0.2s",
+        transformOrigin: "center", // Scale from the center without shifting position
+        "&:hover": {
+          transform: "scale(1.05)", // Slightly scale up on hover
+        },
       }}
       onClick={() => void navigate(`/competitions/${props.event.id}`)}
     >
