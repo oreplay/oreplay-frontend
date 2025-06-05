@@ -1,10 +1,10 @@
 import FlexCol from "../../../../../../../components/FlexCol.tsx"
 import { Typography } from "@mui/material"
 import ResultListItem from "../../../../../../../components/ResultsList/ResultListItem.tsx"
-import { OverallModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { ProcessedOverallModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 
 type StageResultItemProps = {
-  stage: OverallModel
+  stage: ProcessedOverallModel
 }
 
 export default function StageResultItem({ stage }: StageResultItemProps) {

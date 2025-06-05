@@ -88,6 +88,7 @@ export interface OrganizerModel {
   region: string
 }
 
+// TODO: Create BaseRunner and properly define runners
 export interface RunnerModel {
   id: string
   full_name: string
@@ -99,8 +100,11 @@ export interface RunnerModel {
   class: ClassModel
   club: ClubModel | null
   stage: RunnerResultModel
+  overalls: OverallsModel
+  runners: RunnerModel[] | null
 }
 
+// Todo: Fusion RunnerResultModel and OverallModel
 export interface RunnerResultModel {
   is_intermediate: boolean
   result_type_id: string
@@ -152,6 +156,19 @@ export interface ClassModel {
 export interface ClubModel {
   id: string
   short_name: string
+}
+
+export interface OverallsModel {
+  parts: OverallModel[]
+  overall: OverallModel
+}
+
+export interface OverallModel {
+  id: string
+  stage_order: number | null
+  position: number | null
+  time_seconds: number | null
+  points_final: number | null
 }
 
 export interface UserModel {

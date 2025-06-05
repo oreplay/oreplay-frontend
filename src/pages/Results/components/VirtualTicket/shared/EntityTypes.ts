@@ -2,6 +2,8 @@ import {
   ClassModel,
   ClubModel,
   ControlModel,
+  OverallModel,
+  OverallsModel,
   RunnerModel,
 } from "../../../../../shared/EntityTypes.ts"
 import { DateTime } from "luxon"
@@ -17,21 +19,15 @@ export interface ProcessedRunnerModel {
   runners?: RunnerModel[] | null
   club: ClubModel | null
   stage: ProcessedRunnerResultModel
-  overalls: OverallsModel | null
+  overalls: ProcessedOverallsModel | null
 }
 
-export interface OverallsModel {
-  parts: OverallModel[]
-  overall: OverallModel
+export interface ProcessedOverallsModel extends OverallsModel {
+  parts: ProcessedOverallModel[]
+  overall: ProcessedOverallModel
 }
 
-export interface OverallModel {
-  id: string
-  stage_order: string
-  position: bigint
-  time_seconds: string
-  points_final: string
-}
+export interface ProcessedOverallModel extends OverallModel {}
 
 export interface ProcessedRunnerResultModel {
   result_type_id: string
