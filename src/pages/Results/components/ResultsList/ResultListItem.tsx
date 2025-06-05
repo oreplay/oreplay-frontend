@@ -16,9 +16,9 @@ export default function ResultListItem({ children, onClick }: ResultListItemProp
         borderBottom: "1px solid #f2f2f2",
         marginY: "0 !important",
         paddingY: ".8em",
-        cursor: "pointer",
+        cursor: onClick ? "pointer" : undefined,
         "&:hover": {
-          backgroundColor: "#fffbf0",
+          backgroundColor: onClick ? "#fffbf0" : undefined,
         },
       }}
       onClick={onClick}
