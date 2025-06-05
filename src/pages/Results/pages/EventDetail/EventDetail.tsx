@@ -123,6 +123,12 @@ export default function EventDetail() {
               return (
                 <Box
                   style={styles.listStages}
+                  sx={{
+                    cursor: "pointer",
+                    "&:hover": {
+                      backgroundColor: "#fffbf0",
+                    },
+                  }}
                   display={"flex"}
                   justifyContent={"space-between"}
                   key={stage.id}
