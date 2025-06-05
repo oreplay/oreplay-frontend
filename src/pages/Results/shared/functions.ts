@@ -95,6 +95,16 @@ export function orderedRunners(runnersList: RunnerModel[]) {
       return statusA - statusB // Smaller status comes first
     }
 
+    // TODO: Propely refactor this function to save logic and work with overalls as well
+    if (
+      a.overalls != null &&
+      b.overalls != null &&
+      a.overalls.overall.position != null &&
+      b.overalls.overall.position != null
+    ) {
+      return a.overalls.overall.position - b.overalls.overall.position
+    }
+
     // If statuses are the same and not "ok", order by runner.last_name
     const statusCodeA = a.stage?.status_code
     const statusCodeB = b.stage?.status_code

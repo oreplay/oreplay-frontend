@@ -7,7 +7,7 @@ import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useParams } from "react-router-dom"
 import { useCallback } from "react"
-import { getTotalsByClass } from "./services/TotalsService.ts"
+import { getTotalsByClass, getTotalsByClub } from "./services/TotalsService.ts"
 
 export default function Totals() {
   // Get stage's and event's ids
@@ -38,11 +38,24 @@ export default function Totals() {
     },
   )
 
+  const runnersQueryByClubs = useQuery<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>(
+    ["results", "clubs", activeItem?.id],
+    () =>
+      activeItem
+        ? getTotalsByClub(eventId, stageId, activeItem.id)
+        : Promise.reject(new Error("No active class")),
+    {
+      enabled: !!activeItem && !isClass,
+      refetchOnWindowFocus: false,
+    },
+  )
+
   // Handle re-fetching
   const handleRefreshClick = useCallback(() => {
     refreshClassesClubs()
     void runnersQueryByClasses.refetch()
-  }, [refreshClassesClubs, runnersQueryByClasses])
+    void runnersQueryByClubs.refetch()
+  }, [refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
 
   return (
     <StageLayout
@@ -55,7 +68,7 @@ export default function Totals() {
       handleRefreshClick={handleRefreshClick}
     >
       <TotalsResults
-        runnersQuery={runnersQueryByClasses}
+        runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
         activeItem={activeItem}
         isClass={isClass}
       />
