@@ -18,3 +18,19 @@ export async function getTotalsByClass(
   // Runner processing
   return processRunnerData(runnersList)
 }
+
+export async function getTotalsByClub(
+  eventId: string,
+  stageId: string,
+  clubId: string,
+): Promise<ProcessedRunnerModel[]> {
+  // Make query
+  const runnersPage = await getRunnersInStage(eventId, stageId, undefined, clubId)
+  let runnersList = runnersPage.data
+
+  // Order
+  runnersList = orderedRunners(runnersList)
+
+  // Runner processing
+  return processRunnerData(runnersList)
+}
