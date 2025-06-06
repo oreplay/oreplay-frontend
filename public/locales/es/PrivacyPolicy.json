@@ -1,0 +1,257 @@
+{
+  "header": "POLÍTICA DE PROTECCIÓN DE DATOS",
+  "subtitle": "Última modificación: 05/06/2025",
+  "p1": "Gracias por visitar este sitio web. Lee detenidamente los Términos y Condiciones que constan en este documento, ya que el uso de este sitio web implica la expresa y plena aceptación de estos, en la versión publicada en el momento en que accedes al mismo. Le recomendamos que lea atentamente este documento cada vez que acceda al sitio web para comprobar si ha habido cambios en las condiciones de uso y lo abandone si no está de acuerdo con dichos cambios. Si creemos que ciertas modificaciones son importantes, actualizaremos la fecha de “Última modificación” en la parte superior de esta página. Usted será el responsable de revisar y familiarizarse con cualquier modificación realizada.",
+  "Identification": {
+    "title": "Identificación",
+    "p1": "En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico con la legislación vigente en materia de protección de datos, en concreto, la Ley orgánica 3/2018, de 5 de diciembre, de protección de datos personales y garantía de los derechos digitales (LOPDDGG) que hace plenamente efectiva la aplicación del Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas en el que respeta al tratamiento de datos personales y a la libre circulación de estos datos (RGPD)."
+  },
+  "Responsibleprocessor": {
+    "title": "Responsable del Tratamiento",
+    "p1": "O-REPLAY (en adelante EL SERVICIO)"
+  },
+  "Comercialname": {
+    "title": "Nombre Comercial",
+    "p1": "O-REPLAY"
+  },
+  "Communication": {
+    "title": "Comunicación",
+    "p1": "Para contactar con nosotros para cualquier cuestión que haga referencia al tratamiento de datos personales, ponemos a su disposición diferentes medios de contacto que detallamos a continuación:",
+    "contact": {
+      "email": "<2>support@oreplay.es</2>",
+      "website": "<2>www.oreplay.es</2>"
+    },
+    "p2": "Todas las notificaciones y comunicaciones facilitadas en este apartado se considerarán eficaces cuando se realicen a través de cualquiera de los medios detallados anteriormente. Nosotros entendemos que la privacidad y la seguridad de su información personal son extremadamente importantes..."
+  },
+  "Registrationregulation": {
+    "title": "¿Qué es el nuevo Reglamento de Protección de Datos?",
+    "p1": "Es una nueva normativa europea. Este Reglamento unifica criterios de confidencialidad y tratamientos de los datos personales a nivel comunitario y adapta su gestión a los nuevos entornos digitales, como internet y aplicaciones para móviles. De esta manera, usted tendrá más control sobre sus datos."
+  },
+  "Applicability": {
+    "title": "¿Cuándo será aplicable la nueva normativa?",
+    "p1": "La Unión Europea aprobó el Reglamento en 2016. Los Estados miembros la deben aplicar a partir del 25 de mayo del 2018."
+  },
+  "Changesforuser": {
+    "title": "¿Qué cambios va a suponer para usted?",
+    "p1": "La normativa europea añade nuevos derechos a los recogidos en la actual normativa española. Por este motivo, debemos actualizar información a su disposición sobre las medidas de protección de datos nuestro EL SERVICIO. También solicitaremos su autorización para poder tratar sus datos en algunos casos nuevos. De este modo, podremos ofrecerles un servicio más adaptado a sus necesidades."
+  },
+  "Securitymeasures": {
+    "title": "¿Qué medidas hemos tomado para asegurar la confidencialidad, integridad y seguridad de sus datos?",
+    "p1": "Hemos implementado varias acciones para proteger su información personal, asegurando la confidencialidad, integridad y seguridad de sus datos:",
+    "list": {
+      "item1": "Solo pedimos la cantidad mínima de información necesaria, recopilando solo lo que creemos que es esencial.",
+      "item2": "Hemos establecido una serie de acuerdos de confidencialidad con todos nuestros proveedores, personal y colaboradores.",
+      "item3": "Hemos establecido una serie de medidas de seguridad informática que nos protegerán de posibles ataques externos.",
+      "item4": "Hemos revisado toda nuestra documentación de modo que sea la adecuada según lo establecido en el nuevo reglamento.",
+      "item5": "Hemos evaluado el impacto que pueden causar nuestros procedimientos sobre la protección de sus datos personales.",
+      "item6": "Hemos formado a nuestro personal para que todos podamos actuar de forma diligente y ética, cumpliendo con todas las exigencias previstas en el nuevo reglamento."
+    }
+  },
+  "Treatmentprinciples": {
+    "title": "Principios que aplicaremos a tu información personal",
+    "p1": "En el tratamiento de tus datos personales, aplicaremos los siguientes principios que se ajustan a las exigencias del nuevo reglamento europeo de protección de datos:",
+    "list": {
+      "item1": "Principio de licitud, lealtad y transparencia: Siempre vamos a requerir tu consentimiento para el tratamiento de tus datos personales para uno o varios fines específicos que te informaremos previamente con absoluta transparencia.",
+      "item2": "Principio de minimización de datos: Solo vamos a solicitar datos estrictamente necesarios en relación con los fines para los que los requerimos. Los mínimos posibles.",
+      "item3": "Principio de limitación del plazo de conservación: Los datos serán mantenidos durante no más tiempo del necesario para los fines del tratamiento, en función a la finalidad. Te informaremos del plazo de conservación correspondiente. En el caso de suscripciones, periódicamente revisaremos nuestras listas y eliminaremos aquellos registros inactivos durante un tiempo considerable.",
+      "item4": "Principio de integridad y confidencialidad: Tus datos serán tratados de tal manera que se garantice una seguridad adecuada de los datos personales y se garantice confidencialidad. Tomamos todas las precauciones necesarias para evitar el acceso no autorizado o uso indebido de los datos de nuestros usuarios por parte de terceros."
+    }
+  },
+  "Legalbases": {
+    "title": "Bases jurídicas para la recopilación y uso de la información",
+    "p1": "Si usted es un individuo en el Espacio Económico Europeo (EEE), nuestra base jurídica para la recolección y el uso de información depende de la información personal en cuestión y del contexto en el que la recopilamos. La mayoría de nuestras actividades de recopilación y procesamiento de información generalmente se basan en: 1) una necesidad contractual; 2) uno o varios intereses legítimos DEL SERVICIO o un tercero que no se anulen por sus intereses de protección de datos o 3) su consentimiento. A veces, tendremos la obligación legal de recopilar su información o necesitaremos su información personal para proteger sus intereses vitales o los de otra persona."
+  },
+  "Treatments": {
+    "title": "Tratamientos",
+    "p1": "Le explicaremos, a continuación, cómo recogemos, utilizamos, divulgamos, transferimos y almacenamos su información. La presente Política de privacidad es aplicable a la información de carácter personal recogida a través de nuestro sitio web. Es importante que consulte con frecuencia la Política de privacidad por si se ha actualizado.",
+    "p2": "Todos los usuarios que acceden a nuestra página web podrán conocer todo su contenido sin la necesidad de facilitar ninguna información de carácter personal. Sus datos personales solo serán recabados cuando usted cumplimente voluntariamente nuestro(s) formulario(s). En este caso, el usuario garantiza la autenticidad, exactitud y veracidad de la información facilitada, comprometiéndose a mantener actualizados los datos de carácter personal de forma que los mismos respondan, en todo momento, a su situación real. El usuario será el único responsable de las manifestaciones falsas o inexactas y de los perjuicios que las mismas pudieran causar. Mediante esta vía de comunicación usted acepta de forma expresa recibir comunicaciones periódicas únicamente de la entidad, que guardará los datos personales que reciba de los usuarios a través de la página web en total secreto, garantizando su confidencialidad, y adoptará las medidas técnicas necesarias para evitar cualquier alteración, pérdida, mal uso, o acceso no autorizado a estos datos.",
+    "p3": "Asimismo, le comunicamos que todos los datos facilitados a través de formularios electrónicos y/o mediante correo electrónico son los estrictamente necesarios para la correcta identificación del remitente. Esta información será tratada con estricta confidencialidad y con la única finalidad de realizar la gestión de solicitudes de información, contratación de nuestros servicios y productos y otras finalidades que están especificadas a continuación. Usted queda informado y presta su pleno consentimiento expreso para utilizar sus datos para las actividades relacionadas al objeto social de la entidad.",
+    "p4": "El consentimiento prestado, tanto para el tratamiento como para la cesión de los datos de los interesados, es revocable en cualquier momento comunicándolo a la dirección de correo electrónico <2>support@oreplay.es</2> en los términos establecidos en esta Política para el ejercicio de los derechos. Esta revocación en ningún caso tendrá carácter retroactivo."
+  },
+  "Howweuseyourdata": {
+    "title": "Cómo utilizamos tus datos",
+    "p1": "Podemos utilizar sus datos personales de la siguiente manera: la información que usted nos proporcione nos podrá ayudar en la toma de decisiones, a responder solicitudes, mejorar los servicios, detectar nuevas necesidades, generar promociones, entender sus expectativas y proporcionarle un mejor servicio. También podremos utilizar sus datos para las siguientes gestiones.",
+    "p2": "Razón específica: Si proporciona sus datos personales para un fin en concreto, los utilizaremos para lo relacionado con el fin para el cual se proporcionaron. Por ejemplo, si usted se pone en contacto con nosotros por correo electrónico, utilizaremos los datos personales que nos facilite para responder a su pregunta o solucionar el problema, y responderemos a la dirección de correo electrónico desde la que se envió el mensaje.",
+    "p3": "Fines internos. Podemos usar sus datos personales para fines internos como, por ejemplo, para basarnos en ellos con el fin de mejorar el contenido y la funcionalidad de los servicios, comprender mejor la necesidad de nuestros clientes, mejorar los servicios, proteger, identificar o abordar actividades fraudulentas, reforzar nuestros términos de servicio, gestionar su cuenta y proporcionarle servicio de atención al cliente y, de manera general, gestionar los servicios y nuestra actividad comercial, entre otros.",
+    "p4": "Comunicaciones comerciales. Siempre que contemos con su consentimiento expreso (que se obtendrá mediante una casilla exclusiva presente en nuestros formularios), podremos usar sus datos personales para ponernos en contacto con usted en el futuro para la realización de acciones comerciales que puedan ser de su interés, siempre relacionadas con los productos y/o servicios que ofrece EL SERVICIO. En cualquier caso, usted siempre tendrá disponible la opción “dejar de recibir” estos mensajes electrónicos en la parte inferior de dichos mensajes o notificarlo a nosotros enviando un correo electrónico a la siguiente dirección: <2>support@oreplay.es</2> Sin embargo, usted podrá seguir recibiendo avisos y correos electrónicos siempre que sean necesarios y esenciales para el mantenimiento de nuestras transacciones contractuales. De acuerdo con la Ley 34/2002, de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico. (LSSICE) EL SERVICIO no realiza prácticas de SPAM y se compromete a no enviar comunicaciones de carácter comercial sin identificarlas debidamente.",
+    "p5": "Le rogamos tenga en cuenta que, aunque decida no suscribirse o se dé de baja de las comunicaciones electrónicas promocionales o comerciales puede que EL SERVICIO siga necesitando contactar con usted como Usuario con información importante sobre transacciones relativas a su cuenta y a sus compras de productos, reserva de actividades o contratación de otros servicios.",
+    "p6": "A continuación, explicamos de forma más detallada qué tipos de datos se recogen y se tratan y cuáles son sus finalidades:",
+    "tableHeaders": {
+      "category": "Categoría",
+      "purpose": "Finalidad",
+      "baselegitimator": "Base Legitimadora",
+      "datacollect": "Datos recogidos",
+      "consequences_header": "Consecuencias",
+      "possibletransfers": "Posibles cesiones",
+      "internationaltransfer": "Transferencias Internacionales",
+      "deadlinesConservation": "Plazos de conservación"
+    },
+    "data_categories": [
+      {
+        "Category": "Usuario visitante",
+        "Purpose": "Análisis de usabilidad y de calidad para la mejora de nuestros servicios"
+      },
+      {
+        "Category": "Usuario que nos contacta",
+        "Purpose": "Responder a los requerimientos del usuario; dar respuesta a dudas, quejas, comentarios o inquietudes relativas a la información incluida en la web, los servicios, el tratamiento de datos personales y otras consultas no sujetas a condiciones de contratación."
+      },
+      {
+        "Category": "Usuario Deportista/Competidor",
+        "Purpose": "Recepción y gestión de inscripciones para competiciones y acciones deportivas"
+      }
+    ],
+    "p7": "Las bases legales se enlazan con las finalidades del punto anterior.",
+    "legal_bases": [
+      {
+        "Category": "Usuario visitante",
+        "baselegitimator": "El consentimiento prestado al aceptar las cookies o al seguir navegando en nuestra página web. (GDPR Art. 6.1.a)"
+      },
+      {
+        "Category": "Usuario que nos contacta",
+        "baselegitimator": "Nuestro interés legítimo en atender las consultas y solicitudes del interesado, justificado por el interés mostrado en contactar y recibir información a una mínima intromisión en su privacidad y la utilización de datos limitados y facilitados por el propio usuario. (GDPR Art. 6.1.a)"
+      },
+      {
+        "Category": "Usuario Deportista/Competidor",
+        "baselegitimator": "Formalización de una inscripción para una competición deportiva específica. En caso de no facilitar los datos necesarios no será posible formalizar la inscripción. (GDPR Art. 6.1.a, 6.1.b y 6.1.c)"
+      }
+    ],
+    "p8": "Datos facilitados voluntariamente por el interesado.",
+    "data_collected": [
+      {
+        "Category": "Usuario visitante",
+        "Datacollect": "IP, datos de navegación."
+      },
+      {
+        "Category": "Usuario que nos contacta",
+        "Datacollect": "Datos facilitados por el interesado (normalmente: nombre, apellidos, correo electrónico y un número de teléfono)."
+      },
+      {
+        "Category": "Usuario Deportista/Competidor",
+        "Datacollect": "Nombre, Apellidos, Nif/Cif, correo electrónico, teléfono."
+      }
+    ],
+    "p9": "Posibles consecuencias de no facilitar dichos datos.",
+    "consequences": [
+      {
+        "Category": "Usuario visitante",
+        "Consequences": "Sin consecuencias"
+      },
+      {
+        "Category": "Usuario que nos contacta",
+        "Consequences": "Si el usuario que nos contacta no nos facilita sus datos, no podremos responder a su(s) consulta(s) de forma adecuada."
+      },
+      {
+        "Category": "Usuario Deportista/Competidor",
+        "Consequences": "Si un interesado en nuestras competiciones y/o eventos deportivos no nos facilita sus datos, no podremos formalizar su inscripción."
+      }
+    ],
+    "p10": "Posibles cesiones de datos a terceros.",
+    "data_sharing": [
+      {
+        "Category": "Usuario visitante",
+        "possibletransfers": "No se recogen datos del usuario visitante"
+      },
+      {
+        "Category": "Usuario que nos contacta",
+        "possibletransfers": "No revelaremos a terceros datos de carácter personal referente a este tipo de usuario sin su consentimiento."
+      },
+      {
+        "Category": "Usuario Deportista/Competidor",
+        "possibletransfers": "No revelaremos a terceros datos de carácter personal referente a este tipo de usuario sin su consentimiento, salvo obligación legal o lo solicite una autoridad competente."
+      }
+    ],
+    "p11": "Transferencias Internacionales.",
+    "international_transfers": [
+      {
+        "Category": "Usuario visitante",
+        "internationaltransfer": "No se recogen datos del usuario visitante"
+      },
+      {
+        "Category": "Usuario que nos contacta",
+        "internationaltransfer": "No se realiza ninguna transferencia de datos personales a un tercer país u organización internacional"
+      },
+      {
+        "Category": "Usuario Deportista/Competidor",
+        "internationaltransfer": "No se realiza ninguna transferencia de datos personales a un tercer país u organización internacional"
+      }
+    ],
+    "p12": "Plazos de conservación.",
+    "data_retention": [
+      {
+        "Category": "Usuario visitante",
+        "deadlinesConservation": "No se almacenan datos del usuario visitante"
+      },
+      {
+        "Category": "Usuario que nos contacta",
+        "deadlinesConservation": "Serán conservados el tiempo necesario para cumplir la finalidad de su recogida."
+      },
+      {
+        "Category": "Usuario Deportista/Competidor",
+        "deadlinesConservation": "Serán conservados el tiempo necesario para cumplir la finalidad de su recogida, aunque tendremos que conservar cierta información durante más tiempo por motivos legales, fiscales o reguladores o por fines comerciales legítimos y legales."
+      }
+    ]
+  },
+  "Otheraspectsdataaccession": {
+    "title": "Otros aspectos con la cesión de datos",
+    "p1": "Por regla general, los datos que usted nos facilita no son revelados a terceros sin su consentimiento, salvo obligación legal, por ejemplo: en caso de una citación judicial o una solicitud de un organismo gubernamental, o si creemos de buena fe que dicha acción es necesaria para a) cumplir con una obligación jurídica; b) proteger o defender nuestros derechos, intereses o propiedades, o los de un tercero; c) prevenir o investigar ilícitos potenciales en relación con los Servicios; d) actuar en circunstancias de urgencia para proteger su seguridad personal; o e) resguardar contra responsabilidades jurídicas."
+  },
+  "Storage": {
+    "title": "Almacenamiento",
+    "p1": "Podemos almacenar sus datos o transferirlos a un tercero que los almacenará de conformidad con esta Política de privacidad. Adoptamos las medidas que consideramos razonables para proteger los datos personales contra pérdida, mal uso, uso no autorizado, acceso no autorizado, divulgación involuntaria, modificación y destrucción. Sin embargo, no existen redes, servidores, bases de datos ni transmisiones por Internet o correo electrónico completamente seguras o exentas de errores.",
+    "p2": "En el caso de que se produzca una violación de la seguridad de los datos que se encuentran bajo nuestra custodia, tomaremos todas las medidas necesarias para mitigar sus consecuencias y notificaremos este hecho a la Autoridad de Control, juntamente con toda la información relevante para la documentación y comunicación de la incidencia."
+  },
+  "Consents": {
+    "title": "Consentimientos",
+    "p1": "El consentimiento del interesado, atendiendo a lo que enuncia la normativa de protección de datos, se trata de una comunicación libre por parte del interesado por la cual acepta que se traten sus datos, para una finalidad concreta, bajo unas determinadas condiciones, de las cuales tiene que estar previamente informado."
+  },
+  "Maymodifyorwithdrawconsents": {
+    "title": "¿Puede modificar o retirar sus consentimientos cuando quiera?",
+    "p1": "Por supuesto que sí. La información de los tratamientos que ha consentido estará siempre accesible. Podrá modificarla o retirarla siempre que quiera a través de nuestro correo electrónico.",
+    "p2": "Así mismo, puede darse de baja de nuestra BBDD en el momento que lo desee, enviándonos un mail a: <2>support@oreplay.es</2>"
+  },
+  "Automateddecisions": {
+    "title": "Decisiones automatizadas",
+    "p1": "EL SERVICIO no adopta decisión alguna basada únicamente en el tratamiento automatizado de sus datos."
+  },
+  "Statisticalstudies": {
+    "title": "Estudios estadísticos",
+    "p1": "EL SERVICIO no realiza estudios con fines científicos, históricos y estadísticos en cuyo caso se procurará la disociación del dato al objeto del estudio para preservar su confidencialidad."
+  },
+  "Personaldataviolationnotice": {
+    "title": "Aviso de violación de datos personales o brechas de seguridad",
+    "p1": "La violación de datos personales supone una brecha de la seguridad de los sistemas de información DEL SERVICIO que provoca o puede provocar la destrucción, alteración, pérdida, divulgación no autorizada o acceso, accidental o no, a los datos personales transmitidos, almacenados o procesados relacionados con la prestación de nuestros servicios.",
+    "p2": "Para el caso de que los datos personales que almacenamos y/o tratamos en EL SERVICIO se vean comprometidos de alguna forma, procederemos a notificar oportunamente a los afectados, y conforme a lo dispuesto en el artículo 33 del RGPD."
+  },
+  "Dataprotectionrights": {
+    "title": "Derechos de protección de datos",
+    "p1": "Los usuarios podrán dirigir una comunicación por escrito al domicilio social DEL SERVICIO o a la dirección de correo electrónico indicada en el encabezamiento de este Aviso Legal, incluyendo en ambos casos fotocopia de su DNI u otro documento identificativo similar, para solicitar el ejercicio de los derechos siguientes:",
+    "list": {
+      "item1": "Derecho a solicitar el acceso a los datos personales: usted podrá preguntarnos si estamos tratando sus datos;",
+      "item2": "Derecho a solicitar su rectificación (en caso de que sean incorrectos) o supresión (cuando los datos personales ya no sean necesarios en relación con los fines para los que fueron recogidos o tratados de otro modo).",
+      "item3": "Derecho a solicitar la limitación o cancelación de su tratamiento, en cuyo caso únicamente serán conservados por nosotros para el ejercicio o la defensa de reclamaciones;",
+      "item4": "Derecho a oponerse al tratamiento: Nosotros dejaremos de tratar los datos en la forma que usted indique, salvo que por motivos legítimos imperiosos o el ejercicio o la defensa de posibles reclamaciones se tengan que seguir tratando;",
+      "item5": "Derecho a la portabilidad de los datos: en caso de que quiera que sus datos sean tratados por otra firma, nosotros le facilitaremos la portabilidad de sus datos a cualquier otra empresa que nos indique en un formato estructurado, inteligible y automatizado."
+    },
+    "p2": "Estos derechos son personalísimos y serán ejercidos por el interesado, sin otras limitaciones que las que prevea la legislación aplicable. Podrá, no obstante, actuar el representante legal del usuario interesado cuando éste se encuentre en situación de incapacidad o minoría de edad que le imposibilite el ejercicio personal de los mismos. El ejercicio de sus derechos se hará efectivo por el responsable del Tratamiento dentro de treinta días siguientes al de la recepción de la solicitud. En el supuesto de que el responsable del Tratamiento considere que no procede acceder a lo solicitado, se lo comunicará motivadamente y dentro del plazo señalado en este apartado. En los casos en que, siendo procedente la cancelación de los datos, no sea posible su extinción física, tanto por razones técnicas como por causa del soporte informático utilizado, nosotros procederemos al bloqueo de estos con el fin de impedir su utilización, hasta su completa eliminación de los sistemas de información."
+  },
+  "Childrendatacollection": {
+    "title": "Recogida de datos de menores",
+    "p1": "EL SERVICIO no autoriza a los menores de 14 años a facilitar sus datos personales, ya sea mediante la cumplimentación de los formularios web habilitados para la solicitud de servicios, los formularios de contacto, o mediante el envío de correos electrónicos. Si tenemos conocimiento de que un niño menor de 14 años nos proporcionó información personal, tomaremos medidas para eliminar esa información. Si usted cree que un niño menor de 14 años nos proporcionó información personal, escriba al correo <2>support@oreplay.es</2> con los detalles y tomaremos las medidas necesarias para eliminar la información que tenemos sobre ese niño."
+  },
+  "Specialdataandconvictions": {
+    "title": "Tratamientos de categorias especiales de datos personales y datos personales relativos a condenas e infracciones penales",
+    "p1": "En la formalización de los campos de texto libre no se permite la introducción de información personal relativa a datos personales que revelen el origen étnico o racial, las opiniones políticas, las convicciones religiosas o filosóficas, o la afiliación sindical, y el tratamiento de datos genéticos, datos biométricos dirigidos a identificar de manera unívoca a una persona física, datos relativos a la salud o datos relativos a la vida sexual o las orientaciones sexuales de una persona física, así como datos personales relativos a condenas e infracciones penales. En caso de introducir alguna información relativa a los aspectos mencionados en cualquiera de nuestros formularios o a través del correo electrónico, serán inmediatamente borrados de nuestros sistemas de información sin poder atender la consulta realizada, ya que tales datos no son necesarios ni pertinentes para las finalidades determinadas en los tratamientos de esta Web."
+  },
+  "Imageswebsiteimages": {
+    "title": "Imágenes presentes en el sitio web",
+    "p1": "EL SERVICIO, a través del sitio web, ofrece información sobre numerosos eventos, actividades, etc., que suponen la participación de la ciudadanía. En algunas ocasiones, la información facilitada se acompaña de fotografías o vídeos en los que pueden visualizarse imágenes de personas identificadas o identificables que, formando parte de la divulgación de la noticia o evento, no se difunden de manera intencionada. En caso de que el usuario se reconozca en alguna de estas fotografías y no desee aparecer en las mismas, rogamos nos lo comunique a través de la dirección de correo <2>support@oreplay.es</2>, adjuntando copia de documento acreditativo de su identidad, y referenciando el apartado del sitio web en el que se encuentra la imagen o vídeo en el que aparece. En el caso de menores de 16 años, la solicitud debe realizarla padre, madre o tutor legal del menor."
+  },
+  "Complaintenforcementauthority": {
+    "title": "Reclamación ante la autoridad de control",
+    "p1": "Si usted considera que hay un problema con la forma en la que estamos manejando sus datos, podrá dirigir sus reclamaciones a la autoridad de protección de datos que corresponda, siendo la Agencia Española de Protección de Datos la indicada en el caso de España. (<2>www.agpd.es</2>)",
+    "p2": "O-REPLAY ha adecuado esta web a las exigencias del Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas (RGPD), la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), así como con la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSICE o LSSI)."
+  },
+  "Rights": {
+    "footer": "© Todos los derechos reservados: O-REPLAY"
+  }
+}
