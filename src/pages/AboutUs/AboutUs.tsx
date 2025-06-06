@@ -223,6 +223,10 @@ export default function AboutUs() {
             <Typography component="span" sx={styles.authorsNames}>
               name
             </Typography>
+            ,
+            <Typography component="span" sx={styles.authorsNames}>
+              name
+            </Typography>
             , and
             <Typography component="span" sx={styles.authorsNames}>
               name
