@@ -325,9 +325,7 @@ function PrivacyPolicy() {
                 <TableCell
                   sx={{ width: 400, maxWidth: 400, whiteSpace: "normal", wordWrap: "break-word" }}
                 >
-                  <strong>
-                    {t("Howweuseyourdata.tableHeaders.internationaltransfer")}
-                  </strong>
+                  <strong>{t("Howweuseyourdata.tableHeaders.internationaltransfer")}</strong>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -342,9 +340,7 @@ function PrivacyPolicy() {
                   <TableCell
                     sx={{ width: 400, maxWidth: 400, whiteSpace: "normal", wordWrap: "break-word" }}
                   >
-                    {t(
-                      `Howweuseyourdata.international_transfers.${i}.internationaltransfer`,
-                    )}
+                    {t(`Howweuseyourdata.international_transfers.${i}.internationaltransfer`)}
                   </TableCell>
                 </TableRow>
               ))}
@@ -450,7 +446,7 @@ function PrivacyPolicy() {
           />
         </Typography>
         <Typography align="justify">{t("Complaintenforcementauthority.p2")}</Typography>
-        <Typography align="center" variant="body2" sx={{ marginTop: 4, marginBottom: 4 }}>
+        <Typography align="center" variant="body2" sx={{ marginTop: 5, marginBottom: 5 }}>
           {t("Rights.footer")}
         </Typography>
       </Container>
