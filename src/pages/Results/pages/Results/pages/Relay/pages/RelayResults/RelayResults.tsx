@@ -8,15 +8,18 @@ import GeneralErrorFallback from "../../../../../../../../components/GeneralErro
 import RelayResultItem from "./components/RelayResultItem.tsx"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import RelayResultContainer from "./components/RelayResultContainer.tsx"
+import RelayVirtualTicket from "./components/RelayVirtualTicket/RelayVirtualTicket.tsx"
+import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
 
-export default function RelayResults(
-  props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
-) {
+interface RelayResultProps
+  extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
+  setClassClubId: (classOrClubId: string, isClass: boolean) => void
+}
+
+export default function RelayResults(props: RelayResultProps) {
   const runnersList = props.runnersQuery.data
 
-  // @ts-expect-error TS6133: variable is declared but never used
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleRowClick = (runner: ProcessedRunnerModel) => {}
+  const [isTicketOpen, selectedRunner, handleRowClick, handleCloseTicket] = useVirtualTicket()
 
   if (!props.activeItem) {
     return <ChooseClassMsg />
@@ -34,6 +37,12 @@ export default function RelayResults(
             <RelayResultItem key={runner.id} runner={runner} handleRowClick={handleRowClick} />
           ))}
         </RelayResultContainer>
+        <RelayVirtualTicket
+          isTicketOpen={isTicketOpen}
+          runner={selectedRunner}
+          handleCloseTicket={handleCloseTicket}
+          setClassClubId={props.setClassClubId}
+        />
       </>
     )
   }

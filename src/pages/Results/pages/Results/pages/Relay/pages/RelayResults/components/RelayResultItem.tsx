@@ -13,6 +13,7 @@ import RelayResultLegItem from "./RelayResultLegItem.tsx"
 
 export default function RelayResultItem({
   runner,
+  handleRowClick,
 }: {
   runner: ProcessedRunnerModel
   handleRowClick: (runner: ProcessedRunnerModel) => void
@@ -22,7 +23,10 @@ export default function RelayResultItem({
   const hasChipDownload = hasChipDownloadFunction(runner)
 
   return (
-    <Box sx={{ display: "table-row", borderBottom: "1px solid #f2f2f2" }}>
+    <Box
+      sx={{ display: "table-row", borderBottom: "1px solid #f2f2f2" }}
+      onClick={() => handleRowClick(runner)}
+    >
       <Box sx={{ display: "table-cell", padding: "12px 2px" }}>
         <RacePosition
           position={runner.stage.position}
