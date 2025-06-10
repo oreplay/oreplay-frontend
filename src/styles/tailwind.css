@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: oklch(0.7105 0.1952 46.66); /* #ff710a */
+  --secondary: oklch(0.3832 0.1344 316.16); /* #5e2572 */
+  --tertiary: oklch(0.5032 0 0); /* #646464 */
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+}
