@@ -84,6 +84,7 @@ export default function Relay() {
           runnersQuery={runnersQueryByClasses}
           activeItem={activeItem}
           isClass={isClass}
+          setClassClubId={setClassClubId}
         />
         <RelayLegs runnersQuery={runnersQueryByClasses} activeItem={activeItem} isClass={isClass} />
       </ResultTabs>
