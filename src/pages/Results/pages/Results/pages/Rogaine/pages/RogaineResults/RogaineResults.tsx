@@ -19,9 +19,12 @@ import { runnerService } from "../../../../../../../../domain/services/RunnerSer
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../shared/functions.ts"
 import RacePosition from "../../../../../../components/RacePosition..tsx"
 
-export default function RogainePoints(
-  props: ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>>,
-) {
+interface RogainePointsProps
+  extends ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>> {
+  setClassClubId: (newClassOrClubId: string, isClass: boolean) => void
+}
+
+export default function RogainePoints(props: RogainePointsProps) {
   const { t } = useTranslation()
 
   const [isVirtualTicketOpen, selectedRunner, handleRowClick, handleCloseVirtualTicket] =
@@ -106,6 +109,7 @@ export default function RogainePoints(
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
+          setClassClubId={props.setClassClubId}
         />
       </ResultListContainer>
     )
