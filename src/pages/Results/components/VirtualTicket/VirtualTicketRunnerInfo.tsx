@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import { ProcessedRunnerModel } from "./shared/EntityTypes.ts"
 import Grid from "@mui/material/Grid"
 import { Box, Link, SxProps, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
+import { VirtualTicketContext } from "./shared/context.tsx"
 
 type VirtualTicketRunnerInfoProps = {
   runner: ProcessedRunnerModel
@@ -25,6 +26,20 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({
     textDecoration: "none",
   }
 
+  // Click handlers
+  const { handleClose } = useContext(VirtualTicketContext)
+  const handleClassClick = () => {
+    setClassClubId(runner.class.id, true)
+    handleClose()
+  }
+  const handleClubClick = () => {
+    if (runner.club) {
+      setClassClubId(runner.club.id, false)
+      handleClose()
+    }
+  }
+
+  // Actual compontet
   return (
     <Grid item xs={12} sx={{ mb: 1 }}>
       <Typography sx={{ fontWeight: "bold" }}>{`${runner.full_name}`}</Typography>
@@ -43,11 +58,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({
               backgroundColor: runner.club ? "#fffbf0" : undefined,
             },
           }}
-          onClick={
-            runner.club
-              ? () => setClassClubId(runner.club?.id ? runner.club.id : "", false) // the inner ternary operator is for type safety
-              : undefined
-          }
+          onClick={handleClubClick}
         >
           {runner.club ? `${runner.club.short_name}` : t("ResultsStage.NoClubMsg")}
         </Link>
@@ -59,7 +70,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({
               backgroundColor: "#fffbf0",
             },
           }}
-          onClick={() => setClassClubId(runner.class.id, true)}
+          onClick={handleClassClick}
         >
           {runner.class.short_name}
         </Link>
