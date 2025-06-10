@@ -3,6 +3,7 @@ import React from "react"
 import CloseIcon from "@mui/icons-material/Close"
 import { ProcessedRunnerModel } from "./shared/EntityTypes.ts"
 import ExperimentalFeatureAlert from "../../../../components/ExperimentalFeatureAlert.tsx"
+import { VirtualTicketContext } from "./shared/context.tsx"
 
 export interface VirtualTicketProps {
   isTicketOpen: boolean
@@ -60,7 +61,11 @@ export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({
           <ExperimentalFeatureAlert />
           {runner ? (
             <Grid container spacing={1}>
-              {children}
+              <VirtualTicketContext.Provider
+                value={{ isOpen: isTicketOpen, handleClose: handleCloseTicket }}
+              >
+                {children}
+              </VirtualTicketContext.Provider>
             </Grid>
           ) : (
             ""
