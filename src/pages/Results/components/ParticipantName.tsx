@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material"
-import React from "react"
 
 interface ParticipantNameProps {
   name: string
@@ -7,11 +6,7 @@ interface ParticipantNameProps {
   color?: string
 }
 
-const ParticipantName: React.FC<ParticipantNameProps> = ({
-  name,
-  subtitle = "",
-  color = "inherit",
-}) => {
+const ParticipantName = ({ name, subtitle = "", color = "inherit" }: ParticipantNameProps) => {
   return (
     <Box
       sx={{
