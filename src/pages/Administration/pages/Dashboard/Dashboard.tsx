@@ -23,7 +23,7 @@ export default function Dashboard() {
   const { t } = useTranslation()
   const { user, token } = useAuth()
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const rowsPerPage = 5
+  const rowsPerPage = 15
   const [totalRows, setTotalRows] = useState<number>(0)
   const [page, setPage] = useState<number>(0)
   const navigate = useNavigate()
