@@ -44,7 +44,7 @@ export default function TotalsResultItem({
         <ParticipantName name={runner.full_name} subtitle={runnerService.getClubName(runner, t)} />
         <FlexCol flexGrow={1}>
           <Typography>
-            {result.time_seconds ? parseSecondsToMMSS(result.time_seconds) : "null"}
+            {result.time_seconds ? parseSecondsToMMSS(result.time_seconds) : ""}
           </Typography>
           <Typography>{result.points_final}</Typography>
         </FlexCol>

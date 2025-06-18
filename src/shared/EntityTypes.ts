@@ -163,9 +163,15 @@ export interface OverallsModel {
   overall: OverallModel
 }
 
+export interface StageOrder {
+  id: string
+  description: string
+}
+
 export interface OverallModel {
   id: string
   stage_order: number | null
+  stage?: StageOrder | null
   position: number | null
   time_seconds: number | null
   points_final: number | null
