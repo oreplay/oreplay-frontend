@@ -1,7 +1,7 @@
 {
   "header": "POLÍTICA DE PROTECCIÓN DE DATOS",
-  "subtitle": "Última modificación: 05/06/2025",
-  "p1": "Gracias por visitar este sitio web. Lee detenidamente los Términos y Condiciones que constan en este documento, ya que el uso de este sitio web implica la expresa y plena aceptación de estos, en la versión publicada en el momento en que accedes al mismo. Le recomendamos que lea atentamente este documento cada vez que acceda al sitio web para comprobar si ha habido cambios en las condiciones de uso y lo abandone si no está de acuerdo con dichos cambios. Si creemos que ciertas modificaciones son importantes, actualizaremos la fecha de “Última modificación” en la parte superior de esta página. Usted será el responsable de revisar y familiarizarse con cualquier modificación realizada.",
+  "subtitle": "Última modificación: 23/06/2025",
+  "p1": "Gracias por visitar este sitio web. Lee detenidamente los Términos y Condiciones que constan en este documento, ya que el uso de este sitio web implica la expresa y plena aceptación de estos en la versión publicada en el momento en que accedes al mismo. Le recomendamos que lea atentamente este documento cada vez que acceda al sitio web para comprobar si ha habido cambios en las condiciones de uso y lo abandone si no está de acuerdo con dichos cambios. Si creemos que ciertas modificaciones son importantes, actualizaremos la fecha de “Última modificación” en la parte superior de esta página. Usted será el responsable de revisar y familiarizarse con cualquier modificación realizada.",
   "Identification": {
     "title": "Identificación",
     "p1": "En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico con la legislación vigente en materia de protección de datos, en concreto, la Ley orgánica 3/2018, de 5 de diciembre, de protección de datos personales y garantía de los derechos digitales (LOPDDGG) que hace plenamente efectiva la aplicación del Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas en el que respeta al tratamiento de datos personales y a la libre circulación de estos datos (RGPD)."
@@ -18,10 +18,9 @@
     "title": "Comunicación",
     "p1": "Para contactar con nosotros para cualquier cuestión que haga referencia al tratamiento de datos personales, ponemos a su disposición diferentes medios de contacto que detallamos a continuación:",
     "contact": {
-      "email": "<2>support@oreplay.es</2>",
-      "website": "<2>www.oreplay.es</2>"
+      "email": "<2>support@oreplay.es</2>"
     },
-    "p2": "Todas las notificaciones y comunicaciones facilitadas en este apartado se considerarán eficaces cuando se realicen a través de cualquiera de los medios detallados anteriormente. Nosotros entendemos que la privacidad y la seguridad de su información personal son extremadamente importantes..."
+    "p2": "Todas las notificaciones y comunicaciones facilitadas en este apartado se considerarán eficaces cuando se realicen a través de cualquiera de los medios detallados anteriormente. Nosotros entendemos que la privacidad y la seguridad de su información personal son extremadamente importantes."
   },
   "Registrationregulation": {
     "title": "¿Qué es el nuevo Reglamento de Protección de Datos?",
@@ -33,7 +32,7 @@
   },
   "Changesforuser": {
     "title": "¿Qué cambios va a suponer para usted?",
-    "p1": "La normativa europea añade nuevos derechos a los recogidos en la actual normativa española. Por este motivo, debemos actualizar información a su disposición sobre las medidas de protección de datos nuestro EL SERVICIO. También solicitaremos su autorización para poder tratar sus datos en algunos casos nuevos. De este modo, podremos ofrecerles un servicio más adaptado a sus necesidades."
+    "p1": "La normativa europea añade nuevos derechos a los recogidos en la actual normativa española. Por este motivo, debemos actualizar la información a su disposición sobre las medidas de protección de datos nuestro. También, solicitaremos su autorización para poder tratar sus datos en algunos casos nuevos. De este modo, podremos ofrecerles un servicio más adaptado a sus necesidades."
   },
   "Securitymeasures": {
     "title": "¿Qué medidas hemos tomado para asegurar la confidencialidad, integridad y seguridad de sus datos?",
@@ -72,7 +71,7 @@
     "title": "Cómo utilizamos tus datos",
     "p1": "Podemos utilizar sus datos personales de la siguiente manera: la información que usted nos proporcione nos podrá ayudar en la toma de decisiones, a responder solicitudes, mejorar los servicios, detectar nuevas necesidades, generar promociones, entender sus expectativas y proporcionarle un mejor servicio. También podremos utilizar sus datos para las siguientes gestiones.",
     "p2": "Razón específica: Si proporciona sus datos personales para un fin en concreto, los utilizaremos para lo relacionado con el fin para el cual se proporcionaron. Por ejemplo, si usted se pone en contacto con nosotros por correo electrónico, utilizaremos los datos personales que nos facilite para responder a su pregunta o solucionar el problema, y responderemos a la dirección de correo electrónico desde la que se envió el mensaje.",
-    "p3": "Fines internos. Podemos usar sus datos personales para fines internos como, por ejemplo, para basarnos en ellos con el fin de mejorar el contenido y la funcionalidad de los servicios, comprender mejor la necesidad de nuestros clientes, mejorar los servicios, proteger, identificar o abordar actividades fraudulentas, reforzar nuestros términos de servicio, gestionar su cuenta y proporcionarle servicio de atención al cliente y, de manera general, gestionar los servicios y nuestra actividad comercial, entre otros.",
+    "p3": "Fines internos. Podemos usar sus datos personales para fines internos como, por ejemplo, para basarnos en ellos con el fin de mejorar el contenido y la funcionalidad de los servicios, comprender mejor la necesidad de nuestros usuarios, mejorar los servicios, proteger, identificar o abordar actividades fraudulentas, reforzar nuestros términos de servicio, gestionar su cuenta y proporcionarle servicio de atención al usuario y, de manera general, gestionar los servicios entre otros.",
     "p4": "Comunicaciones comerciales. Siempre que contemos con su consentimiento expreso (que se obtendrá mediante una casilla exclusiva presente en nuestros formularios), podremos usar sus datos personales para ponernos en contacto con usted en el futuro para la realización de acciones comerciales que puedan ser de su interés, siempre relacionadas con los productos y/o servicios que ofrece EL SERVICIO. En cualquier caso, usted siempre tendrá disponible la opción “dejar de recibir” estos mensajes electrónicos en la parte inferior de dichos mensajes o notificarlo a nosotros enviando un correo electrónico a la siguiente dirección: <2>support@oreplay.es</2> Sin embargo, usted podrá seguir recibiendo avisos y correos electrónicos siempre que sean necesarios y esenciales para el mantenimiento de nuestras transacciones contractuales. De acuerdo con la Ley 34/2002, de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico. (LSSICE) EL SERVICIO no realiza prácticas de SPAM y se compromete a no enviar comunicaciones de carácter comercial sin identificarlas debidamente.",
     "p5": "Le rogamos tenga en cuenta que, aunque decida no suscribirse o se dé de baja de las comunicaciones electrónicas promocionales o comerciales puede que EL SERVICIO siga necesitando contactar con usted como Usuario con información importante sobre transacciones relativas a su cuenta y a sus compras de productos, reserva de actividades o contratación de otros servicios.",
     "p6": "A continuación, explicamos de forma más detallada qué tipos de datos se recogen y se tratan y cuáles son sus finalidades:",
@@ -96,8 +95,8 @@
         "Purpose": "Responder a los requerimientos del usuario; dar respuesta a dudas, quejas, comentarios o inquietudes relativas a la información incluida en la web, los servicios, el tratamiento de datos personales y otras consultas no sujetas a condiciones de contratación."
       },
       {
-        "Category": "Usuario Deportista/Competidor",
-        "Purpose": "Recepción y gestión de inscripciones para competiciones y acciones deportivas"
+        "Category": "Organizador de evento",
+        "Purpose": "Gestión, análisis y difusión de los resultados e información relacionada de su evento o competción deportiva"
       }
     ],
     "p7": "Las bases legales se enlazan con las finalidades del punto anterior.",
@@ -111,8 +110,8 @@
         "baselegitimator": "Nuestro interés legítimo en atender las consultas y solicitudes del interesado, justificado por el interés mostrado en contactar y recibir información a una mínima intromisión en su privacidad y la utilización de datos limitados y facilitados por el propio usuario. (GDPR Art. 6.1.a)"
       },
       {
-        "Category": "Usuario Deportista/Competidor",
-        "baselegitimator": "Formalización de una inscripción para una competición deportiva específica. En caso de no facilitar los datos necesarios no será posible formalizar la inscripción. (GDPR Art. 6.1.a, 6.1.b y 6.1.c)"
+        "Category": "Organizador de evento",
+        "baselegitimator": "Subida de resultados y otros datos a nuestra plataforma. Mantener el registro de la personas responsable de la subida de datos a terceros a nuestra plataforma  (GDPR Art. 6.1.a, 6.1., 6.1.c y 6.1.d)"
       }
     ],
     "p8": "Datos facilitados voluntariamente por el interesado.",
@@ -126,8 +125,8 @@
         "Datacollect": "Datos facilitados por el interesado (normalmente: nombre, apellidos, correo electrónico y un número de teléfono)."
       },
       {
-        "Category": "Usuario Deportista/Competidor",
-        "Datacollect": "Nombre, Apellidos, Nif/Cif, correo electrónico, teléfono."
+        "Category": "Organizador de evento",
+        "Datacollect": "Nombre, Apellidos, correo electrónico, club."
       }
     ],
     "p9": "Posibles consecuencias de no facilitar dichos datos.",
@@ -141,8 +140,8 @@
         "Consequences": "Si el usuario que nos contacta no nos facilita sus datos, no podremos responder a su(s) consulta(s) de forma adecuada."
       },
       {
-        "Category": "Usuario Deportista/Competidor",
-        "Consequences": "Si un interesado en nuestras competiciones y/o eventos deportivos no nos facilita sus datos, no podremos formalizar su inscripción."
+        "Category": "Organizador de evento",
+        "Consequences": "Si un interesado en nuestra plataforma no nos facilita sus datos, no podremos formalizar permitirle el acceso y/o subida de datos."
       }
     ],
     "p10": "Posibles cesiones de datos a terceros.",
@@ -156,7 +155,7 @@
         "possibletransfers": "No revelaremos a terceros datos de carácter personal referente a este tipo de usuario sin su consentimiento."
       },
       {
-        "Category": "Usuario Deportista/Competidor",
+        "Category": "Organizador de evento",
         "possibletransfers": "No revelaremos a terceros datos de carácter personal referente a este tipo de usuario sin su consentimiento, salvo obligación legal o lo solicite una autoridad competente."
       }
     ],
@@ -171,7 +170,7 @@
         "internationaltransfer": "No se realiza ninguna transferencia de datos personales a un tercer país u organización internacional"
       },
       {
-        "Category": "Usuario Deportista/Competidor",
+        "Category": "Organizador de evento",
         "internationaltransfer": "No se realiza ninguna transferencia de datos personales a un tercer país u organización internacional"
       }
     ],
@@ -186,7 +185,7 @@
         "deadlinesConservation": "Serán conservados el tiempo necesario para cumplir la finalidad de su recogida."
       },
       {
-        "Category": "Usuario Deportista/Competidor",
+        "Category": "Organizador de evento",
         "deadlinesConservation": "Serán conservados el tiempo necesario para cumplir la finalidad de su recogida, aunque tendremos que conservar cierta información durante más tiempo por motivos legales, fiscales o reguladores o por fines comerciales legítimos y legales."
       }
     ]
@@ -215,7 +214,7 @@
   },
   "Statisticalstudies": {
     "title": "Estudios estadísticos",
-    "p1": "EL SERVICIO no realiza estudios con fines científicos, históricos y estadísticos en cuyo caso se procurará la disociación del dato al objeto del estudio para preservar su confidencialidad."
+    "p1": "EL SERVICIO puede realizar estudios con fines científicos, históricos y estadísticos en cuyo caso se procurará la disociación del dato al objeto del estudio para preservar su confidencialidad."
   },
   "Personaldataviolationnotice": {
     "title": "Aviso de violación de datos personales o brechas de seguridad",
@@ -244,7 +243,7 @@
   },
   "Imageswebsiteimages": {
     "title": "Imágenes presentes en el sitio web",
-    "p1": "EL SERVICIO, a través del sitio web, ofrece información sobre numerosos eventos, actividades, etc., que suponen la participación de la ciudadanía. En algunas ocasiones, la información facilitada se acompaña de fotografías o vídeos en los que pueden visualizarse imágenes de personas identificadas o identificables que, formando parte de la divulgación de la noticia o evento, no se difunden de manera intencionada. En caso de que el usuario se reconozca en alguna de estas fotografías y no desee aparecer en las mismas, rogamos nos lo comunique a través de la dirección de correo <2>support@oreplay.es</2>, adjuntando copia de documento acreditativo de su identidad, y referenciando el apartado del sitio web en el que se encuentra la imagen o vídeo en el que aparece. En el caso de menores de 16 años, la solicitud debe realizarla padre, madre o tutor legal del menor."
+    "p1": "EL SERVICIO, a través del sitio web, ofrece información sobre numerosos eventos, actividades, etc., que suponen la participación de la ciudadanía. En algunas ocasiones, la información facilitada se acompaña de enlaces a fotografías o vídeos en los que pueden visualizarse imágenes de personas identificadas o identificables que, formando parte de la divulgación de la noticia o evento, no se difunden de manera intencionada. No controlamos ni tomamos responsabilidad sobre el contenido enlazado desde nuestra página."
   },
   "Complaintenforcementauthority": {
     "title": "Reclamación ante la autoridad de control",
