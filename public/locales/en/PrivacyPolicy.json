@@ -1,6 +1,6 @@
 {
   "header": "DATA PROTECTION POLICY",
-  "subtitle": "Last modified: 5th June 2025",
+  "subtitle": "Last modified: 23th June 2025",
   "p1": "Thank you for visiting this website. Please read the Terms and Conditions contained in this document carefully, as your use of this website implies your express and full acceptance of these, as published at the time you access the website. We recommend that you read this document carefully each time you access the website to check if there have been changes in the terms of use and leave the website if you do not agree with such changes. If we believe that certain modifications are important, we will update the ‘Last Modified’ date at the top of this page. You are responsible for reviewing and familiarising yourself with any modifications made.",
   "Identification": {
     "title": "Identification",
@@ -18,10 +18,9 @@
     "title": "Communication",
     "p1": "To contact us for any question regarding the processing of personal data, we provide you with the following means of contact:",
     "contact": {
-      "email": "<2>support@oreplay.es</2>",
-      "website": "<2>www.oreplay.es</2>"
+      "email": "<2>support@oreplay.es</2>"
     },
-    "p2": "All notices and communications provided in this section will be deemed effective when made by any of the means set out above. We understand that the privacy and security of your personal information is extremely important..."
+    "p2": "All notices and communications provided in this section will be deemed effective when made by any of the means set out above. We understand that the privacy and security of your personal information is extremely important."
   },
   "Registrationregulation": {
     "title": "What is the new Data Protection Regulation?",
@@ -71,9 +70,9 @@
   "Howweuseyourdata": {
     "title": "How we use your data",
     "p1": "We may use your personal information in the following ways: the information you provide may help us make decisions, respond to requests, improve services, identify new needs, generate promotions, understand your expectations and provide you with better service. We may also use your information for the following purposes.",
-    "p2": "Specific Reason: If you provide your personal information for a specific purpose, we will use it for the purpose for which it was provided.For example, if you contact us by e-mail, we will use the personal information you provide to respond to your inquiry or troubleshoot the problem, and we will respond to the e-mail address from which the message was sent.",
-    "p3": "Internal purposes. We may use your personal data for internal purposes such as, but not limited to, relying on it to improve the content and functionality of the Services, better understand our customers' needs, improve the Services, protect, identify or address fraudulent activity, enforce our Terms of Service, manage your account and provide you with customer service, and generally manage the Services and our business, among other things.",
-    "p4": "Commercial communications.Provided that we have your express consent (which will be obtained through an exclusive box present in our forms), we may use your personal data to contact you in the future for the performance of commercial actions that may be of interest to you, always related to the products and/or services offered by THE SERVICE. In any case, you will always have available the option to “stop receiving” these emails at the bottom of such emails or notify us by sending an email to the following address: <2>support@oreplay.es</2> However, you may continue to receive notices and emails as long as they are necessary and essential for the maintenance of our contractual transactions. In accordance with Law 34/2002, of July 11, 2002, of services of the information society and electronic commerce (LSSICE) THE SERVICE does not engage in SPAM practices and undertakes not to send commercial communications without properly identifying them.",
+    "p2": "Specific Reason: If you provide your personal information for a specific purpose, we will use it for the purpose for which it was provided. For example, if you contact us by e-mail, we will use the personal information you provide to respond to your inquiry or troubleshoot the problem, and we will respond to the e-mail address from which the message was sent.",
+    "p3": "Internal purposes. We may use your personal data for internal purposes such as, but not limited to, relying on it to improve the content and functionality of the Services, better understand our users' needs, improve the Services, protect, identify or address fraudulent activity, enforce our Terms of Service, manage your account and provide you with customer service, and generally manage the Services, among other things.",
+    "p4": "Commercial communications. Provided that we have your express consent (which will be obtained through an exclusive box present in our forms), we may use your personal data to contact you in the future for the performance of commercial actions that may be of interest to you, always related to the products and/or services offered by THE SERVICE. In any case, you will always have available the option to “stop receiving” these emails at the bottom of such emails or notify us by sending an email to the following address: <2>support@oreplay.es</2> However, you may continue to receive notices and emails as long as they are necessary and essential for the maintenance of our contractual transactions. In accordance with Law 34/2002, of July 11, 2002, of services of the information society and electronic commerce (LSSICE) THE SERVICE does not engage in SPAM practices and undertakes not to send commercial communications without properly identifying them.",
     "p5": "Please note that even if you choose not to subscribe or unsubscribe from promotional or commercial electronic communications, THE SERVICE may still need to contact you as a User with important transactional information regarding your account and your purchases of products, booking of activities or contracting of other services.",
     "p6": "Below, we explain in more detail what types of data are collected and processed and for what purposes:",
     "tableHeaders": {
@@ -96,8 +95,8 @@
         "Purpose": "Respond to user requests; respond to doubts, complaints, comments or concerns regarding the information included on the website, services, processing of personal data and other queries not subject to contracting conditions."
       },
       {
-        "Category": "User Athlete/Competitor",
-        "Purpose": "Receipt and management of registrations for competitions and sporting events."
+        "Category": "Event's organizer",
+        "Purpose": "Management, analysis and display of the results and related information for competitions and sporting events."
       }
     ],
     "p7": "The legal bases are linked to the purposes of the previous point.",
@@ -111,8 +110,8 @@
         "baselegitimator": "Our legitimate interest in answering the queries and requests of the interested party, justified by the interest shown in contacting and receiving information at a minimum intrusion in their privacy and the use of limited data provided by the user himself (GDPR Art. 6.1.a)."
       },
       {
-        "Category": "User Athlete/Competitor",
-        "baselegitimator": "Formalization of a registration for a specific sport competition. If you do not provide the necessary data, it will not be possible to complete the registration (GDPR Art. 6.1.a, 6.1.b and 6.1.c)."
+        "Category": "Event's organizer",
+        "baselegitimator": "Upload of result and other data to our platform. Keep track of the person responsible of third parties data uploaded to THE SERVICE (GDPR Art. 6.1.a, 6.1.b, 6.1.c and 6.1.d)."
       }
     ],
     "p8": "Data provided voluntarily by the interested party.",
@@ -126,8 +125,8 @@
         "Datacollect": "Data provided by the interested party (normally: name, surname, e-mail and a telephone number)."
       },
       {
-        "Category": "User Athlete/Competitor",
-        "Datacollect": "Name, Surname, Nif/Cif, e-mail, telephone."
+        "Category": "Event's organizer",
+        "Datacollect": "Name, Surname, e-mail and sport's club."
       }
     ],
     "p9": "Possible consequences of not providing such data.",
@@ -141,8 +140,8 @@
         "Consequences": "If the user who contacts us does not provide us with his/her data, we will not be able to respond to his/her query(s) in an appropriate manner."
       },
       {
-        "Category": "User Athlete/Competitor",
-        "Consequences": "If a person interested in our competitions and/or sporting events does not provide us with his/her data, we will not be able to formalize his/her registration."
+        "Category": "Event's organizer",
+        "Consequences": "If a person interested in using our platform does not provide us with his/her data, we will not be able to give them access and/or allow them to upload data."
       }
     ],
     "p10": "Possible transfers of data to third parties.",
@@ -156,7 +155,7 @@
         "possibletransfers": "We will not disclose personal data concerning this type of user to third parties without your consent."
       },
       {
-        "Category": "User Athlete/Competitor",
+        "Category": "Event's organizer",
         "possibletransfers": "We will not disclose personal data concerning this type of user to third parties without your consent, unless required by law or requested by a competent authority."
       }
     ],
@@ -171,7 +170,7 @@
         "internationaltransfer": "No transfer of personal data to a third country or international organization is made"
       },
       {
-        "Category": "User Athlete/Competitor",
+        "Category": "Organizador de evento",
         "internationaltransfer": "No transfer of personal data to a third country or international organization is made"
       }
     ],
@@ -186,7 +185,7 @@
         "deadlinesConservation": "They will be kept for the time necessary to fulfill the purpose for which they were collected."
       },
       {
-        "Category": "User Athlete/Competitor",
+        "Category": "Event's organizer",
         "deadlinesConservation": "They will be retained for as long as necessary to fulfill the purpose for which they were collected, although we may need to retain certain information longer for legal, tax or regulatory reasons or for legitimate and lawful business purposes."
       }
     ]
@@ -215,7 +214,7 @@
   },
   "Statisticalstudies": {
     "title": "Statistical studies",
-    "p1": "The SERVICE does not carry out studies for scientific, historical and statistical purposes, in which case it will endeavor to dissociate the data from the object of the study in order to preserve its confidentiality."
+    "p1": "The SERVICE may carry out studies for scientific, historical and statistical purposes, in which case it will endeavor to dissociate the data from the object of the study in order to preserve its confidentiality."
   },
   "Personaldataviolationnotice": {
     "title": "Notice of personal data breaches or security breaches",
@@ -244,7 +243,7 @@
   },
   "Imageswebsiteimages": {
     "title": "Images on the website",
-    "p1": "THE SERVICE, through the website, provides information on numerous events, activities, etc., which involve the participation of citizens. On some occasions, the information provided is accompanied by photographs or videos in which images of identified or identifiable persons may be displayed, which, being part of the dissemination of the news or event, are not intentionally disseminated. In the event that the user recognizes himself/herself in any of these photographs and does not wish to appear in them, please inform us through the e-mail address <2>support@oreplay.es</2>, attaching a copy of a document proving his/her identity, and referencing the section of the website in which the image or video in which he/she appears can be found. In the case of minors under 16 years of age, the request must be made by the minor's father, mother or legal guardian."
+    "p1": "THE SERVICE, through the website, provides information on numerous events, activities, etc., which involve the participation of citizens. On some occasions, the information provided may provide links to photographs or videos in which images of identified or identifiable persons may be displayed, which, being part of the dissemination of the news or event, are not intentionally disseminated. We don't control or take responsability for the linked content that is outside of out website."
   },
   "Complaintenforcementauthority": {
     "title": "Complaint to the supervisory authority",

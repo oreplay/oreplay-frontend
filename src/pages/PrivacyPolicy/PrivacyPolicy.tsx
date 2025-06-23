@@ -73,16 +73,6 @@ function PrivacyPolicy() {
             components={{ 2: <Link href="mailto:support@oreplay.es" /> }}
           />
         </Typography>
-        <Typography>
-          ●{" "}
-          <Trans
-            t={t}
-            i18nKey="Communication.contact.website"
-            components={{
-              2: <Link href="https://www.oreplay.es" target="_blank" rel="noopener noreferrer" />,
-            }}
-          />
-        </Typography>
         <Typography align="justify">{t("Communication.p2")}</Typography>
         <Typography variant="h2">{t("Registrationregulation.title")}</Typography>
         <Typography align="justify">{t("Registrationregulation.p1")}</Typography>
