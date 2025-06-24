@@ -11,10 +11,12 @@ import { DateTime } from "luxon"
 export interface ProcessedRunnerModel {
   id: string
   full_name: string
+  sex: string
+  leg_number: number
   bib_number: string
   is_nc: boolean
-  eligibility: string
-  sicard: bigint | null
+  eligibility: string | null
+  sicard: string | null
   class: ClassModel
   runners?: RunnerModel[] | null
   club: ClubModel | null
@@ -30,18 +32,23 @@ export interface ProcessedOverallsModel extends OverallsModel {
 export interface ProcessedOverallModel extends OverallModel {}
 
 export interface ProcessedRunnerResultModel {
+  id: string
   result_type_id: string
   start_time: string | null
   finish_time: string | null
   upload_type: string
-  time_seconds: string
-  position: bigint
+  time_seconds: number
+  position: number
   status_code: string | null
   time_behind: number
-  points_final: bigint
-  points_adjusted: bigint
-  points_penalty: bigint
-  points_bonus: bigint
+  time_neutralization: number
+  time_adjusted: number
+  time_penalty: number
+  time_bonus: number
+  points_final: number
+  points_adjusted: number
+  points_penalty: number
+  points_bonus: number
   leg_number: number
   splits: ProcessedSplitModel[]
 }
@@ -49,7 +56,7 @@ export interface ProcessedRunnerResultModel {
 export interface ProcessedSplitModel {
   id: string
   is_intermediate: boolean
-  reading_time: string
+  reading_time: string | null
   order_number: number | null
   points: number | null
   time: number | null //time in seconds for this split
