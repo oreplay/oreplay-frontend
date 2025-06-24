@@ -40,10 +40,10 @@ export function getPositionOrNc(
  * @param status A valid RUNNER_STATUS
  * @param position Position of the runner. It is used to place runners that have not finished after the finished oned
  */
-function statusOrder(status: string | null, position: bigint) {
+function statusOrder(status: string | null, position: number) {
   switch (status) {
     case RESULT_STATUS.ok:
-      if (position == BigInt(0)) {
+      if (position == 0) {
         return 2
       } else {
         return 0
@@ -95,7 +95,7 @@ export function orderedRunners(runnersList: RunnerModel[]) {
       return statusA - statusB // Smaller status comes first
     }
 
-    // TODO: Propely refactor this function to save logic and work with overalls as well
+    // TODO: Properly refactor this function to save logic and work with overalls as well
     if (
       a.overalls != null &&
       b.overalls != null &&
