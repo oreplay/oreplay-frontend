@@ -60,7 +60,7 @@ export default function FootOStartTime(
                     startTime={runner.stage.start_time}
                     status={parseResultStatus(runner.stage?.status_code as string)}
                   ></StartTime>
-                  <RunnerSicard runner={runner}></RunnerSicard>
+                  <RunnerSicard sicard={runner.sicard}></RunnerSicard>
                 </FlexCol>
               </FlexRow>
               {(runner.runners || [])

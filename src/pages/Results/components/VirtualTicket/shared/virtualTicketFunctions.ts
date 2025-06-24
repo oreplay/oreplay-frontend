@@ -53,7 +53,6 @@ export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[
           cumulative_time: cumulative_time,
           cumulative_behind: null,
           cumulative_position: null,
-          is_intermediate: result.is_intermediate,
         }
       })
 

@@ -105,40 +105,46 @@ export interface OrganizerModel {
 export interface RunnerModel {
   id: string
   full_name: string
+  sex: string
   bib_number: string
   is_nc: boolean
-  eligibility: string
-  sicard: bigint | null
+  eligibility: string | null
+  sicard: string | null
   leg_number: number
   class: ClassModel
   club: ClubModel | null
   stage: RunnerResultModel
   overalls: OverallsModel | null
-  runners: RunnerModel[] | null
+  runners?: RunnerModel[] | null
 }
 
 // Todo: Fusion RunnerResultModel and OverallModel
 export interface RunnerResultModel {
-  is_intermediate: boolean
+  id: string
   result_type_id: string
   start_time: string | null
   finish_time: string | null
   upload_type: string
-  time_seconds: string
-  position: bigint
+  time_seconds: number
+  position: number
   status_code: string | null
   time_behind: number
-  points_final: bigint
-  points_adjusted: bigint
-  points_penalty: bigint
-  points_bonus: bigint
+  time_neutralization: number
+  time_adjusted: number
+  time_penalty: number
+  time_bonus: number
+  points_final: number
+  points_adjusted: number
+  points_penalty: number
+  points_bonus: number
   leg_number: number
   splits: SplitModel[]
 }
 
 export interface SplitModel {
   id: string
-  reading_time: string
+  is_intermediate: boolean
+  reading_time: string | null
   order_number: number | null
   points: number | null
   control: ControlModel
@@ -163,6 +169,10 @@ export interface ControlTypeModel {
 export interface ClassModel {
   id: string
   short_name: string
+  long_name: string
+}
+
+export interface StageClassModel extends ClassModel {
   splits: OnlineControlModel[]
 }
 
