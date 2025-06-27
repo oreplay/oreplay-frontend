@@ -69,7 +69,7 @@ export default function RelayResultItem({
           </Box>
           <Box sx={{ display: "table" }}>
             {runner.runners?.map((legRunner) => (
-              <RelayResultLegItem key={legRunner.id} runner={legRunner} />
+              <RelayResultLegItem key={legRunner.id} legParticipant={legRunner} />
             ))}
           </Box>
         </Box>
