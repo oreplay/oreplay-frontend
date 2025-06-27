@@ -70,9 +70,22 @@ export interface StageTypeModel {
     | "Trail-O"
 }
 
+export enum StateLogConst {
+  CLEAR = 0,
+  START = 1,
+  RESULT = 2,
+  ENDED = 3,
+}
+
+export interface StateLog {
+  state: StateLogConst
+  created: string
+}
+
 export interface StageModel {
   id: string
   description: string
+  last_logs: StateLog[]
   stage_type: StageTypeModel
 }
 
