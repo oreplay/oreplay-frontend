@@ -2050,7 +2050,7 @@ describe("VirtualTicketFunctions.processRunnersData", () => {
                 {
                   id: "string-finishSplit",
                   reading_time: "2001-01-01T09:52:48.000+00:00",
-                  order_number: null,
+                  order_number: Infinity,
                   points: 0,
                   time: 35,
                   time_behind: null,
@@ -2603,7 +2603,7 @@ describe("VirtualTicketFunctions.processRunnersData", () => {
                 {
                   id: "string-finishSplit",
                   reading_time: "2001-01-01T10:17:07.000+00:00",
-                  order_number: null,
+                  order_number: Infinity,
                   points: 0,
                   time: 30,
                   time_behind: null,
@@ -3114,7 +3114,7 @@ describe("VirtualTicketFunctions.processRunnersData", () => {
                 {
                   id: "string-finishSplit",
                   reading_time: "2001-01-01T10:36:26.000+00:00",
-                  order_number: null,
+                  order_number: Infinity,
                   points: 0,
                   time: 35,
                   time_behind: null,
@@ -3541,7 +3541,7 @@ describe("VirtualTicketFunctions.processRunnersData", () => {
                 {
                   id: "string-finishSplit",
                   reading_time: "2001-01-01T10:54:23.000+00:00",
-                  order_number: null,
+                  order_number: Infinity,
                   points: 0,
                   time: 30,
                   time_behind: null,
