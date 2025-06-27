@@ -4,24 +4,31 @@ import {
   ControlModel,
   OverallModel,
   OverallsModel,
-  RunnerModel,
 } from "../../../../../shared/EntityTypes.ts"
 import { DateTime } from "luxon"
 
-export interface ProcessedRunnerModel {
+export interface ProcessedParticipantModel {
   id: string
   full_name: string
-  sex: string
-  leg_number: number
+  sex?: string
   bib_number: string
   is_nc: boolean
   eligibility: string | null
-  sicard: string | null
-  class: ClassModel
-  runners?: RunnerModel[] | null
+  sicard?: string | null
+  leg_number?: number
   club: ClubModel | null
+  class: ClassModel | null
   stage: ProcessedRunnerResultModel
   overalls: ProcessedOverallsModel | null
+}
+
+export interface ProcessedTeamRunnerModel extends ProcessedParticipantModel {
+  leg_number: number
+}
+
+export interface ProcessedRunnerModel extends ProcessedParticipantModel {
+  class: ClassModel
+  runners?: ProcessedTeamRunnerModel[] | null
 }
 
 export interface ProcessedOverallsModel extends OverallsModel {
@@ -49,7 +56,7 @@ export interface ProcessedRunnerResultModel {
   points_adjusted: number
   points_penalty: number
   points_bonus: number
-  leg_number: number
+  leg_number?: number
   splits: ProcessedSplitModel[]
 }
 

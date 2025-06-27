@@ -101,21 +101,28 @@ export interface OrganizerModel {
   region: string
 }
 
-// TODO: Create BaseRunner and properly define runners
-export interface RunnerModel {
+export interface ParticipantModel {
   id: string
   full_name: string
-  sex: string
+  sex?: string
   bib_number: string
   is_nc: boolean
   eligibility: string | null
-  sicard: string | null
-  leg_number: number
-  class: ClassModel
+  sicard?: string | null
+  leg_number?: number
+  class: ClassModel | null
   club: ClubModel | null
   stage: RunnerResultModel
   overalls: OverallsModel | null
-  runners?: RunnerModel[] | null
+}
+
+export interface TeamRunner extends ParticipantModel {
+  leg_number: number
+}
+
+export interface RunnerModel extends ParticipantModel {
+  class: ClassModel
+  runners?: TeamRunner[] | null
 }
 
 // Todo: Fusion RunnerResultModel and OverallModel
@@ -137,7 +144,7 @@ export interface RunnerResultModel {
   points_adjusted: number
   points_penalty: number
   points_bonus: number
-  leg_number: number
+  leg_number?: number
   splits: SplitModel[]
 }
 

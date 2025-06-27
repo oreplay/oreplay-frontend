@@ -1,10 +1,10 @@
 import { Box } from "@mui/material"
 import ParticipantName from "./ParticipantName"
 import FlexRow from "./FlexRow.tsx"
-import { RunnerModel } from "../../../shared/EntityTypes.ts"
+import { ProcessedTeamRunnerModel } from "./VirtualTicket/shared/EntityTypes.ts"
 
 interface TeamRunnerRowProps {
-  runner: RunnerModel
+  runner: ProcessedTeamRunnerModel
 }
 
 const TeamRunnerRow: React.FC<TeamRunnerRowProps> = ({ runner }) => {
