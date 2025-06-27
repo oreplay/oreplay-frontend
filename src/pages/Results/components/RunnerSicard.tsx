@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material"
 
 interface RunnerSicardProps {
-  sicard: string | null
+  sicard?: string | null
 }
 
 export default function RunnerSicard({ sicard }: RunnerSicardProps) {
