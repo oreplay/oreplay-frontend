@@ -66,13 +66,13 @@ export interface ProcessedSplitModel {
   reading_time: string | null
   order_number: number | null
   points: number | null
+  control: ControlModel | null
   time: number | null //time in seconds for this split
   time_behind: number | null //time behind best runner in seconds for this split
   position: number | null // position in this split
   cumulative_time: number | null //time in seconds since start
   cumulative_behind: number | null //time in seconds behind the best runner
   cumulative_position: number | null //position from start
-  control: ControlModel | null
 }
 
 export interface RadioSplitModel extends ProcessedSplitModel {
