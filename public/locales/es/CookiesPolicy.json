@@ -1,0 +1,88 @@
+{
+  "header": "POLÍTICA DE COOKIES",
+  "subtitle": "Última modificación: 30/06/2025",
+  "p1": "En cumplimiento con lo dispuesto en el artículo 22.2 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico, este Sitio Web le informa, en esta sección, sobre la política de recogida y tratamiento de cookies.",
+  "whatAreCookies": {
+    "title": "¿Qué son las Cookies?",
+    "p1": "Las cookies son pequeños ficheros de texto que algunos servidores guardan en nuestro disco duro con nuestro consentimiento, y que contiene información acerca de lo que hemos estado haciendo en sus páginas (tiempo de permanencia en una determinada pantalla, obtención de información específica acerca de un determinado producto, etc.…).",
+    "p2": "La gran mayoría de las cookies tiene fecha de caducidad, que puede oscilar desde el tiempo que dure la sesión hasta una fecha futura especificada, a partir de la cual dejan de ser operativa."
+  },
+  "cookiesUsed": {
+    "title": "Las cookies que utiliza este Sitio Web",
+    "p1": "Las cookies empleadas en este Sitio Web se asocian únicamente con un usuario anónimo y su ordenador, no proporcionan referencias que permitan deducir el nombre y apellidos del usuario y no pueden leer datos de su disco duro ni incluir virus en sus textos. Nuestro Sitio Web tampoco puede leer las cookies implantadas en el disco duro del Usuario desde otros servidores.",
+    "p2": "El usuario puede libremente decidir acerca de la implantación o no en su disco duro de las cookies empleadas en nuestro Sitio Web. En este sentido, el usuario puede configurar su navegador para aceptar o rechazar por defecto todas las cookies o para recibir un aviso en pantalla de la recepción de cada cookie y decidir en ese momento su implantación o no en su disco duro. Para esto, recomendamos consultar la sección de ayuda de su navegador para saber cómo cambiar la configuración que actualmente emplea.",
+    "p3": "Como usuario, usted tiene el derecho de rechazar todas las cookies o permitir que funcionen solamente las que considere necesarias, y podrá navegar normalmente por nuestro Sitio Web, con el único inconveniente de no poder disfrutar de ciertas funcionalidades que requieran la instalación de alguna cookie en su servidor. En cualquier caso, el Usuario podrá eliminar las cookies implantadas en su disco duro en cualquier momento, siguiendo el procedimiento establecido en la sección de ayuda de su navegador y que posteriormente detallaremos.",
+    "p4": "Según los términos incluidos en el artículo 22.2 de la Ley 34/2002 de Servicios de la Sociedad de la Información y Comercio Electrónico, si usted decide continuar navegando con todas las cookies habilitadas, estará prestando su consentimiento para el empleo de las cookies que detallamos a continuación.",
+    "p5": "Las cookies de este Sitio Web ayudan a:",
+    "list1": {
+      "item1": "Hacer que este Sitio Web funcione correctamente;",
+      "item2": "Permitir visualizar videos u otros recursos multimedia;",
+      "item3": "Mejorar la velocidad / seguridad del Sitio Web;",
+      "item4": "Poder compartir páginas con sus redes sociales;",
+      "item5": "Guardar contraseñas de usuarios para futuras visitas."
+    },
+    "p6": "No utilizamos jamás cookies para:",
+    "list2": {
+      "item1": "Recoger información de identificación personal (sin su consentimiento expreso);",
+      "item2": "Recoger información sensible (sin su consentimiento expreso);",
+      "item3": "Compartir datos de identificación personal a terceros."
+    }
+  },
+  "thirdPartyCookies": {
+    "title": "Cookies de terceros",
+    "p1": "Este Sitio Web, como la gran mayoría de los Sitios Web, incluye funcionalidades proporcionadas por terceros.",
+    "p2": "También se ponen a prueba regularmente nuevos diseños o servicios de terceros para recomendaciones e informes.",
+    "p3": "Esto puede modificar ocasionalmente la configuración de cookies y que aparezcan cookies no detalladas en la presente política. Es importante informarle que se tratan de cookies provisionales que no siempre es posible informar y que solo tienen finalidades de estudio y valoración. En ningún caso se van a utilizar cookies que comprometan su privacidad.",
+    "p4": "A continuación, y según exige el artículo 22.2 de la LSSI se detallan las cookies que pueden instalarse habitualmente durante la navegación por este Sitio Web:",
+    "tableHeaders": {
+      "name": "TIPO",
+      "duration": "DURACIÓN",
+      "purpose": "FINALIDAD"
+    },
+    "cookieTable": [
+      {
+        "name": "Carácter técnico y obligatoria.",
+        "duration": "2 horas.",
+        "purpose": "Garantizar el correcto funcionamiento del sistema de acceso y facilitar la navegación dentro del sitio mientras la sesión permanece activa. Esta cookie no se utiliza con fines analíticos, publicitarios ni de seguimiento. "
+      }
+    ]
+  },
+  "cookieManagement": {
+    "title": "¿Cómo puedo gestionar y desactivar estas cookies?",
+    "p1": "En el caso de no desear que el Sitio Web no instale ninguna cookie en su equipo, cabe la posibilidad de adaptar su navegador de modo que se te notifique antes de que se descargue ninguna cookie.",
+    "p2": "Asimismo, se puede igualmente modificar la configuración del navegador de forma que rechace todas las cookies o únicamente las cookies de terceros. También es posible eliminar cualquiera de las cookies que ya se encuentren en su equipo; para ello usted tendrá que adaptar por separado la configuración de cada navegador y equipo que utilice.",
+    "p3": "Ponemos a disposición de los usuarios que quieran impedir la instalación de las mencionadas cookies, enlaces facilitados al efecto por navegadores cuyo uso se considera más extendido:",
+    "p4": "ADMINISTRACION DE COOKIES POR NAVEGADOR:",
+    "list1": {
+      "item1": "Configuración de cookies (Google Chrome) (<2>http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647</2>)",
+      "item2": "Eliminar y administrar cookies (Internet Explorer) (<2>https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies</2>)",
+      "item3": "Deshabilitar cookies de terceros (Firefox) (<2>https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros</2>)",
+      "item4": "Administrar cookies en Safari (Safari) (<2>http://support.apple.com/kb/ph5042</2>)"
+    },
+    "p5": "Muchos navegadores permiten activar un modo privado mediante el cual las cookies se borran siempre después de su visita y, dependiendo de cada navegador, este modo privado puede tener diferentes nombres. Abajo puede encontrar una lista de los navegadores más comunes y los diferentes nombres de este “modo privado”:",
+    "list2": {
+      "item1": "Internet Explorer 8+: InPrivate",
+      "item2": "Firefox 3.5+: Navegación Privada",
+      "item3": "Chrome 10+: Incógnito",
+      "item4": "Safari 2+: Navegación Privada",
+      "item5": "Opera 10.5+: Navegación Privada"
+    },
+    "p6": "Por favor, lee atentamente la sección de ayuda de su navegador para conocer más acerca de cómo activar el “modo privado”. Podrá seguir visitando nuestro Sitio Web aunque su navegador esté en “modo privado”, no obstante, la experiencia de usuario puede no ser óptima y algunas utilidades pueden no funcionar.",
+    "p7": "Si necesita más información acerca del bloqueo en su equipo de cookies, no dude en atender la explicación que se le da en este enlace Web: <2>http://windows.microsoft.com/es-es/windows-vista/block-or-allow-cookies<2> "
+  },
+  "changes": {
+    "title": "Cambios en la Política de Cookies",
+    "p1": "Es posible que actualicemos la Política de Cookies de nuestro Sitio Web. Por ello, le recomendamos revisar esta política cada vez que acceda a nuestro Sitio Web con el objetivo de estar adecuadamente informado sobre cómo y para qué usamos las cookies."
+  },
+  "privacyLink": {
+    "title": "Política de Privacidad",
+    "p1": "Puede leer nuestra <2>política de privacidad</2> para una mayor información sobre el tratamiento de datos personales."
+  },
+  "contact": {
+    "title": "Contacto",
+    "p1": "Si tuviera alguna duda, comentario o sugerencia sobre la Política de Cookies, por favor escriba a: <2>support@oreplay.es<2>"
+  },
+  "Rights": {
+    "footer": "© Todos los derechos reservados: O-REPLAY"
+  }
+}
