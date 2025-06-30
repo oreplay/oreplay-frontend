@@ -21,6 +21,13 @@ import {
 function CookiesPolicy() {
   const { t } = useTranslation("CookiesPolicy")
 
+  const cookieManagementLinks = [
+    "http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647",
+    "https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies",
+    "https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros",
+    "http://support.apple.com/kb/ph5042",
+  ]
+
   const CookiesPolicyTheme = (theme: Theme) =>
     createTheme({
       ...theme,
@@ -140,8 +147,8 @@ function CookiesPolicy() {
           {t("cookieManagement.p4")}
         </Typography>
         <List sx={{ paddingLeft: 2 }}>
-          {Array.from({ length: 4 }).map((_, i) => (
-            <ListItem key={i} sx={{ display: "list1-item", paddingLeft: 0 }}>
+          {cookieManagementLinks.map((href, i) => (
+            <ListItem key={i} sx={{ display: "list-item", paddingLeft: 0 }}>
               <Typography component="span" sx={{ verticalAlign: "middle", mr: 0.5 }}>
                 ●
               </Typography>
@@ -152,7 +159,7 @@ function CookiesPolicy() {
                   components={{
                     2: (
                       <Link
-                        href=""
+                        href={href}
                         target="_blank"
                         rel="noopener noreferrer"
                         color="primary"
