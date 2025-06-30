@@ -1,0 +1,88 @@
+{
+  "header": "COOKIES POLICY",
+  "subtitle": "Last modification: 06/30/2025",
+  "p1": "In compliance with the provisions of Article 22.2 of Law 34/2002, of July 11, 2002, of Information Society Services and Electronic Commerce, this Web Site informs you, in this section, about the policy of collection and treatment of cookies.",
+  "whatAreCookies": {
+    "title": "What are Cookies?",
+    "p1": "Cookies are small text files that some servers store on our hard disk with our consent, containing information about what we have been doing on their pages (time spent on a certain screen, obtaining specific information about a certain product, etc. ....).",
+    "p2": "The vast majority of cookies have an expiration date, which can range from the duration of the session to a specified future date, after which they are no longer operational."
+  },
+  "cookiesUsed": {
+    "title": "Cookies used by this Web Site",
+    "p1": "The cookies used in this Web Site are only associated with an anonymous user and his computer, do not provide references that allow to deduce the name and surname of the user and cannot read data from his hard disk or include viruses in their texts. Our Web Site cannot read the cookies implanted in the User's hard disk from other servers.",
+    "p2": "The user is free to decide whether or not to place cookies used on our Web Site on his or her hard drive. In this sense, the user can configure his browser to accept or reject by default all cookies or to receive an on-screen warning of the reception of each cookie and decide at that time whether or not to place it on his hard drive. For this, we recommend consulting the help section of your browser to learn how to change the settings you currently use.",
+    "p3": "As a user, you have the right to reject all cookies or allow only those that you consider necessary to work, and you can navigate normally through our Web Site, with the only drawback of not being able to enjoy certain features that require the installation of a cookie on your server. In any case, the User will be able to eliminate the cookies implanted in his hard disk at any time, following the procedure established in the help section of his browser and that we will detail later.",
+    "p4": "According to the terms included in Article 22.2 of Law 34/2002 of Services of the Information Society and Electronic Commerce, if you decide to continue browsing with all cookies enabled, you are giving your consent to the use of cookies detailed below.",
+    "p5": "Cookies on this Website help to:",
+    "list1": {
+      "item1": "To make this Web Site work properly;",
+      "item2": "Enable the display of videos or other multimedia resources;",
+      "item3": "Improve the speed / security of the Web Site;",
+      "item4": "To be able to share pages with your social networks;",
+      "item5": "Save user passwords for future visits."
+    },
+    "p6": "We never use cookies to:",
+    "list2": {
+      "item1": "Collect personally identifiable information (without your express consent);",
+      "item2": "Collect sensitive information (without your express consent);",
+      "item3": "Sharing personally identifiable information to third parties."
+    }
+  },
+  "thirdPartyCookies": {
+    "title": "Third party cookies",
+    "p1": "This Web Site, like the vast majority of Web Sites, includes functionality provided by third parties.",
+    "p2": "New designs or third-party services are also regularly tested for recommendations and reports.",
+    "p3": "This may occasionally change the configuration of cookies and cookies that are not detailed in this policy may appear. It is important to inform you that these are temporary cookies that it is not always possible to inform and that only have study and evaluation purposes. In no case will cookies that compromise your privacy be used.",
+    "p4": "Below, and as required by Article 22.2 of the LSSI, the cookies that may be installed during the navigation of this Web Site are detailed:",
+    "tableHeaders": {
+      "name": "TYPE",
+      "duration": "DURATION",
+      "purpose": "PURPOSE"
+    },
+    "cookieTable": [
+      {
+        "name": "Technical and mandatory.",
+        "duration": "2 hours.",
+        "purpose": "To ensure the proper functioning of the access system and facilitate navigation within the site while the session remains active. This cookie is not used for analytical, advertising or tracking purposes. "
+      }
+    ]
+  },
+  "cookieManagement": {
+    "title": "How can I manage and disable these cookies?",
+    "p1": "If you do not want the Web Site to install any cookies on your computer, you may adapt your browser to notify you before any cookies are downloaded.",
+    "p2": "You can also modify your browser settings so that it rejects all cookies or only third-party cookies. It is also possible to delete any of the cookies that are already on your computer; to do this you will have to separately adapt the settings of each browser and computer you use.",
+    "p3": "We make available to users who wish to prevent the installation of the aforementioned cookies, links provided for this purpose by browsers whose use is considered more widespread:",
+    "p4": "COOKIE MANAGEMENT BY BROWSER:",
+    "list1": {
+      "item1": "Cookie settings (Google Chrome) (<2>http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647</2>)",
+      "item2": "Delete and manage cookies (Internet Explorer) (<2>https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies</2>)",
+      "item3": "Disable third-party cookies (Firefox) (<2>https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros</2>)",
+      "item4": "Managing cookies in Safari (Safari) (<2>http://support.apple.com/kb/ph5042</2>)"
+    },
+    "p5": "Many browsers allow you to activate a private mode by which cookies are always deleted after your visit and, depending on each browser, this private mode may have different names. Below you can find a list of the most common browsers and the different names of this “private mode”:",
+    "list2": {
+      "item1": "Internet Explorer 8+: InPrivate",
+      "item2": "Firefox 3.5+: Private Browsing",
+      "item3": "Chrome 10+: Incognito",
+      "item4": "Safari 2+: Private Browsing",
+      "item5": "Opera 10.5+: Private Browsing"
+    },
+    "p6": "Please read your browser's help section carefully to learn more about how to activate “private mode”. You will still be able to visit our Web Site even if your browser is in “private mode”, however, the user experience may not be optimal and some utilities may not work.",
+    "p7": "If you need more information about blocking cookies on your computer, do not hesitate to follow the explanation given in this Web link: <2>http://windows.microsoft.com/es-es/windows-vista/block-or-allow-cookies<2>."
+  },
+  "changes": {
+    "title": "Changes in the Cookies Policy",
+    "p1": "We may update the Cookie Policy of our Web Site. Therefore, we recommend that you review this policy each time you access our Web Site in order to be properly informed about how and what we use cookies for."
+  },
+  "privacyLink": {
+    "title": "Privacy Policy",
+    "p1": "You can read our <2>privacy policy</2> for more information about the processing of personal data."
+  },
+  "contact": {
+    "title": "Contact",
+    "p1": "If you have any questions, comments or suggestions about the Cookie Policy, please write to: <2>support@oreplay.es<2>."
+  },
+  "Rights": {
+    "footer": "© All rights reserved: O-REPLAY"
+  }
+}
