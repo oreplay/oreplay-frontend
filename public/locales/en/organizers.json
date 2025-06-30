@@ -20,7 +20,7 @@
         "p1": "Results are uploaded using a small program that must be installed on your computer. We provide an installer that works on Windows 11. Simply follow the installer instructions.",
         "DownloadBtn": "Download O-Replay Desktop Client",
         "p2": "For older Windows versions, such as Windows 10, you can still try the installer. You might encounter a warning that the program contains malware, but don’t worry, this is due to the absence of a digital signature not because we are a real malware.",
-        "p3": "If you are using other operating systems, such as Linux or macOS, or your Windows 10 installation fails you can still use the client via <1>manual installation</1>."
+        "p3": "If you are using other operating systems, such as Linux or macOS, or your Windows 10 installation fails you can still use the client via <2>manual installation</2>."
       },
       "ManageClient": {
         "title": "Managing the client",
