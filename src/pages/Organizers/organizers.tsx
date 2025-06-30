@@ -76,7 +76,7 @@ const Organizers = (): React.ReactNode => {
 
   return (
     <ThemeProvider theme={organizersTheme}>
-      <Container>
+      <Container sx={{ marginBottom: "20px", "& p": { textAlign: "justify" } }}>
         <Typography variant={"h1"}>{t("Header")}</Typography>
         <Typography>
           <Trans t={t} i18nKey="p1">
@@ -121,17 +121,19 @@ const Organizers = (): React.ReactNode => {
         </Box>
         <Typography>{t("Prerequisites.DesktopClient.DownloadClient.p2")}</Typography>
         <Typography>
-          <Trans t={t} i18nkey={"Prerequisites.DesktopClient.DownloadClient.p3"}>
-            If you are using other operating systems, such as Linux or macOS, or your Windows 10
-            installation fails you can still use the client via{" "}
-            <Link
-              target={"_blank"}
-              href={`https://github.com/oreplay/desktop-client/releases/tag/${client_version}`}
-            >
-              manual installation
-            </Link>
-            .
-          </Trans>
+          <Trans
+            t={t}
+            i18nKey="Prerequisites.DesktopClient.DownloadClient.p3"
+            components={{
+              2: (
+                <Link
+                  href={`https://github.com/oreplay/desktop-client/releases/tag/${client_version}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              ),
+            }}
+          />
         </Typography>
         <Typography variant={"h4"}>
           {t("Prerequisites.DesktopClient.ManageClient.title")}

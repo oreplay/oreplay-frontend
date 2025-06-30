@@ -1,3 +1,277 @@
 {
-  "Header": "Información para organizadores"
+  "Header": "Información para organizadores",
+  "p1": "Esta página contiene toda la información necesaria para cargar resultados en O-Replay. Por favor, léela detenidamente. Si tienes algún problema o pregunta, no dudes en ponerte en contacto con nosotros en <2>support@oreplay.es</2>. Ten en cuenta que el uso de O-Replay es completamente gratuito.",
+  "Prerequisites": {
+    "title": "Prerrequsitos",
+    "Registering": {
+      "title": "Registrarse en O-Replay",
+      "p1": "Actualmente, la única forma de inscribirse es enviando un correo electrónico a <2>support@oreplay.es</2> con la siguiente información (hablamos tanto inglés como español):",
+      "list": {
+        "item1": "Nombre",
+        "item2": "Dirección de correo electrónico",
+        "item3": "Nombre del Club"
+      },
+      "p2": "Tenga en cuenta que O-Replay está en desarrollo activo. Muchas de las funciones previstas aún no están disponibles, pero el sistema está listo para su uso."
+    },
+    "DesktopClient": {
+      "title": "Cliente de escritorio de O-Replay",
+      "DownloadClient": {
+        "title": "Descarga e instalación del cliente",
+        "p1": "Los resultados se cargan mediante un pequeño programa que debe instalarse en su ordenador. Proporcionamos un instalador que funciona en Windows 11. Simplemente siga las instrucciones del instalador.",
+        "DownloadBtn": "Descargar O-Replay Desktop Client",
+        "p2": "Para versiones anteriores de Windows, como Windows 10, puedes probar el instalador. Es posible que encuentre una advertencia de que el programa contiene malware, pero no se preocupe, esto se debe a la ausencia de una firma digital no porque seamos un malware real.",
+        "p3": "Si utilizas otros sistemas operativos, como Linux o macOS, o tu instalación de Windows 10 falla puedes seguir utilizando el cliente mediante <2>instalación manual</2>."
+      },
+      "ManageClient": {
+        "title": "Gestión del cliente",
+        "p1": "Siga los siguientes pasos para cargar archivos:",
+        "list1": {
+          "item1": "Abra Cliente de escritorio de O-Replay y haga clic en <1>«Comprobar conexión»</1>.",
+          "item2": "Pega la clave de seguridad (la obtendrás después de crear el evento en la web, lo veremos más adelante), luego pulsa <2>«Entrar»</2> y selecciona el escenario al que quieres subir los datos. Obtendrás el Id del evento y el token de seguridad cuando crees el evento.",
+
+          "item3": "Elija el directorio al que exportará los archivos y pulse <2>«Iniciar»</2>. El cliente buscará en esta carpeta cualquier archivo `XML` o `csv`. Cuando exporte horas de inicio o resultados desde su software de control de tiempo, el cliente leerá el archivo y lo cargará en O-Replay. Los archivos se borrarán automáticamente después de cargarlos con éxito."
+        },
+        "img1": {
+          "url": "/organizers/en/DesktopClient/Client.png",
+          "alt": "Captura de pantalla del cliente de escritorio"
+        },
+        "p2": "La opción \"Dividir por categoría\" hace una conexión diferente al servidor para cada categoría. Esta opción se creó con fines de desarrollo, puede estar marcada o desmarcada."
+      }
+    }
+  },
+  "BeforeTheRace": {
+    "title": "Antes de la carrera",
+    "CreateEvent": {
+      "title": "Creación de un evento",
+      "p1": "Las carreras en O-Replay se organizan en eventos y etapas. Por ejemplo, si estás organizando un campeonato de fin de semana con carreras de media y larga distancia, crearías un evento \"Campeonato\" con dos etapas: \"Media Distancia\" y \"Larga Distancia\". Cada etapa puede representar una disciplina de orientación diferente.",
+      "p2": "Cuando te conectes, verás todos tus eventos. También puede crear nuevos eventos. Comience rellenando los detalles del evento, luego añada tantas etapas como necesite. Si su evento sólo tiene una carrera llamada \"Mi primera carrera\", cree un evento llamado \"Mi primera carrera\" con una etapa llamada \"Carrera\". Sólo se mostrará el nombre del evento. Asegúrese de crear al menos una etapa; de lo contrario, no podrá cargar ningún dato.",
+      "p3": "Después de crear el evento y las etapas, genera un token de seguridad. Este token actúa como contraseña secreta para subir los resultados y puede compartirse con tu equipo de cronometradores sin exponer tus credenciales de O-Replay. Ten en cuenta que los tokens caducan un mes después de su creación, pero pueden renovarse en cualquier momento. Cuando se renuevan, el token antiguo pierde su validez y se genera uno nuevo. Utiliza esta opción si tu token se ve comprometido.",
+      "img1": {
+        "url": "/organizers/en/WebUI/GenerateToken.png",
+        "alt": "Menú para token de seguridad para un evento"
+      }
+    },
+    "UploadStartTimes": {
+      "title": "Cargar horas de inicio",
+      "p1": "Las horas de inicio se cargan con dos fines:",
+      "list1": {
+        "item1": "Mostrarlos para información de los corredores.",
+        "item2": "Para mostrar los tiempos en carrera."
+      },
+      "p2": "Sólo admitimos archivos IOF XML v3. Obtenga O-Replay Desktop Client listo para archivos y exporte las horas de inicio desde su software de cronometraje:",
+      "Tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "Debe exportar el archivo XML de horas de inicio. Vaya a \"Lista de inicio\" → \"Informes\" → \"categorías\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportStartTimes_ChooseMenu.png",
+            "alt": "Menú que hay que elegir"
+          },
+          "p2": "En el menú superior, seleccione \"Exportar\":",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportStartTimes_Export.png",
+            "alt": "Botón Exportar"
+          },
+          "p3": "Guardar usando IOF XML v3 en la carpeta O-Replay Client está utilizando.",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportStartTimes_ChooseIOFXMLv3.png",
+            "alt": "Elegir formato"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "Debe exportar el archivo XML de horas de inicio. Vaya a Lista de inicio → informes de lista de inicio → por categorías:",
+          "img1": {
+            "url": "organizers/en/OE12/ExportStartTimesChoseMenu.png",
+            "alt": "Menú que hay que elegir"
+          },
+          "p2": "En el menú superior, seleccione \"Exportar\"",
+          "img2": {
+            "url": "organizers/en/OE12/ExportStartTimesChooseExport.png",
+            "alt": "Botón Exportar"
+          },
+          "p3": "Guardar usando IOF XML v3 en la carpeta O-Replay Client está utilizando.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportStartTimesSetIOFXML.png",
+            "alt": "Guardar utilizando el formato IOF XML"
+          }
+        },
+        "MeOS": {
+          "title": "MeOS",
+          "p1": "Debe exportar el archivo XML de las horas de inicio. Vaya a Competición → Exportar datos → Lista de inicio.",
+          "img1": {
+            "url": "organizers/en/MeOS/UploadStartTimes_Menu.png",
+            "alt": "Menú para exportar la lista de inicio en MeOS"
+          },
+          "p2": "Seleccione todas las categorías, elija «Lista de inicio de IOF» y exporte el archivo a la carpeta que el cliente está escuchando.",
+          "img2": {
+            "url": "organizers/en/MeOS/UploadStartTimes_SetIOFXML.png",
+            "alt": "Menú para elegir las categorías a exportar y establecer el formato IOF XML"
+          }
+        }
+      },
+      "p3": "Si su evento tiene varias etapas, tendrá que cargar las horas de inicio de cada una de ellas.",
+      "InfoBox1": {
+        "title": "Carreras sin hora de salida:",
+        "p1": "Si utiliza un control de salida y los corredores no tienen horas de salida preasignadas, se recomienda cargar las inscripciones en formato XML IOF. Esto permite mostrar todas las inscripciones, y los competidores pueden ver cuántos corredores faltan por terminar."
+      },
+      "WarnBox1": {
+        "title": "Carga de las horas de inicio después de los resultados",
+        "p1": "No se pueden cargar horas de inicio después de cargar resultados. Si desea cargar las horas de inicio después de cargar los resultados, primero debe restablecer la etapa."
+      }
+    }
+  },
+  "DuringRace": {
+    "title": "Durante la carrera",
+    "UploadingResults": {
+      "title": "Cargar resultados",
+      "p1": "Admitimos archivos divididos IOF XML v3 para cargar los resultados. Utilice una carpeta vacía para guardar estos archivos (puede reutilizar la carpeta creada para las horas de inicio).",
+      "p2": "Prepare el cliente y escuche los nuevos archivos, luego exporte el resultado desde su software de control horario:",
+      "Tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "Debe exportar el archivo XML de divisiones. Vaya a \"Resultados\" → \"Tiempos de división\" → \"categorías\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseMenu.png",
+            "alt": "Menú que hay que elegir"
+          },
+          "p2": "Debido a un error en OE2010, debe exportar los resultados sin decimales. En el menú de configuración de la izquierda, vaya a \"Formatos de informe\" y elija \"HH:MM:SS\" como formato de hora.",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseReportFormat.png",
+            "alt": "Menú de configuración de los formatos de informe"
+          },
+          "p3": "Necesitas exportar todos los corredores, incluyendo DNS. En el menú de configuración de la izquierda, vaya a \"Más opciones\" → \"¿Cuántos competidores?\" y elija \"Todos\". Desmarque \"Excluir DNS\".",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseAllRunners.png",
+            "alt": "Menú de configuración de más opciones"
+          },
+          "p4": "Exporte regularmente las particiones utilizando Informe automático. En el menú de configuración de la izquierda, vaya a \"Informe automático\". A continuación, establezca las acciones automáticas sólo a \"exportar\" y el intervalo de actualización que desee. Por último, pulse Inicio.",
+          "img4": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_AutomaticReport.png",
+            "alt": "Menú de configuración de informes automáticos"
+          },
+          "p5": "Guardar usando IOF XML v3 en la carpeta O-Replay Client está utilizando.",
+          "img5": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_Save.png",
+            "alt": "Guardar diálogo"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "Debe exportar el archivo XML de las divisiones. Vaya a Resultados → Splits veces → por categorías:",
+          "img1": {
+            "url": "organizers/en/OE12/ExportSplitsChoseMenu.png",
+            "alt": "Menú que hay que elegir"
+          },
+          "p2": "Tienes que exportar todos los corredores. Desmarque la opción \"Excluir dns\".",
+          "img2": {
+            "url": "organizers/en/OE12/ExportSplits_IncludeAllRunners.png",
+            "alt": "Menú de informes automáticos en OE12"
+          },
+          "p3": "Establezca el informe automático en el intervalo de actualización que desee.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportSplitsSetAutomaticExport.png",
+            "alt": "Menú de informes automáticos en OE12"
+          },
+          "p4": "Guardar usando IOF XML en la carpeta O-Replay Client está escuchando.",
+          "img4": {
+            "url": "organizers/en/OE12/ExportSplitsSetIOFXML.png",
+            "alt": "Guardar utilizando el formato IOF XML"
+          }
+        },
+        "MeOS": {
+          "title": "MeOS",
+          "p1": "Debe exportar el archivo XML de divisiones. Vaya a Servicios → Servicios disponibles → Resultados en línea.",
+          "img1": {
+            "url": "/organizers/en/MeOS/UploadResults_Menu.png",
+            "alt": "Menú para activar un servicio de exportación de resultados en MeOS"
+          },
+          "p2": "Este servicio tiene muchas opciones de configuración. Tienes que configurar:",
+          "list1": {
+            "ServiceName": "<0>Nombre del servicio</0>: O-Replay (opcional)",
+            "TimeInterval": "<0>Intervalo de tiempo</0>: Con qué frecuencia se actualizan los resultados. 30 segundos o 1 minuto son valores comunes.",
+            "Classes": "<0>categorías</0>: Elige todas las categorías.",
+            "ExportFormat": "<0>Formato de exportación</0>: debe ser \"IOF XML 3.0\".",
+            "SaveToDisk": "<0>Guardar en disco</0>: Es la única opción que hay que marcar. Elige la carpeta en la que O-Replay Client está utilizando."
+          },
+          "img2": {
+            "url": "/organizers/en/MeOS/UploadResults_StandartServiceConfig.png",
+            "alt": "Opciones estándar del servicio Results Online para trabajar con O-Replay en MeOS"
+          }
+        }
+      },
+      "p3": "Mucha gente pregunta si se pueden subir resultados a Liveresultats y a O-Replay simultáneamente. Liveresultats nos ha servido bien durante muchos años, y realmente apreciamos sus contribuciones. Sin embargo, creemos firmemente que O-Replay es el futuro, ya que ofrece todas las mismas funciones y muchas más de una forma más fácil de usar.",
+      "p4": "Dicho esto, si decides utilizar ambas plataformas, debes exportar los archivos a carpetas separadas. De lo contrario, ambos clientes competirán por el acceso -leer, procesar y eliminar los mismos archivos-, lo que impedirá que ninguno de los dos funcione correctamente.",
+      "WarnBox1": {
+        "title": "Exportación normal de resultados (es decir, sin parciales)",
+        "p1": "Aunque el cliente permite cargar archivos de resultados sin parciales, se desaconseja encarecidamente hacerlo. Sin parciales, no se pueden mostrar los billetes virtuales ni los detalles de las parciales."
+      },
+      "WarnBox2": {
+        "title": "La carga falla con un gran número de corredores",
+        "p1": "Si está cargando un gran número de resultados (por ejemplo, unos 1.000 corredores) que no se han cargado previamente, el proceso puede tardar hasta un minuto. Si tarda más de un minuto, se producirá un error. En este caso, intente volver a cargar los mismos resultados dos o tres veces más. Es posible que algunas clases ya se hayan guardado en el servidor, por lo que el proceso acabará completándose."
+      }
+    },
+    "UploadingOnlineControls": {
+      "title": "Cargar Radiocontroles",
+      "p1": "Si estás utilizando radiocontroles en tu carrera, además de los pasos anteriores, debes exportar y cargar esos splits en línea. Si no los utiliza, puede saltarse esta sección. Aceptamos IOF XML v3. Puedes exportar los archivos a la misma carpeta en la que estás exportando los splits.",
+      "tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "Debe exportar el archivo XML de división en línea. Vaya a \"Speaker\" → \"Resultados intermedios\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_ChoseMenu.png",
+            "alt": "Menú que hay que elegir"
+          },
+          "p2": "Tenemos que establecer la misma configuración que antes. Exporte todos los competidores y desmarque la opción \"Excluir dns\". Recuerda establecer el formato del informe en HH:MM:SS. Debido a un error en OE2010, exportar con decimales hará que se muestren tiempos erróneos en O-Replay.",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_Settings.png",
+            "alt": "Ajustes que hay que aplicar"
+          },
+          "p3": "Exporte el archivo con el intervalo de actualización que desee.",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_AutomaticReport.png",
+            "alt": "Configuración automática de informes"
+          },
+          "p4": "Exportación mediante XML IOF v3",
+          "img4": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_SaveXML.png",
+            "alt": "Diálogo de formato de guardado"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "Debe exportar el archivo XML de división en línea. Vaya a \"Speaker\" → \"Resultados intermedios\":",
+          "img1": {
+            "url": "organizers/en/OE12/ExportOnlineControls_ChoseMenu.png",
+            "alt": "Menú que hay que elegir"
+          },
+          "p2": "Tenemos que establecer la misma configuración que antes. Exportar todos los competidores y desmarcar la opción \"Excluir dns\".",
+          "img2": {
+            "url": "organizers/en/OE12/ExportOnlineControls_Settings.png",
+            "alt": "Ajustes que hay que aplicar"
+          },
+          "p3": "Exporte el archivo con el intervalo de actualización que desee.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportOnlineControls_AutomaticReport.png",
+            "alt": "Configuración automática de informes"
+          },
+          "p4": "Exportación mediante XML IOF v3",
+          "img4": {
+            "url": "organizers/en/OE12/ExportOnlineControls_SaveXML.png",
+            "alt": "Diálogo de formato de guardado"
+          }
+        }
+      }
+    },
+    "WhatIfAnythingWrong": {
+      "title": "Qué hacer si algo va mal",
+      "p1": "Si tiene algún problema al cargar las horas de inicio o los resultados (por ejemplo, si carga datos en la etapa equivocada), puede restablecer la etapa. Esto borrará todos los datos cargados en esa etapa, permitiéndole empezar de nuevo. Al restablecer una etapa, ésta quedará completamente vacía (como si se hubiera creado de nuevo), por lo que tendrá que volver a cargar las horas de inicio y los resultados.",
+      "p2": "Para restablecer una etapa, vaya a la página del evento y haga clic en la rueda de ajustes de esa etapa. A continuación, haz clic en la opción \"Restablecer\".",
+      "img1": {
+        "url": "/organizers/en/WebUI/ResetStage.png",
+        "alt": "Botón de reinicio en la interfaz web"
+      },
+      "p3": "Esta opción también es útil si hay problemas con la información del corredor que no se muestra correctamente. Por ejemplo, si se cambia la categoría de un competidor, el sistema puede tratarlo como una persona diferente, haciendo que el corredor aparezca tanto en la categoría antigua como en la nueva. Restablecer y volver a cargar garantiza que toda la información se actualice correctamente."
+    }
+  }
 }
