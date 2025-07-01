@@ -141,7 +141,7 @@ export default function AboutUs() {
           </ListItem>
           <ListItem>
             <Typography component={"span"}>
-              {`❌ ${t("OngoingProject.AvailableFeatures.list1.item9")}`}
+              {`✅ ${t("OngoingProject.AvailableFeatures.list1.item9")}`}
             </Typography>
           </ListItem>
           <ListItem>
@@ -151,7 +151,7 @@ export default function AboutUs() {
           </ListItem>
           <ListItem>
             <Typography component={"span"}>
-              {`❌ ${t("OngoingProject.AvailableFeatures.list1.item11")}`}
+              {`✅ ${t("OngoingProject.AvailableFeatures.list1.item11")}`}
             </Typography>
           </ListItem>
           <ListItem>
