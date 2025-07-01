@@ -91,10 +91,10 @@
         "DialogConfirm": "OK"
       },
       "WipeOutRunners": {
-        "MenuText": "Resetear",
-        "DialogTitle": "Desea resetear esta etapa?",
+        "MenuText": "Restablecer",
+        "DialogTitle": "Desea restablecer esta etapa?",
         "DialogBody": "Se borrarán todos los resultados y horas de salida subidos a esta etapa. Después, puedes volverlos a subir. Esta opción se utiliza para corregir errores en los datos subidos.",
-        "DialogConfirm": "Resetear"
+        "DialogConfirm": "Restablecer"
       },
       "StagesTypes": {
         "StageType": "Tipo",

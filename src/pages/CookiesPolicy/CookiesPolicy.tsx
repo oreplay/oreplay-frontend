@@ -204,13 +204,7 @@ function CookiesPolicy() {
             t={t}
             i18nKey="privacyLink.p1"
             components={{
-              2: (
-                <Link
-                  href="/privacy-policy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />
-              ),
+              2: <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer" />,
             }}
           />
         </Typography>
