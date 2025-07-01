@@ -4,7 +4,7 @@
   "LegalNotice": {
     "title": "Aviso Legal",
     "p1": "Gracias por visitar este sitio web.",
-    "p2": "Lee detenidamente los Términos y Condiciones que constan en este documento, ya que el uso de este sitio web implica la expresa y plena aceptación de los mismos, en la versión publicada en el momento en que accedes a todas y cada una de las páginas web localizables bajo el dominio gallaeciaraid.org y sus respectivos subdominios y subdirectorios. Le recomendamos que vuelva a leer este documento cada vez que acceda al sitio web para comprobar si ha habido cambios en las condiciones de uso y lo abandone si no está de acuerdo con dichos cambios. Si creemos que ciertas modificaciones son importantes, actualizaremos la fecha de “Última modificación” en la parte superior de esta página. Usted será el responsable de revisar y familiarizarse con cualquier modificación realizada."
+    "p2": "Lee detenidamente los Términos y Condiciones que constan en este documento, ya que el uso de este sitio web implica la expresa y plena aceptación de los mismos, en la versión publicada en el momento en que accedes a todas y cada una de las páginas web localizables bajo el dominio oreplay.es y sus respectivos subdominios y subdirectorios. Le recomendamos que vuelva a leer este documento cada vez que acceda al sitio web para comprobar si ha habido cambios en las condiciones de uso y lo abandone si no está de acuerdo con dichos cambios. Si creemos que ciertas modificaciones son importantes, actualizaremos la fecha de “Última modificación” en la parte superior de esta página. Usted será el responsable de revisar y familiarizarse con cualquier modificación realizada."
   },
   "Identification": {
     "title": "Identificación",
@@ -18,8 +18,7 @@
     "title": "Comunicación",
     "p1": "Para contactar con nosotros para cualquier cuestión que haga referencia al contenido de este Aviso Legal, ponemos a su disposición diferentes medios de contacto que detallamos a continuación:",
     "list": {
-      "item1": "Correo electrónico: <2>support@oreplay.es</2>",
-      "item2": "Página Web: <2>https://www.oreplay.es/</2>"
+      "item1": "Correo electrónico: <2>support@oreplay.es</2>"
     },
     "p2": "Todas las notificaciones y comunicaciones facilitadas en este apartado se considerarán eficaces, a todos los efectos, cuando se realicen a través de cualquier medio de los detallados anteriormente.",
     "p3": "Por el hecho de acceder, ver o utilizar los materiales o servicios accesibles en o a través de este sitio web o a los contenidos accesibles u otras páginas web o aplicaciones informáticas, el usuario pone de manifiesto que comprende y acepta este documento como equivalente legal de un documento firmado por escrito y vinculante"
@@ -48,7 +47,7 @@
   },
   "PersonalProtection": {
     "title": "Protección de datos de carácter personal",
-    "p1": "Nuestra política con relación al tratamiento que realizamos de sus datos de carácter personal se expone en el documento Política de Privacidad."
+    "p1": "Nuestra política con relación al tratamiento que realizamos de sus datos de carácter personal se expone en el documento <2>Política de Privacidad</2>."
   },
   "LiabilityExclusion": {
     "title": "Exclusión de responsabilidad",

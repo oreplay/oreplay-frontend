@@ -4,7 +4,7 @@
   "LegalNotice": {
     "title": "Legal Notice",
     "p1": "Thank you for visiting this website.",
-    "p2": "Please read carefully the Terms and Conditions contained in this document, since the use of this website implies the express and full acceptance of them, in the version published at the time you access each and every one of the web pages located under the domain gallaeciaraid.org and their respective subdomains and subdirectories. We recommend that you re-read this document each time you access the website to check for changes to the Terms of Use and exit if you do not agree to such changes. If we believe certain modifications are important, we will update the “Last Modified” date at the top of this page. You will be responsible for reviewing and familiarizing yourself with any modifications made."
+    "p2": "Please read carefully the Terms and Conditions contained in this document, since the use of this website implies the express and full acceptance of them, in the version published at the time you access each and every one of the web pages located under the domain oreplay.es and their respective subdomains and subdirectories. We recommend that you re-read this document each time you access the website to check for changes to the Terms of Use and exit if you do not agree to such changes. If we believe certain modifications are important, we will update the “Last Modified” date at the top of this page. You will be responsible for reviewing and familiarizing yourself with any modifications made."
   },
   "Identification": {
     "title": "Identification",
@@ -18,8 +18,7 @@
     "title": "Communication",
     "p1": "To contact us for any question that refers to the content of this Legal Notice, we provide you with different means of contact that we detail below:",
     "list": {
-      "item1": "Mail: <2>support@oreplay.es</2>",
-      "item2": "Website: <2>https://www.oreplay.es/</2>"
+      "item1": "Mail: <2>support@oreplay.es</2>"
     },
     "p2": "All notifications and communications provided in this section shall be considered effective, for all purposes, when made by any of the means listed above.",
     "p3": "By accessing, viewing or using the materials or services accessible on or through this website or accessible content or other web pages or software applications, the user represents that he/she understands and accepts this document as the legal equivalent of a signed and binding written document."
@@ -48,7 +47,7 @@
   },
   "PersonalProtection": {
     "title": "Protection of personal data",
-    "p1": "Our policy regarding our treatment of your personal data is set out in the Privacy Policy document."
+    "p1": "Our policy regarding our treatment of your personal data is set out in the <2>Privacy Policy</2> document."
   },
   "LiabilityExclusion": {
     "title": "Exclusion of liability",

@@ -19,10 +19,6 @@ function LegalNotice() {
       key: "item1",
       href: "mailto:support@oreplay.es",
     },
-    {
-      key: "item2",
-      href: "https://www.oreplay.es",
-    },
   ]
 
   const LegalNoticeTheme = (theme: Theme) =>
@@ -128,18 +124,20 @@ function LegalNotice() {
             t={t}
             i18nKey="Cookies.p1"
             components={{
-              2: (
-                <Link
-                  href="https://www.oreplay.es/cookies-policy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                />
-              ),
+              2: <Link href={"cookies-policy"} target="_blank" rel="noopener noreferrer" />,
             }}
           />
         </Typography>
         <Typography variant="h2">{t("PersonalProtection.title")}</Typography>
-        <Typography>{t("PersonalProtection.p1")}</Typography>
+        <Typography>
+          <Trans
+            t={t}
+            i18nKey="PersonalProtection.p1"
+            components={{
+              2: <Link href={"privacy-policy"} target="_blank" rel="noopener noreferrer" />,
+            }}
+          />
+        </Typography>
         <Typography variant="h2">{t("LiabilityExclusion.title")}</Typography>
         <Typography>{t("LiabilityExclusion.p1")}</Typography>
         <Typography>{t("LiabilityExclusion.p2")}</Typography>

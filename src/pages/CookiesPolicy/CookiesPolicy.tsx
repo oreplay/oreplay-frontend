@@ -206,7 +206,7 @@ function CookiesPolicy() {
             components={{
               2: (
                 <Link
-                  href="https://www.oreplay.es/privacy-policy"
+                  href="/privacy-policy"
                   target="_blank"
                   rel="noopener noreferrer"
                 />
