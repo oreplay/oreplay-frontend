@@ -1,0 +1,207 @@
+{
+  "Loading": "Lade...",
+  "Search": {
+    "Search": "Suchen",
+    "ClearSearch": "Suche zurücksetzen"
+  },
+  "GeneralErrorFallback": {
+    "title": "Ein unerwarteter Fehler ist aufgetreten",
+    "msg": "Versuche, die Seite neu zu laden. Wenn der Fehler weiterhin besteht, versuche es später erneut."
+  },
+  "ForbiddenAccess": "Zugriff verweigert",
+  "ThisFunctionalityNotImplementedMsg": "Diese Funktion ist noch nicht implementiert.",
+  "ExperimentalFeatureMsg": "Experimentelle Funktion",
+  "Menu": "Menü",
+  "Dates": "Daten",
+  "Event": "Wettkampf",
+  "Events": "Wettkämpfe",
+  "Stages": "Etappen",
+  "Location": "Ort",
+  "Organizer": "Veranstalter",
+  "Name": "Name",
+  "Edit": "Bearbeiten",
+  "Success": "Erfolg",
+  "Cancel": "Abbrechen",
+  "Delete": "Löschen",
+  "Save": "Speichern",
+  "Settings": "Einstellungen",
+  "EmailAddress": "E-Mail-Adresse",
+  "Password": "Passwort",
+  "GoBack": "Zurück",
+  "This action cannot be undone": "Diese Aktion kann nicht rückgängig gemacht werden.",
+  "Copied to the clipboard": "In die Zwischenablage kopiert.",
+  "Copy": "Kopieren",
+  "Organizers": "Veranstalterinformationen",
+  "AboutUs": {
+    "AboutUs": "Über uns",
+    "VersionMessage": "Wir befinden uns in aktiver Entwicklung. Du verwendest Version "
+  },
+  "Home": {
+    "Home": "Startseite"
+  },
+  "Results": {
+    "shortClass": "Kategorie",
+    "Class": "Kategorie",
+    "Classes": "Kategorien",
+    "Start": "Start",
+    "Finish": "Ziel",
+    "SiCard": "SI-Chip"
+  },
+  "Sign in": {
+    "Sign in": "Anmelden",
+    "Logout": "Abmelden",
+    "ForgotPassword": "Passwort vergessen?",
+    "NoAccount": "Noch kein Konto? Registrieren",
+    "RememberMe": "Angemeldet bleiben"
+  },
+  "EventAdmin": {
+    "EventData": "Wettkampfinformationen",
+    "EventName": "Wettkampfname",
+    "StartDate": "Startdatum",
+    "FinishDate": "Endedatum",
+    "Organizer": "Veranstalter",
+    "Website": "Wettkampf-Website",
+    "InvalidURLMsg": "Ungültige URL",
+    "Location": "Ort",
+    "Public": "Öffentlich",
+    "Hidden": "Versteckt",
+    "Save": "Speichern",
+    "Country": "Land",
+    "Scopes": {
+      "Scope": "Reichweite",
+      "International": "International",
+      "National": "National",
+      "RegionalHigh": "Bundesweit",
+      "RegionalLow": "Regional",
+      "Local": "Lokal",
+      "Club": "Verein"
+    },
+    "Stages": {
+      "NewStage": "Neue Etappe",
+      "GoToStage": "Zur Etappe",
+      "DeleteStage": {
+        "MenuText": "Löschen",
+        "DialogTitle": "Möchtest du diese Etappe löschen?",
+        "DialogBody": "Die Etappe und alle zugehörigen Ergebnisse werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
+      },
+      "Stats": {
+        "MenuText": "Statistiken",
+        "DialogTitle": "Etappenstatistiken anzeigen",
+        "DialogBody": "Die Statistiken der Etappen werden angezeigt.",
+        "DialogConfirm": "OK"
+      },
+      "WipeOutRunners": {
+        "MenuText": "Zurücksetzen",
+        "DialogTitle": "Möchtest du diese Etappe zurücksetzen?",
+        "DialogBody": "Alle Ergebnisse oder Startzeiten in dieser Etappe werden gelöscht. Danach kannst du sie erneut hochladen. Diese Option wird verwendet, um Fehler in den hochgeladenen Daten zu korrigieren.",
+        "DialogConfirm": "Zurücksetzen"
+      },
+      "StagesTypes": {
+        "StageType": "Typ",
+        "FootO": "Foot-O / MTB-O",
+        "Relay": "Staffel",
+        "Rogaine": "Rogaine",
+        "TrailO": "Trail-O",
+        "Totals": "Gesamtwertung",
+        "Raid": "Raid",
+        "MassStart": "Massenstart",
+        "ChaseStart": "Verfolgungsstart"
+      }
+    },
+    "EventSecurityTokens": "Geheimer Schlüssel für Desktop-Client",
+    "EventSecurityTokensExpireDate": "Gültig bis",
+    "Do you want to renew the security key?": "Möchtest du den Sicherheitsschlüssel erneuern?",
+    "RenewEventTokenMsg": "Wenn du den Schlüssel erneuerst, wird der alte ungültig. Niemand mit dem alten Schlüssel kann dann noch Ergebnisse hochladen.",
+    "Renew": "Erneuern",
+    "EventId": "Wettkampf-ID",
+    "DangerArea": "Gefahrenbereich",
+    "DeleteEvent": "Wettkampf löschen",
+    "Do you want to delete this event?": "Möchtest du diesen Wettkampf löschen?",
+    "Renew security keys": "Neuen Sicherheitsschlüssel generieren",
+    "Create security keys": "Sicherheitsschlüssel erstellen"
+  },
+  "Language": {
+    "Language": "Sprache",
+    "Spanish": "Español",
+    "English": "English",
+    "French": "Français"
+  },
+  "Dashboard": {
+    "Dashboard": "Dashboard",
+    "YourEvents": "Deine Wettkämpfe",
+    "StartDate": "Startdatum",
+    "FinishDate": "Endedatum",
+    "Name": "Wettkampfname"
+  },
+  "EventList": {
+    "LiveToday": "Heute live",
+    "NoLiveEventsToday": "Heute keine Veranstaltungen",
+    "FutureEvents": "Kommende Veranstaltungen",
+    "PastEvents": "Vergangene Veranstaltungen"
+  },
+  "StageHeader": {
+    "StartTime": "Startzeit",
+    "Results": "Ergebnisse",
+    "Splits": "Zwischenzeiten",
+    "ScorePoints": "Punkte",
+    "RelayLegs": "Abschnitte"
+  },
+  "ResultsStage": {
+    "Refresh": "Aktualisieren",
+    "ChooseClass": "Bitte wähle eine Kategorie",
+    "NoData": "Keine Daten verfügbar",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "Class": "Kategorie",
+    "Classes": "Kategorien",
+    "Position": "Platzierung",
+    "Name": "Name",
+    "Club": "Verein",
+    "Clubs": "Vereine",
+    "NoClubMsg": "Kein Verein",
+    "StartTime": "Start",
+    "RaceTime": "Zeit",
+    "FinishTime": "Ziel",
+    "Times": "Zeiten",
+    "Points": "Punkte:",
+    "BonusPoints": "Bonus_",
+    "PenaltyPoints": "Strafe:",
+    "VirtualTicket": {
+      "FinishControl": "Ziel",
+      "Control": "Posten",
+      "StartHour": "Startzeit:",
+      "FinishHour": "Zielzeit:",
+      "RaceTime": "Zeit:",
+      "Partial": "Zwischenzeit",
+      "Cumulative": "Kumuliert",
+      "NoDownloadMsg": "Kein Chip-Auslesen"
+    },
+    "statusCodes": {
+      "nc": "NC",
+      "ok": "ok",
+      "dns": "DNS",
+      "dnf": "DNF",
+      "mp": "MP",
+      "disqualified": "DSQ",
+      "ot": "OT"
+    },
+    "SplitsTable": {
+      "NoRunnersWithSplits": "Kein Läufer hat den Chip heruntergeladen",
+      "PartialTimes": "Zwischenzeiten",
+      "CumulativeTimes": "Kumulierte Zeiten",
+      "OnlyForClasses": "Zwischenzeiten nur in der Kategorieansicht verfügbar."
+    },
+    "PointsTable": {
+      "OnlyForClasses": "Punkteansicht nur in der Kategorieansicht verfügbar."
+    },
+    "WrongFileUploaded": {
+      "Title": "Ergebnisse ohne Zwischenzeiten!",
+      "Msg": "Der Zeitnehmer hat Endergebnisse ohne Zwischenzeiten hochgeladen. Diese Dateien sollten nicht verwendet werden, da sie zu fehlenden oder falschen Daten führen können. Weitere Informationen findest du auf der Seite <2>Veranstalter</2>."
+    }
+  },
+  "404Page": {
+    "Header": "Im Wald verlaufen?",
+    "Message": "Die gesuchte Seite konnte nicht gefunden werden.",
+    "ButtonMessage": "Startdreieck"
+  }
+}

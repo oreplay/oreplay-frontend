@@ -1,0 +1,276 @@
+{
+  "Header": "Informationen für Veranstalter",
+  "p1": "Diese Seite enthält alle notwendigen Informationen, um Ergebnisse bei O-Replay hochzuladen. Bitte lesen Sie sie sorgfältig durch. Wenn Sie Fragen oder Probleme haben, können Sie uns gerne unter <2>support@oreplay.es</2> kontaktieren. Bitte beachten Sie, dass O-Replay vollständig kostenlos nutzbar ist.",
+  "Prerequisites": {
+    "title": "Voraussetzungen",
+    "Registering": {
+      "title": "Registrierung bei O-Replay",
+      "p1": "Derzeit ist die einzige Möglichkeit zur Registrierung, eine E-Mail an <2>support@oreplay.es</2> mit den folgenden Angaben zu senden (wir sprechen Englisch und Spanisch):",
+      "list": {
+        "item1": "Name",
+        "item2": "E-Mail-Adresse",
+        "item3": "Vereinsname"
+      },
+      "p2": "Bitte beachten Sie, dass sich O-Replay in aktiver Entwicklung befindet. Viele geplante Funktionen sind noch nicht verfügbar, aber das System ist bereits einsatzbereit."
+    },
+    "DesktopClient": {
+      "title": "O-Replay Desktop-Client",
+      "DownloadClient": {
+        "title": "Herunterladen und Installieren des Clients",
+        "p1": "Die Ergebnisse werden über ein kleines Programm hochgeladen, das auf Ihrem Computer installiert werden muss. Wir stellen ein Installationsprogramm bereit, das unter Windows 11 funktioniert. Folgen Sie einfach den Anweisungen des Installers.",
+        "DownloadBtn": "O-Replay Desktop-Client herunterladen",
+        "p2": "Für ältere Windows-Versionen wie Windows 10 können Sie den Installer trotzdem ausprobieren. Möglicherweise erhalten Sie eine Warnung, dass das Programm Schadsoftware enthält – keine Sorge, das liegt lediglich an der fehlenden digitalen Signatur, nicht daran, dass es sich um echte Schadsoftware handelt.",
+        "p3": "Wenn Sie ein anderes Betriebssystem wie Linux oder macOS verwenden oder die Installation unter Windows 10 fehlschlägt, können Sie den Client dennoch über die <2>manuelle Installation</2> nutzen."
+      },
+      "ManageClient": {
+        "title": "Verwaltung des Clients",
+        "p1": "Folgen Sie den nächsten Schritten, um Dateien hochzuladen:",
+        "list1": {
+          "item1": "Öffnen Sie den O-Replay Desktop-Client und klicken Sie auf <1>\"Verbindung prüfen\"</1>.",
+          "item2": "Fügen Sie den Sicherheitsschlüssel ein (Sie erhalten ihn nach der Erstellung der Veranstaltung auf der Webseite, dazu später mehr), klicken Sie dann auf <2>\"Eingeben\"</2> und wählen Sie die Etappe aus, zu der Sie Daten hochladen möchten. Die Event-ID und der Sicherheitstoken werden bei der Erstellung der Veranstaltung bereitgestellt.",
+          "item3": "Wählen Sie das Verzeichnis aus, in das Sie die Dateien exportieren, und drücken Sie <2>\"Start\"</2>. Der Client überwacht nun diesen Ordner auf `XML`- oder `csv`-Dateien. Wenn Sie Startzeiten oder Ergebnisse aus Ihrer Zeitmessungssoftware exportieren, liest der Client die Datei aus und lädt sie zu O-Replay hoch. Dateien werden nach erfolgreichem Upload automatisch gelöscht."
+        },
+        "img1": {
+          "url": "/organizers/en/DesktopClient/Client.png",
+          "alt": "Screenshot des Desktop-Clients"
+        },
+        "p2": "Die Option \"Nach Klasse aufteilen\" stellt für jede Klasse eine eigene Verbindung zum Server her. Diese Option wurde für Entwicklungszwecke erstellt und kann aktiviert oder deaktiviert werden."
+      }
+    }
+  },
+  "BeforeTheRace": {
+    "title": "Vor dem Rennen",
+    "CreateEvent": {
+      "title": "Erstellung einer Veranstaltung",
+      "p1": "Rennen in O-Replay sind in Veranstaltungen und Etappen organisiert. Zum Beispiel, wenn Sie eine Wochenendmeisterschaft mit Mittel- und Langstreckenrennen ausrichten, würden Sie eine Veranstaltung \"Meisterschaft\" mit zwei Etappen erstellen: \"Mittelstrecke\" und \"Langstrecke\". Jede Etappe kann eine andere Orientierungslauf-Disziplin darstellen.",
+      "p2": "Nach dem Einloggen sehen Sie alle Ihre Veranstaltungen. Sie können auch neue Veranstaltungen erstellen. Beginnen Sie mit der Eingabe der Veranstaltungsdetails und fügen Sie dann so viele Etappen hinzu, wie nötig. Wenn Ihre Veranstaltung nur ein Rennen namens \"Mein erstes Rennen\" hat, erstellen Sie eine Veranstaltung mit dem Namen \"Mein erstes Rennen\" und eine Etappe namens \"Rennen\". Nur der Name der Veranstaltung wird angezeigt. Stellen Sie sicher, dass Sie mindestens eine Etappe anlegen, sonst können keine Daten hochgeladen werden.",
+      "p3": "Nachdem Sie die Veranstaltung und Etappen erstellt haben, generieren Sie einen Sicherheitstoken. Dieser Token fungiert als geheimes Passwort zum Hochladen der Ergebnisse und kann mit Ihrem Team der Zeitnehmer geteilt werden, ohne Ihre O-Replay-Zugangsdaten preiszugeben. Bitte beachten Sie, dass Token einen Monat nach Erstellung ablaufen, aber jederzeit erneuert werden können. Wenn sie erneuert werden, wird der alte Token ungültig und ein neuer generiert. Nutzen Sie diese Option, falls Ihr Token kompromittiert wurde.",
+      "img1": {
+        "url": "/organizers/en/WebUI/GenerateToken.png",
+        "alt": "Menü zur Erstellung von Sicherheitstokens für eine Veranstaltung"
+      }
+    },
+    "UploadStartTimes": {
+      "title": "Startzeiten hochladen",
+      "p1": "Startzeiten werden aus zwei Gründen hochgeladen:",
+      "list1": {
+        "item1": "Um sie für die Läufer als Information anzuzeigen.",
+        "item2": "Um In-Rennen-Zeiten darzustellen."
+      },
+      "p2": "Wir unterstützen nur IOF XML v3 Dateien. Bereiten Sie den O-Replay Desktop-Client auf die Dateien vor und exportieren Sie die Startzeiten aus Ihrer Zeitmessungssoftware:",
+      "Tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "Sie müssen die XML-Datei mit den Startzeiten exportieren. Gehen Sie zu \"Startliste\" → \"Berichte\" → \"Klassen\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportStartTimes_ChooseMenu.png",
+            "alt": "Auszuwählendes Menü"
+          },
+          "p2": "Wählen Sie im oberen Menü \"Export\":",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportStartTimes_Export.png",
+            "alt": "Export-Button"
+          },
+          "p3": "Speichern Sie die Datei im IOF XML v3 Format in dem Ordner, den der O-Replay Client überwacht.",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportStartTimes_ChooseIOFXMLv3.png",
+            "alt": "Dialog zur Formatwahl"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "Sie müssen die XML-Datei mit den Startzeiten exportieren. Gehen Sie zu Startliste → Startlistenberichte → nach Klassen:",
+          "img1": {
+            "url": "organizers/en/OE12/ExportStartTimesChoseMenu.png",
+            "alt": "Auszuwählendes Menü"
+          },
+          "p2": "Wählen Sie im oberen Menü \"Export\":",
+          "img2": {
+            "url": "organizers/en/OE12/ExportStartTimesChooseExport.png",
+            "alt": "Export-Button"
+          },
+          "p3": "Speichern Sie die Datei im IOF XML Format in dem Ordner, den der O-Replay Client überwacht.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportStartTimesSetIOFXML.png",
+            "alt": "Speichern im IOF XML Format"
+          }
+        },
+        "MeOS": {
+          "title": "MeOS",
+          "p1": "Sie müssen die XML-Datei mit den Startzeiten exportieren. Gehen Sie zu Wettbewerb → Daten exportieren → Startliste",
+          "img1": {
+            "url": "organizers/en/MeOS/UploadStartTimes_Menu.png",
+            "alt": "Menü zum Exportieren der Startliste in MeOS"
+          },
+          "p2": "Wählen Sie alle Klassen aus, wählen Sie \"IOF Startliste\" und exportieren Sie die Datei in den Ordner, den der Client überwacht.",
+          "img2": {
+            "url": "organizers/en/MeOS/UploadStartTimes_SetIOFXML.png",
+            "alt": "Menü zur Auswahl der zu exportierenden Klassen und Festlegung des IOF XML Formats"
+          }
+        }
+      },
+      "p3": "Wenn Ihre Veranstaltung mehrere Etappen hat, müssen Sie die Startzeiten für jede Etappe hochladen.",
+      "InfoBox1": {
+        "title": "Rennen ohne Startzeiten:",
+        "p1": "Wenn Sie eine Startkontrolle verwenden und die Läufer keine vorher zugewiesenen Startzeiten haben, wird empfohlen, die Meldungen im IOF XML-Format hochzuladen. So können alle Meldungen angezeigt werden, und die Teilnehmer sehen, wie viele Läufer noch im Rennen sind."
+      },
+      "WarnBox1": {
+        "title": "Startzeiten nach Ergebnissen hochladen",
+        "p1": "Nach dem Hochladen der Ergebnisse können keine Startzeiten mehr hochgeladen werden. Wenn Sie Startzeiten nach dem Hochladen der Ergebnisse hochladen möchten, müssen Sie zuerst die Etappe zurücksetzen."
+      }
+    }
+  },
+  "DuringRace": {
+    "title": "Während des Rennens",
+    "UploadingResults": {
+      "title": "Ergebnisse hochladen",
+      "p1": "Wir unterstützen IOF XML v3 Splits-Dateien zum Hochladen der Ergebnisse. Verwenden Sie einen leeren Ordner, um diese Dateien zu speichern (Sie können denselben Ordner wie für die Startzeiten verwenden).",
+      "p2": "Bereiten Sie den Client vor und stellen Sie sicher, dass er auf neue Dateien hört, dann exportieren Sie die Ergebnisse aus Ihrer Zeitmessungssoftware:",
+      "Tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "Sie müssen die Splits XML-Datei exportieren. Gehen Sie zu \"Ergebnisse\" → \"Splittzeiten\" → \"Klassen\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseMenu.png",
+            "alt": "Auszuwählendes Menü"
+          },
+          "p2": "Aufgrund eines Fehlers in OE2010 müssen Sie Ergebnisse ohne Dezimalstellen exportieren. Im Einstellungsmenü links gehen Sie zu \"Berichtsformate\" und wählen \"HH:MM:SS\" als Zeitformat.",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseReportFormat.png",
+            "alt": "Einstellungsmenü für Berichtsformate"
+          },
+          "p3": "Sie müssen alle Läufer exportieren, inklusive DNS. Im Einstellungsmenü links gehen Sie zu \"Mehr Optionen\" → \"Wie viele Teilnehmer?\" und wählen \"Alle\". Deaktivieren Sie \"DNS ausschließen\".",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_ChooseAllRunners.png",
+            "alt": "Einstellungsmenü für mehr Optionen"
+          },
+          "p4": "Exportieren Sie regelmäßig die Splits mit dem Automatischen Bericht. Im linken Einstellungsmenü gehen Sie zu \"Automatischer Bericht\". Stellen Sie dann die automatischen Aktionen nur auf \"Export\" und das gewünschte Aktualisierungsintervall ein. Starten Sie abschließend den Vorgang.",
+          "img4": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_AutomaticReport.png",
+            "alt": "Einstellungsmenü für automatischen Bericht"
+          },
+          "p5": "Speichern Sie die Datei im IOF XML v3 Format in dem Ordner, den der O-Replay Client überwacht.",
+          "img5": {
+            "url": "organizers/en/OE2010/ExportSplitTimes_Save.png",
+            "alt": "Speicherdialog"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "Sie müssen die Splits XML-Datei exportieren. Gehen Sie zu Ergebnisse → Splittzeiten → nach Klassen:",
+          "img1": {
+            "url": "organizers/en/OE12/ExportSplitsChoseMenu.png",
+            "alt": "Auszuwählendes Menü"
+          },
+          "p2": "Sie müssen alle Läufer exportieren. Deaktivieren Sie die Option \"DNS ausschließen\".",
+          "img2": {
+            "url": "organizers/en/OE12/ExportSplits_IncludeAllRunners.png",
+            "alt": "Automatisches Berichtsmenü in OE12"
+          },
+          "p3": "Stellen Sie den automatischen Bericht auf Ihr gewünschtes Aktualisierungsintervall ein.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportSplitsSetAutomaticExport.png",
+            "alt": "Automatisches Berichtsmenü in OE12"
+          },
+          "p4": "Speichern Sie die Datei im IOF XML Format in dem Ordner, den der O-Replay Client überwacht.",
+          "img4": {
+            "url": "organizers/en/OE12/ExportSplitsSetIOFXML.png",
+            "alt": "Speichern im IOF XML Format"
+          }
+        },
+        "MeOS": {
+          "title": "MeOS",
+          "p1": "Sie müssen die Splits XML-Datei exportieren. Gehen Sie zu Dienste → Verfügbare Dienste → Online Ergebnisse",
+          "img1": {
+            "url": "/organizers/en/MeOS/UploadResults_Menu.png",
+            "alt": "Menü zum Aktivieren eines Dienstes zum Exportieren von Ergebnissen in MeOS"
+          },
+          "p2": "Dieser Dienst hat viele verschiedene Konfigurationsoptionen. Sie müssen folgendes einstellen:",
+          "list1": {
+            "ServiceName": "<0>Dienstname</0>: O-Replay (optional)",
+            "TimeInterval": "<0>Intervall</0>: Wie häufig die Ergebnisse aktualisiert werden. 30 Sekunden oder 1 Minute sind gängige Werte.",
+            "Classes": "<0>Klassen</0>: Wählen Sie alle Klassen aus.",
+            "ExportFormat": "<0>Exportformat</0>: muss \"IOF XML 3.0\" sein",
+            "SaveToDisk": "<0>Auf Festplatte speichern</0>: ist die einzige Option, die aktiviert sein muss. Wählen Sie den Ordner, den der O-Replay Client überwacht."
+          },
+          "img2": {
+            "url": "/organizers/en/MeOS/UploadResults_StandartServiceConfig.png",
+            "alt": "Standardoptionen des Online-Ergebnisdienstes für die Arbeit mit O-Replay in MeOS"
+          }
+        }
+      },
+      "p3": "Viele fragen, ob sie Ergebnisse gleichzeitig sowohl bei Liveresultats als auch bei O-Replay hochladen können. Liveresultats hat uns über viele Jahre gut gedient, und wir schätzen dessen Beitrag sehr. Dennoch sind wir fest davon überzeugt, dass O-Replay die Zukunft ist, da es alle Funktionen bietet und viele weitere, dabei benutzerfreundlicher gestaltet ist.",
+      "p4": "Wenn Sie sich jedoch entscheiden, beide Plattformen zu nutzen, müssen Sie die Dateien in unterschiedliche Ordner exportieren. Andernfalls konkurrieren die Clients um den Zugriff – lesen, verarbeiten und löschen dieselben Dateien –, was dazu führt, dass keiner der beiden korrekt funktioniert.",
+      "WarnBox1": {
+        "title": "Regelmäßiger Ergebniseexport (ohne Splits)",
+        "p1": "Obwohl der Client das Hochladen von Ergebnisdateien ohne Splits unterstützt, wird dies dringend nicht empfohlen. Ohne Splits können keine virtuellen Tickets und Split-Details angezeigt werden."
+      },
+      "WarnBox2": {
+        "title": "Fehler beim Hochladen bei großer Anzahl an Läufern",
+        "p1": "Wenn Sie eine große Anzahl von Ergebnissen hochladen (z. B. ca. 1.000 Läufer), die vorher nicht hochgeladen wurden, kann der Vorgang bis zu einer Minute dauern. Dauert es länger als eine Minute, tritt ein Fehler auf. Versuchen Sie in diesem Fall, dieselben Ergebnisse zwei- oder dreimal erneut hochzuladen. Einige Klassen könnten bereits auf dem Server gespeichert sein, sodass der Vorgang letztlich abgeschlossen wird."
+      }
+    },
+    "UploadingOnlineControls": {
+      "title": "Hochladen von Online-Kontrollen",
+      "p1": "Wenn Sie in Ihrem Wettkampf Online-Kontrollen verwenden, müssen Sie zusätzlich zu den vorherigen Schritten auch diese Online-Splits exportieren und hochladen. Wenn Sie diese nicht verwenden, können Sie diesen Abschnitt überspringen. Wir unterstützen IOF XML v3. Sie können die Dateien im selben Ordner exportieren, in dem Sie auch die Splits speichern.",
+      "tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "Sie müssen die XML-Datei mit den Online-Splits exportieren. Gehen Sie zu \"Speaker\" → \"Zwischenergebnisse\":",
+          "img1": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_ChoseMenu.png",
+            "alt": "Zu wählendes Menü"
+          },
+          "p2": "Die Einstellungen müssen wie zuvor gesetzt werden. Exportieren Sie alle Teilnehmer und deaktivieren Sie die Option \"Exclude dns\". Denken Sie daran, das Berichtsformat auf HH:MM:SS einzustellen. Aufgrund eines Fehlers in OE2010 führen Dezimalstellen beim Export dazu, dass in O-Replay falsche Zeiten angezeigt werden.",
+          "img2": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_Settings.png",
+            "alt": "Anzuwendende Einstellungen"
+          },
+          "p3": "Exportieren Sie die Datei in dem von Ihnen gewünschten Aktualisierungsintervall.",
+          "img3": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_AutomaticReport.png",
+            "alt": "Einstellungen für automatischen Bericht"
+          },
+          "p4": "Exportieren Sie im XML IOF v3 Format",
+          "img4": {
+            "url": "organizers/en/OE2010/ExportOnlineSplits_SaveXML.png",
+            "alt": "Dialog zur Formatwahl beim Speichern"
+          }
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "Sie müssen die XML-Datei mit den Online-Splits exportieren. Gehen Sie zu \"Speaker\" → \"Zwischenergebnisse\":",
+          "img1": {
+            "url": "organizers/en/OE12/ExportOnlineControls_ChoseMenu.png",
+            "alt": "Zu wählendes Menü"
+          },
+          "p2": "Die Einstellungen müssen wie zuvor gesetzt werden. Exportieren Sie alle Teilnehmer und deaktivieren Sie die Option \"Exclude dns\".",
+          "img2": {
+            "url": "organizers/en/OE12/ExportOnlineControls_Settings.png",
+            "alt": "Anzuwendende Einstellungen"
+          },
+          "p3": "Exportieren Sie die Datei in dem von Ihnen gewünschten Aktualisierungsintervall.",
+          "img3": {
+            "url": "organizers/en/OE12/ExportOnlineControls_AutomaticReport.png",
+            "alt": "Einstellungen für automatischen Bericht"
+          },
+          "p4": "Exportieren Sie im XML IOF v3 Format",
+          "img4": {
+            "url": "organizers/en/OE12/ExportOnlineControls_SaveXML.png",
+            "alt": "Dialog zur Formatwahl beim Speichern"
+          }
+        }
+      }
+    },
+    "WhatIfAnythingWrong": {
+      "title": "Was tun, wenn etwas schiefgeht",
+      "p1": "Wenn Sie beim Hochladen der Startzeiten oder Ergebnisse Probleme haben (z. B. Daten in die falsche Wertung hochladen), können Sie die Wertung zurücksetzen. Dabei werden alle zu dieser Wertung hochgeladenen Daten gelöscht, sodass Sie von vorne beginnen können. Nach dem Zurücksetzen ist die Wertung komplett leer – als wäre sie neu erstellt – und Sie müssen Startzeiten und Ergebnisse erneut hochladen.",
+      "p2": "Um eine Wertung zurückzusetzen, gehen Sie auf die Veranstaltungsseite und klicken Sie am betreffenden Wertungsabschnitt auf das Zahnrad-Symbol für Einstellungen. Klicken Sie dann auf die Option \"Zurücksetzen\".",
+      "img1": {
+        "url": "/organizers/en/WebUI/ResetStage.png",
+        "alt": "Zurücksetzen-Schaltfläche in der Web-Oberfläche"
+      },
+      "p3": "Diese Option ist auch hilfreich, wenn Teilnehmerinformationen nicht korrekt angezeigt werden. Zum Beispiel, wenn sich die Klasse eines Teilnehmers ändert, kann das System ihn als unterschiedliche Person behandeln, sodass der Läufer sowohl in der alten als auch in der neuen Klasse erscheint. Zurücksetzen und erneutes Hochladen sorgt dafür, dass alle Informationen korrekt aktualisiert werden."
+    }
+  }
+}
