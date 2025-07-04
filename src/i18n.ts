@@ -15,7 +15,7 @@ i18n
       gl: ["es"], // galician
       default: ["en"],
     },
-    supportedLngs: ["en", "es", "fr"], // Explicitly list supported languages
+    supportedLngs: ["en", "es", "fr", "de"], // Explicitly list supported languages
     load: "languageOnly", // Ignore region-specific codes like es-ES
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",

@@ -51,6 +51,12 @@ const LanguageNestedList = () => {
               <ListItemText primary={t("Language.French")} />
             </ListItemButton>
           </ListItem>
+          <ListItem>
+            <ListItemButton sx={{ pl: 4 }} onClick={() => handleLanguageChange("de")}>
+              <ListItemIcon>{"\ud83c\udde9\ud83c\uddea"}</ListItemIcon>
+              <ListItemText primary={t("Language.Deutsch")} />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Collapse>
     </>
