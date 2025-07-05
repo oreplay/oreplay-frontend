@@ -1,0 +1,88 @@
+{
+  "header": "COOKIES-RICHTLINIE",
+  "subtitle": "Letzte Änderung: 30.06.2025",
+  "p1": "In Übereinstimmung mit den Bestimmungen des Artikels 22.2 des Gesetzes 34/2002 vom 11. Juli 2002 über Dienste der Informationsgesellschaft und den elektronischen Geschäftsverkehr informiert Sie diese Webseite in diesem Abschnitt über die Richtlinie zur Erhebung und Verarbeitung von Cookies.",
+  "whatAreCookies": {
+    "title": "Was sind Cookies?",
+    "p1": "Cookies sind kleine Textdateien, die einige Server mit unserer Zustimmung auf unserer Festplatte speichern und Informationen darüber enthalten, was wir auf ihren Seiten getan haben (z. B. Verweildauer auf einer bestimmten Seite, Abruf spezifischer Informationen über ein Produkt usw.).",
+    "p2": "Die meisten Cookies haben ein Ablaufdatum, das von der Dauer der Sitzung bis zu einem festgelegten zukünftigen Datum reichen kann, nach dem sie nicht mehr aktiv sind."
+  },
+  "cookiesUsed": {
+    "title": "Verwendete Cookies auf dieser Webseite",
+    "p1": "Die auf dieser Webseite verwendeten Cookies sind nur mit einem anonymen Benutzer und dessen Computer verknüpft. Sie enthalten keine Informationen, aus denen Name oder andere personenbezogene Daten des Nutzers abgeleitet werden können, und können keine Daten von der Festplatte auslesen oder Viren enthalten. Unsere Webseite kann keine Cookies auslesen, die von anderen Servern auf der Festplatte des Nutzers abgelegt wurden.",
+    "p2": "Der Nutzer kann frei entscheiden, ob er die auf unserer Webseite eingesetzten Cookies auf seiner Festplatte akzeptiert oder ablehnt. Er kann seinen Browser so konfigurieren, dass entweder alle Cookies standardmäßig akzeptiert oder abgelehnt werden oder dass er bei jedem Cookie eine Warnung erhält und somit selbst entscheiden kann, ob er das Cookie akzeptiert. Wir empfehlen, dazu die Hilfe-Funktion Ihres Browsers zu konsultieren, um die aktuellen Einstellungen zu ändern.",
+    "p3": "Als Nutzer haben Sie das Recht, alle Cookies abzulehnen oder nur diejenigen zu erlauben, die für den Betrieb notwendig sind. Sie können unsere Webseite weiterhin normal nutzen, müssen aber damit rechnen, dass einige Funktionen, die Cookies benötigen, eingeschränkt sind. In jedem Fall können Sie die auf Ihrer Festplatte gespeicherten Cookies jederzeit löschen, indem Sie die in der Hilfefunktion Ihres Browsers beschriebenen Schritte befolgen – welche wir weiter unten noch erläutern werden.",
+    "p4": "Nach Artikel 22.2 des Gesetzes 34/2002 über Dienste der Informationsgesellschaft und elektronischen Geschäftsverkehr erteilen Sie durch die weitere Nutzung unserer Webseite mit aktivierten Cookies Ihre ausdrückliche Zustimmung zur Verwendung der nachfolgend beschriebenen Cookies.",
+    "p5": "Cookies auf dieser Webseite dienen dazu:",
+    "list1": {
+      "item1": "Die ordnungsgemäße Funktion der Webseite sicherzustellen;",
+      "item2": "Die Wiedergabe von Videos oder anderen Multimedia-Inhalten zu ermöglichen;",
+      "item3": "Die Geschwindigkeit und Sicherheit der Webseite zu verbessern;",
+      "item4": "Das Teilen von Seiten in sozialen Netzwerken zu erleichtern;",
+      "item5": "Benutzerpasswörter für zukünftige Besuche zu speichern."
+    },
+    "p6": "Wir verwenden Cookies niemals zu folgenden Zwecken:",
+    "list2": {
+      "item1": "Erfassung personenbezogener Daten ohne Ihre ausdrückliche Zustimmung;",
+      "item2": "Erfassung sensibler Daten ohne Ihre ausdrückliche Zustimmung;",
+      "item3": "Weitergabe personenbezogener Daten an Dritte."
+    }
+  },
+  "thirdPartyCookies": {
+    "title": "Cookies von Drittanbietern",
+    "p1": "Diese Webseite enthält, wie die überwiegende Mehrheit der Webseiten, Funktionen, die von Drittanbietern bereitgestellt werden.",
+    "p2": "Neue Designs oder Dienste von Drittanbietern werden ebenfalls regelmäßig getestet, um Empfehlungen und Berichte zu erstellen.",
+    "p3": "Dies kann gelegentlich die Konfiguration von Cookies verändern, sodass Cookies erscheinen können, die in dieser Richtlinie nicht aufgeführt sind. Es ist wichtig zu informieren, dass es sich hierbei um temporäre Cookies handelt, über die nicht immer informiert werden kann, und die ausschließlich zu Studien- und Evaluationszwecken verwendet werden. Cookies, die Ihre Privatsphäre beeinträchtigen, werden in keinem Fall eingesetzt.",
+    "p4": "Im Folgenden werden, wie in Artikel 22.2 des LSSI vorgeschrieben, die Cookies aufgeführt, die während der Nutzung dieser Webseite installiert werden können:",
+    "tableHeaders": {
+      "name": "ART",
+      "duration": "DAUER",
+      "purpose": "ZWECK"
+    },
+    "cookieTable": [
+      {
+        "name": "Technisch und obligatorisch",
+        "duration": "2 Stunden",
+        "purpose": "Sichert die ordnungsgemäße Funktion des Zugangssystems und erleichtert die Navigation innerhalb der Seite, solange die Sitzung aktiv ist. Dieses Cookie wird nicht zu Analyse-, Werbe- oder Trackingzwecken verwendet."
+      }
+    ]
+  },
+  "cookieManagement": {
+    "title": "Wie kann ich diese Cookies verwalten und deaktivieren?",
+    "p1": "Wenn Sie nicht möchten, dass diese Webseite Cookies auf Ihrem Computer speichert, können Sie Ihren Browser so einstellen, dass er Sie vor dem Herunterladen von Cookies informiert.",
+    "p2": "Sie können auch die Browsereinstellungen ändern, sodass alle Cookies oder nur Cookies von Drittanbietern abgelehnt werden. Ebenso ist es möglich, bereits gespeicherte Cookies zu löschen; hierfür müssen Sie die Einstellungen jedes einzelnen Browsers und Computers separat anpassen.",
+    "p3": "Wir stellen Links zu den Browsern bereit, die am weitesten verbreitet sind, damit Nutzer, die die Installation der genannten Cookies verhindern möchten, diese Einstellungen vornehmen können:",
+    "p4": "COOKIE-VERWALTUNG NACH BROWSER:",
+    "list1": {
+      "item1": "Cookie-Einstellungen (Google Chrome) (<2>http://support.google.com/chrome/bin/answer.py?hl=de&answer=95647</2>)",
+      "item2": "Cookies löschen und verwalten (Internet Explorer) (<2>https://support.microsoft.com/de-de/help/17442/windows-internet-explorer-delete-manage-cookies</2>)",
+      "item3": "Cookies von Drittanbietern deaktivieren (Firefox) (<2>https://support.mozilla.org/de/kb/deaktivieren-von-cookies-von-drittanbietern</2>)",
+      "item4": "Cookies in Safari verwalten (Safari) (<2>http://support.apple.com/kb/ph5042</2>)"
+    },
+    "p5": "Viele Browser bieten einen privaten Modus, bei dem Cookies nach dem Besuch automatisch gelöscht werden. Je nach Browser kann dieser private Modus unterschiedliche Bezeichnungen haben. Im Folgenden finden Sie die gängigsten Browser und die jeweiligen Namen dieses „privaten Modus“:",
+    "list2": {
+      "item1": "Internet Explorer 8+: InPrivate",
+      "item2": "Firefox 3.5+: Privates Surfen",
+      "item3": "Chrome 10+: Inkognito",
+      "item4": "Safari 2+: Privates Surfen",
+      "item5": "Opera 10.5+: Privates Surfen"
+    },
+    "p6": "Bitte lesen Sie die Hilfeseiten Ihres Browsers sorgfältig, um mehr darüber zu erfahren, wie Sie den „privaten Modus“ aktivieren können. Auch im privaten Modus können Sie unsere Webseite besuchen, allerdings ist die Nutzererfahrung möglicherweise eingeschränkt und einige Funktionen könnten nicht verfügbar sein.",
+    "p7": "Für weitere Informationen zum Blockieren von Cookies auf Ihrem Computer folgen Sie bitte der Anleitung unter folgendem Link: <2>http://windows.microsoft.com/de-de/windows-vista/block-or-allow-cookies</2>."
+  },
+  "changes": {
+    "title": "Änderungen der Cookie-Richtlinie",
+    "p1": "Wir können die Cookie-Richtlinie unserer Webseite aktualisieren. Daher empfehlen wir, diese Richtlinie bei jedem Besuch unserer Webseite zu überprüfen, um stets korrekt informiert zu sein, wie und wofür wir Cookies verwenden."
+  },
+  "privacyLink": {
+    "title": "Datenschutzrichtlinie",
+    "p1": "Weitere Informationen zur Verarbeitung personenbezogener Daten finden Sie in unserer <2>Datenschutzrichtlinie</2>."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "p1": "Bei Fragen, Anmerkungen oder Vorschlägen zur Cookie-Richtlinie schreiben Sie bitte an: <2>support@oreplay.es<2>."
+  },
+  "Rights": {
+    "footer": "© Alle Rechte vorbehalten: O-REPLAY"
+  }
+}
