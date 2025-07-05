@@ -1,0 +1,52 @@
+{
+  "Header": "Wir sind O-Replay",
+  "subtitle": "Von Orientierungsläufern, für Orientierungsläufer",
+  "Introduction": {
+    "p1": "O-Replay ist ein moderner, umfassender Open-Source-Webservice für Live-Ergebnisse im Orientierungslauf. Wir richten uns nicht nur an reguläre Fuß-OL-Wettkämpfe, sondern unterstützen auch weitere Disziplinen wie Rogaining und Staffelläufe. Zu unseren Hauptfunktionen gehören Online-Kontrollen, digitale Tickets und eine Zwischenzeiten-Tabelle – alles in Echtzeit aktualisiert.",
+    "p2": "Vergessen Sie unzählige Links für Ihre Läufer zu verschiedenen Etappen und Ergebnisarten – alles ist auf einer einzigen Veranstaltungsseite verfügbar.",
+    "p3": "Wir sind ganz normale Menschen, genau wie Sie, die sich leidenschaftlich für Orientierungslauf begeistern und beschlossen haben, dieses Projekt zu realisieren. Wir widmen unsere Freizeit diesem Projekt in der Hoffnung, dass es der Community nützlich sein wird. O-Replay ist und bleibt ein komplett kostenloser Service.",
+    "p4": "Wir sind Open Source, daher ist unser gesamter Code frei und öffentlich auf <2>GitHub</2> verfügbar. Wir laden die gesamte Community ein, uns bei der Verbesserung des Projekts zu unterstützen."
+  },
+  "OngoingProject": {
+    "title": "Laufende Entwicklung",
+    "p1": "Wir sind ein laufendes Projekt und arbeiten kontinuierlich daran, neue Funktionen hinzuzufügen und bestehende zu verbessern.",
+    "SupportedDisciplines": {
+      "title": "Unterstützte Orientierungslauf-Disziplinen",
+      "p1": "Derzeit unterstützen wir folgende Orientierungslauf-Disziplinen:",
+      "list1": {
+        "item1": "Fuß-OL / MTB-OL / Ski-OL",
+        "item2": "Rogaining",
+        "item3": "Staffel",
+        "item4": "Raid"
+      }
+    },
+    "AvailableFeatures": {
+      "title": "Verfügbare Funktionen",
+      "p1": "Derzeit unterstützen wir folgende Funktionen:",
+      "list1": {
+        "item1": "Startliste nach Klassen",
+        "item2": "Live-Ergebnisse nach Klassen",
+        "item3": "Live Online-Kontrollen",
+        "item4": "Live virtuelle Startkarten",
+        "item5": "Live Zwischenzeiten-Tabelle",
+        "item6": "Team-Ergebnisse im Fuß-OL und Rogaining",
+        "item7": "Individuelle Strecken (z. B. Einzelstaffeln)",
+        "item8": "Gesamtwertung der Meisterschaft nach Klassen",
+        "item9": "Startliste nach Vereinen",
+        "item10": "Meisterschafts-Startliste nach Vereinen",
+        "item11": "Ergebnisse nach Vereinen",
+        "item12": "<0></0> Direkte Integration mit Anbietern von Online-Kontrollen (wie <3>ROC</3> und <7>CPI</7>)"
+      }
+    }
+  },
+  "Authors": {
+    "title": "Autoren",
+    "p1": "Wir sind eine Gruppe spanischer Orientierungsläufer und Zeitnehmer. Das Projekt wird geleitet von <1>Sergio García Pajares</1> (Benutzeroberfläche und Webseite), <3>Adrián Pérez Alonso</3> (Server und Datenverarbeitung) und <5>Javier Arufe Varela</5> (Daten-Upload).",
+    "p2": "Die vollständige Liste der Mitwirkenden umfasst: <1>Sergio García Pajares</1>, <3>Adrián Pérez</3>, <5>Javier Arufe Varela</5>, <7>Andreu Espinosa Bajo</7>, <9>Jessica Penela</9>, <11>Brais Piñeiro</11>, <13>Guillem Serrallonga Rosell</13>, <17>Manuel Pedre</17> und <19>Juan David Durán Hernández</19>.",
+    "Acknowledgements": {
+      "title": "Danksagungen",
+      "p1": "Wir möchten <2>Paula Padilla Fernández</2> für das ursprüngliche Logodesign danken.",
+      "p2": "Unser Dank gilt auch <2>FEGADO (Spanischer Galicischer Orientierungslauf-Verband)</2> für die Unterstützung einiger Projektkosten."
+    }
+  }
+}
