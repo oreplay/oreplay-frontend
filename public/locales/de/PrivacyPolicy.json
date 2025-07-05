@@ -1,0 +1,256 @@
+{
+  "header": "DATENSCHUTZERKLÄRUNG",
+  "subtitle": "Zuletzt geändert: 23. Juni 2025",
+  "p1": "Vielen Dank für Ihren Besuch auf dieser Website. Bitte lesen Sie die in diesem Dokument enthaltenen Nutzungsbedingungen sorgfältig durch, da Ihre Nutzung dieser Website Ihre ausdrückliche und vollständige Zustimmung zu diesen Bedingungen in der jeweils beim Zugriff geltenden Fassung bedeutet. Wir empfehlen Ihnen, dieses Dokument bei jedem Besuch der Website aufmerksam zu lesen, um zu prüfen, ob sich die Nutzungsbedingungen geändert haben, und die Website zu verlassen, falls Sie mit diesen Änderungen nicht einverstanden sind. Sollten wir der Meinung sein, dass bestimmte Änderungen wesentlich sind, werden wir das Datum der 'Letzten Änderung' oben auf dieser Seite aktualisieren. Sie sind selbst dafür verantwortlich, sich über etwaige Änderungen zu informieren und mit ihnen vertraut zu machen.",
+  "Identification": {
+    "title": "Identifikation",
+    "p1": "Gemäß der Informationspflicht gemäß Artikel 10 des Gesetzes 34/2002 vom 11. Juli über Dienstleistungen der Informationsgesellschaft und des elektronischen Geschäftsverkehrs sowie in Übereinstimmung mit den geltenden Datenschutzbestimmungen, insbesondere dem Organgesetz 3/2018 vom 5. Dezember über den Schutz personenbezogener Daten und die Gewährleistung digitaler Rechte (LOPDDGG), das die Anwendung der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 über den Schutz natürlicher Personen bei der Verarbeitung personenbez"
+  },
+  "Responsibleprocessor": {
+    "title": "Verantwortlicher für die Datenverarbeitung",
+    "p1": "O-REPLAY (im Folgenden DER DIENST)"
+  },
+  "Comercialname": {
+    "title": "Handelsname",
+    "p1": "O-REPLAY"
+  },
+  "Communication": {
+    "title": "Kommunikation",
+    "p1": "Für alle Fragen im Zusammenhang mit der Verarbeitung personenbezogener Daten können Sie uns über folgende Kontaktmöglichkeit erreichen:",
+    "contact": {
+      "email": "<2>support@oreplay.es</2>"
+    },
+    "p2": "Alle Mitteilungen und Benachrichtigungen, die in diesem Abschnitt genannt werden, gelten als wirksam, wenn sie auf einem der oben genannten Wege erfolgen. Wir sind uns bewusst, dass der Schutz und die Sicherheit Ihrer personenbezogenen Daten von größter Bedeutung sind."
+  },
+  "Registrationregulation": {
+    "title": "Was ist die neue Datenschutz-Grundverordnung?",
+    "p1": "Dabei handelt es sich um eine neue europäische Verordnung. Diese Verordnung vereinheitlicht die Kriterien für die Vertraulichkeit und Verarbeitung personenbezogener Daten auf EU-Ebene und passt deren Verwaltung an neue digitale Umgebungen wie das Internet und mobile Anwendungen an. Dadurch erhalten Sie mehr Kontrolle über Ihre Daten."
+  },
+  "Applicability": {
+    "title": "Ab wann gilt die neue Verordnung?",
+    "p1": "Die Europäische Union hat die Verordnung im Jahr 2016 verabschiedet. Die Mitgliedstaaten müssen sie ab dem 25. Mai 2018 anwenden."
+  },
+  "Changesforuser": {
+    "title": "Welche Änderungen ergeben sich für Sie?",
+    "p1": "Die europäischen Vorschriften erweitern die Rechte, die in der bisherigen spanischen Gesetzgebung enthalten sind. Aus diesem Grund müssen wir die Ihnen zur Verfügung gestellten Informationen über die Datenschutzmaßnahmen unseres DIENSTES aktualisieren. Außerdem werden wir in einigen neuen Fällen Ihre Einwilligung zur Verarbeitung Ihrer Daten einholen. So können wir Ihnen einen Service bieten, der besser auf Ihre Bedürfnisse zugeschnitten ist."
+  },
+  "Securitymeasures": {
+    "title": "Welche Maßnahmen haben wir ergriffen, um die Vertraulichkeit, Integrität und Sicherheit Ihrer Daten zu gewährleisten?",
+    "p1": "Wir haben mehrere Maßnahmen umgesetzt, um Ihre personenbezogenen Daten zu schützen und ihre Vertraulichkeit, Integrität und Sicherheit zu gewährleisten:",
+    "list": {
+      "item1": "Wir erheben nur die unbedingt notwendigen Informationen, also nur das, was wir für wesentlich halten.",
+      "item2": "Wir haben mit allen unseren Dienstleistern, Mitarbeitenden und Partnern Vertraulichkeitsvereinbarungen abgeschlossen.",
+      "item3": "Wir haben eine Reihe von IT-Sicherheitsmaßnahmen implementiert, um uns vor externen Angriffen zu schützen.",
+      "item4": "Wir haben unsere gesamte Dokumentation überprüft, um sicherzustellen, dass sie den Anforderungen der neuen Verordnung entspricht.",
+      "item5": "Wir haben die Auswirkungen unserer Verfahren auf den Schutz Ihrer personenbezogenen Daten bewertet.",
+      "item6": "Wir haben unser Personal geschult, damit alle in einer sorgfältigen und ethischen Weise handeln und alle Anforderungen der neuen Verordnung erfüllen können."
+    }
+  },
+  "Treatmentprinciples": {
+    "title": "Grundsätze für die Verarbeitung Ihrer personenbezogenen Daten",
+    "p1": "Bei der Verarbeitung Ihrer personenbezogenen Daten wenden wir die folgenden Grundsätze an, die den Anforderungen der neuen europäischen Datenschutzverordnung entsprechen:",
+    "list": {
+      "item1": "Grundsatz der Rechtmäßigkeit, Fairness und Transparenz: Wir werden stets Ihre Zustimmung zur Verarbeitung Ihrer personenbezogenen Daten für einen oder mehrere spezifische Zwecke einholen, über die wir Sie im Voraus in vollständiger Transparenz informieren.",
+      "item2": "Grundsatz der Datenminimierung: Wir fordern nur die Daten an, die im Hinblick auf den jeweiligen Zweck unbedingt erforderlich sind. So wenig wie möglich.",
+      "item3": "Grundsatz der Speicherbegrenzung: Daten werden nicht länger gespeichert, als es für den Verarbeitungszweck erforderlich ist. Wir informieren Sie über die jeweilige Aufbewahrungsfrist. Bei Abonnements überprüfen wir unsere Listen regelmäßig und löschen Einträge, die über einen längeren Zeitraum inaktiv waren.",
+      "item4": "Grundsatz der Integrität und Vertraulichkeit: Ihre Daten werden auf eine Weise verarbeitet, die eine angemessene Sicherheit und Vertraulichkeit gewährleistet. Wir treffen alle notwendigen Vorkehrungen, um einen unbefugten Zugriff oder Missbrauch der Daten durch Dritte zu verhindern."
+    }
+  },
+  "Legalbases": {
+    "title": "Rechtsgrundlage für die Erhebung und Verwendung von Informationen",
+    "p1": "Wenn Sie sich im Europäischen Wirtschaftsraum (EWR) befinden, basiert unsere Rechtsgrundlage für die Erhebung und Nutzung personenbezogener Daten auf der Art der betreffenden Informationen und dem jeweiligen Kontext der Erhebung. In den meisten Fällen beruhen unsere Tätigkeiten auf: 1) vertraglicher Notwendigkeit; 2) einem oder mehreren berechtigten Interessen des DIENSTES oder eines Dritten, die nicht durch Ihre Datenschutzinteressen überwogen werden; oder 3) Ihrer Einwilligung. In bestimmten Fällen sind wir gesetzlich verpflichtet, Ihre Daten zu erheben, oder wir benötigen sie, um lebenswichtige Interessen von Ihnen oder einer anderen Person zu schützen."
+  },
+  "Treatments": {
+    "title": "Verarbeitungen",
+    "p1": "Nachfolgend erläutern wir, wie wir Ihre Daten erheben, verwenden, offenlegen, übermitteln und speichern. Diese Datenschutzerklärung gilt für personenbezogene Daten, die über unsere Website erhoben werden. Es ist wichtig, dass Sie die Datenschutzerklärung regelmäßig prüfen, um festzustellen, ob sie aktualisiert wurde.",
+    "p2": "Alle Nutzer können auf unsere Website zugreifen und deren Inhalte einsehen, ohne personenbezogene Daten angeben zu müssen. Ihre personenbezogenen Daten werden nur dann erfasst, wenn Sie unsere Formulare freiwillig ausfüllen. In diesem Fall garantiert der Nutzer die Echtheit, Richtigkeit und Wahrhaftigkeit der bereitgestellten Informationen und verpflichtet sich, diese stets aktuell zu halten, sodass sie der tatsächlichen Situation entsprechen. Der Nutzer ist allein verantwortlich für falsche oder ungenaue Angaben und für daraus entstehende Schäden. Durch die Nutzung dieses Kommunikationsweges stimmen Sie ausdrücklich dem Erhalt regelmäßiger Mitteilungen ausschließlich von der verantwortlichen Stelle zu, die die von den Nutzern über die Website bereitgestellten personenbezogenen Daten streng vertraulich behandeln und alle technischen Maßnahmen ergreifen wird, um deren Veränderung, Verlust, Missbrauch oder unbefugten Zugriff zu verhindern.",
+    "p3": "Wir informieren Sie außerdem darüber, dass alle über elektronische Formulare und/oder per E-Mail übermittelten Daten ausschließlich zur korrekten Identifizierung des Absenders erforderlich sind. Diese Informationen werden streng vertraulich behandelt und ausschließlich zum Zweck der Bearbeitung von Informationsanfragen, der Erbringung unserer Dienstleistungen und Produkte sowie weiterer nachstehend aufgeführter Zwecke verwendet. Sie werden informiert und erteilen ausdrücklich Ihre Zustimmung zur Verwendung Ihrer Daten für Aktivitäten im Zusammenhang mit dem Unternehmenszweck der verantwortlichen Stelle.",
+    "p4": "Die erteilte Einwilligung – sowohl für die Verarbeitung als auch für die Weitergabe der Daten der betroffenen Personen – kann jederzeit widerrufen werden, indem Sie eine Mitteilung an die E-Mail-Adresse <2>support@oreplay.es</2> senden, wie es in dieser Richtlinie für die Ausübung Ihrer Rechte vorgesehen ist. Der Widerruf wirkt sich nicht rückwirkend aus."
+  },
+  "Howweuseyourdata": {
+    "title": "Wie wir Ihre Daten verwenden",
+    "p1": "Wir können Ihre personenbezogenen Daten wie folgt verwenden: Die von Ihnen bereitgestellten Informationen können uns helfen, Entscheidungen zu treffen, Anfragen zu beantworten, Dienstleistungen zu verbessern, neue Bedürfnisse zu erkennen, Werbeaktionen zu entwickeln, Ihre Erwartungen besser zu verstehen und Ihnen einen besseren Service zu bieten. Außerdem können wir Ihre Daten für folgende Zwecke verwenden:",
+    "p2": "Spezieller Zweck: Wenn Sie uns Ihre personenbezogenen Daten für einen bestimmten Zweck zur Verfügung stellen, verwenden wir diese ausschließlich zu diesem Zweck. Wenn Sie uns beispielsweise per E-Mail kontaktieren, verwenden wir Ihre Daten, um auf Ihre Anfrage zu antworten oder das Problem zu lösen, und antworten an die E-Mail-Adresse, von der die Nachricht gesendet wurde.",
+    "p3": "Interne Zwecke: Wir können Ihre personenbezogenen Daten für interne Zwecke verwenden, etwa zur Verbesserung von Inhalten und Funktionalität der Dienste, zum besseren Verständnis der Bedürfnisse unserer Nutzer, zur Optimierung der Services, zur Aufdeckung und Bekämpfung betrügerischer Aktivitäten, zur Durchsetzung unserer Nutzungsbedingungen, zur Verwaltung Ihres Kontos, zur Bereitstellung von Kundenservice und zur allgemeinen Verwaltung der Dienste.",
+    "p4": "Kommerzielle Kommunikation: Sofern wir Ihre ausdrückliche Einwilligung erhalten haben (die über eine spezielle Checkbox in unseren Formularen eingeholt wird), können wir Ihre personenbezogenen Daten verwenden, um Sie künftig für kommerzielle Aktionen zu kontaktieren, die für Sie von Interesse sein könnten – stets im Zusammenhang mit den Produkten und/oder Dienstleistungen des DIENSTES. Sie haben jederzeit die Möglichkeit, sich über den Link „Abbestellen“ am Ende der E-Mails oder per E-Mail an <2>support@oreplay.es</2> abzumelden. Sie können jedoch weiterhin E-Mails und Benachrichtigungen erhalten, sofern diese für die Aufrechterhaltung unserer vertraglichen Beziehung erforderlich und unerlässlich sind. Gemäß dem Gesetz 34/2002 vom 11. Juli über Dienste der Informationsgesellschaft und elektronischen Handel (LSSICE) betreibt DER DIENST kein SPAM und verpflichtet sich, kommerzielle Mitteilungen ordnungsgemäß zu kennzeichnen.",
+    "p5": "Bitte beachten Sie, dass DER DIENST Sie auch dann noch als Nutzer kontaktieren kann, wenn Sie sich gegen den Empfang von Werbe- oder kommerziellen Mitteilungen entschieden haben – insbesondere bei wichtigen transaktionsbezogenen Informationen zu Ihrem Konto, Produktkäufen, Buchungen oder der Inanspruchnahme anderer Dienstleistungen.",
+    "p6": "Im Folgenden erläutern wir detaillierter, welche Arten von Daten erhoben und verarbeitet werden und zu welchen Zwecken:",
+    "tableHeaders": {
+      "category": "Kategorie",
+      "purpose": "Zweck",
+      "baselegitimator": "Rechtsgrundlage",
+      "datacollect": "Erhobene Daten",
+      "consequences_header": "Folgen",
+      "possibletransfers": "Mögliche Übermittlungen",
+      "internationaltransfer": "Internationale Übermittlungen",
+      "deadlinesConservation": "Aufbewahrungsfristen"
+    },
+    "data_categories": [
+      {
+        "Category": "Besuchender Nutzer",
+        "Purpose": "Analyse der Benutzerfreundlichkeit und Qualität zur Verbesserung unserer Dienstleistungen"
+      },
+      {
+        "Category": "Nutzer, der uns kontaktiert",
+        "Purpose": "Beantwortung von Anfragen der Nutzer; Klärung von Zweifeln, Beschwerden, Kommentaren oder Anliegen in Bezug auf die auf der Website enthaltenen Informationen, Dienstleistungen, die Verarbeitung personenbezogener Daten und andere nicht vertragsbezogene Anfragen."
+      },
+      {
+        "Category": "Veranstaltungsorganisator",
+        "Purpose": "Verwaltung, Analyse und Anzeige von Ergebnissen und damit verbundenen Informationen für Wettbewerbe und Sportveranstaltungen."
+      }
+    ],
+    "p7": "Die Rechtsgrundlagen sind an die Zwecke des vorherigen Punktes gekoppelt.",
+    "legal_bases": [
+      {
+        "Category": "Besuchender Nutzer",
+        "baselegitimator": "Einwilligung durch Akzeptieren von Cookies oder durch fortgesetztes Surfen auf unserer Website (DSGVO Art. 6 Abs. 1 lit. a)."
+      },
+      {
+        "Category": "Nutzer, der uns kontaktiert",
+        "baselegitimator": "Unser berechtigtes Interesse an der Beantwortung der Anfragen des Betroffenen, gerechtfertigt durch dessen Interesse an der Kontaktaufnahme und am Erhalt von Informationen, bei minimalem Eingriff in dessen Privatsphäre und unter Verwendung der vom Nutzer selbst bereitgestellten begrenzten Daten (DSGVO Art. 6 Abs. 1 lit. a)."
+      },
+      {
+        "Category": "Veranstaltungsorganisator",
+        "baselegitimator": "Hochladen von Ergebnissen und anderen Daten auf unsere Plattform. Nachverfolgung der für die hochgeladenen Daten Dritter verantwortlichen Person (DSGVO Art. 6 Abs. 1 lit. a, b, c und d)."
+      }
+    ],
+    "p8": "Vom Betroffenen freiwillig bereitgestellte Daten.",
+    "data_collected": [
+      {
+        "Category": "Besuchender Nutzer",
+        "Datacollect": "IP-Adresse, Navigationsdaten."
+      },
+      {
+        "Category": "Nutzer, der uns kontaktiert",
+        "Datacollect": "Vom Betroffenen bereitgestellte Daten (in der Regel: Vorname, Nachname, E-Mail-Adresse und Telefonnummer)."
+      },
+      {
+        "Category": "Veranstaltungsorganisator",
+        "Datacollect": "Vorname, Nachname, E-Mail-Adresse und Sportverein."
+      }
+    ],
+    "p9": "Mögliche Folgen der Nichtbereitstellung dieser Daten.",
+    "consequences": [
+      {
+        "Category": "Besuchender Nutzer",
+        "Consequences": "Keine Folgen"
+      },
+      {
+        "Category": "Nutzer, der uns kontaktiert",
+        "Consequences": "Wenn der Nutzer, der uns kontaktiert, seine Daten nicht bereitstellt, können wir seine Anfrage(n) nicht angemessen beantworten."
+      },
+      {
+        "Category": "Veranstaltungsorganisator",
+        "Consequences": "Wenn eine an der Nutzung unserer Plattform interessierte Person ihre Daten nicht bereitstellt, können wir ihr keinen Zugang gewähren und/oder keine Datenübertragung ermöglichen."
+      }
+    ],
+    "p10": "Mögliche Weitergabe von Daten an Dritte.",
+    "data_sharing": [
+      {
+        "Category": "Besuchender Nutzer",
+        "possibletransfers": "Von Besuchern werden keine Daten erhoben"
+      },
+      {
+        "Category": "Nutzer, der uns kontaktiert",
+        "possibletransfers": "Wir geben personenbezogene Daten dieser Nutzerart nicht ohne deren Zustimmung an Dritte weiter."
+      },
+      {
+        "Category": "Veranstaltungsorganisator",
+        "possibletransfers": "Wir geben personenbezogene Daten dieser Nutzerart nicht ohne deren Zustimmung an Dritte weiter, es sei denn, dies ist gesetzlich vorgeschrieben oder wird von einer zuständigen Behörde verlangt."
+      }
+    ],
+    "p11": "Internationale Datenübermittlungen.",
+    "international_transfers": [
+      {
+        "Category": "Besuchender Nutzer",
+        "internationaltransfer": "Von Besuchern werden keine Daten erhoben"
+      },
+      {
+        "Category": "Nutzer, der uns kontaktiert",
+        "internationaltransfer": "Es erfolgt keine Übermittlung personenbezogener Daten an ein Drittland oder eine internationale Organisation"
+      },
+      {
+        "Category": "Veranstaltungsorganisator",
+        "internationaltransfer": "Es erfolgt keine Übermittlung personenbezogener Daten an ein Drittland oder eine internationale Organisation"
+      }
+    ],
+    "p12": "Aufbewahrungsfristen.",
+    "data_retention": [
+      {
+        "Category": "Besuchender Nutzer",
+        "deadlinesConservation": "Es werden keine Besucherdaten gespeichert"
+      },
+      {
+        "Category": "Nutzer, der uns kontaktiert",
+        "deadlinesConservation": "Sie werden so lange aufbewahrt, wie es zur Erfüllung des Zwecks, für den sie erhoben wurden, erforderlich ist."
+      },
+      {
+        "Category": "Veranstaltungsorganisator",
+        "deadlinesConservation": "Sie werden so lange aufbewahrt, wie es zur Erfüllung des Zwecks, für den sie erhoben wurden, erforderlich ist. Einige Daten müssen jedoch möglicherweise aus rechtlichen, steuerlichen oder regulatorischen Gründen oder für berechtigte und rechtmäßige Geschäftszwecke länger gespeichert werden."
+      }
+    ]
+  },
+  "Otheraspectsdataaccession": {
+    "title": "Weitere Aspekte der Datenweitergabe",
+    "p1": "Grundsätzlich werden die von Ihnen bereitgestellten Daten nicht ohne Ihre Zustimmung an Dritte weitergegeben, es sei denn, dies ist gesetzlich vorgeschrieben, z. B. im Falle einer Vorladung oder einer Anfrage einer staatlichen Stelle, oder wenn wir in gutem Glauben davon ausgehen, dass eine solche Maßnahme erforderlich ist, um a) einer gesetzlichen Verpflichtung nachzukommen; b) unsere Rechte, Interessen oder unser Eigentum oder das eines Dritten zu schützen oder zu verteidigen; c) mögliches Fehlverhalten im Zusammenhang mit den Diensten zu verhindern oder zu untersuchen; d) in dringenden Fällen Ihre persönliche Sicherheit zu schützen; oder e) uns gegen rechtliche Ansprüche zu verteidigen."
+  },
+  "Storage": {
+    "title": "Speicherung",
+    "p1": "Wir können Ihre Daten speichern oder an einen Dritten übermitteln, der sie gemäß dieser Datenschutzerklärung speichert. Wir ergreifen nach unserem Ermessen angemessene Maßnahmen, um personenbezogene Daten vor Verlust, Missbrauch, unbefugter Nutzung, unbefugtem Zugriff, unbeabsichtigter Offenlegung, Veränderung und Zerstörung zu schützen. Dennoch ist kein Netzwerk, Server, keine Datenbank, Internet- oder E-Mail-Übertragung vollständig sicher oder fehlerfrei.",
+    "p2": "Im Falle einer Sicherheitsverletzung der von uns verwalteten Daten werden wir alle notwendigen Maßnahmen ergreifen, um deren Folgen abzumildern, und die Aufsichtsbehörde darüber informieren, einschließlich aller relevanten Informationen zur Dokumentation und Mitteilung des Vorfalls."
+  },
+  "Consents": {
+    "title": "Einwilligungen",
+    "p1": "Die Einwilligung der betroffenen Person gemäß den Datenschutzvorschriften ist eine freiwillige Mitteilung, mit der die betroffene Person zustimmt, dass ihre Daten zu einem bestimmten Zweck unter bestimmten Bedingungen verarbeitet werden, über die sie zuvor informiert wurde."
+  },
+  "Maymodifyorwithdrawconsents": {
+    "title": "Können Sie Ihre Einwilligungen jederzeit ändern oder widerrufen?",
+    "p1": "Natürlich. Die Informationen zu den Verarbeitungen, denen Sie zugestimmt haben, sind jederzeit zugänglich. Sie können Ihre Einwilligung jederzeit per E-Mail ändern oder widerrufen.",
+    "p2": "Ebenso können Sie sich jederzeit aus unserer Datenbank austragen, indem Sie uns eine E-Mail an <2>support@oreplay.es</2> senden."
+  },
+  "Automateddecisions": {
+    "title": "Automatisierte Entscheidungen",
+    "p1": "DER DIENST trifft keine Entscheidungen, die ausschließlich auf der automatisierten Verarbeitung Ihrer Daten beruhen."
+  },
+  "Statisticalstudies": {
+    "title": "Statistische Studien",
+    "p1": "DER DIENST kann Studien zu wissenschaftlichen, historischen oder statistischen Zwecken durchführen. In diesen Fällen wird angestrebt, die Daten vom Untersuchungsgegenstand zu trennen, um deren Vertraulichkeit zu wahren."
+  },
+  "Personaldataviolationnotice": {
+    "title": "Meldung von Datenschutzverletzungen oder Sicherheitsverstößen",
+    "p1": "Eine Datenschutzverletzung stellt einen Sicherheitsverstoß der Informationssysteme des DIENSTES dar, der zur Zerstörung, Veränderung, zum Verlust, zur unbefugten Offenlegung oder zum Zugriff auf personenbezogene Daten führen kann – sei es versehentlich oder unrechtmäßig –, die im Zusammenhang mit der Erbringung unserer Dienste übermittelt, gespeichert oder verarbeitet werden.",
+    "p2": "Falls die personenbezogenen Daten, die wir im RAHMEN DES DIENSTES speichern und/oder verarbeiten, in irgendeiner Weise kompromittiert werden, werden wir die betroffenen Personen unverzüglich und gemäß Artikel 33 der DSGVO benachrichtigen."
+  },
+  "Dataprotectionrights": {
+    "title": "Rechte in Bezug auf den Datenschutz",
+    "p1": "Nutzer können eine schriftliche Mitteilung an den eingetragenen Sitz des DIENSTES oder an die im Kopf dieses Impressums angegebene E-Mail-Adresse senden – in beiden Fällen unter Beifügung einer Kopie ihres Personalausweises oder eines gleichwertigen Identitätsnachweises –, um die Ausübung der folgenden Rechte zu beantragen:",
+    "list": {
+      "item1": "Recht auf Auskunft über die gespeicherten personenbezogenen Daten: Sie können erfragen, ob und wie Ihre Daten verarbeitet werden;",
+      "item2": "Recht auf Berichtigung (bei fehlerhaften Daten) oder Löschung (wenn die Daten für die Zwecke, zu denen sie erhoben oder verarbeitet wurden, nicht mehr erforderlich sind);",
+      "item3": "Recht auf Einschränkung oder Sperrung der Verarbeitung Ihrer Daten, wobei wir diese nur zur Geltendmachung oder Verteidigung von Rechtsansprüchen speichern;",
+      "item4": "Recht auf Einschränkung oder Sperrung der Verarbeitung Ihrer Daten, wobei wir diese nur zur Geltendmachung oder Verteidigung von Rechtsansprüchen speichern;",
+      "item5": "Recht auf Datenübertragbarkeit: Wenn Sie möchten, dass Ihre Daten von einem anderen Anbieter verarbeitet werden, stellen wir diese in einem strukturierten, gängigen und maschinenlesbaren Format zur Verfügung."
+    },
+    "p2": "Diese Rechte sind höchstpersönlich und werden vom Betroffenen selbst ausgeübt, mit Ausnahme der in der geltenden Gesetzgebung vorgesehenen Einschränkungen. In Fällen, in denen der Nutzer aufgrund von Geschäftsunfähigkeit oder Minderjährigkeit nicht in der Lage ist, seine Rechte selbst auszuüben, kann der gesetzliche Vertreter dies übernehmen. Die Ausübung der Rechte wird vom Verantwortlichen innerhalb von dreißig Tagen nach Eingang des Antrags bearbeitet. Sollte der Verantwortliche der Auffassung sein, dass dem Antrag nicht stattgegeben werden kann, wird der Antragsteller unter Angabe von Gründen innerhalb derselben Frist informiert. Wenn eine Löschung der Daten angemessen ist, deren physische Vernichtung jedoch aus technischen oder systembedingten Gründen nicht möglich ist, erfolgt stattdessen eine Sperrung der Daten, um deren Nutzung zu verhindern, bis sie vollständig aus den Informationssystemen gelöscht werden können."
+  },
+  "Childrendatacollection": {
+    "title": "Erhebung von Daten Minderjähriger",
+    "p1": "DER DIENST gestattet Kindern unter 14 Jahren nicht, personenbezogene Daten bereitzustellen – weder über die auf der Website bereitgestellten Formulare zur Anforderung von Diensten oder zur Kontaktaufnahme noch per E-Mail. Sollten wir Kenntnis darüber erlangen, dass ein Kind unter 14 Jahren uns personenbezogene Daten übermittelt hat, werden wir Maßnahmen zur Löschung dieser Daten ergreifen. Falls Sie glauben, dass ein Kind unter 14 Jahren uns personenbezogene Daten übermittelt hat, schreiben Sie bitte eine E-Mail an <2>support@oreplay.es</2> mit den entsprechenden Details, damit wir die betreffenden Daten löschen können."
+  },
+  "Specialdataandconvictions": {
+    "title": "Verarbeitung besonderer Kategorien personenbezogener Daten sowie Daten über strafrechtliche Verurteilungen und Straftaten",
+    "p1": "Beim Ausfüllen von Freitextfeldern ist es nicht gestattet, personenbezogene Daten einzugeben, die Rückschlüsse auf ethnische oder rassische Herkunft, politische Meinungen, religiöse oder weltanschauliche Überzeugungen oder Gewerkschaftszugehörigkeit zulassen. Ebenso dürfen keine genetischen Daten, biometrischen Daten zur eindeutigen Identifizierung einer natürlichen Person, Gesundheitsdaten, Daten zum Sexualleben oder zur sexuellen Orientierung sowie personenbezogene Daten über strafrechtliche Verurteilungen oder Straftaten angegeben werden. Sollten solche Angaben in einem unserer Formulare oder per E-Mail übermittelt werden, werden diese umgehend aus unseren Informationssystemen gelöscht, ohne dass auf die entsprechende Anfrage eingegangen werden kann, da diese Daten weder erforderlich noch relevant für die auf dieser Website vorgesehenen Verarbeitungszwecke sind."
+  },
+  "Imageswebsiteimages": {
+    "title": "Bilder auf der Website",
+    "p1": "DER DIENST stellt über die Website Informationen zu zahlreichen Veranstaltungen, Aktivitäten usw. bereit, an denen Bürgerinnen und Bürger teilnehmen. In einigen Fällen können die bereitgestellten Informationen Links zu Fotos oder Videos enthalten, auf denen identifizierte oder identifizierbare Personen zu sehen sind. Diese Inhalte sind Teil der Berichterstattung über das jeweilige Ereignis und werden nicht mit dem Vorsatz verbreitet, personenbezogene Daten offenzulegen. Wir haben keine Kontrolle über die verlinkten Inhalte außerhalb unserer Website und übernehmen dafür keine Verantwortung."
+  },
+  "Complaintenforcementauthority": {
+    "title": "Beschwerde bei der Aufsichtsbehörde",
+    "p1": "Wenn Sie der Meinung sind, dass wir Ihre Daten nicht ordnungsgemäß verarbeiten, können Sie eine Beschwerde bei der zuständigen Datenschutzbehörde einreichen. Für Spanien ist dies die spanische Datenschutzbehörde (Agencia Española de Protección de Datos) unter <2>www.agpd.es</2>.",
+    "p2": "O-REPLAY hat diese Website an die Anforderungen der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 (DSGVO), an das spanische Organgesetz 3/2018 vom 5. Dezember zum Schutz personenbezogener Daten und zur Gewährleistung digitaler Rechte (LOPDGDD) sowie an das Gesetz 34/2002 vom 11. Juli über Dienste der Informationsgesellschaft und den elektronischen Geschäftsverkehr (LSSICE oder LSSI) angepasst."
+  },
+  "Rights": {
+    "footer": "© Alle Rechte vorbehalten: O-REPLAY"
+  }
+}
