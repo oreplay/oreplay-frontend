@@ -34,6 +34,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
+import { useNavigate } from "react-router-dom"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -88,6 +89,7 @@ export default function StagesDataGrid(props: Props) {
   const { t } = useTranslation()
   const { token } = useAuth()
   const notifications = useNotifications()
+  const navigate = useNavigate()
 
   const initialRows: GridRowsProp<StageRow> = props.eventDetail.stages.map((stage) => ({
     id: stage.id,
@@ -291,7 +293,7 @@ export default function StagesDataGrid(props: Props) {
               className="textPrimary"
               color="inherit"
               onClick={() => {
-                window.open(`/competitions/${props.eventDetail.id}/${row.row.stageId}`, "_blank")
+                void navigate(`/competitions/${props.eventDetail.id}/${row.row.stageId}`)
               }}
             />
           </Tooltip>,
