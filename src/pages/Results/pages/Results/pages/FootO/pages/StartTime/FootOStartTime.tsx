@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { orderRunnersByStartTime } from "./shared/functions.ts"
+import { sortRunnersByStartTime } from "./shared/functions.ts"
 import { useTranslation } from "react-i18next"
 import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
@@ -25,11 +25,11 @@ export default function FootOStartTime(
   const { t } = useTranslation()
 
   // Get runners and order by start time
-  const rawRunnersList = props.runnersQuery.data
+  const rawRunnersList = props.runnersQuery.data?.slice() //shallow copy to avoid mutation
   const [runnersByStartTime, setRunnersByStartTime] = useState<ProcessedRunnerModel[]>([])
 
   useEffect(() => {
-    setRunnersByStartTime(orderRunnersByStartTime(rawRunnersList ? rawRunnersList : []))
+    setRunnersByStartTime(sortRunnersByStartTime(rawRunnersList ? rawRunnersList : []))
   }, [rawRunnersList])
 
   // Component
