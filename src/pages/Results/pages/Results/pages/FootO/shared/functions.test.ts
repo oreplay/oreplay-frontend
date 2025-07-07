@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { RunnerModel } from "../../../../../../../shared/EntityTypes.ts"
 import { orderedRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
+import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 
 describe("orderRunners and orderFootORunners", () => {
   it("should handle different classification statuses", () => {
@@ -29,7 +30,7 @@ describe("orderRunners and orderFootORunners", () => {
         upload_type: "res_splits",
         time_seconds: 420,
         position: 2,
-        status_code: "0",
+        status_code: RESULT_STATUS.ok,
         time_behind: 0,
         time_neutralization: 0,
         time_adjusted: 0,
@@ -48,43 +49,43 @@ describe("orderRunners and orderFootORunners", () => {
     const runnerStatusOK = {
       ...baseRunner,
       full_name: "string",
-      stage: { ...baseRunner.stage, status_code: "0" },
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.ok },
     }
 
     const runnerStatusDNS = {
       ...baseRunner,
       full_name: "string",
-      stage: { ...baseRunner.stage, status_code: "1" },
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.dns },
     }
 
     const runnerStatusDNF = {
       ...baseRunner,
       full_name: "string",
-      stage: { ...baseRunner.stage, status_code: "2" },
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.dnf },
     }
 
     const runnerStatusMP = {
       ...baseRunner,
       full_name: "string",
-      stage: { ...baseRunner.stage, status_code: "3" },
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.mp },
     }
 
     const runnerStatusDSQ = {
       ...baseRunner,
       full_name: "string",
-      stage: { ...baseRunner.stage, status_code: "4" },
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.dsq },
     }
 
     const runnerStatusOT = {
       ...baseRunner,
       full_name: "string",
-      stage: { ...baseRunner.stage, status_code: "5" },
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.ot },
     }
 
     const runnerStatusNC = {
       ...baseRunner,
       full_name: "string",
-      stage: { ...baseRunner.stage, status_code: "9" },
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.nc },
     }
 
     const runnerList: RunnerModel[] = [
@@ -390,14 +391,14 @@ describe("orderRunners and orderFootORunners", () => {
     }
 
     const runnerList: RunnerModel[] = [
-      runnerWithStartTime2,
       runnerWithoutStartTime,
+      runnerWithStartTime2,
       runnerWithStartTime,
     ]
 
     const expected: RunnerModel[] = [
-      runnerWithStartTime,
       runnerWithStartTime2,
+      runnerWithStartTime,
       runnerWithoutStartTime,
     ]
 

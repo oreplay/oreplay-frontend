@@ -80,8 +80,6 @@ function byStagePosition(
   const posA = a.stage?.position
   const posB = b.stage?.position
 
-  console.log(a.full_name,b.full_name, byPosition(posA,posB))
-
   if (posA !== 0 && posB !== 0) {
     return byPosition(posA, posB)
   } else if (posA === 0 && posB === 0) {
@@ -118,15 +116,13 @@ function byName(
 function byStartTime(
   a: RunnerModel | ProcessedRunnerModel,
   b: RunnerModel | ProcessedRunnerModel,
-  reverse: boolean = false
+  reverse: boolean = false,
 ): number {
   const startTimeA = a.stage?.start_time
   const startTimeB = b.stage?.start_time
 
   if (!!startTimeA && !!startTimeB) {
-    return reverse
-      ? startTimeB.localeCompare(startTimeA)
-      : startTimeA.localeCompare(startTimeB)
+    return reverse ? startTimeB.localeCompare(startTimeA) : startTimeA.localeCompare(startTimeB)
   } else if (startTimeA) {
     return -1
   } else if (startTimeB) {
