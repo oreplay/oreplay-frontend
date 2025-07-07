@@ -5,6 +5,7 @@ import { RESULT_STATUS } from "../constants.ts"
 /**
  * This helper functions assigns each status code a number with the priority it should appear on result
  * @param status A valid RUNNER_STATUS
+ * @param position Position of the runner
  */
 function statusOrder(status: string | null, position: number | null) {
   switch (status) {
