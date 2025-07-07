@@ -5,7 +5,6 @@ import { RESULT_STATUS } from "../constants.ts"
 /**
  * This helper functions assigns each status code a number with the priority it should appear on result
  * @param status A valid RUNNER_STATUS
- * @param position Position of the runner. It is used to place runners that have not finished after the finished oned
  */
 function statusOrder(status: string | null, position: number | null) {
   switch (status) {
@@ -20,13 +19,13 @@ function statusOrder(status: string | null, position: number | null) {
     case RESULT_STATUS.mp:
       return 3
     case RESULT_STATUS.nc:
-      return 4
-    case RESULT_STATUS.disqualified:
-      return 5
+      return 0
     case RESULT_STATUS.dnf:
-      return 6
+      return 4
+    case RESULT_STATUS.dsq:
+      return 5
     case RESULT_STATUS.dns:
-      return 7
+      return 6
     default:
       return 10
   }
@@ -63,7 +62,7 @@ function byStageStatus(
 }
 
 function byPosition(a: number | null | undefined, b: number | null | undefined): number {
-  if (a && b) {
+  if (!!a && !!b) {
     return a - b
   } else if (a) {
     return -1
@@ -81,16 +80,18 @@ function byStagePosition(
   const posA = a.stage?.position
   const posB = b.stage?.position
 
+  console.log(a.full_name,b.full_name, byPosition(posA,posB))
+
   if (posA !== 0 && posB !== 0) {
     return byPosition(posA, posB)
+  } else if (posA === 0 && posB === 0) {
+    return 0
+  } else if (posA === 0) {
+    return 1
+  } else if (posB === 0) {
+    return -1
   } else {
-    if (posA === 0) {
-      return 1
-    } else if (posB === 0) {
-      return -1
-    } else {
-      return 0
-    }
+    return 0
   }
 }
 
@@ -117,12 +118,15 @@ function byName(
 function byStartTime(
   a: RunnerModel | ProcessedRunnerModel,
   b: RunnerModel | ProcessedRunnerModel,
+  reverse: boolean = false
 ): number {
   const startTimeA = a.stage?.start_time
   const startTimeB = b.stage?.start_time
 
-  if (startTimeA && startTimeB) {
-    return startTimeA.localeCompare(startTimeB)
+  if (!!startTimeA && !!startTimeB) {
+    return reverse
+      ? startTimeB.localeCompare(startTimeA)
+      : startTimeA.localeCompare(startTimeB)
   } else if (startTimeA) {
     return -1
   } else if (startTimeB) {

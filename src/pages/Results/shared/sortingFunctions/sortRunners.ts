@@ -12,8 +12,8 @@ export function parseResultStatus(status: string): string {
       return RESULT_STATUS_TEXT.dnf
     case RESULT_STATUS.mp:
       return RESULT_STATUS_TEXT.mp
-    case RESULT_STATUS.disqualified:
-      return RESULT_STATUS_TEXT.disqualified
+    case RESULT_STATUS.dsq:
+      return RESULT_STATUS_TEXT.dsq
     case RESULT_STATUS.ot:
       return RESULT_STATUS_TEXT.ot
     case RESULT_STATUS.nc:
@@ -55,7 +55,7 @@ export function orderedRunners(runnersList: RunnerModel[]) {
       runnerCompareFunctions.byStageStatus,
       runnerCompareFunctions.byStagePosition,
       runnerCompareFunctions.byOverallPosition,
-      (a, b) => -runnerCompareFunctions.byStartTime(a, b), // reverse
+      (a, b) => runnerCompareFunctions.byStartTime(a, b, true), // reverse
       runnerCompareFunctions.byName,
     ])
   })
