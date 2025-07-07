@@ -241,7 +241,11 @@ export default function AboutUs() {
             <Typography component={"span"} sx={styles.authorsNames}>
               Paula Padilla Fernández
             </Typography>{" "}
-            for the original logo design.
+            (original logo design) and
+            <Typography component={"span"} sx={styles.authorsNames}>
+              José Luis Tribiño Fernández
+            </Typography>{" "}
+            (beta testing).
           </Trans>
         </Typography>
         <Typography>
