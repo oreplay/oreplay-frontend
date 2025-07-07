@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest"
 import { RunnerModel } from "../../../../../../../shared/EntityTypes.ts"
-import { orderedRunners } from "../../../../../shared/functions.ts"
+import { orderedRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 
 describe("orderRunners and orderFootORunners", () => {
   it("should handle different classification statuses", () => {
