@@ -1,5 +1,5 @@
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { parseResultStatus } from "../../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../../shared/constants.ts"
 import RacePosition from "../../../../../../../components/RacePosition..tsx"
 import RaceTime from "../../../../../../../components/RaceTime.tsx"

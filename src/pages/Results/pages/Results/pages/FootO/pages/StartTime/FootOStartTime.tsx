@@ -5,7 +5,7 @@ import ResultListContainer from "../../../../../../components/ResultsList/Result
 import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
 import StartTime from "../../../../../../components/StartTime.tsx"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { parseResultStatus } from "../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../shared/sortingFunctions/sortRunners.ts"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"

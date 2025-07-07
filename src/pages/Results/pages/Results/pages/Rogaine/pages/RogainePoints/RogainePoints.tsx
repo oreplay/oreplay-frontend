@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { getUniqueStationNumbers } from "../../shared/Functions.ts"
-import { parseResultStatus } from "../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
 import ControlBadge from "./components/ControlBadge.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
