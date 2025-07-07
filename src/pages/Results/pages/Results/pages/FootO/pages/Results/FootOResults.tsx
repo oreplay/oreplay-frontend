@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
 import ResultListItem from "../../../../../../components/ResultsList/ResultListItem.tsx"
-import { parseResultStatus } from "../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"

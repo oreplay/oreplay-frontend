@@ -3,7 +3,7 @@ import {
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { TableCell, TableRow } from "@mui/material"
-import { parseResultStatus } from "../../../../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { useTranslation } from "react-i18next"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
 import ParticipantName from "../../../../../../../../../components/ParticipantName.tsx"

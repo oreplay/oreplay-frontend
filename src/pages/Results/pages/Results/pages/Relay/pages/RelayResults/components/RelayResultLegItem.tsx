@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material"
 import RaceTime from "../../../../../../../components/RaceTime.tsx"
-import { parseResultStatus } from "../../../../../../../shared/functions.ts"
+import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { ProcessedTeamRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 
 type RelayResultLegItemProps = {

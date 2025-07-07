@@ -1,6 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { getRunnersInStage } from "../../../../../services/EventService.ts"
-import { orderedRunners } from "../../../../../shared/functions.ts"
+import { orderedRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { processRunnerData } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
 
 export async function getTotalsByClass(
