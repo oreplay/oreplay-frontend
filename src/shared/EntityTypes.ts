@@ -112,7 +112,7 @@ export interface ParticipantModel {
   leg_number?: number
   class: ClassModel | null
   club: ClubModel | null
-  stage: RunnerResultModel
+  stage: RunnerResultModel | null
   overalls: OverallsModel | null
 }
 
@@ -201,10 +201,12 @@ export interface StageOrder {
 export interface OverallModel {
   id: string
   stage_order: number | null
+  upload_type: string
   stage?: StageOrder | null
   position: number | null
   time_seconds: number | null
   points_final: number | null
+  note: string | null
 }
 
 export interface UserModel {

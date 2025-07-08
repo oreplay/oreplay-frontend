@@ -742,7 +742,7 @@ describe("processParticipant", () => {
 
     // Actually compare
     const actual_participant = processParticipant(participant)
-    const compare_splits = actual_participant.stage.splits.map((split) => ({
+    const compare_splits = actual_participant.stage?.splits.map((split) => ({
       ...split,
       reading_time: split.reading_time ? DateTime.fromISO(split.reading_time) : null,
     }))
@@ -761,6 +761,75 @@ describe("processParticipant", () => {
     }
 
     expect(compare_participant).toEqual(compare_expected_participant)
+  })
+
+  it("should handle a typical ranking participant (as of now do nothing)", () => {
+    const participant: ParticipantModel = {
+      id: "751842bc-441b-4958-8f4b-cbee82e24e1e",
+      bib_number: "1234",
+      is_nc: false,
+      eligibility: null,
+      sicard: "12345678",
+      sex: "M",
+      leg_number: 1,
+      class: {
+        id: "string",
+        short_name: "Class",
+        long_name: "Class long",
+      },
+      club: {
+        id: "string",
+        short_name: "Club",
+      },
+      full_name: "Full name",
+      stage: null,
+      overalls: {
+        parts: [
+          {
+            id: "string",
+            stage_order: 1,
+            upload_type: "total_times",
+            stage: null,
+            position: 1,
+            time_seconds: 1877,
+            points_final: 0,
+            note: null,
+          },
+          {
+            id: "string",
+            stage_order: 2,
+            upload_type: "total_times",
+            stage: null,
+            position: 0,
+            time_seconds: 837,
+            points_final: 0,
+            note: null,
+          },
+          {
+            id: "string",
+            stage_order: 3,
+            upload_type: "total_times",
+            stage: null,
+            position: 2,
+            time_seconds: 4996,
+            points_final: 0,
+            note: null,
+          },
+        ],
+        overall: {
+          id: "string",
+          stage_order: 1,
+          upload_type: "total_times",
+          stage: null,
+          position: 1,
+          time_seconds: 6873,
+          points_final: 0,
+          note: null,
+        },
+      },
+    }
+
+    expect(processParticipant(participant)).toEqual(participant)
   })
 })
 
