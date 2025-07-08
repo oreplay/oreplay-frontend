@@ -110,7 +110,7 @@ function sorterSplitByOrderNumber(
 }
 
 type FieldsToReplace = {
-  stage: ProcessedRunnerResultModel | null
+  stage: ProcessedRunnerResultModel
 }
 
 type ReplaceParticipantFields<T extends ParticipantModel> = Omit<T, keyof FieldsToReplace> &
@@ -147,6 +147,7 @@ export function processParticipant<T extends ParticipantModel>(
       stage: processed_stage,
     } as ReplaceParticipantFields<T>
   } else {
+    // @ts-expect-error TS2352 Temporally set Participant as non nullable
     return participant as ReplaceParticipantFields<T>
   }
 }
