@@ -1,4 +1,4 @@
-import { RunnerModel } from "../../../../../shared/EntityTypes.ts"
+import { OnlineControlModel, RunnerModel } from "../../../../../shared/EntityTypes.ts"
 
 import { ProcessedRunnerModel } from "./EntityTypes.ts"
 import { hasChipDownload, isRunnerNC } from "../../../pages/Results/shared/functions.ts"
@@ -11,15 +11,21 @@ import { processParticipant } from "../../../pages/Results/shared/functions/runn
  * Runners internal params are ordered and the time and cumulative time of their splits is computed if possible
  *
  * @param runners runners to process
+ * @param onlineControlList List of the class online controls
  */
-export function processRunnerData(runners: RunnerModel[]): ProcessedRunnerModel[] {
+export function processRunnerData(
+  runners: RunnerModel[],
+  onlineControlList?: OnlineControlModel[],
+): ProcessedRunnerModel[] {
   return runners.map((runner): ProcessedRunnerModel => {
     const processed_runner = processParticipant(runner)
 
     if (processed_runner.runners) {
       const fully_processed_runner = {
         ...processed_runner,
-        runners: processed_runner.runners.map(processParticipant),
+        runners: processed_runner.runners.map((runner) =>
+          processParticipant(runner, onlineControlList),
+        ),
       }
       fully_processed_runner.runners.sort((a, b) => a.leg_number - b.leg_number)
 

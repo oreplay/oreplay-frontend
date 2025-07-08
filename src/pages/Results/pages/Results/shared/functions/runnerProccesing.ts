@@ -1,9 +1,14 @@
-import { ParticipantModel, SplitModel } from "../../../../../../shared/EntityTypes.ts"
+import {
+  OnlineControlModel,
+  ParticipantModel,
+  SplitModel,
+} from "../../../../../../shared/EntityTypes.ts"
 import {
   ProcessedRunnerResultModel,
   ProcessedSplitModel,
 } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { DateTime } from "luxon"
+import { getOnlineSplits } from "../../pages/FootO/pages/Splits/components/FootOSplitsTable/shared/footOSplitsTablefunctions.ts"
 
 /**
  * This in an auxiliary function add the required attributes to be ProcessedSplitModel
@@ -118,6 +123,7 @@ type ReplaceParticipantFields<T extends ParticipantModel> = Omit<T, keyof Fields
 
 export function processParticipant<T extends ParticipantModel>(
   participant: T,
+  onlineControlList?: OnlineControlModel[],
 ): ReplaceParticipantFields<T> {
   const stage = participant.stage
 
@@ -137,10 +143,16 @@ export function processParticipant<T extends ParticipantModel>(
       stage.time_seconds,
     )
 
+    // Extract online splits
+    const online_splits = onlineControlList
+      ? getOnlineSplits(processed_splits_list, onlineControlList, stage.start_time)
+      : []
+
     // Return
     const processed_stage = {
       ...stage,
       splits: processed_splits_list,
+      online_splits: online_splits,
     }
     return {
       ...participant,
