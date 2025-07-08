@@ -782,6 +782,7 @@ describe("processParticipant", () => {
         short_name: "Club",
       },
       full_name: "Full name",
+      // @ts-expect-error TS2322 Temporally set Participant.stage to non nullable  //TODO: Correct the entity types
       stage: null,
       overalls: {
         parts: [

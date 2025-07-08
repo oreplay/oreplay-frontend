@@ -112,7 +112,7 @@ export interface ParticipantModel {
   leg_number?: number
   class: ClassModel | null
   club: ClubModel | null
-  stage: RunnerResultModel | null
+  stage: RunnerResultModel
   overalls: OverallsModel | null
 }
 
