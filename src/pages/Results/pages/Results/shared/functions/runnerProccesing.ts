@@ -110,7 +110,7 @@ function sorterSplitByOrderNumber(
 }
 
 type FieldsToReplace = {
-  stage: ProcessedRunnerResultModel
+  stage: ProcessedRunnerResultModel | null
 }
 
 type ReplaceParticipantFields<T extends ParticipantModel> = Omit<T, keyof FieldsToReplace> &
@@ -121,28 +121,32 @@ export function processParticipant<T extends ParticipantModel>(
 ): ReplaceParticipantFields<T> {
   const stage = participant.stage
 
-  // Process splits
-  //// create fields
-  let processed_splits_list = stage.splits.map(createProcessedSplitFields)
-  processed_splits_list.sort(sorterSplitByOrderNumber)
+  if (stage) {
+    // Process splits
+    //// create fields
+    let processed_splits_list = stage.splits.map(createProcessedSplitFields)
+    processed_splits_list.sort(sorterSplitByOrderNumber)
 
-  //// compute times
-  const start_time = stage.start_time ? DateTime.fromISO(stage.start_time) : null
-  processed_splits_list = computeSplitListTimes(
-    processed_splits_list,
-    start_time,
-    stage.finish_time,
-    participant.id,
-    stage.time_seconds,
-  )
+    //// compute times
+    const start_time = stage.start_time ? DateTime.fromISO(stage.start_time) : null
+    processed_splits_list = computeSplitListTimes(
+      processed_splits_list,
+      start_time,
+      stage.finish_time,
+      participant.id,
+      stage.time_seconds,
+    )
 
-  // Return
-  const processed_stage = {
-    ...stage,
-    splits: processed_splits_list,
+    // Return
+    const processed_stage = {
+      ...stage,
+      splits: processed_splits_list,
+    }
+    return {
+      ...participant,
+      stage: processed_stage,
+    } as ReplaceParticipantFields<T>
+  } else {
+    return participant as ReplaceParticipantFields<T>
   }
-  return {
-    ...participant,
-    stage: processed_stage,
-  } as ReplaceParticipantFields<T>
 }
