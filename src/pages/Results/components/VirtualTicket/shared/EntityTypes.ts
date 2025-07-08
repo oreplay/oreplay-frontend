@@ -58,6 +58,7 @@ export interface ProcessedRunnerResultModel {
   points_bonus: number
   leg_number?: number
   splits: ProcessedSplitModel[]
+  online_splits: RadioSplitModel[] | null
 }
 
 export interface ProcessedSplitModel {

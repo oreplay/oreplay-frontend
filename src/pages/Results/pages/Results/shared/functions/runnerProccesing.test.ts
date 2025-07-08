@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest"
-import { ParticipantModel, RunnerModel, SplitModel } from "../../../../../../shared/EntityTypes.ts"
+import {
+  OnlineControlModel,
+  ParticipantModel,
+  RunnerModel,
+  SplitModel,
+} from "../../../../../../shared/EntityTypes.ts"
 import {
   ProcessedParticipantModel,
   ProcessedRunnerModel,
@@ -736,6 +741,7 @@ describe("processParticipant", () => {
             cumulative_position: null,
           },
         ],
+        online_splits: [],
       },
       overalls: null,
     }
@@ -831,6 +837,448 @@ describe("processParticipant", () => {
     }
 
     expect(processParticipant(participant)).toEqual(participant)
+  })
+
+  it("should extract online splits when there are only those in splits", () => {
+    const participant: ParticipantModel = {
+      id: "string",
+      bib_number: "1234",
+      is_nc: false,
+      eligibility: null,
+      sicard: "12345678",
+      sex: "M",
+      class: {
+        id: "string",
+        short_name: "short name",
+        long_name: "long name",
+      },
+      club: {
+        id: "string",
+        short_name: "club name",
+      },
+      full_name: "full name",
+      stage: {
+        id: "string",
+        result_type_id: "string",
+        start_time: "2025-06-27T09:00:00.000+00:00",
+        finish_time: null,
+        upload_type: "res_intermediates",
+        time_seconds: 0,
+        position: 0,
+        status_code: "0",
+        time_behind: 0,
+        time_neutralization: 0,
+        time_adjusted: 0,
+        time_penalty: 0,
+        time_bonus: 0,
+        points_final: 0,
+        points_adjusted: 0,
+        points_penalty: 0,
+        points_bonus: 0,
+        leg_number: 1,
+        splits: [
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:03:00.000+00:00",
+            points: 0,
+            order_number: 2,
+            control: {
+              id: "string",
+              station: "32",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+          },
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:01:00.000+00:00",
+            points: 0,
+            order_number: 1,
+            control: {
+              id: "string",
+              station: "31",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+          },
+        ],
+      },
+      overalls: null,
+    }
+
+    const expected_participant: ProcessedParticipantModel = {
+      ...participant,
+      stage: {
+        ...participant.stage,
+        splits: [
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:01:00.000+00:00",
+            points: 0,
+            order_number: 1,
+            control: {
+              id: "string",
+              station: "31",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+            time: 60,
+            time_behind: null,
+            position: null,
+            cumulative_time: 60,
+            cumulative_behind: null,
+            cumulative_position: null,
+          },
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:03:00.000+00:00",
+            points: 0,
+            order_number: 2,
+            control: {
+              id: "string",
+              station: "32",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+            time: 120,
+            time_behind: null,
+            position: null,
+            cumulative_time: 180,
+            cumulative_behind: null,
+            cumulative_position: null,
+          },
+          {
+            control: null,
+            cumulative_behind: null,
+            cumulative_position: null,
+            cumulative_time: null,
+            id: "string-finishSplit",
+            is_intermediate: true,
+            order_number: Infinity,
+            points: 0,
+            position: null,
+            reading_time: null,
+            time: null,
+            time_behind: null,
+          },
+        ],
+        online_splits: [
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:01:00.000+00:00",
+            points: 0,
+            order_number: 1,
+            control: {
+              id: "string",
+              station: "31",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+            time: 60,
+            time_behind: null,
+            position: null,
+            cumulative_time: 60,
+            cumulative_behind: null,
+            cumulative_position: null,
+            is_next: null,
+          },
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:03:00.000+00:00",
+            points: 0,
+            order_number: 2,
+            control: {
+              id: "string",
+              station: "32",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+            time: 120,
+            time_behind: null,
+            position: null,
+            cumulative_time: 180,
+            cumulative_behind: null,
+            cumulative_position: null,
+            is_next: null,
+          },
+          {
+            control: null,
+            cumulative_behind: null,
+            cumulative_position: null,
+            cumulative_time: null,
+            id: "string-finishSplit",
+            is_intermediate: true,
+            is_next: DateTime.fromISO("2025-06-27T11:03:00.000+02:00"),
+            order_number: Infinity,
+            points: 0,
+            position: null,
+            reading_time: null,
+            time: null,
+            time_behind: null,
+          },
+        ],
+      },
+      overalls: null,
+    }
+
+    const onlineControls: OnlineControlModel[] = [
+      {
+        id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+        station: "32",
+      },
+      {
+        id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+        station: "31",
+      },
+    ]
+
+    // Actually compare
+    const actual_participant = processParticipant(participant, onlineControls)
+    const compare_splits = actual_participant.stage?.splits.map((split) => ({
+      ...split,
+      reading_time: split.reading_time ? DateTime.fromISO(split.reading_time) : null,
+    }))
+    const compare_participant = {
+      ...actual_participant,
+      stage: { ...actual_participant.stage, splits: compare_splits },
+    }
+
+    const compare_expected_splits = expected_participant.stage.splits.map((split) => ({
+      ...split,
+      reading_time: split.reading_time ? DateTime.fromISO(split.reading_time) : null,
+    }))
+    const compare_expected_participant = {
+      ...expected_participant,
+      stage: { ...expected_participant.stage, splits: compare_expected_splits },
+    }
+
+    expect(compare_participant).toEqual(compare_expected_participant)
+  })
+
+  it("should extract online splits when the runners has downloaded", () => {
+    const participant: ParticipantModel = {
+      id: "string",
+      bib_number: "1234",
+      is_nc: false,
+      eligibility: null,
+      sicard: "12345678",
+      sex: "M",
+      class: {
+        id: "string",
+        short_name: "short name",
+        long_name: "long name",
+      },
+      club: {
+        id: "string",
+        short_name: "club name",
+      },
+      full_name: "full name",
+      stage: {
+        id: "string",
+        result_type_id: "string",
+        start_time: "2025-06-27T09:00:00.000+00:00",
+        finish_time: "2025-06-27T09:07:00.000+00:00",
+        upload_type: "res_intermediates",
+        time_seconds: 420,
+        position: 2,
+        status_code: "0",
+        time_behind: 35,
+        time_neutralization: 0,
+        time_adjusted: 0,
+        time_penalty: 0,
+        time_bonus: 0,
+        points_final: 0,
+        points_adjusted: 0,
+        points_penalty: 0,
+        points_bonus: 0,
+        leg_number: 1,
+        splits: [
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:03:00.000+00:00",
+            points: 0,
+            order_number: 2,
+            control: {
+              id: "string",
+              station: "32",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+          },
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:01:00.000+00:00",
+            points: 0,
+            order_number: 1,
+            control: {
+              id: "string",
+              station: "31",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+          },
+        ],
+      },
+      overalls: null,
+    }
+
+    const expected_participant: ProcessedParticipantModel = {
+      ...participant,
+      stage: {
+        ...participant.stage,
+        splits: [
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:01:00.000+00:00",
+            points: 0,
+            order_number: 1,
+            control: {
+              id: "string",
+              station: "31",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+            time: 60,
+            time_behind: null,
+            position: null,
+            cumulative_time: 60,
+            cumulative_behind: null,
+            cumulative_position: null,
+          },
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:03:00.000+00:00",
+            points: 0,
+            order_number: 2,
+            control: {
+              id: "string",
+              station: "32",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+            time: 120,
+            time_behind: null,
+            position: null,
+            cumulative_time: 180,
+            cumulative_behind: null,
+            cumulative_position: null,
+          },
+          {
+            control: null,
+            cumulative_behind: null,
+            cumulative_position: null,
+            cumulative_time: 420,
+            id: "string-finishSplit",
+            is_intermediate: true,
+            order_number: Infinity,
+            points: 0,
+            position: null,
+            reading_time: "2025-06-27T09:07:00.000+00:00",
+            time: 240,
+            time_behind: null,
+          },
+        ],
+        online_splits: [
+          {
+            id: "string",
+            is_intermediate: true,
+            reading_time: "2025-06-27T09:01:00.000+00:00",
+            points: 0,
+            order_number: 1,
+            control: {
+              id: "string",
+              station: "31",
+              control_type: {
+                id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+                description: "Normal Control",
+              },
+            },
+            time: 60,
+            time_behind: null,
+            position: null,
+            cumulative_time: 60,
+            cumulative_behind: null,
+            cumulative_position: null,
+            is_next: null,
+          },
+          {
+            control: null,
+            cumulative_behind: null,
+            cumulative_position: null,
+            cumulative_time: 420,
+            id: "string-finishSplit",
+            is_intermediate: true,
+            is_next: null,
+            order_number: Infinity,
+            points: 0,
+            position: null,
+            reading_time: "2025-06-27T09:07:00.000+00:00",
+            time: 240,
+            time_behind: null,
+          },
+        ],
+      },
+      overalls: null,
+    }
+
+    const onlineControls: OnlineControlModel[] = [
+      {
+        id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+        station: "31",
+      },
+    ]
+
+    // Actually compare
+    const actual_participant = processParticipant(participant, onlineControls)
+    const compare_splits = actual_participant.stage?.splits.map((split) => ({
+      ...split,
+      reading_time: split.reading_time ? DateTime.fromISO(split.reading_time) : null,
+    }))
+    const compare_participant = {
+      ...actual_participant,
+      stage: { ...actual_participant.stage, splits: compare_splits },
+    }
+
+    const compare_expected_splits = expected_participant.stage.splits.map((split) => ({
+      ...split,
+      reading_time: split.reading_time ? DateTime.fromISO(split.reading_time) : null,
+    }))
+    const compare_expected_participant = {
+      ...expected_participant,
+      stage: { ...expected_participant.stage, splits: compare_expected_splits },
+    }
+
+    expect(compare_participant).toEqual(compare_expected_participant)
   })
 })
 
@@ -1002,6 +1450,7 @@ describe("processRunnerData", () => {
             cumulative_position: null,
           },
         ],
+        online_splits: [],
       },
       overalls: null,
     }
@@ -1196,6 +1645,7 @@ describe("processRunnerData", () => {
             cumulative_position: null,
           },
         ],
+        online_splits: [],
       },
       overalls: null,
     }
@@ -1422,6 +1872,7 @@ describe("processRunnerData", () => {
         points_bonus: 0,
         leg_number: 1,
         splits: [],
+        online_splits: [],
       },
       overalls: null,
       runners: [
@@ -1512,6 +1963,7 @@ describe("processRunnerData", () => {
                 cumulative_position: null,
               },
             ],
+            online_splits: [],
           },
           overalls: null,
         },
@@ -1602,6 +2054,7 @@ describe("processRunnerData", () => {
                 cumulative_position: null,
               },
             ],
+            online_splits: [],
           },
           overalls: null,
         },
