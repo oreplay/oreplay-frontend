@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest"
-import { orderedRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
+import { sortRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS } from "../../../../../shared/constants.ts"
-import { orderFootRunners } from "./functions.ts"
+import { sortFootORunners } from "./functions.ts"
 
 describe("orderRunners and orderFootORunners", () => {
   it("should handle different classification statuses", () => {
@@ -109,8 +109,8 @@ describe("orderRunners and orderFootORunners", () => {
       runnerStatusDNS,
     ]
 
-    expect(orderedRunners(runnerList), "Failed regular runners").toEqual(expected)
-    expect(orderFootRunners(runnerList), "Failed footO runners").toEqual(expected)
+    expect(sortRunners(runnerList), "Failed regular runners").toEqual(expected)
+    expect(sortFootORunners(runnerList), "Failed footO runners").toEqual(expected)
   })
 
   it("should handle nc", () => {
@@ -194,8 +194,8 @@ describe("orderRunners and orderFootORunners", () => {
       runnerAlsoOK,
     ]
 
-    expect(orderedRunners(runnerList), "Failed regular runners").toEqual(expected)
-    expect(orderFootRunners(runnerList), "Failed footO runners").toEqual(expected)
+    expect(sortRunners(runnerList), "Failed regular runners").toEqual(expected)
+    expect(sortFootORunners(runnerList), "Failed footO runners").toEqual(expected)
   })
 
   it("should handle in-race runners mixed with finished runners", () => {
@@ -319,8 +319,8 @@ describe("orderRunners and orderFootORunners", () => {
       runnerStillRunning,
     ]
 
-    expect(orderedRunners(runnerList), "Failed regular runners").toEqual(expected)
-    expect(orderFootRunners(runnerList), "Failed FootO runners").toEqual(expected)
+    expect(sortRunners(runnerList), "Failed regular runners").toEqual(expected)
+    expect(sortFootORunners(runnerList), "Failed FootO runners").toEqual(expected)
   })
 
   it("should handle runners without start time (they should be at the end)", () => {
@@ -397,8 +397,8 @@ describe("orderRunners and orderFootORunners", () => {
 
     const expected = [runnerWithStartTime2, runnerWithStartTime, runnerWithoutStartTime]
 
-    expect(orderedRunners(runnerList)).toEqual(expected)
-    expect(orderFootRunners(runnerList)).toEqual(expected)
+    expect(sortRunners(runnerList)).toEqual(expected)
+    expect(sortFootORunners(runnerList)).toEqual(expected)
   })
 })
 
