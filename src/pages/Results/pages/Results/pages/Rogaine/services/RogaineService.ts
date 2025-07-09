@@ -1,9 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { getRunnersInStage } from "../../../../../services/EventService.ts"
-import {
-  orderedRunners,
-  orderRunnersByClass,
-} from "../../../../../shared/sortingFunctions/sortRunners.ts"
+import { sortRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { processRunnerData } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
 import { getUniqueStationNumbers } from "../shared/Functions.ts"
 
@@ -27,7 +24,7 @@ export async function getRoganineRunnersByClass(
   let runnersList = runnersPage.data
 
   // Process runners
-  runnersList = orderedRunners(runnersList)
+  runnersList = sortRunners(runnersList)
   const processedRunnersList = processRunnerData(runnersList)
 
   // Compute controls
@@ -47,8 +44,7 @@ export async function getRoganineRunnersByClub(
   let runnersList = runnersPage.data
 
   // Process runners
-  runnersList = orderedRunners(runnersList)
-  runnersList = orderRunnersByClass(runnersList)
+  runnersList = sortRunners(runnersList)
   const processedRunnersList = processRunnerData(runnersList)
 
   return [processedRunnersList, []]
