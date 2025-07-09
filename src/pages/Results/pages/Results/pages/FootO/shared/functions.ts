@@ -14,7 +14,7 @@ interface RunnerStatus {
   duration?: number // duration finish_time - start_time for status 3 (internal sorting)
 }
 
-export function orderFootRunners(runnerList: ProcessedRunnerModel[]): ProcessedRunnerModel[] {
+export function sortFootORunners(runnerList: ProcessedRunnerModel[]): ProcessedRunnerModel[] {
   const now = DateTime.now()
 
   const runnerStatuses: RunnerStatus[] = runnerList.map((runner) =>

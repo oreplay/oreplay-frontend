@@ -49,7 +49,7 @@ export function multiLevelCompare<T>(
  * Sort a list of runners
  * @param runnersList List of runners to be ordered
  */
-export function orderedRunners(runnersList: RunnerModel[]) {
+export function sortRunners(runnersList: RunnerModel[]) {
   return runnersList.sort((a, b) => {
     return multiLevelCompare(a, b, [
       runnerCompareFunctions.byStageStatus,
