@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { getClassesInStage, getClubsInStage, getEventList } from "../services/EventService.ts"
-import { ClassModel, ClubModel, EventModel, Page } from "../../../shared/EntityTypes.ts"
+import {
+  ClassModel,
+  ClubModel,
+  EventModel,
+  Page,
+  StageClassModel,
+} from "../../../shared/EntityTypes.ts"
 import { useParams, useSearchParams } from "react-router-dom"
 import { useAuth } from "../../../shared/hooks.ts"
 import { useQuery, UseQueryResult } from "react-query"
@@ -8,7 +14,7 @@ import { useQuery, UseQueryResult } from "react-query"
 export function useFetchClasses(): {
   activeItem: ClassModel | ClubModel | null
   isClass: boolean
-  classesQuery: UseQueryResult<Page<ClassModel>>
+  classesQuery: UseQueryResult<Page<StageClassModel>>
   clubsQuery: UseQueryResult<Page<ClubModel>>
   refresh: () => void
   setClassClubId: (newItemId: string, isClass: boolean) => void

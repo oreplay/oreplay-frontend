@@ -4,6 +4,7 @@ import {
   ParticipantModel,
   RunnerModel,
   SplitModel,
+  StageClassModel,
 } from "../../../../../../shared/EntityTypes.ts"
 import {
   ProcessedParticipantModel,
@@ -848,7 +849,7 @@ describe("processParticipant", () => {
       sicard: "12345678",
       sex: "M",
       class: {
-        id: "string",
+        id: "classId",
         short_name: "short name",
         long_name: "long name",
       },
@@ -1050,8 +1051,17 @@ describe("processParticipant", () => {
       },
     ]
 
+    const classesList: StageClassModel[] = [
+      {
+        id: "classId",
+        short_name: "short_name",
+        long_name: "long_name",
+        splits: onlineControls,
+      },
+    ]
+
     // Actually compare
-    const actual_participant = processParticipant(participant, onlineControls)
+    const actual_participant = processParticipant(participant, classesList)
     const compare_splits = actual_participant.stage?.splits.map((split) => ({
       ...split,
       reading_time: split.reading_time ? DateTime.fromISO(split.reading_time) : null,
@@ -1258,8 +1268,17 @@ describe("processParticipant", () => {
       },
     ]
 
+    const classesList: StageClassModel[] = [
+      {
+        id: "classId",
+        short_name: "short_name",
+        long_name: "long_name",
+        splits: onlineControls,
+      },
+    ]
+
     // Actually compare
-    const actual_participant = processParticipant(participant, onlineControls)
+    const actual_participant = processParticipant(participant, classesList)
     const compare_splits = actual_participant.stage?.splits.map((split) => ({
       ...split,
       reading_time: split.reading_time ? DateTime.fromISO(split.reading_time) : null,

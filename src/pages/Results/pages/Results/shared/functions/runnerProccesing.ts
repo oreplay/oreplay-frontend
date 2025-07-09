@@ -1,7 +1,7 @@
 import {
-  OnlineControlModel,
   ParticipantModel,
   SplitModel,
+  StageClassModel,
 } from "../../../../../../shared/EntityTypes.ts"
 import {
   ProcessedRunnerResultModel,
@@ -123,7 +123,7 @@ type ReplaceParticipantFields<T extends ParticipantModel> = Omit<T, keyof Fields
 
 export function processParticipant<T extends ParticipantModel>(
   participant: T,
-  onlineControlList?: OnlineControlModel[],
+  classesList?: StageClassModel[],
 ): ReplaceParticipantFields<T> {
   const stage = participant.stage
 
@@ -144,6 +144,13 @@ export function processParticipant<T extends ParticipantModel>(
     )
 
     // Extract online splits
+    const participantStageClass =
+      participant.class && classesList
+        ? classesList.find((cls) => cls.id === participant.class?.id)
+        : null
+
+    const onlineControlList = participantStageClass ? participantStageClass.splits : null
+
     const online_splits = onlineControlList
       ? getOnlineSplits(processed_splits_list, onlineControlList, stage.start_time)
       : []
