@@ -1092,7 +1092,7 @@ describe("processParticipant", () => {
       sicard: "12345678",
       sex: "M",
       class: {
-        id: "string",
+        id: "classId",
         short_name: "short name",
         long_name: "long name",
       },
