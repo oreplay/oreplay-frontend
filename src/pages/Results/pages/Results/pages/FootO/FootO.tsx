@@ -43,10 +43,10 @@ export default function FootO() {
     [eventId, stageId, "results", "classes", activeItem?.id],
     () =>
       activeItem
-        ? getFootORunnersByClass(eventId, stageId, activeItem.id)
+        ? getFootORunnersByClass(eventId, stageId, activeItem.id, classesQuery.data?.data)
         : Promise.reject(new Error("No active class")),
     {
-      enabled: !!activeItem && isClass,
+      enabled: !!activeItem && isClass && !!classesQuery.data,
       refetchOnWindowFocus: false,
     },
   )
@@ -55,10 +55,10 @@ export default function FootO() {
     [eventId, stageId, "results", "classes", activeItem?.id],
     () =>
       activeItem
-        ? getFootORunnersByClub(eventId, stageId, activeItem?.id)
+        ? getFootORunnersByClub(eventId, stageId, activeItem?.id, classesQuery.data?.data)
         : Promise.reject(new Error("No active club")),
     {
-      enabled: !!activeItem && !isClass,
+      enabled: !!activeItem && !isClass && !!classesQuery.data,
       refetchOnWindowFocus: false,
     },
   )

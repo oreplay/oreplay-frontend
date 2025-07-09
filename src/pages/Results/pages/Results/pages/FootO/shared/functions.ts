@@ -3,44 +3,51 @@ import { DateTime } from "luxon"
 
 interface RunnerStatus {
   runner: ProcessedRunnerModel
-  currentRaceTime: number           // seconds from start_time to now (DateTime.now - start_time)
-  currentAccumulatedTime: number    // accumulated time from the last split or fallback to currentRaceTime
+  currentRaceTime: number // seconds from start_time to now (DateTime.now - start_time)
+  currentAccumulatedTime: number // accumulated time from the last split or fallback to currentRaceTime
   isFinished: boolean
-  finishTime: number | null         // runner.stage.time_seconds if finished
-  lastPassedControl: number         // amount of last control passed
-  lastPassedTime: number | null     // time of last split
+  finishTime: number | null // runner.stage.time_seconds if finished
+  lastPassedControl: number // amount of last control passed
+  lastPassedTime: number | null // time of last split
   hasStarted: boolean
-  statusCode: string                // runner.stage.status_code (e.g. "0", "3", etc)
-  duration?: number                 // duration finish_time - start_time for status 3 (internal sorting)
+  statusCode: string // runner.stage.status_code (e.g. "0", "3", etc)
+  duration?: number // duration finish_time - start_time for status 3 (internal sorting)
 }
 
 export function orderFootRunners(runnerList: ProcessedRunnerModel[]): ProcessedRunnerModel[] {
   const now = DateTime.now()
 
-  const runnerStatuses: RunnerStatus[] = runnerList.map(runner => analyzeRunnerStatus(runner, now))
+  const runnerStatuses: RunnerStatus[] = runnerList.map((runner) =>
+    analyzeRunnerStatus(runner, now),
+  )
 
   // Separate status 3 (timing failure)
-  const status3Runners = runnerStatuses.filter(r => r.statusCode === "3")
-  const normalRunners = runnerStatuses.filter(r => r.statusCode !== "3")
+  const status3Runners = runnerStatuses.filter((r) => r.statusCode === "3")
+  const normalRunners = runnerStatuses.filter((r) => r.statusCode !== "3")
 
   // Sort normal runners (includes not started)
   normalRunners.sort((a, b) => compareRunnersNormal(a, b))
 
   // Sort status 3 at the end
   status3Runners.sort((a, b) => {
-    if (a.finishTime !== null && b.finishTime !== null && a.duration !== undefined && b.duration !== undefined) {
+    if (
+      a.finishTime !== null &&
+      b.finishTime !== null &&
+      a.duration !== undefined &&
+      b.duration !== undefined
+    ) {
       return a.duration - b.duration
     }
     return a.currentAccumulatedTime - b.currentAccumulatedTime
   })
 
   // Concatenate normal + status 3 at the end
-  return [...normalRunners, ...status3Runners].map(r => r.runner)
+  return [...normalRunners, ...status3Runners].map((r) => r.runner)
 }
 
 function analyzeRunnerStatus(runner: ProcessedRunnerModel, currentTime: DateTime): RunnerStatus {
   const startTime = runner.stage.start_time ? DateTime.fromISO(runner.stage.start_time) : null
-  const currentRaceTime = startTime ? currentTime.diff(startTime, 'seconds').seconds : Infinity
+  const currentRaceTime = startTime ? currentTime.diff(startTime, "seconds").seconds : Infinity
   const hasStarted = currentRaceTime >= 0
 
   const isFinished = !!(runner.stage.finish_time && runner.stage.time_seconds)
@@ -51,7 +58,7 @@ function analyzeRunnerStatus(runner: ProcessedRunnerModel, currentTime: DateTime
 
   if (runner.stage.online_splits && runner.stage.online_splits.length > 0) {
     const sortedSplits = runner.stage.online_splits
-      .filter(split => split.order_number !== null)
+      .filter((split) => split.order_number !== null)
       .sort((a, b) => a.order_number! - b.order_number!)
 
     for (const split of sortedSplits) {
@@ -66,15 +73,15 @@ function analyzeRunnerStatus(runner: ProcessedRunnerModel, currentTime: DateTime
 
   const lastSplitTime =
     runner.stage.online_splits && runner.stage.online_splits.length > 0
-      ? runner.stage.online_splits[runner.stage.online_splits.length - 1].time ?? 0
+      ? (runner.stage.online_splits[runner.stage.online_splits.length - 1].time ?? 0)
       : 0
 
   const currentAccumulatedTime = Math.max(lastSplitTime, currentRaceTime)
 
   // For status 3, internal duration (finish_time - start_time) for sorting
   const duration =
-    (runner.stage.status_code === "3" && finishTime !== null && startTime !== null)
-      ? finishTime - startTime.diff(startTime.startOf('day'), 'seconds').seconds
+    runner.stage.status_code === "3" && finishTime !== null && startTime !== null
+      ? finishTime - startTime.diff(startTime.startOf("day"), "seconds").seconds
       : undefined
 
   return {
