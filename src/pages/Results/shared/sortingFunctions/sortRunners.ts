@@ -55,7 +55,7 @@ export function orderedRunners(runnersList: RunnerModel[]) {
       runnerCompareFunctions.byStageStatus,
       runnerCompareFunctions.byStagePosition,
       runnerCompareFunctions.byOverallPosition,
-      (a, b) => runnerCompareFunctions.byStartTime(a, b, true), // reverse
+      (a, b) => runnerCompareFunctions.byStartTime(a, b, false), // reverse
       runnerCompareFunctions.byName,
     ])
   })

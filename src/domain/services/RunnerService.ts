@@ -3,8 +3,9 @@ import {
   ProcessedRunnerModel,
 } from "../../pages/Results/components/VirtualTicket/shared/EntityTypes.ts"
 import { TFunction } from "i18next"
-import { ParticipantModel } from "../../shared/EntityTypes.ts"
+import { ParticipantModel, RunnerModel } from "../../shared/EntityTypes.ts"
 import { RESULT_STATUS } from "../../pages/Results/shared/constants.ts"
+import { isRunnerNC } from "../../pages/Results/pages/Results/shared/functions.ts"
 
 const getClubName = (
   runner: ProcessedRunnerModel,
@@ -28,9 +29,14 @@ const getClassName = (runner: ProcessedRunnerModel) => {
 const isDNS = (runner: ProcessedParticipantModel | ParticipantModel) =>
   runner.stage.status_code === RESULT_STATUS.dns
 
+const isNC = (runner: ProcessedRunnerModel | RunnerModel): boolean => {
+  return isRunnerNC(runner) // TODO: Move this logic here
+}
+
 export const runnerService = {
   getClubName,
   getClassName,
   compareLegNumber,
   isDNS,
+  isNC,
 }
