@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { ProcessedRunnerModel } from "../pages/Results/components/VirtualTicket/shared/EntityTypes.ts"
 
 /**
  * Paginated list from backend
@@ -255,4 +256,17 @@ export interface GetEventTokenResponse {
   token: string
   expires: string
   created: string
+}
+
+export interface RunnerStatus {
+  runner: ProcessedRunnerModel
+  currentRaceTime: number // segundos desde el start_time hasta ahora
+  currentAccumulatedTime: number // acumulado hasta el último split o tiempo de carrera actual
+  isFinished: boolean
+  finishTime: number | null
+  lastPassedControl: number
+  lastPassedTime: number | null
+  hasStarted: boolean
+  statusCode: string // código como "0", "3", etc.
+  duration?: number // solo para status_code "3"
 }
