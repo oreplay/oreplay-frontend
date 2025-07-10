@@ -1,7 +1,8 @@
-import { describe, it, expect } from "vitest"
+import { describe, it, expect, vi} from "vitest"
 import { sortRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 import { sortFootORunners } from "./functions.ts"
+import { DateTime } from "luxon"
 
 describe("orderRunners and orderFootORunners", () => {
   it("should handle different classification statuses", () => {
@@ -402,10 +403,272 @@ describe("orderRunners and orderFootORunners", () => {
   })
 })
 
-describe("orderFootORunners", () => {
-  //TODO: Fill this test suite
+describe("orderFootRunners", () => {
+  vi.spyOn(DateTime, "now").mockReturnValue(
+    DateTime.fromISO("2025-06-27T10:00:00.000+00:00") as DateTime<true>
+  )
 
-  it("should handle online controls", () => {
-    // pendiente de implementación
+  const baseRunner = {
+    id: "",
+    bib_number: "1000",
+    is_nc: false,
+    eligibility: null,
+    sicard: "11111111",
+    sex: "M",
+    class: { id: "1", short_name: "M21", long_name: "Men 21 Elite" },
+    club: { id: "1", short_name: "ClubA" },
+    full_name: "",
+    stage: {
+      id: "s1",
+      result_type_id: "res",
+      start_time: "2025-06-27T09:50:00.000+00:00",
+      finish_time: null,
+      upload_type: "res_splits",
+      time_seconds: 0,
+      position: 0,
+      status_code: "0",
+      time_behind: 0,
+      time_neutralization: 0,
+      time_adjusted: 0,
+      time_penalty: 0,
+      time_bonus: 0,
+      points_final: 0,
+      points_adjusted: 0,
+      points_penalty: 0,
+      points_bonus: 0,
+      leg_number: 1,
+      splits: [],
+      online_splits: [],
+    },
+    overalls: null,
+  }
+
+  const defaultIsNext = DateTime.fromISO("1970-01-01T00:00:00.000+00:00")
+
+  const runnerFinished = {
+    ...baseRunner,
+    id: "1",
+    full_name: "Runner Finished",
+    stage: {
+      ...baseRunner.stage,
+      start_time: "2025-06-27T09:40:00.000+00:00", // started earlier
+      finish_time: "2025-06-27T10:03:00.000+00:00",
+      time_seconds: 780,
+      position: 1,
+      online_splits: [
+        {
+          id: "split1",
+          is_intermediate: true,
+          reading_time: "2025-06-27T09:50:00.000+00:00",
+          points: 0,
+          time_behind: 0,
+          position: 0,
+          cumulative_position: 0,
+          cumulative_behind: 0,
+          cumulative_time: 600,
+          order_number: 1,
+          control: {
+            id: "c1",
+            station: "31",
+            control_type: { id: "ctrl-type-1", description: "Normal Control" },
+          },
+          time: 600,
+          status_code: "0",
+          leg_number: 1,
+          is_next: defaultIsNext,
+        },
+        {
+          id: "split2",
+          is_intermediate: true,
+          reading_time: "2025-06-27T10:00:00.000+00:00",
+          points: 0,
+          time_behind: 0,
+          position: 0,
+          cumulative_position: 0,
+          cumulative_behind: 0,
+          cumulative_time: 780,
+          order_number: 2,
+          control: {
+            id: "c2",
+            station: "32",
+            control_type: { id: "ctrl-type-1", description: "Normal Control" },
+          },
+          time: 780,
+          status_code: "0",
+          leg_number: 1,
+          is_next: defaultIsNext,
+        },
+      ],
+    },
+  }
+
+  const runnerPassedOneControl = {
+    ...baseRunner,
+    id: "2",
+    full_name: "Runner Passed 1 Control",
+    stage: {
+      ...baseRunner.stage,
+      start_time: "2025-06-27T09:50:50.000+00:00",
+      finish_time: null,
+      time_seconds: 0,
+      position: 0,
+      online_splits: [
+        {
+          id: "split1",
+          is_intermediate: true,
+          reading_time: "2025-06-27T09:54:10.000+00:00", // cambiado aquí para 250 segundos
+          points: 0,
+          time_behind: 0,
+          position: 0,
+          cumulative_position: 0,
+          cumulative_behind: 0,
+          cumulative_time: 250, // cambiar también a 250 para coherencia
+          order_number: 1,
+          control: {
+            id: "c1",
+            station: "31",
+            control_type: { id: "ctrl-type-1", description: "Normal Control" },
+          },
+          time: 250,
+          status_code: "0",
+          leg_number: 1,
+          is_next: defaultIsNext,
+        },
+      ],
+    },
+  }
+
+  const runnerPassedTwoControlsNoFinish = {
+    ...baseRunner,
+    id: "3",
+    full_name: "Runner Passed 2 Controls No Finish",
+    stage: {
+      ...baseRunner.stage,
+      start_time: "2025-06-27T09:45:00.000+00:00",
+      finish_time: null,
+      time_seconds: 0,
+      position: 0,
+      online_splits: [
+        {
+          id: "split1",
+          is_intermediate: true,
+          reading_time: "2025-06-27T09:50:00.000+00:00",
+          points: 0,
+          time_behind: 0,
+          position: 0,
+          cumulative_position: 0,
+          cumulative_behind: 0,
+          cumulative_time: 300,
+          order_number: 1,
+          control: {
+            id: "c1",
+            station: "31",
+            control_type: { id: "ctrl-type-1", description: "Normal Control" },
+          },
+          time: 300,
+          status_code: "0",
+          leg_number: 1,
+          is_next: defaultIsNext,
+        },
+        {
+          id: "split2",
+          is_intermediate: true,
+          reading_time: "2025-06-27T09:58:00.000+00:00",
+          points: 0,
+          time_behind: 0,
+          position: 0,
+          cumulative_position: 0,
+          cumulative_behind: 0,
+          cumulative_time: 480,
+          order_number: 2,
+          control: {
+            id: "c2",
+            station: "32",
+            control_type: { id: "ctrl-type-1", description: "Normal Control" },
+          },
+          time: 480,
+          status_code: "0",
+          leg_number: 1,
+          is_next: defaultIsNext,
+        },
+      ],
+    },
+  }
+
+  const runnerNotStartedYet = {
+    ...baseRunner,
+    id: "4",
+    full_name: "Runner Not Started Yet",
+    stage: {
+      ...baseRunner.stage,
+      start_time: "2025-06-27T10:05:00.000+00:00", // starts in future
+      finish_time: null,
+      time_seconds: 0,
+      position: 0,
+      online_splits: [],
+    },
+  }
+
+  const runnerStartedNoControls = {
+    ...baseRunner,
+    id: "5",
+    full_name: "Runner Started No Controls",
+    stage: {
+      ...baseRunner.stage,
+      start_time: "2025-06-27T09:45:00.000+00:00",
+      finish_time: null,
+      time_seconds: 0,
+      position: 0,
+      online_splits: [],
+    },
+  }
+
+  it("should order runners correctly in complex scenario with different start times", () => {
+    const input = [
+      runnerNotStartedYet,
+      runnerPassedTwoControlsNoFinish,
+      runnerPassedOneControl,
+      runnerStartedNoControls,
+      runnerFinished,
+    ]
+    const result = sortFootORunners(input)
+
+    // Expected order explained:
+    // 1. Runner Passed Two Controls No Finish (started 09:45, 2 splits, cumulative_time 480)
+    // 2. Runner Passed One Control (started 09:50, 1 split, cumulative_time 300)
+    // 3. Runner Started No Controls (started 09:55, no splits)
+    // 4. Runner Finished (started 09:40, finished at 10:03, position 1)
+    // 5. Runner Not Started Yet (starts 10:05)
+
+    const expectedOrder = [
+      runnerPassedTwoControlsNoFinish,
+      runnerPassedOneControl,
+      runnerFinished,
+      runnerStartedNoControls,
+      runnerNotStartedYet,
+    ]
+
+    expect(result).toEqual(expectedOrder)
+  })
+  it("orders in-progress runners provisionally above finished ones if their current time is lower", () => {
+    const runners = [
+      runnerPassedTwoControlsNoFinish, // id: "3"
+      runnerFinished,                  // id: "2"
+      runnerNotStartedYet,             // id: "5"
+      runnerPassedOneControl,          // id: "1"
+      runnerStartedNoControls,         // id: "4"
+    ]
+
+    const result = sortFootORunners(runners)
+
+    const expectedOrder = [
+      runnerPassedTwoControlsNoFinish, // in-progress with 2 controls, ahead of finisher
+      runnerPassedOneControl,          // in-progress with 1 control
+      runnerFinished,                  // finished but provisional position is lower
+      runnerStartedNoControls,         // started but no controls
+      runnerNotStartedYet,             // no start
+    ]
+
+    expect(result).toEqual(expectedOrder)
   })
 })
