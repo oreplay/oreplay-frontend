@@ -1,21 +1,42 @@
-# oreplay-react
+# O-Replay Frontend: Live Orienteering Results
 
-If you use the application for the first time or if you get any error bound to missing packages execute
-`npm install`
+**By Orienteers, For Orienteers**
 
-To run the application you should use:
-`npm run dev`
+**O-Replay** is a modern, fully-featured, open-source web service for live orienteering results.
+We not only support regular Foot-O races but also other disciplines such as Rogaining and Relays.
 
-Before pushing, remember to run the linter (you should also set it up in your IDE)
-`npm run lint`
+Key features include:
 
-# Deployment
+- Online controls
+- Digital tickets
+- Live-updated splits tables
 
-In order to deploy, change the version from the .env file where the version is placed
-(review the last version commit).
+You can find detailed information about the project and its features on our
+[About Us page](https://www.oreplay.es/about-us).
 
-Remember to **properly define the .env** `VITE_API_DOMAIN` (development: http://localhost/ and production: https://www.oreplay.es/)
+The project consists of three main repositories:
 
-Once the version is changed, run docker-compose (this will build a new docker image).
+- **O-Replay Frontend**: A React web application (you are here)
+- [**O-Replay Backend**](https://github.com/oreplay/oreplay-backend): A CakePHP server application
+- [**O-Replay Desktop Client**](https://github.com/oreplay/desktop-client): A Java desktop app for
+  uploading results from non-integrated timekeeping software
 
-After the image is built, push it with `docker push <tag_name>`
+---
+
+## Contributing
+
+Everyone is welcome in the O-Replay community. There are several ways to contribute:
+
+- 🌐 **Translating**: Translations are managed through [Weblate](https://weblate.org/). Visit our
+  [translations wiki](/oreplay/oreplay-frontend/wiki/Translations-wiki) for more details.
+- 💻 **Contributing Code**: You can contribute to any of our repositories.
+
+  - For backend or desktop client contributions, see their respective repositories.
+  - For frontend contributions, visit our [contributing wiki](/oreplay/oreplay-frontend/wiki/O‐Replay-Wiki).
+
+---
+
+## Integrating with O-Replay
+
+To integrate with O-Replay, refer to the [backend repository](https://github.com/oreplay/oreplay-backend).
+We provide a public API for external systems to interact with our platform.
