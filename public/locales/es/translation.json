@@ -1,49 +1,49 @@
 {
-  "Loading": "Cargando...",
-  "Search": {
-    "Search": "Buscar",
-    "ClearSearch": "Limpiar búsqueda"
-  },
-  "GeneralErrorFallback": {
-    "title": "Ha ocurrido un error inesperado",
-    "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde"
-  },
-  "ForbiddenAccess": "Acceso denegado",
-  "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
-  "ExperimentalFeatureMsg": "Funcionalidad experimental",
-  "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
+    "Loading": "Cargando...",
+    "Search": {
+        "Search": "Buscar",
+        "ClearSearch": "Limpiar búsqueda"
+    },
+    "GeneralErrorFallback": {
+        "title": "Ha ocurrido un error inesperado",
+        "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde."
+    },
+    "ForbiddenAccess": "Acceso denegado",
+    "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
+    "ExperimentalFeatureMsg": "Funcionalidad experimental",
+    "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
   "Menu": "Menu",
-  "Dates": "Fecha",
-  "Event": "Evento",
-  "Events": "Eventos",
-  "Stages": "Etapas",
-  "Location": "Ubicación",
-  "Organizer": "Organizador",
-  "Name": "Nombre",
-  "Edit": "Editar",
-  "Success": "Éxito!",
-  "Cancel": "Cancelar",
-  "Delete": "Borrar",
-  "Save": "Guardar",
-  "Settings": "Ajustes",
-  "EmailAddress": "Correo electrónico",
-  "Password": "Contraseña",
-  "GoBack": "Volver atrás",
-  "This action cannot be undone": "Esta acción no puede deshacerse.",
-  "Copied to the clipboard": "Copiado al portapapeles",
-  "Copy": "Copiar",
-  "Organizers": "Organizadores",
-  "AboutUs": {
-    "AboutUs": "Sobre nosotros",
-    "VersionMessage": "Estamos en construcción. Estás usando la versión "
-  },
-  "Results": {
-    "shortClass": "Cat.",
-    "Class": "Categoría",
-    "Classes": "Categorías",
-    "Start": "Salida",
-    "Finish": "Meta",
-    "SiCard": "Pinza",
+    "Dates": "Fecha",
+    "Event": "Evento",
+    "Events": "Eventos",
+    "Stages": "Etapas",
+    "Location": "Ubicación",
+    "Organizer": "Organizador",
+    "Name": "Nombre",
+    "Edit": "Editar",
+    "Success": "Éxito",
+    "Cancel": "Cancelar",
+    "Delete": "Borrar",
+    "Save": "Guardar",
+    "Settings": "Ajustes",
+    "EmailAddress": "Correo electrónico",
+    "Password": "Contraseña",
+    "GoBack": "Volver atrás",
+    "This action cannot be undone": "Esta acción no puede deshacerse.",
+    "Copied to the clipboard": "Copiado al portapapeles.",
+    "Copy": "Copiar",
+    "Organizers": "Organizadores",
+    "AboutUs": {
+        "AboutUs": "Sobre nosotros",
+        "VersionMessage": "Estamos en construcción. Estás usando la versión "
+    },
+    "Results": {
+        "shortClass": "Categoría",
+        "Class": "Categoría",
+        "Classes": "Categorías",
+        "Start": "Salida",
+        "Finish": "Fin",
+        "SiCard": "Pinza",
     "Position": "Posición",
     "Name": "Nombre",
     "Time": "Tiempo"
@@ -172,84 +172,84 @@
     "Language": "Idioma",
     "Spanish": "Español",
     "English": "English",
-    "French": "Français"
-  },
-  "Dashboard": {
-    "Dashboard": "Panel de control",
-    "YourEvents": "Tus eventos",
-    "StartDate": "Fecha inicio",
-    "FinishDate": "Fecha fin",
-    "Name": "Nombre del evento"
-  },
-  "EventList": {
-    "LiveToday": "En vivo hoy",
-    "NoLiveEventsToday": "No hay eventos hoy",
-    "FutureEvents": "Eventos futuros",
-    "PastEvents": "Eventos pasados"
-  },
-  "StageHeader": {
-    "StartTime": "Salida",
-    "Results": "Resultados",
-    "Splits": "Parciales",
-    "Graphs": "Gráficos",
+    "French": "Frances"
+    },
+    "Dashboard": {
+        "Dashboard": "Panel de control",
+        "YourEvents": "Tus eventos",
+        "StartDate": "Fecha inicio",
+        "FinishDate": "Fecha fin",
+        "Name": "Nombre del evento"
+    },
+    "EventList": {
+        "LiveToday": "En vivo hoy",
+        "NoLiveEventsToday": "No hay eventos hoy",
+        "FutureEvents": "Eventos futuros",
+        "PastEvents": "Eventos pasados"
+    },
+    "StageHeader": {
+        "StartTime": "Hora de Salida",
+        "Results": "Resultados",
+        "Splits": "Parciales",
+        "Graphs": "Gráficos",
     "ScorePoints": "Puntos",
-    "RelayLegs": "Postas"
-  },
-  "ResultsStage": {
-    "Refresh": "Refrescar",
-    "ChooseClass": "Por favor, seleccione una categoría",
-    "NoData": "Lo sentimos, no hay datos",
-    "NoStartTime": "-",
-    "NotStarted": "-",
-    "Class": "Categoría",
-    "Position": "Posición",
-    "Name": "Nombre",
-    "Club": "Club",
-    "Clubs": "Clubs",
-    "Classes": "Categorías",
-    "NoClubMsg": "Sin club",
-    "StartTime": "Salida",
-    "FinishTime": "Tiempo",
-    "RaceTime": "Tiempo",
-    "Times": "Tiempos",
-    "Points": "Puntos:",
-    "BonusPoints": "Bonus:",
-    "PenaltyPoints": "Penalización:",
-    "VirtualTicket": {
-      "FinishControl": "Meta",
-      "Control": "Ctrl",
-      "StartHour": "H.salida:",
-      "FinishHour": "Hora de meta:",
-      "RaceTime": "Tiempo:",
-      "Partial": "Parcial",
-      "Cumulative": "Acumulado",
-      "NoDownloadMsg": "No hay lectura del chip"
+        "RelayLegs": "Postas"
     },
-    "statusCodes": {
-      "nc": "NC",
-      "ok": "ok",
-      "dns": "DNS",
-      "dnf": "Aban",
-      "mp": "MP",
-      "dsq": "DSQ",
-      "ot": "FC"
-    },
-    "SplitsTable": {
-      "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
-      "PartialTimes": "Parciales",
-      "CumulativeTimes": "Acumulados",
-      "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías.",
+    "ResultsStage": {
+        "Refresh": "Refrescar",
+        "ChooseClass": "Por favor, seleccione una categoría",
+        "NoData": "Lo sentimos, no hay datos",
+        "NoStartTime": "-",
+        "NotStarted": "-",
+        "Class": "Categoría",
+        "Position": "Posición",
+        "Name": "Nombre",
+        "Club": "Club",
+        "Clubs": "Clubs",
+        "Classes": "Categorías",
+        "NoClubMsg": "Sin club",
+        "StartTime": "Salida",
+        "FinishTime": "Final",
+        "RaceTime": "Tiempo",
+        "Times": "Tiempos",
+        "Points": "Puntos:",
+        "BonusPoints": "Bonus_",
+        "PenaltyPoints": "Penalización:",
+        "VirtualTicket": {
+            "FinishControl": "Meta",
+            "Control": "Ctrl",
+            "StartHour": "H.salida:",
+            "FinishHour": "Hora de meta:",
+            "RaceTime": "Tiempo:",
+            "Partial": "Parcial",
+            "Cumulative": "Acumulado",
+            "NoDownloadMsg": "No hay lectura del chip"
+        },
+        "statusCodes": {
+            "nc": "NC",
+            "ok": "ok",
+            "dns": "DNS",
+            "dnf": "Aban",
+            "mp": "MP",
+            "dsq": "DSQ",
+            "ot": "FC"
+        },
+        "SplitsTable": {
+            "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
+            "PartialTimes": "Parciales",
+            "CumulativeTimes": "Acumulados",
+            "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías.",
       "CleanTime": "Sin Errores"
+        },
+        "PointsTable": {
+            "OnlyForClasses": "El visor de puntos solo está disponible para resultados por categorías."
+        },
+        "WrongFileUploaded": {
+            "Title": "¡Resultados Sin Parciales!",
+            "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>."
+        }
     },
-    "PointsTable": {
-      "OnlyForClasses": "El visor de puntos solo está disponible para resultados por categorías"
-    },
-    "WrongFileUploaded": {
-      "Title": "¡Resultados Sin Parciales!",
-      "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>."
-    }
-  },
-  "view": {
+    "view": {
     "splits": "Parciales",
     "accumulated": "Acumulados",
     "timeLoss": "Tabla de tiempo perdido",
@@ -259,10 +259,10 @@
     "radios": "Radios"
   },
   "404Page": {
-    "Header": "¿Perdido en el bosque?",
-    "Message": "No hemos podido encontrar la página que estabas buscando.",
-    "ButtonMessage": "Triángulo de salida"
-  },
+        "Header": "¿Perdido en el bosque?",
+        "Message": "No hemos podido encontrar la página que estabas buscando.",
+        "ButtonMessage": "Triángulo de salida"
+    },
   "sidebar": {
     "legalNotice": "Aviso Legal",
     "privacyPolicy": "Política de Privacidad",
