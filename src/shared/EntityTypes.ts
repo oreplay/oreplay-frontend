@@ -258,15 +258,14 @@ export interface GetEventTokenResponse {
   created: string
 }
 
-export interface RunnerStatus {
+export interface RunnerState {
   runner: ProcessedRunnerModel
-  currentRaceTime: number // segundos desde el start_time hasta ahora
-  currentAccumulatedTime: number // acumulado hasta el último split o tiempo de carrera actual
+  statusCode: string
+  hasStarted: boolean
   isFinished: boolean
-  finishTime: number | null
+  position: number
+  currentRaceTime: number
   lastPassedControl: number
   lastPassedTime: number | null
-  hasStarted: boolean
-  statusCode: string // código como "0", "3", etc.
-  duration?: number // solo para status_code "3"
+  controlTimes: Record<number, number>
 }
