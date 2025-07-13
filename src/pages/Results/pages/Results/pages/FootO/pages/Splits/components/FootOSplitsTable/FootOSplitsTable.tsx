@@ -13,12 +13,15 @@ import { OnlineControlModel } from "../../../../../../../../../../shared/EntityT
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
 import { useMemo } from "react"
+import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
   onlyRadios?: boolean
   showCumulative?: boolean
   radiosList: OnlineControlModel[]
+  timeLossEnabled?: boolean
+  timeLossThreshold?: number
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
@@ -32,6 +35,15 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const courseControlList = useMemo(() => getCourseFromRunner(runnerList), [runnerList])
 
   const controlList = props.onlyRadios && props.radiosList ? onlineControlList : courseControlList
+
+  // Calculate time loss analysis when enabled and not showing only radios
+  const timeLossResults: TimeLossResults | null = useMemo(() => {
+    if (!props.timeLossEnabled || props.onlyRadios || !props.timeLossThreshold) {
+      return null
+    }
+
+    return analyzeTimeLoss(runnerList, props.timeLossThreshold, props.showCumulative)
+  }, [props.timeLossEnabled, props.onlyRadios, props.timeLossThreshold, runnerList, props.showCumulative])
 
   // No runner hasDownloaded a chip
   if (runnerList.length === 0) {
@@ -83,6 +95,8 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   showCumulative={props.showCumulative}
                   onlyRadios={props.onlyRadios}
                   radiosList={props.radiosList}
+                  timeLossResults={timeLossResults}
+                  timeLossEnabled={props.timeLossEnabled}
                 />
               ))}
             </TableBody>
