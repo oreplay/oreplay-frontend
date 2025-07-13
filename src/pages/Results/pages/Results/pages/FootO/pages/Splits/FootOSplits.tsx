@@ -7,7 +7,7 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
 import { useState } from "react"
-import { FormControlLabel, Switch } from "@mui/material"
+import { FormControlLabel, Switch, Box, Typography, Slider } from "@mui/material"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import PartialCumulativeSwitch from "./components/PartialCumulativeSwitch.tsx"
 import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
@@ -18,6 +18,8 @@ export default function FootOSplits(
   const [onlyRadios, setOnlyRadios] = useState<boolean>(false)
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
   const [showCumulativeDisplayed, setShowCumulativeDisplayed] = useState<boolean>(false)
+  const [timeLossEnabled, setTimeLossEnabled] = useState<boolean>(false)
+  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(20)
 
   if (!props.activeItem) {
     return <ChooseClassMsg />
@@ -58,12 +60,59 @@ export default function FootOSplits(
         ) : (
           <></>
         )}
+
+        {/* Contenedor con switch de análisis y slider de umbral juntos */}
+        {!showCumulativeDisplayed && (
+          <Box display="flex" alignItems="center" gap={1} mt={1} mb={2}>
+            <FormControlLabel
+              control={
+                <Switch
+                  value={timeLossEnabled}
+                  checked={timeLossEnabled}
+                  onChange={() => setTimeLossEnabled(!timeLossEnabled)}
+                />
+              }
+              label="Análisis de pérdida de tiempo"
+            />
+
+            {timeLossEnabled && (
+              <>
+                <Typography
+                  sx={{
+                    minWidth: 80,
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                    mr: 0.5, // margén derecho pequeño para pegar al slider
+                  }}
+                >
+                  Umbral {timeLossThreshold}%:
+                </Typography>
+
+                <Box sx={{ width: 120, ml: 0 }}>
+                  <Slider
+                    value={timeLossThreshold}
+                    min={0}
+                    max={100}
+                    step={5}
+                    onChange={(_, value) => setTimeLossThreshold(value as number)}
+                    aria-label="Umbral de pérdida de tiempo"
+                    size="small"
+                    marks
+                  />
+                </Box>
+              </>
+            )}
+          </Box>
+        )}
+
         <FootOSplitsTable
           onlyRadios={onlyRadios}
           radiosList={"splits" in props.activeItem ? props.activeItem.splits : []}
           showCumulative={showCumulative}
           key={"FootOSplitsTable"}
           runners={props.runnersQuery.data ? props.runnersQuery.data : []}
+          timeLossEnabled={timeLossEnabled}
+          timeLossThreshold={timeLossThreshold}
         />
       </>
     )
