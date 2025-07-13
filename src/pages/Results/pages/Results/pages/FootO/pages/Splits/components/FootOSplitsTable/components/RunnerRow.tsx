@@ -16,12 +16,15 @@ import { OnlineControlModel } from "../../../../../../../../../../../shared/Enti
 import RaceTimeBehind from "../../../../../../../../../components/RaceTimeBehind.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../../shared/functions.ts"
 import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
+import { TimeLossResults,getRunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
   showCumulative?: boolean
   onlyRadios?: boolean
   radiosList: OnlineControlModel[]
+  timeLossResults?: TimeLossResults | null
+  timeLossEnabled?: boolean
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
@@ -68,22 +71,31 @@ export default function RunnerRow(props: RunnerRowProps) {
           time_behind={result.time_behind}
         />
       </TableCell>
-      {splits.map((split) => (
-        <TableCell key={`split${props.runner.id}${split.id}`}>
-          {props.onlyRadios ? (
-            <RunnerOnlineSplit
-              split={split as RadioSplitModel}
-              startTimeTimestamp={props.runner.stage.start_time}
-            />
-          ) : (
-            <RunnerSplit
-              showCumulative={props.showCumulative}
-              key={`runnerSplit${props.runner.id}${split.id}}`}
-              split={split}
-            />
-          )}
-        </TableCell>
-      ))}
+      {splits.map((split) => {
+        // Get time loss info for this split
+        const timeLossInfo = props.timeLossResults && split.control?.id
+          ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, split.control.id)
+          : null
+
+        return (
+          <TableCell key={`split${props.runner.id}${split.id}`}>
+            {props.onlyRadios ? (
+              <RunnerOnlineSplit
+                split={split as RadioSplitModel}
+                startTimeTimestamp={props.runner.stage.start_time}
+              />
+            ) : (
+              <RunnerSplit
+                showCumulative={props.showCumulative}
+                key={`runnerSplit${props.runner.id}${split.id}}`}
+                split={split}
+                timeLossInfo={timeLossInfo}
+                timeLossEnabled={props.timeLossEnabled}
+              />
+            )}
+          </TableCell>
+        )
+      })}
     </TableRow>
   )
 }
