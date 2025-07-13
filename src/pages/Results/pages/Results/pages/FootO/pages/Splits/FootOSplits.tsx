@@ -91,7 +91,7 @@ export default function FootOSplits(
                 <Box sx={{ width: 120, ml: 0 }}>
                   <Slider
                     value={timeLossThreshold}
-                    min={0}
+                    min={5}
                     max={100}
                     step={5}
                     onChange={(_, value) => setTimeLossThreshold(value as number)}
