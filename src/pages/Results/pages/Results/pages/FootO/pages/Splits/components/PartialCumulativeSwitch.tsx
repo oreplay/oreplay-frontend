@@ -8,10 +8,10 @@ type PartialCumulativeSwitchProps = {
 }
 
 export default function PartialCumulativeSwitch({
-  active,
-  setActive,
-  disabled,
-}: PartialCumulativeSwitchProps) {
+                                                  active,
+                                                  setActive,
+                                                  disabled,
+                                                }: PartialCumulativeSwitchProps) {
   const { t } = useTranslation()
 
   return (
