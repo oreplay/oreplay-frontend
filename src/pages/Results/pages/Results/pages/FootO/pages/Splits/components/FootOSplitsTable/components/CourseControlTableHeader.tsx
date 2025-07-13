@@ -8,10 +8,10 @@ type CourseControlTableHeaderProps = {
 }
 
 export default function CourseControlTableHeader({
-  order_number,
-  station,
-  onlyRadios,
-}: CourseControlTableHeaderProps) {
+                                                   order_number,
+                                                   station,
+                                                   onlyRadios,
+                                                 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
 
   if (station === "Finish" || order_number === Infinity) {
