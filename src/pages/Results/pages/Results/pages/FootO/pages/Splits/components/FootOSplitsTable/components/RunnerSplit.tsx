@@ -68,18 +68,24 @@ export default function RunnerSplit({
 
     const timeStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled
+        ? timeLossStyles
+        : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     const behindStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled
+        ? timeLossStyles
+        : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     return (
       <>
         <Typography sx={timeStyles}>
-          {split.cumulative_time !== null ? parseSecondsToMMSS(split.cumulative_time) : "--"}
+          {split.cumulative_time !== null
+            ? parseSecondsToMMSS(split.cumulative_time)
+            : "--"}
         </Typography>
         <Typography sx={behindStyles}>
           {split.cumulative_behind !== null
@@ -93,12 +99,16 @@ export default function RunnerSplit({
 
     const timeStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled
+        ? timeLossStyles
+        : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     const behindStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled
+        ? timeLossStyles
+        : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     return (
