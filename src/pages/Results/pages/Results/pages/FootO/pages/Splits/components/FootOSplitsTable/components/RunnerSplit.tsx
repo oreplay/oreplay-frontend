@@ -1,88 +1,92 @@
-import { Typography, SxProps, Theme } from "@mui/material";
+import { Typography, SxProps, Theme } from "@mui/material"
 import {
   parseSecondsToMMSS,
   parseTimeBehind,
-} from "../../../../../../../../../../../shared/Functions.tsx";
-import { ProcessedSplitModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts";
-import { RunnerTimeLossInfo, TimeLossResults } from "../../utils/timeLossAnalysis.ts";
+} from "../../../../../../../../../../../shared/Functions.tsx"
+import { ProcessedSplitModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { RunnerTimeLossInfo, TimeLossResults } from "../../utils/timeLossAnalysis.ts"
 
 type RunnerSplitProps = {
-  split: ProcessedSplitModel;
-  showCumulative?: boolean;
-  timeLossInfo?: RunnerTimeLossInfo | null;
-  timeLossEnabled?: boolean;
-  timeLossResults?: TimeLossResults | null;
-};
+  split: ProcessedSplitModel
+  showCumulative?: boolean
+  timeLossInfo?: RunnerTimeLossInfo | null
+  timeLossEnabled?: boolean
+  timeLossResults?: TimeLossResults | null
+}
 
 type ColorFontWeightStyle = {
-  color?: string;
-  fontWeight?: string | number;
-};
+  color?: string
+  fontWeight?: string | number
+}
 
 const styles: SxProps<Theme> = {
   fontSize: "small",
-};
+}
 
 const getTimeLossStyles = (
   timeLossInfo: RunnerTimeLossInfo | null | undefined,
-  timeLossEnabled: boolean
+  timeLossEnabled: boolean,
 ): ColorFontWeightStyle => {
   if (!timeLossEnabled || !timeLossInfo) {
-    return {};
+    return {}
   }
 
-  const baseStyles: ColorFontWeightStyle = {};
+  const baseStyles: ColorFontWeightStyle = {}
 
   switch (timeLossInfo.rank) {
     case 1:
-      baseStyles.color = "#006400"; // Dark green
-      baseStyles.fontWeight = "bold";
-      break;
+      baseStyles.color = "#006400" // Dark green
+      baseStyles.fontWeight = "bold"
+      break
     case 2:
-      baseStyles.color = "#228B22"; // Medium green
-      baseStyles.fontWeight = "bold";
-      break;
+      baseStyles.color = "#228B22" // Medium green
+      baseStyles.fontWeight = "bold"
+      break
     case 3:
-      baseStyles.color = "#76D276"; // Light green
-      baseStyles.fontWeight = "bold";
-      break;
+      baseStyles.color = "#76D276" // Light green
+      baseStyles.fontWeight = "bold"
+      break
     default:
       if (timeLossInfo.hasTimeLoss) {
-        baseStyles.color = "#FF0000";
-        baseStyles.fontWeight = "bold";
+        baseStyles.color = "#FF0000"
+        baseStyles.fontWeight = "bold"
       }
   }
 
-  return baseStyles;
-};
+  return baseStyles
+}
 
 const calculateLossTime = (
   timeLossInfo: RunnerTimeLossInfo | null,
   timeLossResults: TimeLossResults | null,
-  controlId: string | undefined
+  controlId: string | undefined,
 ): number => {
   if (!timeLossInfo || !timeLossResults || !controlId || !timeLossInfo.hasTimeLoss) {
-    return 0;
+    return 0
   }
 
-  const controlAnalysis = timeLossResults.analysisPerControl.get(controlId);
+  const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
   if (!controlAnalysis) {
-    return 0;
+    return 0
   }
 
-  const lossTime = timeLossInfo.splitTime - controlAnalysis.estimatedTimeWithoutError;
-  return lossTime > 0 ? lossTime : 0;
-};
+  const lossTime = timeLossInfo.splitTime - controlAnalysis.estimatedTimeWithoutError
+  return lossTime > 0 ? lossTime : 0
+}
 
 export default function RunnerSplit({
-                                      split,
-                                      showCumulative,
-                                      timeLossInfo,
-                                      timeLossEnabled = false,
-                                      timeLossResults,
-                                    }: RunnerSplitProps) {
-  const timeLossStyles = getTimeLossStyles(timeLossInfo, timeLossEnabled);
-  const lossTime = calculateLossTime(timeLossInfo || null, timeLossResults || null, split.control?.id);
+  split,
+  showCumulative,
+  timeLossInfo,
+  timeLossEnabled = false,
+  timeLossResults,
+}: RunnerSplitProps) {
+  const timeLossStyles = getTimeLossStyles(timeLossInfo, timeLossEnabled)
+  const lossTime = calculateLossTime(
+    timeLossInfo || null,
+    timeLossResults || null,
+    split.control?.id,
+  )
 
   const lossTimeElement =
     timeLossEnabled && lossTime > 0 ? (
@@ -96,20 +100,20 @@ export default function RunnerSplit({
       >
         ({parseSecondsToMMSS(lossTime)})
       </Typography>
-    ) : null;
+    ) : null
 
   if (showCumulative) {
-    const isScratch = split.cumulative_position === 1;
+    const isScratch = split.cumulative_position === 1
 
     const timeStyles: SxProps<Theme> = {
       ...styles,
       ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
-    };
+    }
 
     const behindStyles: SxProps<Theme> = {
       ...styles,
       ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
-    };
+    }
 
     return (
       <>
@@ -123,19 +127,19 @@ export default function RunnerSplit({
         </Typography>
         {lossTimeElement}
       </>
-    );
+    )
   } else {
-    const isScratch = split.position === 1;
+    const isScratch = split.position === 1
 
     const timeStyles: SxProps<Theme> = {
       ...styles,
       ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
-    };
+    }
 
     const behindStyles: SxProps<Theme> = {
       ...styles,
       ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
-    };
+    }
 
     return (
       <>
@@ -149,6 +153,6 @@ export default function RunnerSplit({
         </Typography>
         {lossTimeElement}
       </>
-    );
+    )
   }
 }

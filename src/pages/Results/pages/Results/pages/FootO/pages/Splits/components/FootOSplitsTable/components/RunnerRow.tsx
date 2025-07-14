@@ -16,7 +16,7 @@ import { OnlineControlModel } from "../../../../../../../../../../../shared/Enti
 import RaceTimeBehind from "../../../../../../../../../components/RaceTimeBehind.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../../shared/functions.ts"
 import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
-import { TimeLossResults,getRunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts"
+import { TimeLossResults, getRunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
 
 type RunnerRowProps = {
@@ -32,7 +32,7 @@ const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
 
 const calculateTotalLossTime = (
   runner: ProcessedRunnerModel,
-  timeLossResults: TimeLossResults | null
+  timeLossResults: TimeLossResults | null,
 ): number => {
   if (!timeLossResults) {
     return 0
@@ -115,9 +115,7 @@ export default function RunnerRow(props: RunnerRowProps) {
           time_seconds={result.time_seconds}
           start_time={result.start_time}
         />
-        {showTimeBehind && (
-          <RaceTimeBehind time_behind={result.time_behind} display={true} />
-        )}
+        {showTimeBehind && <RaceTimeBehind time_behind={result.time_behind} display={true} />}
       </TableCell>
       {props.timeLossEnabled && (
         <TableCell key={`cleanTime${props.runner.id}`}>

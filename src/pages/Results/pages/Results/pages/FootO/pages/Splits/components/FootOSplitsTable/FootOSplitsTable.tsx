@@ -43,7 +43,13 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     }
 
     return analyzeTimeLoss(runnerList, props.timeLossThreshold, props.showCumulative)
-  }, [props.timeLossEnabled, props.onlyRadios, props.timeLossThreshold, runnerList, props.showCumulative])
+  }, [
+    props.timeLossEnabled,
+    props.onlyRadios,
+    props.timeLossThreshold,
+    runnerList,
+    props.showCumulative,
+  ])
 
   // No runner hasDownloaded a chip
   if (runnerList.length === 0) {

@@ -10,26 +10,22 @@ type TimeLossControlProps = {
 }
 
 export default function TimeLossControl({
-                                          enabled,
-                                          onEnabledChange,
-                                          threshold,
-                                          onThresholdChange,
-                                          disabled = false,
-                                        }: TimeLossControlProps) {
+  enabled,
+  onEnabledChange,
+  threshold,
+  onThresholdChange,
+  disabled = false,
+}: TimeLossControlProps) {
   const { t } = useTranslation() // Hook for internationalization (i18n)
 
   // Handler for slider changes, updates threshold value
-  const handleThresholdChange = (
-    _event: Event,
-    newValue: number | number[]
-  ) => {
+  const handleThresholdChange = (_event: Event, newValue: number | number[]) => {
     onThresholdChange(newValue as number)
   }
 
   return (
     // Container box with horizontal layout and spacing
     <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-
       {/* Switch to enable or disable the time loss analysis */}
       <FormControlLabel
         control={
@@ -56,10 +52,10 @@ export default function TimeLossControl({
             onChange={handleThresholdChange}
             aria-labelledby="threshold-slider"
             valueLabelDisplay="auto"
-            step={5}          // Slider increments by 5%
-            marks              // Show marks on the slider
-            min={5}            // The minimum threshold is 5%
-            max={100}          // The maximum threshold is 100%
+            step={5} // Slider increments by 5%
+            marks // Show marks on the slider
+            min={5} // The minimum threshold is 5%
+            max={100} // The maximum threshold is 100%
             size="small"
             sx={{ width: 120 }}
           />
