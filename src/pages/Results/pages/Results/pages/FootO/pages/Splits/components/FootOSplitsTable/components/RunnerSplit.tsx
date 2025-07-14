@@ -4,13 +4,14 @@ import {
   parseTimeBehind,
 } from "../../../../../../../../../../../shared/Functions.tsx";
 import { ProcessedSplitModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts";
-import { RunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts";
+import { RunnerTimeLossInfo, TimeLossResults } from "../../utils/timeLossAnalysis.ts";
 
 type RunnerSplitProps = {
   split: ProcessedSplitModel;
   showCumulative?: boolean;
   timeLossInfo?: RunnerTimeLossInfo | null;
   timeLossEnabled?: boolean;
+  timeLossResults?: TimeLossResults | null;
 };
 
 type ColorFontWeightStyle = {
@@ -55,43 +56,72 @@ const getTimeLossStyles = (
   return baseStyles;
 };
 
+const calculateLossTime = (
+  timeLossInfo: RunnerTimeLossInfo | null,
+  timeLossResults: TimeLossResults | null,
+  controlId: string | undefined
+): number => {
+  if (!timeLossInfo || !timeLossResults || !controlId || !timeLossInfo.hasTimeLoss) {
+    return 0;
+  }
+
+  const controlAnalysis = timeLossResults.analysisPerControl.get(controlId);
+  if (!controlAnalysis) {
+    return 0;
+  }
+
+  const lossTime = timeLossInfo.splitTime - controlAnalysis.estimatedTimeWithoutError;
+  return lossTime > 0 ? lossTime : 0;
+};
+
 export default function RunnerSplit({
                                       split,
                                       showCumulative,
                                       timeLossInfo,
                                       timeLossEnabled = false,
+                                      timeLossResults,
                                     }: RunnerSplitProps) {
   const timeLossStyles = getTimeLossStyles(timeLossInfo, timeLossEnabled);
+  const lossTime = calculateLossTime(timeLossInfo || null, timeLossResults || null, split.control?.id);
+
+  const lossTimeElement =
+    timeLossEnabled && lossTime > 0 ? (
+      <Typography
+        sx={{
+          ...styles,
+          color: "#FF0000",
+          fontWeight: "normal",
+          marginTop: "2px",
+        }}
+      >
+        ({parseSecondsToMMSS(lossTime)})
+      </Typography>
+    ) : null;
 
   if (showCumulative) {
     const isScratch = split.cumulative_position === 1;
 
     const timeStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled
-        ? timeLossStyles
-        : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     const behindStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled
-        ? timeLossStyles
-        : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     return (
       <>
         <Typography sx={timeStyles}>
-          {split.cumulative_time !== null
-            ? parseSecondsToMMSS(split.cumulative_time)
-            : "--"}
+          {split.cumulative_time !== null ? parseSecondsToMMSS(split.cumulative_time) : "--"}
         </Typography>
         <Typography sx={behindStyles}>
           {split.cumulative_behind !== null
             ? `${parseTimeBehind(split.cumulative_behind)} (${split.cumulative_position})`
             : "--"}
         </Typography>
+        {lossTimeElement}
       </>
     );
   } else {
@@ -99,16 +129,12 @@ export default function RunnerSplit({
 
     const timeStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled
-        ? timeLossStyles
-        : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     const behindStyles: SxProps<Theme> = {
       ...styles,
-      ...(timeLossEnabled
-        ? timeLossStyles
-        : { fontWeight: isScratch ? "bold" : undefined }),
+      ...(timeLossEnabled ? timeLossStyles : { fontWeight: isScratch ? "bold" : undefined }),
     };
 
     return (
@@ -121,6 +147,7 @@ export default function RunnerSplit({
             ? `${parseTimeBehind(split.time_behind)} (${split.position})`
             : "--"}
         </Typography>
+        {lossTimeElement}
       </>
     );
   }
