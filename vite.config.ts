@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin"
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 
@@ -6,12 +7,25 @@ export default defineConfig({
   optimizeDeps: {
     include: ["@emotion/styled", "@mui/material/Tooltip"],
   },
-  plugins: [react()],
+
+  plugins: [
+    react(),
+    sentryVitePlugin({
+      org: "o-replay",
+      project: "o-replay",
+    }),
+  ],
+
   server: {
     allowedHosts: [".oreplay.es"],
     port: 8080,
   },
+
   preview: {
     allowedHosts: [".oreplay.es"],
+  },
+
+  build: {
+    sourcemap: true,
   },
 })
