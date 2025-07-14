@@ -17,6 +17,7 @@ import RaceTimeBehind from "../../../../../../../../../components/RaceTimeBehind
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../../shared/functions.ts"
 import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
 import { TimeLossResults,getRunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts"
+import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
@@ -29,6 +30,34 @@ type RunnerRowProps = {
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
 
+const calculateTotalLossTime = (
+  runner: ProcessedRunnerModel,
+  timeLossResults: TimeLossResults | null
+): number => {
+  if (!timeLossResults) {
+    return 0
+  }
+
+  let totalLoss = 0
+
+  runner.stage.splits.forEach((split) => {
+    if (split.control?.id) {
+      const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
+      if (timeLossInfo && timeLossInfo.hasTimeLoss) {
+        const controlAnalysis = timeLossResults.analysisPerControl.get(split.control.id)
+        if (controlAnalysis) {
+          const lossTime = timeLossInfo.splitTime - controlAnalysis.estimatedTimeWithoutError
+          if (lossTime > 0) {
+            totalLoss += lossTime
+          }
+        }
+      }
+    }
+  })
+
+  return totalLoss
+}
+
 export default function RunnerRow(props: RunnerRowProps) {
   const { t } = useTranslation()
   const result = extractRunnerResult(props.runner)
@@ -40,6 +69,26 @@ export default function RunnerRow(props: RunnerRowProps) {
   const splits = props.onlyRadios
     ? getOnlineSplits(result.splits, props.radiosList, result.start_time)
     : result.splits
+
+  // Estados excluidos para ocultar RaceTimeBehind, pero mostrar status y splits igual
+  const excludedStatuses = [
+    RESULT_STATUS_TEXT.mp,
+    RESULT_STATUS_TEXT.dnf,
+    RESULT_STATUS_TEXT.dsq,
+    RESULT_STATUS_TEXT.dns,
+  ]
+
+  // Si el corredor tiene un estado excluido, no mostramos RaceTimeBehind
+  const showTimeBehind = statusOkOrNc && result.finish_time != null && hasChipDownload
+
+  // Para cleanTime, igual que antes: no calcular pérdida para estados excluidos
+  const shouldCalculateCleanTime = !excludedStatuses.includes(status)
+
+  const totalLossTime = shouldCalculateCleanTime
+    ? calculateTotalLossTime(props.runner, props.timeLossResults || null)
+    : 0
+
+  const cleanTime = result.time_seconds > 0 ? result.time_seconds - totalLossTime : 0
 
   return (
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
@@ -66,16 +115,24 @@ export default function RunnerRow(props: RunnerRowProps) {
           time_seconds={result.time_seconds}
           start_time={result.start_time}
         />
-        <RaceTimeBehind
-          display={statusOkOrNc && result.finish_time != null && hasChipDownload}
-          time_behind={result.time_behind}
-        />
+        {showTimeBehind && (
+          <RaceTimeBehind time_behind={result.time_behind} display={true} />
+        )}
       </TableCell>
+      {props.timeLossEnabled && (
+        <TableCell key={`cleanTime${props.runner.id}`}>
+          {result.time_seconds > 0 && cleanTime > 0 && shouldCalculateCleanTime
+            ? parseSecondsToMMSS(cleanTime)
+            : result.time_seconds > 0
+              ? "--"
+              : ""}
+        </TableCell>
+      )}
       {splits.map((split) => {
-        // Get time loss info for this split
-        const timeLossInfo = props.timeLossResults && split.control?.id
-          ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, split.control.id)
-          : null
+        const timeLossInfo =
+          props.timeLossResults && split.control?.id
+            ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, split.control.id)
+            : null
 
         return (
           <TableCell key={`split${props.runner.id}${split.id}`}>
@@ -91,6 +148,7 @@ export default function RunnerRow(props: RunnerRowProps) {
                 split={split}
                 timeLossInfo={timeLossInfo}
                 timeLossEnabled={props.timeLossEnabled}
+                timeLossResults={props.timeLossResults}
               />
             )}
           </TableCell>
