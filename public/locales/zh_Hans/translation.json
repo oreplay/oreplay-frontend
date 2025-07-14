@@ -42,11 +42,49 @@
     "Results": {
         "Start": "开始",
         "Finish": "完成",
-        "SiCard": "SI卡"
+        "SiCard": "SI 卡"
     },
     "Sign in": {
-        "Sign in": "签到",
+        "Sign in": "登录",
         "Logout": "注销",
-        "ForgotPassword": "忘记密码？"
+        "ForgotPassword": "忘记密码？",
+        "NoAccount": "没有账户？注册",
+        "RememberMe": "请记住我"
+    },
+    "EventAdmin": {
+        "EventData": "事件信息",
+        "EventName": "事件名称",
+        "StartDate": "开始日期",
+        "FinishDate": "完成日期",
+        "Organizer": "组织者",
+        "Website": "活动的网站",
+        "InvalidURLMsg": "无效的URL",
+        "Location": "位置",
+        "Public": "公共",
+        "Hidden": "隐藏的",
+        "Save": "保存",
+        "Country": "国家",
+        "Scopes": {
+            "Scope": "范围",
+            "International": "国际的",
+            "National": "国家的",
+            "RegionalHigh": "联邦的",
+            "RegionalLow": "地区的",
+            "Local": "当地的",
+            "Club": "俱乐部"
+        },
+        "Stages": {
+            "NewStage": "新阶段",
+            "GoToStage": "去舞台",
+            "DeleteStage": {
+                "MenuText": "删除",
+                "DialogTitle": "是否要删除此阶段？",
+                "DialogBody": "该阶段及其所有结果将被删除。此操作无法撤消。"
+            },
+            "Stats": {
+                "MenuText": "阶段",
+                "DialogTitle": "请参见阶段统计"
+            }
+        }
     }
 }
