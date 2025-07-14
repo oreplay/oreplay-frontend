@@ -5,7 +5,7 @@
     "p1": "O-Replay is a modern, fully-featured, open-source web service for orienteering live results. We not only target regular Foot-O races but also support other disciplines such as Rogaining and Relays. Some of our key features include online controls, digital tickets, and a splits table—all updated live.",
     "p2": "Forget about providing countless links to your runners for each stage and results type—everything is available on a single event page.",
     "p3": "We are regular people, like you, who fell deeply in love with orienteering and decided to embrace this project. We dedicate our free time to this project, hoping it will be useful for the community. O-Replay is and will always be a completely free service.",
-    "p4": "We are open source, so all of our code is freely and publicly available on <2>GitHub</2>. We welcome everyone in the community to help us improve the project."
+    "p4": "We are open source, so all of our code is freely and publicly available on <2>GitHub</2>. We welcome everyone in the community to help us improve the project. Specially, we encourage you to help us translating this webpage through <4>weblate</4>."
   },
   "OngoingProject": {
     "title": "Ongoing Development",

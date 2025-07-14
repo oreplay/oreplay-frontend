@@ -67,7 +67,14 @@ export default function AboutUs() {
             <Link href="https://github.com/oreplay/" target="_blank" rel="noopener noreferrer">
               GitHub
             </Link>
-            . We welcome everyone in the community to help us improve the project.
+            string
+            <Link
+              href="https://hosted.weblate.org/projects/o-replay/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              weblate
+            </Link>
           </Trans>
         </Typography>
         <Typography variant={"h2"}>{t("OngoingProject.title")}</Typography>

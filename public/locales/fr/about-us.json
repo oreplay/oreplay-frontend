@@ -5,7 +5,7 @@
     "p1": "O-Replay est un service web moderne, complet et open source pour les résultats de course d'orientation en direct. Nous ne nous concentrons pas seulement sur les courses O-Replay normales, mais nous soutenons également d'autres disciplines telles que le Rogaining et les relais. Parmi nos principales fonctionnalités, citons les radiocommandes, la billetterie numérique et un tableau de classement, le tout mis à jour en temps réel.",
     "p2": "Oubliez les liens interminables vers vos coureurs pour chaque étape et chaque type de résultats, tout est unifié au sein d'O-Replay.",
     "p3": "Nous sommes des gens ordinaires, comme vous, qui sont tombés profondément amoureux de l'orientation et ont décidé d'entreprendre ce projet. Nous consacrons notre temps libre au seul bénéfice de l'orientation. O-Replay est - et sera toujours - un service entièrement gratuit.",
-    "p4": "Nous sommes open source, donc tout notre code est publiquement et librement disponible sur <2>GitHub</2>. Tout le monde peut nous aider à l'améliorer."
+    "p4": "_Nous sommes open source, donc tout notre code est publiquement et librement disponible sur <2>GitHub</2>. Tout le monde peut nous aider à l'améliorer. Specially, we encourage you to help us translating this webpage through <4>weblate</4>."
   },
   "OngoingProject": {
     "title": "Feuille de route",
