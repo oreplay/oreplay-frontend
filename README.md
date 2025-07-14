@@ -28,11 +28,11 @@ The project consists of three main repositories:
 Everyone is welcome in the O-Replay community. There are several ways to contribute:
 
 - 🌐 **Translating**: Translations are managed through [Weblate](https://weblate.org/). Visit our
-  [translations wiki](/oreplay/oreplay-frontend/wiki/Translations-wiki) for more details.
+  [translations wiki](https://github.com/oreplay/oreplay-frontend/wiki/Translations-wiki) for more details.
 - 💻 **Contributing Code**: You can contribute to any of our repositories.
 
   - For backend or desktop client contributions, see their respective repositories.
-  - For frontend contributions, visit our [contributing wiki](/oreplay/oreplay-frontend/wiki/O‐Replay-Wiki).
+  - For frontend contributions, visit our [contributing wiki](https://github.com/oreplay/oreplay-frontend/wiki/Contribution-Wiki).
 
 ---
 
