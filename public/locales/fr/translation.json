@@ -1,14 +1,5 @@
 {
   "Loading": "Chargement...",
-  "Search": {
-    "Search": "_Search",
-    "ClearSearch": "_Clear search"
-  },
-  "GeneralErrorFallback": {
-    "title": "_An unexpected error happened",
-    "msg": "_Try refreshing the page. If the error persist, please try again later."
-  },
-  "ForbiddenAccess": "_Forbidden access",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
   "Menu": "Menu",
@@ -20,7 +11,6 @@
   "Organizer": "Organisateur",
   "Name": "Nom",
   "Edit": "Modifier",
-  "Success": "_Success",
   "Cancel": "Annuler",
   "Delete": "Supprimer",
   "Save": "Sauvegarder",
@@ -84,12 +74,6 @@
         "DialogTitle": "Voulez-vous supprimer cette étape?",
         "DialogBody": "L'étape et tous ses résultats seront supprimés. Cette action ne peut pas être annulée."
       },
-      "Stats": {
-        "MenuText": "_Stats",
-        "DialogTitle": "_See stages stats",
-        "DialogBody": "_Stages stats will be displayed.",
-        "DialogConfirm": "OK"
-      },
       "WipeOutRunners": {
         "MenuText": "Réinitialiser",
         "DialogTitle": "Voulez-vous réinitialiser cette étape ?",
@@ -98,7 +82,6 @@
       },
       "StagesTypes": {
         "StageType": "Type",
-        "FootO": "_Foot-O / MTB-O",
         "Relay": "Relais",
         "Rogaine": "Rogaine",
         "TrailO": "CO de précision",
@@ -108,7 +91,6 @@
         "ChaseStart": "Poursuite"
       }
     },
-    "EventSecurityTokens": "_EventSecurityTokens",
     "EventSecurityTokensExpireDate": "Expire le",
     "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
@@ -143,8 +125,7 @@
     "StartTime": "Départ",
     "Results": "Résultats",
     "Splits": "Intermédiaires",
-    "ScorePoints": "Points",
-    "RelayLegs": "_Legs"
+    "ScorePoints": "Points"
   },
   "ResultsStage": {
     "Refresh": "Rafraîchir",
@@ -157,7 +138,6 @@
     "Position": "Position",
     "Name": "Nom",
     "Club": "Club",
-    "Clubs": "_Clubs",
     "NoClubMsg": "No club",
     "StartTime": "Départ",
     "RaceTime": "Temp",
@@ -173,30 +153,16 @@
       "FinishHour": "Heure de Arrivée:",
       "RaceTime": "Temps:",
       "Partial": "Intermédiaire",
-      "Cumulative": "Cumulatif",
-      "NoDownloadMsg": "_No chip reading"
+      "Cumulative": "Cumulatif"
     },
     "statusCodes": {
       "nc": "NC",
       "ok": "ok",
       "dns": "DNS",
-      "dnf": "Abandon",
+      "dnf": "DNF",
       "mp": "MP",
       "disqualified": "DSQ",
       "ot": "H.Délai"
-    },
-    "SplitsTable": {
-      "NoRunnersWithSplits": ":No runner has downloaded their chip.",
-      "PartialTimes": "_Partials",
-      "CumulativeTimes": "_Cumulative",
-      "OnlyForClasses": "_Splits table is accessible only in the class-based view."
-    },
-    "PointsTable": {
-      "OnlyForClasses": "_Points view is accessible only in the class-based view."
-    },
-    "WrongFileUploaded": {
-      "Title": "_Results Without Splits!",
-      "Msg": "_The timekeeper has uploaded final results without splits. These files should not be uploaded and may cause missing or incorrect data to be displayed. More information on how to upload results to our service can be found on the <2>Organizers</2> page."
     }
   },
   "404Page": {
