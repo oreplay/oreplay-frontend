@@ -54,8 +54,8 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   return (
     <>
       <NowProvider>
-        <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1 }}>
-          <Table key={"SplitsTable"}>
+        <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
+          <Table key={"SplitsTable"} stickyHeader>
             <TableHead key={"TableHead"}>
               <TableRow key={"tableHeadRow"}>
                 <TableCell key={`positionHead`}></TableCell>
@@ -63,6 +63,11 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   {t("ResultsStage.Name")}
                 </TableCell>
                 <TableCell key={"Time"}>{t("ResultsStage.Times")}</TableCell>
+                {props.timeLossEnabled && (
+                  <TableCell key={"CleanTime"} sx={{ fontWeight: "bold" }}>
+                    Sin Errores
+                  </TableCell>
+                )}
                 {controlList.map((courseControl) => {
                   if (props.onlyRadios) {
                     courseControl = courseControl as OnlineControlModel
