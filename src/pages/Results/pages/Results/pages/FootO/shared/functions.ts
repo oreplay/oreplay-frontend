@@ -3,7 +3,7 @@ import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/sh
 import { RESULT_STATUS_PRIORITY } from "../../../../../shared/constants.ts"
 import { RunnerState } from "../../../../../../../shared/EntityTypes.ts"
 
-  // map status code → ordering priority (lower = better)
+// map status code → ordering priority (lower = better)
 export function getResultStatusPriority(code: string): number {
   return RESULT_STATUS_PRIORITY[code] ?? 99
 }
@@ -15,7 +15,7 @@ export function sortFootORunners(runners: ProcessedRunnerModel[]): ProcessedRunn
   return states.map((s) => s.runner)
 }
 
-  // Analyze one runner and cache everything we need for comparisons
+// Analyze one runner and cache everything we need for comparisons
 function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState {
   const stage = runner.stage
 
@@ -58,7 +58,6 @@ function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState
   }
 }
 
-
 function compareRunners(a: RunnerState, b: RunnerState): number {
   /** Status priority (DSQ, DNF, DNS, …) */
   const statusDiff = getResultStatusPriority(a.statusCode) - getResultStatusPriority(b.statusCode)
@@ -73,7 +72,7 @@ function compareRunners(a: RunnerState, b: RunnerState): number {
   const bHasSplits =
     Array.isArray(b.runner.stage.online_splits) && b.runner.stage.online_splits.length > 0
 
-    // Neither runner has splits
+  // Neither runner has splits
   if (!aHasSplits && !bHasSplits) {
     // Finished runners first
     if (a.isFinished !== b.isFinished) return a.isFinished ? -1 : 1
@@ -99,18 +98,18 @@ function compareRunners(a: RunnerState, b: RunnerState): number {
     return aStarted ? -1 : 1
   }
 
-    // Only one runner has splits → the one with splits leads
+  // Only one runner has splits → the one with splits leads
   if (!aHasSplits) return 1
   if (!bHasSplits) return -1
 
-    // Both runners have splits
+  // Both runners have splits
 
-    // Not‑started runners sink
+  // Not‑started runners sink
   if (!a.hasStarted && !b.hasStarted) return a.currentRaceTime - b.currentRaceTime
   if (!a.hasStarted) return 1
   if (!b.hasStarted) return -1
 
-    // Compare last common RC
+  // Compare last common RC
   const commonControls = Object.keys(a.controlTimes)
     .filter((k) => k in b.controlTimes)
     .map(Number)
@@ -121,12 +120,12 @@ function compareRunners(a: RunnerState, b: RunnerState): number {
     if (diff !== 0) return diff
   }
 
-    // More controls passed wins
+  // More controls passed wins
   if (a.lastPassedControl !== b.lastPassedControl) return b.lastPassedControl - a.lastPassedControl
 
-    // Both finished → unique position decides
+  // Both finished → unique position decides
   if (a.isFinished && b.isFinished) return a.position - b.position
 
-    // Final tie‑breaker → shorter elapsed race time
+  // Final tie‑breaker → shorter elapsed race time
   return a.currentRaceTime - b.currentRaceTime
 }
