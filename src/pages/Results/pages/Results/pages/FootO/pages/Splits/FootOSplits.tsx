@@ -19,7 +19,7 @@ export default function FootOSplits(
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
   const [showCumulativeDisplayed, setShowCumulativeDisplayed] = useState<boolean>(false)
   const [timeLossEnabled, setTimeLossEnabled] = useState<boolean>(false)
-  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(20)
+  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
 
   if (!props.activeItem) {
     return <ChooseClassMsg />
@@ -82,7 +82,7 @@ export default function FootOSplits(
                     minWidth: 80,
                     whiteSpace: "nowrap",
                     flexShrink: 0,
-                    mr: 0.5, // margén derecho pequeño para pegar al slider
+                    mr: 0.5,
                   }}
                 >
                   Umbral {timeLossThreshold}%:
