@@ -56,64 +56,63 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     return <NoRunnerWithSplitsMsg />
   }
 
-  // Runners have full splits that we may want to see
+  const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
+
   return (
-    <>
-      <NowProvider>
-        <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
-          <Table key={"SplitsTable"} stickyHeader>
-            <TableHead key={"TableHead"}>
-              <TableRow key={"tableHeadRow"}>
-                <TableCell key={`positionHead`}></TableCell>
-                <TableCell key={`nameHead`} sx={{ fontWeight: "bold" }}>
-                  {t("ResultsStage.Name")}
+    <NowProvider>
+      <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
+        <Table key={"SplitsTable"} stickyHeader>
+          <TableHead key={"TableHead"}>
+            <TableRow key={"tableHeadRow"}>
+              <TableCell key={`positionHead`}></TableCell>
+              <TableCell key={`nameHead`} sx={{ fontWeight: "bold" }}>
+                {t("ResultsStage.Name")}
+              </TableCell>
+              <TableCell key={"Time"}>{t("ResultsStage.Times")}</TableCell>
+              {showTimeLossColumn && (
+                <TableCell key={"CleanTime"} sx={{ fontWeight: "bold" }}>
+                  Sin Errores
                 </TableCell>
-                <TableCell key={"Time"}>{t("ResultsStage.Times")}</TableCell>
-                {props.timeLossEnabled && (
-                  <TableCell key={"CleanTime"} sx={{ fontWeight: "bold" }}>
-                    Sin Errores
-                  </TableCell>
-                )}
-                {controlList.map((courseControl) => {
-                  if (props.onlyRadios) {
-                    courseControl = courseControl as OnlineControlModel
-                    return (
-                      <CourseControlTableHeader
-                        key={`courseControlHeader${courseControl.id}`}
-                        station={courseControl.station}
-                        onlyRadios={props.onlyRadios}
-                      />
-                    )
-                  } else {
-                    courseControl = courseControl as CourseControlModel
-                    return (
-                      <CourseControlTableHeader
-                        key={`courseControlHeader${courseControl.order_number}${courseControl.control?.id}`}
-                        station={courseControl.control?.station}
-                        order_number={courseControl.order_number}
-                        onlyRadios={props.onlyRadios}
-                      />
-                    )
-                  }
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody key={"TableBody"}>
-              {runnerList.map((runner) => (
-                <RunnerRow
-                  key={`runnerRow${runner.id}`}
-                  runner={runner}
-                  showCumulative={props.showCumulative}
-                  onlyRadios={props.onlyRadios}
-                  radiosList={props.radiosList}
-                  timeLossResults={timeLossResults}
-                  timeLossEnabled={props.timeLossEnabled}
-                />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </NowProvider>
-    </>
+              )}
+              {controlList.map((courseControl) => {
+                if (props.onlyRadios) {
+                  const radio = courseControl as OnlineControlModel
+                  return (
+                    <CourseControlTableHeader
+                      key={`courseControlHeader${radio.id}`}
+                      station={radio.station}
+                      onlyRadios={props.onlyRadios}
+                    />
+                  )
+                } else {
+                  const course = courseControl as CourseControlModel
+                  return (
+                    <CourseControlTableHeader
+                      key={`courseControlHeader${course.order_number}${course.control?.id ?? "unknown"}`}
+                      station={course.control?.station}
+                      order_number={course.order_number}
+                      onlyRadios={props.onlyRadios}
+                    />
+                  )
+                }
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody key={"TableBody"}>
+            {runnerList.map((runner) => (
+              <RunnerRow
+                key={`runnerRow${runner.id}`}
+                runner={runner}
+                showCumulative={props.showCumulative}
+                onlyRadios={props.onlyRadios}
+                radiosList={props.radiosList}
+                timeLossResults={timeLossResults}
+                timeLossEnabled={props.timeLossEnabled}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </NowProvider>
   )
 }

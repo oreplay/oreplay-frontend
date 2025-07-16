@@ -33,7 +33,7 @@ const getTimeLossStyles = (
 
   const baseStyles: ColorFontWeightStyle = {}
 
-  switch (timeLossInfo.rank) {
+   switch (timeLossInfo.rank) {
     case 1:
       baseStyles.color = "#006400" // Dark green
       baseStyles.fontWeight = "bold"
@@ -46,11 +46,11 @@ const getTimeLossStyles = (
       baseStyles.color = "#76D276" // Light green
       baseStyles.fontWeight = "bold"
       break
-    default:
-      if (timeLossInfo.hasTimeLoss) {
-        baseStyles.color = "#FF0000"
-        baseStyles.fontWeight = "bold"
-      }
+  }
+
+  if (timeLossInfo.hasTimeLoss) {
+    baseStyles.color = "#FF0000"
+    baseStyles.fontWeight = "bold"
   }
 
   return baseStyles

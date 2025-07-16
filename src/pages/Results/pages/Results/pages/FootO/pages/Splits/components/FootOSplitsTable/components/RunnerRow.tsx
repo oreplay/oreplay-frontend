@@ -70,7 +70,6 @@ export default function RunnerRow(props: RunnerRowProps) {
     ? getOnlineSplits(result.splits, props.radiosList, result.start_time)
     : result.splits
 
-  // Estados excluidos para ocultar RaceTimeBehind, pero mostrar status y splits igual
   const excludedStatuses = [
     RESULT_STATUS_TEXT.mp,
     RESULT_STATUS_TEXT.dnf,
@@ -78,15 +77,15 @@ export default function RunnerRow(props: RunnerRowProps) {
     RESULT_STATUS_TEXT.dns,
   ]
 
-  // Si el corredor tiene un estado excluido, no mostramos RaceTimeBehind
   const showTimeBehind = statusOkOrNc && result.finish_time != null && hasChipDownload
 
-  // Para cleanTime, igual que antes: no calcular pérdida para estados excluidos
-  const shouldCalculateCleanTime = !excludedStatuses.includes(status)
+  const shouldCalculateCleanTime =
+    !excludedStatuses.includes(status) && !props.showCumulative
 
-  const totalLossTime = shouldCalculateCleanTime
-    ? calculateTotalLossTime(props.runner, props.timeLossResults || null)
-    : 0
+  const totalLossTime =
+    shouldCalculateCleanTime && props.timeLossEnabled
+      ? calculateTotalLossTime(props.runner, props.timeLossResults || null)
+      : 0
 
   const cleanTime = result.time_seconds > 0 ? result.time_seconds - totalLossTime : 0
 
@@ -117,7 +116,7 @@ export default function RunnerRow(props: RunnerRowProps) {
         />
         {showTimeBehind && <RaceTimeBehind time_behind={result.time_behind} display={true} />}
       </TableCell>
-      {props.timeLossEnabled && (
+      {props.timeLossEnabled && !props.showCumulative && (
         <TableCell key={`cleanTime${props.runner.id}`}>
           {result.time_seconds > 0 && cleanTime > 0 && shouldCalculateCleanTime
             ? parseSecondsToMMSS(cleanTime)
@@ -128,7 +127,10 @@ export default function RunnerRow(props: RunnerRowProps) {
       )}
       {splits.map((split) => {
         const timeLossInfo =
-          props.timeLossResults && split.control?.id
+          props.timeLossEnabled &&
+          !props.showCumulative &&
+          props.timeLossResults &&
+          split.control?.id
             ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, split.control.id)
             : null
 
@@ -145,7 +147,7 @@ export default function RunnerRow(props: RunnerRowProps) {
                 key={`runnerSplit${props.runner.id}${split.id}}`}
                 split={split}
                 timeLossInfo={timeLossInfo}
-                timeLossEnabled={props.timeLossEnabled}
+                timeLossEnabled={props.timeLossEnabled && !props.showCumulative}
                 timeLossResults={props.timeLossResults}
               />
             )}
