@@ -33,7 +33,7 @@ const getTimeLossStyles = (
 
   const baseStyles: ColorFontWeightStyle = {}
 
-   switch (timeLossInfo.rank) {
+  switch (timeLossInfo.rank) {
     case 1:
       baseStyles.color = "#006400" // Dark green
       baseStyles.fontWeight = "bold"

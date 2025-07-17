@@ -232,7 +232,7 @@ function analyzeControlTimeLoss(
     splitTime: number
     orderNumber: number
     position: number
-    splitIndex: number  // índice del split dentro de runner.stage.splits
+    splitIndex: number // índice del split dentro de runner.stage.splits
   }> = []
 
   runners.forEach((runner) => {
@@ -289,7 +289,8 @@ function analyzeControlTimeLoss(
     const splits = runner.stage.splits
     const idx = splits.findIndex((s) => s.control?.id === controlId)
 
-    if (idx > 0) { // Tiene split anterior para calcular tramo
+    if (idx > 0) {
+      // Tiene split anterior para calcular tramo
       const currentSplit = splits[idx]
       const prevSplit = splits[idx - 1]
 
@@ -341,8 +342,7 @@ function analyzeControlTimeLoss(
 
     // Pérdida de tiempo por ritmo (solo si podemos calcular ritmo real)
     const externalTimeLossRitmo =
-      ritmoReal !== null &&
-      ritmoReal > ritmoEsperado * (1 + threshold / 100)
+      ritmoReal !== null && ritmoReal > ritmoEsperado * (1 + threshold / 100)
 
     // Pérdida de tiempo externa definitiva (requiere que se cumpla alguna condición)
     const externalTimeLoss = externalTimeLossBase || externalTimeLossRitmo
