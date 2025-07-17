@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from "react"
 import Sidebar from "./Sidebar/Sidebar.tsx"
 import { useTranslation } from "react-i18next"
 import GeneralSuspenseFallback from "../GeneralSuspenseFallback.tsx"
-import { ErrorBoundary } from "react-error-boundary"
+import { ErrorBoundary } from "@sentry/react"
 import GeneralErrorFallback from "../GeneralErrorFallback.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 const VERSION_NUMBER = import.meta.env.VITE_VERSION_NUMBER
