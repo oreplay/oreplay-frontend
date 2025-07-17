@@ -79,8 +79,7 @@ export default function RunnerRow(props: RunnerRowProps) {
 
   const showTimeBehind = statusOkOrNc && result.finish_time != null && hasChipDownload
 
-  const shouldCalculateCleanTime =
-    !excludedStatuses.includes(status) && !props.showCumulative
+  const shouldCalculateCleanTime = !excludedStatuses.includes(status) && !props.showCumulative
 
   const totalLossTime =
     shouldCalculateCleanTime && props.timeLossEnabled
