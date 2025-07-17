@@ -23,6 +23,7 @@ export interface AuthContextInterface {
 /**
  * @private Global context used to provide authentication
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<AuthContextInterface | null>(null)
 
 /**
