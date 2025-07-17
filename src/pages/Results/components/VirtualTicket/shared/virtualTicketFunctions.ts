@@ -5,6 +5,8 @@ import { hasChipDownload, isRunnerNC } from "../../../pages/Results/shared/funct
 import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Splits/components/FootOSplitsTable/shared/footOSplitsTablefunctions.ts"
 import { processParticipant } from "../../../pages/Results/shared/functions/runnerProccesing.ts"
 
+import { captureException as sentryCaptureException, withScope } from "@sentry/react"
+
 /**
  * Create a processed runners from runners
  *
@@ -159,6 +161,14 @@ export function calculatePositionsAndBehindsFootO(
           }
         } catch (error) {
           // if an error happens return the runner without updating it
+          withScope((scope) => {
+            scope.setExtra("runner", runner)
+            scope.setExtra("runnerList", runners)
+            scope.setExtra("origin", "calculatePositionsAndBehindsFootO")
+
+            sentryCaptureException(error)
+          })
+
           console.error(
             "Error updating runner in `calculatePositionsAndBehindsFootO`." +
               ` Runner ${runner.id}, ${runner.full_name} could not be updated.\n\n`,
