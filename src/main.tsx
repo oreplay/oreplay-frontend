@@ -6,10 +6,11 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { AuthProvider } from "./shared/AuthProvider.tsx"
 
 // In-it sentry data collection
+const sentryDSN = import.meta.env.VITE_SENTRY_DSN
 import * as Sentry from "@sentry/react"
 
 Sentry.init({
-  dsn: "https://5300c60f5cd627ee264a29ccfc3dba93@o4509652194099200.ingest.de.sentry.io/4509652204716112",
+  dsn: sentryDSN,
   // Setting this option to true will send default PII data to Sentry.
   // For example, automatic IP address collection on events
   sendDefaultPii: true,
