@@ -1,7 +1,7 @@
 import { useSelectedMenu } from "../../../shared/hooks.ts"
 import { BottomNavigation, Paper } from "@mui/material"
 import React from "react"
-import { ErrorBoundary } from "react-error-boundary"
+import { ErrorBoundary } from "@sentry/react"
 import GeneralErrorFallback from "../../../../../components/GeneralErrorFallback.tsx"
 
 type ResultTabsProps = {

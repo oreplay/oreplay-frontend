@@ -34,7 +34,6 @@
     "luxon": "^3.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.2.0",
-    "react-error-boundary": "^5.0.0",
     "react-i18next": "^14.0.5",
     "react-query": "^3.39.3",
     "react-router-dom": "^7.2.0"
