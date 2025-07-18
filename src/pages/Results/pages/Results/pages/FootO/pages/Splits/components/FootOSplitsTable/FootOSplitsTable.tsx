@@ -1,5 +1,13 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Checkbox,
+} from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
 import {
@@ -22,6 +30,9 @@ type FootOSplitsTableProps = {
   radiosList: OnlineControlModel[]
   timeLossEnabled?: boolean
   timeLossThreshold?: number
+  graphsEnabled?: boolean
+  selectedRunners?: string[]
+  onRunnerSelectionChange?: (selectedRunners: string[]) => void
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
@@ -58,12 +69,45 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
+  // Handle selection
+  const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      const allRunnerIds = runnerList.map((runner) => runner.id)
+      props.onRunnerSelectionChange?.(allRunnerIds)
+    } else {
+      props.onRunnerSelectionChange?.([])
+    }
+  }
+
+  const handleRunnerSelection = (runnerId: string, checked: boolean) => {
+    const currentSelection = props.selectedRunners || []
+    if (checked) {
+      props.onRunnerSelectionChange?.([...currentSelection, runnerId])
+    } else {
+      props.onRunnerSelectionChange?.(currentSelection.filter((id) => id !== runnerId))
+    }
+  }
+
+  const selectedRunners = props.selectedRunners || []
+  const isAllSelected = selectedRunners.length === runnerList.length && runnerList.length > 0
+  const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < runnerList.length
+
   return (
     <NowProvider>
       <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
         <Table key={"SplitsTable"} stickyHeader>
           <TableHead key={"TableHead"}>
             <TableRow key={"tableHeadRow"}>
+              {props.graphsEnabled && (
+                <TableCell key="selection" padding="checkbox">
+                  <Checkbox
+                    indeterminate={isIndeterminate}
+                    checked={isAllSelected}
+                    onChange={handleSelectAll}
+                    color="primary"
+                  />
+                </TableCell>
+              )}
               <TableCell key={`positionHead`}></TableCell>
               <TableCell key={`nameHead`} sx={{ fontWeight: "bold" }}>
                 {t("ResultsStage.Name")}
@@ -108,6 +152,9 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 radiosList={props.radiosList}
                 timeLossResults={timeLossResults}
                 timeLossEnabled={props.timeLossEnabled}
+                graphsEnabled={props.graphsEnabled}
+                selected={selectedRunners.includes(runner.id)}
+                onSelectionChange={handleRunnerSelection}
               />
             ))}
           </TableBody>
