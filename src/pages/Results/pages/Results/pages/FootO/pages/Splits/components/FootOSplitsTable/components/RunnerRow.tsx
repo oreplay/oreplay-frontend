@@ -2,7 +2,7 @@ import {
   ProcessedRunnerModel,
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { TableCell, TableRow } from "@mui/material"
+import { TableCell, TableRow, Checkbox } from "@mui/material"
 import { parseResultStatus } from "../../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { useTranslation } from "react-i18next"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
@@ -26,6 +26,9 @@ type RunnerRowProps = {
   radiosList: OnlineControlModel[]
   timeLossResults?: TimeLossResults | null
   timeLossEnabled?: boolean
+  graphsEnabled?: boolean
+  selected?: boolean
+  onSelectionChange?: (runnerId: string, checked: boolean) => void
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
@@ -88,8 +91,21 @@ export default function RunnerRow(props: RunnerRowProps) {
 
   const cleanTime = result.time_seconds > 0 ? result.time_seconds - totalLossTime : 0
 
+  const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onSelectionChange?.(props.runner.id, event.target.checked)
+  }
+
   return (
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
+      {props.graphsEnabled && (
+        <TableCell key="selection" padding="checkbox">
+          <Checkbox
+            checked={props.selected || false}
+            onChange={handleSelectionChange}
+            color="primary"
+          />
+        </TableCell>
+      )}
       <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
         <RacePosition
           position={props.runner.stage.position}
