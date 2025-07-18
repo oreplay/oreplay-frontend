@@ -14,7 +14,7 @@
     "test": "vitest"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "^22.14.0"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -27,8 +27,6 @@
     "@nivo/core": "^0.99.0",
     "@nivo/line": "^0.99.0",
     "@nivo/pie": "^0.99.0",
-    "@nivo/radar": "^0.99.0",
-    "@nivo/scatterplot": "^0.99.0",
     "@sentry/react": "^9.38.0",
     "@sentry/vite-plugin": "^3.6.0",
     "@toolpad/core": "^0.12.0",
