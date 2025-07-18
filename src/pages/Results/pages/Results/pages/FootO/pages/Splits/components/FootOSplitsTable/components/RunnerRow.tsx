@@ -18,7 +18,6 @@ import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../..
 import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
 import { TimeLossResults, getRunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
-import React from "react"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
@@ -29,8 +28,6 @@ type RunnerRowProps = {
   timeLossEnabled?: boolean
   graphsEnabled?: boolean
   selected?: boolean
-  canSelect?: boolean
-  maxRunnersReached?: boolean
   onSelectionChange?: (runnerId: string, checked: boolean) => void
 }
 
@@ -60,20 +57,6 @@ const calculateTotalLossTime = (
       }
     }
   })
-
-  if (runner.stage.time_seconds > 0) {
-    const finishTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, "FINISH")
-    if (finishTimeLossInfo && finishTimeLossInfo.hasTimeLoss) {
-      const finishControlAnalysis = timeLossResults.analysisPerControl.get("FINISH")
-      if (finishControlAnalysis) {
-        const finishLossTime =
-          finishTimeLossInfo.splitTime - finishControlAnalysis.estimatedTimeWithoutError
-        if (finishLossTime > 0) {
-          totalLoss += finishLossTime
-        }
-      }
-    }
-  }
 
   return totalLoss
 }
@@ -119,15 +102,7 @@ export default function RunnerRow(props: RunnerRowProps) {
           <Checkbox
             checked={props.selected || false}
             onChange={handleSelectionChange}
-            disabled={!props.canSelect || (props.maxRunnersReached && !props.selected)}
             color="primary"
-            title={
-              !props.canSelect
-                ? "Solo corredores con estado OK pueden ser seleccionados"
-                : props.maxRunnersReached && !props.selected
-                  ? "Máximo de corredores alcanzado para este tipo de gráfico"
-                  : undefined
-            }
           />
         </TableCell>
       )}
