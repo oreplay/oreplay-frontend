@@ -14,11 +14,8 @@ interface LineChartProps {
 }
 
 const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
-  // Debug logging
-  console.log("LineChart received data:", data)
-
   // If no data is passed, show a message prompting the user to select runners
-  if (!data || data.length === 0) {
+  if (data.length === 0) {
     return (
       <Box
         display="flex"
@@ -29,7 +26,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary">
-          Selecciona corredores para ver el gráfico de líneas
+          Selecciona corredores para ver el gráfico
         </Typography>
       </Box>
     )
