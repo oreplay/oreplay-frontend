@@ -15,11 +15,9 @@ import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
 import GraphSelectionModal, { GraphType } from "./components/GraphSelection/GraphSelectionModal.tsx"
 import LineChart from "./components/Charts/LineChart.tsx"
 import BarChart from "./components/Charts/BarChart.tsx"
-import PositionChart from "./components/Charts/PositionChart.tsx"
 import {
   transformRunnersForLineChart,
   transformRunnersForBarChart,
-  transformRunnersForPositionChart,
 } from "./components/utils/chartDataTransform.ts"
 import { analyzeTimeLoss, TimeLossResults } from "./components/utils/timeLossAnalysis.ts"
 
@@ -28,20 +26,20 @@ export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
   // State hooks for controlling various UI toggles and selections
-  const [onlyRadios, setOnlyRadios] = useState<boolean>(false) // Show only radio controls or all splits
-  const [showCumulative, setShowCumulative] = useState<boolean>(false) // Show cumulative times or partial times
+  const [onlyRadios, setOnlyRadios] = useState<boolean>(false)               // Show only radio controls or all splits
+  const [showCumulative, setShowCumulative] = useState<boolean>(false)       // Show cumulative times or partial times
   const [showCumulativeDisplayed, setShowCumulativeDisplayed] = useState<boolean>(false) // UI state sync for cumulative switch
-  const [timeLossEnabled, setTimeLossEnabled] = useState<boolean>(false) // Enable time loss analysis
-  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15) // Threshold (%) for time loss detection
-  const [graphsEnabled, setGraphsEnabled] = useState<boolean>(false) // Enable or disable graph display
-  const [graphModalOpen, setGraphModalOpen] = useState<boolean>(false) // Whether the graph selection modal is open
+  const [timeLossEnabled, setTimeLossEnabled] = useState<boolean>(false)     // Enable time loss analysis
+  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)      // Threshold (%) for time loss detection
+  const [graphsEnabled, setGraphsEnabled] = useState<boolean>(false)         // Enable or disable graph display
+  const [graphModalOpen, setGraphModalOpen] = useState<boolean>(false)       // Whether the graph selection modal is open
   const [selectedGraphType, setSelectedGraphType] = useState<GraphType | null>(null) // Currently selected graph type (line or bar)
-  const [selectedRunners, setSelectedRunners] = useState<string[]>([]) // IDs of runners selected for graph display
+  const [selectedRunners, setSelectedRunners] = useState<string[]>([])       // IDs of runners selected for graph display
 
   // Shortcut variables for easier access
   const activeItem = props.activeItem
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const runners = props.runnersQuery.data || [] // List of runners from a query, default empty array
+  const runners = props.runnersQuery.data || []  // List of runners from a query, default empty array
 
   // Memoized calculation of time loss analysis results when a threshold or relevant data changes
   const timeLossResults: TimeLossResults | undefined = useMemo(() => {
@@ -89,7 +87,6 @@ export default function FootOSplits(
 
   // Handler when selected runners change (for graph display)
   const handleRunnerSelectionChange = (runners: string[]) => {
-    // No restrictions on runner count - support unlimited runners for all chart types
     setSelectedRunners(runners)
   }
 
@@ -99,27 +96,10 @@ export default function FootOSplits(
       ? transformRunnersForLineChart(runners, selectedRunners)
       : []
 
-  // Prepare data for the bar chart if applicable (unlimited runners supported)
+  // Prepare data for the bar chart if applicable
   const barChartData =
     selectedGraphType === "bar" && selectedRunners.length > 0
       ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults)
-      : []
-
-  // Debug logging for bar chart data
-  if (selectedGraphType === "bar") {
-    console.log("Bar Chart Debug Info:", {
-      selectedRunners: selectedRunners.length,
-      selectedRunnerIds: selectedRunners,
-      barChartDataLength: barChartData.length,
-      barChartData: barChartData,
-      timeLossResults: !!timeLossResults,
-    })
-  }
-
-  // Prepare data for position evolution chart (supports unlimited runners)
-  const positionChartData =
-    selectedGraphType === "position" && selectedRunners.length > 0
-      ? transformRunnersForPositionChart(runners, selectedRunners)
       : []
 
   return (
@@ -141,28 +121,8 @@ export default function FootOSplits(
         {/* Show info about the selected graph and number of runners selected */}
         {graphsEnabled && selectedGraphType && (
           <Typography variant="body2" color="text.secondary">
-            {selectedGraphType === "line" && "Gráfico de Líneas"}
-            {selectedGraphType === "bar" && "Gráfico de Barras"}
-            {selectedGraphType === "position" && "Evolución de Posición"}
-            {selectedGraphType === "line" && selectedRunners.length > 0 && (
-              <>
-                {" "}
-                - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""}{" "}
-                seleccionado{selectedRunners.length !== 1 ? "s" : ""}
-              </>
-            )}
-            {(selectedGraphType === "bar" || selectedGraphType === "position") &&
-              selectedRunners.length > 0 && (
-                <>
-                  {" "}
-                  - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""}{" "}
-                  seleccionado{selectedRunners.length !== 1 ? "s" : ""}
-                </>
-              )}
-            {(selectedGraphType === "bar" || selectedGraphType === "position") &&
-              selectedRunners.length === 0 && (
-                <span style={{ color: "#f44336" }}> - Selecciona corredores</span>
-              )}
+            {selectedGraphType === "line" ? "Line Chart" : "Bar Chart"} -{" "}
+            {selectedRunners.length} runner{selectedRunners.length !== 1 ? "s" : ""} selected
           </Typography>
         )}
       </Box>
@@ -247,9 +207,6 @@ export default function FootOSplits(
         <Box mb={3}>
           {selectedGraphType === "line" && <LineChart data={lineChartData} height={400} />}
           {selectedGraphType === "bar" && <BarChart data={barChartData} height={400} />}
-          {selectedGraphType === "position" && (
-            <PositionChart data={positionChartData} height={400} />
-          )}
         </Box>
       )}
 
@@ -264,7 +221,6 @@ export default function FootOSplits(
         timeLossThreshold={timeLossThreshold}
         graphsEnabled={graphsEnabled}
         selectedRunners={selectedRunners}
-        selectedGraphType={selectedGraphType}
         onRunnerSelectionChange={handleRunnerSelectionChange}
       />
 
