@@ -12,9 +12,9 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material"
-import { ShowChart, BarChart, Timeline } from "@mui/icons-material"
+import { ShowChart, BarChart } from "@mui/icons-material"
 
-export type GraphType = "line" | "bar" | "position"
+export type GraphType = "line" | "bar"
 
 interface GraphSelectionModalProps {
   open: boolean
@@ -35,21 +35,12 @@ const GraphSelectionModal: React.FC<GraphSelectionModalProps> = ({
       label: "Gráfico de Líneas",
       description: "Tiempo acumulado de diferencia con el líder por control",
       icon: <ShowChart />,
-      maxRunners: null,
     },
     {
       type: "bar" as GraphType,
       label: "Gráfico de Barras",
-      description: "Tiempo total de carrera con análisis de pérdida de tiempo",
+      description: "Tiempo total de carrera con tiempo de error",
       icon: <BarChart />,
-      maxRunners: null, // Updated to support unlimited runners
-    },
-    {
-      type: "position" as GraphType,
-      label: "Evolución de Posición",
-      description: "Cambio de posición por control",
-      icon: <Timeline />,
-      maxRunners: null, // Updated to support unlimited runners
     },
   ]
 
