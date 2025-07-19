@@ -9,7 +9,6 @@ export interface PositionDataPoint {
   runnerName: string
   splitTime: number
   timeLost: number
-  controlName?: string // nombre original del control
 }
 
 export interface PositionChartData {
@@ -24,7 +23,7 @@ interface PositionChartProps {
 }
 
 const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => {
-  if (!data || data.length === 0) {
+  if (data.length === 0 || data.length > 2) {
     return (
       <Box
         display="flex"
@@ -35,65 +34,41 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary">
-          Selecciona corredores para ver la evolución de posición
+          {data.length === 0
+            ? "Selecciona 1-2 corredores para evolución de posición"
+            : "Máximo 2 corredores permitidos"
+          }
         </Typography>
       </Box>
     )
   }
 
-  // Transformamos los datos para que el eje X sea: START, 1, 2, ..., FINISH
-  const dataWithCustomX: PositionChartData[] = data.map((runner) => {
-    const n = runner.data.length
-    return {
-      ...runner,
-      data: runner.data.map((point, idx) => {
-        let xLabel: string
-        if (idx === 0) xLabel = "START"
-        else if (idx === n - 1) xLabel = "FINISH"
-        else xLabel = idx.toString() // Controles intermedios empiezan en 1, 2, 3, ...
-
-        return {
-          ...point,
-          controlName: point.x, // guardamos el nombre original para tooltip
-          x: xLabel,
-        }
-      }),
-    }
-  })
-
+  // Find the maximum position to set Y scale properly (inverted)
   const maxPosition = Math.max(
-    ...dataWithCustomX.flatMap((runner) => runner.data.map((point) => point.y)),
+    ...data.flatMap(runner => runner.data.map(point => point.y))
   )
 
   return (
     <Box height={height}>
       <ResponsiveLine
-        data={dataWithCustomX}
+        data={data}
         margin={{ top: 50, right: 110, bottom: 50, left: 80 }}
         xScale={{ type: "point" }}
         yScale={{
           type: "linear",
           min: 1,
           max: Math.max(maxPosition, 10),
-          reverse: true,
+          reverse: true // Invert Y-axis so position 1 is at top
         }}
         axisTop={null}
-        axisRight={{
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "Posición",
-          legendOffset: 60,
-          legendPosition: "middle",
-          format: (value) => `${Math.round(Number(value))}°`,
-        }}
+        axisRight={null}
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: -45,
           legend: "Controles",
           legendOffset: 36,
-          legendPosition: "middle",
+          legendPosition: "middle"
         }}
         axisLeft={{
           tickSize: 5,
@@ -102,7 +77,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           legend: "Posición",
           legendOffset: -60,
           legendPosition: "middle",
-          format: (value) => `${Math.round(Number(value))}°`,
+          format: (value) => `${Math.round(Number(value))}°`
         }}
         pointSize={8}
         pointColor={{ theme: "background" }}
@@ -133,16 +108,15 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
                 on: "hover",
                 style: {
                   itemBackground: "rgba(0, 0, 0, .03)",
-                  itemOpacity: 1,
-                },
-              },
-            ],
-          },
+                  itemOpacity: 1
+                }
+              }
+            ]
+          }
         ]}
         tooltip={({ point }) => {
+          // Aquí 'point.data' tiene tipo PositionDataPoint
           const data = point.data as PositionDataPoint
-          // No mostramos tooltip para START ni FINISH
-          if (data.x === "START" || data.x === "FINISH") return null
 
           return (
             <Box
@@ -152,7 +126,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
                 border: "1px solid #ccc",
                 borderRadius: 1,
                 boxShadow: 2,
-                minWidth: 250,
+                minWidth: 250
               }}
             >
               <Typography variant="subtitle2" fontWeight="bold" mb={1}>
@@ -160,7 +134,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
               </Typography>
 
               <Typography variant="body2" mb={0.5}>
-                Control: {data.controlName}
+                Control: {data.x}
               </Typography>
 
               <Typography variant="body2" mb={0.5}>
@@ -168,18 +142,14 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
               </Typography>
 
               {data.splitTime > 0 && (
-                <Typography
-                  variant="body2"
-                  mb={0.5}
-                  fontWeight={data.timeLost <= 0 ? "bold" : "normal"}
-                >
+                <Typography variant="body2" mb={0.5}>
                   Tiempo parcial: {formatTime(data.splitTime)}
                 </Typography>
               )}
 
               {data.timeLost > 0 && (
                 <Typography variant="body2" mb={0.5}>
-                  Tiempo respecto al mejor parcial: +{formatTime(data.timeLost)}
+                  Tiempo perdido: +{formatTime(data.timeLost)}
                 </Typography>
               )}
             </Box>
@@ -190,41 +160,42 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             domain: {
               line: {
                 stroke: "#777777",
-                strokeWidth: 1,
-              },
+                strokeWidth: 1
+              }
             },
             legend: {
               text: {
                 fontSize: 12,
-                fill: "#333333",
-              },
+                fill: "#333333"
+              }
             },
             ticks: {
               line: {
                 stroke: "#777777",
-                strokeWidth: 1,
+                strokeWidth: 1
               },
               text: {
                 fontSize: 11,
-                fill: "#333333",
-              },
-            },
+                fill: "#333333"
+              }
+            }
           },
           legends: {
             text: {
               fontSize: 11,
-              fill: "#333333",
-            },
+              fill: "#333333"
+            }
           },
           grid: {
             line: {
               stroke: "#dddddd",
-              strokeWidth: 1,
-            },
-          },
+              strokeWidth: 1
+            }
+          }
         }}
       />
 
+      {/* Info box */}
       <Box mt={1}>
         <Typography variant="caption" color="text.secondary">
           * Posición 1 arriba (mejor), posiciones más altas abajo (peor)
