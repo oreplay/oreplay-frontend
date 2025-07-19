@@ -1,6 +1,71 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes"
 import { ChartDataItem } from "../Charts/BarChart.tsx"
 
+// Box Plot Data Structures
+export interface BoxPlotDataPoint {
+  control: string
+  controlStation: string
+  min: number
+  q1: number
+  median: number
+  q3: number
+  max: number
+  outliers: Array<{ value: number; runnerName: string }>
+  scatter: Array<{ value: number; runnerName: string; runnerId: string }>
+}
+
+export interface BoxPlotData {
+  id: string
+  data: BoxPlotDataPoint[]
+}
+
+// Radar Chart Data Structures
+export interface RadarDataPoint {
+  control: string
+  controlStation: string
+  normalizedTime: number // ratio vs best time (1.0 = best, higher = worse)
+  actualTime: number
+  bestTime: number
+}
+
+export interface RadarChartData {
+  runnerName: string
+  runnerId: string
+  data: RadarDataPoint[]
+}
+
+// Position Evolution Data Structures
+export interface PositionDataPoint {
+  x: string // Control name/number
+  y: number // Position (inverted: 1 at top)
+  control: string
+  controlStation: string
+  runnerName: string
+  splitTime: number
+  timeLost: number
+}
+
+export interface PositionChartData {
+  id: string
+  color: string
+  data: PositionDataPoint[]
+}
+
+// Heatmap Data Structures
+export interface HeatmapDataPoint {
+  runner: string
+  control: string
+  value: number // position or time lost
+  actualValue: number // for tooltip
+  runnerName: string
+  controlStation: string
+}
+
+export interface HeatmapData {
+  id: string
+  data: HeatmapDataPoint[]
+}
+
 export interface ChartDataPoint {
   x: string // Control formatted as "START", "1", "2", "3", etc.
   y: number // Cumulative time in seconds
@@ -260,6 +325,300 @@ function calculateLeaderTimesForEachControl(runners: ProcessedRunnerModel[]): Ma
 }
 
 /**
+ * Calculates quartiles and statistics for box plot
+ */
+function calculateBoxPlotStats(values: number[]): {
+  min: number
+  q1: number
+  median: number
+  q3: number
+  max: number
+  outliers: number[]
+} {
+  if (values.length === 0) {
+    return { min: 0, q1: 0, median: 0, q3: 0, max: 0, outliers: [] }
+  }
+
+  const sorted = [...values].sort((a, b) => a - b)
+  const min = sorted[0]
+  const max = sorted[sorted.length - 1]
+
+  const median = getPercentile(sorted, 0.5)
+  const q1 = getPercentile(sorted, 0.25)
+  const q3 = getPercentile(sorted, 0.75)
+
+  // Calculate IQR for outlier detection
+  const iqr = q3 - q1
+  const lowerBound = q1 - 1.5 * iqr
+  const upperBound = q3 + 1.5 * iqr
+
+  const outliers = sorted.filter(value => value < lowerBound || value > upperBound)
+
+  return { min, q1, median, q3, max, outliers }
+}
+
+/**
+ * Calculates percentile from sorted array
+ */
+function getPercentile(sortedArray: number[], percentile: number): number {
+  if (sortedArray.length === 0) return 0
+  if (sortedArray.length === 1) return sortedArray[0]
+
+  const index = (sortedArray.length - 1) * percentile
+  const lower = Math.floor(index)
+  const upper = Math.ceil(index)
+  const weight = index % 1
+
+  if (upper >= sortedArray.length) return sortedArray[sortedArray.length - 1]
+
+  return sortedArray[lower] * (1 - weight) + sortedArray[upper] * weight
+}
+
+/**
+ * Filters runners by status code (only "OK" runners)
+ */
+export function filterValidRunners(runners: ProcessedRunnerModel[]): ProcessedRunnerModel[] {
+  return runners.filter(runner => runner.stage.status_code === "OK")
+}
+
+/**
+ * Transforms runner data for box plot visualization per control
+ */
+export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): BoxPlotData[] {
+  const validRunners = filterValidRunners(runners)
+  if (validRunners.length === 0) return []
+
+  // Group all controls
+  const controlsMap = new Map<string, {
+    controlStation: string
+    times: Array<{ value: number; runnerName: string; runnerId: string }>
+  }>()
+
+  validRunners.forEach(runner => {
+    runner.stage.splits.forEach(split => {
+      if (split.control?.id && split.time !== null && split.time > 0) {
+        const controlId = split.control.id
+        if (!controlsMap.has(controlId)) {
+          controlsMap.set(controlId, {
+            controlStation: split.control.station,
+            times: []
+          })
+        }
+        controlsMap.get(controlId)!.times.push({
+          value: split.time,
+          runnerName: runner.full_name,
+          runnerId: runner.id
+        })
+      }
+    })
+  })
+
+  const boxPlotData: BoxPlotDataPoint[] = []
+
+  controlsMap.forEach((controlData, controlId) => {
+    if (controlData.times.length > 0) {
+      const values = controlData.times.map(t => t.value)
+      const stats = calculateBoxPlotStats(values)
+
+      boxPlotData.push({
+        control: controlId,
+        controlStation: controlData.controlStation,
+        min: stats.min,
+        q1: stats.q1,
+        median: stats.median,
+        q3: stats.q3,
+        max: stats.max,
+        outliers: stats.outliers.map(value => ({
+          value,
+          runnerName: controlData.times.find(t => t.value === value)?.runnerName || "Unknown"
+        })),
+        scatter: controlData.times
+      })
+    }
+  })
+
+  // Sort by control station for consistent ordering
+  boxPlotData.sort((a, b) => a.controlStation.localeCompare(b.controlStation))
+
+  return [{
+    id: "controls",
+    data: boxPlotData
+  }]
+}
+
+/**
+ * Transforms runner data for radar chart visualization (max 2 runners)
+ */
+export function transformRunnersForRadarChart(
+  runners: ProcessedRunnerModel[],
+  selectedRunnerIds: string[]
+): RadarChartData[] {
+  if (selectedRunnerIds.length === 0 || selectedRunnerIds.length > 2) return []
+
+  const validRunners = filterValidRunners(runners)
+  const selectedRunners = validRunners.filter(runner => selectedRunnerIds.includes(runner.id))
+
+  if (selectedRunners.length === 0) return []
+
+  // Calculate best times per control across all valid runners
+  const bestTimes = new Map<string, number>()
+
+  validRunners.forEach(runner => {
+    runner.stage.splits.forEach(split => {
+      if (split.control?.id && split.time !== null && split.time > 0) {
+        const controlId = split.control.id
+        const currentBest = bestTimes.get(controlId) || Infinity
+        if (split.time < currentBest) {
+          bestTimes.set(controlId, split.time)
+        }
+      }
+    })
+  })
+
+  return selectedRunners.map(runner => {
+    const data: RadarDataPoint[] = []
+
+    runner.stage.splits.forEach(split => {
+      if (split.control?.id && split.time !== null && split.time > 0) {
+        const controlId = split.control.id
+        const bestTime = bestTimes.get(controlId)
+
+        if (bestTime && bestTime > 0) {
+          const normalizedTime = split.time / bestTime // 1.0 = best time, higher = worse
+
+          data.push({
+            control: controlId,
+            controlStation: split.control.station,
+            normalizedTime,
+            actualTime: split.time,
+            bestTime
+          })
+        }
+      }
+    })
+
+    // Sort by control station
+    data.sort((a, b) => a.controlStation.localeCompare(b.controlStation))
+
+    return {
+      runnerName: runner.full_name,
+      runnerId: runner.id,
+      data
+    }
+  })
+}
+
+/**
+ * Transforms runner data for position evolution chart (max 2 runners, inverted Y-axis)
+ */
+export function transformRunnersForPositionChart(
+  runners: ProcessedRunnerModel[],
+  selectedRunnerIds: string[]
+): PositionChartData[] {
+  if (selectedRunnerIds.length === 0 || selectedRunnerIds.length > 2) return []
+
+  const validRunners = filterValidRunners(runners)
+  const selectedRunners = validRunners.filter(runner => selectedRunnerIds.includes(runner.id))
+  const colors = generateRunnerColors(selectedRunners.length)
+
+  return selectedRunners.map((runner, index) => {
+    const data: PositionDataPoint[] = []
+
+    // Add start position
+    data.push({
+      x: "START",
+      y: 1, // Everyone starts at position 1
+      control: "START",
+      controlStation: "START",
+      runnerName: runner.full_name,
+      splitTime: 0,
+      timeLost: 0
+    })
+
+    // Add positions per control
+    const sortedSplits = [...runner.stage.splits].sort(
+      (a, b) => (a.order_number || 0) - (b.order_number || 0)
+    )
+
+    sortedSplits.forEach(split => {
+      if (split.control?.id && split.cumulative_position !== null && split.cumulative_position > 0) {
+        data.push({
+          x: split.control.station,
+          y: split.cumulative_position, // Position (will be inverted in chart)
+          control: split.control.id,
+          controlStation: split.control.station,
+          runnerName: runner.full_name,
+          splitTime: split.time || 0,
+          timeLost: split.time_behind || 0
+        })
+      }
+    })
+
+    // Add finish position
+    if (runner.stage.position > 0) {
+      data.push({
+        x: "FINISH",
+        y: runner.stage.position,
+        control: "FINISH",
+        controlStation: "FINISH",
+        runnerName: runner.full_name,
+        splitTime: runner.stage.time_seconds,
+        timeLost: runner.stage.time_behind
+      })
+    }
+
+    return {
+      id: runner.full_name,
+      color: colors[index],
+      data
+    }
+  })
+}
+
+/**
+ * Transforms runner data for heatmap visualization
+ */
+export function transformRunnersForHeatmap(
+  runners: ProcessedRunnerModel[],
+  valueType: 'position' | 'timeLost' = 'position'
+): HeatmapData[] {
+  const validRunners = filterValidRunners(runners)
+  if (validRunners.length === 0) return []
+
+  const data: HeatmapDataPoint[] = []
+
+  validRunners.forEach(runner => {
+    runner.stage.splits.forEach(split => {
+      if (split.control?.id) {
+        let value: number
+        let actualValue: number
+
+        if (valueType === 'position') {
+          value = split.cumulative_position || 999
+          actualValue = value
+        } else {
+          value = split.time_behind || 0
+          actualValue = value
+        }
+
+        data.push({
+          runner: runner.full_name,
+          control: split.control.station,
+          value,
+          actualValue,
+          runnerName: runner.full_name,
+          controlStation: split.control.station
+        })
+      }
+    })
+  })
+
+  return [{
+    id: "heatmap",
+    data
+  }]
+}
+/**
  * Calculates error-free time and error time from race analysis table
  */
 function calculateRaceAnalysisData(
@@ -281,7 +640,8 @@ function calculateRaceAnalysisData(
     })
   }
 
-  if (errorFreeTime === 0) {
+  // Handle cases where error time might be missing or null
+  if (errorFreeTime === 0 || !timeLossResults) {
     errorFreeTime = totalTime
   }
 
@@ -292,31 +652,40 @@ function calculateRaceAnalysisData(
 
 /**
  * Transforms runner data for bar chart visualization (stacked bar showing race analysis data)
+ * Updated with threshold filtering for error time
  */
 export function transformRunnersForBarChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[],
   timeLossResults?: { analysisPerControl?: Map<string, { estimatedTimeWithoutError?: number }> },
+  errorThreshold: number = 0 // Minimum error time in seconds to include
 ): ChartDataItem[] {
-  const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
+  const validRunners = filterValidRunners(runners) // Only include OK status runners
+  const selectedRunners = validRunners.filter((runner) => selectedRunnerIds.includes(runner.id))
   const colors = generateRunnerColors(selectedRunners.length)
 
-  return selectedRunners.map((runner, index) => {
-    const { totalTime, errorFreeTime, errorTime } = calculateRaceAnalysisData(
-      runner,
-      timeLossResults,
-    )
+  return selectedRunners
+    .map((runner, index) => {
+      const { totalTime, errorFreeTime, errorTime } = calculateRaceAnalysisData(
+        runner,
+        timeLossResults,
+      )
 
-    // Agregamos runnerId y theoreticalTime para cumplir con ChartDataItem
-    return {
-      runnerId: runner.id,
-      name: runner.full_name,
-      totalTime,
-      errorFreeTime,
-      errorTime,
-      theoreticalTime: 0, // o calcula el valor real si lo tienes disponible
-      color: colors[index],
-    }
-  })
+      // Apply threshold filtering - only include if error time exceeds threshold
+      if (errorTime < errorThreshold) {
+        return null // Will be filtered out
+      }
+
+      return {
+        runnerId: runner.id,
+        name: runner.full_name,
+        totalTime,
+        errorFreeTime,
+        errorTime,
+        theoreticalTime: 0,
+        color: colors[index],
+      }
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null) // Remove null entries
 }
 
