@@ -88,12 +88,6 @@ export function analyzeTimeLoss(
     })
   })
 
-  // Add FINISH control if runners have finish times
-  const hasFinishTimes = validRunners.some((runner) => runner.stage.time_seconds > 0)
-  if (hasFinishTimes) {
-    allControls.add("FINISH")
-  }
-
   // Perform time loss analysis for each control separately
   allControls.forEach((controlId) => {
     const controlAnalysis = analyzeControlTimeLoss(
@@ -213,23 +207,6 @@ function detectInternalTimeLossForRunner(
     }
   }
 
-  // Handle FINISH control separately
-  if (runner.stage.time_seconds > 0) {
-    const finishTimes: number[] = []
-    allRunners.forEach((r) => {
-      if (r.stage.time_seconds > 0) {
-        finishTimes.push(r.stage.time_seconds)
-      }
-    })
-
-    if (finishTimes.length > 1) {
-      const avgFinishTime = finishTimes.reduce((a, b) => a + b, 0) / finishTimes.length
-      const runnerFinishTime = runner.stage.time_seconds
-      const diffPercentFinish = ((runnerFinishTime - avgFinishTime) / avgFinishTime) * 100
-      internalLossMap.set("FINISH", diffPercentFinish > thresholdPercent)
-    }
-  }
-
   return internalLossMap
 }
 
@@ -258,36 +235,21 @@ function analyzeControlTimeLoss(
   }> = []
 
   runners.forEach((runner) => {
-    if (controlId === "FINISH") {
-      // Handle finish control specially - use total race time
-      if (runner.stage.time_seconds > 0) {
-        const finishTime = runner.stage.time_seconds // Always use total time for FINISH
+    const splits = runner.stage.splits
+    const splitIndex = splits.findIndex((s) => s.control?.id === controlId)
+    if (splitIndex >= 0) {
+      const split = splits[splitIndex]
+      const splitTime = showCumulative ? split.cumulative_time : split.time
+      const position = showCumulative ? split.cumulative_position : split.position
+
+      if (splitTime !== null && splitTime > 0 && position !== null) {
         controlSplits.push({
           runnerId: runner.id,
-          splitTime: finishTime,
-          orderNumber: 999, // High order number for finish
-          position: runner.stage.position,
-          splitIndex: -1, // Special index for finish
+          splitTime,
+          orderNumber: split.order_number || 0,
+          position,
+          splitIndex,
         })
-      }
-    } else {
-      // Handle regular controls
-      const splits = runner.stage.splits
-      const splitIndex = splits.findIndex((s) => s.control?.id === controlId)
-      if (splitIndex >= 0) {
-        const split = splits[splitIndex]
-        const splitTime = showCumulative ? split.cumulative_time : split.time
-        const position = showCumulative ? split.cumulative_position : split.position
-
-        if (splitTime !== null && splitTime > 0 && position !== null) {
-          controlSplits.push({
-            runnerId: runner.id,
-            splitTime,
-            orderNumber: split.order_number || 0,
-            position,
-            splitIndex,
-          })
-        }
       }
     }
   })
@@ -310,32 +272,18 @@ function analyzeControlTimeLoss(
   // Ritmo esperado por tramo (usado solo si hay tramo previo)
   const tramoTimes: number[] = []
   runners.forEach((runner) => {
-    if (controlId === "FINISH") {
-      // For finish control, calculate time from last split to finish
-      const splits = runner.stage.splits
-      if (splits.length > 0 && runner.stage.time_seconds > 0) {
-        const lastSplit = splits[splits.length - 1]
-        const lastSplitTime = showCumulative ? lastSplit.cumulative_time : lastSplit.cumulative_time
-        if (lastSplitTime !== null) {
-          const finishTramoTime = runner.stage.time_seconds - lastSplitTime
-          if (finishTramoTime > 0) tramoTimes.push(finishTramoTime)
-        }
-      }
-    } else {
-      // Regular control logic
-      const splits = runner.stage.splits
-      const idx = splits.findIndex((s) => s.control?.id === controlId)
+    const splits = runner.stage.splits
+    const idx = splits.findIndex((s) => s.control?.id === controlId)
 
-      if (idx > 0) {
-        const currentSplit = splits[idx]
-        const prevSplit = splits[idx - 1]
-        const currentTime = showCumulative ? currentSplit.cumulative_time : currentSplit.time
-        const prevTime = showCumulative ? prevSplit.cumulative_time : prevSplit.time
+    if (idx > 0) {
+      const currentSplit = splits[idx]
+      const prevSplit = splits[idx - 1]
+      const currentTime = showCumulative ? currentSplit.cumulative_time : currentSplit.time
+      const prevTime = showCumulative ? prevSplit.cumulative_time : prevSplit.time
 
-        if (currentTime !== null && prevTime !== null) {
-          const tramoTime = currentTime - prevTime
-          if (tramoTime > 0) tramoTimes.push(tramoTime)
-        }
+      if (currentTime !== null && prevTime !== null) {
+        const tramoTime = currentTime - prevTime
+        if (tramoTime > 0) tramoTimes.push(tramoTime)
       }
     }
   })
@@ -356,34 +304,17 @@ function analyzeControlTimeLoss(
     const runner = runners.find((r) => r.id === split.runnerId)
     if (!runner) return
 
-    let currentTime: number | null = null
-    let prevTime: number | null = null
+    const splits = runner.stage.splits
+    const idx = split.splitIndex
+    const currentSplit = splits[idx]
+    const prevSplit = idx > 0 ? splits[idx - 1] : null
+
+    const currentTime = showCumulative ? currentSplit.cumulative_time : currentSplit.time
+    const prevTime = prevSplit ? (showCumulative ? prevSplit.cumulative_time : prevSplit.time) : null
+
     let ritmoReal: number | null = null
-
-    if (controlId === "FINISH") {
-      // Handle finish control
-      currentTime = runner.stage.time_seconds
-      const splits = runner.stage.splits
-      if (splits.length > 0) {
-        const lastSplit = splits[splits.length - 1]
-        prevTime = showCumulative ? lastSplit.cumulative_time : lastSplit.cumulative_time
-        if (prevTime !== null && currentTime !== null) {
-          ritmoReal = currentTime - prevTime
-        }
-      }
-    } else {
-      // Handle regular control
-      const splits = runner.stage.splits
-      const idx = split.splitIndex
-      const currentSplit = splits[idx]
-      const prevSplit = idx > 0 ? splits[idx - 1] : null
-
-      currentTime = showCumulative ? currentSplit.cumulative_time : currentSplit.time
-      prevTime = prevSplit ? (showCumulative ? prevSplit.cumulative_time : prevSplit.time) : null
-
-      if (prevTime !== null && currentTime !== null) {
-        ritmoReal = currentTime - prevTime
-      }
+    if (prevTime !== null && currentTime !== null) {
+      ritmoReal = currentTime - prevTime
     }
 
     const diffSeconds = split.splitTime - estimatedTimeWithoutError
