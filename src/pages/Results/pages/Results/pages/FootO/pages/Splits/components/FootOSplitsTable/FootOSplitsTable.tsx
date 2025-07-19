@@ -20,8 +20,9 @@ import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
+import { GraphType } from "../GraphSelection/GraphSelectionModal.tsx"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
@@ -32,6 +33,7 @@ type FootOSplitsTableProps = {
   timeLossThreshold?: number
   graphsEnabled?: boolean
   selectedRunners?: string[]
+  selectedGraphType?: GraphType | null
   onRunnerSelectionChange?: (selectedRunners: string[]) => void
 }
 
@@ -69,10 +71,34 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
+  // Helper function to check if runner can be selected (modificado para permitir todos)
+
+  const canSelectRunner = (): boolean => true
+
+  // Get max runners allowed for current graph type
+  const getMaxRunnersAllowed = (): number | null => {
+    if (props.selectedGraphType === "radar" || props.selectedGraphType === "position") {
+      return 2
+    }
+    return null // No limit for other chart types
+  }
+
+  const selectedRunners = props.selectedRunners || []
+  const maxRunners = getMaxRunnersAllowed()
+
+  // Filter runners to only show valid ones for selection
+  const selectableRunners = runnerList.filter(canSelectRunner)
+  const isAllSelected = selectedRunners.length === selectableRunners.length && selectableRunners.length > 0
+  const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < selectableRunners.length
+
   // Handle selection
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const allRunnerIds = runnerList.map((runner) => runner.id)
+      let allRunnerIds = selectableRunners.map((runner) => runner.id)
+      // Apply max runner limit
+      if (maxRunners && allRunnerIds.length > maxRunners) {
+        allRunnerIds = allRunnerIds.slice(0, maxRunners)
+      }
       props.onRunnerSelectionChange?.(allRunnerIds)
     } else {
       props.onRunnerSelectionChange?.([])
@@ -82,15 +108,15 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const handleRunnerSelection = (runnerId: string, checked: boolean) => {
     const currentSelection = props.selectedRunners || []
     if (checked) {
+      // Check if we would exceed max runners limit
+      if (maxRunners && currentSelection.length >= maxRunners) {
+        return // Don't allow selection beyond limit
+      }
       props.onRunnerSelectionChange?.([...currentSelection, runnerId])
     } else {
       props.onRunnerSelectionChange?.(currentSelection.filter((id) => id !== runnerId))
     }
   }
-
-  const selectedRunners = props.selectedRunners || []
-  const isAllSelected = selectedRunners.length === runnerList.length && runnerList.length > 0
-  const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < runnerList.length
 
   return (
     <NowProvider>
@@ -155,6 +181,8 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 graphsEnabled={props.graphsEnabled}
                 selected={selectedRunners.includes(runner.id)}
                 onSelectionChange={handleRunnerSelection}
+                canSelect={canSelectRunner()}
+                maxRunnersReached={maxRunners ? selectedRunners.length >= maxRunners : false}
               />
             ))}
           </TableBody>
