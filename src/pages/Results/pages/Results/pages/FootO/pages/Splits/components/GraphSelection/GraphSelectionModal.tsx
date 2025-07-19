@@ -12,9 +12,9 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material"
-import { ShowChart, BarChart } from "@mui/icons-material"
+import { ShowChart, BarChart, ScatterPlot, Radar, Timeline, GridOn } from "@mui/icons-material"
 
-export type GraphType = "line" | "bar"
+export type GraphType = "line" | "bar" | "boxplot" | "radar" | "position" | "heatmap"
 
 interface GraphSelectionModalProps {
   open: boolean
@@ -24,23 +24,53 @@ interface GraphSelectionModalProps {
 }
 
 const GraphSelectionModal: React.FC<GraphSelectionModalProps> = ({
-  open,
-  onClose,
-  onSelectGraph,
-  selectedGraph,
-}) => {
+                                                                   open,
+                                                                   onClose,
+                                                                   onSelectGraph,
+                                                                   selectedGraph,
+                                                                 }) => {
   const graphOptions = [
     {
       type: "line" as GraphType,
       label: "Gráfico de Líneas",
       description: "Tiempo acumulado de diferencia con el líder por control",
       icon: <ShowChart />,
+      maxRunners: null,
     },
     {
       type: "bar" as GraphType,
       label: "Gráfico de Barras",
       description: "Tiempo total de carrera con tiempo de error",
       icon: <BarChart />,
+      maxRunners: null,
+    },
+    {
+      type: "boxplot" as GraphType,
+      label: "Gráfico de Cajas",
+      description: "Distribución estadística de tiempos por control",
+      icon: <ScatterPlot />,
+      maxRunners: null,
+    },
+    {
+      type: "radar" as GraphType,
+      label: "Gráfico Radar",
+      description: "Comparación de rendimiento por control (máx. 2 corredores)",
+      icon: <Radar />,
+      maxRunners: 2,
+    },
+    {
+      type: "position" as GraphType,
+      label: "Evolución de Posición",
+      description: "Cambio de posición por control (máx. 2 corredores)",
+      icon: <Timeline />,
+      maxRunners: 2,
+    },
+    {
+      type: "heatmap" as GraphType,
+      label: "Mapa de Calor",
+      description: "Matriz de posiciones por corredor y control",
+      icon: <GridOn />,
+      maxRunners: null,
     },
   ]
 
