@@ -226,13 +226,12 @@ function analyzeControlTimeLoss(
   threshold: number,
   showCumulative: boolean,
 ): TimeLossAnalysis | null {
-  // Extraemos los splits para este control de todos los corredores
   const controlSplits: Array<{
     runnerId: string
     splitTime: number
     orderNumber: number
     position: number
-    splitIndex: number // índice del split dentro de runner.stage.splits
+    splitIndex: number
   }> = []
 
   runners.forEach((runner) => {
@@ -255,45 +254,30 @@ function analyzeControlTimeLoss(
     }
   })
 
-  if (controlSplits.length < 2) {
-    return null // No hay datos suficientes para analizar
-  }
+  if (controlSplits.length < 2) return null
 
-  // Ordenamos los splits por tiempo para identificar el mejor
   controlSplits.sort((a, b) => a.splitTime - b.splitTime)
-
   const bestTime = controlSplits[0].splitTime
-
-  // Umbral de corte para considerar "sin error"
   const thresholdTime = bestTime * (1.5 + threshold / 100)
 
-  // Filtramos splits sin error externo (con tiempo dentro del umbral)
   const noErrorSplits = controlSplits.filter((split) => split.splitTime <= thresholdTime)
   if (noErrorSplits.length === 0) return null
 
-  // Calculamos la media de diferencia porcentual con respecto al mejor tiempo
   const totalDiffPercentage = noErrorSplits.reduce((sum, split) => {
     return sum + ((split.splitTime - bestTime) / bestTime) * 100
   }, 0)
-
   const md = totalDiffPercentage / noErrorSplits.length
   const estimatedTimeWithoutError = ((100 + md) / 100) * bestTime
 
-  // --- Cálculo de ritmo esperado para este tramo ---
-
-  // Para cada corredor, calculamos el tiempo del tramo (split actual - split anterior)
-  // y sacamos el promedio (ritmo esperado)
+  // Ritmo esperado por tramo (usado solo si hay tramo previo)
   const tramoTimes: number[] = []
-
   runners.forEach((runner) => {
     const splits = runner.stage.splits
     const idx = splits.findIndex((s) => s.control?.id === controlId)
 
     if (idx > 0) {
-      // Tiene split anterior para calcular tramo
       const currentSplit = splits[idx]
       const prevSplit = splits[idx - 1]
-
       const currentTime = showCumulative ? currentSplit.cumulative_time : currentSplit.time
       const prevTime = showCumulative ? prevSplit.cumulative_time : prevSplit.time
 
@@ -304,59 +288,51 @@ function analyzeControlTimeLoss(
     }
   })
 
-  if (tramoTimes.length === 0) return null // No se puede calcular ritmo esperado
+  const ritmoEsperado =
+    tramoTimes.length > 0 ? tramoTimes.reduce((a, b) => a + b, 0) / tramoTimes.length : null
 
-  // Ritmo esperado = promedio de los tiempos de tramo de todos los corredores
-  const ritmoEsperado = tramoTimes.reduce((a, b) => a + b, 0) / tramoTimes.length
-
-  // Ahora construimos el análisis por corredor
   const runnerAnalysis = new Map<string, RunnerTimeLossInfo>()
+
+  // Precomputar pérdidas internas
+  const internalTimeLossByRunner = new Map<string, Map<string, boolean>>()
+  runners.forEach((r) => {
+    const internalMap = detectInternalTimeLossForRunner(r, threshold, showCumulative, runners)
+    internalTimeLossByRunner.set(r.id, internalMap)
+  })
 
   controlSplits.forEach((split, index) => {
     const runner = runners.find((r) => r.id === split.runnerId)
     if (!runner) return
 
-    // Obtenemos el split actual y el anterior para el cálculo de ritmo real
     const splits = runner.stage.splits
     const idx = split.splitIndex
+    const currentSplit = splits[idx]
+    const prevSplit = idx > 0 ? splits[idx - 1] : null
 
-    let ritmoReal = null
-    if (idx > 0) {
-      const currentSplit = splits[idx]
-      const prevSplit = splits[idx - 1]
+    const currentTime = showCumulative ? currentSplit.cumulative_time : currentSplit.time
+    const prevTime = prevSplit ? (showCumulative ? prevSplit.cumulative_time : prevSplit.time) : null
 
-      const currentTime = showCumulative ? currentSplit.cumulative_time : currentSplit.time
-      const prevTime = showCumulative ? prevSplit.cumulative_time : prevSplit.time
-
-      if (currentTime !== null && prevTime !== null) {
-        ritmoReal = currentTime - prevTime
-      }
+    let ritmoReal: number | null = null
+    if (prevTime !== null && currentTime !== null) {
+      ritmoReal = currentTime - prevTime
     }
 
-    // Cálculo de diferencias
     const diffSeconds = split.splitTime - estimatedTimeWithoutError
     const diffPercent = (diffSeconds / estimatedTimeWithoutError) * 100
 
-    // Pérdida de tiempo externa basada en tiempo total
     const externalTimeLossBase = diffSeconds > 0 && (diffSeconds > 30 || diffPercent > threshold)
 
-    // Pérdida de tiempo por ritmo (solo si podemos calcular ritmo real)
-    const externalTimeLossRitmo =
-      ritmoReal !== null && ritmoReal > ritmoEsperado * (1 + threshold / 100)
+    let externalTimeLossRitmo = false
+    if (ritmoEsperado !== null && ritmoReal !== null) {
+      externalTimeLossRitmo = ritmoReal > ritmoEsperado * (1 + threshold / 100)
+    }
 
-    // Pérdida de tiempo externa definitiva (requiere que se cumpla alguna condición)
-    const externalTimeLoss = externalTimeLossBase || externalTimeLossRitmo
+    const externalTimeLoss =
+      ritmoReal === null ? externalTimeLossBase : externalTimeLossBase || externalTimeLossRitmo
 
-    // Comprobamos también pérdida interna como antes
-    const internalTimeLossByRunner = new Map<string, Map<string, boolean>>()
-    runners.forEach((r) => {
-      const internalMap = detectInternalTimeLossForRunner(r, threshold, showCumulative, runners)
-      internalTimeLossByRunner.set(r.id, internalMap)
-    })
     const internalMap = internalTimeLossByRunner.get(split.runnerId)
     const internalTimeLoss = internalMap?.get(controlId) || false
 
-    // Consideramos pérdida solo si ambas condiciones (interna y externa) se cumplen
     const hasTimeLoss = externalTimeLoss && internalTimeLoss
 
     runnerAnalysis.set(split.runnerId, {
