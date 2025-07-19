@@ -28,6 +28,8 @@ type RunnerRowProps = {
   timeLossEnabled?: boolean
   graphsEnabled?: boolean
   selected?: boolean
+  canSelect?: boolean
+  maxRunnersReached?: boolean
   onSelectionChange?: (runnerId: string, checked: boolean) => void
 }
 
@@ -102,7 +104,15 @@ export default function RunnerRow(props: RunnerRowProps) {
           <Checkbox
             checked={props.selected || false}
             onChange={handleSelectionChange}
+            disabled={!props.canSelect || (props.maxRunnersReached && !props.selected)}
             color="primary"
+            title={
+              !props.canSelect
+                ? "Solo corredores con estado OK pueden ser seleccionados"
+                : props.maxRunnersReached && !props.selected
+                  ? "Máximo de corredores alcanzado para este tipo de gráfico"
+                  : undefined
+            }
           />
         </TableCell>
       )}
