@@ -20,21 +20,6 @@ export interface BoxPlotData {
   data: BoxPlotDataPoint[]
 }
 
-// Radar Chart Data Structures
-export interface RadarDataPoint {
-  control: string
-  controlStation: string
-  normalizedTime: number // ratio vs best time (1.0 = best, higher = worse)
-  actualTime: number
-  bestTime: number
-}
-
-export interface RadarChartData {
-  runnerName: string
-  runnerId: string
-  data: RadarDataPoint[]
-}
-
 // Position Evolution Data Structures
 export interface PositionDataPoint {
   x: string // Control name/number
@@ -149,7 +134,7 @@ export function generateRunnerColors(runnerCount: number): string[] {
 }
 
 /**
- * Calculates incremental time behind best partial for each runner
+ * Calculates incremental time behind the best partial for each runner
  */
 function calculateIncrementalTimeBehindBestPartial(
   runners: ProcessedRunnerModel[],
@@ -182,10 +167,10 @@ function calculateIncrementalTimeBehindBestPartial(
     })
 
     if (bestSplitTime !== Infinity) {
-      // Calculate gap for this control only (not cumulative)
+      // Calculate a gap for this control only (not cumulative)
       const gapForThisControl = runnerSplitTime - bestSplitTime
 
-      // Add to incremental sum
+      // Add to an incremental sum
       cumulativeTimeBehindBestPartial += Math.max(0, gapForThisControl)
       incrementalMap.set(controlId, cumulativeTimeBehindBestPartial)
     }
@@ -204,7 +189,6 @@ export function transformRunnersForLineChart(
   const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
   const colors = generateRunnerColors(selectedRunners.length)
 
-  // Calcular los mejores tiempos del líder para cada control
   const leaderTimes = calculateLeaderTimesForEachControl(runners)
 
   return selectedRunners.map((runner, index) => {
@@ -212,7 +196,6 @@ export function transformRunnersForLineChart(
       (a, b) => (a.order_number || 0) - (b.order_number || 0),
     )
 
-    // Calcular tiempo incremental detrás del mejor parcial para este corredor
     const incrementalTimeBehindBestPartial = calculateIncrementalTimeBehindBestPartial(
       runners,
       runner.id,
@@ -220,7 +203,6 @@ export function transformRunnersForLineChart(
 
     const data: ChartDataPoint[] = []
 
-    // Punto START (siempre 0)
     data.push({
       x: "START",
       y: 0,
@@ -234,7 +216,6 @@ export function transformRunnersForLineChart(
       cumulativeTime: 0,
     })
 
-    // Puntos para cada control usando diferencia al líder en Y
     sortedSplits.forEach((split) => {
       if (!split.control?.id || !split.cumulative_time) return
 
@@ -249,7 +230,7 @@ export function transformRunnersForLineChart(
 
       data.push({
         x: orderNumber.toString(),
-        y: timeBehindLeader, // <-- Aquí está el cambio principal
+        y: timeBehindLeader,
         controlId,
         controlStation: split.control.station,
         orderNumber,
@@ -261,7 +242,6 @@ export function transformRunnersForLineChart(
       })
     })
 
-    // Punto FINISH usando diferencia al líder
     if (runner.stage.time_seconds > 0) {
       const finishTime = runner.stage.time_seconds
       const finishTimeBehindLeader = runner.stage.time_behind
@@ -270,7 +250,7 @@ export function transformRunnersForLineChart(
 
       data.push({
         x: "FINISH",
-        y: finishTimeBehindLeader, // <-- Cambio aquí también
+        y: finishTimeBehindLeader,
         controlId: "FINISH",
         controlStation: "FINISH",
         orderNumber: 999,
@@ -291,7 +271,7 @@ export function transformRunnersForLineChart(
 }
 
 /**
- * Calculates leader times for each control (best cumulative time at each control)
+ * Calculates leader times for each control (the best cumulative time at each control)
  */
 function calculateLeaderTimesForEachControl(runners: ProcessedRunnerModel[]): Map<string, number> {
   const leaderTimes = new Map<string, number>()
@@ -306,7 +286,7 @@ function calculateLeaderTimesForEachControl(runners: ProcessedRunnerModel[]): Ma
     })
   })
 
-  // Find best cumulative time for each control
+  // Find the best cumulative time for each control
   controlIds.forEach((controlId) => {
     let bestCumulativeTime = Infinity
 
@@ -359,7 +339,7 @@ function calculateBoxPlotStats(values: number[]): {
 }
 
 /**
- * Calculates percentile from sorted array
+ * Calculates percentile from a sorted array
  */
 function getPercentile(sortedArray: number[], percentile: number): number {
   if (sortedArray.length === 0) return 0
@@ -395,7 +375,7 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
     return []
   }
 
-  // Group all controls
+  // Group-all controls
   const controlsMap = new Map<string, {
     controlStation: string
     times: Array<{ value: number; runnerName: string; runnerId: string }>
@@ -427,7 +407,7 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
   const boxPlotData: BoxPlotDataPoint[] = []
 
   controlsMap.forEach((controlData, controlId) => {
-    if (controlData.times.length >= 2) { // Need at least 2 data points for meaningful box plot
+    if (controlData.times.length >= 2) { // Need at least 2 data points for a meaningful box plot
       const values = controlData.times.map(t => t.value).filter(v => !isNaN(v))
       if (values.length >= 2) {
         const stats = calculateBoxPlotStats(values)
@@ -470,70 +450,6 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
     data: boxPlotData
   }] : []
 }
-
-/**
- * Transforms runner data for radar chart visualization (max 2 runners)
- * More permissive with runner validation
- */
-export function transformRunnersForRadarChart(
-  runners: ProcessedRunnerModel[],
-  selectedRunnerIds: string[]
-): RadarChartData[] {
-  if (selectedRunnerIds.length === 0 || selectedRunnerIds.length > 2) return []
-
-  // Use all runners, don't filter by status - let the function handle missing data
-  const selectedRunners = runners.filter(runner => selectedRunnerIds.includes(runner.id))
-
-  if (selectedRunners.length === 0) return []
-
-  // Calculate best times per control across all runners (not just "valid" ones)
-  const bestTimes = new Map<string, number>()
-
-  runners.forEach(runner => {
-    runner.stage?.splits?.forEach(split => {
-      if (split.control?.id && split.time !== null && split.time > 0) {
-        const controlId = split.control.id
-        const currentBest = bestTimes.get(controlId) || Infinity
-        if (split.time < currentBest) {
-          bestTimes.set(controlId, split.time)
-        }
-      }
-    })
-  })
-
-  return selectedRunners.map(runner => {
-    const data: RadarDataPoint[] = []
-
-    runner.stage?.splits?.forEach(split => {
-      if (split.control?.id && split.time !== null && split.time > 0) {
-        const controlId = split.control.id
-        const bestTime = bestTimes.get(controlId)
-
-        if (bestTime && bestTime > 0) {
-          const normalizedTime = split.time / bestTime // 1.0 = best time, higher = worse
-
-          data.push({
-            control: controlId,
-            controlStation: split.control.station,
-            normalizedTime,
-            actualTime: split.time,
-            bestTime
-          })
-        }
-      }
-    })
-
-    // Sort by control station
-    data.sort((a, b) => a.controlStation.localeCompare(b.controlStation))
-
-    return {
-      runnerName: runner.full_name || "Unknown Runner",
-      runnerId: runner.id,
-      data
-    }
-  }).filter(runner => runner.data.length > 0) // Only exclude runners with no split data at all
-}
-
 /**
  * Transforms runner data for position evolution chart (unlimited runners, inverted Y-axis)
  * More permissive with runner validation
@@ -544,14 +460,14 @@ export function transformRunnersForPositionChart(
 ): PositionChartData[] {
   if (selectedRunnerIds.length === 0) return []
 
-  // Use all runners, don't filter by status, no limit on number of runners
+  // Use all runners, don't filter by status, no limit on the number of runners
   const selectedRunners = runners.filter(runner => selectedRunnerIds.includes(runner.id))
   const colors = generateRunnerColors(selectedRunners.length)
 
   return selectedRunners.map((runner, index) => {
     const data: PositionDataPoint[] = []
 
-    // Add start position
+    // Add a start position
     data.push({
       x: "START",
       y: 1, // Everyone starts at position 1
@@ -572,7 +488,7 @@ export function transformRunnersForPositionChart(
         if (split.control?.id && split.cumulative_position !== null && split.cumulative_position > 0) {
           data.push({
             x: split.control.station,
-            y: split.cumulative_position, // Position (will be inverted in chart)
+            y: split.cumulative_position, // Position (will be inverted in the chart)
             control: split.control.id,
             controlStation: split.control.station,
             runnerName: runner.full_name || "Unknown Runner",
@@ -583,7 +499,7 @@ export function transformRunnersForPositionChart(
       })
     }
 
-    // Add finish position if available
+    // Add a finish position if available
     if (runner.stage?.position && runner.stage.position > 0) {
       data.push({
         x: "FINISH",
@@ -665,78 +581,39 @@ function calculateRaceAnalysisData(
   let errorFreeTime = 0
   let calculatedErrorTime = 0
 
-  if (timeLossResults?.analysisPerControl && totalTime > 0) {
-    // Check if we have FINISH control analysis - if so, use total race analysis approach
-    const finishAnalysis = timeLossResults.analysisPerControl.get("FINISH")
+  if (timeLossResults?.analysisPerControl && totalTime > 0 && runner.stage?.splits) {
+    // Use the same logic as timeLossAnalysis.ts
+    runner.stage.splits.forEach((split) => {
+      if (split.control?.id && typeof split.time === 'number' && split.time > 0) {
+        const controlId = split.control.id
+        const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
 
-    if (finishAnalysis?.estimatedTimeWithoutError && finishAnalysis.runnerAnalysis) {
-      // NEW APPROACH: Use FINISH control analysis for total time breakdown
-      const finishRunnerInfo = finishAnalysis.runnerAnalysis.get(runner.id)
+        if (controlAnalysis?.estimatedTimeWithoutError && controlAnalysis.runnerAnalysis) {
+          const estimatedTime = controlAnalysis.estimatedTimeWithoutError
+          const runnerInfo = controlAnalysis.runnerAnalysis.get(runner.id)
 
-      if (finishRunnerInfo) {
-        const estimatedTotalTime = finishAnalysis.estimatedTimeWithoutError
-        const actualTotalTime = finishRunnerInfo.splitTime || totalTime
+          if (runnerInfo) {
+            const actualSplitTime = runnerInfo.splitTime || split.time
 
-        if (finishRunnerInfo.hasTimeLoss) {
-          // Runner has overall time loss - split total time
-          errorFreeTime = estimatedTotalTime
-          calculatedErrorTime = Math.max(0, actualTotalTime - estimatedTotalTime)
-        } else {
-          // No significant time loss - most time is good
-          errorFreeTime = actualTotalTime
-          calculatedErrorTime = 0
-        }
-
-        console.log(`Finish-based analysis for ${runner.full_name}:`, {
-          hasOverallTimeLoss: finishRunnerInfo.hasTimeLoss,
-          actualTotalTime,
-          estimatedTotalTime,
-          errorFreeTime,
-          calculatedErrorTime
-        })
-      } else {
-        // No finish analysis for this runner - fallback
-        errorFreeTime = totalTime * 0.95
-        calculatedErrorTime = totalTime * 0.05
-      }
-    } else if (runner.stage?.splits) {
-      // FALLBACK: Use split-by-split analysis when no FINISH control analysis available
-      runner.stage.splits.forEach((split) => {
-        if (split.control?.id && typeof split.time === 'number' && split.time > 0) {
-          const controlId = split.control.id
-          const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
-
-          if (controlAnalysis?.estimatedTimeWithoutError && controlAnalysis.runnerAnalysis) {
-            const estimatedTime = controlAnalysis.estimatedTimeWithoutError
-            const runnerInfo = controlAnalysis.runnerAnalysis.get(runner.id)
-
-            if (runnerInfo) {
-              const actualSplitTime = runnerInfo.splitTime || split.time
-
-              if (runnerInfo.hasTimeLoss) {
-                errorFreeTime += estimatedTime
-                calculatedErrorTime += Math.max(0, actualSplitTime - estimatedTime)
-              } else {
-                errorFreeTime += actualSplitTime
-              }
+            if (runnerInfo.hasTimeLoss) {
+              // Runner has time loss - split into estimated time (green) and lost time (red)
+              errorFreeTime += estimatedTime
+              calculatedErrorTime += Math.max(0, actualSplitTime - estimatedTime)
             } else {
-              errorFreeTime += Math.min(estimatedTime, split.time)
-              calculatedErrorTime += Math.max(0, split.time - estimatedTime)
+              // No time loss detected - all time is considered good time
+              errorFreeTime += actualSplitTime
             }
           } else {
-            errorFreeTime += split.time
+            // No analysis for this runner on this control - use estimated time
+            errorFreeTime += Math.min(estimatedTime, split.time)
+            calculatedErrorTime += Math.max(0, split.time - estimatedTime)
           }
+        } else {
+          // No analysis available for this control - treat as a good time
+          errorFreeTime += split.time
         }
-      })
-
-      // Add any remaining time not accounted for by splits
-      const splitsTime = runner.stage.splits.reduce((sum, split) => sum + (split.time || 0), 0)
-      const remainingTime = Math.max(0, totalTime - splitsTime)
-      if (remainingTime > 0) {
-        errorFreeTime += remainingTime
-        console.log(`Added remaining time for ${runner.full_name}:`, remainingTime)
       }
-    }
+    })
   } else {
     // Fallback: No analysis available - assume 95% good time
     if (totalTime > 0) {
@@ -752,21 +629,10 @@ function calculateRaceAnalysisData(
   // If our calculation doesn't match the total time, adjust proportionally
   const calculatedSum = errorFreeTime + calculatedErrorTime
   if (calculatedSum > 0 && Math.abs(calculatedSum - actualTotalTime) > 1) {
-    // Significant difference - adjust to match actual total
+    // Significant difference - adjust to match the actual total
     const ratio = actualTotalTime / calculatedSum
     errorFreeTime = errorFreeTime * ratio
     calculatedErrorTime = calculatedErrorTime * ratio
-
-    console.log(`Adjusted calculation for ${runner.full_name}:`, {
-      original: { errorFreeTime: errorFreeTime / ratio, calculatedErrorTime: calculatedErrorTime / ratio },
-      adjusted: { errorFreeTime, calculatedErrorTime },
-      actualTotalTime,
-      ratio
-    })
-  } else if (calculatedSum === 0 && actualTotalTime > 0) {
-    // No calculation available - use fallback
-    errorFreeTime = actualTotalTime * 0.95
-    calculatedErrorTime = actualTotalTime * 0.05
   }
 
   const result = {
@@ -811,7 +677,7 @@ export function transformRunnersForBarChart(
 
   return selectedRunners
     .map((runner, index) => {
-      // If runner doesn't have basic time data, create default entry
+      // If the runner doesn't have basic time data, create the default entry
       const totalTime = runner.stage?.time_seconds || 0
 
       if (totalTime <= 0) {
@@ -843,7 +709,7 @@ export function transformRunnersForBarChart(
       let adjustedErrorTime = finalErrorTime
 
       if (sum > calcTotal && calcTotal > 0) {
-        // Proportionally adjust if sum exceeds total
+        // Proportionally adjust if a sum exceeds the total
         const ratio = calcTotal / sum
         adjustedErrorFreeTime = finalErrorFreeTime * ratio
         adjustedErrorTime = finalErrorTime * ratio
@@ -864,4 +730,3 @@ export function transformRunnersForBarChart(
     })
     .filter((item): item is NonNullable<typeof item> => item !== null)
 }
-
