@@ -373,20 +373,15 @@ function getPercentile(sortedArray: number[], percentile: number): number {
 
   return sortedArray[lower] * (1 - weight) + sortedArray[upper] * weight
 }
-
-/**
- * Filters runners by status code (only "OK" runners)
- */
-export function filterValidRunners(runners: ProcessedRunnerModel[]): ProcessedRunnerModel[] {
-  return runners.filter(runner => runner.stage.status_code === "OK")
-}
-
 /**
  * Transforms runner data for box plot visualization per control
+ * More permissive with runner validation
  */
 export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): BoxPlotData[] {
-  const validRunners = filterValidRunners(runners)
-  if (validRunners.length === 0) return []
+  // Use all runners that have splits data, regardless of status
+  const usableRunners = runners.filter(runner => runner.stage?.splits && runner.stage.splits.length > 0)
+
+  if (usableRunners.length === 0) return []
 
   // Group all controls
   const controlsMap = new Map<string, {
@@ -394,19 +389,19 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
     times: Array<{ value: number; runnerName: string; runnerId: string }>
   }>()
 
-  validRunners.forEach(runner => {
+  usableRunners.forEach(runner => {
     runner.stage.splits.forEach(split => {
       if (split.control?.id && split.time !== null && split.time > 0) {
         const controlId = split.control.id
         if (!controlsMap.has(controlId)) {
           controlsMap.set(controlId, {
-            controlStation: split.control.station,
+            controlStation: split.control.station || controlId,
             times: []
           })
         }
         controlsMap.get(controlId)!.times.push({
           value: split.time,
-          runnerName: runner.full_name,
+          runnerName: runner.full_name || "Unknown Runner",
           runnerId: runner.id
         })
       }
@@ -448,6 +443,7 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
 
 /**
  * Transforms runner data for radar chart visualization (max 2 runners)
+ * More permissive with runner validation
  */
 export function transformRunnersForRadarChart(
   runners: ProcessedRunnerModel[],
@@ -455,16 +451,16 @@ export function transformRunnersForRadarChart(
 ): RadarChartData[] {
   if (selectedRunnerIds.length === 0 || selectedRunnerIds.length > 2) return []
 
-  const validRunners = filterValidRunners(runners)
-  const selectedRunners = validRunners.filter(runner => selectedRunnerIds.includes(runner.id))
+  // Use all runners, don't filter by status - let the function handle missing data
+  const selectedRunners = runners.filter(runner => selectedRunnerIds.includes(runner.id))
 
   if (selectedRunners.length === 0) return []
 
-  // Calculate best times per control across all valid runners
+  // Calculate best times per control across all runners (not just "valid" ones)
   const bestTimes = new Map<string, number>()
 
-  validRunners.forEach(runner => {
-    runner.stage.splits.forEach(split => {
+  runners.forEach(runner => {
+    runner.stage?.splits?.forEach(split => {
       if (split.control?.id && split.time !== null && split.time > 0) {
         const controlId = split.control.id
         const currentBest = bestTimes.get(controlId) || Infinity
@@ -478,7 +474,7 @@ export function transformRunnersForRadarChart(
   return selectedRunners.map(runner => {
     const data: RadarDataPoint[] = []
 
-    runner.stage.splits.forEach(split => {
+    runner.stage?.splits?.forEach(split => {
       if (split.control?.id && split.time !== null && split.time > 0) {
         const controlId = split.control.id
         const bestTime = bestTimes.get(controlId)
@@ -501,24 +497,25 @@ export function transformRunnersForRadarChart(
     data.sort((a, b) => a.controlStation.localeCompare(b.controlStation))
 
     return {
-      runnerName: runner.full_name,
+      runnerName: runner.full_name || "Unknown Runner",
       runnerId: runner.id,
       data
     }
-  })
+  }).filter(runner => runner.data.length > 0) // Only exclude runners with no split data at all
 }
 
 /**
- * Transforms runner data for position evolution chart (max 2 runners, inverted Y-axis)
+ * Transforms runner data for position evolution chart (unlimited runners, inverted Y-axis)
+ * More permissive with runner validation
  */
 export function transformRunnersForPositionChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[]
 ): PositionChartData[] {
-  if (selectedRunnerIds.length === 0 || selectedRunnerIds.length > 2) return []
+  if (selectedRunnerIds.length === 0) return []
 
-  const validRunners = filterValidRunners(runners)
-  const selectedRunners = validRunners.filter(runner => selectedRunnerIds.includes(runner.id))
+  // Use all runners, don't filter by status, no limit on number of runners
+  const selectedRunners = runners.filter(runner => selectedRunnerIds.includes(runner.id))
   const colors = generateRunnerColors(selectedRunners.length)
 
   return selectedRunners.map((runner, index) => {
@@ -530,64 +527,69 @@ export function transformRunnersForPositionChart(
       y: 1, // Everyone starts at position 1
       control: "START",
       controlStation: "START",
-      runnerName: runner.full_name,
+      runnerName: runner.full_name || "Unknown Runner",
       splitTime: 0,
       timeLost: 0
     })
 
-    // Add positions per control
-    const sortedSplits = [...runner.stage.splits].sort(
-      (a, b) => (a.order_number || 0) - (b.order_number || 0)
-    )
+    // Add positions per control if available
+    if (runner.stage?.splits) {
+      const sortedSplits = [...runner.stage.splits].sort(
+        (a, b) => (a.order_number || 0) - (b.order_number || 0)
+      )
 
-    sortedSplits.forEach(split => {
-      if (split.control?.id && split.cumulative_position !== null && split.cumulative_position > 0) {
-        data.push({
-          x: split.control.station,
-          y: split.cumulative_position, // Position (will be inverted in chart)
-          control: split.control.id,
-          controlStation: split.control.station,
-          runnerName: runner.full_name,
-          splitTime: split.time || 0,
-          timeLost: split.time_behind || 0
-        })
-      }
-    })
+      sortedSplits.forEach(split => {
+        if (split.control?.id && split.cumulative_position !== null && split.cumulative_position > 0) {
+          data.push({
+            x: split.control.station,
+            y: split.cumulative_position, // Position (will be inverted in chart)
+            control: split.control.id,
+            controlStation: split.control.station,
+            runnerName: runner.full_name || "Unknown Runner",
+            splitTime: split.time || 0,
+            timeLost: split.time_behind || 0
+          })
+        }
+      })
+    }
 
-    // Add finish position
-    if (runner.stage.position > 0) {
+    // Add finish position if available
+    if (runner.stage?.position && runner.stage.position > 0) {
       data.push({
         x: "FINISH",
         y: runner.stage.position,
         control: "FINISH",
         controlStation: "FINISH",
-        runnerName: runner.full_name,
-        splitTime: runner.stage.time_seconds,
-        timeLost: runner.stage.time_behind
+        runnerName: runner.full_name || "Unknown Runner",
+        splitTime: runner.stage.time_seconds || 0,
+        timeLost: runner.stage.time_behind || 0
       })
     }
 
     return {
-      id: runner.full_name,
+      id: runner.full_name || "Unknown Runner",
       color: colors[index],
       data
     }
-  })
+  }).filter(runner => runner.data.length > 1) // Must have at least start + one other point
 }
 
 /**
  * Transforms runner data for heatmap visualization
+ * More permissive with runner validation
  */
 export function transformRunnersForHeatmap(
   runners: ProcessedRunnerModel[],
   valueType: 'position' | 'timeLost' = 'position'
 ): HeatmapData[] {
-  const validRunners = filterValidRunners(runners)
-  if (validRunners.length === 0) return []
+  // Use all runners, don't filter by status
+  const usableRunners = runners.filter(runner => runner.stage?.splits && runner.stage.splits.length > 0)
+
+  if (usableRunners.length === 0) return []
 
   const data: HeatmapDataPoint[] = []
 
-  validRunners.forEach(runner => {
+  usableRunners.forEach(runner => {
     runner.stage.splits.forEach(split => {
       if (split.control?.id) {
         let value: number
@@ -602,12 +604,12 @@ export function transformRunnersForHeatmap(
         }
 
         data.push({
-          runner: runner.full_name,
-          control: split.control.station,
+          runner: runner.full_name || "Unknown Runner",
+          control: split.control.station || split.control.id,
           value,
           actualValue,
-          runnerName: runner.full_name,
-          controlStation: split.control.station
+          runnerName: runner.full_name || "Unknown Runner",
+          controlStation: split.control.station || split.control.id
         })
       }
     })
@@ -628,64 +630,93 @@ function calculateRaceAnalysisData(
   const totalTime = runner.stage.time_seconds || 0
 
   let errorFreeTime = 0
+  let calculatedErrorTime: number
 
-  if (timeLossResults?.analysisPerControl) {
+  if (timeLossResults?.analysisPerControl && totalTime > 0) {
+    // Sum up all control times to get error-free time
     runner.stage.splits.forEach((split) => {
-      if (split.control?.id) {
+      if (split.control?.id && split.time !== null && split.time > 0) {
         const controlAnalysis = timeLossResults.analysisPerControl?.get(split.control.id)
         if (controlAnalysis?.estimatedTimeWithoutError) {
           errorFreeTime += controlAnalysis.estimatedTimeWithoutError
+        } else {
+          // If no analysis available for this control, use actual time
+          errorFreeTime += split.time
         }
       }
     })
-  }
 
-  // Handle cases where error time might be missing or null
-  if (errorFreeTime === 0 || !timeLossResults) {
+    calculatedErrorTime = Math.max(0, totalTime - errorFreeTime)
+  } else {
+    // Fallback: Use actual time as error-free if no time loss analysis
     errorFreeTime = totalTime
+    calculatedErrorTime = 0
   }
 
-  const errorTime = Math.max(0, totalTime - errorFreeTime)
+  // Ensure values make sense
+  if (errorFreeTime <= 0 && totalTime > 0) {
+    errorFreeTime = totalTime * 0.8 // Assume 80% is error-free if we can't calculate
+    calculatedErrorTime = totalTime * 0.2
+  }
 
-  return { totalTime, errorFreeTime, errorTime }
+  return {
+    totalTime,
+    errorFreeTime: Math.max(0, errorFreeTime),
+    errorTime: Math.max(0, calculatedErrorTime)
+  }
 }
 
 /**
  * Transforms runner data for bar chart visualization (stacked bar showing race analysis data)
- * Updated with threshold filtering for error time
+ * Updated to be more permissive with data requirements
  */
 export function transformRunnersForBarChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[],
   timeLossResults?: { analysisPerControl?: Map<string, { estimatedTimeWithoutError?: number }> },
-  errorThreshold: number = 0 // Minimum error time in seconds to include
 ): ChartDataItem[] {
-  const validRunners = filterValidRunners(runners) // Only include OK status runners
-  const selectedRunners = validRunners.filter((runner) => selectedRunnerIds.includes(runner.id))
+  // Use all runners, not just "valid" ones - let each transformation decide
+  const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
+
+  if (selectedRunners.length === 0) {
+    return []
+  }
+
   const colors = generateRunnerColors(selectedRunners.length)
 
   return selectedRunners
     .map((runner, index) => {
-      const { totalTime, errorFreeTime, errorTime } = calculateRaceAnalysisData(
+      // If runner doesn't have basic time data, create default entry
+      const totalTime = runner.stage?.time_seconds || 0
+
+      if (totalTime <= 0) {
+        // Still create an entry but with minimal data
+        return {
+          runnerId: runner.id,
+          name: runner.full_name || "Unknown Runner",
+          totalTime: 0,
+          errorFreeTime: 0,
+          errorTime: 0,
+          theoreticalTime: 0,
+          color: colors[index],
+        }
+      }
+
+      const { totalTime: calcTotal, errorFreeTime, errorTime } = calculateRaceAnalysisData(
         runner,
         timeLossResults,
       )
 
-      // Apply threshold filtering - only include if error time exceeds threshold
-      if (errorTime < errorThreshold) {
-        return null // Will be filtered out
-      }
-
       return {
         runnerId: runner.id,
-        name: runner.full_name,
-        totalTime,
+        name: runner.full_name || "Unknown Runner",
+        totalTime: calcTotal,
         errorFreeTime,
         errorTime,
-        theoreticalTime: 0,
+        theoreticalTime: errorFreeTime,
         color: colors[index],
       }
     })
-    .filter((item): item is NonNullable<typeof item> => item !== null) // Remove null entries
+    .filter((item): item is NonNullable<typeof item> => item !== null)
 }
 

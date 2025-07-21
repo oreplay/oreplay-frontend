@@ -46,7 +46,10 @@ const CustomTooltip: React.FC<BoxPlotTooltipProps> = (props) => {
 }
 
 const BoxPlotChart: React.FC<BoxPlotChartProps> = ({ data, height = 400 }) => {
-  if (data.length === 0 || data[0]?.data?.length === 0) {
+  // Debug logging
+  console.log("BoxPlotChart received data:", data)
+
+  if (!data || data.length === 0 || data[0]?.data?.length === 0) {
     return (
       <Box
         display="flex"
