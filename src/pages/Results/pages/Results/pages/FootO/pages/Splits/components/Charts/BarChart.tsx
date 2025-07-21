@@ -3,7 +3,6 @@ import { ResponsiveBar, BarDatum } from "@nivo/bar"
 import { Box, Typography } from "@mui/material"
 import { formatTime } from "../utils/chartDataTransform"
 
-// Interface representing a single runner's data structure for the bar chart
 export interface ChartDataItem {
   name: string
   errorFreeTime: number
@@ -14,17 +13,12 @@ export interface ChartDataItem {
   [key: string]: string | number
 }
 
-// Props for the BarChart component
 interface BarChartProps {
   data: ChartDataItem[]
-  height?: number // Optional height for the chart container
+  height?: number
 }
 
 const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
-  // Debug logging
-  console.log("BarChart received data:", data)
-
-  // If there is no data, display a placeholder message
   if (!data || data.length === 0) {
     return (
       <Box
@@ -42,7 +36,6 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
     )
   }
 
-  // Normalize input data to ensure `theoreticalTime` is defined
   const chartData: ChartDataItem[] = data.map((runner) => ({
     name: runner.name,
     errorFreeTime: runner.errorFreeTime,
@@ -55,15 +48,15 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
   return (
     <Box height={height}>
       <ResponsiveBar
-        data={chartData as BarDatum[]} // Type cast required due to flexible keys
-        keys={["errorFreeTime", "errorTime"]} // Bars are composed of these two stacked values
-        indexBy="name" // Each bar represents a runner, indexed by their name
+        data={chartData as BarDatum[]}
+        keys={["errorFreeTime", "errorTime"]}
+        indexBy="name"
         margin={{ top: 50, right: 130, bottom: 50, left: 150 }}
         padding={0.3}
-        layout="horizontal" // Horizontal bar layout for better readability with runner names
+        layout="horizontal"
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
-        colors={({ id }) => (id === "errorTime" ? "#ff4444" : "#44aa44")} // Color coding: red for error, green for clean time
+        colors={({ id }) => (id === "errorTime" ? "#ff4444" : "#44aa44")}
         borderColor={{
           from: "color",
           modifiers: [["darker", 1.6]],
@@ -74,27 +67,23 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Tiempo Sin Errores (tiempo sin errores)", // X-axis label
+          legend: "Tiempo Sin Errores (tiempo sin errores)",
           legendPosition: "middle",
           legendOffset: 32,
-          format: (value) => formatTime(Number(value)), // Format tick values as time strings
+          format: (value) => formatTime(Number(value)),
         }}
         axisLeft={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "Corredores", // Y-axis label
-          legendPosition: "middle",
-          legendOffset: -100,
+          // legend removed here
+          // legendPosition and legendOffset omitted
         }}
-        enableLabel={true} // Enable bar labels
+        enableLabel={true}
         labelSkipWidth={12}
         labelSkipHeight={12}
-        labelTextColor={{
-          from: "color",
-          modifiers: [["darker", 1.6]],
-        }}
-        labelFormat={(value) => formatTime(Number(value))} // Format bar labels as time strings
+        labelTextColor="#ffffff"
+        label={(d) => formatTime(Number(d.value))}
         legends={[
           {
             dataFrom: "keys",
@@ -109,16 +98,8 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
             itemOpacity: 0.85,
             symbolSize: 20,
             data: [
-              {
-                id: "errorFreeTime",
-                label: "Tiempo sin errores",
-                color: "#44aa44",
-              },
-              {
-                id: "errorTime",
-                label: "Tiempo de error",
-                color: "#ff4444",
-              },
+              { id: "errorFreeTime", label: "Tiempo sin errores", color: "#44aa44" },
+              { id: "errorTime", label: "Tiempo de error", color: "#ff4444" },
             ],
             effects: [
               {
@@ -131,10 +112,9 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
           },
         ]}
         tooltip={({ indexValue, data }) => {
-          // Custom tooltip showing detailed breakdown of each runner's times
-          const errorTime = data.errorTime as number
-          const errorFreeTime = data.errorFreeTime as number
-          const total = errorFreeTime + errorTime
+          const errorTime = Number(data.errorTime) || 0
+          const errorFreeTime = Number(data.errorFreeTime) || 0
+          const total = errorTime > 0 ? errorFreeTime + errorTime : errorFreeTime
 
           return (
             <Box
