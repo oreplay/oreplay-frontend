@@ -14,7 +14,7 @@
     "test": "vitest"
   },
   "engines": {
-    "node": "^22.14.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
