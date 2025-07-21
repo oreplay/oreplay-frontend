@@ -1,9 +1,10 @@
 import axios from "axios"
 
 export const API_DOMAIN = import.meta.env.VITE_API_DOMAIN || "https://www.oreplay.es/"
+export const API_BASE_URL = API_DOMAIN + "api/v1/"
 
 export const axiosInstance = axios.create({
-  baseURL: API_DOMAIN + "api/v1/",
+  baseURL: API_BASE_URL,
 })
 
 function buildRequestConfig(token: string | null | undefined) {
