@@ -147,7 +147,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
           const errorTime = Number(data.errorTime) || 0
           const errorFreeTime = Number(data.errorFreeTime) || 0
           const total = errorTime > 0 ? errorFreeTime + errorTime : errorFreeTime
-           // This is the actual loss time (error time)
+          // This is the actual loss time (error time)
           return (
             <Box
               sx={{

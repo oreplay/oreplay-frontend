@@ -74,8 +74,10 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   const selectedRunners = props.selectedRunners || []
   const selectableRunners = runnerList.filter(canSelectRunner)
-  const isAllSelected = selectedRunners.length === selectableRunners.length && selectableRunners.length > 0
-  const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < selectableRunners.length
+  const isAllSelected =
+    selectedRunners.length === selectableRunners.length && selectableRunners.length > 0
+  const isIndeterminate =
+    selectedRunners.length > 0 && selectedRunners.length < selectableRunners.length
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
