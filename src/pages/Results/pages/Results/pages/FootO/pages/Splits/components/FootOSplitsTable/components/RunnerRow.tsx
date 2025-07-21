@@ -2,7 +2,7 @@ import {
   ProcessedRunnerModel,
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { TableCell, TableRow } from "@mui/material"
+import { TableCell, TableRow, Checkbox } from "@mui/material"
 import { parseResultStatus } from "../../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { useTranslation } from "react-i18next"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
@@ -18,6 +18,7 @@ import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../..
 import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
 import { TimeLossResults, getRunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
+import React from "react"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel
@@ -26,6 +27,11 @@ type RunnerRowProps = {
   radiosList: OnlineControlModel[]
   timeLossResults?: TimeLossResults | null
   timeLossEnabled?: boolean
+  graphsEnabled?: boolean
+  selected?: boolean
+  canSelect?: boolean
+  maxRunnersReached?: boolean
+  onSelectionChange?: (runnerId: string, checked: boolean) => void
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
@@ -54,6 +60,20 @@ const calculateTotalLossTime = (
       }
     }
   })
+
+  if (runner.stage.time_seconds > 0) {
+    const finishTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, "FINISH")
+    if (finishTimeLossInfo && finishTimeLossInfo.hasTimeLoss) {
+      const finishControlAnalysis = timeLossResults.analysisPerControl.get("FINISH")
+      if (finishControlAnalysis) {
+        const finishLossTime =
+          finishTimeLossInfo.splitTime - finishControlAnalysis.estimatedTimeWithoutError
+        if (finishLossTime > 0) {
+          totalLoss += finishLossTime
+        }
+      }
+    }
+  }
 
   return totalLoss
 }
@@ -88,8 +108,29 @@ export default function RunnerRow(props: RunnerRowProps) {
 
   const cleanTime = result.time_seconds > 0 ? result.time_seconds - totalLossTime : 0
 
+  const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onSelectionChange?.(props.runner.id, event.target.checked)
+  }
+
   return (
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
+      {props.graphsEnabled && (
+        <TableCell key="selection" padding="checkbox">
+          <Checkbox
+            checked={props.selected || false}
+            onChange={handleSelectionChange}
+            disabled={!props.canSelect || (props.maxRunnersReached && !props.selected)}
+            color="primary"
+            title={
+              !props.canSelect
+                ? "Solo corredores con estado OK pueden ser seleccionados"
+                : props.maxRunnersReached && !props.selected
+                  ? "Máximo de corredores alcanzado para este tipo de gráfico"
+                  : undefined
+            }
+          />
+        </TableCell>
+      )}
       <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
         <RacePosition
           position={props.runner.stage.position}

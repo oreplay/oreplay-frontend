@@ -1,5 +1,13 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import {
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
 import {
@@ -12,8 +20,9 @@ import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
+import { GraphType } from "../GraphSelection/GraphSelectionModal.tsx"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
@@ -22,6 +31,10 @@ type FootOSplitsTableProps = {
   radiosList: OnlineControlModel[]
   timeLossEnabled?: boolean
   timeLossThreshold?: number
+  graphsEnabled?: boolean
+  selectedRunners?: string[]
+  selectedGraphType?: GraphType | null
+  onRunnerSelectionChange?: (selectedRunners: string[]) => void
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
@@ -32,16 +45,18 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     () => getOnlineControlsCourseFromClassSplits(props.radiosList),
     [props.radiosList],
   )
-  const courseControlList = useMemo(() => getCourseFromRunner(runnerList), [runnerList])
+
+  const courseControlList = useMemo(() => {
+    // Eliminado: no añadimos manualmente el control Finish para evitar duplicados
+    return getCourseFromRunner(runnerList)
+  }, [runnerList])
 
   const controlList = props.onlyRadios && props.radiosList ? onlineControlList : courseControlList
 
-  // Calculate time loss analysis when enabled and not showing only radios
   const timeLossResults: TimeLossResults | null = useMemo(() => {
     if (!props.timeLossEnabled || props.onlyRadios || !props.timeLossThreshold) {
       return null
     }
-
     return analyzeTimeLoss(runnerList, props.timeLossThreshold, props.showCumulative)
   }, [
     props.timeLossEnabled,
@@ -51,26 +66,64 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     props.showCumulative,
   ])
 
-  // No runner hasDownloaded a chip
   if (runnerList.length === 0) {
     return <NoRunnerWithSplitsMsg />
   }
 
   const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
+  const canSelectRunner = (runner: ProcessedRunnerModel): boolean => {
+    return !!runner.stage
+  }
+
+  const selectedRunners = props.selectedRunners || []
+  const selectableRunners = runnerList.filter(canSelectRunner)
+  const isAllSelected =
+    selectedRunners.length === selectableRunners.length && selectableRunners.length > 0
+  const isIndeterminate =
+    selectedRunners.length > 0 && selectedRunners.length < selectableRunners.length
+
+  const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      const allRunnerIds = selectableRunners.map((runner) => runner.id)
+      props.onRunnerSelectionChange?.(allRunnerIds)
+    } else {
+      props.onRunnerSelectionChange?.([])
+    }
+  }
+
+  const handleRunnerSelection = (runnerId: string, checked: boolean) => {
+    const currentSelection = props.selectedRunners || []
+    if (checked) {
+      props.onRunnerSelectionChange?.([...currentSelection, runnerId])
+    } else {
+      props.onRunnerSelectionChange?.(currentSelection.filter((id) => id !== runnerId))
+    }
+  }
+
   return (
     <NowProvider>
-      <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
-        <Table key={"SplitsTable"} stickyHeader>
-          <TableHead key={"TableHead"}>
-            <TableRow key={"tableHeadRow"}>
-              <TableCell key={`positionHead`}></TableCell>
-              <TableCell key={`nameHead`} sx={{ fontWeight: "bold" }}>
+      <TableContainer key="TableContainer" sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
+        <Table key="SplitsTable" stickyHeader>
+          <TableHead key="TableHead">
+            <TableRow key="tableHeadRow">
+              {props.graphsEnabled && (
+                <TableCell key="selection" padding="checkbox">
+                  <Checkbox
+                    indeterminate={isIndeterminate}
+                    checked={isAllSelected}
+                    onChange={handleSelectAll}
+                    color="primary"
+                  />
+                </TableCell>
+              )}
+              <TableCell key="positionHead"></TableCell>
+              <TableCell key="nameHead" sx={{ fontWeight: "bold" }}>
                 {t("ResultsStage.Name")}
               </TableCell>
-              <TableCell key={"Time"}>{t("ResultsStage.Times")}</TableCell>
+              <TableCell key="Time">{t("ResultsStage.Times")}</TableCell>
               {showTimeLossColumn && (
-                <TableCell key={"CleanTime"} sx={{ fontWeight: "bold" }}>
+                <TableCell key="CleanTime" sx={{ fontWeight: "bold" }}>
                   Sin Errores
                 </TableCell>
               )}
@@ -98,7 +151,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
               })}
             </TableRow>
           </TableHead>
-          <TableBody key={"TableBody"}>
+          <TableBody key="TableBody">
             {runnerList.map((runner) => (
               <RunnerRow
                 key={`runnerRow${runner.id}`}
@@ -108,6 +161,11 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 radiosList={props.radiosList}
                 timeLossResults={timeLossResults}
                 timeLossEnabled={props.timeLossEnabled}
+                graphsEnabled={props.graphsEnabled}
+                selected={selectedRunners.includes(runner.id)}
+                onSelectionChange={handleRunnerSelection}
+                canSelect={canSelectRunner(runner)}
+                maxRunnersReached={false}
               />
             ))}
           </TableBody>
