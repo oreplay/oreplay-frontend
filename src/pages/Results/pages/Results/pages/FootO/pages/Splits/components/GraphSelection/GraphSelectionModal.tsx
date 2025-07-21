@@ -40,9 +40,9 @@ const GraphSelectionModal: React.FC<GraphSelectionModalProps> = ({
     {
       type: "bar" as GraphType,
       label: "Gráfico de Barras",
-      description: "Tiempo total de carrera con tiempo de error (máx. 2 corredores)",
+      description: "Tiempo total de carrera con análisis de pérdida de tiempo",
       icon: <BarChart />,
-      maxRunners: 2,
+      maxRunners: null, // Updated to support unlimited runners
     },
     {
       type: "boxplot" as GraphType,
@@ -54,7 +54,7 @@ const GraphSelectionModal: React.FC<GraphSelectionModalProps> = ({
     {
       type: "position" as GraphType,
       label: "Evolución de Posición",
-      description: "Cambio de posición por control (soporta múltiples corredores)",
+      description: "Cambio de posición por control",
       icon: <Timeline />,
       maxRunners: null, // Updated to support unlimited runners
     },
