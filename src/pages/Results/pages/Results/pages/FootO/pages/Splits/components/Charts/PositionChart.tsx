@@ -42,7 +42,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
   }
 
   // Transformamos los datos para que el eje X sea: START, 1, 2, ..., FINISH
-  const dataWithCustomX: PositionChartData[] = data.map(runner => {
+  const dataWithCustomX: PositionChartData[] = data.map((runner) => {
     const n = runner.data.length
     return {
       ...runner,
@@ -55,14 +55,14 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         return {
           ...point,
           controlName: point.x, // guardamos el nombre original para tooltip
-          x: xLabel
+          x: xLabel,
         }
-      })
+      }),
     }
   })
 
   const maxPosition = Math.max(
-    ...dataWithCustomX.flatMap(runner => runner.data.map(point => point.y))
+    ...dataWithCustomX.flatMap((runner) => runner.data.map((point) => point.y)),
   )
 
   return (
@@ -75,7 +75,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           type: "linear",
           min: 1,
           max: Math.max(maxPosition, 10),
-          reverse: true
+          reverse: true,
         }}
         axisTop={null}
         axisRight={null}
@@ -85,7 +85,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           tickRotation: -45,
           legend: "Controles",
           legendOffset: 36,
-          legendPosition: "middle"
+          legendPosition: "middle",
         }}
         axisLeft={{
           tickSize: 5,
@@ -94,7 +94,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           legend: "Posición",
           legendOffset: -60,
           legendPosition: "middle",
-          format: (value) => `${Math.round(Number(value))}°`
+          format: (value) => `${Math.round(Number(value))}°`,
         }}
         pointSize={8}
         pointColor={{ theme: "background" }}
@@ -125,11 +125,11 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
                 on: "hover",
                 style: {
                   itemBackground: "rgba(0, 0, 0, .03)",
-                  itemOpacity: 1
-                }
-              }
-            ]
-          }
+                  itemOpacity: 1,
+                },
+              },
+            ],
+          },
         ]}
         tooltip={({ point }) => {
           const data = point.data as PositionDataPoint
@@ -144,7 +144,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
                 border: "1px solid #ccc",
                 borderRadius: 1,
                 boxShadow: 2,
-                minWidth: 250
+                minWidth: 250,
               }}
             >
               <Typography variant="subtitle2" fontWeight="bold" mb={1}>
@@ -182,38 +182,38 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             domain: {
               line: {
                 stroke: "#777777",
-                strokeWidth: 1
-              }
+                strokeWidth: 1,
+              },
             },
             legend: {
               text: {
                 fontSize: 12,
-                fill: "#333333"
-              }
+                fill: "#333333",
+              },
             },
             ticks: {
               line: {
                 stroke: "#777777",
-                strokeWidth: 1
+                strokeWidth: 1,
               },
               text: {
                 fontSize: 11,
-                fill: "#333333"
-              }
-            }
+                fill: "#333333",
+              },
+            },
           },
           legends: {
             text: {
               fontSize: 11,
-              fill: "#333333"
-            }
+              fill: "#333333",
+            },
           },
           grid: {
             line: {
               stroke: "#dddddd",
-              strokeWidth: 1
-            }
-          }
+              strokeWidth: 1,
+            },
+          },
         }}
       />
 

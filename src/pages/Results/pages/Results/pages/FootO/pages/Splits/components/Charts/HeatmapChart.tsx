@@ -52,8 +52,10 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
   }
 
   // Get unique runners and controls for the heatmap grid with validation
-  const uniqueRunners = [...new Set(heatmapDataPoints.map(d => d.runner).filter(Boolean))].sort()
-  const uniqueControls = [...new Set(heatmapDataPoints.map(d => d.control).filter(Boolean))].sort()
+  const uniqueRunners = [...new Set(heatmapDataPoints.map((d) => d.runner).filter(Boolean))].sort()
+  const uniqueControls = [
+    ...new Set(heatmapDataPoints.map((d) => d.control).filter(Boolean)),
+  ].sort()
 
   // Ensure we have data for both dimensions
   if (uniqueRunners.length === 0 || uniqueControls.length === 0) {
@@ -74,14 +76,14 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
   }
 
   // Transform to Nivo format: array of runner objects with control values
-  const nivoData = uniqueRunners.map(runner => {
+  const nivoData = uniqueRunners.map((runner) => {
     const runnerData: { [key: string]: string | number } = { id: runner }
 
-    uniqueControls.forEach(control => {
-      const dataPoint = heatmapDataPoints.find(d => d.runner === runner && d.control === control)
+    uniqueControls.forEach((control) => {
+      const dataPoint = heatmapDataPoints.find((d) => d.runner === runner && d.control === control)
       // Ensure we have a valid numeric value
       const value = dataPoint?.value
-      runnerData[control] = (typeof value === 'number' && !isNaN(value)) ? value : 0
+      runnerData[control] = typeof value === "number" && !isNaN(value) ? value : 0
     })
 
     return runnerData
@@ -89,8 +91,8 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
 
   // Determine min/max values for color scaling with fallbacks
   const allValues = heatmapDataPoints
-    .map(d => d.value)
-    .filter(v => typeof v === 'number' && !isNaN(v) && v > 0)
+    .map((d) => d.value)
+    .filter((v) => typeof v === "number" && !isNaN(v) && v > 0)
 
   const minValue = allValues.length > 0 ? Math.min(...allValues) : 0
   const maxValue = allValues.length > 0 ? Math.max(...allValues) : 100
@@ -104,63 +106,63 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
         margin={{ top: 60, right: 90, bottom: 60, left: 90 }}
         cellOpacity={1}
         cellBorderColor={{
-          from: 'color',
-          modifiers: [['darker', 0.4]]
+          from: "color",
+          modifiers: [["darker", 0.4]],
         }}
         cellBorderWidth={1}
         colors={{
-          type: 'diverging',
-          scheme: 'red_blue',
+          type: "diverging",
+          scheme: "red_blue",
           divergeAt: 0.5,
           minValue,
-          maxValue
+          maxValue,
         }}
         axisTop={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: -45,
-          legend: 'Controles',
-          legendPosition: 'middle',
-          legendOffset: -40
+          legend: "Controles",
+          legendPosition: "middle",
+          legendOffset: -40,
         }}
         axisRight={null}
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: -45,
-          legend: 'Controles',
-          legendPosition: 'middle',
-          legendOffset: 40
+          legend: "Controles",
+          legendPosition: "middle",
+          legendOffset: 40,
         }}
         axisLeft={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Corredores',
-          legendPosition: 'middle',
-          legendOffset: -60
+          legend: "Corredores",
+          legendPosition: "middle",
+          legendOffset: -60,
         }}
         enableLabels={false}
         labelTextColor={{
-          from: 'color',
-          modifiers: [['darker', 1.8]]
+          from: "color",
+          modifiers: [["darker", 1.8]],
         }}
         legends={[
           {
-            anchor: 'bottom',
+            anchor: "bottom",
             translateX: 0,
             translateY: 30,
             length: 400,
             thickness: 8,
-            direction: 'row',
-            tickPosition: 'after',
+            direction: "row",
+            tickPosition: "after",
             tickSize: 3,
             tickSpacing: 4,
             tickOverlap: false,
-            title: 'Posición / Tiempo Perdido →',
-            titleAlign: 'start',
-            titleOffset: 4
-          }
+            title: "Posición / Tiempo Perdido →",
+            titleAlign: "start",
+            titleOffset: 4,
+          },
         ]}
         tooltip={(props) => {
           // Extract data from the tooltip props
@@ -170,9 +172,7 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
           const xKey = cell.serieId
           const yKey = cell.data.id
 
-          const dataPoint = heatmapDataPoints.find(d =>
-            d.runner === yKey && d.control === xKey
-          )
+          const dataPoint = heatmapDataPoints.find((d) => d.runner === yKey && d.control === xKey)
 
           if (!dataPoint) return null
 
@@ -184,7 +184,7 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
                 border: "1px solid #ccc",
                 borderRadius: 1,
                 boxShadow: 2,
-                minWidth: 200
+                minWidth: 200,
               }}
             >
               <Typography variant="subtitle2" fontWeight="bold" mb={1}>
@@ -212,32 +212,32 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
             domain: {
               line: {
                 stroke: "#777777",
-                strokeWidth: 1
-              }
+                strokeWidth: 1,
+              },
             },
             legend: {
               text: {
                 fontSize: 12,
-                fill: "#333333"
-              }
+                fill: "#333333",
+              },
             },
             ticks: {
               line: {
                 stroke: "#777777",
-                strokeWidth: 1
+                strokeWidth: 1,
               },
               text: {
                 fontSize: 11,
-                fill: "#333333"
-              }
-            }
+                fill: "#333333",
+              },
+            },
           },
           legends: {
             text: {
               fontSize: 11,
-              fill: "#333333"
-            }
-          }
+              fill: "#333333",
+            },
+          },
         }}
       />
 
