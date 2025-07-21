@@ -333,7 +333,7 @@ function calculateBoxPlotStats(values: number[]): {
   const lowerBound = q1 - 1.5 * iqr
   const upperBound = q3 + 1.5 * iqr
 
-  const outliers = sorted.filter(value => value < lowerBound || value > upperBound)
+  const outliers = sorted.filter((value) => value < lowerBound || value > upperBound)
 
   return { min, q1, median, q3, max, outliers }
 }
@@ -362,10 +362,10 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
   console.log("transformRunnersForBoxPlot called with:", runners?.length, "runners")
 
   // Use all runners that have splits data, regardless of status
-  const usableRunners = runners.filter(runner => {
-    return runner.stage?.splits &&
-      Array.isArray(runner.stage.splits) &&
-      runner.stage.splits.length > 0
+  const usableRunners = runners.filter((runner) => {
+    return (
+      runner.stage?.splits && Array.isArray(runner.stage.splits) && runner.stage.splits.length > 0
+    )
   })
 
   console.log("Usable runners for BoxPlot:", usableRunners.length)
@@ -376,27 +376,35 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
   }
 
   // Group-all controls
-  const controlsMap = new Map<string, {
-    controlStation: string
-    times: Array<{ value: number; runnerName: string; runnerId: string }>
-  }>()
+  const controlsMap = new Map<
+    string,
+    {
+      controlStation: string
+      times: Array<{ value: number; runnerName: string; runnerId: string }>
+    }
+  >()
 
-  usableRunners.forEach(runner => {
+  usableRunners.forEach((runner) => {
     if (!runner.stage?.splits) return
 
-    runner.stage.splits.forEach(split => {
-      if (split.control?.id && typeof split.time === 'number' && split.time > 0 && !isNaN(split.time)) {
+    runner.stage.splits.forEach((split) => {
+      if (
+        split.control?.id &&
+        typeof split.time === "number" &&
+        split.time > 0 &&
+        !isNaN(split.time)
+      ) {
         const controlId = split.control.id
         if (!controlsMap.has(controlId)) {
           controlsMap.set(controlId, {
             controlStation: split.control.station || split.control.id || controlId,
-            times: []
+            times: [],
           })
         }
         controlsMap.get(controlId)!.times.push({
           value: split.time,
           runnerName: runner.full_name || "Unknown Runner",
-          runnerId: runner.id
+          runnerId: runner.id,
         })
       }
     })
@@ -407,8 +415,9 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
   const boxPlotData: BoxPlotDataPoint[] = []
 
   controlsMap.forEach((controlData, controlId) => {
-    if (controlData.times.length >= 2) { // Need at least 2 data points for a meaningful box plot
-      const values = controlData.times.map(t => t.value).filter(v => !isNaN(v))
+    if (controlData.times.length >= 2) {
+      // Need at least 2 data points for a meaningful box plot
+      const values = controlData.times.map((t) => t.value).filter((v) => !isNaN(v))
       if (values.length >= 2) {
         const stats = calculateBoxPlotStats(values)
 
@@ -422,11 +431,11 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
           median: stats.median,
           q3: stats.q3,
           max: stats.max,
-          outliers: stats.outliers.map(value => ({
+          outliers: stats.outliers.map((value) => ({
             value,
-            runnerName: controlData.times.find(t => t.value === value)?.runnerName || "Unknown"
+            runnerName: controlData.times.find((t) => t.value === value)?.runnerName || "Unknown",
           })),
-          scatter: controlData.times
+          scatter: controlData.times,
         })
       }
     }
@@ -445,10 +454,14 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
 
   console.log("Final BoxPlot data points:", boxPlotData.length)
 
-  return boxPlotData.length > 0 ? [{
-    id: "controls",
-    data: boxPlotData
-  }] : []
+  return boxPlotData.length > 0
+    ? [
+        {
+          id: "controls",
+          data: boxPlotData,
+        },
+      ]
+    : []
 }
 /**
  * Transforms runner data for position evolution chart (unlimited runners, inverted Y-axis)
@@ -456,68 +469,74 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
  */
 export function transformRunnersForPositionChart(
   runners: ProcessedRunnerModel[],
-  selectedRunnerIds: string[]
+  selectedRunnerIds: string[],
 ): PositionChartData[] {
   if (selectedRunnerIds.length === 0) return []
 
   // Use all runners, don't filter by status, no limit on the number of runners
-  const selectedRunners = runners.filter(runner => selectedRunnerIds.includes(runner.id))
+  const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
   const colors = generateRunnerColors(selectedRunners.length)
 
-  return selectedRunners.map((runner, index) => {
-    const data: PositionDataPoint[] = []
+  return selectedRunners
+    .map((runner, index) => {
+      const data: PositionDataPoint[] = []
 
-    // Add a start position
-    data.push({
-      x: "START",
-      y: 1, // Everyone starts at position 1
-      control: "START",
-      controlStation: "START",
-      runnerName: runner.full_name || "Unknown Runner",
-      splitTime: 0,
-      timeLost: 0
-    })
-
-    // Add positions per control if available
-    if (runner.stage?.splits) {
-      const sortedSplits = [...runner.stage.splits].sort(
-        (a, b) => (a.order_number || 0) - (b.order_number || 0)
-      )
-
-      sortedSplits.forEach(split => {
-        if (split.control?.id && split.cumulative_position !== null && split.cumulative_position > 0) {
-          data.push({
-            x: split.control.station,
-            y: split.cumulative_position, // Position (will be inverted in the chart)
-            control: split.control.id,
-            controlStation: split.control.station,
-            runnerName: runner.full_name || "Unknown Runner",
-            splitTime: split.time || 0,
-            timeLost: split.time_behind || 0
-          })
-        }
-      })
-    }
-
-    // Add a finish position if available
-    if (runner.stage?.position && runner.stage.position > 0) {
+      // Add a start position
       data.push({
-        x: "FINISH",
-        y: runner.stage.position,
-        control: "FINISH",
-        controlStation: "FINISH",
+        x: "START",
+        y: 1, // Everyone starts at position 1
+        control: "START",
+        controlStation: "START",
         runnerName: runner.full_name || "Unknown Runner",
-        splitTime: runner.stage.time_seconds || 0,
-        timeLost: runner.stage.time_behind || 0
+        splitTime: 0,
+        timeLost: 0,
       })
-    }
 
-    return {
-      id: runner.full_name || "Unknown Runner",
-      color: colors[index],
-      data
-    }
-  }).filter(runner => runner.data.length > 1) // Must have at least start + one other point
+      // Add positions per control if available
+      if (runner.stage?.splits) {
+        const sortedSplits = [...runner.stage.splits].sort(
+          (a, b) => (a.order_number || 0) - (b.order_number || 0),
+        )
+
+        sortedSplits.forEach((split) => {
+          if (
+            split.control?.id &&
+            split.cumulative_position !== null &&
+            split.cumulative_position > 0
+          ) {
+            data.push({
+              x: split.control.station,
+              y: split.cumulative_position, // Position (will be inverted in the chart)
+              control: split.control.id,
+              controlStation: split.control.station,
+              runnerName: runner.full_name || "Unknown Runner",
+              splitTime: split.time || 0,
+              timeLost: split.time_behind || 0,
+            })
+          }
+        })
+      }
+
+      // Add a finish position if available
+      if (runner.stage?.position && runner.stage.position > 0) {
+        data.push({
+          x: "FINISH",
+          y: runner.stage.position,
+          control: "FINISH",
+          controlStation: "FINISH",
+          runnerName: runner.full_name || "Unknown Runner",
+          splitTime: runner.stage.time_seconds || 0,
+          timeLost: runner.stage.time_behind || 0,
+        })
+      }
+
+      return {
+        id: runner.full_name || "Unknown Runner",
+        color: colors[index],
+        data,
+      }
+    })
+    .filter((runner) => runner.data.length > 1) // Must have at least start + one other point
 }
 
 /**
@@ -526,22 +545,24 @@ export function transformRunnersForPositionChart(
  */
 export function transformRunnersForHeatmap(
   runners: ProcessedRunnerModel[],
-  valueType: 'position' | 'timeLost' = 'position'
+  valueType: "position" | "timeLost" = "position",
 ): HeatmapData[] {
   // Use all runners, don't filter by status
-  const usableRunners = runners.filter(runner => runner.stage?.splits && runner.stage.splits.length > 0)
+  const usableRunners = runners.filter(
+    (runner) => runner.stage?.splits && runner.stage.splits.length > 0,
+  )
 
   if (usableRunners.length === 0) return []
 
   const data: HeatmapDataPoint[] = []
 
-  usableRunners.forEach(runner => {
-    runner.stage.splits.forEach(split => {
+  usableRunners.forEach((runner) => {
+    runner.stage.splits.forEach((split) => {
       if (split.control?.id) {
         let value: number
         let actualValue: number
 
-        if (valueType === 'position') {
+        if (valueType === "position") {
           value = split.cumulative_position || 999
           actualValue = value
         } else {
@@ -555,16 +576,18 @@ export function transformRunnersForHeatmap(
           value,
           actualValue,
           runnerName: runner.full_name || "Unknown Runner",
-          controlStation: split.control.station || split.control.id
+          controlStation: split.control.station || split.control.id,
         })
       }
     })
   })
 
-  return [{
-    id: "heatmap",
-    data
-  }]
+  return [
+    {
+      id: "heatmap",
+      data,
+    },
+  ]
 }
 /**
  * Calculates error-free time and error time using the same logic as timeLossAnalysis.ts
@@ -584,7 +607,7 @@ function calculateRaceAnalysisData(
   if (timeLossResults?.analysisPerControl && totalTime > 0 && runner.stage?.splits) {
     // Use the same logic as timeLossAnalysis.ts
     runner.stage.splits.forEach((split) => {
-      if (split.control?.id && typeof split.time === 'number' && split.time > 0) {
+      if (split.control?.id && typeof split.time === "number" && split.time > 0) {
         const controlId = split.control.id
         const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
 
@@ -638,12 +661,12 @@ function calculateRaceAnalysisData(
   const result = {
     totalTime: actualTotalTime, // Always use actual total time including finish
     errorFreeTime: Math.max(0, errorFreeTime),
-    errorTime: Math.max(0, calculatedErrorTime)
+    errorTime: Math.max(0, calculatedErrorTime),
   }
 
   console.log(`Analysis result for ${runner.full_name}:`, result, {
     hasAnalysisData: !!timeLossResults?.analysisPerControl,
-    controlsAnalyzed: runner.stage?.splits?.length || 0
+    controlsAnalyzed: runner.stage?.splits?.length || 0,
   })
 
   return result
@@ -662,7 +685,7 @@ export function transformRunnersForBarChart(
     runnersCount: runners?.length,
     selectedRunnerIds,
     hasTimeLossResults: !!timeLossResults,
-    analysisMethod: "Using timeLossAnalysis.ts logic"
+    analysisMethod: "Using timeLossAnalysis.ts logic",
   })
 
   // Use all runners, not just "valid" ones - let each transformation decide
@@ -694,10 +717,11 @@ export function transformRunnersForBarChart(
         }
       }
 
-      const { totalTime: calcTotal, errorFreeTime, errorTime } = calculateRaceAnalysisData(
-        runner,
-        timeLossResults
-      )
+      const {
+        totalTime: calcTotal,
+        errorFreeTime,
+        errorTime,
+      } = calculateRaceAnalysisData(runner, timeLossResults)
 
       // Ensure the bar segments add up correctly for stacked visualization
       const finalErrorFreeTime = Math.max(0, errorFreeTime)

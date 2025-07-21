@@ -24,11 +24,11 @@ interface GraphSelectionModalProps {
 }
 
 const GraphSelectionModal: React.FC<GraphSelectionModalProps> = ({
-                                                                   open,
-                                                                   onClose,
-                                                                   onSelectGraph,
-                                                                   selectedGraph,
-                                                                 }) => {
+  open,
+  onClose,
+  onSelectGraph,
+  selectedGraph,
+}) => {
   const graphOptions = [
     {
       type: "line" as GraphType,
