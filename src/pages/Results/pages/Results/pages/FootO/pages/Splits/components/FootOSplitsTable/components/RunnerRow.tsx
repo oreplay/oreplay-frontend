@@ -46,6 +46,7 @@ const calculateTotalLossTime = (
 
   let totalLoss = 0
 
+  // Calculate loss time for intermediate controls
   runner.stage.splits.forEach((split) => {
     if (split.control?.id) {
       const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
@@ -60,6 +61,21 @@ const calculateTotalLossTime = (
       }
     }
   })
+
+  // Calculate loss time for FINISH control (apply same logic as intermediate controls)
+  if (runner.stage.time_seconds > 0) {
+    const finishTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, "FINISH")
+    if (finishTimeLossInfo && finishTimeLossInfo.hasTimeLoss) {
+      const finishControlAnalysis = timeLossResults.analysisPerControl.get("FINISH")
+      if (finishControlAnalysis) {
+        const finishLossTime =
+          finishTimeLossInfo.splitTime - finishControlAnalysis.estimatedTimeWithoutError
+        if (finishLossTime > 0) {
+          totalLoss += finishLossTime
+        }
+      }
+    }
+  }
 
   return totalLoss
 }
@@ -180,6 +196,56 @@ export default function RunnerRow(props: RunnerRowProps) {
           </TableCell>
         )
       })}
+
+      {/* Add FINISH control cell for non-radios mode - using partial time from last split to finish */}
+      {!props.onlyRadios && result.time_seconds > 0 && (
+        <TableCell key={`finish${props.runner.id}`}>
+          <RunnerSplit
+            showCumulative={props.showCumulative}
+            key={`runnerFinishSplit${props.runner.id}`}
+            split={{
+              id: "FINISH",
+              is_intermediate: false,
+              points: null,
+              control: {
+                id: "FINISH",
+                station: "Finish",
+                control_type: {
+                  id: "finish",
+                  description: "Finish",
+                },
+              },
+              // Calculate partial time from last split to finish
+              time: (() => {
+                if (result.splits.length > 0) {
+                  const lastSplit = result.splits[result.splits.length - 1]
+                  return lastSplit.cumulative_time
+                    ? result.time_seconds - lastSplit.cumulative_time
+                    : result.time_seconds
+                }
+                return result.time_seconds
+              })(),
+              cumulative_time: result.time_seconds,
+              time_behind: (() => {
+                // For now, use the overall time_behind as approximation for finish segment
+                return result.time_behind || 0
+              })(),
+              cumulative_behind: result.time_behind || 0,
+              position: result.position,
+              cumulative_position: result.position,
+              order_number: 999,
+              reading_time: result.finish_time,
+            }}
+            timeLossInfo={
+              props.timeLossEnabled && !props.showCumulative && props.timeLossResults
+                ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, "FINISH")
+                : null
+            }
+            timeLossEnabled={props.timeLossEnabled && !props.showCumulative}
+            timeLossResults={props.timeLossResults}
+          />
+        </TableCell>
+      )}
     </TableRow>
   )
 }
