@@ -17,7 +17,7 @@ module.exports = {
     extraFileExtensions: [".json"],
     exclude: ["*.json"],
   },
-  plugins: ["react-refresh", "jsonc"],
+  plugins: ["react-refresh", "jsonc", "i18next", "i18n-json"],
   rules: {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "@typescript-eslint/no-unsafe-member-access": "error",
@@ -27,6 +27,18 @@ module.exports = {
     indent: "off",
     "jsonc/indent": ["error", 2], // Ensures 2 space indentation
     "jsonc/key-spacing": ["error", { beforeColon: false, afterColon: true }], // Ensures no space before colon and space after colon
+    "i18next/no-literal-string": [
+      "error",
+      {
+        markupOnly: true,
+        ignoreAttribute: ["data-testid", "to", "key", "id", "name"],
+      },
+    ],
+    'i18n-json/valid-message-syntax': 'error',
+    'i18n-json/identical-keys': 'error'
+  },
+  settings: {
+    'i18n-json/paths': ['/public/locales/{locale}/{namespace}.json'],
   },
   overrides: [
     {
