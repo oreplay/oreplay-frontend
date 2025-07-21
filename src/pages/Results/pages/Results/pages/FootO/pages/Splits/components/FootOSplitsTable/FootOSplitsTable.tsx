@@ -49,12 +49,10 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   const controlList = props.onlyRadios && props.radiosList ? onlineControlList : courseControlList
 
-  // Calculate time loss analysis when enabled and not showing only radios
   const timeLossResults: TimeLossResults | null = useMemo(() => {
     if (!props.timeLossEnabled || props.onlyRadios || !props.timeLossThreshold) {
       return null
     }
-
     return analyzeTimeLoss(runnerList, props.timeLossThreshold, props.showCumulative)
   }, [
     props.timeLossEnabled,
@@ -64,47 +62,24 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     props.showCumulative,
   ])
 
-  // No runner hasDownloaded a chip
   if (runnerList.length === 0) {
     return <NoRunnerWithSplitsMsg />
   }
 
   const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
-  // Helper function to check if runner can be selected - Relaxed validation for better compatibility
   const canSelectRunner = (runner: ProcessedRunnerModel): boolean => {
-    // Allow runners with any status except completely invalid ones
-    if (!runner.stage) return false
-
-    // Allow runners even without splits (some charts might still work)
-    return true
-  }
-
-  // Get max runners allowed for current graph type
-  const getMaxRunnersAllowed = (): number | null => {
-    if (props.selectedGraphType === "radar" || props.selectedGraphType === "bar") {
-      return 2
-    }
-    // For position and others, no limit
-    return null
+    return !!runner.stage
   }
 
   const selectedRunners = props.selectedRunners || []
-  const maxRunners = getMaxRunnersAllowed()
-
-  // Filter runners to only show valid ones for selection
   const selectableRunners = runnerList.filter(canSelectRunner)
   const isAllSelected = selectedRunners.length === selectableRunners.length && selectableRunners.length > 0
   const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < selectableRunners.length
 
-  // Handle selection
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      let allRunnerIds = selectableRunners.map((runner) => runner.id)
-      // Apply max runner limit
-      if (maxRunners && allRunnerIds.length > maxRunners) {
-        allRunnerIds = allRunnerIds.slice(0, maxRunners)
-      }
+      const allRunnerIds = selectableRunners.map((runner) => runner.id)
       props.onRunnerSelectionChange?.(allRunnerIds)
     } else {
       props.onRunnerSelectionChange?.([])
@@ -114,22 +89,18 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const handleRunnerSelection = (runnerId: string, checked: boolean) => {
     const currentSelection = props.selectedRunners || []
     if (checked) {
-      if (maxRunners && currentSelection.length >= maxRunners) {
-        return // no add if limit reached
-      }
       props.onRunnerSelectionChange?.([...currentSelection, runnerId])
     } else {
       props.onRunnerSelectionChange?.(currentSelection.filter((id) => id !== runnerId))
     }
   }
 
-
   return (
     <NowProvider>
-      <TableContainer key={"TableContainer"} sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
-        <Table key={"SplitsTable"} stickyHeader>
-          <TableHead key={"TableHead"}>
-            <TableRow key={"tableHeadRow"}>
+      <TableContainer key="TableContainer" sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
+        <Table key="SplitsTable" stickyHeader>
+          <TableHead key="TableHead">
+            <TableRow key="tableHeadRow">
               {props.graphsEnabled && (
                 <TableCell key="selection" padding="checkbox">
                   <Checkbox
@@ -140,13 +111,13 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   />
                 </TableCell>
               )}
-              <TableCell key={`positionHead`}></TableCell>
-              <TableCell key={`nameHead`} sx={{ fontWeight: "bold" }}>
+              <TableCell key="positionHead"></TableCell>
+              <TableCell key="nameHead" sx={{ fontWeight: "bold" }}>
                 {t("ResultsStage.Name")}
               </TableCell>
-              <TableCell key={"Time"}>{t("ResultsStage.Times")}</TableCell>
+              <TableCell key="Time">{t("ResultsStage.Times")}</TableCell>
               {showTimeLossColumn && (
-                <TableCell key={"CleanTime"} sx={{ fontWeight: "bold" }}>
+                <TableCell key="CleanTime" sx={{ fontWeight: "bold" }}>
                   Sin Errores
                 </TableCell>
               )}
@@ -174,7 +145,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
               })}
             </TableRow>
           </TableHead>
-          <TableBody key={"TableBody"}>
+          <TableBody key="TableBody">
             {runnerList.map((runner) => (
               <RunnerRow
                 key={`runnerRow${runner.id}`}
@@ -188,7 +159,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 selected={selectedRunners.includes(runner.id)}
                 onSelectionChange={handleRunnerSelection}
                 canSelect={canSelectRunner(runner)}
-                maxRunnersReached={maxRunners ? selectedRunners.length >= maxRunners : false}
+                maxRunnersReached={false}
               />
             ))}
           </TableBody>
