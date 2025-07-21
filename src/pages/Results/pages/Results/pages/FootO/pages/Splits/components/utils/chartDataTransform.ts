@@ -2,24 +2,6 @@ import { ProcessedRunnerModel } from "../../../../../../../../components/Virtual
 import { ChartDataItem } from "../Charts/BarChart.tsx"
 import { TimeLossResults } from "./timeLossAnalysis.ts"
 
-// Box Plot Data Structures
-export interface BoxPlotDataPoint {
-  control: string
-  controlStation: string
-  min: number
-  q1: number
-  median: number
-  q3: number
-  max: number
-  outliers: Array<{ value: number; runnerName: string }>
-  scatter: Array<{ value: number; runnerName: string; runnerId: string }>
-}
-
-export interface BoxPlotData {
-  id: string
-  data: BoxPlotDataPoint[]
-}
-
 // Position Evolution Data Structures
 export interface PositionDataPoint {
   x: string // Control name/number
@@ -35,21 +17,6 @@ export interface PositionChartData {
   id: string
   color: string
   data: PositionDataPoint[]
-}
-
-// Heatmap Data Structures
-export interface HeatmapDataPoint {
-  runner: string
-  control: string
-  value: number // position or time lost
-  actualValue: number // for tooltip
-  runnerName: string
-  controlStation: string
-}
-
-export interface HeatmapData {
-  id: string
-  data: HeatmapDataPoint[]
 }
 
 export interface ChartDataPoint {
@@ -306,164 +273,6 @@ function calculateLeaderTimesForEachControl(runners: ProcessedRunnerModel[]): Ma
 }
 
 /**
- * Calculates quartiles and statistics for box plot
- */
-function calculateBoxPlotStats(values: number[]): {
-  min: number
-  q1: number
-  median: number
-  q3: number
-  max: number
-  outliers: number[]
-} {
-  if (values.length === 0) {
-    return { min: 0, q1: 0, median: 0, q3: 0, max: 0, outliers: [] }
-  }
-
-  const sorted = [...values].sort((a, b) => a - b)
-  const min = sorted[0]
-  const max = sorted[sorted.length - 1]
-
-  const median = getPercentile(sorted, 0.5)
-  const q1 = getPercentile(sorted, 0.25)
-  const q3 = getPercentile(sorted, 0.75)
-
-  // Calculate IQR for outlier detection
-  const iqr = q3 - q1
-  const lowerBound = q1 - 1.5 * iqr
-  const upperBound = q3 + 1.5 * iqr
-
-  const outliers = sorted.filter((value) => value < lowerBound || value > upperBound)
-
-  return { min, q1, median, q3, max, outliers }
-}
-
-/**
- * Calculates percentile from a sorted array
- */
-function getPercentile(sortedArray: number[], percentile: number): number {
-  if (sortedArray.length === 0) return 0
-  if (sortedArray.length === 1) return sortedArray[0]
-
-  const index = (sortedArray.length - 1) * percentile
-  const lower = Math.floor(index)
-  const upper = Math.ceil(index)
-  const weight = index % 1
-
-  if (upper >= sortedArray.length) return sortedArray[sortedArray.length - 1]
-
-  return sortedArray[lower] * (1 - weight) + sortedArray[upper] * weight
-}
-/**
- * Transforms runner data for box plot visualization per control
- * More permissive with runner validation
- */
-export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): BoxPlotData[] {
-  console.log("transformRunnersForBoxPlot called with:", runners?.length, "runners")
-
-  // Use all runners that have splits data, regardless of status
-  const usableRunners = runners.filter((runner) => {
-    return (
-      runner.stage?.splits && Array.isArray(runner.stage.splits) && runner.stage.splits.length > 0
-    )
-  })
-
-  console.log("Usable runners for BoxPlot:", usableRunners.length)
-
-  if (usableRunners.length === 0) {
-    console.log("No usable runners found for BoxPlot")
-    return []
-  }
-
-  // Group-all controls
-  const controlsMap = new Map<
-    string,
-    {
-      controlStation: string
-      times: Array<{ value: number; runnerName: string; runnerId: string }>
-    }
-  >()
-
-  usableRunners.forEach((runner) => {
-    if (!runner.stage?.splits) return
-
-    runner.stage.splits.forEach((split) => {
-      if (
-        split.control?.id &&
-        typeof split.time === "number" &&
-        split.time > 0 &&
-        !isNaN(split.time)
-      ) {
-        const controlId = split.control.id
-        if (!controlsMap.has(controlId)) {
-          controlsMap.set(controlId, {
-            controlStation: split.control.station || split.control.id || controlId,
-            times: [],
-          })
-        }
-        controlsMap.get(controlId)!.times.push({
-          value: split.time,
-          runnerName: runner.full_name || "Unknown Runner",
-          runnerId: runner.id,
-        })
-      }
-    })
-  })
-
-  console.log("Controls found for BoxPlot:", controlsMap.size)
-
-  const boxPlotData: BoxPlotDataPoint[] = []
-
-  controlsMap.forEach((controlData, controlId) => {
-    if (controlData.times.length >= 2) {
-      // Need at least 2 data points for a meaningful box plot
-      const values = controlData.times.map((t) => t.value).filter((v) => !isNaN(v))
-      if (values.length >= 2) {
-        const stats = calculateBoxPlotStats(values)
-
-        console.log(`BoxPlot stats for control ${controlId}:`, stats)
-
-        boxPlotData.push({
-          control: controlId,
-          controlStation: controlData.controlStation,
-          min: stats.min,
-          q1: stats.q1,
-          median: stats.median,
-          q3: stats.q3,
-          max: stats.max,
-          outliers: stats.outliers.map((value) => ({
-            value,
-            runnerName: controlData.times.find((t) => t.value === value)?.runnerName || "Unknown",
-          })),
-          scatter: controlData.times,
-        })
-      }
-    }
-  })
-
-  // Sort by control station for consistent ordering
-  boxPlotData.sort((a, b) => {
-    // Try to sort numerically if possible, otherwise alphabetically
-    const aNum = parseInt(a.controlStation)
-    const bNum = parseInt(b.controlStation)
-    if (!isNaN(aNum) && !isNaN(bNum)) {
-      return aNum - bNum
-    }
-    return a.controlStation.localeCompare(b.controlStation)
-  })
-
-  console.log("Final BoxPlot data points:", boxPlotData.length)
-
-  return boxPlotData.length > 0
-    ? [
-        {
-          id: "controls",
-          data: boxPlotData,
-        },
-      ]
-    : []
-}
-/**
  * Transforms runner data for position evolution chart (unlimited runners, inverted Y-axis)
  * More permissive with runner validation
  */
@@ -540,56 +349,6 @@ export function transformRunnersForPositionChart(
 }
 
 /**
- * Transforms runner data for heatmap visualization
- * More permissive with runner validation
- */
-export function transformRunnersForHeatmap(
-  runners: ProcessedRunnerModel[],
-  valueType: "position" | "timeLost" = "position",
-): HeatmapData[] {
-  // Use all runners, don't filter by status
-  const usableRunners = runners.filter(
-    (runner) => runner.stage?.splits && runner.stage.splits.length > 0,
-  )
-
-  if (usableRunners.length === 0) return []
-
-  const data: HeatmapDataPoint[] = []
-
-  usableRunners.forEach((runner) => {
-    runner.stage.splits.forEach((split) => {
-      if (split.control?.id) {
-        let value: number
-        let actualValue: number
-
-        if (valueType === "position") {
-          value = split.cumulative_position || 999
-          actualValue = value
-        } else {
-          value = split.time_behind || 0
-          actualValue = value
-        }
-
-        data.push({
-          runner: runner.full_name || "Unknown Runner",
-          control: split.control.station || split.control.id,
-          value,
-          actualValue,
-          runnerName: runner.full_name || "Unknown Runner",
-          controlStation: split.control.station || split.control.id,
-        })
-      }
-    })
-  })
-
-  return [
-    {
-      id: "heatmap",
-      data,
-    },
-  ]
-}
-/**
  * Calculates error-free time and error time using the same logic as timeLossAnalysis.ts
  * Uses estimatedTimeWithoutError and hasTimeLoss from the existing analysis
  */
@@ -605,7 +364,7 @@ function calculateRaceAnalysisData(
   let calculatedErrorTime = 0
 
   if (timeLossResults?.analysisPerControl && totalTime > 0 && runner.stage?.splits) {
-    // Use the same logic as timeLossAnalysis.ts
+    // Use the same logic as timeLossAnalysis.ts for intermediate controls
     runner.stage.splits.forEach((split) => {
       if (split.control?.id && typeof split.time === "number" && split.time > 0) {
         const controlId = split.control.id
@@ -637,6 +396,28 @@ function calculateRaceAnalysisData(
         }
       }
     })
+
+    // Handle FINISH control analysis (apply same time loss logic as intermediate controls)
+    if (runner.stage?.time_seconds && runner.stage.time_seconds > 0) {
+      const finishControlAnalysis = timeLossResults.analysisPerControl.get("FINISH")
+      if (
+        finishControlAnalysis?.estimatedTimeWithoutError &&
+        finishControlAnalysis.runnerAnalysis
+      ) {
+        const estimatedFinishTime = finishControlAnalysis.estimatedTimeWithoutError
+        const finishRunnerInfo = finishControlAnalysis.runnerAnalysis.get(runner.id)
+
+        if (finishRunnerInfo) {
+          const actualFinishTime = finishRunnerInfo.splitTime || runner.stage.time_seconds
+
+          if (finishRunnerInfo.hasTimeLoss) {
+            // Calculate the finish segment time loss
+            const finishSegmentLoss = Math.max(0, actualFinishTime - estimatedFinishTime)
+            calculatedErrorTime += finishSegmentLoss
+          }
+        }
+      }
+    }
   } else {
     // Fallback: No analysis available - assume 95% good time
     if (totalTime > 0) {
