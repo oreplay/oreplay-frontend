@@ -11,7 +11,7 @@ type Props = {
   ref: React.MutableRefObject<HTMLDivElement>
 }
 
-const Header = React.forwardRef((props: Props, ref) => {
+const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
   const navigate = useNavigate()
   const location = useLocation()
   const { t } = useTranslation()
