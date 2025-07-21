@@ -18,6 +18,7 @@ import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../..
 import RacePosition from "../../../../../../../../../components/RacePosition..tsx"
 import { TimeLossResults, getRunnerTimeLossInfo } from "../../utils/timeLossAnalysis.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
+import React from "react"
 
 type RunnerRowProps = {
   runner: ProcessedRunnerModel

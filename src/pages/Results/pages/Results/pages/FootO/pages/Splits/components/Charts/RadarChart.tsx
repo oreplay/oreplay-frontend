@@ -39,7 +39,10 @@ interface SliceTooltipProps {
 }
 
 const RadarChart: React.FC<RadarChartProps> = ({ data, height = 400 }) => {
-  if (data.length === 0 || data.length > 2) {
+  // Debug logging
+  console.log("RadarChart received data:", data)
+
+  if (!data || data.length === 0 || data.length > 2) {
     return (
       <Box
         display="flex"
@@ -50,9 +53,9 @@ const RadarChart: React.FC<RadarChartProps> = ({ data, height = 400 }) => {
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary" textAlign="center" px={2}>
-          {data.length === 0
+          {!data || data.length === 0
             ? "Selecciona 1-2 corredores para el gráfico radar"
-            : "Máximo 2 corredores permitidos"}
+            : "Máximo 2 corredores permitidos para gráfico radar"}
         </Typography>
       </Box>
     )

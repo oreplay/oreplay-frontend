@@ -71,16 +71,22 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
-  // Helper function to check if runner can be selected (modificado para permitir todos)
+  // Helper function to check if runner can be selected - Relaxed validation for better compatibility
+  const canSelectRunner = (runner: ProcessedRunnerModel): boolean => {
+    // Allow runners with any status except completely invalid ones
+    if (!runner.stage) return false
 
-  const canSelectRunner = (): boolean => true
+    // Allow runners even without splits (some charts might still work)
+    return true
+  }
 
   // Get max runners allowed for current graph type
   const getMaxRunnersAllowed = (): number | null => {
-    if (props.selectedGraphType === "radar" || props.selectedGraphType === "position") {
+    if (props.selectedGraphType === "radar" || props.selectedGraphType === "bar") {
       return 2
     }
-    return null // No limit for other chart types
+    // For position and others, no limit
+    return null
   }
 
   const selectedRunners = props.selectedRunners || []
@@ -108,15 +114,15 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const handleRunnerSelection = (runnerId: string, checked: boolean) => {
     const currentSelection = props.selectedRunners || []
     if (checked) {
-      // Check if we would exceed max runners limit
       if (maxRunners && currentSelection.length >= maxRunners) {
-        return // Don't allow selection beyond limit
+        return // no add if limit reached
       }
       props.onRunnerSelectionChange?.([...currentSelection, runnerId])
     } else {
       props.onRunnerSelectionChange?.(currentSelection.filter((id) => id !== runnerId))
     }
   }
+
 
   return (
     <NowProvider>
@@ -181,7 +187,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 graphsEnabled={props.graphsEnabled}
                 selected={selectedRunners.includes(runner.id)}
                 onSelectionChange={handleRunnerSelection}
-                canSelect={canSelectRunner()}
+                canSelect={canSelectRunner(runner)}
                 maxRunnersReached={maxRunners ? selectedRunners.length >= maxRunners : false}
               />
             ))}

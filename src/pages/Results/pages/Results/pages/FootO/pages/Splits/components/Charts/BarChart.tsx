@@ -21,8 +21,11 @@ interface BarChartProps {
 }
 
 const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
+  // Debug logging
+  console.log("BarChart received data:", data)
+
   // If there is no data, display a placeholder message
-  if (data.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <Box
         display="flex"
@@ -33,7 +36,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary">
-          Selecciona corredores para ver el gráfico
+          Selecciona corredores para ver el gráfico de barras
         </Typography>
       </Box>
     )
