@@ -95,8 +95,8 @@ export default function FootOSplits(
 
   // Handler when selected runners change (for graph display)
   const handleRunnerSelectionChange = (runners: string[]) => {
-    // Enforce max 2 runners for radar and position charts
-    if ((selectedGraphType === 'radar' || selectedGraphType === 'position') && runners.length > 2) {
+    // Enforce max 2 runners for radar, position, and bar charts
+    if ((selectedGraphType === 'radar' || selectedGraphType === 'position' || selectedGraphType === 'bar') && runners.length > 2) {
       // Don't update if trying to select more than 2 for these chart types
       return
     }
@@ -109,11 +109,22 @@ export default function FootOSplits(
       ? transformRunnersForLineChart(runners, selectedRunners)
       : []
 
-  // Prepare data for the bar chart if applicable (with threshold filtering)
+  // Prepare data for the bar chart if applicable (max 2 runners)
   const barChartData =
-    selectedGraphType === "bar" && selectedRunners.length > 0
-      ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults, timeLossThreshold)
+    selectedGraphType === "bar" && selectedRunners.length > 0 && selectedRunners.length <= 2
+      ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults, 0) // Don't filter by threshold for display
       : []
+
+  // Debug logging for bar chart data
+  if (selectedGraphType === "bar") {
+    console.log("Bar Chart Debug Info:", {
+      selectedRunners: selectedRunners.length,
+      selectedRunnerIds: selectedRunners,
+      barChartDataLength: barChartData.length,
+      barChartData: barChartData,
+      timeLossResults: !!timeLossResults
+    })
+  }
 
   // Prepare data for box plot chart
   const boxPlotData =
@@ -164,10 +175,13 @@ export default function FootOSplits(
             {selectedGraphType === "radar" && "Gráfico Radar"}
             {selectedGraphType === "position" && "Evolución de Posición"}
             {selectedGraphType === "heatmap" && "Mapa de Calor"}
-            {(selectedGraphType === "line" || selectedGraphType === "bar" || selectedGraphType === "radar" || selectedGraphType === "position") && (
+            {(selectedGraphType === "line" || selectedGraphType === "boxplot" || selectedGraphType === "heatmap") && selectedRunners.length > 0 && (
               <> - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""} seleccionado{selectedRunners.length !== 1 ? "s" : ""}</>
             )}
-            {(selectedGraphType === "radar" || selectedGraphType === "position") && selectedRunners.length === 0 && (
+            {(selectedGraphType === "bar" || selectedGraphType === "radar" || selectedGraphType === "position") && selectedRunners.length > 0 && (
+              <> - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""} seleccionado{selectedRunners.length !== 1 ? "s" : ""}</>
+            )}
+            {(selectedGraphType === "bar" || selectedGraphType === "radar" || selectedGraphType === "position") && selectedRunners.length === 0 && (
               <span style={{ color: "#f44336" }}> - Selecciona 1-2 corredores</span>
             )}
           </Typography>
