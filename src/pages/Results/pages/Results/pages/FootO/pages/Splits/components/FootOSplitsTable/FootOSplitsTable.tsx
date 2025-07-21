@@ -1,12 +1,12 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import {
+  Checkbox,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Checkbox,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
@@ -45,27 +45,11 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     () => getOnlineControlsCourseFromClassSplits(props.radiosList),
     [props.radiosList],
   )
+
   const courseControlList = useMemo(() => {
-    const baseControlList = getCourseFromRunner(runnerList)
-    // Add FINISH control to regular FootO races to match time loss analysis
-    if (!props.onlyRadios && runnerList.length > 0) {
-      const hasFinishTimes = runnerList.some((runner) => runner.stage?.time_seconds > 0)
-      if (hasFinishTimes) {
-        baseControlList.push({
-          control: {
-            id: "FINISH",
-            station: "Finish",
-            control_type: {
-              id: "finish",
-              description: "Finish",
-            },
-          },
-          order_number: 999, // High order number for finish to match analysis
-        })
-      }
-    }
-    return baseControlList
-  }, [runnerList, props.onlyRadios])
+    // Eliminado: no añadimos manualmente el control Finish para evitar duplicados
+    return getCourseFromRunner(runnerList)
+  }, [runnerList])
 
   const controlList = props.onlyRadios && props.radiosList ? onlineControlList : courseControlList
 
