@@ -129,7 +129,8 @@
     "Language": {
         "French": "",
         "English": "",
-        "Language": ""
+        "Language": "",
+        "Spanish": ""
     },
     "Results": {
         "Finish": "",
@@ -201,5 +202,6 @@
     "Save": "",
     "GoBack": "",
     "Delete": "",
-    "ExperimentalFeatureMsg": ""
+    "ExperimentalFeatureMsg": "",
+    "Loading": ""
 }
