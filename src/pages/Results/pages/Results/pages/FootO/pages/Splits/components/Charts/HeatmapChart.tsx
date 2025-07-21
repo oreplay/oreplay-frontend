@@ -31,10 +31,10 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
   }
 
   // Transform data for Nivo heatmap format with validation
-  const heatmapData = data[0]?.data || []
+  const heatmapDataPoints = data[0]?.data || []
 
   // Validate data exists
-  if (!heatmapData || heatmapData.length === 0) {
+  if (!heatmapDataPoints || heatmapDataPoints.length === 0) {
     return (
       <Box
         display="flex"
@@ -52,8 +52,8 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
   }
 
   // Get unique runners and controls for the heatmap grid with validation
-  const uniqueRunners = [...new Set(heatmapData.map(d => d.runner).filter(Boolean))].sort()
-  const uniqueControls = [...new Set(heatmapData.map(d => d.control).filter(Boolean))].sort()
+  const uniqueRunners = [...new Set(heatmapDataPoints.map(d => d.runner).filter(Boolean))].sort()
+  const uniqueControls = [...new Set(heatmapDataPoints.map(d => d.control).filter(Boolean))].sort()
 
   // Ensure we have data for both dimensions
   if (uniqueRunners.length === 0 || uniqueControls.length === 0) {
@@ -78,7 +78,7 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
     const runnerData: { [key: string]: string | number } = { id: runner }
 
     uniqueControls.forEach(control => {
-      const dataPoint = heatmapData.find(d => d.runner === runner && d.control === control)
+      const dataPoint = heatmapDataPoints.find(d => d.runner === runner && d.control === control)
       // Ensure we have a valid numeric value
       const value = dataPoint?.value
       runnerData[control] = (typeof value === 'number' && !isNaN(value)) ? value : 0
@@ -88,7 +88,7 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
   })
 
   // Determine min/max values for color scaling with fallbacks
-  const allValues = heatmapData
+  const allValues = heatmapDataPoints
     .map(d => d.value)
     .filter(v => typeof v === 'number' && !isNaN(v) && v > 0)
 
@@ -98,7 +98,7 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
   return (
     <Box height={height}>
       <ResponsiveHeatMap
-        data={nivoData}
+        data={nivoData as any}
         keys={uniqueControls}
         indexBy="id"
         margin={{ top: 60, right: 90, bottom: 60, left: 90 }}
@@ -162,8 +162,15 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
             titleOffset: 4
           }
         ]}
-        tooltip={({ xKey, yKey, value }) => {
-          const dataPoint = heatmapData.find(d =>
+        tooltip={(props) => {
+          // Extract data from the tooltip props
+          const { cell } = props as any
+          if (!cell) return null
+
+          const xKey = cell.serieId
+          const yKey = cell.data.id
+
+          const dataPoint = heatmapDataPoints.find(d =>
             d.runner === yKey && d.control === xKey
           )
 
