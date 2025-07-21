@@ -665,39 +665,78 @@ function calculateRaceAnalysisData(
   let errorFreeTime = 0
   let calculatedErrorTime = 0
 
-  if (timeLossResults?.analysisPerControl && totalTime > 0 && runner.stage?.splits) {
-    // Use the same logic as timeLossAnalysis.ts
-    runner.stage.splits.forEach((split) => {
-      if (split.control?.id && typeof split.time === 'number' && split.time > 0) {
-        const controlId = split.control.id
-        const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
+  if (timeLossResults?.analysisPerControl && totalTime > 0) {
+    // Check if we have FINISH control analysis - if so, use total race analysis approach
+    const finishAnalysis = timeLossResults.analysisPerControl.get("FINISH")
 
-        if (controlAnalysis?.estimatedTimeWithoutError && controlAnalysis.runnerAnalysis) {
-          const estimatedTime = controlAnalysis.estimatedTimeWithoutError
-          const runnerInfo = controlAnalysis.runnerAnalysis.get(runner.id)
+    if (finishAnalysis?.estimatedTimeWithoutError && finishAnalysis.runnerAnalysis) {
+      // NEW APPROACH: Use FINISH control analysis for total time breakdown
+      const finishRunnerInfo = finishAnalysis.runnerAnalysis.get(runner.id)
 
-          if (runnerInfo) {
-            const actualSplitTime = runnerInfo.splitTime || split.time
+      if (finishRunnerInfo) {
+        const estimatedTotalTime = finishAnalysis.estimatedTimeWithoutError
+        const actualTotalTime = finishRunnerInfo.splitTime || totalTime
 
-            if (runnerInfo.hasTimeLoss) {
-              // Runner has time loss - split into estimated time (green) and lost time (red)
-              errorFreeTime += estimatedTime
-              calculatedErrorTime += Math.max(0, actualSplitTime - estimatedTime)
+        if (finishRunnerInfo.hasTimeLoss) {
+          // Runner has overall time loss - split total time
+          errorFreeTime = estimatedTotalTime
+          calculatedErrorTime = Math.max(0, actualTotalTime - estimatedTotalTime)
+        } else {
+          // No significant time loss - most time is good
+          errorFreeTime = actualTotalTime
+          calculatedErrorTime = 0
+        }
+
+        console.log(`Finish-based analysis for ${runner.full_name}:`, {
+          hasOverallTimeLoss: finishRunnerInfo.hasTimeLoss,
+          actualTotalTime,
+          estimatedTotalTime,
+          errorFreeTime,
+          calculatedErrorTime
+        })
+      } else {
+        // No finish analysis for this runner - fallback
+        errorFreeTime = totalTime * 0.95
+        calculatedErrorTime = totalTime * 0.05
+      }
+    } else if (runner.stage?.splits) {
+      // FALLBACK: Use split-by-split analysis when no FINISH control analysis available
+      runner.stage.splits.forEach((split) => {
+        if (split.control?.id && typeof split.time === 'number' && split.time > 0) {
+          const controlId = split.control.id
+          const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
+
+          if (controlAnalysis?.estimatedTimeWithoutError && controlAnalysis.runnerAnalysis) {
+            const estimatedTime = controlAnalysis.estimatedTimeWithoutError
+            const runnerInfo = controlAnalysis.runnerAnalysis.get(runner.id)
+
+            if (runnerInfo) {
+              const actualSplitTime = runnerInfo.splitTime || split.time
+
+              if (runnerInfo.hasTimeLoss) {
+                errorFreeTime += estimatedTime
+                calculatedErrorTime += Math.max(0, actualSplitTime - estimatedTime)
+              } else {
+                errorFreeTime += actualSplitTime
+              }
             } else {
-              // No time loss detected - all time is considered good time
-              errorFreeTime += actualSplitTime
+              errorFreeTime += Math.min(estimatedTime, split.time)
+              calculatedErrorTime += Math.max(0, split.time - estimatedTime)
             }
           } else {
-            // No analysis for this runner on this control - use estimated time
-            errorFreeTime += Math.min(estimatedTime, split.time)
-            calculatedErrorTime += Math.max(0, split.time - estimatedTime)
+            errorFreeTime += split.time
           }
-        } else {
-          // No analysis available for this control - treat as good time
-          errorFreeTime += split.time
         }
+      })
+
+      // Add any remaining time not accounted for by splits
+      const splitsTime = runner.stage.splits.reduce((sum, split) => sum + (split.time || 0), 0)
+      const remainingTime = Math.max(0, totalTime - splitsTime)
+      if (remainingTime > 0) {
+        errorFreeTime += remainingTime
+        console.log(`Added remaining time for ${runner.full_name}:`, remainingTime)
       }
-    })
+    }
   } else {
     // Fallback: No analysis available - assume 95% good time
     if (totalTime > 0) {
@@ -706,22 +745,32 @@ function calculateRaceAnalysisData(
     }
   }
 
-  // Ensure values make sense
-  if (errorFreeTime <= 0 && totalTime > 0) {
-    errorFreeTime = totalTime * 0.95
-    calculatedErrorTime = totalTime * 0.05
-  }
+  // Ensure we account for all time from start to finish line
+  // The total should always match the actual finish time
+  const actualTotalTime = runner.stage?.time_seconds || 0
 
-  // Ensure we don't exceed total time
-  const sum = errorFreeTime + calculatedErrorTime
-  if (sum > totalTime && totalTime > 0) {
-    const ratio = totalTime / sum
+  // If our calculation doesn't match the total time, adjust proportionally
+  const calculatedSum = errorFreeTime + calculatedErrorTime
+  if (calculatedSum > 0 && Math.abs(calculatedSum - actualTotalTime) > 1) {
+    // Significant difference - adjust to match actual total
+    const ratio = actualTotalTime / calculatedSum
     errorFreeTime = errorFreeTime * ratio
     calculatedErrorTime = calculatedErrorTime * ratio
+
+    console.log(`Adjusted calculation for ${runner.full_name}:`, {
+      original: { errorFreeTime: errorFreeTime / ratio, calculatedErrorTime: calculatedErrorTime / ratio },
+      adjusted: { errorFreeTime, calculatedErrorTime },
+      actualTotalTime,
+      ratio
+    })
+  } else if (calculatedSum === 0 && actualTotalTime > 0) {
+    // No calculation available - use fallback
+    errorFreeTime = actualTotalTime * 0.95
+    calculatedErrorTime = actualTotalTime * 0.05
   }
 
   const result = {
-    totalTime,
+    totalTime: actualTotalTime, // Always use actual total time including finish
     errorFreeTime: Math.max(0, errorFreeTime),
     errorTime: Math.max(0, calculatedErrorTime)
   }

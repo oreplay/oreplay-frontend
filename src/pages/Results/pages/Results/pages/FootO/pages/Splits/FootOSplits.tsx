@@ -93,11 +93,7 @@ export default function FootOSplits(
 
   // Handler when selected runners change (for graph display)
   const handleRunnerSelectionChange = (runners: string[]) => {
-    // Only enforce max 2 runners for bar charts
-    if (selectedGraphType === 'bar' && runners.length > 2) {
-      // Don't update if trying to select more than 2 for bar chart
-      return
-    }
+    // No restrictions on runner count - support unlimited runners for all chart types
     setSelectedRunners(runners)
   }
 
@@ -107,10 +103,10 @@ export default function FootOSplits(
       ? transformRunnersForLineChart(runners, selectedRunners)
       : []
 
-  // Prepare data for the bar chart if applicable (max 2 runners)
+  // Prepare data for the bar chart if applicable (unlimited runners supported)
   const barChartData =
-    selectedGraphType === "bar" && selectedRunners.length > 0 && selectedRunners.length <= 2
-      ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults, timeLossThreshold)
+    selectedGraphType === "bar" && selectedRunners.length > 0
+      ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults)
       : []
 
   // Debug logging for bar chart data
@@ -173,7 +169,7 @@ export default function FootOSplits(
               <> - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""} seleccionado{selectedRunners.length !== 1 ? "s" : ""}</>
             )}
             {selectedGraphType === "bar" && selectedRunners.length === 0 && (
-              <span style={{ color: "#f44336" }}> - Selecciona 1-2 corredores</span>
+              <span style={{ color: "#f44336" }}> - Selecciona corredores</span>
             )}
           </Typography>
         )}
