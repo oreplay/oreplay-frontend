@@ -30,12 +30,48 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
     )
   }
 
-  // Transform data for Nivo heatmap format
-  const heatmapData = data[0].data
+  // Transform data for Nivo heatmap format with validation
+  const heatmapData = data[0]?.data || []
 
-  // Get unique runners and controls for the heatmap grid
-  const uniqueRunners = [...new Set(heatmapData.map(d => d.runner))].sort()
-  const uniqueControls = [...new Set(heatmapData.map(d => d.control))].sort()
+  // Validate data exists
+  if (!heatmapData || heatmapData.length === 0) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height={height}
+        bgcolor="grey.50"
+        borderRadius={1}
+      >
+        <Typography variant="h6" color="text.secondary">
+          No hay suficientes datos para el mapa de calor
+        </Typography>
+      </Box>
+    )
+  }
+
+  // Get unique runners and controls for the heatmap grid with validation
+  const uniqueRunners = [...new Set(heatmapData.map(d => d.runner).filter(Boolean))].sort()
+  const uniqueControls = [...new Set(heatmapData.map(d => d.control).filter(Boolean))].sort()
+
+  // Ensure we have data for both dimensions
+  if (uniqueRunners.length === 0 || uniqueControls.length === 0) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height={height}
+        bgcolor="grey.50"
+        borderRadius={1}
+      >
+        <Typography variant="h6" color="text.secondary">
+          Datos insuficientes para generar el mapa de calor
+        </Typography>
+      </Box>
+    )
+  }
 
   // Transform to Nivo format: array of runner objects with control values
   const nivoData = uniqueRunners.map(runner => {
@@ -43,16 +79,21 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({ data, height = 400 }) => {
 
     uniqueControls.forEach(control => {
       const dataPoint = heatmapData.find(d => d.runner === runner && d.control === control)
-      runnerData[control] = dataPoint ? dataPoint.value : 0
+      // Ensure we have a valid numeric value
+      const value = dataPoint?.value
+      runnerData[control] = (typeof value === 'number' && !isNaN(value)) ? value : 0
     })
 
     return runnerData
   })
 
-  // Determine min/max values for color scaling
-  const allValues = heatmapData.map(d => d.value).filter(v => v > 0)
-  const minValue = Math.min(...allValues)
-  const maxValue = Math.max(...allValues)
+  // Determine min/max values for color scaling with fallbacks
+  const allValues = heatmapData
+    .map(d => d.value)
+    .filter(v => typeof v === 'number' && !isNaN(v) && v > 0)
+
+  const minValue = allValues.length > 0 ? Math.min(...allValues) : 0
+  const maxValue = allValues.length > 0 ? Math.max(...allValues) : 100
 
   return (
     <Box height={height}>
