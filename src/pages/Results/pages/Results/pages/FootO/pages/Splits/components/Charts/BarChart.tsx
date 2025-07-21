@@ -1,5 +1,5 @@
 import React from "react"
-import { ResponsiveBar, BarDatum } from "@nivo/bar"
+import { BarDatum, ResponsiveBar } from "@nivo/bar"
 import { Box, Typography } from "@mui/material"
 import { formatTime } from "../utils/chartDataTransform"
 
@@ -51,14 +51,14 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
   }))
 
   // Ensure data integrity - errorTime + errorFreeTime should not exceed totalTime
-  const validatedData = chartData.map(runner => {
+  const validatedData = chartData.map((runner) => {
     const sum = runner.errorFreeTime + runner.errorTime
     if (sum > runner.totalTime && runner.totalTime > 0) {
       const ratio = runner.totalTime / sum
       return {
         ...runner,
         errorFreeTime: runner.errorFreeTime * ratio,
-        errorTime: runner.errorTime * ratio
+        errorTime: runner.errorTime * ratio,
       }
     }
     return runner
@@ -70,7 +70,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
       width="100%"
       sx={{
         overflowX: data.length > 8 ? "auto" : "visible",
-        minWidth: calculatedWidth
+        minWidth: calculatedWidth,
       }}
     >
       <ResponsiveBar
@@ -81,7 +81,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
           top: 50,
           right: 130,
           bottom: 80, // Increased for longer runner names
-          left: Math.min(200, Math.max(150, data.length * 8)) // Dynamic left margin
+          left: Math.min(200, Math.max(150, data.length * 8)), // Dynamic left margin
         }}
         padding={Math.max(0.1, Math.min(0.5, 0.8 / data.length))} // Dynamic padding based on runner count
         layout="horizontal"
@@ -114,7 +114,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
         labelTextColor="#ffffff"
         label={(d) => {
           const value = Number(d.value)
-          return value > 30 ? formatTime(value) : '' // Only show label if segment is large enough
+          return value > 30 ? formatTime(value) : "" // Only show label if segment is large enough
         }}
         legends={[
           {
@@ -147,8 +147,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
           const errorTime = Number(data.errorTime) || 0
           const errorFreeTime = Number(data.errorFreeTime) || 0
           const total = errorTime > 0 ? errorFreeTime + errorTime : errorFreeTime
-          const lossTime = errorTime // This is the actual loss time (error time)
-
+           // This is the actual loss time (error time)
           return (
             <Box
               sx={{
@@ -173,7 +172,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
               </Typography>
 
               <Typography variant="body2" mb={1} color="#ff4444">
-                Tiempo perdido (loss time): {formatTime(lossTime)}
+                Tiempo perdido (loss time): {formatTime(errorTime)}
               </Typography>
 
               {total > 0 && (
