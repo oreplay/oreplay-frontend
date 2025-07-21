@@ -89,7 +89,7 @@ export function analyzeTimeLoss(
   })
 
   // Add FINISH control if runners have finish times
-  const hasFinishTimes = validRunners.some(runner => runner.stage.time_seconds > 0)
+  const hasFinishTimes = validRunners.some((runner) => runner.stage.time_seconds > 0)
   if (hasFinishTimes) {
     allControls.add("FINISH")
   }

@@ -32,20 +32,20 @@ export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
   // State hooks for controlling various UI toggles and selections
-  const [onlyRadios, setOnlyRadios] = useState<boolean>(false)               // Show only radio controls or all splits
-  const [showCumulative, setShowCumulative] = useState<boolean>(false)       // Show cumulative times or partial times
+  const [onlyRadios, setOnlyRadios] = useState<boolean>(false) // Show only radio controls or all splits
+  const [showCumulative, setShowCumulative] = useState<boolean>(false) // Show cumulative times or partial times
   const [showCumulativeDisplayed, setShowCumulativeDisplayed] = useState<boolean>(false) // UI state sync for cumulative switch
-  const [timeLossEnabled, setTimeLossEnabled] = useState<boolean>(false)     // Enable time loss analysis
-  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)      // Threshold (%) for time loss detection
-  const [graphsEnabled, setGraphsEnabled] = useState<boolean>(false)         // Enable or disable graph display
-  const [graphModalOpen, setGraphModalOpen] = useState<boolean>(false)       // Whether the graph selection modal is open
+  const [timeLossEnabled, setTimeLossEnabled] = useState<boolean>(false) // Enable time loss analysis
+  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15) // Threshold (%) for time loss detection
+  const [graphsEnabled, setGraphsEnabled] = useState<boolean>(false) // Enable or disable graph display
+  const [graphModalOpen, setGraphModalOpen] = useState<boolean>(false) // Whether the graph selection modal is open
   const [selectedGraphType, setSelectedGraphType] = useState<GraphType | null>(null) // Currently selected graph type (line or bar)
-  const [selectedRunners, setSelectedRunners] = useState<string[]>([])       // IDs of runners selected for graph display
+  const [selectedRunners, setSelectedRunners] = useState<string[]>([]) // IDs of runners selected for graph display
 
   // Shortcut variables for easier access
   const activeItem = props.activeItem
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const runners = props.runnersQuery.data || []  // List of runners from a query, default empty array
+  const runners = props.runnersQuery.data || [] // List of runners from a query, default empty array
 
   // Memoized calculation of time loss analysis results when a threshold or relevant data changes
   const timeLossResults: TimeLossResults | undefined = useMemo(() => {
@@ -116,15 +116,12 @@ export default function FootOSplits(
       selectedRunnerIds: selectedRunners,
       barChartDataLength: barChartData.length,
       barChartData: barChartData,
-      timeLossResults: !!timeLossResults
+      timeLossResults: !!timeLossResults,
     })
   }
 
   // Prepare data for box plot chart
-  const boxPlotData =
-    selectedGraphType === "boxplot"
-      ? transformRunnersForBoxPlot(runners)
-      : []
+  const boxPlotData = selectedGraphType === "boxplot" ? transformRunnersForBoxPlot(runners) : []
 
   // Prepare data for position evolution chart (supports unlimited runners)
   const positionChartData =
@@ -134,9 +131,7 @@ export default function FootOSplits(
 
   // Prepare data for heatmap chart
   const heatmapData =
-    selectedGraphType === "heatmap"
-      ? transformRunnersForHeatmap(runners, 'position')
-      : []
+    selectedGraphType === "heatmap" ? transformRunnersForHeatmap(runners, "position") : []
 
   return (
     <>
@@ -162,15 +157,28 @@ export default function FootOSplits(
             {selectedGraphType === "boxplot" && "Gráfico de Cajas"}
             {selectedGraphType === "position" && "Evolución de Posición"}
             {selectedGraphType === "heatmap" && "Mapa de Calor"}
-            {(selectedGraphType === "line" || selectedGraphType === "boxplot" || selectedGraphType === "heatmap") && selectedRunners.length > 0 && (
-              <> - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""} seleccionado{selectedRunners.length !== 1 ? "s" : ""}</>
-            )}
-            {(selectedGraphType === "bar" || selectedGraphType === "position") && selectedRunners.length > 0 && (
-              <> - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""} seleccionado{selectedRunners.length !== 1 ? "s" : ""}</>
-            )}
-            {(selectedGraphType === "bar" || selectedGraphType === "position") && selectedRunners.length === 0 && (
-              <span style={{ color: "#f44336" }}> - Selecciona corredores</span>
-            )}
+            {(selectedGraphType === "line" ||
+              selectedGraphType === "boxplot" ||
+              selectedGraphType === "heatmap") &&
+              selectedRunners.length > 0 && (
+                <>
+                  {" "}
+                  - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""}{" "}
+                  seleccionado{selectedRunners.length !== 1 ? "s" : ""}
+                </>
+              )}
+            {(selectedGraphType === "bar" || selectedGraphType === "position") &&
+              selectedRunners.length > 0 && (
+                <>
+                  {" "}
+                  - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""}{" "}
+                  seleccionado{selectedRunners.length !== 1 ? "s" : ""}
+                </>
+              )}
+            {(selectedGraphType === "bar" || selectedGraphType === "position") &&
+              selectedRunners.length === 0 && (
+                <span style={{ color: "#f44336" }}> - Selecciona corredores</span>
+              )}
           </Typography>
         )}
       </Box>
@@ -256,7 +264,9 @@ export default function FootOSplits(
           {selectedGraphType === "line" && <LineChart data={lineChartData} height={400} />}
           {selectedGraphType === "bar" && <BarChart data={barChartData} height={400} />}
           {selectedGraphType === "boxplot" && <BoxPlotChart data={boxPlotData} height={400} />}
-          {selectedGraphType === "position" && <PositionChart data={positionChartData} height={400} />}
+          {selectedGraphType === "position" && (
+            <PositionChart data={positionChartData} height={400} />
+          )}
           {selectedGraphType === "heatmap" && <HeatmapChart data={heatmapData} height={400} />}
         </Box>
       )}
