@@ -1,5 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes"
 import { ChartDataItem } from "../Charts/BarChart.tsx"
+import { TimeLossResults } from "./timeLossAnalysis.ts"
 
 // Box Plot Data Structures
 export interface BoxPlotDataPoint {
@@ -378,10 +379,21 @@ function getPercentile(sortedArray: number[], percentile: number): number {
  * More permissive with runner validation
  */
 export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): BoxPlotData[] {
-  // Use all runners that have splits data, regardless of status
-  const usableRunners = runners.filter(runner => runner.stage?.splits && runner.stage.splits.length > 0)
+  console.log("transformRunnersForBoxPlot called with:", runners?.length, "runners")
 
-  if (usableRunners.length === 0) return []
+  // Use all runners that have splits data, regardless of status
+  const usableRunners = runners.filter(runner => {
+    return runner.stage?.splits &&
+      Array.isArray(runner.stage.splits) &&
+      runner.stage.splits.length > 0
+  })
+
+  console.log("Usable runners for BoxPlot:", usableRunners.length)
+
+  if (usableRunners.length === 0) {
+    console.log("No usable runners found for BoxPlot")
+    return []
+  }
 
   // Group all controls
   const controlsMap = new Map<string, {
@@ -390,12 +402,14 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
   }>()
 
   usableRunners.forEach(runner => {
+    if (!runner.stage?.splits) return
+
     runner.stage.splits.forEach(split => {
-      if (split.control?.id && split.time !== null && split.time > 0) {
+      if (split.control?.id && typeof split.time === 'number' && split.time > 0 && !isNaN(split.time)) {
         const controlId = split.control.id
         if (!controlsMap.has(controlId)) {
           controlsMap.set(controlId, {
-            controlStation: split.control.station || controlId,
+            controlStation: split.control.station || split.control.id || controlId,
             times: []
           })
         }
@@ -408,37 +422,53 @@ export function transformRunnersForBoxPlot(runners: ProcessedRunnerModel[]): Box
     })
   })
 
+  console.log("Controls found for BoxPlot:", controlsMap.size)
+
   const boxPlotData: BoxPlotDataPoint[] = []
 
   controlsMap.forEach((controlData, controlId) => {
-    if (controlData.times.length > 0) {
-      const values = controlData.times.map(t => t.value)
-      const stats = calculateBoxPlotStats(values)
+    if (controlData.times.length >= 2) { // Need at least 2 data points for meaningful box plot
+      const values = controlData.times.map(t => t.value).filter(v => !isNaN(v))
+      if (values.length >= 2) {
+        const stats = calculateBoxPlotStats(values)
 
-      boxPlotData.push({
-        control: controlId,
-        controlStation: controlData.controlStation,
-        min: stats.min,
-        q1: stats.q1,
-        median: stats.median,
-        q3: stats.q3,
-        max: stats.max,
-        outliers: stats.outliers.map(value => ({
-          value,
-          runnerName: controlData.times.find(t => t.value === value)?.runnerName || "Unknown"
-        })),
-        scatter: controlData.times
-      })
+        console.log(`BoxPlot stats for control ${controlId}:`, stats)
+
+        boxPlotData.push({
+          control: controlId,
+          controlStation: controlData.controlStation,
+          min: stats.min,
+          q1: stats.q1,
+          median: stats.median,
+          q3: stats.q3,
+          max: stats.max,
+          outliers: stats.outliers.map(value => ({
+            value,
+            runnerName: controlData.times.find(t => t.value === value)?.runnerName || "Unknown"
+          })),
+          scatter: controlData.times
+        })
+      }
     }
   })
 
   // Sort by control station for consistent ordering
-  boxPlotData.sort((a, b) => a.controlStation.localeCompare(b.controlStation))
+  boxPlotData.sort((a, b) => {
+    // Try to sort numerically if possible, otherwise alphabetically
+    const aNum = parseInt(a.controlStation)
+    const bNum = parseInt(b.controlStation)
+    if (!isNaN(aNum) && !isNaN(bNum)) {
+      return aNum - bNum
+    }
+    return a.controlStation.localeCompare(b.controlStation)
+  })
 
-  return [{
+  console.log("Final BoxPlot data points:", boxPlotData.length)
+
+  return boxPlotData.length > 0 ? [{
     id: "controls",
     data: boxPlotData
-  }]
+  }] : []
 }
 
 /**
@@ -621,64 +651,110 @@ export function transformRunnersForHeatmap(
   }]
 }
 /**
- * Calculates error-free time and error time from race analysis table
+ * Calculates error-free time and error time using the same logic as timeLossAnalysis.ts
+ * Uses estimatedTimeWithoutError and hasTimeLoss from the existing analysis
  */
 function calculateRaceAnalysisData(
   runner: ProcessedRunnerModel,
-  timeLossResults?: { analysisPerControl?: Map<string, { estimatedTimeWithoutError?: number }> },
+  timeLossResults?: TimeLossResults,
 ): { totalTime: number; errorFreeTime: number; errorTime: number } {
-  const totalTime = runner.stage.time_seconds || 0
+  const totalTime = runner.stage?.time_seconds || 0
+
+  console.log(`Calculating race analysis for ${runner.full_name}, total time: ${totalTime}`)
 
   let errorFreeTime = 0
-  let calculatedErrorTime: number
+  let calculatedErrorTime = 0
 
-  if (timeLossResults?.analysisPerControl && totalTime > 0) {
-    // Sum up all control times to get error-free time
+  if (timeLossResults?.analysisPerControl && totalTime > 0 && runner.stage?.splits) {
+    // Use the same logic as timeLossAnalysis.ts
     runner.stage.splits.forEach((split) => {
-      if (split.control?.id && split.time !== null && split.time > 0) {
-        const controlAnalysis = timeLossResults.analysisPerControl?.get(split.control.id)
-        if (controlAnalysis?.estimatedTimeWithoutError) {
-          errorFreeTime += controlAnalysis.estimatedTimeWithoutError
+      if (split.control?.id && typeof split.time === 'number' && split.time > 0) {
+        const controlId = split.control.id
+        const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
+
+        if (controlAnalysis?.estimatedTimeWithoutError && controlAnalysis.runnerAnalysis) {
+          const estimatedTime = controlAnalysis.estimatedTimeWithoutError
+          const runnerInfo = controlAnalysis.runnerAnalysis.get(runner.id)
+
+          if (runnerInfo) {
+            const actualSplitTime = runnerInfo.splitTime || split.time
+
+            if (runnerInfo.hasTimeLoss) {
+              // Runner has time loss - split into estimated time (green) and lost time (red)
+              errorFreeTime += estimatedTime
+              calculatedErrorTime += Math.max(0, actualSplitTime - estimatedTime)
+            } else {
+              // No time loss detected - all time is considered good time
+              errorFreeTime += actualSplitTime
+            }
+          } else {
+            // No analysis for this runner on this control - use estimated time
+            errorFreeTime += Math.min(estimatedTime, split.time)
+            calculatedErrorTime += Math.max(0, split.time - estimatedTime)
+          }
         } else {
-          // If no analysis available for this control, use actual time
+          // No analysis available for this control - treat as good time
           errorFreeTime += split.time
         }
       }
     })
-
-    calculatedErrorTime = Math.max(0, totalTime - errorFreeTime)
   } else {
-    // Fallback: Use actual time as error-free if no time loss analysis
-    errorFreeTime = totalTime
-    calculatedErrorTime = 0
+    // Fallback: No analysis available - assume 95% good time
+    if (totalTime > 0) {
+      errorFreeTime = totalTime * 0.95
+      calculatedErrorTime = totalTime * 0.05
+    }
   }
 
   // Ensure values make sense
   if (errorFreeTime <= 0 && totalTime > 0) {
-    errorFreeTime = totalTime * 0.8 // Assume 80% is error-free if we can't calculate
-    calculatedErrorTime = totalTime * 0.2
+    errorFreeTime = totalTime * 0.95
+    calculatedErrorTime = totalTime * 0.05
   }
 
-  return {
+  // Ensure we don't exceed total time
+  const sum = errorFreeTime + calculatedErrorTime
+  if (sum > totalTime && totalTime > 0) {
+    const ratio = totalTime / sum
+    errorFreeTime = errorFreeTime * ratio
+    calculatedErrorTime = calculatedErrorTime * ratio
+  }
+
+  const result = {
     totalTime,
     errorFreeTime: Math.max(0, errorFreeTime),
     errorTime: Math.max(0, calculatedErrorTime)
   }
+
+  console.log(`Analysis result for ${runner.full_name}:`, result, {
+    hasAnalysisData: !!timeLossResults?.analysisPerControl,
+    controlsAnalyzed: runner.stage?.splits?.length || 0
+  })
+
+  return result
 }
 
 /**
  * Transforms runner data for bar chart visualization (stacked bar showing race analysis data)
- * Updated to be more permissive with data requirements
+ * Uses the same logic as timeLossAnalysis.ts: estimatedTimeWithoutError and hasTimeLoss
  */
 export function transformRunnersForBarChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[],
-  timeLossResults?: { analysisPerControl?: Map<string, { estimatedTimeWithoutError?: number }> },
+  timeLossResults?: TimeLossResults,
 ): ChartDataItem[] {
+  console.log("transformRunnersForBarChart called with:", {
+    runnersCount: runners?.length,
+    selectedRunnerIds,
+    hasTimeLossResults: !!timeLossResults,
+    analysisMethod: "Using timeLossAnalysis.ts logic"
+  })
+
   // Use all runners, not just "valid" ones - let each transformation decide
   const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
 
   if (selectedRunners.length === 0) {
+    console.log("No selected runners found for bar chart")
     return []
   }
 
@@ -690,7 +766,8 @@ export function transformRunnersForBarChart(
       const totalTime = runner.stage?.time_seconds || 0
 
       if (totalTime <= 0) {
-        // Still create an entry but with minimal data
+        console.log(`Runner ${runner.full_name} has no time data`)
+        // Still create an entry but with minimal data for visualization
         return {
           runnerId: runner.id,
           name: runner.full_name || "Unknown Runner",
@@ -704,18 +781,37 @@ export function transformRunnersForBarChart(
 
       const { totalTime: calcTotal, errorFreeTime, errorTime } = calculateRaceAnalysisData(
         runner,
-        timeLossResults,
+        timeLossResults
       )
 
-      return {
+      // Ensure the bar segments add up correctly for stacked visualization
+      const finalErrorFreeTime = Math.max(0, errorFreeTime)
+      const finalErrorTime = Math.max(0, errorTime)
+
+      // Validate that the sum doesn't exceed total time
+      const sum = finalErrorFreeTime + finalErrorTime
+      let adjustedErrorFreeTime = finalErrorFreeTime
+      let adjustedErrorTime = finalErrorTime
+
+      if (sum > calcTotal && calcTotal > 0) {
+        // Proportionally adjust if sum exceeds total
+        const ratio = calcTotal / sum
+        adjustedErrorFreeTime = finalErrorFreeTime * ratio
+        adjustedErrorTime = finalErrorTime * ratio
+      }
+
+      const result = {
         runnerId: runner.id,
         name: runner.full_name || "Unknown Runner",
         totalTime: calcTotal,
-        errorFreeTime,
-        errorTime,
-        theoreticalTime: errorFreeTime,
+        errorFreeTime: adjustedErrorFreeTime,
+        errorTime: adjustedErrorTime,
+        theoreticalTime: adjustedErrorFreeTime, // Best possible time without errors
         color: colors[index],
       }
+
+      console.log(`Bar chart data for ${runner.full_name}:`, result)
+      return result
     })
     .filter((item): item is NonNullable<typeof item> => item !== null)
 }
