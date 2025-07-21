@@ -168,7 +168,7 @@ export default function FootOSplits(
             {(selectedGraphType === "bar" || selectedGraphType === "position") && selectedRunners.length > 0 && (
               <> - {selectedRunners.length} corredor{selectedRunners.length !== 1 ? "es" : ""} seleccionado{selectedRunners.length !== 1 ? "s" : ""}</>
             )}
-            {selectedGraphType === "bar" && selectedRunners.length === 0 && (
+            {(selectedGraphType === "bar" || selectedGraphType === "position") && selectedRunners.length === 0 && (
               <span style={{ color: "#f44336" }}> - Selecciona corredores</span>
             )}
           </Typography>
