@@ -9,6 +9,7 @@ export interface PositionDataPoint {
   runnerName: string
   splitTime: number
   timeLost: number
+  controlName?: string // nombre original del control
 }
 
 export interface PositionChartData {
@@ -23,7 +24,7 @@ interface PositionChartProps {
 }
 
 const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => {
-  if (data.length === 0 || data.length > 2) {
+  if (!data || data.length === 0) {
     return (
       <Box
         display="flex"
@@ -34,31 +35,47 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary">
-          {data.length === 0
-            ? "Selecciona 1-2 corredores para evolución de posición"
-            : "Máximo 2 corredores permitidos"
-          }
+          Selecciona corredores para ver la evolución de posición
         </Typography>
       </Box>
     )
   }
 
-  // Find the maximum position to set Y scale properly (inverted)
+  // Transformamos los datos para que el eje X sea: START, 1, 2, ..., FINISH
+  const dataWithCustomX: PositionChartData[] = data.map(runner => {
+    const n = runner.data.length
+    return {
+      ...runner,
+      data: runner.data.map((point, idx) => {
+        let xLabel: string
+        if (idx === 0) xLabel = "START"
+        else if (idx === n - 1) xLabel = "FINISH"
+        else xLabel = idx.toString() // Controles intermedios empiezan en 1, 2, 3, ...
+
+        return {
+          ...point,
+          controlName: point.x, // guardamos el nombre original para tooltip
+          x: xLabel
+        }
+      })
+    }
+  })
+
   const maxPosition = Math.max(
-    ...data.flatMap(runner => runner.data.map(point => point.y))
+    ...dataWithCustomX.flatMap(runner => runner.data.map(point => point.y))
   )
 
   return (
     <Box height={height}>
       <ResponsiveLine
-        data={data}
+        data={dataWithCustomX}
         margin={{ top: 50, right: 110, bottom: 50, left: 80 }}
         xScale={{ type: "point" }}
         yScale={{
           type: "linear",
           min: 1,
           max: Math.max(maxPosition, 10),
-          reverse: true // Invert Y-axis so position 1 is at top
+          reverse: true
         }}
         axisTop={null}
         axisRight={null}
@@ -115,8 +132,9 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           }
         ]}
         tooltip={({ point }) => {
-          // Aquí 'point.data' tiene tipo PositionDataPoint
           const data = point.data as PositionDataPoint
+          // No mostramos tooltip para START ni FINISH
+          if (data.x === "START" || data.x === "FINISH") return null
 
           return (
             <Box
@@ -134,7 +152,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
               </Typography>
 
               <Typography variant="body2" mb={0.5}>
-                Control: {data.x}
+                Control: {data.controlName}
               </Typography>
 
               <Typography variant="body2" mb={0.5}>
@@ -142,14 +160,18 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
               </Typography>
 
               {data.splitTime > 0 && (
-                <Typography variant="body2" mb={0.5}>
+                <Typography
+                  variant="body2"
+                  mb={0.5}
+                  fontWeight={data.timeLost <= 0 ? "bold" : "normal"}
+                >
                   Tiempo parcial: {formatTime(data.splitTime)}
                 </Typography>
               )}
 
               {data.timeLost > 0 && (
                 <Typography variant="body2" mb={0.5}>
-                  Tiempo perdido: +{formatTime(data.timeLost)}
+                  Tiempo respecto al mejor parcial: +{formatTime(data.timeLost)}
                 </Typography>
               )}
             </Box>
@@ -195,7 +217,6 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         }}
       />
 
-      {/* Info box */}
       <Box mt={1}>
         <Typography variant="caption" color="text.secondary">
           * Posición 1 arriba (mejor), posiciones más altas abajo (peor)

@@ -40,9 +40,9 @@ const GraphSelectionModal: React.FC<GraphSelectionModalProps> = ({
     {
       type: "bar" as GraphType,
       label: "Gráfico de Barras",
-      description: "Tiempo total de carrera con tiempo de error",
+      description: "Tiempo total de carrera con tiempo de error (máx. 2 corredores)",
       icon: <BarChart />,
-      maxRunners: null,
+      maxRunners: 2,
     },
     {
       type: "boxplot" as GraphType,
