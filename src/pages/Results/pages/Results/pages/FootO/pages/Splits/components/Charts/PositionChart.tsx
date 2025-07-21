@@ -78,7 +78,15 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           reverse: true,
         }}
         axisTop={null}
-        axisRight={null}
+        axisRight={{
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+          legend: "Posición",
+          legendOffset: 60,
+          legendPosition: "middle",
+          format: (value) => `${Math.round(Number(value))}°`,
+        }}
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,

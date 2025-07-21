@@ -12,9 +12,9 @@ import {
   ListItemIcon,
   Typography,
 } from "@mui/material"
-import { ShowChart, BarChart, ScatterPlot, Timeline, GridOn } from "@mui/icons-material"
+import { ShowChart, BarChart, Timeline } from "@mui/icons-material"
 
-export type GraphType = "line" | "bar" | "boxplot" | "position" | "heatmap"
+export type GraphType = "line" | "bar" | "position"
 
 interface GraphSelectionModalProps {
   open: boolean
@@ -45,25 +45,11 @@ const GraphSelectionModal: React.FC<GraphSelectionModalProps> = ({
       maxRunners: null, // Updated to support unlimited runners
     },
     {
-      type: "boxplot" as GraphType,
-      label: "Gráfico de Cajas",
-      description: "Distribución estadística de tiempos por control",
-      icon: <ScatterPlot />,
-      maxRunners: null,
-    },
-    {
       type: "position" as GraphType,
       label: "Evolución de Posición",
       description: "Cambio de posición por control",
       icon: <Timeline />,
       maxRunners: null, // Updated to support unlimited runners
-    },
-    {
-      type: "heatmap" as GraphType,
-      label: "Mapa de Calor",
-      description: "Matriz de posiciones por corredor y control",
-      icon: <GridOn />,
-      maxRunners: null,
     },
   ]
 
