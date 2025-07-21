@@ -1,1 +1,205 @@
-{}
+{
+    "ResultsStage": {
+        "FinishTime": "",
+        "Refresh": "",
+        "statusCodes": {
+            "nc": "",
+            "mp": "",
+            "ok": "",
+            "disqualified": "",
+            "ot": "",
+            "dnf": "",
+            "dns": ""
+        },
+        "VirtualTicket": {
+            "Control": "",
+            "StartHour": "",
+            "NoDownloadMsg": "",
+            "Cumulative": "",
+            "RaceTime": "",
+            "Partial": "",
+            "FinishControl": "",
+            "FinishHour": ""
+        },
+        "NotStarted": "",
+        "Times": "",
+        "Points": "",
+        "WrongFileUploaded": {
+            "Msg": "",
+            "Title": ""
+        },
+        "Position": "",
+        "NoData": "",
+        "BonusPoints": "",
+        "Club": "",
+        "Class": "",
+        "PointsTable": {
+            "OnlyForClasses": ""
+        },
+        "SplitsTable": {
+            "CumulativeTimes": "",
+            "OnlyForClasses": "",
+            "NoRunnersWithSplits": "",
+            "PartialTimes": ""
+        },
+        "RaceTime": "",
+        "NoStartTime": "",
+        "NoClubMsg": "",
+        "PenaltyPoints": "",
+        "Clubs": "",
+        "ChooseClass": "",
+        "Classes": "",
+        "StartTime": "",
+        "Name": ""
+    },
+    "StageHeader": {
+        "StartTime": "",
+        "ScorePoints": "",
+        "Splits": "",
+        "Results": "",
+        "RelayLegs": ""
+    },
+    "Menu": "",
+    "EventAdmin": {
+        "Stages": {
+            "WipeOutRunners": {
+                "DialogConfirm": "",
+                "DialogBody": "",
+                "MenuText": "",
+                "DialogTitle": ""
+            },
+            "Stats": {
+                "DialogTitle": "",
+                "MenuText": "",
+                "DialogBody": "",
+                "DialogConfirm": ""
+            },
+            "StagesTypes": {
+                "ChaseStart": "",
+                "Rogaine": "",
+                "FootO": "",
+                "Relay": "",
+                "TrailO": "",
+                "Totals": "",
+                "StageType": "",
+                "Raid": "",
+                "MassStart": ""
+            },
+            "DeleteStage": {
+                "DialogTitle": "",
+                "MenuText": "",
+                "DialogBody": ""
+            },
+            "NewStage": "",
+            "GoToStage": ""
+        },
+        "Scopes": {
+            "RegionalLow": "",
+            "Club": "",
+            "RegionalHigh": "",
+            "Local": "",
+            "Scope": "",
+            "International": "",
+            "National": ""
+        },
+        "EventData": "",
+        "FinishDate": "",
+        "Country": "",
+        "RenewEventTokenMsg": "",
+        "Save": "",
+        "DeleteEvent": "",
+        "EventName": "",
+        "Organizer": "",
+        "StartDate": "",
+        "Do you want to delete this event?": "",
+        "Website": "",
+        "Hidden": "",
+        "EventSecurityTokens": "",
+        "Location": "",
+        "EventId": "",
+        "DangerArea": "",
+        "Public": "",
+        "InvalidURLMsg": "",
+        "Do you want to renew the security key?": "",
+        "Create security keys": "",
+        "EventSecurityTokensExpireDate": "",
+        "Renew": "",
+        "Renew security keys": ""
+    },
+    "Language": {
+        "French": "",
+        "English": "",
+        "Language": ""
+    },
+    "Results": {
+        "Finish": "",
+        "Classes": "",
+        "SiCard": "",
+        "Class": "",
+        "shortClass": "",
+        "Start": ""
+    },
+    "Settings": "",
+    "Sign in": {
+        "RememberMe": "",
+        "Sign in": "",
+        "ForgotPassword": "",
+        "NoAccount": "",
+        "Logout": ""
+    },
+    "Location": "",
+    "ThisFunctionalityNotImplementedMsg": "",
+    "Search": {
+        "Search": "",
+        "ClearSearch": ""
+    },
+    "Dashboard": {
+        "Name": "",
+        "Dashboard": "",
+        "YourEvents": "",
+        "StartDate": "",
+        "FinishDate": ""
+    },
+    "EventList": {
+        "NoLiveEventsToday": "",
+        "FutureEvents": "",
+        "LiveToday": "",
+        "PastEvents": ""
+    },
+    "Copy": "",
+    "Event": "",
+    "This action cannot be undone": "",
+    "Edit": "",
+    "Copied to the clipboard": "",
+    "Cancel": "",
+    "AboutUs": {
+        "AboutUs": "",
+        "VersionMessage": ""
+    },
+    "GeneralErrorFallback": {
+        "msg": "",
+        "title": ""
+    },
+    "Home": {
+        "Home": ""
+    },
+    "Dates": "",
+    "404Page": {
+        "Message": "",
+        "ButtonMessage": "",
+        "Header": ""
+    },
+    "Stages": "",
+    "Organizers": "",
+    "EmailAddress": "",
+    "Organizer": "",
+    "Success": "",
+    "Name": "",
+    "Password": "",
+    "Events": "",
+    "ForbiddenAccess": "",
+    "Save": "",
+    "GoBack": "",
+    "Delete": "",
+    "ExperimentalFeatureMsg": ""
+}
