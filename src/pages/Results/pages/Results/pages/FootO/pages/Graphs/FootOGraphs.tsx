@@ -251,12 +251,16 @@ export default function FootOGraphs(
           </TabPanel>
         </Box>
 
-        {/* Runner selection table */}
-        <Box sx={{
-          width: isMobile ? '100%' : '300px',
-          order: isMobile ? 1 : 2,
-          maxHeight: isMobile ? '200px' : '500px'
-        }}>
+        {/* Runner selection table with fixed height and vertical scroll */}
+        <Box
+          sx={{
+            width: isMobile ? '100%' : 'auto',
+            height: 400,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            order: isMobile ? 1 : 2,
+          }}
+        >
           <CompactRunnerTable
             runners={runners}
             selectedRunners={selectedRunners}
