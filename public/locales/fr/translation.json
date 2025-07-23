@@ -30,12 +30,25 @@
     "Home": "Accueil"
   },
   "Results": {
-    "shortClass": "Cla.",
-    "Class": "Classe",
-    "Classes": "Classes",
+    "shortClass": "Cat.",
+    "Class": "Catégorie",
+    "Classes": "Catégories",
     "Start": "Départ",
     "Finish": "Arrivée",
-    "SiCard": "SiCard"
+    "SiCard": "Puce",
+    "Position": "Position",
+    "Name": "Nom",
+    "Time": "Temps"
+  },
+  "Graphs": {
+    "LineChart": "Graphique Linéaire",
+    "BarChart": "Graphique en Barres",
+    "PositionChart": "Évolution des Positions",
+    "TimeLossAnalysis": "Analyse des Pertes de Temps",
+    "Threshold": "Seuil",
+    "RunnerSelection": "Sélection des Coureurs",
+    "SelectedCount": "{{count}} sur {{total}} sélectionnés",
+    "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques"
   },
   "Sign in": {
     "Sign in": "Se connecter",
@@ -125,6 +138,7 @@
     "StartTime": "Départ",
     "Results": "Résultats",
     "Splits": "Intermédiaires",
+    "Graphs": "Graphiques",
     "ScorePoints": "Points"
   },
   "ResultsStage": {

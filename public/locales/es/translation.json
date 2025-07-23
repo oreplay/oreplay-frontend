@@ -45,7 +45,20 @@
     "Classes": "Categorías",
     "Start": "Salida",
     "Finish": "Meta",
-    "SiCard": "Pinza"
+    "SiCard": "Pinza",
+    "Position": "Posición",
+    "Name": "Nombre",
+    "Time": "Tiempo"
+  },
+  "Graphs": {
+    "LineChart": "Gráfico de Líneas",
+    "BarChart": "Gráfico de Barras",
+    "PositionChart": "Evolución de Posición",
+    "TimeLossAnalysis": "Análisis de pérdida de Tiempo",
+    "Threshold": "Umbral",
+    "RunnerSelection": "Selección de Corredores",
+    "SelectedCount": "{{count}} de {{total}} seleccionados",
+    "SelectRunnersMessage": "Selecciona corredores para ver gráficos"
   },
   "Sign in": {
     "Sign in": "Iniciar sesión",
@@ -143,6 +156,7 @@
     "StartTime": "Salida",
     "Results": "Resultados",
     "Splits": "Parciales",
+    "Graphs": "Gráficos",
     "ScorePoints": "Puntos",
     "RelayLegs": "Postas"
   },
