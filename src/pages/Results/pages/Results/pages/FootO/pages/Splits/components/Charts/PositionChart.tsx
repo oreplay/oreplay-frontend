@@ -1,6 +1,7 @@
 import React from "react"
 import { ResponsiveLine } from "@nivo/line"
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
+import { useTranslation } from "react-i18next"
 import { formatTime } from "../utils/chartDataTransform"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 
@@ -27,6 +28,7 @@ interface PositionChartProps {
 const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
+  const { t } = useTranslation()
 
   if (!data || data.length === 0) {
     return (
@@ -39,20 +41,18 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary">
-          Selecciona corredores para ver la evolución de posición
+          {t("positionChart.noData")}
         </Typography>
       </Box>
     )
   }
 
-  // Apply accessible colors to the data
   const accessibleColors = getAccessibleColors(data.length)
   const dataWithColors = data.map((series, index) => ({
     ...series,
     color: accessibleColors[index],
   }))
 
-  // Transformamos los datos para que el eje X sea: START, 1, 2, ..., FINISH
   const dataWithCustomX: PositionChartData[] = dataWithColors.map((runner) => {
     const n = runner.data.length
     return {
@@ -61,11 +61,11 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         let xLabel: string
         if (idx === 0) xLabel = "START"
         else if (idx === n - 1) xLabel = "FINISH"
-        else xLabel = idx.toString() // Controles intermedios empiezan en 1, 2, 3, ...
+        else xLabel = idx.toString()
 
         return {
           ...point,
-          controlName: point.x, // guardamos el nombre original para tooltip
+          controlName: point.x,
           x: xLabel,
         }
       }),
@@ -99,7 +99,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "Posición",
+            legend: t("positionChart.yAxisLabel"),
             legendOffset: 60,
             legendPosition: "middle",
             format: (value) => `${Math.round(Number(value))}°`,
@@ -108,7 +108,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             tickSize: 5,
             tickPadding: 5,
             tickRotation: -45,
-            legend: "Controles",
+            legend: t("positionChart.xAxisLabel"),
             legendOffset: 36,
             legendPosition: "middle",
           }}
@@ -116,7 +116,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "Posición",
+            legend: t("positionChart.yAxisLabel"),
             legendOffset: -60,
             legendPosition: "middle",
             format: (value) => `${Math.round(Number(value))}°`,
@@ -130,10 +130,9 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           colors={(d) => d.color}
           lineWidth={3}
           useMesh={true}
-          legends={[]} // Quitamos la leyenda interna de Nivo
+          legends={[]}
           tooltip={({ point }) => {
             const data = point.data as PositionDataPoint
-            // No mostramos tooltip para START ni FINISH
             if (data.x === "START" || data.x === "FINISH") return null
 
             return (
@@ -152,11 +151,11 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
                 </Typography>
 
                 <Typography variant="body2" mb={0.5}>
-                  Control: {data.controlName}
+                  {t("positionChart.tooltip.control")}: {data.controlName}
                 </Typography>
 
                 <Typography variant="body2" mb={0.5}>
-                  Posición: {Math.round(data.y)}°
+                  {t("positionChart.tooltip.position")}: {Math.round(data.y)}°
                 </Typography>
 
                 {data.splitTime > 0 && (
@@ -165,13 +164,13 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
                     mb={0.5}
                     fontWeight={data.timeLost <= 0 ? "bold" : "normal"}
                   >
-                    Tiempo parcial: {formatTime(data.splitTime)}
+                    {t("positionChart.tooltip.splitTime")}: {formatTime(data.splitTime)}
                   </Typography>
                 )}
 
                 {data.timeLost > 0 && (
                   <Typography variant="body2" mb={0.5}>
-                    Tiempo respecto al mejor parcial: +{formatTime(data.timeLost)}
+                    {t("positionChart.tooltip.timeLost")}: +{formatTime(data.timeLost)}
                   </Typography>
                 )}
               </Box>
@@ -218,7 +217,6 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         />
       </Box>
 
-      {/* Leyenda personalizada debajo del eje X */}
       <Box
         mt={2}
         display="flex"
@@ -250,7 +248,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
 
       <Box mt={1}>
         <Typography variant="caption" color="text.secondary" textAlign="center">
-          * Posición 1 arriba (mejor), posiciones más altas abajo (peor)
+          {t("positionChart.caption")}
         </Typography>
       </Box>
     </Box>

@@ -3,6 +3,7 @@ import { BarDatum, ResponsiveBar } from "@nivo/bar"
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
 import { formatTime } from "../utils/chartDataTransform"
 import { CHART_COLOR_CONFIGS } from "../../../../../../../../../../utils/accessibleColors.ts"
+import { useTranslation } from "react-i18next"
 
 export interface ChartDataItem {
   name: string
@@ -22,6 +23,7 @@ interface BarChartProps {
 const BarChart: React.FC<BarChartProps> = ({ data }) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
+  const { t } = useTranslation()
 
   if (!data || data.length === 0) {
     return (
@@ -34,15 +36,14 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary">
-          Selecciona corredores para ver el gráfico de barras
+          {t("chart.selectRunnersMessage")}
         </Typography>
       </Box>
     )
   }
 
-  // Dinamically calculate height based on number of runners
   const barHeight = 40
-  const chartHeight = Math.max(300, data.length * barHeight + 100) // +100 for padding and axis
+  const chartHeight = Math.max(300, data.length * barHeight + 100)
 
   const chartData: ChartDataItem[] = data.map((runner) => ({
     name: runner.name,
@@ -98,7 +99,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "Tiempo (segundos)",
+            legend: t("chart.timeAxisLabel"),
             legendPosition: "middle",
             legendOffset: 40,
             format: (value) => formatTime(Number(value)),
@@ -135,17 +136,17 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
                   {indexValue}
                 </Typography>
                 <Typography variant="body2" mb={0.5}>
-                  Tiempo total mostrado: {formatTime(total)}
+                  {t("tooltip.totalDisplayedTime")}: {formatTime(total)}
                 </Typography>
                 <Typography variant="body2" mb={0.5} color="#44aa44">
-                  Tiempo sin errores: {formatTime(errorFreeTime)}
+                  {t("tooltip.errorFreeTime")}: {formatTime(errorFreeTime)}
                 </Typography>
                 <Typography variant="body2" mb={1} color="#ff4444">
-                  Tiempo perdido (loss time): {formatTime(errorTime)}
+                  {t("tooltip.errorTime")}: {formatTime(errorTime)}
                 </Typography>
                 {total > 0 && (
                   <Typography variant="body2" color="text.secondary">
-                    Eficiencia: {((errorFreeTime / total) * 100).toFixed(1)}%
+                    {t("tooltip.efficiency")}: {((errorFreeTime / total) * 100).toFixed(1)}%
                   </Typography>
                 )}
               </Box>
@@ -186,7 +187,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
         />
       </Box>
 
-      {/* Leyenda personalizada debajo */}
+      {/* Leyenda personalizada traducible */}
       <Box
         mt={2}
         display="flex"
@@ -205,7 +206,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
               marginRight: 1,
             }}
           />
-          <Typography variant="body2">Tiempo sin errores</Typography>
+          <Typography variant="body2">{t("chart.legend.errorFreeTime")}</Typography>
         </Box>
 
         <Box display="flex" alignItems="center">
@@ -218,7 +219,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
               marginRight: 1,
             }}
           />
-          <Typography variant="body2">Tiempo de error (pérdida)</Typography>
+          <Typography variant="body2">{t("chart.legend.errorTime")}</Typography>
         </Box>
       </Box>
     </Box>
