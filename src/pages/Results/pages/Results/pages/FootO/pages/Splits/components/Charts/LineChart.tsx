@@ -1,6 +1,7 @@
 import React from "react"
 import { ResponsiveLine } from "@nivo/line"
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
+import { useTranslation } from "react-i18next"
 import {
   LineChartData,
   ChartDataPoint,
@@ -17,6 +18,7 @@ interface LineChartProps {
 const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
+  const { t } = useTranslation()
 
   const accessibleColors = getAccessibleColors(data.length)
   const dataWithColors = data.map((series, index) => ({
@@ -35,7 +37,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
         borderRadius={1}
       >
         <Typography variant="h6" color="text.secondary">
-          Selecciona corredores para ver el gráfico de líneas
+          {t("lineChart.noData")}
         </Typography>
       </Box>
     )
@@ -67,7 +69,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: -45,
-            legend: "Controles",
+            legend: t("lineChart.xAxisLabel"),
             legendOffset: 36,
             legendPosition: "middle",
           }}
@@ -104,11 +106,11 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
                   {data.runnerName}
                 </Typography>
                 <Typography variant="body2" mb={0.5}>
-                  Race Time Behind Leader:{" "}
+                  {t("lineChart.tooltip.behindLeader")}:{" "}
                   {formatTimeDifference(data.timeBehindLeader)}
                 </Typography>
                 <Typography variant="body2">
-                  Time Behind Best Partial:{" "}
+                  {t("lineChart.tooltip.behindBestPartial")}:{" "}
                   {formatTimeDifference(data.timeBehindBestPartialIncremental)}
                 </Typography>
               </Box>
