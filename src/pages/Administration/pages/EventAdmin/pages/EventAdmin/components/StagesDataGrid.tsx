@@ -9,16 +9,15 @@ import {
   GridRowModes,
   DataGrid,
   GridColDef,
-  GridToolbarContainer,
   GridActionsCellItem,
   GridEventListener,
   GridRowModel,
   GridRowEditStopReasons,
-  GridSlots,
   GridRowParams,
+  GridToolbarProps,
 } from "@mui/x-data-grid"
 import { useTranslation } from "react-i18next"
-import { useState } from "react"
+import React, { useState } from "react"
 import {
   deleteStage,
   getEventStats,
@@ -35,21 +34,21 @@ import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
 import { useNavigate } from "react-router-dom"
+import { Toolbar } from "@mui/material"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
  */
-interface EditToolbarProps {
-  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void
-  setRowModesModel: (newModel: (oldModel: GridRowModesModel) => GridRowModesModel) => void
+interface EditToolbarProps extends GridToolbarProps {
+  setRows: React.Dispatch<React.SetStateAction<GridRowsProp>>
+  setRowModesModel: React.Dispatch<React.SetStateAction<GridRowModesModel>>
 }
-
 function EditToolbar(props: EditToolbarProps) {
   const { t } = useTranslation()
   const { setRows, setRowModesModel } = props
 
   const handleClick = () => {
-    const id = "newlyCreatedStage"
+    const id = `new-${Math.random().toString(36).substring(2, 9)}`
     setRows((oldRows) => [...oldRows, { id: id, stageName: "", isNew: true, isEdit: false }])
     setRowModesModel((oldModel) => ({
       ...oldModel,
@@ -58,11 +57,11 @@ function EditToolbar(props: EditToolbarProps) {
   }
 
   return (
-    <GridToolbarContainer>
+    <Toolbar>
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         {t("EventAdmin.Stages.NewStage")}
       </Button>
-    </GridToolbarContainer>
+    </Toolbar>
   )
 }
 
@@ -325,9 +324,11 @@ export default function StagesDataGrid(props: Props) {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         slots={{
-          toolbar: EditToolbar as GridSlots["toolbar"],
+          // @ts-expect-error TS2322 This is a custom component with extra props
+          toolbar: EditToolbar,
         }}
         slotProps={{
+          // @ts-expect-error TS2353 the custom component contains extra props
           toolbar: { setRows, setRowModesModel },
         }}
       />
