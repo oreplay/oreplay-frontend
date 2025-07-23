@@ -1,12 +1,13 @@
 import React from "react"
-import { ResponsiveLine } from "@nivo/line" // Import responsive line chart from Nivo
-import { Box, Typography } from "@mui/material" // Import Material-UI components for layout and text
+import { ResponsiveLine } from "@nivo/line"
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
 import {
   LineChartData,
   ChartDataPoint,
   formatTime,
   formatTimeDifference,
-} from "../utils/chartDataTransform" // Utilities for data formatting and types
+} from "../utils/chartDataTransform"
+import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 
 interface LineChartProps {
   data: LineChartData[] // Array of data sets for the chart
@@ -14,8 +15,15 @@ interface LineChartProps {
 }
 
 const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
-  // Debug logging
-  console.log("LineChart received data:", data)
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+
+  // Get accessible colors for the data
+  const accessibleColors = getAccessibleColors(data.length)
+  const dataWithColors = data.map((series, index) => ({
+    ...series,
+    color: accessibleColors[index],
+  }))
 
   // If no data is passed, show a message prompting the user to select runners
   if (!data || data.length === 0) {
@@ -39,24 +47,29 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
   return (
     <Box height={height}>
       <ResponsiveLine
-        data={data} // The data to plot
-        margin={{ top: 50, right: 110, bottom: 50, left: 80 }} // Margins around chart for labels, legends, etc.
-        xScale={{ type: "point" }} // X axis treats values as categorical points
+        data={dataWithColors}
+        margin={{
+          top: 50,
+          right: isMobile ? 20 : 110,
+          bottom: 50,
+          left: 80
+        }}
+        xScale={{ type: "point" }}
         yScale={{
           type: "linear",
           min: 0,
-          max: "auto", // Auto-scale max based on data
+          max: "auto",
           stacked: false,
-          reverse: true, // Reverse Y axis (likely because smaller times are better)
+          reverse: true,
         }}
-        yFormat={(value) => formatTime(Number(value))} // Format Y axis values as time strings
-        axisTop={null} // No top axis
-        axisRight={null} // No right axis
+        yFormat={(value) => formatTime(Number(value))}
+        axisTop={null}
+        axisRight={null}
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
-          tickRotation: -45, // Rotate X ticks for readability
-          legend: "Controles", // X axis label
+          tickRotation: -45,
+          legend: "Controles",
           legendOffset: 36,
           legendPosition: "middle",
         }}
@@ -66,15 +79,41 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
           tickRotation: 0,
           legendOffset: -60,
           legendPosition: "middle",
-          format: (value) => formatTime(Number(value)), // Format Y axis ticks as time
+          format: (value) => formatTime(Number(value)),
         }}
-        pointSize={8} // Size of points on the line
-        pointColor={{ theme: "background" }} // Points color based on a theme background
-        pointBorderWidth={2} // Width of a point border
-        pointBorderColor={{ from: "serieColor" }} // Border color matches series color
-        pointLabelYOffset={-12} // Offset of point labels vertically
-        useMesh={true} // Enables mesh for better tooltip detection
-        legends={[
+        pointSize={8}
+        pointColor={{ theme: "background" }}
+        pointBorderWidth={2}
+        pointBorderColor={{ from: "serieColor" }}
+        pointLabelYOffset={-12}
+        useMesh={true}
+        colors={(d) => d.color}
+        legends={isMobile ? [
+          {
+            anchor: "bottom",
+            direction: "row",
+            justify: false,
+            translateX: 0,
+            translateY: 70,
+            itemsSpacing: 0,
+            itemDirection: "left-to-right",
+            itemWidth: 80,
+            itemHeight: 20,
+            itemOpacity: 0.75,
+            symbolSize: 12,
+            symbolShape: "circle",
+            symbolBorderColor: "rgba(0, 0, 0, .5)",
+            effects: [
+              {
+                on: "hover",
+                style: {
+                  itemBackground: "rgba(0, 0, 0, .03)",
+                  itemOpacity: 1,
+                },
+              },
+            ],
+          },
+        ] : [
           {
             anchor: "bottom-right",
             direction: "column",
@@ -93,7 +132,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
               {
                 on: "hover",
                 style: {
-                  itemBackground: "rgba(0, 0, 0, .03)", // Highlight legend item on hover
+                  itemBackground: "rgba(0, 0, 0, .03)",
                   itemOpacity: 1,
                 },
               },
