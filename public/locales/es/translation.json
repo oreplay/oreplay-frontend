@@ -60,6 +60,39 @@
     "SelectedCount": "{{count}} de {{total}} seleccionados",
     "SelectRunnersMessage": "Selecciona corredores para ver gráficos"
   },
+  "positionChart": {
+    "noData": "Selecciona corredores para ver la evolución de posición",
+    "xAxisLabel": "Controles",
+    "yAxisLabel": "Posición",
+    "tooltip": {
+      "control": "Control",
+      "position": "Posición",
+      "splitTime": "Tiempo parcial",
+      "timeLost": "Tiempo respecto al mejor parcial"
+    },
+    "caption": "* Posición 1 arriba (mejor), posiciones más altas abajo (peor)"
+  },
+  "tooltip": {
+    "totalDisplayedTime": "Tiempo total mostrado",
+    "errorFreeTime": "Tiempo sin errores",
+    "errorTime": "Tiempo perdido (pérdida)",
+    "efficiency": "Eficiencia"
+  },
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Tiempo sin errores",
+      "errorTime": "Tiempo de error (pérdida)"
+    },
+    "timeAxisLabel": "Tiempo (segundos)"
+  },
+  "lineChart": {
+    "noData": "Selecciona corredores para ver el gráfico de líneas",
+    "xAxisLabel": "Controles",
+    "tooltip": {
+      "behindLeader": "Tiempo respecto al líder",
+      "behindBestPartial": "Tiempo respecto al mejor parcial"
+    }
+  },
   "Sign in": {
     "Sign in": "Iniciar sesión",
     "Logout": "Cerrar sesion",
