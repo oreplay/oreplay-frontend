@@ -1,13 +1,14 @@
 import StageLayout from "../../components/Layout/StageLayout.tsx"
 import ResultTabs from "../../components/ResultTabs.tsx"
 import { BottomNavigationAction } from "@mui/material"
-import { AccessTime } from "@mui/icons-material"
+import { AccessTime, ShowChart } from "@mui/icons-material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import TimerIcon from "@mui/icons-material/Timer"
 import { useTranslation } from "react-i18next"
 import FootOStartTime from "./pages/StartTime/FootOStartTime.tsx"
 import FootOResults from "./pages/Results/FootOResults.tsx"
 import FootOSplits from "./pages/Splits/FootOSplits.tsx"
+import FootOGraphs from "./pages/Graphs/FootOGraphs.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { useCallback } from "react"
 import { useQuery } from "react-query"
@@ -17,7 +18,7 @@ import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/share
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 
-const menu_options_labels = ["startTimes", "results", "splits"]
+const menu_options_labels = ["startTimes", "results", "splits", "graphs"]
 
 export default function FootO() {
   const { t } = useTranslation()
@@ -101,6 +102,11 @@ export default function FootO() {
             label={t("StageHeader.Splits")}
             icon={<TimerIcon />}
           />,
+          <BottomNavigationAction
+            key={"FootOGraphsMenu"}
+            label={t("StageHeader.Graphs")}
+            icon={<ShowChart />}
+          />,
         ]}
         menuOptionsLabels={menu_options_labels}
       >
@@ -116,6 +122,11 @@ export default function FootO() {
           setClassClubId={setClassClubId}
         />
         <FootOSplits
+          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
+        <FootOGraphs
           runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
           activeItem={activeItem}
           isClass={isClass}
