@@ -45,7 +45,28 @@
     "Classes": "Classes",
     "Start": "Start",
     "Finish": "Finish",
-    "SiCard": "SI Card"
+    "SiCard": "SI Card",
+    "Position": "Position",
+    "Name": "Name",
+    "Time": "Time"
+  },
+  "Graphs": {
+    "LineChart": "Line Chart",
+    "BarChart": "Bar Chart",
+    "PositionChart": "Position Chart",
+    "TimeLossAnalysis": "Time Loss Analysis",
+    "Threshold": "Threshold",
+    "RunnerSelection": "Runner Selection",
+    "SelectedCount": "{{count}} of {{total}} selected",
+    "SelectRunnersMessage": "Select runners to view charts",
+    "Charts": "Charts",
+    "RunnerCount": "runner_{{count}}",
+    "SelectRunners": "Select runners"
+  },
+  "Splits": {
+    "Radios": "Radios",
+    "TimeLossAnalysis": "Time Loss Analysis",
+    "Threshold": "Threshold"
   },
   "Sign in": {
     "Sign in": "Sign in",
@@ -143,6 +164,7 @@
     "StartTime": "Start time",
     "Results": "Results",
     "Splits": "Splits",
+    "Graphs": "Graphs",
     "ScorePoints": "Points",
     "RelayLegs": "Legs"
   },
