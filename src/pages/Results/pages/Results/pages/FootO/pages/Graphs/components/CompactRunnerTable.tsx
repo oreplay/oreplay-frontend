@@ -25,7 +25,7 @@ interface CompactRunnerTableProps {
 export default function CompactRunnerTable({
                                              runners,
                                              selectedRunners,
-                                             onSelectionChange
+                                             onSelectionChange,
                                            }: CompactRunnerTableProps) {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -61,7 +61,13 @@ export default function CompactRunnerTable({
         </Typography>
       </Box>
 
-      <TableContainer sx={{ flex: 1, maxHeight: isMobile ? '150px' : '400px' }}>
+      <TableContainer
+        sx={{
+          flex: 1,
+          maxHeight: isMobile ? '150px' : 'none',
+          overflowY: isMobile ? 'auto' : 'visible',
+        }}
+      >
         <Table size="small" stickyHeader>
           <TableHead>
             <TableRow>
