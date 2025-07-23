@@ -1,6 +1,7 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes"
 import { ChartDataItem } from "../Charts/BarChart.tsx"
 import { TimeLossResults } from "./timeLossAnalysis.ts"
+import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 
 // Position Evolution Data Structures
 export interface PositionDataPoint {
@@ -67,37 +68,10 @@ export function formatTimeDifference(seconds: number): string {
 }
 
 /**
- * Generates a distinct color for each runner
+ * Generates a distinct color for each runner using accessible colors
  */
 export function generateRunnerColors(runnerCount: number): string[] {
-  const colors = [
-    "#1f77b4",
-    "#ff7f0e",
-    "#2ca02c",
-    "#d62728",
-    "#9467bd",
-    "#8c564b",
-    "#e377c2",
-    "#7f7f7f",
-    "#bcbd22",
-    "#17becf",
-    "#aec7e8",
-    "#ffbb78",
-    "#98df8a",
-    "#ff9896",
-    "#c5b0d5",
-    "#c49c94",
-    "#f7b6d3",
-    "#c7c7c7",
-    "#dbdb8d",
-    "#9edae5",
-  ]
-
-  const result: string[] = []
-  for (let i = 0; i < runnerCount; i++) {
-    result.push(colors[i % colors.length])
-  }
-  return result
+  return getAccessibleColors(runnerCount)
 }
 
 /**
@@ -358,8 +332,6 @@ function calculateRaceAnalysisData(
 ): { totalTime: number; errorFreeTime: number; errorTime: number } {
   const totalTime = runner.stage?.time_seconds || 0
 
-  console.log(`Calculating race analysis for ${runner.full_name}, total time: ${totalTime}`)
-
   let errorFreeTime = 0
   let calculatedErrorTime = 0
 
@@ -397,7 +369,7 @@ function calculateRaceAnalysisData(
       }
     })
 
-    // Handle FINISH control analysis (apply same time loss logic as intermediate controls)
+    // Handle FINISH control analysis (apply the same time loss logic as intermediate controls)
     if (runner.stage?.time_seconds && runner.stage.time_seconds > 0) {
       const finishControlAnalysis = timeLossResults.analysisPerControl.get("FINISH")
       if (
@@ -439,18 +411,11 @@ function calculateRaceAnalysisData(
     calculatedErrorTime = calculatedErrorTime * ratio
   }
 
-  const result = {
+  return {
     totalTime: actualTotalTime, // Always use actual total time including finish
     errorFreeTime: Math.max(0, errorFreeTime),
     errorTime: Math.max(0, calculatedErrorTime),
   }
-
-  console.log(`Analysis result for ${runner.full_name}:`, result, {
-    hasAnalysisData: !!timeLossResults?.analysisPerControl,
-    controlsAnalyzed: runner.stage?.splits?.length || 0,
-  })
-
-  return result
 }
 
 /**
@@ -462,18 +427,14 @@ export function transformRunnersForBarChart(
   selectedRunnerIds: string[],
   timeLossResults?: TimeLossResults,
 ): ChartDataItem[] {
-  console.log("transformRunnersForBarChart called with:", {
-    runnersCount: runners?.length,
-    selectedRunnerIds,
-    hasTimeLossResults: !!timeLossResults,
-    analysisMethod: "Using timeLossAnalysis.ts logic",
-  })
+  if (!runners || runners.length === 0) {
+    return []
+  }
 
   // Use all runners, not just "valid" ones - let each transformation decide
   const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
 
   if (selectedRunners.length === 0) {
-    console.log("No selected runners found for bar chart")
     return []
   }
 
@@ -485,7 +446,6 @@ export function transformRunnersForBarChart(
       const totalTime = runner.stage?.time_seconds || 0
 
       if (totalTime <= 0) {
-        console.log(`Runner ${runner.full_name} has no time data`)
         // Still create an entry but with minimal data for visualization
         return {
           runnerId: runner.id,
@@ -520,7 +480,7 @@ export function transformRunnersForBarChart(
         adjustedErrorTime = finalErrorTime * ratio
       }
 
-      const result = {
+      return {
         runnerId: runner.id,
         name: runner.full_name || "Unknown Runner",
         totalTime: calcTotal,
@@ -529,9 +489,6 @@ export function transformRunnersForBarChart(
         theoreticalTime: adjustedErrorFreeTime, // Best possible time without errors
         color: colors[index],
       }
-
-      console.log(`Bar chart data for ${runner.full_name}:`, result)
-      return result
     })
     .filter((item): item is NonNullable<typeof item> => item !== null)
 }
