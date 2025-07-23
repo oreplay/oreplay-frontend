@@ -1,7 +1,8 @@
 import React from "react"
 import { BarDatum, ResponsiveBar } from "@nivo/bar"
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
 import { formatTime } from "../utils/chartDataTransform"
+import { CHART_COLOR_CONFIGS } from "../../../../../../../../../../utils/accessibleColors.ts"
 
 export interface ChartDataItem {
   name: string
@@ -19,6 +20,9 @@ interface BarChartProps {
 }
 
 const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+
   if (!data || data.length === 0) {
     return (
       <Box
@@ -79,15 +83,19 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
         indexBy="name"
         margin={{
           top: 50,
-          right: 130,
-          bottom: 80, // Increased for longer runner names
-          left: Math.min(200, Math.max(150, data.length * 8)), // Dynamic left margin
+          right: isMobile ? 20 : 130,
+          bottom: 80,
+          left: Math.min(200, Math.max(150, data.length * 8)),
         }}
         padding={Math.max(0.1, Math.min(0.5, 0.8 / data.length))} // Dynamic padding based on runner count
         layout="horizontal"
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}
-        colors={({ id }) => (id === "errorTime" ? "#ff4444" : "#44aa44")}
+        colors={({ id }) => {
+          if (id === "errorTime") return CHART_COLOR_CONFIGS.bar.errorTime
+          if (id === "errorFreeTime") return CHART_COLOR_CONFIGS.bar.errorFreeTime
+          return CHART_COLOR_CONFIGS.bar.theoreticalTime
+        }}
         borderColor={{
           from: "color",
           modifiers: [["darker", 1.6]],
@@ -116,7 +124,33 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
           const value = Number(d.value)
           return value > 30 ? formatTime(value) : "" // Only show label if segment is large enough
         }}
-        legends={[
+        legends={isMobile ? [
+          {
+            dataFrom: "keys",
+            anchor: "bottom",
+            direction: "row",
+            translateX: 0,
+            translateY: 70,
+            itemsSpacing: 2,
+            itemWidth: 100,
+            itemHeight: 20,
+            itemDirection: "left-to-right",
+            itemOpacity: 0.85,
+            symbolSize: 20,
+            data: [
+              { id: "errorFreeTime", label: "Tiempo sin errores", color: CHART_COLOR_CONFIGS.bar.errorFreeTime },
+              { id: "errorTime", label: "Tiempo de error (pérdida)", color: CHART_COLOR_CONFIGS.bar.errorTime },
+            ],
+            effects: [
+              {
+                on: "hover",
+                style: {
+                  itemOpacity: 1,
+                },
+              },
+            ],
+          },
+        ] : [
           {
             dataFrom: "keys",
             anchor: "bottom-right",
@@ -130,8 +164,8 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
             itemOpacity: 0.85,
             symbolSize: 20,
             data: [
-              { id: "errorFreeTime", label: "Tiempo sin errores", color: "#44aa44" },
-              { id: "errorTime", label: "Tiempo de error (pérdida)", color: "#ff4444" },
+              { id: "errorFreeTime", label: "Tiempo sin errores", color: CHART_COLOR_CONFIGS.bar.errorFreeTime },
+              { id: "errorTime", label: "Tiempo de error (pérdida)", color: CHART_COLOR_CONFIGS.bar.errorTime },
             ],
             effects: [
               {

@@ -1,7 +1,8 @@
 import React from "react"
 import { ResponsiveLine } from "@nivo/line"
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
 import { formatTime } from "../utils/chartDataTransform"
+import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 
 export interface PositionDataPoint {
   x: string
@@ -9,7 +10,7 @@ export interface PositionDataPoint {
   runnerName: string
   splitTime: number
   timeLost: number
-  controlName?: string // nombre original del control
+  controlName?: string
 }
 
 export interface PositionChartData {
@@ -24,6 +25,9 @@ interface PositionChartProps {
 }
 
 const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+
   if (!data || data.length === 0) {
     return (
       <Box
@@ -41,8 +45,15 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
     )
   }
 
+  // Apply accessible colors to the data
+  const accessibleColors = getAccessibleColors(data.length)
+  const dataWithColors = data.map((series, index) => ({
+    ...series,
+    color: accessibleColors[index],
+  }))
+
   // Transformamos los datos para que el eje X sea: START, 1, 2, ..., FINISH
-  const dataWithCustomX: PositionChartData[] = data.map((runner) => {
+  const dataWithCustomX: PositionChartData[] = dataWithColors.map((runner) => {
     const n = runner.data.length
     return {
       ...runner,
@@ -69,7 +80,12 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
     <Box height={height}>
       <ResponsiveLine
         data={dataWithCustomX}
-        margin={{ top: 50, right: 110, bottom: 50, left: 80 }}
+        margin={{
+          top: 50,
+          right: isMobile ? 20 : 110,
+          bottom: isMobile ? 120 : 50,
+          left: 80
+        }}
         xScale={{ type: "point" }}
         yScale={{
           type: "linear",
@@ -110,10 +126,35 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         pointBorderColor={{ from: "serieColor" }}
         pointLabelYOffset={-12}
         enableArea={false}
-        colors={{ scheme: "set1" }}
+        colors={(d) => d.color}
         lineWidth={3}
         useMesh={true}
-        legends={[
+        legends={isMobile ? [
+          {
+            anchor: "bottom",
+            direction: "row",
+            justify: false,
+            translateX: 0,
+            translateY: 70,
+            itemsSpacing: 0,
+            itemDirection: "left-to-right",
+            itemWidth: 80,
+            itemHeight: 20,
+            itemOpacity: 0.75,
+            symbolSize: 12,
+            symbolShape: "circle",
+            symbolBorderColor: "rgba(0, 0, 0, .5)",
+            effects: [
+              {
+                on: "hover",
+                style: {
+                  itemBackground: "rgba(0, 0, 0, .03)",
+                  itemOpacity: 1,
+                },
+              },
+            ],
+          },
+        ] : [
           {
             anchor: "bottom-right",
             direction: "column",
