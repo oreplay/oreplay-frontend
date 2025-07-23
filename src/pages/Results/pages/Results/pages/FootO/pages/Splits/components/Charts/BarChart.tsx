@@ -16,6 +16,7 @@ export interface ChartDataItem {
 
 interface BarChartProps {
   data: ChartDataItem[]
+  height?: number
 }
 
 const BarChart: React.FC<BarChartProps> = ({ data }) => {
