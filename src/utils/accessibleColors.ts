@@ -11,12 +11,17 @@ export const ACCESSIBLE_COLORS = [
   '#ccbb44', // Yellow
   '#66ccee', // Cyan
   '#aa3377', // Purple
-  '#bbbbbb', // Grey
   '#ee8866', // Orange
   '#000000', // Black
-  '#dddddd', // Light grey
-] as const
-
+  '#994455', // Dark Rose
+  '#44aa99', // Teal
+  '#117733', // Dark Green
+  '#882255', // Dark Magenta
+  '#661100', // Brown
+  '#8888cc', // Lavender
+  '#ddcc77', // Sand
+  '#332288', // Indigo
+] as const;
 /**
  * Gets a color from the accessible palette by index
  * Cycles through the palette if more colors are needed than available
