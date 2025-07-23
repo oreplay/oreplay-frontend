@@ -16,12 +16,11 @@ export interface ChartDataItem {
 
 interface BarChartProps {
   data: ChartDataItem[]
-  height?: number
 }
 
-const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
+const BarChart: React.FC<BarChartProps> = ({ data }) => {
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
   if (!data || data.length === 0) {
     return (
@@ -29,7 +28,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        height={height}
+        height={300}
         bgcolor="grey.50"
         borderRadius={1}
       >
@@ -40,21 +39,19 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
     )
   }
 
-  // Calculate responsive width based on number of runners
-  const baseWidth = 400
-  const widthPerRunner = Math.max(80, Math.min(150, 600 / data.length))
-  const calculatedWidth = Math.max(baseWidth, data.length * widthPerRunner + 280) // +280 for margins and legends
+  // Dinamically calculate height based on number of runners
+  const barHeight = 40
+  const chartHeight = Math.max(300, data.length * barHeight + 100) // +100 for padding and axis
 
   const chartData: ChartDataItem[] = data.map((runner) => ({
     name: runner.name,
     errorFreeTime: Math.max(0, runner.errorFreeTime || 0),
-    errorTime: Math.max(0, runner.errorTime || 0), // This is the lossTime
+    errorTime: Math.max(0, runner.errorTime || 0),
     totalTime: runner.totalTime,
     runnerId: runner.runnerId,
     theoreticalTime: runner.theoreticalTime ?? 0,
   }))
 
-  // Ensure data integrity - errorTime + errorFreeTime should not exceed totalTime
   const validatedData = chartData.map((runner) => {
     const sum = runner.errorFreeTime + runner.errorTime
     if (sum > runner.totalTime && runner.totalTime > 0) {
@@ -69,193 +66,160 @@ const BarChart: React.FC<BarChartProps> = ({ data, height = 400 }) => {
   })
 
   return (
-    <Box
-      height={height}
-      width="100%"
-      sx={{
-        overflowX: data.length > 8 ? "auto" : "visible",
-        minWidth: calculatedWidth,
-      }}
-    >
-      <ResponsiveBar
-        data={validatedData as BarDatum[]}
-        keys={["errorFreeTime", "errorTime"]}
-        indexBy="name"
-        margin={{
-          top: 50,
-          right: isMobile ? 20 : 130,
-          bottom: 80,
-          left: Math.min(200, Math.max(150, data.length * 8)),
-        }}
-        padding={Math.max(0.1, Math.min(0.5, 0.8 / data.length))} // Dynamic padding based on runner count
-        layout="horizontal"
-        valueScale={{ type: "linear" }}
-        indexScale={{ type: "band", round: true }}
-        colors={({ id }) => {
-          if (id === "errorTime") return CHART_COLOR_CONFIGS.bar.errorTime
-          if (id === "errorFreeTime") return CHART_COLOR_CONFIGS.bar.errorFreeTime
-          return CHART_COLOR_CONFIGS.bar.theoreticalTime
-        }}
-        borderColor={{
-          from: "color",
-          modifiers: [["darker", 1.6]],
-        }}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
-          legend: "Tiempo (segundos)",
-          legendPosition: "middle",
-          legendOffset: 60,
-          format: (value) => formatTime(Number(value)),
-        }}
-        axisLeft={{
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: data.length > 6 ? -15 : 0, // Rotate labels for many runners
-        }}
-        enableLabel={true}
-        labelSkipWidth={12}
-        labelSkipHeight={12}
-        labelTextColor="#ffffff"
-        label={(d) => {
-          const value = Number(d.value)
-          return value > 30 ? formatTime(value) : "" // Only show label if segment is large enough
-        }}
-        legends={isMobile ? [
-          {
-            dataFrom: "keys",
-            anchor: "bottom",
-            direction: "row",
-            translateX: 0,
-            translateY: 70,
-            itemsSpacing: 2,
-            itemWidth: 100,
-            itemHeight: 20,
-            itemDirection: "left-to-right",
-            itemOpacity: 0.85,
-            symbolSize: 20,
-            data: [
-              { id: "errorFreeTime", label: "Tiempo sin errores", color: CHART_COLOR_CONFIGS.bar.errorFreeTime },
-              { id: "errorTime", label: "Tiempo de error (pérdida)", color: CHART_COLOR_CONFIGS.bar.errorTime },
-            ],
-            effects: [
-              {
-                on: "hover",
-                style: {
-                  itemOpacity: 1,
-                },
-              },
-            ],
-          },
-        ] : [
-          {
-            dataFrom: "keys",
-            anchor: "bottom-right",
-            direction: "column",
-            translateX: 120,
-            translateY: 0,
-            itemsSpacing: 2,
-            itemWidth: 100,
-            itemHeight: 20,
-            itemDirection: "left-to-right",
-            itemOpacity: 0.85,
-            symbolSize: 20,
-            data: [
-              { id: "errorFreeTime", label: "Tiempo sin errores", color: CHART_COLOR_CONFIGS.bar.errorFreeTime },
-              { id: "errorTime", label: "Tiempo de error (pérdida)", color: CHART_COLOR_CONFIGS.bar.errorTime },
-            ],
-            effects: [
-              {
-                on: "hover",
-                style: {
-                  itemOpacity: 1,
-                },
-              },
-            ],
-          },
-        ]}
-        tooltip={({ indexValue, data }) => {
-          const errorTime = Number(data.errorTime) || 0
-          const errorFreeTime = Number(data.errorFreeTime) || 0
-          const total = errorTime > 0 ? errorFreeTime + errorTime : errorFreeTime
-          // This is the actual loss time (error time)
-          return (
-            <Box
-              sx={{
-                background: "white",
-                padding: 2,
-                border: "1px solid #ccc",
-                borderRadius: 1,
-                boxShadow: 2,
-                minWidth: 250,
-              }}
-            >
-              <Typography variant="subtitle2" fontWeight="bold" mb={1}>
-                {indexValue}
-              </Typography>
-
-              <Typography variant="body2" mb={0.5}>
-                Tiempo total mostrado: {formatTime(total)}
-              </Typography>
-
-              <Typography variant="body2" mb={0.5} color="#44aa44">
-                Tiempo sin errores: {formatTime(errorFreeTime)}
-              </Typography>
-
-              <Typography variant="body2" mb={1} color="#ff4444">
-                Tiempo perdido (loss time): {formatTime(errorTime)}
-              </Typography>
-
-              {total > 0 && (
-                <Typography variant="body2" color="text.secondary">
-                  Eficiencia: {((errorFreeTime / total) * 100).toFixed(1)}%
+    <Box width="100%">
+      <Box height={chartHeight} width="100%">
+        <ResponsiveBar
+          data={validatedData as BarDatum[]}
+          keys={["errorFreeTime", "errorTime"]}
+          indexBy="name"
+          margin={{
+            top: 50,
+            right: isMobile ? 20 : 30,
+            bottom: 50,
+            left: 150,
+          }}
+          padding={0.3}
+          layout="horizontal"
+          valueScale={{ type: "linear" }}
+          indexScale={{ type: "band", round: true }}
+          colors={({ id }) => {
+            if (id === "errorTime") return CHART_COLOR_CONFIGS.bar.errorTime
+            if (id === "errorFreeTime") return CHART_COLOR_CONFIGS.bar.errorFreeTime
+            return CHART_COLOR_CONFIGS.bar.theoreticalTime
+          }}
+          borderColor={{
+            from: "color",
+            modifiers: [["darker", 1.6]],
+          }}
+          axisTop={null}
+          axisRight={null}
+          axisBottom={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: "Tiempo (segundos)",
+            legendPosition: "middle",
+            legendOffset: 40,
+            format: (value) => formatTime(Number(value)),
+          }}
+          axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: data.length > 6 ? -15 : 0,
+          }}
+          enableLabel={true}
+          labelSkipWidth={12}
+          labelSkipHeight={12}
+          labelTextColor="#ffffff"
+          label={(d) => {
+            const value = Number(d.value)
+            return value > 30 ? formatTime(value) : ""
+          }}
+          tooltip={({ indexValue, data }) => {
+            const errorTime = Number(data.errorTime) || 0
+            const errorFreeTime = Number(data.errorFreeTime) || 0
+            const total = errorTime + errorFreeTime
+            return (
+              <Box
+                sx={{
+                  background: "white",
+                  padding: 2,
+                  border: "1px solid #ccc",
+                  borderRadius: 1,
+                  boxShadow: 2,
+                  minWidth: 250,
+                }}
+              >
+                <Typography variant="subtitle2" fontWeight="bold" mb={1}>
+                  {indexValue}
                 </Typography>
-              )}
-            </Box>
-          )
-        }}
-        theme={{
-          axis: {
-            domain: {
+                <Typography variant="body2" mb={0.5}>
+                  Tiempo total mostrado: {formatTime(total)}
+                </Typography>
+                <Typography variant="body2" mb={0.5} color="#44aa44">
+                  Tiempo sin errores: {formatTime(errorFreeTime)}
+                </Typography>
+                <Typography variant="body2" mb={1} color="#ff4444">
+                  Tiempo perdido (loss time): {formatTime(errorTime)}
+                </Typography>
+                {total > 0 && (
+                  <Typography variant="body2" color="text.secondary">
+                    Eficiencia: {((errorFreeTime / total) * 100).toFixed(1)}%
+                  </Typography>
+                )}
+              </Box>
+            )
+          }}
+          theme={{
+            axis: {
+              domain: {
+                line: {
+                  stroke: "#777777",
+                  strokeWidth: 1,
+                },
+              },
+              legend: {
+                text: {
+                  fontSize: 12,
+                  fill: "#333333",
+                },
+              },
+              ticks: {
+                line: {
+                  stroke: "#777777",
+                  strokeWidth: 1,
+                },
+                text: {
+                  fontSize: 11,
+                  fill: "#333333",
+                },
+              },
+            },
+            grid: {
               line: {
-                stroke: "#777777",
+                stroke: "#dddddd",
                 strokeWidth: 1,
               },
             },
-            legend: {
-              text: {
-                fontSize: 12,
-                fill: "#333333",
-              },
-            },
-            ticks: {
-              line: {
-                stroke: "#777777",
-                strokeWidth: 1,
-              },
-              text: {
-                fontSize: 11,
-                fill: "#333333",
-              },
-            },
-          },
-          legends: {
-            text: {
-              fontSize: 11,
-              fill: "#333333",
-            },
-          },
-          grid: {
-            line: {
-              stroke: "#dddddd",
-              strokeWidth: 1,
-            },
-          },
-        }}
-      />
+          }}
+        />
+      </Box>
+
+      {/* Leyenda personalizada debajo */}
+      <Box
+        mt={2}
+        display="flex"
+        flexDirection="row"
+        gap={3}
+        flexWrap="wrap"
+        justifyContent="center"
+      >
+        <Box display="flex" alignItems="center">
+          <Box
+            sx={{
+              width: 16,
+              height: 16,
+              borderRadius: "4px",
+              backgroundColor: CHART_COLOR_CONFIGS.bar.errorFreeTime,
+              marginRight: 1,
+            }}
+          />
+          <Typography variant="body2">Tiempo sin errores</Typography>
+        </Box>
+
+        <Box display="flex" alignItems="center">
+          <Box
+            sx={{
+              width: 16,
+              height: 16,
+              borderRadius: "4px",
+              backgroundColor: CHART_COLOR_CONFIGS.bar.errorTime,
+              marginRight: 1,
+            }}
+          />
+          <Typography variant="body2">Tiempo de error (pérdida)</Typography>
+        </Box>
+      </Box>
     </Box>
   )
 }
