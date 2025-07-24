@@ -7,18 +7,7 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
 import OnlyForClassesMsg from "../Splits/components/OnlyForClassesMsg.tsx"
-import {
-  Box,
-  Typography,
-  Paper,
-  Tab,
-  Tabs,
-  useTheme,
-  useMediaQuery,
-  FormControlLabel,
-  Switch,
-  Slider,
-} from "@mui/material"
+import { Box, Typography, Paper, Tab, Tabs, useTheme, useMediaQuery, Slider } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import LineChart from "../Splits/components/Charts/LineChart.tsx"
 import BarChart from "../Splits/components/Charts/BarChart.tsx"
@@ -62,22 +51,13 @@ export default function FootOGraphs(
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
-  // State for chart type selection
   const [selectedGraphType, setSelectedGraphType] = useState<GraphType>("line")
-
-  // State for runner selection - initialize empty, will fill later
   const [selectedRunners, setSelectedRunners] = useState<string[]>([])
-
-  // State for time loss analysis
-  const [timeLossEnabled, setTimeLossEnabled] = useState<boolean>(false)
   const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
 
-  // Shortcut variables
   const activeItem = props.activeItem
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
 
-  // Load saved selection from localStorage ONCE on mount
   useEffect(() => {
     const saved = localStorage.getItem("selectedRunners")
     if (saved) {
@@ -90,7 +70,6 @@ export default function FootOGraphs(
     }
   }, [])
 
-  // If no selection loaded from localStorage, initialize top 5 runners by position
   useEffect(() => {
     if (runners.length > 0 && selectedRunners.length === 0) {
       const topRunners = runners
@@ -98,41 +77,26 @@ export default function FootOGraphs(
         .sort((a, b) => (a.stage.position || 0) - (b.stage.position || 0))
         .slice(0, 5)
         .map((runner) => runner.id)
-
       setSelectedRunners(topRunners)
     }
   }, [runners, selectedRunners.length])
 
-  // Save selected runners to localStorage whenever it changes
   useEffect(() => {
     if (selectedRunners.length > 0) {
       localStorage.setItem("selectedRunners", JSON.stringify(selectedRunners))
     }
   }, [selectedRunners])
 
-  // Time loss analysis memo
   const timeLossResults: TimeLossResults | undefined = useMemo(() => {
-    if (!timeLossThreshold) return undefined
+    if (!timeLossThreshold || runners.length === 0) return undefined
     return analyzeTimeLoss(runners, timeLossThreshold, false)
   }, [runners, timeLossThreshold])
 
-  if (!activeItem) {
-    return <ChooseClassMsg />
-  }
+  if (!activeItem) return <ChooseClassMsg />
+  if (!props.isClass) return <OnlyForClassesMsg />
+  if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
+  if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
-  if (!props.isClass) {
-    return <OnlyForClassesMsg />
-  }
-
-  if (props.runnersQuery.isFetching) {
-    return <GeneralSuspenseFallback />
-  }
-
-  if (props.runnersQuery.isError) {
-    return <GeneralErrorFallback />
-  }
-
-  // Prepare chart data based on selected type
   const lineChartData =
     selectedGraphType === "line" && selectedRunners.length > 0
       ? transformRunnersForLineChart(runners, selectedRunners)
@@ -140,11 +104,7 @@ export default function FootOGraphs(
 
   const barChartData =
     selectedGraphType === "bar" && selectedRunners.length > 0
-      ? transformRunnersForBarChart(
-          runners,
-          selectedRunners,
-          timeLossEnabled ? timeLossResults : undefined,
-        )
+      ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults)
       : []
 
   const positionChartData =
@@ -152,13 +112,11 @@ export default function FootOGraphs(
       ? transformRunnersForPositionChart(runners, selectedRunners)
       : []
 
-  // Handle tab change
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     const graphTypes: GraphType[] = ["line", "bar", "position"]
     setSelectedGraphType(graphTypes[newValue])
   }
 
-  // Handle runner selection changes from table
   const handleRunnerSelectionChange = (runnerIds: string[]) => {
     setSelectedRunners(runnerIds)
   }
@@ -167,7 +125,6 @@ export default function FootOGraphs(
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      {/* Chart type selector */}
       <Paper sx={{ mb: 2 }}>
         <Tabs
           value={tabIndex}
@@ -196,43 +153,29 @@ export default function FootOGraphs(
         </Tabs>
       </Paper>
 
-      {/* Time loss controls for bar chart */}
+      {/* Time loss threshold control - always visible on bar chart */}
       {selectedGraphType === "bar" && (
         <Paper sx={{ p: 2, mb: 2 }}>
           <Box display="flex" alignItems="center" gap={1}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={timeLossEnabled}
-                  onChange={() => setTimeLossEnabled(!timeLossEnabled)}
-                />
-              }
-              label={t("Graphs.TimeLossAnalysis")}
-            />
-
-            {timeLossEnabled && (
-              <>
-                <Typography sx={{ minWidth: 80, whiteSpace: "nowrap", ml: 2 }}>
-                  {t("Graphs.Threshold")} {timeLossThreshold}%:
-                </Typography>
-                <Box sx={{ width: 120, ml: 1 }}>
-                  <Slider
-                    value={timeLossThreshold}
-                    min={5}
-                    max={100}
-                    step={5}
-                    onChange={(_, value) => setTimeLossThreshold(value as number)}
-                    size="small"
-                    marks
-                  />
-                </Box>
-              </>
-            )}
+            <Typography sx={{ minWidth: 80, whiteSpace: "nowrap" }}>
+              {t("Graphs.Threshold")} {timeLossThreshold}%:
+            </Typography>
+            <Box sx={{ width: 120 }}>
+              <Slider
+                value={timeLossThreshold}
+                min={5}
+                max={100}
+                step={5}
+                onChange={(_, value) => setTimeLossThreshold(value as number)}
+                size="small"
+                marks
+              />
+            </Box>
           </Box>
         </Paper>
       )}
 
-      {/* Chart and runner selection layout */}
+      {/* Charts and runner table */}
       <Box
         sx={{
           display: "flex",
@@ -242,7 +185,6 @@ export default function FootOGraphs(
           minHeight: 0,
         }}
       >
-        {/* Chart area */}
         <Box
           sx={{
             flex: 1,
@@ -261,7 +203,6 @@ export default function FootOGraphs(
           </TabPanel>
         </Box>
 
-        {/* Runner selection table with fixed height and vertical scroll */}
         <Box
           sx={{
             width: isMobile ? "100%" : "auto",
