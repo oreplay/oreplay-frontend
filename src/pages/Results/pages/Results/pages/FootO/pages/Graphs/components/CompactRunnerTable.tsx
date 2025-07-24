@@ -24,10 +24,10 @@ interface CompactRunnerTableProps {
 }
 
 export default function CompactRunnerTable({
-                                             runners,
-                                             selectedRunners,
-                                             onSelectionChange,
-                                           }: CompactRunnerTableProps) {
+  runners,
+  selectedRunners,
+  onSelectionChange,
+}: CompactRunnerTableProps) {
   const { t } = useTranslation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
@@ -57,8 +57,7 @@ export default function CompactRunnerTable({
   }
 
   const isAllSelected = selectedRunners.length === runners.length
-  const isIndeterminate =
-    selectedRunners.length > 0 && selectedRunners.length < runners.length
+  const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < runners.length
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -123,20 +122,14 @@ export default function CompactRunnerTable({
                     {runner.full_name}
                   </Typography>
                   {runner.club && (
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      display="block"
-                    >
+                    <Typography variant="caption" color="text.secondary" display="block">
                       {runner.club.short_name}
                     </Typography>
                   )}
                 </TableCell>
                 <TableCell align="right">
                   <Typography variant="body2" fontFamily="monospace">
-                    {runner.stage.time_seconds
-                      ? formatTime(runner.stage.time_seconds)
-                      : "-"}
+                    {runner.stage.time_seconds ? formatTime(runner.stage.time_seconds) : "-"}
                   </Typography>
                 </TableCell>
               </TableRow>

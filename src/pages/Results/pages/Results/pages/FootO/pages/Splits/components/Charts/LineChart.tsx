@@ -168,12 +168,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
         columnGap={2}
       >
         {dataWithColors.map((series) => (
-          <Box
-            key={series.id}
-            display="flex"
-            alignItems="center"
-            sx={{ minWidth: 100 }}
-          >
+          <Box key={series.id} display="flex" alignItems="center" sx={{ minWidth: 100 }}>
             <Box
               sx={{
                 width: 12,
