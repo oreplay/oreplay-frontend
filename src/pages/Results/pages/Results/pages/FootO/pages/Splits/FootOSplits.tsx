@@ -23,6 +23,7 @@ export default function FootOSplits(
   const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
 
   const activeItem = props.activeItem
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
 
   const timeLossResults: TimeLossResults | undefined = useMemo(() => {

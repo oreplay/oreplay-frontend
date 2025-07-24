@@ -160,6 +160,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
       {/* Leyenda personalizada debajo del eje X */}
       <Box
         mt={2}
+        mb={3} // <-- Aquí agregamos el margen inferior para crear espacio
         display="flex"
         flexWrap="wrap"
         justifyContent="center"
