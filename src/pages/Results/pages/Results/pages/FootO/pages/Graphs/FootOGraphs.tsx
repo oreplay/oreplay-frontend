@@ -17,7 +17,7 @@ import {
   useMediaQuery,
   FormControlLabel,
   Switch,
-  Slider
+  Slider,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import LineChart from "../Splits/components/Charts/LineChart.tsx"
@@ -56,11 +56,11 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default function FootOGraphs(
-  props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>
+  props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
   // State for chart type selection
   const [selectedGraphType, setSelectedGraphType] = useState<GraphType>("line")
@@ -79,13 +79,13 @@ export default function FootOGraphs(
 
   // Load saved selection from localStorage ONCE on mount
   useEffect(() => {
-    const saved = localStorage.getItem('selectedRunners')
+    const saved = localStorage.getItem("selectedRunners")
     if (saved) {
       try {
         const parsedRunners = JSON.parse(saved) as string[]
         setSelectedRunners(parsedRunners)
       } catch (error) {
-        console.error('Error parsing saved runners:', error)
+        console.error("Error parsing saved runners:", error)
       }
     }
   }, [])
@@ -94,10 +94,10 @@ export default function FootOGraphs(
   useEffect(() => {
     if (runners.length > 0 && selectedRunners.length === 0) {
       const topRunners = runners
-        .filter(runner => runner.stage.position && runner.stage.position <= 5)
+        .filter((runner) => runner.stage.position && runner.stage.position <= 5)
         .sort((a, b) => (a.stage.position || 0) - (b.stage.position || 0))
         .slice(0, 5)
-        .map(runner => runner.id)
+        .map((runner) => runner.id)
 
       setSelectedRunners(topRunners)
     }
@@ -106,7 +106,7 @@ export default function FootOGraphs(
   // Save selected runners to localStorage whenever it changes
   useEffect(() => {
     if (selectedRunners.length > 0) {
-      localStorage.setItem('selectedRunners', JSON.stringify(selectedRunners))
+      localStorage.setItem("selectedRunners", JSON.stringify(selectedRunners))
     }
   }, [selectedRunners])
 
@@ -133,17 +133,24 @@ export default function FootOGraphs(
   }
 
   // Prepare chart data based on selected type
-  const lineChartData = selectedGraphType === "line" && selectedRunners.length > 0
-    ? transformRunnersForLineChart(runners, selectedRunners)
-    : []
+  const lineChartData =
+    selectedGraphType === "line" && selectedRunners.length > 0
+      ? transformRunnersForLineChart(runners, selectedRunners)
+      : []
 
-  const barChartData = selectedGraphType === "bar" && selectedRunners.length > 0
-    ? transformRunnersForBarChart(runners, selectedRunners, timeLossEnabled ? timeLossResults : undefined)
-    : []
+  const barChartData =
+    selectedGraphType === "bar" && selectedRunners.length > 0
+      ? transformRunnersForBarChart(
+          runners,
+          selectedRunners,
+          timeLossEnabled ? timeLossResults : undefined,
+        )
+      : []
 
-  const positionChartData = selectedGraphType === "position" && selectedRunners.length > 0
-    ? transformRunnersForPositionChart(runners, selectedRunners)
-    : []
+  const positionChartData =
+    selectedGraphType === "position" && selectedRunners.length > 0
+      ? transformRunnersForPositionChart(runners, selectedRunners)
+      : []
 
   // Handle tab change
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -159,7 +166,7 @@ export default function FootOGraphs(
   const tabIndex = selectedGraphType === "line" ? 0 : selectedGraphType === "bar" ? 1 : 2
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       {/* Chart type selector */}
       <Paper sx={{ mb: 2 }}>
         <Tabs
@@ -226,19 +233,23 @@ export default function FootOGraphs(
       )}
 
       {/* Chart and runner selection layout */}
-      <Box sx={{
-        display: 'flex',
-        flexDirection: isMobile ? 'column' : 'row',
-        gap: 2,
-        flex: 1,
-        minHeight: 0
-      }}>
-        {/* Chart area */}
-        <Box sx={{
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: 2,
           flex: 1,
-          minHeight: 400,
-          order: isMobile ? 2 : 1
-        }}>
+          minHeight: 0,
+        }}
+      >
+        {/* Chart area */}
+        <Box
+          sx={{
+            flex: 1,
+            minHeight: 400,
+            order: isMobile ? 2 : 1,
+          }}
+        >
           <TabPanel value={tabIndex} index={0}>
             <LineChart data={lineChartData} height={400} />
           </TabPanel>
@@ -253,10 +264,10 @@ export default function FootOGraphs(
         {/* Runner selection table with fixed height and vertical scroll */}
         <Box
           sx={{
-            width: isMobile ? '100%' : 'auto',
+            width: isMobile ? "100%" : "auto",
             height: 400,
-            overflowY: 'auto',
-            overflowX: 'hidden',
+            overflowY: "auto",
+            overflowX: "hidden",
             order: isMobile ? 1 : 2,
           }}
         >
