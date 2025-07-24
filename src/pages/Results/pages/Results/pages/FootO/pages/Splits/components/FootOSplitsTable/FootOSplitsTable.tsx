@@ -31,6 +31,7 @@ type FootOSplitsTableProps = {
   radiosList: OnlineControlModel[]
   timeLossEnabled?: boolean
   timeLossThreshold?: number
+  timeLossResults?: TimeLossResults | null   // <--- Añadido aquí
   graphsEnabled?: boolean
   selectedRunners?: string[]
   selectedGraphType?: GraphType | null
