@@ -65,7 +65,7 @@ export default function FootOGraphs(
   // State for chart type selection
   const [selectedGraphType, setSelectedGraphType] = useState<GraphType>("line")
 
-  // State for runner selection - initialize with top 5 runners
+  // State for runner selection - initialize empty, will fill later
   const [selectedRunners, setSelectedRunners] = useState<string[]>([])
 
   // State for time loss analysis
@@ -74,24 +74,9 @@ export default function FootOGraphs(
 
   // Shortcut variables
   const activeItem = props.activeItem
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
 
-  // Initialize selected runners with top 5 on first load
-  useEffect(() => {
-    if (runners.length > 0 && selectedRunners.length === 0) {
-      // Get top 5 runners by position
-      const topRunners = runners
-        .filter(runner => runner.stage.position && runner.stage.position <= 5)
-        .sort((a, b) => (a.stage.position || 0) - (b.stage.position || 0))
-        .slice(0, 5)
-        .map(runner => runner.id)
-
-      setSelectedRunners(topRunners)
-    }
-  }, [runners, selectedRunners.length])
-
-  // Load/save selected runners to localStorage
+  // Load saved selection from localStorage ONCE on mount
   useEffect(() => {
     const saved = localStorage.getItem('selectedRunners')
     if (saved) {
@@ -104,19 +89,32 @@ export default function FootOGraphs(
     }
   }, [])
 
+  // If no selection loaded from localStorage, initialize top 5 runners by position
+  useEffect(() => {
+    if (runners.length > 0 && selectedRunners.length === 0) {
+      const topRunners = runners
+        .filter(runner => runner.stage.position && runner.stage.position <= 5)
+        .sort((a, b) => (a.stage.position || 0) - (b.stage.position || 0))
+        .slice(0, 5)
+        .map(runner => runner.id)
+
+      setSelectedRunners(topRunners)
+    }
+  }, [runners, selectedRunners.length])
+
+  // Save selected runners to localStorage whenever it changes
   useEffect(() => {
     if (selectedRunners.length > 0) {
       localStorage.setItem('selectedRunners', JSON.stringify(selectedRunners))
     }
   }, [selectedRunners])
 
-  // Time loss analysis
+  // Time loss analysis memo
   const timeLossResults: TimeLossResults | undefined = useMemo(() => {
     if (!timeLossThreshold) return undefined
     return analyzeTimeLoss(runners, timeLossThreshold, false)
   }, [runners, timeLossThreshold])
 
-  // Early returns for different states
   if (!activeItem) {
     return <ChooseClassMsg />
   }
@@ -139,7 +137,7 @@ export default function FootOGraphs(
     : []
 
   const barChartData = selectedGraphType === "bar" && selectedRunners.length > 0
-    ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults)
+    ? transformRunnersForBarChart(runners, selectedRunners, timeLossEnabled ? timeLossResults : undefined)
     : []
 
   const positionChartData = selectedGraphType === "position" && selectedRunners.length > 0
@@ -152,7 +150,7 @@ export default function FootOGraphs(
     setSelectedGraphType(graphTypes[newValue])
   }
 
-  // Handle runner selection changes
+  // Handle runner selection changes from table
   const handleRunnerSelectionChange = (runnerIds: string[]) => {
     setSelectedRunners(runnerIds)
   }

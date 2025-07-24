@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import {
   Box,
   Paper,
@@ -29,11 +30,19 @@ export default function CompactRunnerTable({
                                            }: CompactRunnerTableProps) {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
+
+  useEffect(() => {
+    if (selectedRunners.length === 0 && runners.length > 0) {
+      const initialSelection = runners.slice(0, 5).map((r) => r.id)
+      onSelectionChange(initialSelection)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runners])
 
   const handleToggleRunner = (runnerId: string) => {
     const newSelection = selectedRunners.includes(runnerId)
-      ? selectedRunners.filter(id => id !== runnerId)
+      ? selectedRunners.filter((id) => id !== runnerId)
       : [...selectedRunners, runnerId]
 
     onSelectionChange(newSelection)
@@ -43,29 +52,33 @@ export default function CompactRunnerTable({
     if (selectedRunners.length === runners.length) {
       onSelectionChange([])
     } else {
-      onSelectionChange(runners.map(runner => runner.id))
+      onSelectionChange(runners.map((runner) => runner.id))
     }
   }
 
   const isAllSelected = selectedRunners.length === runners.length
-  const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < runners.length
+  const isIndeterminate =
+    selectedRunners.length > 0 && selectedRunners.length < runners.length
 
   return (
-    <Paper sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
+    <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <Box sx={{ p: 2, borderBottom: 1, borderColor: "divider" }}>
         <Typography variant="h6" sx={{ mb: 1 }}>
           {t("Graphs.RunnerSelection")}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {t("Graphs.SelectedCount", { count: selectedRunners.length, total: runners.length })}
+          {t("Graphs.SelectedCount", {
+            count: selectedRunners.length,
+            total: runners.length,
+          })}
         </Typography>
       </Box>
 
       <TableContainer
         sx={{
           flex: 1,
-          maxHeight: isMobile ? '150px' : 'none',
-          overflowY: isMobile ? 'auto' : 'visible',
+          maxHeight: isMobile ? "150px" : "none",
+          overflowY: isMobile ? "auto" : "visible",
         }}
       >
         <Table size="small" stickyHeader>
@@ -91,7 +104,7 @@ export default function CompactRunnerTable({
                 hover
                 selected={selectedRunners.includes(runner.id)}
                 onClick={() => handleToggleRunner(runner.id)}
-                sx={{ cursor: 'pointer' }}
+                sx={{ cursor: "pointer" }}
               >
                 <TableCell padding="checkbox">
                   <Checkbox
@@ -102,7 +115,7 @@ export default function CompactRunnerTable({
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" fontWeight="bold">
-                    {runner.stage.position || '-'}
+                    {runner.stage.position || "-"}
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -110,14 +123,20 @@ export default function CompactRunnerTable({
                     {runner.full_name}
                   </Typography>
                   {runner.club && (
-                    <Typography variant="caption" color="text.secondary" display="block">
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      display="block"
+                    >
                       {runner.club.short_name}
                     </Typography>
                   )}
                 </TableCell>
                 <TableCell align="right">
                   <Typography variant="body2" fontFamily="monospace">
-                    {runner.stage.time_seconds ? formatTime(runner.stage.time_seconds) : '-'}
+                    {runner.stage.time_seconds
+                      ? formatTime(runner.stage.time_seconds)
+                      : "-"}
                   </Typography>
                 </TableCell>
               </TableRow>
