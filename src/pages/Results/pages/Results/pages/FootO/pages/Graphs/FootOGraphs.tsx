@@ -56,6 +56,7 @@ export default function FootOGraphs(
   const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
 
   const activeItem = props.activeItem
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
 
   useEffect(() => {
