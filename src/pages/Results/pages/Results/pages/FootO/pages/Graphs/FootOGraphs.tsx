@@ -74,6 +74,7 @@ export default function FootOGraphs(
 
   // Shortcut variables
   const activeItem = props.activeItem
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
 
   // Load saved selection from localStorage ONCE on mount
