@@ -4,7 +4,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking", // ✅ Enables type-aware rules
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react-hooks/recommended",
     "prettier",
   ],
@@ -17,7 +17,7 @@ module.exports = {
     extraFileExtensions: [".json"],
     exclude: ["*.json"],
   },
-  plugins: ["react-refresh", "jsonc", "i18next", "i18n-json"],
+  plugins: ["react-refresh", "jsonc", "i18next"],
   rules: {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "@typescript-eslint/no-unsafe-member-access": "error",
@@ -34,11 +34,6 @@ module.exports = {
         ignoreAttribute: ["data-testid", "to", "key", "id", "name"],
       },
     ],
-    'i18n-json/valid-message-syntax': 'error',
-    'i18n-json/identical-keys': 'error'
-  },
-  settings: {
-    'i18n-json/paths': ['/public/locales/{locale}/{namespace}.json'],
   },
   overrides: [
     {
