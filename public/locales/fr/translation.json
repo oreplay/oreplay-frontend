@@ -179,6 +179,14 @@
       "ot": "H.Délai"
     }
   },
+  "view": {
+    "splits": "Intermédiaires",
+    "accumulated": "Cumulé",
+    "timeLoss": "Analyse des Pertes de Temps",
+    "lineChart": "Temps vs Leader",
+    "barChart": "Graphique des Pertes de Temps",
+    "positionChart": "Évolution de la Position"
+  },
   "404Page": {
     "Header": "Perdu dans les bois ?",
     "Message": "Nous n'avons pas pu trouver la page que vous recherchiez.",

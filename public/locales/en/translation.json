@@ -254,6 +254,14 @@
       "Msg": "The timekeeper has uploaded final results without splits. These files should not be uploaded and may cause missing or incorrect data to be displayed. More information on how to upload results to our service can be found on the <2>Organizers</2> page."
     }
   },
+  "view": {
+    "splits": "Splits",
+    "accumulated": "Accumulated",
+    "timeLoss": "Time Loss Analysis",
+    "lineChart": "Time vs Leader",
+    "barChart": "Time Loss Chart",
+    "positionChart": "Position Evolution"
+  },
   "404Page": {
     "Header": "Lost in the woods?",
     "Message": "We couldn't find the page you were looking for.",

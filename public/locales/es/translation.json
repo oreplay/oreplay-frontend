@@ -246,6 +246,14 @@
       "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>."
     }
   },
+  "view": {
+    "splits": "Parciales",
+    "accumulated": "Acumulado",
+    "timeLoss": "Análisis de Pérdida de Tiempo",
+    "lineChart": "Tiempo vs Líder",
+    "barChart": "Gráfico de Pérdida de Tiempo",
+    "positionChart": "Evolución de Posición"
+  },
   "404Page": {
     "Header": "¿Perdido en el bosque?",
     "Message": "No hemos podido encontrar la página que estabas buscando.",
