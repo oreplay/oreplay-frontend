@@ -256,7 +256,7 @@ export default function FootOSplits(
             height: 400,
             overflowY: "auto",
             overflowX: "hidden",
-            order: isMobile ? 1 : 2,
+            order: 2,
           }}
         >
           <CompactRunnerTable
