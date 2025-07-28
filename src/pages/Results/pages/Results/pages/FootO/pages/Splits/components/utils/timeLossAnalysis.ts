@@ -296,16 +296,16 @@ function analyzeControlTimeLoss(
 
   controlSplits.sort((a, b) => a.splitTime - b.splitTime)
   const bestTime = controlSplits[0].splitTime
-  const thresholdTime = bestTime * (1.5 + threshold / 100)
+
+  // Use a more conservative threshold for filtering good times
+  const thresholdTime = bestTime * (1.2 + threshold / 100)
 
   const noErrorSplits = controlSplits.filter((split) => split.splitTime <= thresholdTime)
   if (noErrorSplits.length === 0) return null
 
-  const totalDiffPercentage = noErrorSplits.reduce((sum, split) => {
-    return sum + ((split.splitTime - bestTime) / bestTime) * 100
-  }, 0)
-  const md = totalDiffPercentage / noErrorSplits.length
-  const estimatedTimeWithoutError = ((100 + md) / 100) * bestTime
+  // Calculate the average of the good splits (without errors) as the estimated time
+  const totalGoodTime = noErrorSplits.reduce((sum, split) => sum + split.splitTime, 0)
+  const estimatedTimeWithoutError = totalGoodTime / noErrorSplits.length
 
   // Ritmo esperado por tramo (usado solo si hay tramo previo)
   const tramoTimes: number[] = []
@@ -356,7 +356,7 @@ function analyzeControlTimeLoss(
     const runner = runners.find((r) => r.id === split.runnerId)
     if (!runner) return
 
-    let currentTime: number | null = null
+    let currentTime: number | null
     let prevTime: number | null = null
     let ritmoReal: number | null = null
 

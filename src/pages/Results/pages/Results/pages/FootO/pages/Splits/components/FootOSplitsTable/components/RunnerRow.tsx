@@ -46,13 +46,16 @@ const calculateTotalLossTime = (
 
   let totalLoss = 0
 
+  // Calculate loss time for each split
   runner.stage.splits.forEach((split) => {
-    if (split.control?.id) {
+    if (split.control?.id && split.time !== null) {
       const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
       if (timeLossInfo && timeLossInfo.hasTimeLoss) {
         const controlAnalysis = timeLossResults.analysisPerControl.get(split.control.id)
         if (controlAnalysis) {
-          const lossTime = timeLossInfo.splitTime - controlAnalysis.estimatedTimeWithoutError
+          // The timeLossInfo.splitTime should match the split.time for individual splits
+          // Calculate the loss as: actual time - estimated good time
+          const lossTime = split.time - controlAnalysis.estimatedTimeWithoutError
           if (lossTime > 0) {
             totalLoss += lossTime
           }
@@ -61,21 +64,24 @@ const calculateTotalLossTime = (
     }
   })
 
+  // For finish control, only add if it represents additional loss beyond the splits
+  // But typically we don't want to double-count, so commenting this out
+  /*
   if (runner.stage.time_seconds > 0) {
     const finishTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, "FINISH")
     if (finishTimeLossInfo && finishTimeLossInfo.hasTimeLoss) {
       const finishControlAnalysis = timeLossResults.analysisPerControl.get("FINISH")
       if (finishControlAnalysis) {
-        const finishLossTime =
-          finishTimeLossInfo.splitTime - finishControlAnalysis.estimatedTimeWithoutError
+        const finishLossTime = runner.stage.time_seconds - finishControlAnalysis.estimatedTimeWithoutError
         if (finishLossTime > 0) {
           totalLoss += finishLossTime
         }
       }
     }
   }
+  */
 
-  return totalLoss
+  return Math.max(0, totalLoss)
 }
 
 export default function RunnerRow(props: RunnerRowProps) {
@@ -106,7 +112,12 @@ export default function RunnerRow(props: RunnerRowProps) {
       ? calculateTotalLossTime(props.runner, props.timeLossResults || null)
       : 0
 
-  const cleanTime = result.time_seconds > 0 ? result.time_seconds - totalLossTime : 0
+  // Calculate clean time: Total race time - Total loss time
+  // Clean time should never be negative
+  const cleanTime =
+    result.time_seconds > 0 && totalLossTime >= 0
+      ? Math.max(0, result.time_seconds - totalLossTime)
+      : 0
 
   const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.onSelectionChange?.(props.runner.id, event.target.checked)
