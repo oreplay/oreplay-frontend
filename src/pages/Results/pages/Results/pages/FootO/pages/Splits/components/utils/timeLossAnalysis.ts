@@ -34,9 +34,7 @@ export interface TimeLossResults {
  * otherwise subtracts 15 from input.
  */
 function mapThreshold(input: number): number {
-  if (input === 20) return 5
-  if (input === 25) return 10
-  return input - 15
+  return input - 10
 }
 
 /**
