@@ -24,23 +24,32 @@ interface CompactRunnerTableProps {
 }
 
 export default function CompactRunnerTable({
-  runners,
-  selectedRunners,
-  onSelectionChange,
-}: CompactRunnerTableProps) {
+                                             runners,
+                                             selectedRunners,
+                                             onSelectionChange,
+                                           }: CompactRunnerTableProps) {
   const { t } = useTranslation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
+  const selectableRunnerIds = runners
+    .filter((r) => r.stage.position)
+    .map((r) => r.id)
+
   useEffect(() => {
     if (selectedRunners.length === 0 && runners.length > 0) {
-      const initialSelection = runners.slice(0, 5).map((r) => r.id)
+      const initialSelection = runners
+        .filter((r) => r.stage.position)
+        .slice(0, 5)
+        .map((r) => r.id)
       onSelectionChange(initialSelection)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runners])
 
   const handleToggleRunner = (runnerId: string) => {
+    if (!selectableRunnerIds.includes(runnerId)) return
+
     const newSelection = selectedRunners.includes(runnerId)
       ? selectedRunners.filter((id) => id !== runnerId)
       : [...selectedRunners, runnerId]
@@ -49,15 +58,19 @@ export default function CompactRunnerTable({
   }
 
   const handleSelectAll = () => {
-    if (selectedRunners.length === runners.length) {
+    if (selectedRunners.length === selectableRunnerIds.length) {
       onSelectionChange([])
     } else {
-      onSelectionChange(runners.map((runner) => runner.id))
+      onSelectionChange(selectableRunnerIds)
     }
   }
 
-  const isAllSelected = selectedRunners.length === runners.length
-  const isIndeterminate = selectedRunners.length > 0 && selectedRunners.length < runners.length
+  const isAllSelected =
+    selectableRunnerIds.length > 0 &&
+    selectedRunners.length === selectableRunnerIds.length
+  const isIndeterminate =
+    selectedRunners.length > 0 &&
+    selectedRunners.length < selectableRunnerIds.length
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -97,43 +110,59 @@ export default function CompactRunnerTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {runners.map((runner) => (
-              <TableRow
-                key={runner.id}
-                hover
-                selected={selectedRunners.includes(runner.id)}
-                onClick={() => handleToggleRunner(runner.id)}
-                sx={{ cursor: "pointer" }}
-              >
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedRunners.includes(runner.id)}
-                    onChange={() => handleToggleRunner(runner.id)}
-                    size="small"
-                  />
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body2" fontWeight="bold">
-                    {runner.stage.position || "-"}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body2" noWrap>
-                    {runner.full_name}
-                  </Typography>
-                  {runner.club && (
-                    <Typography variant="caption" color="text.secondary" display="block">
-                      {runner.club.short_name}
+            {runners.map((runner) => {
+              const isSelectable = !!runner.stage.position
+              const isChecked = selectedRunners.includes(runner.id)
+              return (
+                <TableRow
+                  key={runner.id}
+                  hover={isSelectable}
+                  selected={isChecked}
+                  onClick={() => {
+                    if (isSelectable) handleToggleRunner(runner.id)
+                  }}
+                  sx={{
+                    cursor: isSelectable ? "pointer" : "default",
+                    opacity: isSelectable ? 1 : 0.5,
+                  }}
+                >
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={isChecked}
+                      onChange={() => handleToggleRunner(runner.id)}
+                      size="small"
+                      disabled={!isSelectable}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2" fontWeight="bold">
+                      {runner.stage.position || "-"}
                     </Typography>
-                  )}
-                </TableCell>
-                <TableCell align="right">
-                  <Typography variant="body2" fontFamily="monospace">
-                    {runner.stage.time_seconds ? formatTime(runner.stage.time_seconds) : "-"}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2" noWrap>
+                      {runner.full_name}
+                    </Typography>
+                    {runner.club && (
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        display="block"
+                      >
+                        {runner.club.short_name}
+                      </Typography>
+                    )}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography variant="body2" noWrap>
+                      {runner.stage.time_seconds
+                        ? formatTime(runner.stage.time_seconds)
+                        : "-"}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </TableContainer>
