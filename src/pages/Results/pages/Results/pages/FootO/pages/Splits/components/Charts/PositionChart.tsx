@@ -93,6 +93,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             min: 1,
             max: Math.max(maxPosition, 10),
             reverse: true,
+            nice: false,
           }}
           axisTop={null}
           axisRight={{
@@ -239,6 +240,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           {t("positionChart.caption")}
         </Typography>
       </Box>
+      <Box height={40} />
     </Box>
   )
 }
