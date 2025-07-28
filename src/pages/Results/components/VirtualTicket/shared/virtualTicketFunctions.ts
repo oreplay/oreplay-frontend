@@ -20,7 +20,7 @@ export function processRunnerData(
   classesList?: StageClassModel[],
 ): ProcessedRunnerModel[] {
   return runners.map((runner): ProcessedRunnerModel => {
-    const processed_runner = processParticipant(runner)
+    const processed_runner = processParticipant(runner, classesList)
 
     if (processed_runner.runners) {
       const fully_processed_runner = {

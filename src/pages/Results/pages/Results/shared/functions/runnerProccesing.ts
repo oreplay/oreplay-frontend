@@ -151,9 +151,10 @@ export function processParticipant<T extends ParticipantModel>(
 
     const onlineControlList = participantStageClass ? participantStageClass.splits : null
 
-    const online_splits = onlineControlList
-      ? getOnlineSplits(processed_splits_list, onlineControlList, stage.start_time)
-      : []
+    const online_splits =
+      onlineControlList && onlineControlList.length > 0
+        ? getOnlineSplits(processed_splits_list, onlineControlList, stage.start_time)
+        : []
 
     // Return
     const processed_stage = {

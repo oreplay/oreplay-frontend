@@ -6,6 +6,7 @@ import {
   processRunnerData,
 } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
 import { StageClassModel } from "../../../../../../../shared/EntityTypes.ts"
+import { sortFootORunners } from "../shared/functions.ts"
 
 /**
  * Query and process (compute splits) of runners by classes
@@ -26,17 +27,14 @@ export async function getFootORunnersByClass(
 ): Promise<ProcessedRunnerModel[]> {
   // Make query
   const runnersPage = await getRunnersInStage(eventId, stageId, classId)
-  let runnersList = runnersPage.data
-
-  // Order
-  runnersList = sortRunners(runnersList)
+  const runnersList = runnersPage.data
 
   // Runner processing
   let processedRunnersList = processRunnerData(runnersList, classesList)
   processedRunnersList = calculatePositionsAndBehindsFootO(processedRunnersList)
 
   // return
-  return processedRunnersList
+  return sortFootORunners(processedRunnersList)
 }
 
 export async function getFootORunnersByClub(
