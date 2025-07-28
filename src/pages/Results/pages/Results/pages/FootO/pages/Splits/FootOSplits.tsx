@@ -7,15 +7,7 @@ import FootOSplitsTable from "./components/FootOSplitsTable/FootOSplitsTable.tsx
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
-import {
-  FormControlLabel,
-  Switch,
-  Box,
-  useTheme,
-  useMediaQuery,
-  Slider,
-  Typography,
-} from "@mui/material"
+import { Box, useTheme, useMediaQuery, Slider, Typography } from "@mui/material"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
 import { analyzeTimeLoss, TimeLossResults } from "./components/utils/timeLossAnalysis.ts"
@@ -37,7 +29,6 @@ export default function FootOSplits(
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
   const [selectedView, setSelectedView] = useState<ViewType>("splits")
-  const [onlyRadios, setOnlyRadios] = useState<boolean>(false)
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
   const [, setShowCumulativeDisplayed] = useState<boolean>(false)
   const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
@@ -46,6 +37,9 @@ export default function FootOSplits(
   const activeItem = props.activeItem
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
+
+  // Check if the event has radios
+  const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
 
   useEffect(() => {
     const saved = localStorage.getItem("selectedRunners")
@@ -80,6 +74,7 @@ export default function FootOSplits(
     setSelectedView(view)
     switch (view) {
       case "splits":
+      case "radios":
         setShowCumulative(false)
         setShowCumulativeDisplayed(false)
         break
@@ -126,31 +121,11 @@ export default function FootOSplits(
   if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
   if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
-  const RadiosSwitch = () =>
-    "splits" in activeItem && activeItem.splits.length > 0 ? (
-      <FormControlLabel
-        control={
-          <Switch
-            value={onlyRadios}
-            checked={onlyRadios}
-            onChange={() => {
-              setOnlyRadios(!onlyRadios)
-              !onlyRadios
-                ? setShowCumulativeDisplayed(true)
-                : setShowCumulativeDisplayed(showCumulative)
-            }}
-          />
-        }
-        label="Radios"
-      />
-    ) : null
-
   const renderSplitsView = () => (
     <Box>
       <ExperimentalFeatureAlert />
-      <RadiosSwitch />
       <FootOSplitsTable
-        onlyRadios={onlyRadios}
+        onlyRadios={false}
         radiosList={"splits" in activeItem ? activeItem.splits : []}
         showCumulative={showCumulative}
         key={"FootOSplitsTable"}
@@ -165,9 +140,8 @@ export default function FootOSplits(
   const renderAccumulatedView = () => (
     <Box>
       <ExperimentalFeatureAlert />
-      <RadiosSwitch />
       <FootOSplitsTable
-        onlyRadios={onlyRadios}
+        onlyRadios={false}
         radiosList={"splits" in activeItem ? activeItem.splits : []}
         showCumulative={true}
         key={"FootOSplitsTableAccumulated"}
@@ -179,10 +153,25 @@ export default function FootOSplits(
     </Box>
   )
 
+  const renderRadiosView = () => (
+    <Box>
+      <ExperimentalFeatureAlert />
+      <FootOSplitsTable
+        onlyRadios={true}
+        radiosList={"splits" in activeItem ? activeItem.splits : []}
+        showCumulative={showCumulative}
+        key={"FootOSplitsTableRadios"}
+        runners={runners}
+        timeLossEnabled={false}
+        timeLossThreshold={timeLossThreshold}
+        timeLossResults={undefined}
+      />
+    </Box>
+  )
+
   const renderTimeLossView = () => (
     <Box>
       <ExperimentalFeatureAlert />
-      <RadiosSwitch />
 
       <Box mt={2} mb={2} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <Typography>Umbral ({timeLossThreshold}%):</Typography>
@@ -203,7 +192,7 @@ export default function FootOSplits(
       </Box>
 
       <FootOSplitsTable
-        onlyRadios={onlyRadios}
+        onlyRadios={false}
         radiosList={"splits" in activeItem ? activeItem.splits : []}
         showCumulative={false}
         key={"FootOSplitsTableTimeLoss"}
@@ -254,9 +243,14 @@ export default function FootOSplits(
 
   return (
     <Box>
-      <ViewSelector selectedView={selectedView} onViewChange={handleViewChange} />
+      <ViewSelector
+        selectedView={selectedView}
+        onViewChange={handleViewChange}
+        hasRadios={hasRadios}
+      />
       {selectedView === "splits" && renderSplitsView()}
       {selectedView === "accumulated" && renderAccumulatedView()}
+      {selectedView === "radios" && renderRadiosView()}
       {selectedView === "timeLoss" && renderTimeLossView()}
       {(selectedView === "lineChart" ||
         selectedView === "barChart" ||

@@ -7,12 +7,14 @@ import {
   ShowChart,
   BarChart as BarChartIcon,
   Timeline,
+  SettingsRemote as SettingsRemoteIcon,
 } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 
 export type ViewType =
   | "splits"
   | "accumulated"
+  | "radios"
   | "timeLoss"
   | "lineChart"
   | "barChart"
@@ -27,15 +29,23 @@ interface ViewOption {
 interface ViewSelectorProps {
   selectedView: ViewType
   onViewChange: (view: ViewType) => void
+  hasRadios?: boolean
 }
 
-export default function ViewSelector({ selectedView, onViewChange }: ViewSelectorProps) {
+export default function ViewSelector({
+  selectedView,
+  onViewChange,
+  hasRadios = false,
+}: ViewSelectorProps) {
   const theme = useTheme()
   const { t } = useTranslation()
 
   const viewOptions: ViewOption[] = [
     { key: "splits", labelKey: "view.splits", icon: <TimerIcon /> },
     { key: "accumulated", labelKey: "view.accumulated", icon: <AccessTimeIcon /> },
+    ...(hasRadios
+      ? [{ key: "radios" as const, labelKey: "view.radios", icon: <SettingsRemoteIcon /> }]
+      : []),
     { key: "timeLoss", labelKey: "view.timeLoss", icon: <AnalyticsIcon /> },
     { key: "lineChart", labelKey: "view.lineChart", icon: <ShowChart /> },
     { key: "barChart", labelKey: "view.barChart", icon: <BarChartIcon /> },
