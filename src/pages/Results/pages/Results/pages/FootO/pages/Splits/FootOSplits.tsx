@@ -32,6 +32,7 @@ export default function FootOSplits(
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
   const [, setShowCumulativeDisplayed] = useState<boolean>(false)
   const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
+  const [barChartThreshold, setBarChartThreshold] = useState<number>(15)
   const [selectedRunners, setSelectedRunners] = useState<string[]>([])
 
   const activeItem = props.activeItem
@@ -94,6 +95,12 @@ export default function FootOSplits(
     return analyzeTimeLoss(runners, timeLossThreshold, showCumulative)
   }, [runners, timeLossThreshold, showCumulative])
 
+  // Separate time loss analysis for Bar Chart with always time loss enabled (showCumulative = false)
+  const barChartTimeLossResults: TimeLossResults | undefined = useMemo(() => {
+    if (!barChartThreshold) return undefined
+    return analyzeTimeLoss(runners, barChartThreshold, false) // Always false for time loss analysis
+  }, [runners, barChartThreshold])
+
   const lineChartData = useMemo(() => {
     return selectedView === "lineChart" && selectedRunners.length > 0
       ? transformRunnersForLineChart(runners, selectedRunners)
@@ -102,9 +109,9 @@ export default function FootOSplits(
 
   const barChartData = useMemo(() => {
     return selectedView === "barChart" && selectedRunners.length > 0
-      ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults)
+      ? transformRunnersForBarChart(runners, selectedRunners, barChartTimeLossResults)
       : []
-  }, [selectedView, runners, selectedRunners, timeLossResults])
+  }, [selectedView, runners, selectedRunners, barChartTimeLossResults])
 
   const positionChartData = useMemo(() => {
     return selectedView === "positionChart" && selectedRunners.length > 0
@@ -206,6 +213,27 @@ export default function FootOSplits(
 
   const renderChartView = () => (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      {/* Add slider control specifically for Bar Chart */}
+      {selectedView === "barChart" && (
+        <Box mt={2} mb={2} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Typography>Umbral ({barChartThreshold}%):</Typography>
+          <Slider
+            size="small"
+            value={barChartThreshold}
+            min={5}
+            max={100}
+            step={5}
+            marks
+            onChange={(_, newValue) => {
+              if (typeof newValue === "number") {
+                setBarChartThreshold(newValue)
+              }
+            }}
+            sx={{ maxWidth: 125 }}
+          />
+        </Box>
+      )}
+
       <Box
         sx={{
           display: "flex",
