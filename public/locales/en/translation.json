@@ -260,7 +260,8 @@
     "timeLoss": "Time Loss Analysis",
     "lineChart": "Time vs Leader",
     "barChart": "Time Loss Chart",
-    "positionChart": "Position Evolution"
+    "positionChart": "Position Evolution",
+    "radios": "Radios"
   },
   "404Page": {
     "Header": "Lost in the woods?",

@@ -252,7 +252,8 @@
     "timeLoss": "Análisis de Pérdida de Tiempo",
     "lineChart": "Tiempo vs Líder",
     "barChart": "Gráfico de Pérdida de Tiempo",
-    "positionChart": "Evolución de Posición"
+    "positionChart": "Evolución de Posición",
+    "radios": "Radios"
   },
   "404Page": {
     "Header": "¿Perdido en el bosque?",

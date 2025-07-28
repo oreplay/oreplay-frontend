@@ -185,7 +185,8 @@
     "timeLoss": "Analyse des Pertes de Temps",
     "lineChart": "Temps vs Leader",
     "barChart": "Graphique des Pertes de Temps",
-    "positionChart": "Évolution de la Position"
+    "positionChart": "Évolution de la Position",
+    "radios": "Radios"
   },
   "404Page": {
     "Header": "Perdu dans les bois ?",
