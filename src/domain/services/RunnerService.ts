@@ -27,7 +27,7 @@ const getClassName = (runner: ProcessedRunnerModel) => {
 }
 
 const isDNS = (runner: ProcessedParticipantModel | ParticipantModel) =>
-  runner.stage.status_code === RESULT_STATUS.dns
+  runner.stage?.status_code === RESULT_STATUS.dns //TODO: Handle ranking runners
 
 const isNC = (runner: ProcessedRunnerModel | RunnerModel): boolean => {
   return isRunnerNC(runner) // TODO: Move this logic here
