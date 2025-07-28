@@ -24,17 +24,15 @@ interface CompactRunnerTableProps {
 }
 
 export default function CompactRunnerTable({
-                                             runners,
-                                             selectedRunners,
-                                             onSelectionChange,
-                                           }: CompactRunnerTableProps) {
+  runners,
+  selectedRunners,
+  onSelectionChange,
+}: CompactRunnerTableProps) {
   const { t } = useTranslation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
-  const selectableRunnerIds = runners
-    .filter((r) => r.stage.position)
-    .map((r) => r.id)
+  const selectableRunnerIds = runners.filter((r) => r.stage.position).map((r) => r.id)
 
   useEffect(() => {
     if (selectedRunners.length === 0 && runners.length > 0) {
@@ -66,11 +64,9 @@ export default function CompactRunnerTable({
   }
 
   const isAllSelected =
-    selectableRunnerIds.length > 0 &&
-    selectedRunners.length === selectableRunnerIds.length
+    selectableRunnerIds.length > 0 && selectedRunners.length === selectableRunnerIds.length
   const isIndeterminate =
-    selectedRunners.length > 0 &&
-    selectedRunners.length < selectableRunnerIds.length
+    selectedRunners.length > 0 && selectedRunners.length < selectableRunnerIds.length
 
   return (
     <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -144,20 +140,14 @@ export default function CompactRunnerTable({
                       {runner.full_name}
                     </Typography>
                     {runner.club && (
-                      <Typography
-                        variant="caption"
-                        color="text.secondary"
-                        display="block"
-                      >
+                      <Typography variant="caption" color="text.secondary" display="block">
                         {runner.club.short_name}
                       </Typography>
                     )}
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="body2" noWrap>
-                      {runner.stage.time_seconds
-                        ? formatTime(runner.stage.time_seconds)
-                        : "-"}
+                      {runner.stage.time_seconds ? formatTime(runner.stage.time_seconds) : "-"}
                     </Typography>
                   </TableCell>
                 </TableRow>

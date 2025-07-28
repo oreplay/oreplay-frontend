@@ -72,9 +72,19 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
     }
   })
 
-  const maxPosition = Math.max(
-    ...dataWithCustomX.flatMap((runner) => runner.data.map((point) => point.y)),
-  )
+  const allYValues = dataWithCustomX.flatMap((runner) => runner.data.map((point) => point.y))
+  const dynamicMaxY = Math.max(...allYValues)
+
+  // Tick step logic
+  const tickStep = dynamicMaxY <= 10 ? 1 : dynamicMaxY <= 20 ? 2 : 5
+
+  const yTickValues = []
+  for (let i = 1; i <= dynamicMaxY; i += tickStep) {
+    yTickValues.push(i)
+  }
+  if (yTickValues[yTickValues.length - 1] !== dynamicMaxY) {
+    yTickValues.push(dynamicMaxY)
+  }
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
@@ -91,7 +101,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           yScale={{
             type: "linear",
             min: 1,
-            max: Math.max(maxPosition, 10),
+            max: dynamicMaxY,
             reverse: true,
             nice: false,
           }}
@@ -104,6 +114,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             legendOffset: 60,
             legendPosition: "middle",
             format: (value) => `${Math.round(Number(value))}°`,
+            tickValues: yTickValues,
           }}
           axisBottom={{
             tickSize: 5,
@@ -121,6 +132,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             legendOffset: -60,
             legendPosition: "middle",
             format: (value) => `${Math.round(Number(value))}°`,
+            tickValues: yTickValues,
           }}
           pointSize={8}
           pointColor={{ theme: "background" }}
