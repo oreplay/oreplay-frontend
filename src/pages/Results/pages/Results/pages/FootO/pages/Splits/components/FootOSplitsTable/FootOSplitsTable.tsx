@@ -22,7 +22,6 @@ import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
 import React, { useMemo } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
-import { GraphType } from "../GraphSelection/GraphSelectionModal.tsx"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
@@ -34,7 +33,6 @@ type FootOSplitsTableProps = {
   timeLossResults?: TimeLossResults | null // <--- Añadido aquí
   graphsEnabled?: boolean
   selectedRunners?: string[]
-  selectedGraphType?: GraphType | null
   onRunnerSelectionChange?: (selectedRunners: string[]) => void
 }
 

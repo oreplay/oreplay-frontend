@@ -1,10 +1,6 @@
 import i18next from "i18next"
 import { DateTime, Duration } from "luxon"
 
-export function getCurrentDate() {
-  return DateTime.now()
-}
-
 export function parseDate(dateString: string) {
   return parseLuxon(dateString).toLocaleString(DateTime.DATE_SHORT)
 }
