@@ -41,11 +41,11 @@ export default function ViewSelector({
   const { t } = useTranslation()
 
   const viewOptions: ViewOption[] = [
-    { key: "splits", labelKey: "view.splits", icon: <TimerIcon /> },
-    { key: "accumulated", labelKey: "view.accumulated", icon: <AccessTimeIcon /> },
     ...(hasRadios
       ? [{ key: "radios" as const, labelKey: "view.radios", icon: <SettingsRemoteIcon /> }]
       : []),
+    { key: "splits", labelKey: "view.splits", icon: <TimerIcon /> },
+    { key: "accumulated", labelKey: "view.accumulated", icon: <AccessTimeIcon /> },
     { key: "timeLoss", labelKey: "view.timeLoss", icon: <AnalyticsIcon /> },
     { key: "lineChart", labelKey: "view.lineChart", icon: <ShowChart /> },
     { key: "barChart", labelKey: "view.barChart", icon: <BarChartIcon /> },
