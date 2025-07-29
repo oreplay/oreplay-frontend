@@ -21,26 +21,32 @@ import {
   transformRunnersForBarChart,
   transformRunnersForPositionChart,
 } from "./components/utils/chartDataTransform.ts"
+import { useTranslation } from "react-i18next"
 
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
+  const { t } = useTranslation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
-  const [selectedView, setSelectedView] = useState<ViewType>("splits")
+  const activeItem = props.activeItem
+  const runners = props.runnersQuery.data || []
+
+  const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
+
+  // Estado inicial depende de si hay radios o no
+  const [selectedView, setSelectedView] = useState<ViewType>(hasRadios ? "radios" : "splits")
+
+  // Sincronizar selectedView si cambia hasRadios
+  useEffect(() => {
+    setSelectedView(hasRadios ? "radios" : "splits")
+  }, [hasRadios])
+
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
-  const [, setShowCumulativeDisplayed] = useState<boolean>(false)
   const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
   const [barChartThreshold, setBarChartThreshold] = useState<number>(15)
   const [selectedRunners, setSelectedRunners] = useState<string[]>([])
-
-  const activeItem = props.activeItem
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const runners = props.runnersQuery.data || []
-
-  // Check if the event has radios
-  const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
 
   useEffect(() => {
     const saved = localStorage.getItem("selectedRunners")
@@ -77,15 +83,12 @@ export default function FootOSplits(
       case "splits":
       case "radios":
         setShowCumulative(false)
-        setShowCumulativeDisplayed(false)
         break
       case "accumulated":
         setShowCumulative(true)
-        setShowCumulativeDisplayed(true)
         break
       case "timeLoss":
         setShowCumulative(false)
-        setShowCumulativeDisplayed(false)
         break
     }
   }
@@ -95,28 +98,24 @@ export default function FootOSplits(
     return analyzeTimeLoss(runners, timeLossThreshold, showCumulative)
   }, [runners, timeLossThreshold, showCumulative])
 
-  // Separate time loss analysis for Bar Chart with always time loss enabled (showCumulative = false)
   const barChartTimeLossResults: TimeLossResults | undefined = useMemo(() => {
     if (!barChartThreshold) return undefined
-    return analyzeTimeLoss(runners, barChartThreshold, false) // Always false for time loss analysis
+    return analyzeTimeLoss(runners, barChartThreshold, false)
   }, [runners, barChartThreshold])
 
   const lineChartData = useMemo(() => {
-    return selectedView === "lineChart" && selectedRunners.length > 0
-      ? transformRunnersForLineChart(runners, selectedRunners)
-      : []
+    if (selectedView !== "lineChart" || selectedRunners.length === 0) return []
+    return transformRunnersForLineChart(runners, selectedRunners)
   }, [selectedView, runners, selectedRunners])
 
   const barChartData = useMemo(() => {
-    return selectedView === "barChart" && selectedRunners.length > 0
-      ? transformRunnersForBarChart(runners, selectedRunners, barChartTimeLossResults)
-      : []
+    if (selectedView !== "barChart" || selectedRunners.length === 0) return []
+    return transformRunnersForBarChart(runners, selectedRunners, barChartTimeLossResults)
   }, [selectedView, runners, selectedRunners, barChartTimeLossResults])
 
   const positionChartData = useMemo(() => {
-    return selectedView === "positionChart" && selectedRunners.length > 0
-      ? transformRunnersForPositionChart(runners, selectedRunners)
-      : []
+    if (selectedView !== "positionChart" || selectedRunners.length === 0) return []
+    return transformRunnersForPositionChart(runners, selectedRunners)
   }, [selectedView, runners, selectedRunners])
 
   const handleRunnerSelectionChange = (runnerIds: string[]) => {
@@ -181,7 +180,7 @@ export default function FootOSplits(
       <ExperimentalFeatureAlert />
 
       <Box mt={2} mb={2} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <Typography>Umbral ({timeLossThreshold}%):</Typography>
+        <Typography>{t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}</Typography>
         <Slider
           size="small"
           value={timeLossThreshold}
@@ -213,10 +212,11 @@ export default function FootOSplits(
 
   const renderChartView = () => (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      {/* Add slider control specifically for Bar Chart */}
       {selectedView === "barChart" && (
         <Box mt={2} mb={2} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Typography>Umbral ({barChartThreshold}%):</Typography>
+          <Typography>
+            {t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}
+          </Typography>
           <Slider
             size="small"
             value={barChartThreshold}
@@ -271,18 +271,13 @@ export default function FootOSplits(
 
   return (
     <Box>
-      <ViewSelector
-        selectedView={selectedView}
-        onViewChange={handleViewChange}
-        hasRadios={hasRadios}
-      />
+      <ViewSelector selectedView={selectedView} onViewChange={handleViewChange} hasRadios={hasRadios} />
+
       {selectedView === "splits" && renderSplitsView()}
       {selectedView === "accumulated" && renderAccumulatedView()}
       {selectedView === "radios" && renderRadiosView()}
       {selectedView === "timeLoss" && renderTimeLossView()}
-      {(selectedView === "lineChart" ||
-        selectedView === "barChart" ||
-        selectedView === "positionChart") &&
+      {(selectedView === "lineChart" || selectedView === "barChart" || selectedView === "positionChart") &&
         renderChartView()}
     </Box>
   )
