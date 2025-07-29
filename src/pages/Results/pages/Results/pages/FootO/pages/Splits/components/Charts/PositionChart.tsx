@@ -183,7 +183,9 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
 
                 {data.timeLost > 0 && (
                   <Typography variant="body2" mb={0.5}>
-                    {t("positionChart.tooltip.timeLost")}: +{formatTime(data.timeLost)}
+                    {t("positionChart.tooltip.timeLost", {
+                      timeLost: `+${formatTime(data.timeLost)}`,
+                    })}
                   </Typography>
                 )}
               </Box>
