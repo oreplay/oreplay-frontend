@@ -18,7 +18,7 @@
     "title": "Communication",
     "p1": "To contact us for any question regarding the processing of personal data, we provide you with the following means of contact:",
     "contact": {
-      "email": "<2>support@oreplay.es</2>"
+      "email": "● <2>support@oreplay.es</2>"
     },
     "p2": "All notices and communications provided in this section will be deemed effective when made by any of the means set out above. We understand that the privacy and security of your personal information is extremely important."
   },
@@ -38,22 +38,22 @@
     "title": "What measures have we taken to ensure the confidentiality, integrity and security of your data?",
     "p1": "We have implemented several actions to protect your personal information, ensuring the confidentiality, integrity and security of your data:",
     "list": {
-      "item1": "We only ask for the minimum amount of information necessary, collecting only what we believe to be essential.",
-      "item2": "We have established a series of confidentiality agreements with all our suppliers, staff and partners.",
-      "item3": "We have put in place a number of IT security measures that will protect us from external attacks.",
-      "item4": "We have reviewed all our documentation so that it is adequate as required by the new regulation.",
-      "item5": "We have assessed the impact that our procedures may have on the protection of your personal data.",
-      "item6": "We have trained our staff so that we can all act in a diligent and ethical manner, complying with all the requirements of the new regulation."
+      "item1": "● We only ask for the minimum amount of information necessary, collecting only what we believe to be essential.",
+      "item2": "● We have established a series of confidentiality agreements with all our suppliers, staff and partners.",
+      "item3": "● We have put in place a number of IT security measures that will protect us from external attacks.",
+      "item4": "● We have reviewed all our documentation so that it is adequate as required by the new regulation.",
+      "item5": "● We have assessed the impact that our procedures may have on the protection of your personal data.",
+      "item6": "● We have trained our staff so that we can all act in a diligent and ethical manner, complying with all the requirements of the new regulation."
     }
   },
   "Treatmentprinciples": {
     "title": "Principles we will apply to your personal information",
     "p1": "In processing your personal data, we will apply the following principles that comply with the requirements of the new European data protection regulation:",
     "list": {
-      "item1": "Principle of lawfulness, fairness and transparency: We will always require your consent to the processing of your personal data for one or more specific purposes that we will inform you of in advance with absolute transparency.",
-      "item2": "Data minimisation principle: We will only request data that is strictly necessary in relation to the purposes for which we require it. As little as possible.",
-      "item3": "Principle of limitation of the storage period: Data will be kept for no longer than is necessary for the purposes of the processing, depending on the purpose. We will inform you of the relevant retention period. In the case of subscriptions, we will periodically review our lists and delete those registrations that have been inactive for a considerable period of time.",
-      "item4": "Principle of integrity and confidentiality: Your data will be treated in a way that ensures adequate security of personal data and guarantees confidentiality.We take all necessary precautions to prevent unauthorised access or misuse of our users' data by third parties."
+      "item1": "● Principle of lawfulness, fairness and transparency: We will always require your consent to the processing of your personal data for one or more specific purposes that we will inform you of in advance with absolute transparency.",
+      "item2": "● Data minimisation principle: We will only request data that is strictly necessary in relation to the purposes for which we require it. As little as possible.",
+      "item3": "● Principle of limitation of the storage period: Data will be kept for no longer than is necessary for the purposes of the processing, depending on the purpose. We will inform you of the relevant retention period. In the case of subscriptions, we will periodically review our lists and delete those registrations that have been inactive for a considerable period of time.",
+      "item4": "● Principle of integrity and confidentiality: Your data will be treated in a way that ensures adequate security of personal data and guarantees confidentiality.We take all necessary precautions to prevent unauthorised access or misuse of our users' data by third parties."
     }
   },
   "Legalbases": {
@@ -225,11 +225,11 @@
     "title": "Data protection rights",
     "p1": "Users may send a written communication to the registered office of the SERVICE or to the email address indicated in the heading of this Legal Notice, including in both cases a photocopy of your ID card or other similar identification document, to request the exercise of the following rights:",
     "list": {
-      "item1": "Right to request access to personal data: you may ask us whether we are processing your data;",
-      "item2": "Right to request its rectification (in case it is incorrect) or deletion (when the personal data is no longer necessary in relation to the purposes for which it was collected or otherwise processed);",
-      "item3": "The right to request the limitation or cancellation of your data processing, in which case they will only be kept by us for the exercise or defense of claims;",
-      "item4": "The right to request the limitation or cancellation of your data processing, in which case they will only be kept by us for the exercise or defense of claims;",
-      "item5": "Right to data portability: in case you want your data to be processed by another firm, we will provide you with the portability of your data to any other company you indicate to us in a structured, intelligible and automated format."
+      "item1": "● Right to request access to personal data: you may ask us whether we are processing your data;",
+      "item2": "● Right to request its rectification (in case it is incorrect) or deletion (when the personal data is no longer necessary in relation to the purposes for which it was collected or otherwise processed);",
+      "item3": "● The right to request the limitation or cancellation of your data processing, in which case they will only be kept by us for the exercise or defense of claims;",
+      "item4": "● The right to request the limitation or cancellation of your data processing, in which case they will only be kept by us for the exercise or defense of claims;",
+      "item5": "● Right to data portability: in case you want your data to be processed by another firm, we will provide you with the portability of your data to any other company you indicate to us in a structured, intelligible and automated format."
     },
     "p2": "These rights are very personal and shall be exercised by the interested party, with no other limitations than those provided for in the applicable legislation. However, the legal representative of the user concerned may act when he/she is in a situation of incapacity or minority that makes it impossible for him/her to exercise them personally. The exercise of their rights will be made effective by the data controller within thirty days of receipt of the request. In the event that the Data Controller considers that it is not appropriate to accede to the request, it will inform you with reasons and within the period indicated in this section. In the cases in which, being appropriate the cancellation of the data, it is not possible its physical extinction, both for technical reasons and because of the computer support used, we will proceed to the blocking of these in order to prevent its use, until its complete elimination of the information systems."
   },
