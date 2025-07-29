@@ -56,6 +56,7 @@
     "PositionChart": "Position Chart",
     "TimeLossAnalysis": "Time Loss Analysis",
     "Threshold": "Threshold",
+    "ThresholdWithPercent": "Threshold ({{percent}}%)",
     "RunnerSelection": "Runner Selection",
     "SelectedCount": "{{count}} of {{total}} selected",
     "SelectRunnersMessage": "Select runners to view charts",
@@ -92,7 +93,7 @@
       "control": "Control",
       "position": "Position",
       "splitTime": "Split time",
-      "timeLost": "Time behind best split"
+      "timeLost": "Time behind best split: {{timeLost}}"
     },
     "caption": "* Position 1 at the top (best), higher numbers lower (worse)"
   },
@@ -244,7 +245,8 @@
       "NoRunnersWithSplits": "No runner has downloaded their chip",
       "PartialTimes": "Partials",
       "CumulativeTimes": "Cumulative",
-      "OnlyForClasses": "Splits table is accessible only in the class-based view."
+      "OnlyForClasses": "Splits table is accessible only in the class-based view.",
+      "CleanTime": "Without Error"
     },
     "PointsTable": {
       "OnlyForClasses": "Points view is accessible only in the class-based view."
@@ -267,5 +269,15 @@
     "Header": "Lost in the woods?",
     "Message": "We couldn't find the page you were looking for.",
     "ButtonMessage": "Start triangle"
-  }
+  },
+  "sidebar": {
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "cookiePolicy": "Cookie Policy",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "backendVersion": "Backend",
+    "loading": "Loading..."
+  },
+  "authenticationError": "An error happened"
 }

@@ -1,5 +1,14 @@
 {
   "Loading": "Chargement...",
+  "Search": {
+    "Search": "Rechercher",
+    "ClearSearch": "Effacer la recherche"
+  },
+  "GeneralErrorFallback": {
+    "title": "Une erreur inattendue s'est produite",
+    "msg": "Essayez de rafraîchir la page. Si l'erreur persiste, réessayez plus tard."
+  },
+  "ForbiddenAccess": "Accès refusé",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
   "Menu": "Menu",
@@ -11,6 +20,7 @@
   "Organizer": "Organisateur",
   "Name": "Nom",
   "Edit": "Modifier",
+  "Success": "Succès!",
   "Cancel": "Annuler",
   "Delete": "Supprimer",
   "Save": "Sauvegarder",
@@ -46,9 +56,43 @@
     "PositionChart": "Évolution des Positions",
     "TimeLossAnalysis": "Analyse des Pertes de Temps",
     "Threshold": "Seuil",
+    "ThresholdWithPercent": "Seuil ({{percent}}%)",
     "RunnerSelection": "Sélection des Coureurs",
     "SelectedCount": "{{count}} sur {{total}} sélectionnés",
     "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques"
+  },
+  "positionChart": {
+    "noData": "Sélectionnez des coureurs pour voir l'évolution de la position",
+    "xAxisLabel": "Contrôles",
+    "yAxisLabel": "Position",
+    "tooltip": {
+      "control": "Contrôle",
+      "position": "Position",
+      "splitTime": "Temps intermédiaire",
+      "timeLost": "Temps perdu par rapport au meilleur temps: {{timeLost}}"
+    },
+    "caption": "* Position 1 en haut (meilleur), positions plus élevées en bas (pire)"
+  },
+  "tooltip": {
+    "totalDisplayedTime": "Temps total affiché",
+    "errorFreeTime": "Temps sans erreurs",
+    "errorTime": "Temps perdu (erreur)",
+    "efficiency": "Efficacité"
+  },
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Temps sans erreurs",
+      "errorTime": "Temps d'erreur (perte)"
+    },
+    "timeAxisLabel": "Temps (secondes)"
+  },
+  "lineChart": {
+    "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
+    "xAxisLabel": "Contrôles",
+    "tooltip": {
+      "behindLeader": "Temps par rapport au leader",
+      "behindBestPartial": "Temps par rapport au meilleur intermédiaire"
+    }
   },
   "Sign in": {
     "Sign in": "Se connecter",
@@ -87,6 +131,12 @@
         "DialogTitle": "Voulez-vous supprimer cette étape?",
         "DialogBody": "L'étape et tous ses résultats seront supprimés. Cette action ne peut pas être annulée."
       },
+      "Stats": {
+        "MenuText": "Statistiques",
+        "DialogTitle": "Voir les statistiques de l'étape",
+        "DialogBody": "Les statistiques de l'étape seront affichées.",
+        "DialogConfirm": "OK"
+      },
       "WipeOutRunners": {
         "MenuText": "Réinitialiser",
         "DialogTitle": "Voulez-vous réinitialiser cette étape ?",
@@ -95,15 +145,17 @@
       },
       "StagesTypes": {
         "StageType": "Type",
+        "FootO": "CO à pied / VTT-O",
         "Relay": "Relais",
         "Rogaine": "Rogaine",
         "TrailO": "CO de précision",
-        "Totals": "Ranking / Totals",
         "Raid": "Raid",
+        "Totals": "Classements / Totaux",
         "MassStart": "Départ en masse",
         "ChaseStart": "Poursuite"
       }
     },
+    "EventSecurityTokens": "Clé de sécurité pour le client de bureau",
     "EventSecurityTokensExpireDate": "Expire le",
     "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
@@ -139,7 +191,8 @@
     "Results": "Résultats",
     "Splits": "Intermédiaires",
     "Graphs": "Graphiques",
-    "ScorePoints": "Points"
+    "ScorePoints": "Points",
+    "RelayLegs": "Relais"
   },
   "ResultsStage": {
     "Refresh": "Rafraîchir",
@@ -148,14 +201,15 @@
     "NoStartTime": "-",
     "NotStarted": "-",
     "Class": "Class",
-    "Classes": "Classes",
+    "Classes": "Catégories",
     "Position": "Position",
     "Name": "Nom",
     "Club": "Club",
-    "NoClubMsg": "No club",
+    "Clubs": "Clubs",
+    "NoClubMsg": "Pas de club",
     "StartTime": "Départ",
-    "RaceTime": "Temp",
     "FinishTime": "Arrivée",
+    "RaceTime": "Temps",
     "Times": "Temps",
     "Points": "Points:",
     "BonusPoints": "Bonus:",
@@ -164,10 +218,11 @@
       "FinishControl": "Fin",
       "Control": "Contrôle",
       "StartHour": "Heure de départ:",
-      "FinishHour": "Heure de Arrivée:",
+      "FinishHour": "Heure d'arrivée:",
       "RaceTime": "Temps:",
       "Partial": "Intermédiaire",
-      "Cumulative": "Cumulatif"
+      "Cumulative": "Cumulatif",
+      "NoDownloadMsg": "Aucune lecture de la puce"
     },
     "statusCodes": {
       "nc": "NC",
@@ -177,6 +232,20 @@
       "mp": "MP",
       "disqualified": "DSQ",
       "ot": "H.Délai"
+    },
+    "SplitsTable": {
+      "NoRunnersWithSplits": "Aucun coureur n'a téléchargé sa puce",
+      "PartialTimes": "Temps intermédiaires",
+      "CumulativeTimes": "Temps cumulés",
+      "OnlyForClasses": "Le tableau des intermédiaires est uniquement disponible pour les résultats par catégorie.",
+      "CleanTime": "Sans erreurs"
+    },
+    "PointsTable": {
+      "OnlyForClasses": "Le tableau des points est uniquement disponible pour les résultats par catégorie"
+    },
+    "WrongFileUploaded": {
+      "Title": "Résultats sans intermédiaires !",
+      "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés car ils peuvent entraîner des données manquantes ou incorrectes. Vous pouvez trouver plus d'informations sur la manière de télécharger les résultats sur notre page <2>Organisateurs</2>."
     }
   },
   "view": {
@@ -192,5 +261,15 @@
     "Header": "Perdu dans les bois ?",
     "Message": "Nous n'avons pas pu trouver la page que vous recherchiez.",
     "ButtonMessage": "Triangle de départ"
-  }
+  },
+  "sidebar": {
+    "legalNotice": "Mentions légales",
+    "privacyPolicy": "Politique de confidentialité",
+    "cookiePolicy": "Politique de cookies",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "backendVersion": "Backend",
+    "loading": "Chargement..."
+  },
+  "authenticationError": "Une erreur s'est produite"
 }

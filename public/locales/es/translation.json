@@ -56,6 +56,7 @@
     "PositionChart": "Evolución de Posición",
     "TimeLossAnalysis": "Análisis de pérdida de Tiempo",
     "Threshold": "Umbral",
+    "ThresholdWithPercent": "Umbral ({{percent}}%)",
     "RunnerSelection": "Selección de Corredores",
     "SelectedCount": "{{count}} de {{total}} seleccionados",
     "SelectRunnersMessage": "Selecciona corredores para ver gráficos"
@@ -68,7 +69,7 @@
       "control": "Control",
       "position": "Posición",
       "splitTime": "Tiempo parcial",
-      "timeLost": "Tiempo respecto al mejor parcial"
+      "timeLost": "Tiempo respecto al mejor parcial: {{timeLost}}"
     },
     "caption": "* Posición 1 arriba (mejor), posiciones más altas abajo (peor)"
   },
@@ -236,7 +237,8 @@
       "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
       "PartialTimes": "Parciales",
       "CumulativeTimes": "Acumulados",
-      "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías."
+      "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías.",
+      "CleanTime": "Sin Errores"
     },
     "PointsTable": {
       "OnlyForClasses": "El visor de puntos solo está disponible para resultados por categorías"
@@ -259,5 +261,15 @@
     "Header": "¿Perdido en el bosque?",
     "Message": "No hemos podido encontrar la página que estabas buscando.",
     "ButtonMessage": "Triángulo de salida"
-  }
+  },
+  "sidebar": {
+    "legalNotice": "Aviso Legal",
+    "privacyPolicy": "Política de Privacidad",
+    "cookiePolicy": "Política de Cookies",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "backendVersion": "Backend",
+    "loading": "Cargando..."
+  },
+  "authenticationError": "Ha ocurrido un error"
 }
