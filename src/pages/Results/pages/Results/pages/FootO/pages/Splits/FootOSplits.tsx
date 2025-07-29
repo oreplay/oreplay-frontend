@@ -31,6 +31,7 @@ export default function FootOSplits(
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
   const activeItem = props.activeItem
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
 
   const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
