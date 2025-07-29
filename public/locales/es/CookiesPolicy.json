@@ -15,17 +15,17 @@
     "p4": "Según los términos incluidos en el artículo 22.2 de la Ley 34/2002 de Servicios de la Sociedad de la Información y Comercio Electrónico, si usted decide continuar navegando con todas las cookies habilitadas, estará prestando su consentimiento para el empleo de las cookies que detallamos a continuación.",
     "p5": "Las cookies de este Sitio Web ayudan a:",
     "list1": {
-      "item1": "Hacer que este Sitio Web funcione correctamente;",
-      "item2": "Permitir visualizar videos u otros recursos multimedia;",
-      "item3": "Mejorar la velocidad / seguridad del Sitio Web;",
-      "item4": "Poder compartir páginas con sus redes sociales;",
-      "item5": "Guardar contraseñas de usuarios para futuras visitas."
+      "item1": "● Hacer que este Sitio Web funcione correctamente;",
+      "item2": "● Permitir visualizar videos u otros recursos multimedia;",
+      "item3": "● Mejorar la velocidad / seguridad del Sitio Web;",
+      "item4": "● Poder compartir páginas con sus redes sociales;",
+      "item5": "● Guardar contraseñas de usuarios para futuras visitas."
     },
     "p6": "No utilizamos jamás cookies para:",
     "list2": {
-      "item1": "Recoger información de identificación personal (sin su consentimiento expreso);",
-      "item2": "Recoger información sensible (sin su consentimiento expreso);",
-      "item3": "Compartir datos de identificación personal a terceros."
+      "item1": "● Recoger información de identificación personal (sin su consentimiento expreso);",
+      "item2": "● Recoger información sensible (sin su consentimiento expreso);",
+      "item3": "● Compartir datos de identificación personal a terceros."
     }
   },
   "thirdPartyCookies": {
@@ -54,18 +54,18 @@
     "p3": "Ponemos a disposición de los usuarios que quieran impedir la instalación de las mencionadas cookies, enlaces facilitados al efecto por navegadores cuyo uso se considera más extendido:",
     "p4": "ADMINISTRACION DE COOKIES POR NAVEGADOR:",
     "list1": {
-      "item1": "Configuración de cookies (Google Chrome) (<2>http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647</2>)",
-      "item2": "Eliminar y administrar cookies (Internet Explorer) (<2>https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies</2>)",
-      "item3": "Deshabilitar cookies de terceros (Firefox) (<2>https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros</2>)",
-      "item4": "Administrar cookies en Safari (Safari) (<2>http://support.apple.com/kb/ph5042</2>)"
+      "item1": "● Configuración de cookies (Google Chrome) (<2>http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647</2>)",
+      "item2": "● Eliminar y administrar cookies (Internet Explorer) (<2>https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies</2>)",
+      "item3": "● Deshabilitar cookies de terceros (Firefox) (<2>https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros</2>)",
+      "item4": "● Administrar cookies en Safari (Safari) (<2>http://support.apple.com/kb/ph5042</2>)"
     },
     "p5": "Muchos navegadores permiten activar un modo privado mediante el cual las cookies se borran siempre después de su visita y, dependiendo de cada navegador, este modo privado puede tener diferentes nombres. Abajo puede encontrar una lista de los navegadores más comunes y los diferentes nombres de este “modo privado”:",
     "list2": {
-      "item1": "Internet Explorer 8+: InPrivate",
-      "item2": "Firefox 3.5+: Navegación Privada",
-      "item3": "Chrome 10+: Incógnito",
-      "item4": "Safari 2+: Navegación Privada",
-      "item5": "Opera 10.5+: Navegación Privada"
+      "item1": "● Internet Explorer 8+: InPrivate",
+      "item2": "● Firefox 3.5+: Navegación Privada",
+      "item3": "● Chrome 10+: Incógnito",
+      "item4": "● Safari 2+: Navegación Privada",
+      "item5": "● Opera 10.5+: Navegación Privada"
     },
     "p6": "Por favor, lee atentamente la sección de ayuda de su navegador para conocer más acerca de cómo activar el “modo privado”. Podrá seguir visitando nuestro Sitio Web aunque su navegador esté en “modo privado”, no obstante, la experiencia de usuario puede no ser óptima y algunas utilidades pueden no funcionar.",
     "p7": "Si necesita más información acerca del bloqueo en su equipo de cookies, no dude en atender la explicación que se le da en este enlace Web: <2>http://windows.microsoft.com/es-es/windows-vista/block-or-allow-cookies<2> "
