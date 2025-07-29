@@ -8,6 +8,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
+  Link,
 } from "@mui/material"
 import EventIcon from "@mui/icons-material/Event"
 import InfoIcon from "@mui/icons-material/Info"
@@ -20,6 +22,8 @@ import React from "react"
 import LanguageDropdown from "./components/LanguageDropdown.tsx"
 import AuthenticationSidebarItem from "./components/AuthenticationSidebarItem.tsx"
 import { useAuth } from "../../../shared/hooks.ts"
+import { useQuery } from "react-query"
+import { getBackendVersion } from "../../../services/VersionService.ts"
 
 type Props = {
   openSidebar: boolean
@@ -29,6 +33,15 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { user } = useAuth()
+
+  // Get frontend version from package.json
+  const frontendVersion = import.meta.env.VITE_VERSION_NUMBER || "0.2.29"
+
+  // Fetch backend version with proper stale time
+  const { data: backendVersion } = useQuery("backend-version", getBackendVersion, {
+    staleTime: Infinity,
+    retry: false,
+  })
 
   return (
     <Box>
@@ -52,7 +65,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
           sx={{
             display: "flex",
             justifyContent: "flex-end",
-            p: 1, // Padding for spacing
+            p: 1,
           }}
         >
           <IconButton onClick={() => setOpenSidebar((prev) => !prev)}>
@@ -100,7 +113,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
             </ListItemButton>
           </ListItem>
           <Divider />
-          {user ? (
+          {user && (
             <ListItem>
               <ListItemButton
                 onClick={() => {
@@ -114,12 +127,101 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
                 <ListItemText primary={t("Dashboard.Dashboard")} />
               </ListItemButton>
             </ListItem>
-          ) : (
-            <></>
           )}
           <AuthenticationSidebarItem />
           <LanguageDropdown />
         </List>
+
+        {/* Legal Links and Version Info */}
+        <Box sx={{ mt: "auto", p: 2 }}>
+          {/* Legal Links */}
+          <Box sx={{ mb: 2 }}>
+            <Link
+              component="button"
+              variant="body2"
+              sx={{
+                display: "block",
+                mb: 0.5,
+                fontSize: "0.75rem",
+                color: "text.secondary",
+                textDecoration: "none",
+                textAlign: "left",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+              onClick={() => {
+                void navigate("/legal-notice")
+                setOpenSidebar(false)
+              }}
+            >
+              {t("sidebar.legalNotice")}
+            </Link>
+            <Link
+              component="button"
+              variant="body2"
+              sx={{
+                display: "block",
+                mb: 0.5,
+                fontSize: "0.75rem",
+                color: "text.secondary",
+                textDecoration: "none",
+                textAlign: "left",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+              onClick={() => {
+                void navigate("/privacy-policy")
+                setOpenSidebar(false)
+              }}
+            >
+              {t("sidebar.privacyPolicy")}
+            </Link>
+            <Link
+              component="button"
+              variant="body2"
+              sx={{
+                display: "block",
+                mb: 0.5,
+                fontSize: "0.75rem",
+                color: "text.secondary",
+                textDecoration: "none",
+                textAlign: "left",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+              onClick={() => {
+                void navigate("/cookies-policy")
+                setOpenSidebar(false)
+              }}
+            >
+              {t("sidebar.cookiePolicy")}
+            </Link>
+          </Box>
+
+          {/* Version Information in one line */}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              fontSize: "0.7rem",
+              color: "text.secondary",
+              opacity: 0.7,
+            }}
+          >
+            <Typography variant="caption">
+              {t("sidebar.frontendVersionWithVersion", { version: frontendVersion })}
+            </Typography>
+            <Typography variant="caption" sx={{ ml: 1 }}>
+              {t("sidebar.backendVersion")}:{" "}
+              {backendVersion ? `v${backendVersion}` : t("sidebar.loading")}
+            </Typography>
+          </Box>
+        </Box>
       </Drawer>
     </Box>
   )
