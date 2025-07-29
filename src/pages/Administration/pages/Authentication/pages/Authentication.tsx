@@ -6,6 +6,7 @@ import { Navigate, useSearchParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useAuth } from "../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../components/GeneralSuspenseFallback.tsx"
+import GeneralErrorFallback from "../../../../../components/GeneralErrorFallback.tsx"
 
 function MakeRequest(props: { code: string; code_verifier: string }) {
   const [loading, setLoading] = useState<boolean>(true)
@@ -49,9 +50,9 @@ export default function Authentication() {
   } else if (error) {
     // TODO handle the error (for example invalid username and password
     console.log("__authentication_code_provided__ with error")
-    return <p>An error happened</p>
+    return <GeneralErrorFallback />
   } else {
-    // TODO handle this case in the ui in a nicer way than a redirection to the startpage
+    // TODO handle this case in the ui in a nicer way than a redirection to the start page
 
     console.log("__redirect_out_to_startpage__")
     return <Navigate to={"/"} />
