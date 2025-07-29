@@ -272,13 +272,19 @@ export default function FootOSplits(
 
   return (
     <Box>
-      <ViewSelector selectedView={selectedView} onViewChange={handleViewChange} hasRadios={hasRadios} />
+      <ViewSelector
+        selectedView={selectedView}
+        onViewChange={handleViewChange}
+        hasRadios={hasRadios}
+      />
 
       {selectedView === "splits" && renderSplitsView()}
       {selectedView === "accumulated" && renderAccumulatedView()}
       {selectedView === "radios" && renderRadiosView()}
       {selectedView === "timeLoss" && renderTimeLossView()}
-      {(selectedView === "lineChart" || selectedView === "barChart" || selectedView === "positionChart") &&
+      {(selectedView === "lineChart" ||
+        selectedView === "barChart" ||
+        selectedView === "positionChart") &&
         renderChartView()}
     </Box>
   )
