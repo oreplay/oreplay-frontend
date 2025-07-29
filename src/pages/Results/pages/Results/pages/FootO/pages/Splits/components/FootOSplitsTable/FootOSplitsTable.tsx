@@ -30,7 +30,7 @@ type FootOSplitsTableProps = {
   radiosList: OnlineControlModel[]
   timeLossEnabled?: boolean
   timeLossThreshold?: number
-  timeLossResults?: TimeLossResults | null // <--- Añadido aquí
+  timeLossResults?: TimeLossResults | null
   graphsEnabled?: boolean
   selectedRunners?: string[]
   onRunnerSelectionChange?: (selectedRunners: string[]) => void
@@ -46,7 +46,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   )
 
   const courseControlList = useMemo(() => {
-    // Eliminado: no añadimos manualmente el control Finish para evitar duplicados
     return getCourseFromRunner(runnerList)
   }, [runnerList])
 
@@ -123,7 +122,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
               <TableCell key="Time">{t("ResultsStage.Times")}</TableCell>
               {showTimeLossColumn && (
                 <TableCell key="CleanTime" sx={{ fontWeight: "bold" }}>
-                  Sin Errores
+                  {t("ResultsStage.SplitsTable.CleanTime")}
                 </TableCell>
               )}
               {controlList.map((courseControl) => {
