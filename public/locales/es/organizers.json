@@ -273,5 +273,13 @@
       },
       "p3": "Esta opción también es útil si hay problemas con la información del corredor y no se muestra correctamente. Por ejemplo, si se cambia la categoría de un competidor, el sistema puede tratarlo como una persona diferente, haciendo que el corredor aparezca tanto en la categoría antigua como en la nueva. Restablecer y volver a subir los datos garantiza que toda la información se actualice correctamente."
     }
+  },
+  "loading": "Cargando versión del cliente...",
+  "error": {
+    "title": "No se puede cargar la versión del cliente de escritorio",
+    "description": "Hubo un error al cargar la última versión del cliente de escritorio. Intente actualizar la página o póngase en contacto con soporte si el problema persiste.",
+    "details": "Detalles del error",
+    "noData": "No hay datos de versión disponibles",
+    "noDataDescription": "No se puede recuperar la información de la versión del cliente de escritorio. Por favor, inténtelo de nuevo más tarde."
   }
 }

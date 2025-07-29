@@ -273,5 +273,13 @@
       },
       "p3": "This option is also helpful if there are issues with runner information not displaying correctly. For example, if a competitor’s class is changed, the system may treat it as a different person, causing the runner to appear in both the old and new classes. Resetting and re-uploading ensures that all information is accurately updated."
     }
+  },
+  "loading": "Loading client version...",
+  "error": {
+    "title": "Unable to Load Desktop Client Version",
+    "description": "There was an error loading the latest desktop client version. Please try refreshing the page or contact support if the problem persists.",
+    "details": "Error details",
+    "noData": "No Version Data Available",
+    "noDataDescription": "Unable to retrieve desktop client version information. Please try again later."
   }
 }
