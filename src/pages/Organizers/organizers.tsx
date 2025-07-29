@@ -12,16 +12,16 @@ import {
   createTheme,
   ThemeProvider,
   Theme,
+  CircularProgress,
 } from "@mui/material"
 import FileDownloadIcon from "@mui/icons-material/FileDownload"
+import ErrorIcon from "@mui/icons-material/Error"
 import UploadStartTimesTabs from "./components/UploadStartTimesTabs.tsx"
 import UploadResultTabs from "./components/UploadResultTabs.tsx"
 import OrderedList from "../../components/OrderedList.tsx"
 import { useQuery } from "react-query"
 import getLatestClientVersion from "./services/DesktopClientService.ts"
 import UploadOnlineControlsTabs from "./components/UploadOnlineControlsTabs.tsx"
-
-const DESKTOP_CLIENT_VERSION_FALLBACK = import.meta.env.VITE_DESKTOP_CLIENT_VERSION_FALLBACK
 
 const organizersTheme = (theme: Theme) =>
   createTheme({
@@ -64,15 +64,61 @@ const style = {
 const Organizers = (): React.ReactNode => {
   const { t } = useTranslation("organizers")
 
-  const { data: version, isSuccess: successfullInVersionNumber } = useQuery(
-    "desktop-client-version",
-    getLatestClientVersion,
-    {
-      retry: false,
-    },
-  )
+  const {
+    data: version,
+    isLoading,
+    isError,
+    error,
+  } = useQuery("desktop-client-version", getLatestClientVersion, {
+    retry: false,
+    staleTime: Infinity,
+  })
 
-  const client_version = successfullInVersionNumber ? version : DESKTOP_CLIENT_VERSION_FALLBACK
+  // Show loading state
+  if (isLoading) {
+    return (
+      <Container
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "50vh" }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+          <CircularProgress />
+          <Typography>{t("loading")}</Typography>
+        </Box>
+      </Container>
+    )
+  }
+
+  // Show error state
+  if (isError) {
+    return (
+      <Container sx={{ marginTop: 4 }}>
+        <Alert severity="error" variant="outlined" sx={{ mb: 3 }}>
+          <AlertTitle sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <ErrorIcon />
+            {t("error.title")}
+          </AlertTitle>
+          {t("error.description")}
+          {error instanceof Error && (
+            <Typography variant="body2" sx={{ mt: 1, opacity: 0.8 }}>
+              {t("error.details")}: {error.message}
+            </Typography>
+          )}
+        </Alert>
+      </Container>
+    )
+  }
+
+  // Only render if we have the version data
+  if (!version) {
+    return (
+      <Container sx={{ marginTop: 4 }}>
+        <Alert severity="warning" variant="outlined">
+          <AlertTitle>{t("error.noData")}</AlertTitle>
+          {t("error.noDataDescription")}
+        </Alert>
+      </Container>
+    )
+  }
 
   return (
     <ThemeProvider theme={organizersTheme}>
@@ -109,13 +155,13 @@ const Organizers = (): React.ReactNode => {
         <Box sx={{ display: "flex", justifyContent: "center", my: "1em" }}>
           <Button
             variant="outlined"
-            href={`https://github.com/oreplay/desktop-client/releases/download/${client_version}/OReplayDesktop.exe`}
+            href={`https://github.com/oreplay/desktop-client/releases/download/${version}/OReplayDesktop.exe`}
             target="_blank"
             startIcon={<FileDownloadIcon />}
           >
             {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
             <Typography component={"span"} sx={{ textTransform: "none" }}>
-              {`\u00A0(v${client_version})`}
+              {`\u00A0(v${version})`}
             </Typography>
           </Button>
         </Box>
@@ -127,7 +173,7 @@ const Organizers = (): React.ReactNode => {
             components={{
               2: (
                 <Link
-                  href={`https://github.com/oreplay/desktop-client/releases/tag/${client_version}`}
+                  href={`https://github.com/oreplay/desktop-client/releases/tag/${version}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 />
