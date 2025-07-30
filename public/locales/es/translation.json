@@ -262,6 +262,9 @@
     "Message": "No hemos podido encontrar la página que estabas buscando.",
     "ButtonMessage": "Triángulo de salida"
   },
+  "Authentication": {
+    "errorOccurred": "Ocurrió un error durante la autenticación."
+  },
   "sidebar": {
     "legalNotice": "Aviso Legal",
     "privacyPolicy": "Política de Privacidad",

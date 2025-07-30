@@ -270,6 +270,9 @@
     "Message": "We couldn't find the page you were looking for.",
     "ButtonMessage": "Start triangle"
   },
+  "Authentication": {
+    "errorOccurred": "An error occurred during authentication."
+  },
   "sidebar": {
     "legalNotice": "Legal Notice",
     "privacyPolicy": "Privacy Policy",
