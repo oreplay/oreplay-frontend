@@ -65,7 +65,9 @@ function PrivacyPolicy() {
         <Typography>{t("Comercialname.p1")}</Typography>
         <Typography variant="h2">{t("Communication.title")}</Typography>
         <Typography align="justify">{t("Communication.p1")}</Typography>
+        {/* eslint-disable-next-line i18next/no-literal-string */}
         <Typography>
+          ●{" "}
           <Trans
             t={t}
             i18nKey="Communication.contact.email"
@@ -84,8 +86,9 @@ function PrivacyPolicy() {
         <List>
           {Array.from({ length: 6 }).map((_, i) => (
             <ListItem key={i}>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
               <Typography align="justify" component="span">
-                {t(`Securitymeasures.list.item${i + 1}`)}
+                ● {t(`Securitymeasures.list.item${i + 1}`)}
               </Typography>
             </ListItem>
           ))}
@@ -95,8 +98,9 @@ function PrivacyPolicy() {
         <List>
           {Array.from({ length: 4 }).map((_, i) => (
             <ListItem key={i}>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
               <Typography align="justify" component="span">
-                {t(`Treatmentprinciples.list.item${i + 1}`)}
+                ● {t(`Treatmentprinciples.list.item${i + 1}`)}
               </Typography>
             </ListItem>
           ))}
@@ -399,8 +403,9 @@ function PrivacyPolicy() {
         <List>
           {Array.from({ length: 5 }).map((_, i) => (
             <ListItem key={i}>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
               <Typography align="justify" component="span">
-                {t(`Dataprotectionrights.list.item${i + 1}`)}
+                ● {t(`Dataprotectionrights.list.item${i + 1}`)}
               </Typography>
             </ListItem>
           ))}

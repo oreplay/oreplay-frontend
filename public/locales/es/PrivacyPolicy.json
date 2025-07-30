@@ -18,7 +18,7 @@
     "title": "Comunicación",
     "p1": "Para contactar con nosotros para cualquier cuestión que haga referencia al tratamiento de datos personales, ponemos a su disposición diferentes medios de contacto que detallamos a continuación:",
     "contact": {
-      "email": "● <2>support@oreplay.es</2>"
+      "email": "<2>support@oreplay.es</2>"
     },
     "p2": "Todas las notificaciones y comunicaciones facilitadas en este apartado se considerarán eficaces cuando se realicen a través de cualquiera de los medios detallados anteriormente. Nosotros entendemos que la privacidad y la seguridad de su información personal son extremadamente importantes."
   },
@@ -38,22 +38,22 @@
     "title": "¿Qué medidas hemos tomado para asegurar la confidencialidad, integridad y seguridad de sus datos?",
     "p1": "Hemos implementado varias acciones para proteger su información personal, asegurando la confidencialidad, integridad y seguridad de sus datos:",
     "list": {
-      "item1": "● Solo pedimos la cantidad mínima de información necesaria, recopilando solo lo que creemos que es esencial.",
-      "item2": "● Hemos establecido una serie de acuerdos de confidencialidad con todos nuestros proveedores, personal y colaboradores.",
-      "item3": "● Hemos establecido una serie de medidas de seguridad informática que nos protegerán de posibles ataques externos.",
-      "item4": "● Hemos revisado toda nuestra documentación de modo que sea la adecuada según lo establecido en el nuevo reglamento.",
-      "item5": "● Hemos evaluado el impacto que pueden causar nuestros procedimientos sobre la protección de sus datos personales.",
-      "item6": "● Hemos formado a nuestro personal para que todos podamos actuar de forma diligente y ética, cumpliendo con todas las exigencias previstas en el nuevo reglamento."
+      "item1": "Solo pedimos la cantidad mínima de información necesaria, recopilando solo lo que creemos que es esencial.",
+      "item2": "Hemos establecido una serie de acuerdos de confidencialidad con todos nuestros proveedores, personal y colaboradores.",
+      "item3": "Hemos establecido una serie de medidas de seguridad informática que nos protegerán de posibles ataques externos.",
+      "item4": "Hemos revisado toda nuestra documentación de modo que sea la adecuada según lo establecido en el nuevo reglamento.",
+      "item5": "Hemos evaluado el impacto que pueden causar nuestros procedimientos sobre la protección de sus datos personales.",
+      "item6": "Hemos formado a nuestro personal para que todos podamos actuar de forma diligente y ética, cumpliendo con todas las exigencias previstas en el nuevo reglamento."
     }
   },
   "Treatmentprinciples": {
     "title": "Principios que aplicaremos a tu información personal",
     "p1": "En el tratamiento de tus datos personales, aplicaremos los siguientes principios que se ajustan a las exigencias del nuevo reglamento europeo de protección de datos:",
     "list": {
-      "item1": "● Principio de licitud, lealtad y transparencia: Siempre vamos a requerir tu consentimiento para el tratamiento de tus datos personales para uno o varios fines específicos que te informaremos previamente con absoluta transparencia.",
-      "item2": "● Principio de minimización de datos: Solo vamos a solicitar datos estrictamente necesarios en relación con los fines para los que los requerimos. Los mínimos posibles.",
-      "item3": "● Principio de limitación del plazo de conservación: Los datos serán mantenidos durante no más tiempo del necesario para los fines del tratamiento, en función a la finalidad. Te informaremos del plazo de conservación correspondiente. En el caso de suscripciones, periódicamente revisaremos nuestras listas y eliminaremos aquellos registros inactivos durante un tiempo considerable.",
-      "item4": "● Principio de integridad y confidencialidad: Tus datos serán tratados de tal manera que se garantice una seguridad adecuada de los datos personales y se garantice confidencialidad. Tomamos todas las precauciones necesarias para evitar el acceso no autorizado o uso indebido de los datos de nuestros usuarios por parte de terceros."
+      "item1": "Principio de licitud, lealtad y transparencia: Siempre vamos a requerir tu consentimiento para el tratamiento de tus datos personales para uno o varios fines específicos que te informaremos previamente con absoluta transparencia.",
+      "item2": "Principio de minimización de datos: Solo vamos a solicitar datos estrictamente necesarios en relación con los fines para los que los requerimos. Los mínimos posibles.",
+      "item3": "Principio de limitación del plazo de conservación: Los datos serán mantenidos durante no más tiempo del necesario para los fines del tratamiento, en función a la finalidad. Te informaremos del plazo de conservación correspondiente. En el caso de suscripciones, periódicamente revisaremos nuestras listas y eliminaremos aquellos registros inactivos durante un tiempo considerable.",
+      "item4": "Principio de integridad y confidencialidad: Tus datos serán tratados de tal manera que se garantice una seguridad adecuada de los datos personales y se garantice confidencialidad. Tomamos todas las precauciones necesarias para evitar el acceso no autorizado o uso indebido de los datos de nuestros usuarios por parte de terceros."
     }
   },
   "Legalbases": {
@@ -225,11 +225,11 @@
     "title": "Derechos de protección de datos",
     "p1": "Los usuarios podrán dirigir una comunicación por escrito al domicilio social DEL SERVICIO o a la dirección de correo electrónico indicada en el encabezamiento de este Aviso Legal, incluyendo en ambos casos fotocopia de su DNI u otro documento identificativo similar, para solicitar el ejercicio de los derechos siguientes:",
     "list": {
-      "item1": "● Derecho a solicitar el acceso a los datos personales: usted podrá preguntarnos si estamos tratando sus datos;",
-      "item2": "● Derecho a solicitar su rectificación (en caso de que sean incorrectos) o supresión (cuando los datos personales ya no sean necesarios en relación con los fines para los que fueron recogidos o tratados de otro modo).",
-      "item3": "● Derecho a solicitar la limitación o cancelación de su tratamiento, en cuyo caso únicamente serán conservados por nosotros para el ejercicio o la defensa de reclamaciones;",
-      "item4": "● Derecho a oponerse al tratamiento: Nosotros dejaremos de tratar los datos en la forma que usted indique, salvo que por motivos legítimos imperiosos o el ejercicio o la defensa de posibles reclamaciones se tengan que seguir tratando;",
-      "item5": "● Derecho a la portabilidad de los datos: en caso de que quiera que sus datos sean tratados por otra firma, nosotros le facilitaremos la portabilidad de sus datos a cualquier otra empresa que nos indique en un formato estructurado, inteligible y automatizado."
+      "item1": "Derecho a solicitar el acceso a los datos personales: usted podrá preguntarnos si estamos tratando sus datos;",
+      "item2": "Derecho a solicitar su rectificación (en caso de que sean incorrectos) o supresión (cuando los datos personales ya no sean necesarios en relación con los fines para los que fueron recogidos o tratados de otro modo).",
+      "item3": "Derecho a solicitar la limitación o cancelación de su tratamiento, en cuyo caso únicamente serán conservados por nosotros para el ejercicio o la defensa de reclamaciones;",
+      "item4": "Derecho a oponerse al tratamiento: Nosotros dejaremos de tratar los datos en la forma que usted indique, salvo que por motivos legítimos imperiosos o el ejercicio o la defensa de posibles reclamaciones se tengan que seguir tratando;",
+      "item5": "Derecho a la portabilidad de los datos: en caso de que quiera que sus datos sean tratados por otra firma, nosotros le facilitaremos la portabilidad de sus datos a cualquier otra empresa que nos indique en un formato estructurado, inteligible y automatizado."
     },
     "p2": "Estos derechos son personalísimos y serán ejercidos por el interesado, sin otras limitaciones que las que prevea la legislación aplicable. Podrá, no obstante, actuar el representante legal del usuario interesado cuando éste se encuentre en situación de incapacidad o minoría de edad que le imposibilite el ejercicio personal de los mismos. El ejercicio de sus derechos se hará efectivo por el responsable del Tratamiento dentro de treinta días siguientes al de la recepción de la solicitud. En el supuesto de que el responsable del Tratamiento considere que no procede acceder a lo solicitado, se lo comunicará motivadamente y dentro del plazo señalado en este apartado. En los casos en que, siendo procedente la cancelación de los datos, no sea posible su extinción física, tanto por razones técnicas como por causa del soporte informático utilizado, nosotros procederemos al bloqueo de estos con el fin de impedir su utilización, hasta su completa eliminación de los sistemas de información."
   },
