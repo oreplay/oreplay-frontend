@@ -137,6 +137,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
           {/* Legal Links */}
           <Box sx={{ mb: 2 }}>
             <Link
+              key={"LegalNote"}
               component="button"
               variant="body2"
               sx={{
@@ -158,6 +159,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
               {t("sidebar.legalNotice")}
             </Link>
             <Link
+              key={"Privacy policy"}
               component="button"
               variant="body2"
               sx={{
@@ -213,13 +215,14 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
               opacity: 0.7,
             }}
           >
-            <Typography variant="caption">
+            <Typography key={"frontEndVersion"} variant="caption">
               {t("sidebar.frontendVersionWithVersion", { version: frontendVersion })}
             </Typography>
-            <Typography variant="caption" sx={{ ml: 1 }}>
-              {t("sidebar.backendVersion")}:{" "}
-              {backendVersion ? `v${backendVersion}` : t("sidebar.loading")}
-            </Typography>
+            {backendVersion && (
+              <Typography variant="caption" sx={{ ml: 1 }}>
+                {`${t("sidebar.backendVersion")} v${backendVersion}`}
+              </Typography>
+            )}
           </Box>
         </Box>
       </Drawer>
