@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../components/GeneralSuspenseFallback.tsx"
 import GeneralErrorFallback from "../../../../../components/GeneralErrorFallback.tsx"
-import { useTranslation } from "react-i18next"
 
 function MakeRequest(props: { code: string; code_verifier: string }) {
   const [loading, setLoading] = useState<boolean>(true)
@@ -30,7 +29,6 @@ export default function Authentication() {
   const [searchParams] = useSearchParams()
   const error = searchParams.get("error")
   const authenticationCode = searchParams.get("code")
-  const { t } = useTranslation()
 
   if (authenticationCode) {
     const loginState = searchParams.get("state")
