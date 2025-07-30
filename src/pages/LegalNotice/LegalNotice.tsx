@@ -65,7 +65,8 @@ function LegalNotice() {
         <List>
           {Array.from({ length: 2 }).map((_, i) => (
             <ListItem key={i}>
-              <Typography component="span">{t(`Identification.list.item${i + 1}`)}</Typography>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
+              <Typography component="span">● {t(`Identification.list.item${i + 1}`)}</Typography>
             </ListItem>
           ))}
         </List>
@@ -74,6 +75,10 @@ function LegalNotice() {
         <List sx={{ paddingLeft: 2 }}>
           {communicationData.map((item, i) => (
             <ListItem key={i} sx={{ display: "list-item", paddingLeft: 0 }}>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
+              <Typography component="span" sx={{ verticalAlign: "middle", mr: 0.5 }}>
+                ●
+              </Typography>
               <Typography component="span">
                 <Trans
                   i18nKey={`Communication.list.${item.key}`}
