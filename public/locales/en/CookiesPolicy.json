@@ -15,17 +15,17 @@
     "p4": "According to the terms included in Article 22.2 of Law 34/2002 of Services of the Information Society and Electronic Commerce, if you decide to continue browsing with all cookies enabled, you are giving your consent to the use of cookies detailed below.",
     "p5": "Cookies on this Website help to:",
     "list1": {
-      "item1": "● To make this Web Site work properly;",
-      "item2": "● Enable the display of videos or other multimedia resources;",
-      "item3": "● Improve the speed / security of the Web Site;",
-      "item4": "● To be able to share pages with your social networks;",
-      "item5": "● Save user passwords for future visits."
+      "item1": "To make this Web Site work properly;",
+      "item2": "Enable the display of videos or other multimedia resources;",
+      "item3": "Improve the speed / security of the Web Site;",
+      "item4": "To be able to share pages with your social networks;",
+      "item5": "Save user passwords for future visits."
     },
     "p6": "We never use cookies to:",
     "list2": {
-      "item1": "● Collect personally identifiable information (without your express consent);",
-      "item2": "● Collect sensitive information (without your express consent);",
-      "item3": "● Sharing personally identifiable information to third parties."
+      "item1": "Collect personally identifiable information (without your express consent);",
+      "item2": "Collect sensitive information (without your express consent);",
+      "item3": "Sharing personally identifiable information to third parties."
     }
   },
   "thirdPartyCookies": {
@@ -54,18 +54,18 @@
     "p3": "We make available to users who wish to prevent the installation of the aforementioned cookies, links provided for this purpose by browsers whose use is considered more widespread:",
     "p4": "COOKIE MANAGEMENT BY BROWSER:",
     "list1": {
-      "item1": "● Cookie settings (Google Chrome) (<2>http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647</2>)",
-      "item2": "● Delete and manage cookies (Internet Explorer) (<2>https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies</2>)",
-      "item3": "● Disable third-party cookies (Firefox) (<2>https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros</2>)",
-      "item4": "● Managing cookies in Safari (Safari) (<2>http://support.apple.com/kb/ph5042</2>)"
+      "item1": "Cookie settings (Google Chrome) (<2>http://support.google.com/chrome/bin/answer.py?hl=es&answer=95647</2>)",
+      "item2": "Delete and manage cookies (Internet Explorer) (<2>https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies</2>)",
+      "item3": "Disable third-party cookies (Firefox) (<2>https://support.mozilla.org/es/kb/Deshabilitar%20cookies%20de%20terceros</2>)",
+      "item4": "Managing cookies in Safari (Safari) (<2>http://support.apple.com/kb/ph5042</2>)"
     },
     "p5": "Many browsers allow you to activate a private mode by which cookies are always deleted after your visit and, depending on each browser, this private mode may have different names. Below you can find a list of the most common browsers and the different names of this “private mode”:",
     "list2": {
-      "item1": "● Internet Explorer 8+: InPrivate",
-      "item2": "● Firefox 3.5+: Private Browsing",
-      "item3": "● Chrome 10+: Incognito",
-      "item4": "● Safari 2+: Private Browsing",
-      "item5": "● Opera 10.5+: Private Browsing"
+      "item1": "Internet Explorer 8+: InPrivate",
+      "item2": "Firefox 3.5+: Private Browsing",
+      "item3": "Chrome 10+: Incognito",
+      "item4": "Safari 2+: Private Browsing",
+      "item5": "Opera 10.5+: Private Browsing"
     },
     "p6": "Please read your browser's help section carefully to learn more about how to activate “private mode”. You will still be able to visit our Web Site even if your browser is in “private mode”, however, the user experience may not be optimal and some utilities may not work.",
     "p7": "If you need more information about blocking cookies on your computer, do not hesitate to follow the explanation given in this Web link: <2>http://windows.microsoft.com/es-es/windows-vista/block-or-allow-cookies<2>."

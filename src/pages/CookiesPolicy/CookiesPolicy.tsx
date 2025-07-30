@@ -63,7 +63,7 @@ function CookiesPolicy() {
     <ThemeProvider theme={CookiesPolicyTheme}>
       <Container sx={{ marginBottom: "20px", "& p": { textAlign: "justify" } }}>
         <Typography variant="h1">{t("header")}</Typography>
-        <Typography variant="subtitle1">{t("subtitle")}</Typography>
+        <Typography variant={"subtitle1"}>{t("subtitle")}</Typography>
         <Typography>{t("p1")}</Typography>
         <Typography variant="h2">{t("whatAreCookies.title")}</Typography>
         <Typography>{t("whatAreCookies.p1")}</Typography>
@@ -77,7 +77,8 @@ function CookiesPolicy() {
         <List>
           {Array.from({ length: 5 }).map((_, i) => (
             <ListItem key={i}>
-              <Typography component="span">{t(`cookiesUsed.list1.item${i + 1}`)}</Typography>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
+              <Typography component="span">● {t(`cookiesUsed.list1.item${i + 1}`)}</Typography>
             </ListItem>
           ))}
         </List>
@@ -85,7 +86,8 @@ function CookiesPolicy() {
         <List>
           {Array.from({ length: 3 }).map((_, i) => (
             <ListItem key={i}>
-              <Typography component="span">{t(`cookiesUsed.list2.item${i + 1}`)}</Typography>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
+              <Typography component="span">● {t(`cookiesUsed.list2.item${i + 1}`)}</Typography>
             </ListItem>
           ))}
         </List>
@@ -149,6 +151,10 @@ function CookiesPolicy() {
         <List sx={{ paddingLeft: 2 }}>
           {cookieManagementLinks.map((href, i) => (
             <ListItem key={i} sx={{ display: "list-item", paddingLeft: 0 }}>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
+              <Typography component="span" sx={{ verticalAlign: "middle", mr: 0.5 }}>
+                ●
+              </Typography>
               <Typography component="span">
                 <Trans
                   i18nKey={`cookieManagement.list1.item${i + 1}`}
@@ -173,7 +179,8 @@ function CookiesPolicy() {
         <List>
           {Array.from({ length: 5 }).map((_, i) => (
             <ListItem key={i}>
-              <Typography component="span">{t(`cookieManagement.list2.item${i + 1}`)}</Typography>
+              {/* eslint-disable-next-line i18next/no-literal-string */}
+              <Typography component="span">● {t(`cookieManagement.list2.item${i + 1}`)}</Typography>
             </ListItem>
           ))}
         </List>
