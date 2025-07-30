@@ -33,13 +33,9 @@ export default function FootOSplits(
   const activeItem = props.activeItem
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
-
   const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
-
-  // Estado inicial depende de si hay radios o no
   const [selectedView, setSelectedView] = useState<ViewType>(hasRadios ? "radios" : "splits")
 
-  // Sincronizar selectedView si cambia hasRadios
   useEffect(() => {
     setSelectedView(hasRadios ? "radios" : "splits")
   }, [hasRadios])
