@@ -142,7 +142,7 @@ export default function RunnerRow(props: RunnerRowProps) {
           />
         </TableCell>
       )}
-      <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
+      {/* <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
         <RacePosition
           position={props.runner.stage.position}
           isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
@@ -154,8 +154,8 @@ export default function RunnerRow(props: RunnerRowProps) {
           name={props.runner.full_name}
           subtitle={runnerService.getClubName(props.runner, t)}
         />
-      </TableCell>
-      <TableCell key={`time${props.runner.id}`}>
+      </TableCell> */}
+      <TableCell key={`time${props.runner.id}`} sx={{ position: 'sticky', left: 0, backgroundColor: 'white'}}>
         <RaceTime
           key={`raceTime${props.runner.id}`}
           displayStatus

@@ -1,6 +1,7 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import {
   Checkbox,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -101,8 +102,8 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   return (
     <NowProvider>
-      <TableContainer key="TableContainer" sx={{ height: "100%", flex: 1, overflowX: "auto" }}>
-        <Table key="SplitsTable" stickyHeader>
+      <TableContainer key="TableContainer" component={Paper}>
+        <Table size="small" key="SplitsTable">
           <TableHead key="TableHead">
             <TableRow key="tableHeadRow">
               {props.graphsEnabled && (
@@ -115,11 +116,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   />
                 </TableCell>
               )}
-              <TableCell key="positionHead"></TableCell>
-              <TableCell key="nameHead" sx={{ fontWeight: "bold" }}>
-                {t("ResultsStage.Name")}
-              </TableCell>
-              <TableCell key="Time">{t("ResultsStage.Times")}</TableCell>
+              <TableCell key="Time" sx={{ position: 'sticky', left: 0, backgroundColor: 'white'}}>{t("ResultsStage.Times")}</TableCell>
               {showTimeLossColumn && (
                 <TableCell key="CleanTime" sx={{ fontWeight: "bold" }}>
                   {t("ResultsStage.SplitsTable.CleanTime")}
