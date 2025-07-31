@@ -36,9 +36,6 @@
     "AboutUs": "About us",
     "VersionMessage": "We are under active development. You are using version "
   },
-  "Home": {
-    "Home": "Home"
-  },
   "Results": {
     "shortClass": "Class",
     "Class": "Class",
@@ -60,9 +57,7 @@
     "RunnerSelection": "Runner Selection",
     "SelectedCount": "{{count}} of {{total}} selected",
     "SelectRunnersMessage": "Select runners to view charts",
-    "Charts": "Charts",
-    "RunnerCount": "runner_{{count}}",
-    "SelectRunners": "Select runners"
+    "RunnerCount": "runner_{{count}}"
   },
   "tooltip": {
     "totalDisplayedTime": "Total displayed time",
