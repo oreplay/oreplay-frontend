@@ -3,7 +3,10 @@ import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/sh
 import { RESULT_STATUS_PRIORITY } from "../../../../../shared/constants.ts"
 import { RunnerState } from "../../../../../../../shared/EntityTypes.ts"
 
-// map status code → ordering priority (lower = better)
+//TODO: Duplicated code fragment
+/**
+ * map status code → ordering priority (lower = better)
+ */
 export function getResultStatusPriority(code: string): number {
   return RESULT_STATUS_PRIORITY[code] ?? 99
 }
@@ -33,6 +36,7 @@ function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState
   let lastPassedControl = 0
   let lastPassedTime: number | null = null
 
+  // TODO: This is given by is_next
   if (stage.online_splits?.length) {
     stage.online_splits.forEach((split) => {
       if (split.order_number != null && split.time != null) {
@@ -52,21 +56,21 @@ function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState
     isFinished,
     position,
     currentRaceTime,
-    lastPassedControl,
+    lastPassedControl, //TODO: ADD logic to consider if my current time in the control I'm running towards is greater that the one you did
     lastPassedTime,
     controlTimes,
   }
 }
 
 function compareRunners(a: RunnerState, b: RunnerState): number {
-  /** Status priority (DSQ, DNF, DNS, …) */
+  // Status priority (DSQ, DNF, DNS, …)
   const statusDiff = getResultStatusPriority(a.statusCode) - getResultStatusPriority(b.statusCode)
 
   if (statusDiff !== 0) {
     return statusDiff
   }
 
-  /** Detect whether each runner has radio‑controls */
+  // Detect whether each runner has radio‑controls
   const aHasSplits =
     Array.isArray(a.runner.stage.online_splits) && a.runner.stage.online_splits.length > 0
   const bHasSplits =

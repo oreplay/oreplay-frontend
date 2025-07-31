@@ -4,7 +4,7 @@ import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 import { sortFootORunners } from "./functions.ts"
 import { DateTime } from "luxon"
 
-describe("orderRunners and orderFootORunners", () => {
+describe("sortRunners and sortFootORunners", () => {
   it("should handle different classification statuses", () => {
     const baseRunner = {
       id: "string",
@@ -445,33 +445,37 @@ describe("sortFootORunners with detailed online_splits", () => {
     overalls: null,
   }
 
-  function makeSplit(order_number: number, station: string, cumulative_time: number) {
+  function makeSplit(order_number: number, station: string | null, cumulative_time: number | null) {
     return {
       id: `split${order_number}`,
       is_intermediate: true,
-      reading_time: DateTime.fromISO("2025-06-27T09:50:00.000+00:00")
-        .plus({ seconds: cumulative_time })
-        .toISO(),
+      reading_time: cumulative_time
+        ? DateTime.fromISO("2025-06-27T09:50:00.000+00:00")
+            .plus({ seconds: cumulative_time })
+            .toISO()
+        : null,
       points: 0,
       time_behind: 0,
       position: 0,
       cumulative_position: 0,
       cumulative_behind: 0,
-      cumulative_time,
-      order_number,
-      control: {
-        id: `c${order_number}`,
-        station,
-        control_type: { id: "ctrl-type-1", description: "Normal Control" },
-      },
-      time: cumulative_time,
+      cumulative_time: cumulative_time,
+      order_number: order_number,
+      control: station
+        ? {
+            id: `c${order_number}`,
+            station,
+            control_type: { id: "ctrl-type-1", description: "Normal Control" },
+          }
+        : null,
+      time: cumulative_time, //TODO: This is wrong
       status_code: "0",
       leg_number: 1,
-      is_next: defaultIsNext,
+      is_next: defaultIsNext, //TODO: This is wrong
     }
   }
 
-  it("should order runners by last shared control cumulative_time", () => {
+  it("should sort runners by last shared control cumulative_time", () => {
     const runnerA = {
       ...baseRunner,
       id: "A",
@@ -508,7 +512,7 @@ describe("sortFootORunners with detailed online_splits", () => {
     expect(sorted).toEqual(expected)
   })
 
-  it("should order runners correctly when one has more controls but is slower at last shared control", () => {
+  it("should sort runners correctly when one has more controls but is slower at last shared control", () => {
     const runnerA = {
       ...baseRunner,
       id: "A",
@@ -527,6 +531,7 @@ describe("sortFootORunners with detailed online_splits", () => {
     }
 
     const runnerB = {
+      //TODO: They always have the same number of splits but they are empty
       ...baseRunner,
       id: "B",
       full_name: "Runner B",
@@ -545,7 +550,7 @@ describe("sortFootORunners with detailed online_splits", () => {
     expect(sorted).toEqual(expected)
   })
 
-  it("should put finished runner by position but allow faster in-progress runner ahead", () => {
+  it("should put finished runner by position but allow faster in-race runner ahead", () => {
     const runnerFinished = {
       ...baseRunner,
       id: "F",
@@ -569,7 +574,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner In Progress Fast",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 4 * 60)],
+        online_splits: [makeSplit(31, "31", 4 * 60)], //TODO: Add empty splits
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -595,7 +600,7 @@ describe("sortFootORunners with detailed online_splits", () => {
     expect(sorted).toEqual(expected)
   })
 
-  it("should put runners who have not started at the end ordered by start_time", () => {
+  it("should put runners who have not started at the end sorted by start_time", () => {
     const runnerNotStarted1 = {
       ...baseRunner,
       id: "N1",
@@ -603,7 +608,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:05:00.000+00:00",
-        online_splits: [],
+        online_splits: [], //TODO: empty split
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -616,7 +621,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:10:00.000+00:00",
-        online_splits: [],
+        online_splits: [], //TODO: empty splits
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -638,14 +643,12 @@ describe("sortFootORunners with detailed online_splits", () => {
     }
 
     const sorted = sortFootORunners([runnerNotStarted2, runnerStarted, runnerNotStarted1])
-    const expected = [runnerStarted, runnerNotStarted1, runnerNotStarted2]
+    const expected = [runnerStarted, runnerNotStarted2, runnerNotStarted1]
 
     expect(sorted).toEqual(expected)
   })
 
   it("should respect status priority putting DSQ, DNF etc at the end", () => {
-    // baseRunner y makeSplit deben estar definidos arriba
-
     const runnerOk = {
       ...baseRunner,
       id: "OK",
@@ -667,7 +670,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "6", // DSQ code as number string
-        online_splits: [],
+        online_splits: [], //TODO: shall have online splits
         finish_time: null,
         position: 0,
         start_time: "2025-06-27T09:00:00.000+00:00",
@@ -681,7 +684,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "5", // DNF code as number string
-        online_splits: [],
+        online_splits: [], // TODO: shall have online_splits
         finish_time: null,
         position: 0,
         start_time: "2025-06-27T09:00:00.000+00:00",
@@ -744,7 +747,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "2",
-        online_splits: [],
+        online_splits: [], // TODO: shall have online splits
         finish_time: null,
         position: 0,
       },
@@ -773,7 +776,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner In Progress Fast",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 4 * 60)],
+        online_splits: [makeSplit(31, "31", 4 * 60)], //TODO: Missing online control
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -786,7 +789,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner In Progress Slow",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 9 * 60)],
+        online_splits: [makeSplit(31, "31", 9 * 60)], // TODO: missing splits
         finish_time: null,
         position: 0,
         status_code: "0",
