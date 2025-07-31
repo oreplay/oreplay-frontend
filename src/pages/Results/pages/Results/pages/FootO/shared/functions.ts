@@ -24,8 +24,14 @@ function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState
 
   // Start‑time and race‑time
   const startDt = stage.start_time ? DateTime.fromISO(stage.start_time) : null
-  const hasStarted = !!startDt && now >= startDt
-  const currentRaceTime = hasStarted && startDt ? now.diff(startDt, "seconds").seconds : Infinity
+  const hasStarted: boolean = !!startDt && now >= startDt
+  const hasFinished: boolean = !!stage.finish_time
+  const currentRaceTime = hasStarted
+    ? hasFinished
+      ? stage.time_seconds
+      : // @ts-expect-error TS2345 hasFinished implicitly checks that startDt is non-null
+        now.diff(startDt, "seconds").as("seconds")
+    : Infinity
 
   // Finish detection
   const position = stage.position ?? 0
@@ -50,7 +56,7 @@ function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState
   }
 
   return {
-    runner,
+    runner: runner,
     statusCode: stage.status_code ?? "0",
     hasStarted,
     isFinished,
