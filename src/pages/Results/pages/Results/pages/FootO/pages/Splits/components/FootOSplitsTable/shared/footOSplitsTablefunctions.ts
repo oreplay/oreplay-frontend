@@ -10,6 +10,7 @@ import {
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { DateTime } from "luxon"
+import { NORMAL_CONTROL } from "../../../../../../../../../shared/constants.ts"
 
 export type CourseControlModel = {
   control: ControlModel | null
@@ -82,12 +83,48 @@ export function getOnlineSplits(
   )
 
   // Convert them to RadioSplitModel
-  const RadioSplits = Splits.map((split): RadioSplitModel => ({ ...split, is_next: null }))
+  const radioSplits = Splits.map((split): RadioSplitModel => ({ ...split, is_next: null }))
 
-  // Find the next radio split
+  // Fill missing online controls from split list
+  //// Course controls
+  for (let i = 0; i < radiosList.length - 1; i++) {
+    const radioInRunner = radioSplits.at(i)?.control
+    const radioInList = radiosList.at(i)
+
+    if (radioInRunner?.station !== radioInList?.station) {
+      const missingRadio: RadioSplitModel = {
+        id: `missingRadio-${radioInList?.station}`,
+        is_intermediate: true,
+        reading_time: null,
+        order_number: i + 1,
+        points: 0,
+        control: radioInList?.station
+          ? {
+              id: `missingRadio-control-${radioInList?.station}`,
+              station: radioInList?.station,
+              control_type: NORMAL_CONTROL,
+            }
+          : null,
+        time: null,
+        time_behind: null,
+        position: null,
+        cumulative_time: null,
+        cumulative_behind: null,
+        cumulative_position: null,
+        is_next: null,
+      }
+
+      radioSplits.splice(i, 0, missingRadio) //insert split
+    }
+  }
+  //// Finish Control
+  // TODO: Check why is not being filled always. Most likely, it should no be fixed here
+
+  // Find the next radio split (the one the runner is going towards)
   let prevTimeString = startTime
-  for (let i = 0; i < RadioSplits.length; i++) {
-    const split = RadioSplits[i]
+  for (let i = 0; i < radioSplits.length; i++) {
+    //TODO: This loop should go the other way around to catch up missing radios
+    const split = radioSplits[i]
     if (split.reading_time === null && prevTimeString !== null) {
       split.is_next = DateTime.fromISO(prevTimeString)
       break
@@ -97,5 +134,5 @@ export function getOnlineSplits(
   }
 
   // Return radio splits
-  return RadioSplits
+  return radioSplits
 }

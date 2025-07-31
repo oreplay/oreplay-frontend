@@ -77,5 +77,11 @@ export interface ProcessedSplitModel {
 }
 
 export interface RadioSplitModel extends ProcessedSplitModel {
-  is_next: DateTime | null // indicates if it is the next radio control that the runner will punch
+  /**
+   * Indicates whether this is the next radio control
+   * that the runner is expected to punch.
+   *  - `null` means it is not the next control.
+   *  - The datetime is the reading time of the previously punched online control
+   */
+  is_next: DateTime | null
 }
