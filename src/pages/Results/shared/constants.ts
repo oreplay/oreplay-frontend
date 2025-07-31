@@ -1,3 +1,5 @@
+import { ControlTypeModel } from "../../../shared/EntityTypes.ts"
+
 export const RESULT_STATUS = {
   ok: "0",
   dns: "1", //did not start
@@ -26,4 +28,9 @@ export const RESULT_STATUS_PRIORITY: Record<string, number> = {
   [RESULT_STATUS.dnf]: 5,
   [RESULT_STATUS.dsq]: 6,
   [RESULT_STATUS.dns]: 7,
+}
+
+export const NORMAL_CONTROL: ControlTypeModel = {
+  id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
+  description: "Normal Control",
 }
