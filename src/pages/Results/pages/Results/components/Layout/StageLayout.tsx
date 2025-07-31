@@ -33,7 +33,6 @@ export default function StageLayout(props: StageLayoutProps) {
     <Box
       sx={{
         height: "calc(100% - 64px)",
-        padding: "24px 24px",
         display: "flex",
         flexDirection: "column",
         minHeight: 0,
@@ -47,6 +46,7 @@ export default function StageLayout(props: StageLayoutProps) {
           justifyContent: "space-between",
           alignItems: "center",
           maxWidth: "600px",
+          padding: "16px 16px"
         }}
       >
         <ClassSelector

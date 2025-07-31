@@ -134,14 +134,9 @@ export default function RunnerRow(props: RunnerRowProps) {
             padding: `16px 16px calc(16px + 1rem) 16px`, // 1rem is default font size
           }}
         >
-          <div className="wrapper" style={{ position: "absolute" }}>
+          <div className="wrapper" style={{ position: "absolute", pointerEvents: "none" }}>
             {props.runner.full_name}
           </div>
-          <div
-            style={{
-              position: "absolute",
-            }}
-          ></div>
         </TableCell>
       </TableRow>
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
@@ -175,8 +170,8 @@ export default function RunnerRow(props: RunnerRowProps) {
           subtitle={runnerService.getClubName(props.runner, t)}
         />
       </TableCell> */}
-      <TableCell key={`time${props.runner.id}`} sx={{ position: 'sticky', left: 0, 
-            backgroundColor: "#f0f0f0",}}>
+      <TableCell key={`time${props.runner.id}`} sx={{ 
+           }}>
         <RaceTime
           key={`raceTime${props.runner.id}`}
           displayStatus

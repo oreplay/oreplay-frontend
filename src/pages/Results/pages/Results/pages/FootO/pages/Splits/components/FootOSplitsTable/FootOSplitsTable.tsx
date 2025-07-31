@@ -137,7 +137,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   useEffect(() => {
     if (!bodyRef.current) return
 
-    const firstBodyRow = bodyRef.current.querySelectorAll("tr")[1];
+    const firstBodyRow = bodyRef.current.querySelectorAll("tr")[1]
     if (!firstBodyRow) return
 
     const widths = Array.from(firstBodyRow.children).map((cell) => {
@@ -152,14 +152,31 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   return (
     <NowProvider>
+      {/* Header for the splits table */}
       <TableContainer
         component={Paper}
         ref={headerRef}
         key="SplitsTableHeaderContainer"
-        sx={{ position: "sticky", top: 0, zIndex: 1, backgroundColor: "grey" }}
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          "&::-webkit-scrollbar": {
+            height: "8px",
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "#EFEFEF",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#5E2572",
+            borderRadius: "4px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "#5E2572",
+          },
+        }}
       >
-        {/* Header for the splits table */}
-        <Table size="small" key="SplitsTableHeader">
+        <Table size="small" key="SplitsTableHeader" sx={{ backgroundColor: "grey" }}>
           <TableHead key="TableHead">
             <TableRow key="tableHeadRow">
               {props.graphsEnabled && (
@@ -179,9 +196,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
               <TableCell
                 key="Time"
                 sx={{
-                  position: "sticky",
-                  left: 0,
-                  backgroundColor: "#f0f0f0",
                   ...(colWidths[props.graphsEnabled ? 1 : 0]
                     ? { width: colWidths[props.graphsEnabled ? 1 : 0] }
                     : {}),
@@ -209,7 +223,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   1 + // Time column
                   (showTimeLossColumn ? 1 : 0)
                 const colIdx = baseIdx + idx
-                
+
                 if (props.onlyRadios) {
                   const radio = courseControl as OnlineControlModel
                   return (
@@ -239,7 +253,12 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
       </TableContainer>
 
       {/* Table body */}
-      <TableContainer component={Paper} ref={bodyRef} key="SplitsTableBodyContainer">
+      <TableContainer
+        component={Paper}
+        ref={bodyRef}
+        key="SplitsTableBodyContainer"
+        sx={{ scrollbarWidth: "none" }}
+      >
         <Table size="small" key="SplitsTableBody">
           <TableBody key="TableBody">
             {runnerList.map((runner) => (
