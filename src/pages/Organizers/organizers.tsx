@@ -74,52 +74,6 @@ const Organizers = (): React.ReactNode => {
     staleTime: Infinity,
   })
 
-  // Show loading state
-  if (isLoading) {
-    return (
-      <Container
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "50vh" }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-          <CircularProgress />
-          <Typography>{t("loading")}</Typography>
-        </Box>
-      </Container>
-    )
-  }
-
-  // Show error state
-  if (isError) {
-    return (
-      <Container sx={{ marginTop: 4 }}>
-        <Alert severity="error" variant="outlined" sx={{ mb: 3 }}>
-          <AlertTitle sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <ErrorIcon />
-            {t("error.title")}
-          </AlertTitle>
-          {t("error.description")}
-          {error instanceof Error && (
-            <Typography variant="body2" sx={{ mt: 1, opacity: 0.8 }}>
-              {t("error.details")}: {error.message}
-            </Typography>
-          )}
-        </Alert>
-      </Container>
-    )
-  }
-
-  // Only render if we have the version data
-  if (!version) {
-    return (
-      <Container sx={{ marginTop: 4 }}>
-        <Alert severity="warning" variant="outlined">
-          <AlertTitle>{t("error.noData")}</AlertTitle>
-          {t("error.noDataDescription")}
-        </Alert>
-      </Container>
-    )
-  }
-
   return (
     <ThemeProvider theme={organizersTheme}>
       <Container sx={{ marginBottom: "20px", "& p": { textAlign: "justify" } }}>
@@ -153,17 +107,42 @@ const Organizers = (): React.ReactNode => {
         </Typography>
         <Typography>{t("Prerequisites.DesktopClient.DownloadClient.p1")}</Typography>
         <Box sx={{ display: "flex", justifyContent: "center", my: "1em" }}>
-          <Button
-            variant="outlined"
-            href={`https://github.com/oreplay/desktop-client/releases/download/${version}/OReplayDesktop.exe`}
-            target="_blank"
-            startIcon={<FileDownloadIcon />}
-          >
-            {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
-            <Typography component={"span"} sx={{ textTransform: "none" }}>
-              {`\u00A0(v${version})`}
-            </Typography>
-          </Button>
+          {isLoading ? (
+            <Button
+              variant="outlined"
+              disabled
+              startIcon={<CircularProgress size={20} />}
+            >
+              {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
+            </Button>
+          ) : isError || !version ? (
+            <Button
+              variant="outlined"
+              disabled
+              startIcon={<ErrorIcon />}
+              title={error instanceof Error ? `${t("error.title")}: ${error.message}` : t("error.noData")}
+              sx={{
+                cursor: 'help',
+                '&:hover': {
+                  backgroundColor: 'rgba(211, 47, 47, 0.04)'
+                }
+              }}
+            >
+              {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              href={`https://github.com/oreplay/desktop-client/releases/download/${version}/OReplayDesktop.exe`}
+              target="_blank"
+              startIcon={<FileDownloadIcon />}
+            >
+              {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
+              <Typography component={"span"} sx={{ textTransform: "none" }}>
+                {`\u00A0(v${version})`}
+              </Typography>
+            </Button>
+          )}
         </Box>
         <Typography>{t("Prerequisites.DesktopClient.DownloadClient.p2")}</Typography>
         <Typography>
@@ -171,9 +150,15 @@ const Organizers = (): React.ReactNode => {
             t={t}
             i18nKey="Prerequisites.DesktopClient.DownloadClient.p3"
             components={{
-              2: (
+              2: version ? (
                 <Link
                   href={`https://github.com/oreplay/desktop-client/releases/tag/${version}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+              ) : (
+                <Link
+                  href="https://github.com/oreplay/desktop-client/releases"
                   target="_blank"
                   rel="noopener noreferrer"
                 />
