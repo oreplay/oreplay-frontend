@@ -819,4 +819,63 @@ describe("sortFootORunners with detailed online_splits", () => {
 
     expect(sorted).toEqual(expectedOrder)
   })
+
+  it("should sort runners who have finished", () => {
+    const runnerPos2 = {
+      ...baseRunner,
+      id: "P2",
+      full_name: "Pos2",
+      stage: {
+        ...baseRunner.stage,
+        finish_time: "2024-10-18T15:18:07.000+00:00",
+        online_splits: [
+          makeSplit(1, "31", 226),
+          makeSplit(2, "32", 513),
+          makeSplit(Infinity, null, 907),
+        ],
+        position: 2,
+        status_code: "0",
+      },
+    }
+
+    const runnerPos1 = {
+      ...baseRunner,
+      id: "P1",
+      full_name: "Pos1",
+      stage: {
+        ...baseRunner.stage,
+        finish_time: "2024-10-18T15:22:04.000+00:00",
+        online_splits: [
+          makeSplit(1, "31", 217),
+          makeSplit(2, "32", 440),
+          makeSplit(Infinity, null, 845),
+        ],
+        position: 1,
+        status_code: "0",
+      },
+    }
+
+    const runnerRunningWinning = {
+      ...baseRunner,
+      id: "P1",
+      full_name: "Pos1",
+      stage: {
+        ...baseRunner.stage,
+        finish_time: null,
+        online_splits: [
+          makeSplit(1, "31", 201),
+          makeSplit(2, "32", 413),
+          makeSplit(Infinity, null, null),
+        ],
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerList = [runnerPos2, runnerRunningWinning, runnerPos1]
+
+    const expectedRunnerList = [runnerRunningWinning, runnerPos1, runnerPos2]
+
+    expect(sortFootORunners(runnerList)).toEqual(expectedRunnerList)
+  })
 })
