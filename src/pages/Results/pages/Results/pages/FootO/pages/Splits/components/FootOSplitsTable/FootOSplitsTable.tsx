@@ -21,7 +21,7 @@ import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
-import React, { useMemo } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
 
 type FootOSplitsTableProps = {
@@ -100,14 +100,74 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     }
   }
 
+  const headerRef = useRef<HTMLDivElement | null>(null)
+  const bodyRef = useRef<HTMLDivElement | null>(null)
+  const [colWidths, setColWidths] = useState<number[]>([])
+
+  useEffect(() => {
+    const bodyDiv = bodyRef.current
+    const headerDiv = headerRef.current
+    if (!bodyDiv || !headerDiv) return
+
+    let isSyncing = false
+
+    const syncHeaderScroll = () => {
+      if (isSyncing) return
+      isSyncing = true
+      headerDiv.scrollLeft = bodyDiv.scrollLeft
+      isSyncing = false
+    }
+
+    const syncBodyScroll = () => {
+      if (isSyncing) return
+      isSyncing = true
+      bodyDiv.scrollLeft = headerDiv.scrollLeft
+      isSyncing = false
+    }
+
+    bodyDiv.addEventListener("scroll", syncHeaderScroll)
+    headerDiv.addEventListener("scroll", syncBodyScroll)
+
+    return () => {
+      bodyDiv.removeEventListener("scroll", syncHeaderScroll)
+      headerDiv.removeEventListener("scroll", syncBodyScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!bodyRef.current) return
+
+    const firstBodyRow = bodyRef.current.querySelectorAll("tr")[1];
+    if (!firstBodyRow) return
+
+    const widths = Array.from(firstBodyRow.children).map((cell) => {
+      const style = window.getComputedStyle(cell)
+      const width = cell.getBoundingClientRect().width
+      const paddingLeft = parseFloat(style.paddingLeft)
+      const paddingRight = parseFloat(style.paddingRight)
+      return width - paddingLeft - paddingRight
+    })
+    setColWidths(widths)
+  }, [])
+
   return (
     <NowProvider>
-      <TableContainer key="TableContainer" component={Paper}>
-        <Table size="small" key="SplitsTable">
+      <TableContainer
+        component={Paper}
+        ref={headerRef}
+        key="SplitsTableHeaderContainer"
+        sx={{ position: "sticky", top: 0, zIndex: 1, backgroundColor: "grey" }}
+      >
+        {/* Header for the splits table */}
+        <Table size="small" key="SplitsTableHeader">
           <TableHead key="TableHead">
             <TableRow key="tableHeadRow">
               {props.graphsEnabled && (
-                <TableCell key="selection" padding="checkbox">
+                <TableCell
+                  key="selection"
+                  padding="checkbox"
+                  sx={colWidths[0] ? { width: colWidths[0] } : {}}
+                >
                   <Checkbox
                     indeterminate={isIndeterminate}
                     checked={isAllSelected}
@@ -116,13 +176,40 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                   />
                 </TableCell>
               )}
-              <TableCell key="Time" sx={{ position: 'sticky', left: 0, backgroundColor: 'white'}}>{t("ResultsStage.Times")}</TableCell>
+              <TableCell
+                key="Time"
+                sx={{
+                  position: "sticky",
+                  left: 0,
+                  backgroundColor: "#f0f0f0",
+                  ...(colWidths[props.graphsEnabled ? 1 : 0]
+                    ? { width: colWidths[props.graphsEnabled ? 1 : 0] }
+                    : {}),
+                }}
+              >
+                {t("ResultsStage.Times")}
+              </TableCell>
               {showTimeLossColumn && (
-                <TableCell key="CleanTime" sx={{ fontWeight: "bold" }}>
+                <TableCell
+                  key="CleanTime"
+                  sx={{
+                    fontWeight: "bold",
+                    ...(colWidths[props.graphsEnabled ? 2 : 1]
+                      ? { width: colWidths[props.graphsEnabled ? 2 : 1] }
+                      : {}),
+                  }}
+                >
                   {t("ResultsStage.SplitsTable.CleanTime")}
                 </TableCell>
               )}
-              {controlList.map((courseControl) => {
+              {controlList.map((courseControl, idx) => {
+                // Calculate the correct index for colWidths
+                const baseIdx =
+                  (props.graphsEnabled ? 1 : 0) +
+                  1 + // Time column
+                  (showTimeLossColumn ? 1 : 0)
+                const colIdx = baseIdx + idx
+                
                 if (props.onlyRadios) {
                   const radio = courseControl as OnlineControlModel
                   return (
@@ -130,6 +217,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                       key={`courseControlHeader${radio.id}`}
                       station={radio.station}
                       onlyRadios={props.onlyRadios}
+                      colWidth={colWidths[colIdx]}
                     />
                   )
                 } else {
@@ -140,12 +228,19 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                       station={course.control?.station}
                       order_number={course.order_number}
                       onlyRadios={props.onlyRadios}
+                      colWidth={colWidths[colIdx]}
                     />
                   )
                 }
               })}
             </TableRow>
           </TableHead>
+        </Table>
+      </TableContainer>
+
+      {/* Table body */}
+      <TableContainer component={Paper} ref={bodyRef} key="SplitsTableBodyContainer">
+        <Table size="small" key="SplitsTableBody">
           <TableBody key="TableBody">
             {runnerList.map((runner) => (
               <RunnerRow

@@ -124,6 +124,26 @@ export default function RunnerRow(props: RunnerRowProps) {
   }
 
   return (
+        <React.Fragment key={props.runner.id}>
+      <TableRow>
+        <TableCell
+          colSpan={splits.length + 1}
+          sx={{
+            backgroundColor: "#f0f0f0",
+            fontWeight: "bold",
+            padding: `16px 16px calc(16px + 1rem) 16px`, // 1rem is default font size
+          }}
+        >
+          <div className="wrapper" style={{ position: "absolute" }}>
+            {props.runner.full_name}
+          </div>
+          <div
+            style={{
+              position: "absolute",
+            }}
+          ></div>
+        </TableCell>
+      </TableRow>
     <TableRow key={props.runner.id} sx={{ padding: "none" }}>
       {props.graphsEnabled && (
         <TableCell key="selection" padding="checkbox">
@@ -155,7 +175,8 @@ export default function RunnerRow(props: RunnerRowProps) {
           subtitle={runnerService.getClubName(props.runner, t)}
         />
       </TableCell> */}
-      <TableCell key={`time${props.runner.id}`} sx={{ position: 'sticky', left: 0, backgroundColor: 'white'}}>
+      <TableCell key={`time${props.runner.id}`} sx={{ position: 'sticky', left: 0, 
+            backgroundColor: "#f0f0f0",}}>
         <RaceTime
           key={`raceTime${props.runner.id}`}
           displayStatus
@@ -206,5 +227,6 @@ export default function RunnerRow(props: RunnerRowProps) {
         )
       })}
     </TableRow>
+      </React.Fragment>
   )
 }
