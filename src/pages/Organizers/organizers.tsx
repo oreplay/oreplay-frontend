@@ -108,11 +108,7 @@ const Organizers = (): React.ReactNode => {
         <Typography>{t("Prerequisites.DesktopClient.DownloadClient.p1")}</Typography>
         <Box sx={{ display: "flex", justifyContent: "center", my: "1em" }}>
           {isLoading ? (
-            <Button
-              variant="outlined"
-              disabled
-              startIcon={<CircularProgress size={20} />}
-            >
+            <Button variant="outlined" disabled startIcon={<CircularProgress size={20} />}>
               {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
             </Button>
           ) : isError || !version ? (
@@ -120,12 +116,14 @@ const Organizers = (): React.ReactNode => {
               variant="outlined"
               disabled
               startIcon={<ErrorIcon />}
-              title={error instanceof Error ? `${t("error.title")}: ${error.message}` : t("error.noData")}
+              title={
+                error instanceof Error ? `${t("error.title")}: ${error.message}` : t("error.noData")
+              }
               sx={{
-                cursor: 'help',
-                '&:hover': {
-                  backgroundColor: 'rgba(211, 47, 47, 0.04)'
-                }
+                cursor: "help",
+                "&:hover": {
+                  backgroundColor: "rgba(211, 47, 47, 0.04)",
+                },
               }}
             >
               {t("Prerequisites.DesktopClient.DownloadClient.DownloadBtn")}
