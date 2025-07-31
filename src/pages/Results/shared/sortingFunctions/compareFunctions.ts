@@ -12,8 +12,10 @@ function statusOrder(status: string | null, position: number | null) {
   switch (status) {
     case RESULT_STATUS.ok:
       if (position == 0) {
+        //is in-race
         return 2
       } else {
+        // has finished
         return 0
       }
     case RESULT_STATUS.ot:
