@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { DateTime } from "luxon"
 import { ProcessedRunnerModel } from "../pages/Results/components/VirtualTicket/shared/EntityTypes.ts"
 
 /**
@@ -268,4 +269,6 @@ export interface RunnerState {
   lastPassedControl: number
   lastPassedTime: number | null
   controlTimes: Record<number, number>
+  nextControl: number | null
+  nextControlReadingTime: DateTime | null
 }
