@@ -11,12 +11,19 @@ import {
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { DateTime } from "luxon"
 import { NORMAL_CONTROL } from "../../../../../../../../../shared/constants.ts"
+import { hasChipDownload } from "../../../../../../../shared/functions.ts"
 
 export type CourseControlModel = {
   control: ControlModel | null
   order_number: number | null // TODO: It can't be null
 }
 
+/**
+ * Extract the course from a list of runners.
+ *
+ * If the course cannot be found an empty list will be returned
+ * @param runnerList Runners to find the course
+ */
 export function getCourseFromRunner(
   runnerList: RunnerModel[] | ProcessedRunnerModel[],
 ): CourseControlModel[] {
@@ -26,11 +33,13 @@ export function getCourseFromRunner(
     const runner: ProcessedRunnerModel | RunnerModel = runnerList[i]
     const splitList = runner.stage.splits
 
-    if (splitList) {
+    if (splitList && hasChipDownload(runner)) {
+      //TODO: ADD a test that checks it works when mixing runners only with online splits and runners with full split list
       try {
         courseControlList = getCourseFromSplits(splitList)
         break
       } catch (e) {
+        // TODO: Add sentry error tracing here
         console.error(e)
       }
     }
