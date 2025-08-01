@@ -643,7 +643,7 @@ describe("sortFootORunners with detailed online_splits", () => {
     }
 
     const sorted = sortFootORunners([runnerNotStarted2, runnerStarted, runnerNotStarted1])
-    const expected = [runnerStarted, runnerNotStarted2, runnerNotStarted1]
+    const expected = [runnerStarted, runnerNotStarted1, runnerNotStarted2]
 
     expect(sorted).toEqual(expected)
   })
@@ -877,5 +877,285 @@ describe("sortFootORunners with detailed online_splits", () => {
     const expectedRunnerList = [runnerRunningWinning, runnerPos1, runnerPos2]
 
     expect(sortFootORunners(runnerList)).toEqual(expectedRunnerList)
+  })
+
+  it("should handle projection logic: runner with fewer splits but slower projected time", () => {
+    // Scenario: Runner A has 1 split (15 seconds), Runner B has 2 splits (total 20 seconds)
+    // But Runner A's projected current time is over 20 seconds, so should go below Runner B
+    const runnerA = {
+      ...baseRunner,
+      id: "A",
+      full_name: "Runner A - Few Splits, Slow",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:50:00.000+00:00", // Started 10 minutes ago
+        online_splits: [makeSplit(31, "31", 15)], // Only 1 split at 15 seconds
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerB = {
+      ...baseRunner,
+      id: "B",
+      full_name: "Runner B - More Splits, Faster",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:52:00.000+00:00", // Started 8 minutes ago
+        online_splits: [
+          makeSplit(31, "31", 12), // Faster at control 31
+          makeSplit(32, "32", 20), // Total 20 seconds at control 32
+        ],
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const sorted = sortFootORunners([runnerA, runnerB])
+    // Runner B should be ahead because even though they have more splits,
+    // their last split time (20s) is better than Runner A's projected time
+    const expected = [runnerB, runnerA]
+
+    expect(sorted).toEqual(expected)
+  })
+
+  it("should handle mixed finished and in-progress runners with projection", () => {
+    const runnerFinishedSlow = {
+      ...baseRunner,
+      id: "FS",
+      full_name: "Finished Slow",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [
+          makeSplit(31, "31", 10 * 60), // 10 minutes at control 31
+          makeSplit(32, "32", 15 * 60), // 15 minutes at control 32
+          makeSplit(Infinity, null, 25 * 60), // Finished at 25 minutes
+        ],
+        finish_time: "2025-06-27T10:15:00.000+00:00",
+        time_seconds: 25 * 60,
+        position: 2,
+        status_code: "0",
+      },
+    }
+
+    const runnerInProgressFast = {
+      ...baseRunner,
+      id: "IF",
+      full_name: "In Progress Fast",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:52:00.000+00:00", // Started 8 minutes ago
+        online_splits: [makeSplit(31, "31", 4 * 60)], // Very fast - 4 minutes at control 31
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const sorted = sortFootORunners([runnerFinishedSlow, runnerInProgressFast])
+    // Fast in-progress runner should be ahead of slow finished runner
+    const expected = [runnerInProgressFast, runnerFinishedSlow]
+
+    expect(sorted).toEqual(expected)
+  })
+
+  it("should handle runners with incomplete data gracefully", () => {
+    const runnerWithMissedControl = {
+      ...baseRunner,
+      id: "MC",
+      full_name: "Missed Control",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [
+          makeSplit(31, "31", 5 * 60), // Got control 31
+          // Missing control 32
+          makeSplit(33, "33", null), // Missed punch at control 33
+        ],
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerNormal = {
+      ...baseRunner,
+      id: "N",
+      full_name: "Normal Runner",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [makeSplit(31, "31", 6 * 60)], // Slightly slower but complete
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const sorted = sortFootORunners([runnerWithMissedControl, runnerNormal])
+    // Runner with missed control should still be sorted based on available data
+    // Since runnerWithMissedControl was faster at control 31, they should be ahead
+    const expected = [runnerWithMissedControl, runnerNormal]
+
+    expect(sorted).toEqual(expected)
+  })
+
+  it("should properly sort DNS/DNF/DSQ runners at the bottom", () => {
+    const runnerOK = {
+      ...baseRunner,
+      id: "OK",
+      full_name: "OK Runner",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [makeSplit(31, "31", 300)],
+        finish_time: null,
+        position: 0,
+        status_code: "0", // OK
+      },
+    }
+
+    const runnerDNS = {
+      ...baseRunner,
+      id: "DNS",
+      full_name: "Did Not Start",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [],
+        finish_time: null,
+        position: 0,
+        status_code: "1", // DNS
+      },
+    }
+
+    const runnerDSQ = {
+      ...baseRunner,
+      id: "DSQ",
+      full_name: "Disqualified",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [makeSplit(31, "31", 200)], // Was fastest but got disqualified
+        finish_time: null,
+        position: 0,
+        status_code: "4", // DSQ
+      },
+    }
+
+    const runnerDNF = {
+      ...baseRunner,
+      id: "DNF",
+      full_name: "Did Not Finish",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [makeSplit(31, "31", 250)],
+        finish_time: null,
+        position: 0,
+        status_code: "2", // DNF
+      },
+    }
+
+    const sorted = sortFootORunners([runnerDSQ, runnerDNS, runnerOK, runnerDNF])
+    // OK runner first, then DNF, then DSQ, then DNS (based on status priority)
+    const expected = [runnerOK, runnerDNF, runnerDSQ, runnerDNS]
+
+    expect(sorted).toEqual(expected)
+  })
+
+  it("should handle complex scenario with multiple runner types", () => {
+    const runnerFinished1st = {
+      ...baseRunner,
+      id: "F1",
+      full_name: "Finished 1st",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [
+          makeSplit(31, "31", 4 * 60),
+          makeSplit(32, "32", 8 * 60),
+          makeSplit(Infinity, null, 12 * 60),
+        ],
+        finish_time: "2025-06-27T10:02:00.000+00:00",
+        time_seconds: 12 * 60,
+        position: 1,
+        status_code: "0",
+      },
+    }
+
+    const runnerInProgressFast = {
+      ...baseRunner,
+      id: "IF",
+      full_name: "In Progress Fast",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:56:00.000+00:00", // Started 4 minutes ago, current time = 4 minutes
+        online_splits: [makeSplit(31, "31", 3 * 60)], // Very fast at control 31
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerInProgressSlow = {
+      ...baseRunner,
+      id: "IS",
+      full_name: "In Progress Slow",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:50:00.000+00:00", // Started 10 minutes ago
+        online_splits: [makeSplit(31, "31", 8 * 60)], // Slow at control 31
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerNotStarted = {
+      ...baseRunner,
+      id: "NS",
+      full_name: "Not Started",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T10:05:00.000+00:00", // Starts in 5 minutes
+        online_splits: [],
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerDSQ = {
+      ...baseRunner,
+      id: "DSQ",
+      full_name: "Disqualified",
+      stage: {
+        ...baseRunner.stage,
+        online_splits: [makeSplit(31, "31", 2 * 60)], // Was fastest but disqualified
+        finish_time: null,
+        position: 0,
+        status_code: "4", // DSQ
+      },
+    }
+
+    const sorted = sortFootORunners([
+      runnerDSQ,
+      runnerNotStarted,
+      runnerInProgressSlow,
+      runnerFinished1st,
+      runnerInProgressFast,
+    ])
+
+    // Expected order:
+    // 1. Fast in-progress runner (projected to beat finished runner)
+    // 2. Finished 1st place runner
+    // 3. Slow in-progress runner
+    // 4. Not started runner
+    // 5. Disqualified runner (at bottom due to status)
+    const expected = [
+      runnerInProgressFast,
+      runnerFinished1st,
+      runnerInProgressSlow,
+      runnerNotStarted,
+      runnerDSQ,
+    ]
+
+    expect(sorted).toEqual(expected)
   })
 })

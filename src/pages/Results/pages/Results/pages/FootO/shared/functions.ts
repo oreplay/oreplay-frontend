@@ -18,11 +18,11 @@ export function sortFootORunners(runners: ProcessedRunnerModel[]): ProcessedRunn
   return states.map((s) => s.runner)
 }
 
-// Analyze one runner and cache everything we need for comparisons
+// Analyze one runner and cache everything needed for comparisons
 function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState {
   const stage = runner.stage
 
-  // Start‑time and race‑time
+  // Start time and race time calculation
   const startDt = stage.start_time ? DateTime.fromISO(stage.start_time) : null
   const hasStarted: boolean = !!startDt && now >= startDt
   const hasFinished: boolean = !!stage.finish_time
@@ -33,21 +33,20 @@ function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState
         now.diff(startDt, "seconds").as("seconds")
     : Infinity
 
-  // Finish detection
+  // Finish detection - use finish_time presence, not position
   const position = stage.position ?? 0
-  const isFinished = position > 0
+  const isFinished = !!stage.finish_time && position > 0
 
-  // Build RC → time map
+  // Build control → time map
   const controlTimes: Record<number, number> = {}
   let lastPassedControl = 0
   let lastPassedTime: number | null = null
 
-  // TODO: This is given by is_next
   if (stage.online_splits?.length) {
     stage.online_splits.forEach((split) => {
       if (split.order_number != null && split.time != null) {
         controlTimes[split.order_number] = split.time
-        if (split.order_number >= lastPassedControl) {
+        if (split.order_number >= lastPassedControl && split.order_number !== Infinity) {
           lastPassedControl = split.order_number
           lastPassedTime = split.time
         }
@@ -62,80 +61,90 @@ function analyseRunner(runner: ProcessedRunnerModel, now: DateTime): RunnerState
     isFinished,
     position,
     currentRaceTime,
-    lastPassedControl, //TODO: ADD logic to consider if my current time in the control I'm running towards is greater that the one you did
+    lastPassedControl,
     lastPassedTime,
     controlTimes,
   }
 }
 
 function compareRunners(a: RunnerState, b: RunnerState): number {
-  // Status priority (DSQ, DNF, DNS, …)
+  // Priority by status (DSQ, DNF, DNS, etc)
   const statusDiff = getResultStatusPriority(a.statusCode) - getResultStatusPriority(b.statusCode)
+  if (statusDiff !== 0) return statusDiff
 
-  if (statusDiff !== 0) {
-    return statusDiff
+  // If both finished, sort only by position (ignoring splits)
+  if (a.isFinished && b.isFinished) {
+    return a.position - b.position
   }
 
-  // Detect whether each runner has radio‑controls
-  const aHasSplits =
-    Array.isArray(a.runner.stage.online_splits) && a.runner.stage.online_splits.length > 0
-  const bHasSplits =
-    Array.isArray(b.runner.stage.online_splits) && b.runner.stage.online_splits.length > 0
-
-  // Neither runner has splits
+  // Check for splits presence
+  const aHasSplits = Object.keys(a.controlTimes).length > 0
+  const bHasSplits = Object.keys(b.controlTimes).length > 0
   if (!aHasSplits && !bHasSplits) {
-    // Finished runners first
-    if (a.isFinished !== b.isFinished) return a.isFinished ? -1 : 1
-    if (a.isFinished && b.isFinished) return a.position - b.position
-
-    // Both have started → shorter time on course first
-    const aStarted = a.hasStarted
-    const bStarted = b.hasStarted
-    if (aStarted && bStarted) return a.currentRaceTime - b.currentRaceTime
-
-    // Both haven't started → earlier planned start first
-    if (!aStarted && !bStarted) {
-      const aStart = a.runner.stage.start_time
-        ? DateTime.fromISO(a.runner.stage.start_time).toMillis()
-        : Infinity
-      const bStart = b.runner.stage.start_time
-        ? DateTime.fromISO(b.runner.stage.start_time).toMillis()
-        : Infinity
-      return aStart - bStart
-    }
-
-    // One started, the other not (shouldn’t reach here, safety net)
-    return aStarted ? -1 : 1
+    return handleRunnersWithoutSplits(a, b)
   }
-
-  // Only one runner has splits → the one with splits leads
   if (!aHasSplits) return 1
   if (!bHasSplits) return -1
 
-  // Both runners have splits
-
-  // Not‑started runners sink
   if (!a.hasStarted && !b.hasStarted) return a.currentRaceTime - b.currentRaceTime
   if (!a.hasStarted) return 1
   if (!b.hasStarted) return -1
 
-  // Compare last common RC
-  const commonControls = Object.keys(a.controlTimes)
-    .filter((k) => k in b.controlTimes)
-    .map(Number)
+  // General case with splits
+  return compareSplitBySplit(a, b)
+}
 
-  if (commonControls.length) {
-    const lastCommon = Math.max(...commonControls)
-    const diff = a.controlTimes[lastCommon] - b.controlTimes[lastCommon] // lower → better
+/**
+ * Compare two runners split by split, regardless of finish status
+ * NOTE: both finished runners do not reach this point (handled before)
+ */
+function compareSplitBySplit(a: RunnerState, b: RunnerState): number {
+  // Get sorted list of common splits (excluding finish control)
+  const aSplits = Object.keys(a.controlTimes)
+    .map(Number)
+    .filter((n) => n !== Infinity)
+  const bSplits = Object.keys(b.controlTimes)
+    .map(Number)
+    .filter((n) => n !== Infinity)
+  const commonSplits = aSplits.filter((s) => bSplits.includes(s)).sort((x, y) => x - y)
+
+  for (const splitNum of commonSplits) {
+    const diff = a.controlTimes[splitNum] - b.controlTimes[splitNum]
     if (diff !== 0) return diff
   }
 
-  // More controls passed wins
-  if (a.lastPassedControl !== b.lastPassedControl) return b.lastPassedControl - a.lastPassedControl
+  // Tie on common splits:
 
-  // Both finished → unique position decides
+  // If both are running, more controls passed wins
+  if (!a.isFinished && !b.isFinished) {
+    if (a.lastPassedControl !== b.lastPassedControl) {
+      return b.lastPassedControl - a.lastPassedControl
+    }
+  }
+
+  // Finally, break tie by current race time
+  return a.currentRaceTime - b.currentRaceTime
+}
+
+function handleRunnersWithoutSplits(a: RunnerState, b: RunnerState): number {
+  // Finished runners first, sorted by position
+  if (a.isFinished !== b.isFinished) return a.isFinished ? -1 : 1
   if (a.isFinished && b.isFinished) return a.position - b.position
 
-  // Final tie‑breaker → shorter elapsed race time
-  return a.currentRaceTime - b.currentRaceTime
+  // Both started → shorter race time first
+  if (a.hasStarted && b.hasStarted) return a.currentRaceTime - b.currentRaceTime
+
+  // Both not started → earlier planned start time first
+  if (!a.hasStarted && !b.hasStarted) {
+    const aStart = a.runner.stage.start_time
+      ? DateTime.fromISO(a.runner.stage.start_time).toMillis()
+      : Infinity
+    const bStart = b.runner.stage.start_time
+      ? DateTime.fromISO(b.runner.stage.start_time).toMillis()
+      : Infinity
+    return aStart - bStart
+  }
+
+  // One started, the other not
+  return a.hasStarted ? -1 : 1
 }
