@@ -60,14 +60,20 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
           },
         }}
       >
-        {/* Close button */}
+        {/* Top bar with language selector and close button */}
         <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
+            alignItems: "center",
             p: 1,
+            minHeight: "56px", // Consistent height for top bar
           }}
         >
+          {/* Left side: Language selector with icon and text */}
+          <LanguageDropdown />
+
+          {/* Right side: Close button */}
           <IconButton onClick={() => setOpenSidebar((prev) => !prev)}>
             <CloseIcon />
           </IconButton>
@@ -129,7 +135,6 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
             </ListItem>
           )}
           <AuthenticationSidebarItem />
-          <LanguageDropdown />
         </List>
 
         {/* Legal Links and Version Info */}

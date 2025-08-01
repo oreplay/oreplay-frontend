@@ -1,60 +1,105 @@
 import { useState } from "react"
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material"
+import { Menu, MenuItem, ListItemIcon, ListItemText, Box, Button } from "@mui/material"
 import LanguageIcon from "@mui/icons-material/Language"
-import ExpandLess from "@mui/icons-material/ExpandLess"
-import ExpandMore from "@mui/icons-material/ExpandMore"
 import { useTranslation } from "react-i18next"
 
-const LanguageNestedList = () => {
+const LanguageDropdown = () => {
   const { t, i18n } = useTranslation()
-  const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
 
-  const toggleNestedList = () => {
-    setOpen((prev) => !prev)
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
   }
 
   const handleLanguageChange = (lang: string) => {
     void i18n.changeLanguage(lang)
+    handleClose()
   }
 
-  return (
-    <>
-      {/* Main List Item */}
-      <ListItem>
-        <ListItemButton onClick={toggleNestedList}>
-          <ListItemIcon>
-            <LanguageIcon />
-          </ListItemIcon>
-          <ListItemText primary={t("Language.Language")} />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-      </ListItem>
+  const languages = [
+    { code: "es", flag: "🇪🇸", name: t("Language.Spanish") },
+    { code: "en", flag: "🇬🇧", name: t("Language.English") },
+    { code: "fr", flag: "🇫🇷", name: t("Language.French") },
+  ]
 
-      {/* Nested List */}
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemButton sx={{ pl: 4 }} onClick={() => handleLanguageChange("es")}>
-              <ListItemIcon>{"\ud83c\uddea\ud83c\uddf8"}</ListItemIcon>
-              <ListItemText primary={t("Language.Spanish")} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton sx={{ pl: 4 }} onClick={() => handleLanguageChange("en")}>
-              <ListItemIcon>{"\ud83c\uddec\ud83c\udde7"}</ListItemIcon>
-              <ListItemText primary={t("Language.English")} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton sx={{ pl: 4 }} onClick={() => handleLanguageChange("fr")}>
-              <ListItemIcon>{"\ud83c\uddeb\ud83c\uddf7"}</ListItemIcon>
-              <ListItemText primary={t("Language.French")} />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Collapse>
-    </>
+  return (
+    <Box>
+      <Button
+        onClick={handleClick}
+        startIcon={<LanguageIcon />}
+        sx={{
+          color: "text.secondary",
+          textTransform: "none",
+          fontSize: "0.875rem",
+          fontWeight: 400,
+          minWidth: "auto",
+          padding: "4px 8px",
+          "&:hover": {
+            backgroundColor: "action.hover",
+          },
+        }}
+        aria-controls={open ? "language-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+      >
+        {t("Language.Language")}
+      </Button>
+      <Menu
+        id="language-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "language-button",
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        PaperProps={{
+          sx: {
+            minWidth: "150px",
+            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+          },
+        }}
+      >
+        {languages.map((language) => (
+          <MenuItem
+            key={language.code}
+            onClick={() => handleLanguageChange(language.code)}
+            selected={i18n.language === language.code}
+            sx={{
+              fontSize: "0.875rem",
+              minHeight: "36px",
+              "&.Mui-selected": {
+                backgroundColor: "action.selected",
+              },
+            }}
+          >
+            <ListItemIcon sx={{ minWidth: "28px" }}>
+              <span style={{ fontSize: "16px" }}>{language.flag}</span>
+            </ListItemIcon>
+            <ListItemText
+              primary={language.name}
+              primaryTypographyProps={{
+                fontSize: "0.875rem",
+                fontWeight: i18n.language === language.code ? 500 : 400,
+              }}
+            />
+          </MenuItem>
+        ))}
+      </Menu>
+    </Box>
   )
 }
 
-export default LanguageNestedList
+export default LanguageDropdown
