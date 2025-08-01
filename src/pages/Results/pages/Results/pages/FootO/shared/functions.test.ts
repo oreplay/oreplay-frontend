@@ -408,8 +408,6 @@ describe("sortFootORunners with detailed online_splits", () => {
     DateTime.fromISO("2025-06-27T10:00:00.000+00:00") as DateTime<true>,
   )
 
-  const defaultIsNext = DateTime.fromISO("1970-01-01T00:00:00.000+00:00")
-
   const baseRunner = {
     id: "runner1",
     bib_number: "1000",
@@ -445,7 +443,46 @@ describe("sortFootORunners with detailed online_splits", () => {
     overalls: null,
   }
 
-  function makeSplit(order_number: number, station: string | null, cumulative_time: number | null) {
+  // Helper function to create a complete course structure with all controls
+  function makeCompleteCourse(
+    controls: {
+      order: number
+      station: string | null
+      cumulative?: number | null
+      split_time?: number | null
+      is_next?: DateTime | null
+    }[],
+  ) {
+    const allControls = [31, 32, 33, Infinity] // Standard course structure
+    return allControls.map((controlNumber) => {
+      const controlData = controls.find((c) => c.order === controlNumber)
+      if (controlData) {
+        return makeSplit(
+          controlData.order,
+          controlData.station,
+          controlData.cumulative ?? null,
+          controlData.split_time ?? null,
+          controlData.is_next ?? null,
+        )
+      }
+      // Empty split for controls not yet reached
+      return makeSplit(
+        controlNumber,
+        controlNumber === Infinity ? "FINISH" : controlNumber.toString(),
+        null,
+        null,
+        null,
+      )
+    })
+  }
+
+  function makeSplit(
+    order_number: number,
+    station: string | null,
+    cumulative_time: number | null,
+    split_time?: number | null,
+    is_next?: DateTime | null,
+  ) {
     return {
       id: `split${order_number}`,
       is_intermediate: true,
@@ -468,10 +505,10 @@ describe("sortFootORunners with detailed online_splits", () => {
             control_type: { id: "ctrl-type-1", description: "Normal Control" },
           }
         : null,
-      time: cumulative_time, //TODO: This is wrong
+      time: split_time ?? null, // Fixed: now properly handles split time vs cumulative time
       status_code: "0",
       leg_number: 1,
-      is_next: defaultIsNext, //TODO: This is wrong
+      is_next: is_next ?? null, // Fixed: now properly handles is_next field
     }
   }
 
@@ -482,11 +519,17 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner A",
       stage: {
         ...baseRunner.stage,
-        online_splits: [
-          makeSplit(31, "31", 8 * 60),
-          makeSplit(32, "32", 10 * 60),
-          makeSplit(33, "33", 12 * 60),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 8 * 60, split_time: 8 * 60 },
+          {
+            order: 32,
+            station: "32",
+            cumulative: 10 * 60,
+            split_time: 2 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:58:00.000+00:00"),
+          },
+          { order: 33, station: "33", cumulative: 12 * 60, split_time: 2 * 60 },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -499,7 +542,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner B",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 4 * 60)],
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 4 * 60,
+            split_time: 4 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:54:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -519,11 +570,17 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner A",
       stage: {
         ...baseRunner.stage,
-        online_splits: [
-          makeSplit(31, "31", 8 * 60),
-          makeSplit(32, "32", 10 * 60),
-          makeSplit(33, "33", 12 * 60),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 8 * 60, split_time: 8 * 60 },
+          { order: 32, station: "32", cumulative: 10 * 60, split_time: 2 * 60 },
+          {
+            order: 33,
+            station: "33",
+            cumulative: 12 * 60,
+            split_time: 2 * 60,
+            is_next: DateTime.fromISO("2025-06-27T10:02:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -531,13 +588,22 @@ describe("sortFootORunners with detailed online_splits", () => {
     }
 
     const runnerB = {
-      //TODO: They always have the same number of splits but they are empty
+      // Fixed: Both runners now have the same number of splits but some are empty
       ...baseRunner,
       id: "B",
       full_name: "Runner B",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 4 * 60), makeSplit(32, "32", 9 * 60)],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 4 * 60, split_time: 4 * 60 },
+          {
+            order: 32,
+            station: "32",
+            cumulative: 9 * 60,
+            split_time: 5 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:59:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -557,11 +623,12 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner Finished",
       stage: {
         ...baseRunner.stage,
-        online_splits: [
-          makeSplit(31, "31", 8 * 60),
-          makeSplit(32, "32", 10 * 60),
-          makeSplit(33, "33", 12 * 60),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 8 * 60, split_time: 8 * 60 },
+          { order: 32, station: "32", cumulative: 10 * 60, split_time: 2 * 60 },
+          { order: 33, station: "33", cumulative: 12 * 60, split_time: 2 * 60 },
+          { order: Infinity, station: "FINISH", cumulative: 12 * 60, split_time: 0 },
+        ]),
         finish_time: "2025-06-27T09:58:00.000+00:00",
         position: 1,
         status_code: "0",
@@ -574,7 +641,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner In Progress Fast",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 4 * 60)], //TODO: Add empty splits
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 4 * 60,
+            split_time: 4 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:54:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -587,7 +662,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner In Progress Slow",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 9 * 60)],
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 9 * 60,
+            split_time: 9 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:59:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -608,7 +691,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:05:00.000+00:00",
-        online_splits: [], //TODO: empty split
+        online_splits: makeCompleteCourse([]), // Empty course for not started runners
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -621,7 +704,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:10:00.000+00:00",
-        online_splits: [], //TODO: empty splits
+        online_splits: makeCompleteCourse([]), // Empty course for not started runners
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -635,7 +718,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T09:55:00.000+00:00",
-        online_splits: [makeSplit(31, "31", 300)],
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 300,
+            split_time: 300,
+            is_next: DateTime.fromISO("2025-06-27T09:55:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -656,7 +747,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "0", // OK status code as string number
-        online_splits: [makeSplit(31, "31", 300)],
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 300,
+            split_time: 300,
+            is_next: DateTime.fromISO("2025-06-27T09:05:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         start_time: "2025-06-27T09:00:00.000+00:00",
@@ -670,7 +769,10 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "6", // DSQ code as number string
-        online_splits: [], //TODO: shall have online splits
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 250, split_time: 250 },
+          { order: 32, station: "32", cumulative: 400, split_time: 150 },
+        ]), // DSQ runners have online splits showing their progress before disqualification
         finish_time: null,
         position: 0,
         start_time: "2025-06-27T09:00:00.000+00:00",
@@ -684,7 +786,9 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "5", // DNF code as number string
-        online_splits: [], // TODO: shall have online_splits
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 280, split_time: 280 },
+        ]), // DNF runners have partial online splits
         finish_time: null,
         position: 0,
         start_time: "2025-06-27T09:00:00.000+00:00",
@@ -706,7 +810,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:05:00.000+00:00",
-        online_splits: [],
+        online_splits: makeCompleteCourse([]), // Empty course for not started runners
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -720,7 +824,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:10:00.000+00:00",
-        online_splits: [],
+        online_splits: makeCompleteCourse([]), // Empty course for not started runners
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -734,7 +838,10 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "4",
-        online_splits: [],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 3 * 60, split_time: 3 * 60 },
+          { order: 32, station: "32", cumulative: 6 * 60, split_time: 3 * 60 },
+        ]), // DSQ runner had some progress before disqualification
         finish_time: null,
         position: 0,
       },
@@ -747,7 +854,9 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         status_code: "2",
-        online_splits: [], // TODO: shall have online splits
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 7 * 60, split_time: 7 * 60 },
+        ]), // DNF runner has partial online splits
         finish_time: null,
         position: 0,
       },
@@ -759,11 +868,12 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner Finished",
       stage: {
         ...baseRunner.stage,
-        online_splits: [
-          makeSplit(31, "31", 8 * 60),
-          makeSplit(32, "32", 10 * 60),
-          makeSplit(33, "33", 12 * 60),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 8 * 60, split_time: 8 * 60 },
+          { order: 32, station: "32", cumulative: 10 * 60, split_time: 2 * 60 },
+          { order: 33, station: "33", cumulative: 12 * 60, split_time: 2 * 60 },
+          { order: Infinity, station: "FINISH", cumulative: 12 * 60, split_time: 0 },
+        ]),
         finish_time: "2025-06-27T09:58:00.000+00:00",
         position: 1,
         status_code: "0",
@@ -776,7 +886,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner In Progress Fast",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 4 * 60)], //TODO: Missing online control
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 4 * 60,
+            split_time: 4 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:54:00.000+00:00"),
+          },
+        ]), // Fixed: Added missing online control structure
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -789,7 +907,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Runner In Progress Slow",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 9 * 60)], // TODO: missing splits
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 9 * 60,
+            split_time: 9 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:59:00.000+00:00"),
+          },
+        ]), // Fixed: Added missing splits
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -828,11 +954,11 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         finish_time: "2024-10-18T15:18:07.000+00:00",
-        online_splits: [
-          makeSplit(1, "31", 226),
-          makeSplit(2, "32", 513),
-          makeSplit(Infinity, null, 907),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 226, split_time: 226 },
+          { order: 32, station: "32", cumulative: 513, split_time: 287 },
+          { order: Infinity, station: "FINISH", cumulative: 907, split_time: 394 },
+        ]),
         position: 2,
         status_code: "0",
       },
@@ -845,11 +971,11 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         finish_time: "2024-10-18T15:22:04.000+00:00",
-        online_splits: [
-          makeSplit(1, "31", 217),
-          makeSplit(2, "32", 440),
-          makeSplit(Infinity, null, 845),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 217, split_time: 217 },
+          { order: 32, station: "32", cumulative: 440, split_time: 223 },
+          { order: Infinity, station: "FINISH", cumulative: 845, split_time: 405 },
+        ]),
         position: 1,
         status_code: "0",
       },
@@ -857,16 +983,21 @@ describe("sortFootORunners with detailed online_splits", () => {
 
     const runnerRunningWinning = {
       ...baseRunner,
-      id: "P1",
-      full_name: "Pos1",
+      id: "RW",
+      full_name: "Running Winner",
       stage: {
         ...baseRunner.stage,
         finish_time: null,
-        online_splits: [
-          makeSplit(1, "31", 201),
-          makeSplit(2, "32", 413),
-          makeSplit(Infinity, null, null),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 201, split_time: 201 },
+          {
+            order: 32,
+            station: "32",
+            cumulative: 413,
+            split_time: 212,
+            is_next: DateTime.fromISO("2025-06-27T09:56:53.000+00:00"),
+          },
+        ]),
         position: 0,
         status_code: "0",
       },
@@ -889,7 +1020,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T09:50:00.000+00:00", // Started 10 minutes ago
-        online_splits: [makeSplit(31, "31", 15)], // Only 1 split at 15 seconds
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 15,
+            split_time: 15,
+            is_next: DateTime.fromISO("2025-06-27T09:50:15.000+00:00"),
+          },
+        ]), // Only 1 split at 15 seconds
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -903,10 +1042,16 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T09:52:00.000+00:00", // Started 8 minutes ago
-        online_splits: [
-          makeSplit(31, "31", 12), // Faster at control 31
-          makeSplit(32, "32", 20), // Total 20 seconds at control 32
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 12, split_time: 12 }, // Faster at control 31
+          {
+            order: 32,
+            station: "32",
+            cumulative: 20,
+            split_time: 8,
+            is_next: DateTime.fromISO("2025-06-27T09:52:20.000+00:00"),
+          }, // Total 20 seconds at control 32
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -928,11 +1073,12 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Finished Slow",
       stage: {
         ...baseRunner.stage,
-        online_splits: [
-          makeSplit(31, "31", 10 * 60), // 10 minutes at control 31
-          makeSplit(32, "32", 15 * 60), // 15 minutes at control 32
-          makeSplit(Infinity, null, 25 * 60), // Finished at 25 minutes
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 10 * 60, split_time: 10 * 60 }, // 10 minutes at control 31
+          { order: 32, station: "32", cumulative: 15 * 60, split_time: 5 * 60 }, // 15 minutes at control 32
+          { order: 33, station: "33", cumulative: 23 * 60, split_time: 8 * 60 }, // 23 minutes at control 33
+          { order: Infinity, station: "FINISH", cumulative: 25 * 60, split_time: 2 * 60 }, // Finished at 25 minutes
+        ]),
         finish_time: "2025-06-27T10:15:00.000+00:00",
         time_seconds: 25 * 60,
         position: 2,
@@ -947,7 +1093,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T09:52:00.000+00:00", // Started 8 minutes ago
-        online_splits: [makeSplit(31, "31", 4 * 60)], // Very fast - 4 minutes at control 31
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 4 * 60,
+            split_time: 4 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:56:00.000+00:00"),
+          },
+        ]), // Very fast - 4 minutes at control 31
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -968,11 +1122,11 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Missed Control",
       stage: {
         ...baseRunner.stage,
-        online_splits: [
-          makeSplit(31, "31", 5 * 60), // Got control 31
-          // Missing control 32
-          makeSplit(33, "33", null), // Missed punch at control 33
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 }, // Got control 31
+          // Missing control 32 data - empty entry will be created by makeCompleteCourse
+          { order: 33, station: "33", cumulative: null, split_time: null }, // Missed punch at control 33
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -985,7 +1139,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Normal Runner",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 6 * 60)], // Slightly slower but complete
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 6 * 60,
+            split_time: 6 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:56:00.000+00:00"),
+          },
+        ]), // Slightly slower but complete
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -1007,7 +1169,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "OK Runner",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 300)],
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 300,
+            split_time: 300,
+            is_next: DateTime.fromISO("2025-06-27T09:55:00.000+00:00"),
+          },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "0", // OK
@@ -1020,7 +1190,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Did Not Start",
       stage: {
         ...baseRunner.stage,
-        online_splits: [],
+        online_splits: makeCompleteCourse([]), // Empty course for DNS
         finish_time: null,
         position: 0,
         status_code: "1", // DNS
@@ -1033,7 +1203,9 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Disqualified",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 200)], // Was fastest but got disqualified
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 200, split_time: 200 },
+        ]), // Was fastest but got disqualified
         finish_time: null,
         position: 0,
         status_code: "4", // DSQ
@@ -1046,7 +1218,9 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Did Not Finish",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 250)],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 250, split_time: 250 },
+        ]),
         finish_time: null,
         position: 0,
         status_code: "2", // DNF
@@ -1067,11 +1241,12 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Finished 1st",
       stage: {
         ...baseRunner.stage,
-        online_splits: [
-          makeSplit(31, "31", 4 * 60),
-          makeSplit(32, "32", 8 * 60),
-          makeSplit(Infinity, null, 12 * 60),
-        ],
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 4 * 60, split_time: 4 * 60 },
+          { order: 32, station: "32", cumulative: 8 * 60, split_time: 4 * 60 },
+          { order: 33, station: "33", cumulative: 11 * 60, split_time: 3 * 60 },
+          { order: Infinity, station: "FINISH", cumulative: 12 * 60, split_time: 60 },
+        ]),
         finish_time: "2025-06-27T10:02:00.000+00:00",
         time_seconds: 12 * 60,
         position: 1,
@@ -1086,7 +1261,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T09:56:00.000+00:00", // Started 4 minutes ago, current time = 4 minutes
-        online_splits: [makeSplit(31, "31", 3 * 60)], // Very fast at control 31
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 3 * 60,
+            split_time: 3 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:59:00.000+00:00"),
+          },
+        ]), // Very fast at control 31
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -1100,7 +1283,15 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T09:50:00.000+00:00", // Started 10 minutes ago
-        online_splits: [makeSplit(31, "31", 8 * 60)], // Slow at control 31
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 8 * 60,
+            split_time: 8 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:58:00.000+00:00"),
+          },
+        ]), // Slow at control 31
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -1114,7 +1305,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:05:00.000+00:00", // Starts in 5 minutes
-        online_splits: [],
+        online_splits: makeCompleteCourse([]), // Empty course for not started
         finish_time: null,
         position: 0,
         status_code: "0",
@@ -1127,7 +1318,9 @@ describe("sortFootORunners with detailed online_splits", () => {
       full_name: "Disqualified",
       stage: {
         ...baseRunner.stage,
-        online_splits: [makeSplit(31, "31", 2 * 60)], // Was fastest but disqualified
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 2 * 60, split_time: 2 * 60 },
+        ]), // Was fastest but disqualified
         finish_time: null,
         position: 0,
         status_code: "4", // DSQ
@@ -1155,6 +1348,168 @@ describe("sortFootORunners with detailed online_splits", () => {
       runnerNotStarted,
       runnerDSQ,
     ]
+
+    expect(sorted).toEqual(expected)
+  })
+
+  it("should prioritize runners approaching next control (is_next field logic)", () => {
+    const runnerApproachingNext = {
+      ...baseRunner,
+      id: "AN",
+      full_name: "Approaching Next Control",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:50:00.000+00:00",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+          {
+            order: 32,
+            station: "32",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO("2025-06-27T09:55:00.000+00:00"),
+          },
+        ]),
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerSameProgressNoNext = {
+      ...baseRunner,
+      id: "SP",
+      full_name: "Same Progress No Next",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:50:00.000+00:00",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+        ]),
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const sorted = sortFootORunners([runnerSameProgressNoNext, runnerApproachingNext])
+    // Runner approaching next control should be prioritized
+    const expected = [runnerApproachingNext, runnerSameProgressNoNext]
+
+    expect(sorted).toEqual(expected)
+  })
+
+  it("should handle runners with different is_next timing", () => {
+    const runnerRecentNext = {
+      ...baseRunner,
+      id: "RN",
+      full_name: "Recent Next Control",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:50:00.000+00:00",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+          {
+            order: 32,
+            station: "32",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO("2025-06-27T09:58:00.000+00:00"),
+          },
+        ]),
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerOlderNext = {
+      ...baseRunner,
+      id: "ON",
+      full_name: "Older Next Control",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:50:00.000+00:00",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+          {
+            order: 32,
+            station: "32",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO("2025-06-27T09:55:00.000+00:00"),
+          },
+        ]),
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const sorted = sortFootORunners([runnerOlderNext, runnerRecentNext])
+    // Runner with more recent is_next time should be prioritized (closer to reaching control)
+    const expected = [runnerRecentNext, runnerOlderNext]
+
+    expect(sorted).toEqual(expected)
+  })
+
+  it("should handle comprehensive edge cases with empty and null values", () => {
+    const runnerWithNulls = {
+      ...baseRunner,
+      id: "WN",
+      full_name: "With Nulls",
+      stage: {
+        ...baseRunner.stage,
+        start_time: null, // No start time
+        online_splits: makeCompleteCourse([]), // Empty splits
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerPartialData = {
+      ...baseRunner,
+      id: "PD",
+      full_name: "Partial Data",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:50:00.000+00:00",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: null, split_time: null }, // Missed control
+          { order: 32, station: "32", cumulative: 8 * 60, split_time: 8 * 60 }, // Got this one somehow
+        ]),
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const runnerNormal = {
+      ...baseRunner,
+      id: "N",
+      full_name: "Normal",
+      stage: {
+        ...baseRunner.stage,
+        start_time: "2025-06-27T09:55:00.000+00:00",
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: 4 * 60,
+            split_time: 4 * 60,
+            is_next: DateTime.fromISO("2025-06-27T09:59:00.000+00:00"),
+          },
+        ]),
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+      },
+    }
+
+    const sorted = sortFootORunners([runnerWithNulls, runnerPartialData, runnerNormal])
+    // Normal runner first, then partial data, then runner with nulls at end
+    const expected = [runnerNormal, runnerPartialData, runnerWithNulls]
 
     expect(sorted).toEqual(expected)
   })
