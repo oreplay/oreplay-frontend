@@ -10270,4 +10270,362 @@ describe("VirtualTicketFunctions.calculateTimesAndBehindsFootO", () => {
 
     expect(calculatePositionsAndBehindsFootO(runnerList)).toEqual(expectedRunnerList)
   })
+
+  it("should only compute positions and time behind for runners with chip downloads", () => {
+    // Test data with 2 runners with chip downloads and 2 with only radio splits
+    const runnerList: ProcessedRunnerModel[] = [
+      // Runner 1: Has chip download (res_splits)
+      {
+        id: "runner-with-chip-1",
+        bib_number: "101",
+        is_nc: false,
+        eligibility: null,
+        sicard: "12345678",
+        sex: "M",
+        leg_number: 1,
+        class: {
+          id: "class-1",
+          short_name: "M21E",
+          long_name: "Men 21 Elite",
+        },
+        club: {
+          id: "club-1",
+          short_name: "TestClub1",
+        },
+        full_name: "Runner With Chip 1",
+        stage: {
+          id: "stage-1",
+          result_type_id: "result-type-1",
+          start_time: "2024-01-01T10:00:00.000+00:00",
+          finish_time: "2024-01-01T10:15:30.000+00:00",
+          upload_type: "res_splits", // Chip download
+          time_seconds: 930,
+          position: 1,
+          status_code: "0",
+          time_behind: 0,
+          time_neutralization: 0,
+          time_adjusted: 0,
+          time_penalty: 0,
+          time_bonus: 0,
+          points_final: 0,
+          points_adjusted: 0,
+          points_penalty: 0,
+          points_bonus: 0,
+          leg_number: 1,
+          splits: [
+            {
+              id: "split-1-1",
+              is_intermediate: false,
+              reading_time: "2024-01-01T10:05:00.000+00:00",
+              points: 0,
+              order_number: 1,
+              time: 300, // 5:00
+              cumulative_time: 300,
+              time_behind: null,
+              position: null,
+              cumulative_behind: null,
+              cumulative_position: null,
+              control: {
+                id: "control-1",
+                station: "31",
+                control_type: {
+                  id: "control-type-1",
+                  description: "Normal Control",
+                },
+              },
+            },
+            {
+              id: "split-1-2",
+              is_intermediate: false,
+              reading_time: "2024-01-01T10:15:30.000+00:00",
+              points: 0,
+              order_number: 2,
+              time: 630, // 10:30
+              cumulative_time: 930, // 15:30
+              time_behind: null,
+              position: null,
+              cumulative_behind: null,
+              cumulative_position: null,
+              control: {
+                id: "control-2",
+                station: "FINISH",
+                control_type: {
+                  id: "control-type-2",
+                  description: "Finish",
+                },
+              },
+            },
+          ],
+          online_splits: [],
+        },
+        overalls: null,
+        runners: null,
+      },
+      // Runner 2: Has chip download (res_splits) - slower time
+      {
+        id: "runner-with-chip-2",
+        bib_number: "102",
+        is_nc: false,
+        eligibility: null,
+        sicard: "87654321",
+        sex: "M",
+        leg_number: 1,
+        class: {
+          id: "class-1",
+          short_name: "M21E",
+          long_name: "Men 21 Elite",
+        },
+        club: {
+          id: "club-2",
+          short_name: "TestClub2",
+        },
+        full_name: "Runner With Chip 2",
+        stage: {
+          id: "stage-2",
+          result_type_id: "result-type-1",
+          start_time: "2024-01-01T10:00:00.000+00:00",
+          finish_time: "2024-01-01T10:18:00.000+00:00",
+          upload_type: "res_splits", // Chip download
+          time_seconds: 1080,
+          position: 2,
+          status_code: "0",
+          time_behind: 150,
+          time_neutralization: 0,
+          time_adjusted: 0,
+          time_penalty: 0,
+          time_bonus: 0,
+          points_final: 0,
+          points_adjusted: 0,
+          points_penalty: 0,
+          points_bonus: 0,
+          leg_number: 1,
+          splits: [
+            {
+              id: "split-2-1",
+              is_intermediate: false,
+              reading_time: "2024-01-01T10:06:00.000+00:00",
+              points: 0,
+              order_number: 1,
+              time: 360, // 6:00
+              cumulative_time: 360,
+              time_behind: null,
+              position: null,
+              cumulative_behind: null,
+              cumulative_position: null,
+              control: {
+                id: "control-1",
+                station: "31",
+                control_type: {
+                  id: "control-type-1",
+                  description: "Normal Control",
+                },
+              },
+            },
+            {
+              id: "split-2-2",
+              is_intermediate: false,
+              reading_time: "2024-01-01T10:18:00.000+00:00",
+              points: 0,
+              order_number: 2,
+              time: 720, // 12:00
+              cumulative_time: 1080, // 18:00
+              time_behind: null,
+              position: null,
+              cumulative_behind: null,
+              cumulative_position: null,
+              control: {
+                id: "control-2",
+                station: "FINISH",
+                control_type: {
+                  id: "control-type-2",
+                  description: "Finish",
+                },
+              },
+            },
+          ],
+          online_splits: [],
+        },
+        overalls: null,
+        runners: null,
+      },
+      // Runner 3: Only radio splits (res_intermediates) - should NOT be processed
+      {
+        id: "runner-radio-1",
+        bib_number: "201",
+        is_nc: false,
+        eligibility: null,
+        sicard: "11111111",
+        sex: "M",
+        leg_number: 1,
+        class: {
+          id: "class-1",
+          short_name: "M21E",
+          long_name: "Men 21 Elite",
+        },
+        club: {
+          id: "club-3",
+          short_name: "TestClub3",
+        },
+        full_name: "Runner Radio Only 1",
+        stage: {
+          id: "stage-3",
+          result_type_id: "result-type-1",
+          start_time: "2024-01-01T10:00:00.000+00:00",
+          finish_time: null, // No finish time for radio-only
+          upload_type: "res_intermediates", // Radio splits only
+          time_seconds: 0,
+          position: 0,
+          status_code: "0",
+          time_behind: 0,
+          time_neutralization: 0,
+          time_adjusted: 0,
+          time_penalty: 0,
+          time_bonus: 0,
+          points_final: 0,
+          points_adjusted: 0,
+          points_penalty: 0,
+          points_bonus: 0,
+          leg_number: 1,
+          splits: [
+            {
+              id: "split-3-1",
+              is_intermediate: false,
+              reading_time: "2024-01-01T10:07:00.000+00:00",
+              points: 0,
+              order_number: 1,
+              time: 420, // 7:00
+              cumulative_time: 420,
+              time_behind: null,
+              position: null,
+              cumulative_behind: null,
+              cumulative_position: null,
+              control: {
+                id: "control-1",
+                station: "31",
+                control_type: {
+                  id: "control-type-1",
+                  description: "Normal Control",
+                },
+              },
+            },
+          ],
+          online_splits: [],
+        },
+        overalls: null,
+        runners: null,
+      },
+      // Runner 4: Only radio splits (res_intermediates) - should NOT be processed
+      {
+        id: "runner-radio-2",
+        bib_number: "202",
+        is_nc: false,
+        eligibility: null,
+        sicard: "22222222",
+        sex: "M",
+        leg_number: 1,
+        class: {
+          id: "class-1",
+          short_name: "M21E",
+          long_name: "Men 21 Elite",
+        },
+        club: {
+          id: "club-4",
+          short_name: "TestClub4",
+        },
+        full_name: "Runner Radio Only 2",
+        stage: {
+          id: "stage-4",
+          result_type_id: "result-type-1",
+          start_time: "2024-01-01T10:00:00.000+00:00",
+          finish_time: null, // No finish time for radio-only
+          upload_type: "res_intermediates", // Radio splits only
+          time_seconds: 0,
+          position: 0,
+          status_code: "0",
+          time_behind: 0,
+          time_neutralization: 0,
+          time_adjusted: 0,
+          time_penalty: 0,
+          time_bonus: 0,
+          points_final: 0,
+          points_adjusted: 0,
+          points_penalty: 0,
+          points_bonus: 0,
+          leg_number: 1,
+          splits: [
+            {
+              id: "split-4-1",
+              is_intermediate: false,
+              reading_time: "2024-01-01T10:04:30.000+00:00",
+              points: 0,
+              order_number: 1,
+              time: 270, // 4:30
+              cumulative_time: 270,
+              time_behind: null,
+              position: null,
+              cumulative_behind: null,
+              cumulative_position: null,
+              control: {
+                id: "control-1",
+                station: "31",
+                control_type: {
+                  id: "control-type-1",
+                  description: "Normal Control",
+                },
+              },
+            },
+          ],
+          online_splits: [],
+        },
+        overalls: null,
+        runners: null,
+      },
+    ]
+
+    const result = calculatePositionsAndBehindsFootO(runnerList)
+
+    // Verify that only runners with chip downloads have computed positions and time behind
+
+    // Runner 1 (chip download): Should have positions and time behind calculated
+    const processedRunner1 = result.find((r) => r.id === "runner-with-chip-1")!
+    expect(processedRunner1.stage.splits[0].position).toBe(1) // Fastest split 1
+    expect(processedRunner1.stage.splits[0].time_behind).toBe(0) // Best time
+    expect(processedRunner1.stage.splits[0].cumulative_position).toBe(1)
+    expect(processedRunner1.stage.splits[0].cumulative_behind).toBe(0)
+
+    expect(processedRunner1.stage.splits[1].position).toBe(1) // Fastest split 2
+    expect(processedRunner1.stage.splits[1].time_behind).toBe(0) // Best time
+    expect(processedRunner1.stage.splits[1].cumulative_position).toBe(1)
+    expect(processedRunner1.stage.splits[1].cumulative_behind).toBe(0)
+
+    // Runner 2 (chip download): Should have positions and time behind calculated
+    const processedRunner2 = result.find((r) => r.id === "runner-with-chip-2")!
+    expect(processedRunner2.stage.splits[0].position).toBe(2) // Second fastest split 1
+    expect(processedRunner2.stage.splits[0].time_behind).toBe(60) // 1 minute behind (360-300)
+    expect(processedRunner2.stage.splits[0].cumulative_position).toBe(2)
+    expect(processedRunner2.stage.splits[0].cumulative_behind).toBe(60)
+
+    expect(processedRunner2.stage.splits[1].position).toBe(2) // Second fastest split 2
+    expect(processedRunner2.stage.splits[1].time_behind).toBe(90) // 1:30 behind (720-630)
+    expect(processedRunner2.stage.splits[1].cumulative_position).toBe(2)
+    expect(processedRunner2.stage.splits[1].cumulative_behind).toBe(150) // 2:30 behind (1080-930)
+
+    // Runner 3 (radio only): Should NOT have positions and time behind calculated
+    const processedRunner3 = result.find((r) => r.id === "runner-radio-1")!
+    expect(processedRunner3.stage.splits[0].position).toBeNull()
+    expect(processedRunner3.stage.splits[0].time_behind).toBeNull()
+    expect(processedRunner3.stage.splits[0].cumulative_position).toBeNull()
+    expect(processedRunner3.stage.splits[0].cumulative_behind).toBeNull()
+
+    // Runner 4 (radio only): Should NOT have positions and time behind calculated
+    const processedRunner4 = result.find((r) => r.id === "runner-radio-2")!
+    expect(processedRunner4.stage.splits[0].position).toBeNull()
+    expect(processedRunner4.stage.splits[0].time_behind).toBeNull()
+    expect(processedRunner4.stage.splits[0].cumulative_position).toBeNull()
+    expect(processedRunner4.stage.splits[0].cumulative_behind).toBeNull()
+
+    // Verify the overall structure remains intact
+    expect(result).toHaveLength(4)
+    expect(result.every((runner) => runner.id && runner.bib_number && runner.full_name)).toBe(true)
+  })
 })
