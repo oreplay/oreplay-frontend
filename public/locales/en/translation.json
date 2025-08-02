@@ -233,7 +233,7 @@
       "dns": "DNS",
       "dnf": "DNF",
       "mp": "MP",
-      "disqualified": "DSQ",
+      "dsq": "DSQ",
       "ot": "OT"
     },
     "SplitsTable": {
