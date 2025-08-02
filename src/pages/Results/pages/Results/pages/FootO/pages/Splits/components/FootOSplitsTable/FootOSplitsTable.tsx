@@ -1,13 +1,14 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import {
+  Box,
   Checkbox,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
@@ -154,29 +155,16 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     <NowProvider>
       {/* Header for the splits table */}
       <TableContainer
-        component={Paper}
+        component={Box}
         ref={headerRef}
         key="SplitsTableHeaderContainer"
         sx={{
           position: "sticky",
           top: 0,
           zIndex: 1,
-          "&::-webkit-scrollbar": {
-            height: "8px",
-          },
-          "&::-webkit-scrollbar-track": {
-            backgroundColor: "#EFEFEF",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#5E2572",
-            borderRadius: "4px",
-          },
-          "&::-webkit-scrollbar-thumb:hover": {
-            backgroundColor: "#5E2572",
-          },
         }}
       >
-        <Table size="small" key="SplitsTableHeader" sx={{ backgroundColor: "grey" }}>
+        <Table size="small" key="SplitsTableHeader" sx={{ backgroundColor: "white" }}>
           <TableHead key="TableHead">
             <TableRow key="tableHeadRow">
               {props.graphsEnabled && (
@@ -196,12 +184,30 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
               <TableCell
                 key="Time"
                 sx={{
+                  padding: "0",
                   ...(colWidths[props.graphsEnabled ? 1 : 0]
                     ? { width: colWidths[props.graphsEnabled ? 1 : 0] }
                     : {}),
                 }}
               >
-                {t("ResultsStage.Times")}
+                <Box
+                  sx={{
+                    padding: "4px 10px 4px 20px",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      px: "10px",
+                      py: "4px",
+                      fontWeight: "500",
+                      color: "white",
+                      borderRadius: "6px",
+                      background: "linear-gradient(to right, #FB6D26, #FF9454)",
+                    }}
+                  >
+                    {t("ResultsStage.Times")}
+                  </Typography>
+                </Box>
               </TableCell>
               {showTimeLossColumn && (
                 <TableCell
@@ -254,7 +260,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
       {/* Table body */}
       <TableContainer
-        component={Paper}
+        component={Box}
         ref={bodyRef}
         key="SplitsTableBodyContainer"
         sx={{ scrollbarWidth: "none" }}

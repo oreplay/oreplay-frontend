@@ -2,7 +2,7 @@ import {
   ProcessedRunnerModel,
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { TableCell, TableRow, Checkbox } from "@mui/material"
+import { TableCell, TableRow, Checkbox, Box } from "@mui/material"
 import { parseResultStatus } from "../../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { useTranslation } from "react-i18next"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
@@ -124,12 +124,13 @@ export default function RunnerRow(props: RunnerRowProps) {
   }
 
   return (
-        <React.Fragment key={props.runner.id}>
+    <React.Fragment key={props.runner.id}>
       <TableRow>
         <TableCell
           colSpan={splits.length + 1}
           sx={{
-            backgroundColor: "#f0f0f0",
+            border: "none",
+            backgroundColor: "white",
             fontWeight: "bold",
             padding: `16px 16px calc(16px + 1rem) 16px`, // 1rem is default font size
           }}
@@ -139,25 +140,31 @@ export default function RunnerRow(props: RunnerRowProps) {
           </div>
         </TableCell>
       </TableRow>
-    <TableRow key={props.runner.id} sx={{ padding: "none" }}>
-      {props.graphsEnabled && (
-        <TableCell key="selection" padding="checkbox">
-          <Checkbox
-            checked={props.selected || false}
-            onChange={handleSelectionChange}
-            disabled={!props.canSelect || (props.maxRunnersReached && !props.selected)}
-            color="primary"
-            title={
-              !props.canSelect
-                ? "Solo corredores con estado OK pueden ser seleccionados"
-                : props.maxRunnersReached && !props.selected
-                  ? "Máximo de corredores alcanzado para este tipo de gráfico"
-                  : undefined
-            }
-          />
-        </TableCell>
-      )}
-      {/* <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
+      <TableRow key={props.runner.id} sx={{ padding: "none" }}>
+        {props.graphsEnabled && (
+          <TableCell
+            key="selection"
+            padding="checkbox"
+            sx={{
+              border: "none",
+            }}
+          >
+            <Checkbox
+              checked={props.selected || false}
+              onChange={handleSelectionChange}
+              disabled={!props.canSelect || (props.maxRunnersReached && !props.selected)}
+              color="primary"
+              title={
+                !props.canSelect
+                  ? "Solo corredores con estado OK pueden ser seleccionados"
+                  : props.maxRunnersReached && !props.selected
+                    ? "Máximo de corredores alcanzado para este tipo de gráfico"
+                    : undefined
+              }
+            />
+          </TableCell>
+        )}
+        {/* <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
         <RacePosition
           position={props.runner.stage.position}
           isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
@@ -170,58 +177,68 @@ export default function RunnerRow(props: RunnerRowProps) {
           subtitle={runnerService.getClubName(props.runner, t)}
         />
       </TableCell> */}
-      <TableCell key={`time${props.runner.id}`} sx={{ 
-           }}>
-        <RaceTime
-          key={`raceTime${props.runner.id}`}
-          displayStatus
-          isFinalTime={hasChipDownload}
-          status={status}
-          finish_time={result.finish_time}
-          time_seconds={result.time_seconds}
-          start_time={result.start_time}
-        />
-        {showTimeBehind && <RaceTimeBehind time_behind={result.time_behind} display={true} />}
-      </TableCell>
-      {props.timeLossEnabled && !props.showCumulative && (
-        <TableCell key={`cleanTime${props.runner.id}`}>
-          {result.time_seconds > 0 && cleanTime > 0 && shouldCalculateCleanTime
-            ? parseSecondsToMMSS(cleanTime)
-            : result.time_seconds > 0
-              ? "--"
-              : ""}
+        <TableCell
+          key={`time${props.runner.id}`}
+          sx={{
+            border: "none",
+            padding: "0 0 0 16px",
+          }}
+        >
+          <Box
+            sx={{ py: "12px", px: "16px", 
+            background: "linear-gradient(180deg, #0000001A 0%, #F6F6F6FF 10%), linear-gradient(90deg, #0000001A 0%, #F6F6F6FF 10%)", backgroundBlendMode: 'darken',  backgroundColor: '#F6F6F6', borderRadius: "6px 0 0 6px" }}
+          >
+            <RaceTime
+              key={`raceTime${props.runner.id}`}
+              displayStatus
+              isFinalTime={hasChipDownload}
+              status={status}
+              finish_time={result.finish_time}
+              time_seconds={result.time_seconds}
+              start_time={result.start_time}
+            />
+            {showTimeBehind && <RaceTimeBehind time_behind={result.time_behind} display={true} />}
+          </Box>
         </TableCell>
-      )}
-      {splits.map((split) => {
-        const timeLossInfo =
-          props.timeLossEnabled &&
-          !props.showCumulative &&
-          props.timeLossResults &&
-          split.control?.id
-            ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, split.control.id)
-            : null
-
-        return (
-          <TableCell key={`split${props.runner.id}${split.id}`}>
-            {props.onlyRadios ? (
-              <RunnerOnlineSplit
-                split={split as RadioSplitModel}
-                startTimeTimestamp={props.runner.stage.start_time}
-              />
-            ) : (
-              <RunnerSplit
-                showCumulative={props.showCumulative}
-                key={`runnerSplit${props.runner.id}${split.id}}`}
-                split={split}
-                timeLossInfo={timeLossInfo}
-                timeLossEnabled={props.timeLossEnabled && !props.showCumulative}
-                timeLossResults={props.timeLossResults}
-              />
-            )}
+        {props.timeLossEnabled && !props.showCumulative && (
+          <TableCell key={`cleanTime${props.runner.id}`} sx={{ border: "none" }}>
+            {result.time_seconds > 0 && cleanTime > 0 && shouldCalculateCleanTime
+              ? parseSecondsToMMSS(cleanTime)
+              : result.time_seconds > 0
+                ? "--"
+                : ""}
           </TableCell>
-        )
-      })}
-    </TableRow>
-      </React.Fragment>
+        )}
+        {splits.map((split) => {
+          const timeLossInfo =
+            props.timeLossEnabled &&
+            !props.showCumulative &&
+            props.timeLossResults &&
+            split.control?.id
+              ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, split.control.id)
+              : null
+
+          return (
+            <TableCell key={`split${props.runner.id}${split.id}`} sx={{ py: "12px", px: "16px", background: "linear-gradient(180deg, #0000001A 0%, #F6F6F6FF 10%)", backgroundColor: '#F6F6F6', border: "none" }}>
+              {props.onlyRadios ? (
+                <RunnerOnlineSplit
+                  split={split as RadioSplitModel}
+                  startTimeTimestamp={props.runner.stage.start_time}
+                />
+              ) : (
+                <RunnerSplit
+                  showCumulative={props.showCumulative}
+                  key={`runnerSplit${props.runner.id}${split.id}}`}
+                  split={split}
+                  timeLossInfo={timeLossInfo}
+                  timeLossEnabled={props.timeLossEnabled && !props.showCumulative}
+                  timeLossResults={props.timeLossResults}
+                />
+              )}
+            </TableCell>
+          )
+        })}
+      </TableRow>
+    </React.Fragment>
   )
 }

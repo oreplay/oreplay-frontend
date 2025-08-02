@@ -15,22 +15,40 @@ export default function CourseControlTableHeader({
   colWidth,
 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
+  const cellStyle = {
+    padding: "10px",
+    ...(colWidth ? { minWidth: colWidth } : {}),
+  }
 
   if (station === "Finish" || order_number === Infinity) {
     return (
-      <TableCell key={"Finish Control"} sx={colWidth ? { minWidth: colWidth } : {}}>
+      <TableCell key={"Finish Control"} sx={cellStyle}>
         <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
       </TableCell>
     )
   }
 
-  const controlString = onlyRadios ? `(${station})` : `${order_number} (${station})`
   return (
-    <TableCell
-      key={`tableHeaderControl${order_number}(${station})`}
-      sx={colWidth ? { minWidth: colWidth } : {}}
-    >
-      <Typography>{controlString}</Typography>
+    <TableCell key={`tableHeaderControl${order_number}(${station})`} sx={cellStyle}>
+      {onlyRadios ? (
+        <Typography>{`(${station})`}</Typography>
+      ) : (
+        <>
+          <Typography
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "2px",
+              px: "10px",
+              py: "4px",
+              fontSize: "1rem",
+            }}
+          >
+            {order_number}
+            <Typography sx={{ fontSize: "0.75rem", color: "#8D8D8D" }}>{`(${station})`}</Typography>
+          </Typography>
+        </>
+      )}
     </TableCell>
   )
 }
