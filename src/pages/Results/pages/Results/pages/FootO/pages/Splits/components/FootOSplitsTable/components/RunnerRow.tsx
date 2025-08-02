@@ -186,7 +186,7 @@ export default function RunnerRow(props: RunnerRowProps) {
         >
           <Box
             sx={{ py: "12px", px: "16px", 
-            background: "linear-gradient(180deg, #0000001A 0%, #F6F6F6FF 10%), linear-gradient(90deg, #0000001A 0%, #F6F6F6FF 10%)", backgroundBlendMode: 'darken',  backgroundColor: '#F6F6F6', borderRadius: "6px 0 0 6px" }}
+            background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%), linear-gradient(90deg, #00000008 0%, #F6F6F6FF 10%)", backgroundBlendMode: 'darken',  backgroundColor: '#F6F6F6', borderRadius: "6px 0 0 6px" }}
           >
             <RaceTime
               key={`raceTime${props.runner.id}`}
@@ -219,7 +219,7 @@ export default function RunnerRow(props: RunnerRowProps) {
               : null
 
           return (
-            <TableCell key={`split${props.runner.id}${split.id}`} sx={{ py: "12px", px: "16px", background: "linear-gradient(180deg, #0000001A 0%, #F6F6F6FF 10%)", backgroundColor: '#F6F6F6', border: "none" }}>
+            <TableCell key={`split${props.runner.id}${split.id}`} sx={{ py: "12px", px: "16px", background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)", backgroundColor: '#F6F6F6', border: "none" }}>
               {props.onlyRadios ? (
                 <RunnerOnlineSplit
                   split={split as RadioSplitModel}
