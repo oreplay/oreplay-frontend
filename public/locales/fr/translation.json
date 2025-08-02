@@ -230,7 +230,7 @@
       "dns": "DNS",
       "dnf": "DNF",
       "mp": "MP",
-      "disqualified": "DSQ",
+      "dsq": "DSQ",
       "ot": "H.Délai"
     },
     "SplitsTable": {

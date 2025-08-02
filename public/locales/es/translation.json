@@ -227,7 +227,7 @@
       "dns": "DNS",
       "dnf": "Aban",
       "mp": "MP",
-      "disqualified": "DSQ",
+      "dsq": "DSQ",
       "ot": "FC"
     },
     "SplitsTable": {
