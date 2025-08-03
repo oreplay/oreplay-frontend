@@ -193,7 +193,7 @@
   "StageHeader": {
     "StartTime": "Start time",
     "Results": "Results",
-    "Splits": "Splits",
+    "Analysis": "Analysis",
     "Graphs": "Graphs",
     "ScorePoints": "Points",
     "RelayLegs": "Legs"

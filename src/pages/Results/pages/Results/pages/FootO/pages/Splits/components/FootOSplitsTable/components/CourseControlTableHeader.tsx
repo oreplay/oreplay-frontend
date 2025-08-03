@@ -5,7 +5,7 @@ type CourseControlTableHeaderProps = {
   order_number?: number | null
   station?: number | string | null
   onlyRadios?: boolean
-  colWidth?: number
+  colWidth: number
 }
 
 export default function CourseControlTableHeader({
@@ -16,8 +16,10 @@ export default function CourseControlTableHeader({
 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
   const cellStyle = {
-    padding: "10px",
-    ...(colWidth ? { minWidth: colWidth } : {}),
+    py: "10px",
+    px: "8px",
+    border: "none",
+    minWidth: colWidth,
   }
 
   if (station === "Finish" || order_number === Infinity) {
@@ -38,8 +40,6 @@ export default function CourseControlTableHeader({
             display: "inline-flex",
             alignItems: "center",
             gap: "2px",
-            px: "10px",
-            py: "4px",
             fontSize: "1rem",
           }}
         >

@@ -1,7 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import {
   Box,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -22,7 +21,7 @@ import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
-import React, { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
 
 type FootOSplitsTableProps = {
@@ -33,9 +32,6 @@ type FootOSplitsTableProps = {
   timeLossEnabled?: boolean
   timeLossThreshold?: number
   timeLossResults?: TimeLossResults | null
-  graphsEnabled?: boolean
-  selectedRunners?: string[]
-  onRunnerSelectionChange?: (selectedRunners: string[]) => void
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
@@ -72,38 +68,9 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
-  const canSelectRunner = (runner: ProcessedRunnerModel): boolean => {
-    return !!runner.stage
-  }
-
-  const selectedRunners = props.selectedRunners || []
-  const selectableRunners = runnerList.filter(canSelectRunner)
-  const isAllSelected =
-    selectedRunners.length === selectableRunners.length && selectableRunners.length > 0
-  const isIndeterminate =
-    selectedRunners.length > 0 && selectedRunners.length < selectableRunners.length
-
-  const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      const allRunnerIds = selectableRunners.map((runner) => runner.id)
-      props.onRunnerSelectionChange?.(allRunnerIds)
-    } else {
-      props.onRunnerSelectionChange?.([])
-    }
-  }
-
-  const handleRunnerSelection = (runnerId: string, checked: boolean) => {
-    const currentSelection = props.selectedRunners || []
-    if (checked) {
-      props.onRunnerSelectionChange?.([...currentSelection, runnerId])
-    } else {
-      props.onRunnerSelectionChange?.(currentSelection.filter((id) => id !== runnerId))
-    }
-  }
-
   const headerRef = useRef<HTMLDivElement | null>(null)
   const bodyRef = useRef<HTMLDivElement | null>(null)
-  const [colWidths, setColWidths] = useState<number[]>([])
+  const [colsWidth, setColWidths] = useState<number[]>([])
 
   useEffect(() => {
     const bodyDiv = bodyRef.current
@@ -136,19 +103,30 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   }, [])
 
   useEffect(() => {
-    if (!bodyRef.current) return
+    if (!bodyRef.current || !headerRef.current) return
 
-    const firstBodyRow = bodyRef.current.querySelectorAll("tr")[1]
-    if (!firstBodyRow) return
+    const getWidths = (row: HTMLTableRowElement | undefined): number[] => {
+      if (!row) return []
+      return Array.from(row.children).map((cell) => {
+        const style = window.getComputedStyle(cell)
+        const width = cell.getBoundingClientRect().width
+        const paddingLeft = parseFloat(style.paddingLeft)
+        const paddingRight = parseFloat(style.paddingRight)
+        return width - paddingLeft - paddingRight
+      })
+    }
 
-    const widths = Array.from(firstBodyRow.children).map((cell) => {
-      const style = window.getComputedStyle(cell)
-      const width = cell.getBoundingClientRect().width
-      const paddingLeft = parseFloat(style.paddingLeft)
-      const paddingRight = parseFloat(style.paddingRight)
-      return width - paddingLeft - paddingRight
+    const bodyRow = bodyRef.current.querySelectorAll("tr")[1] as HTMLTableRowElement | undefined
+    const headerRow = headerRef.current.querySelector("tr") as HTMLTableRowElement | undefined
+
+    const bodyWidths = getWidths(bodyRow)
+    const headerWidths = getWidths(headerRow)
+
+    const maxWidths = bodyWidths.map((width, index) => {
+      return Math.max(width, headerWidths[index])
     })
-    setColWidths(widths)
+
+    setColWidths(maxWidths)
   }, [])
 
   return (
@@ -159,6 +137,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
         ref={headerRef}
         key="SplitsTableHeaderContainer"
         sx={{
+          scrollbarWidth: "none",
           position: "sticky",
           top: 0,
           zIndex: 1,
@@ -166,57 +145,41 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
       >
         <Table size="small" key="SplitsTableHeader" sx={{ backgroundColor: "white" }}>
           <TableHead key="TableHead">
-            <TableRow key="tableHeadRow">
-              {props.graphsEnabled && (
-                <TableCell
-                  key="selection"
-                  padding="checkbox"
-                  sx={colWidths[0] ? { width: colWidths[0] } : {}}
-                >
-                  <Checkbox
-                    indeterminate={isIndeterminate}
-                    checked={isAllSelected}
-                    onChange={handleSelectAll}
-                    color="primary"
-                  />
-                </TableCell>
-              )}
+            <TableRow
+              key="tableHeadRow"
+              sx={{
+                "&:before": {
+                  content: '""',
+                  display: "block",
+                  width: "16px",
+                },
+                "&:after": {
+                  content: '""',
+                  display: "block",
+                  width: "16px",
+                },
+              }}
+            >
               <TableCell
                 key="Time"
                 sx={{
-                  padding: "0",
-                  ...(colWidths[props.graphsEnabled ? 1 : 0]
-                    ? { width: colWidths[props.graphsEnabled ? 1 : 0] }
-                    : {}),
+                  border: "none",
+                  py: "10px",
+                  px: "16px",
+                  minWidth: colsWidth[0],
                 }}
               >
-                <Box
-                  sx={{
-                    padding: "4px 10px 4px 20px",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      px: "10px",
-                      py: "4px",
-                      fontWeight: "500",
-                      color: "white",
-                      borderRadius: "6px",
-                      background: "linear-gradient(to right, #FB6D26, #FF9454)",
-                    }}
-                  >
-                    {t("ResultsStage.Times")}
-                  </Typography>
-                </Box>
+                {t("ResultsStage.Times")}
               </TableCell>
               {showTimeLossColumn && (
                 <TableCell
                   key="CleanTime"
                   sx={{
                     fontWeight: "bold",
-                    ...(colWidths[props.graphsEnabled ? 2 : 1]
-                      ? { width: colWidths[props.graphsEnabled ? 2 : 1] }
-                      : {}),
+                    border: "none",
+                    py: "10px",
+                    px: "8px",
+                    minWidth: colsWidth[1],
                   }}
                 >
                   {t("ResultsStage.SplitsTable.CleanTime")}
@@ -225,7 +188,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
               {controlList.map((courseControl, idx) => {
                 // Calculate the correct index for colWidths
                 const baseIdx =
-                  (props.graphsEnabled ? 1 : 0) +
                   1 + // Time column
                   (showTimeLossColumn ? 1 : 0)
                 const colIdx = baseIdx + idx
@@ -237,7 +199,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                       key={`courseControlHeader${radio.id}`}
                       station={radio.station}
                       onlyRadios={props.onlyRadios}
-                      colWidth={colWidths[colIdx]}
+                      colWidth={colsWidth[colIdx]}
                     />
                   )
                 } else {
@@ -248,7 +210,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                       station={course.control?.station}
                       order_number={course.order_number}
                       onlyRadios={props.onlyRadios}
-                      colWidth={colWidths[colIdx]}
+                      colWidth={colsWidth[colIdx]}
                     />
                   )
                 }
@@ -263,7 +225,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
         component={Box}
         ref={bodyRef}
         key="SplitsTableBodyContainer"
-        sx={{ scrollbarWidth: "none" }}
+        sx={{ scrollbarWidth: "none", paddingBottom: "16px" }}
       >
         <Table size="small" key="SplitsTableBody">
           <TableBody key="TableBody">
@@ -276,11 +238,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 radiosList={props.radiosList}
                 timeLossResults={timeLossResults}
                 timeLossEnabled={props.timeLossEnabled}
-                graphsEnabled={props.graphsEnabled}
-                selected={selectedRunners.includes(runner.id)}
-                onSelectionChange={handleRunnerSelection}
-                canSelect={canSelectRunner(runner)}
-                maxRunnersReached={false}
+                colsWidth={colsWidth}
               />
             ))}
           </TableBody>

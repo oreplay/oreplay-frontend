@@ -98,7 +98,7 @@ export default function FootO() {
           />,
           <BottomNavigationAction
             key={"FootOSplitsMenu"}
-            label={t("StageHeader.Splits")}
+            label={t("StageHeader.Analysis")}
             icon={<TimerIcon />}
           />,
         ]}

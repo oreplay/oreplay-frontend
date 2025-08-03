@@ -27,11 +27,7 @@ type RunnerRowProps = {
   radiosList: OnlineControlModel[]
   timeLossResults?: TimeLossResults | null
   timeLossEnabled?: boolean
-  graphsEnabled?: boolean
-  selected?: boolean
-  canSelect?: boolean
-  maxRunnersReached?: boolean
-  onSelectionChange?: (runnerId: string, checked: boolean) => void
+  colsWidth: number[]
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
@@ -120,10 +116,11 @@ export default function RunnerRow(props: RunnerRowProps) {
       : 0
 
   return (
-    <React.Fragment key={props.runner.id}>
-      <TableRow>
+    <React.Fragment>
+      <TableRow key={`runnerNameRow-${props.runner.id}`}>
         <TableCell
-          colSpan={splits.length + 1}
+          key={`name${props.runner.id}`}
+          colSpan={splits.length + 1 + (props.timeLossEnabled && !props.showCumulative ? 1 : 0)}
           sx={{
             border: "none",
             backgroundColor: "white",
@@ -148,7 +145,7 @@ export default function RunnerRow(props: RunnerRowProps) {
         </TableCell>
       </TableRow>
       <TableRow
-        key={props.runner.id}
+        key={`runnerTimesRow-${props.runner.id}`}
         sx={{
           "&:before": {
             content: '""',
@@ -173,6 +170,7 @@ export default function RunnerRow(props: RunnerRowProps) {
             backgroundBlendMode: "darken",
             backgroundColor: "#F6F6F6",
             borderRadius: "6px 0 0 6px",
+            minWidth: props.colsWidth[0],
           }}
         >
           <RaceTime
@@ -187,7 +185,17 @@ export default function RunnerRow(props: RunnerRowProps) {
           {showTimeBehind && <RaceTimeBehind time_behind={result.time_behind} display={true} />}
         </TableCell>
         {props.timeLossEnabled && !props.showCumulative && (
-          <TableCell key={`cleanTime${props.runner.id}`} sx={{ border: "none" }}>
+          <TableCell
+            key={`cleanTime${props.runner.id}`}
+            sx={{
+              py: "12px",
+              px: "8px",
+              background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)",
+              backgroundColor: "#F6F6F6",
+              border: "none",
+              minWidth: props.colsWidth[1],
+            }}
+          >
             {result.time_seconds > 0 && cleanTime > 0 && shouldCalculateCleanTime
               ? parseSecondsToMMSS(cleanTime)
               : result.time_seconds > 0
@@ -195,7 +203,7 @@ export default function RunnerRow(props: RunnerRowProps) {
                 : ""}
           </TableCell>
         )}
-        {splits.map((split) => {
+        {splits.map((split, index) => {
           const timeLossInfo =
             props.timeLossEnabled &&
             !props.showCumulative &&
@@ -209,10 +217,11 @@ export default function RunnerRow(props: RunnerRowProps) {
               key={`split${props.runner.id}${split.id}`}
               sx={{
                 py: "12px",
-                px: "16px",
+                px: "8px",
                 background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)",
                 backgroundColor: "#F6F6F6",
                 border: "none",
+                minWidth: props.colsWidth[1 + (props.timeLossEnabled && !props.showCumulative ? 1 : 0) + index],
                 "&:last-of-type": {
                   borderRadius: "0 6px 6px 0",
                 },
