@@ -33,7 +33,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Toolbar } from "@mui/material"
 
 /**
@@ -88,7 +88,6 @@ export default function StagesDataGrid(props: Props) {
   const { t } = useTranslation()
   const { token } = useAuth()
   const notifications = useNotifications()
-  const navigate = useNavigate()
 
   const initialRows: GridRowsProp<StageRow> = props.eventDetail.stages.map((stage) => ({
     id: stage.id,
@@ -286,15 +285,13 @@ export default function StagesDataGrid(props: Props) {
             handleWipeOutRunnersClick={() => void handleWipeOutRunnersClick(row)}
           />,
           <Tooltip title={t("EventAdmin.Stages.GoToStage")}>
-            <GridActionsCellItem
-              icon={<ArrowForwardIcon />}
-              label="View"
+            <Link
               className="textPrimary"
-              color="inherit"
-              onClick={() => {
-                void navigate(`/competitions/${props.eventDetail.id}/${row.row.stageId}`)
-              }}
-            />
+              to={`/competitions/${props.eventDetail.id}/${row.row.stageId}`}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <ArrowForwardIcon />
+            </Link>
           </Tooltip>,
         ]
       },
