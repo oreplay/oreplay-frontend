@@ -117,13 +117,18 @@ export default function RunnerSplit({
 
     return (
       <>
-        <Typography sx={timeStyles}>
-          {split.cumulative_time !== null ? parseSecondsToMMSS(split.cumulative_time) : "--"}
+        <Typography sx={{ display: "inline-flex", gap: "4px", ...timeStyles }}>
+          {split.cumulative_time !== null ? (
+            <>
+              <Typography sx={timeStyles}>{parseSecondsToMMSS(split.cumulative_time)}</Typography>
+              <Typography sx={timeStyles}>{`(${split.cumulative_position})`}</Typography>
+            </>
+          ) : (
+            "--"
+          )}
         </Typography>
         <Typography sx={behindStyles}>
-          {split.cumulative_behind !== null
-            ? `${parseTimeBehind(split.cumulative_behind)} (${split.cumulative_position})`
-            : "--"}
+          {split.cumulative_behind !== null ? `${parseTimeBehind(split.cumulative_behind)}` : "--"}
         </Typography>
         {lossTimeElement}
       </>

@@ -140,7 +140,21 @@ export default function RunnerRow(props: RunnerRowProps) {
           </div>
         </TableCell>
       </TableRow>
-      <TableRow key={props.runner.id} sx={{ padding: "none" }}>
+      <TableRow
+        key={props.runner.id}
+        sx={{
+          "&:before": {
+            content: '""',
+            display: "block",
+            width: "16px",
+          },
+          "&:after": {
+            content: '""',
+            display: "block",
+            width: "16px",
+          },
+        }}
+      >
         {props.graphsEnabled && (
           <TableCell
             key="selection"
@@ -181,24 +195,25 @@ export default function RunnerRow(props: RunnerRowProps) {
           key={`time${props.runner.id}`}
           sx={{
             border: "none",
-            padding: "0 0 0 16px",
+            py: "12px",
+            px: "16px",
+            background:
+              "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%), linear-gradient(90deg, #00000008 0%, #F6F6F6FF 10%)",
+            backgroundBlendMode: "darken",
+            backgroundColor: "#F6F6F6",
+            borderRadius: "6px 0 0 6px",
           }}
         >
-          <Box
-            sx={{ py: "12px", px: "16px", 
-            background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%), linear-gradient(90deg, #00000008 0%, #F6F6F6FF 10%)", backgroundBlendMode: 'darken',  backgroundColor: '#F6F6F6', borderRadius: "6px 0 0 6px" }}
-          >
-            <RaceTime
-              key={`raceTime${props.runner.id}`}
-              displayStatus
-              isFinalTime={hasChipDownload}
-              status={status}
-              finish_time={result.finish_time}
-              time_seconds={result.time_seconds}
-              start_time={result.start_time}
-            />
-            {showTimeBehind && <RaceTimeBehind time_behind={result.time_behind} display={true} />}
-          </Box>
+          <RaceTime
+            key={`raceTime${props.runner.id}`}
+            displayStatus
+            isFinalTime={hasChipDownload}
+            status={status}
+            finish_time={result.finish_time}
+            time_seconds={result.time_seconds}
+            start_time={result.start_time}
+          />
+          {showTimeBehind && <RaceTimeBehind time_behind={result.time_behind} display={true} />}
         </TableCell>
         {props.timeLossEnabled && !props.showCumulative && (
           <TableCell key={`cleanTime${props.runner.id}`} sx={{ border: "none" }}>
@@ -219,7 +234,19 @@ export default function RunnerRow(props: RunnerRowProps) {
               : null
 
           return (
-            <TableCell key={`split${props.runner.id}${split.id}`} sx={{ py: "12px", px: "16px", background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)", backgroundColor: '#F6F6F6', border: "none" }}>
+            <TableCell
+              key={`split${props.runner.id}${split.id}`}
+              sx={{
+                py: "12px",
+                px: "16px",
+                background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)",
+                backgroundColor: "#F6F6F6",
+                border: "none",
+                "&:last-of-type": {
+                  borderRadius: "0 6px 6px 0",
+                },
+              }}
+            >
               {props.onlyRadios ? (
                 <RunnerOnlineSplit
                   split={split as RadioSplitModel}
