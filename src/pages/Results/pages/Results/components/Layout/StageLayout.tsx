@@ -46,7 +46,7 @@ export default function StageLayout(props: StageLayoutProps) {
           justifyContent: "space-between",
           alignItems: "center",
           maxWidth: "600px",
-          padding: "16px 16px"
+          padding: "16px 16px",
         }}
       >
         <ClassSelector

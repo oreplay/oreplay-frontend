@@ -2,7 +2,7 @@ import {
   ProcessedRunnerModel,
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { TableCell, TableRow, Checkbox, Box } from "@mui/material"
+import { TableCell, TableRow, Box } from "@mui/material"
 import { parseResultStatus } from "../../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { useTranslation } from "react-i18next"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
@@ -119,10 +119,6 @@ export default function RunnerRow(props: RunnerRowProps) {
       ? Math.max(0, result.time_seconds - totalLossTime)
       : 0
 
-  const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onSelectionChange?.(props.runner.id, event.target.checked)
-  }
-
   return (
     <React.Fragment key={props.runner.id}>
       <TableRow>
@@ -132,12 +128,23 @@ export default function RunnerRow(props: RunnerRowProps) {
             border: "none",
             backgroundColor: "white",
             fontWeight: "bold",
-            padding: `16px 16px calc(16px + 1rem) 16px`, // 1rem is default font size
+            padding: `16px 16px calc(16px + 2rem) 16px`,
           }}
         >
-          <div className="wrapper" style={{ position: "absolute", pointerEvents: "none" }}>
-            {props.runner.full_name}
-          </div>
+          <Box
+            className="wrapper"
+            sx={{ display: "inline-flex", position: "absolute", pointerEvents: "none" }}
+          >
+            <RacePosition
+              position={props.runner.stage.position}
+              isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
+              hasDownload={hasChipDownload}
+            />
+            <ParticipantName
+              name={props.runner.full_name}
+              subtitle={runnerService.getClubName(props.runner, t)}
+            />
+          </Box>
         </TableCell>
       </TableRow>
       <TableRow
@@ -155,42 +162,6 @@ export default function RunnerRow(props: RunnerRowProps) {
           },
         }}
       >
-        {props.graphsEnabled && (
-          <TableCell
-            key="selection"
-            padding="checkbox"
-            sx={{
-              border: "none",
-            }}
-          >
-            <Checkbox
-              checked={props.selected || false}
-              onChange={handleSelectionChange}
-              disabled={!props.canSelect || (props.maxRunnersReached && !props.selected)}
-              color="primary"
-              title={
-                !props.canSelect
-                  ? "Solo corredores con estado OK pueden ser seleccionados"
-                  : props.maxRunnersReached && !props.selected
-                    ? "Máximo de corredores alcanzado para este tipo de gráfico"
-                    : undefined
-              }
-            />
-          </TableCell>
-        )}
-        {/* <TableCell key={`pos${props.runner.id}`} sx={{ width: "10px", align: "right" }}>
-        <RacePosition
-          position={props.runner.stage.position}
-          isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
-          hasDownload={hasChipDownload}
-        />
-      </TableCell>
-      <TableCell key={`name${props.runner.id}`}>
-        <ParticipantName
-          name={props.runner.full_name}
-          subtitle={runnerService.getClubName(props.runner, t)}
-        />
-      </TableCell> */}
         <TableCell
           key={`time${props.runner.id}`}
           sx={{

@@ -1,4 +1,4 @@
-import { Typography, SxProps, Theme } from "@mui/material"
+import { Typography, SxProps, Theme, Box } from "@mui/material"
 import {
   parseSecondsToMMSS,
   parseTimeBehind,
@@ -117,7 +117,7 @@ export default function RunnerSplit({
 
     return (
       <>
-        <Typography sx={{ display: "inline-flex", gap: "4px", ...timeStyles }}>
+        <Box sx={{ display: "inline-flex", gap: "4px", ...timeStyles }}>
           {split.cumulative_time !== null ? (
             <>
               <Typography sx={timeStyles}>{parseSecondsToMMSS(split.cumulative_time)}</Typography>
@@ -126,7 +126,7 @@ export default function RunnerSplit({
           ) : (
             "--"
           )}
-        </Typography>
+        </Box>
         <Typography sx={behindStyles}>
           {split.cumulative_behind !== null ? `${parseTimeBehind(split.cumulative_behind)}` : "--"}
         </Typography>
@@ -148,7 +148,7 @@ export default function RunnerSplit({
 
     return (
       <>
-        <Typography sx={{ display: "inline-flex", gap: "4px", ...timeStyles }}>
+        <Box sx={{ display: "inline-flex", gap: "4px", ...timeStyles }}>
           {split.time !== null ? (
             <>
               <Typography sx={timeStyles}>{parseSecondsToMMSS(split.time)}</Typography>
@@ -157,7 +157,7 @@ export default function RunnerSplit({
           ) : (
             "--"
           )}
-        </Typography>
+        </Box>
         <Typography sx={behindStyles}>
           {split.time_behind !== null ? `${parseTimeBehind(split.time_behind)}` : "--"}
         </Typography>

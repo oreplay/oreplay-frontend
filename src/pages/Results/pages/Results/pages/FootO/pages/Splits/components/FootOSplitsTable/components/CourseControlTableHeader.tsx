@@ -1,4 +1,4 @@
-import { TableCell, Typography } from "@mui/material"
+import { Box, TableCell, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 type CourseControlTableHeaderProps = {
@@ -33,21 +33,19 @@ export default function CourseControlTableHeader({
       {onlyRadios ? (
         <Typography>{`(${station})`}</Typography>
       ) : (
-        <>
-          <Typography
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "2px",
-              px: "10px",
-              py: "4px",
-              fontSize: "1rem",
-            }}
-          >
-            {order_number}
-            <Typography sx={{ fontSize: "0.75rem", color: "#8D8D8D" }}>{`(${station})`}</Typography>
-          </Typography>
-        </>
+        <Box
+          sx={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "2px",
+            px: "10px",
+            py: "4px",
+            fontSize: "1rem",
+          }}
+        >
+          <Typography>{order_number}</Typography>
+          <Typography sx={{ fontSize: "0.75rem", color: "#8D8D8D" }}>{`(${station})`}</Typography>
+        </Box>
       )}
     </TableCell>
   )
