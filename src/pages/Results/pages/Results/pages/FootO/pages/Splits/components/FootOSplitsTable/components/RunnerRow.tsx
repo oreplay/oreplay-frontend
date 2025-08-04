@@ -221,7 +221,10 @@ export default function RunnerRow(props: RunnerRowProps) {
                 background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)",
                 backgroundColor: "#F6F6F6",
                 border: "none",
-                minWidth: props.colsWidth[1 + (props.timeLossEnabled && !props.showCumulative ? 1 : 0) + index],
+                minWidth:
+                  props.colsWidth[
+                    1 + (props.timeLossEnabled && !props.showCumulative ? 1 : 0) + index
+                  ],
                 "&:last-of-type": {
                   borderRadius: "0 6px 6px 0",
                 },

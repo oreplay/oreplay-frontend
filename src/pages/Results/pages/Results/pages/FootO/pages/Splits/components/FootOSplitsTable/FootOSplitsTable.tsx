@@ -21,7 +21,7 @@ import NowProvider from "../../../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
 
 type FootOSplitsTableProps = {
@@ -68,40 +68,181 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
   const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
+  const isSyncingRef = useRef(false)
   const headerRef = useRef<HTMLDivElement | null>(null)
   const bodyRef = useRef<HTMLDivElement | null>(null)
-  const [colsWidth, setColWidths] = useState<number[]>([])
+  const scrollTrackRef = useRef<HTMLDivElement | null>(null)
+  const scrollThumbRef = useRef<HTMLDivElement | null>(null)
+  const observer = useRef<ResizeObserver | null>(null)
+  const [thumbWidth, setThumbWidth] = useState(20)
+  const [scrollStartPosition, setScrollStartPosition] = useState<number | null>(null)
+  const [initialScrollLeft, setInitialScrollLeft] = useState<number>(0)
+  const [isDragging, setIsDragging] = useState(false)
+
+  const handleThumbPosition = useCallback(() => {
+    if (!bodyRef.current || !scrollTrackRef.current || !scrollThumbRef.current) {
+      return
+    }
+
+    const { scrollLeft: contentLeft, scrollWidth: contentWidth } = bodyRef.current
+    const { clientWidth: trackWidth } = scrollTrackRef.current
+    let newLeft = (contentLeft / contentWidth) * trackWidth
+    newLeft = Math.min(newLeft, trackWidth - thumbWidth)
+
+    scrollThumbRef.current.style.left = `${newLeft}px`
+  }, [thumbWidth])
+
+  const handleBodyScroll = useCallback(() => {
+    if (isSyncingRef.current) return
+
+    if (headerRef.current && bodyRef.current) {
+      isSyncingRef.current = true
+      headerRef.current.scrollLeft = bodyRef.current.scrollLeft
+      handleThumbPosition()
+      // Allow a short delay before unlocking syncing
+      requestAnimationFrame(() => {
+        isSyncingRef.current = false
+      })
+    }
+  }, [handleThumbPosition])
+
+  const handleHeaderScroll = useCallback(() => {
+    if (isSyncingRef.current) return
+
+    if (headerRef.current && bodyRef.current) {
+      isSyncingRef.current = true
+      bodyRef.current.scrollLeft = headerRef.current.scrollLeft
+      handleThumbPosition()
+      requestAnimationFrame(() => {
+        isSyncingRef.current = false
+      })
+    }
+  }, [handleThumbPosition])
 
   useEffect(() => {
     const bodyDiv = bodyRef.current
-    const headerDiv = headerRef.current
-    if (!bodyDiv || !headerDiv) return
+    const trackDiv = scrollTrackRef.current
 
-    let isSyncing = false
+    if (!bodyDiv || !trackDiv) return
 
-    const syncHeaderScroll = () => {
-      if (isSyncing) return
-      isSyncing = true
-      headerDiv.scrollLeft = bodyDiv.scrollLeft
-      isSyncing = false
+    const updateThumbSize = () => {
+      const trackSize = trackDiv.clientWidth
+      const { clientWidth, scrollWidth } = bodyDiv
+      const calculatedThumbWidth = Math.max((clientWidth / scrollWidth) * trackSize, 20)
+      setThumbWidth(calculatedThumbWidth)
     }
 
-    const syncBodyScroll = () => {
-      if (isSyncing) return
-      isSyncing = true
-      bodyDiv.scrollLeft = headerDiv.scrollLeft
-      isSyncing = false
-    }
+    observer.current = new ResizeObserver(() => {
+      updateThumbSize()
+      handleThumbPosition()
+    })
 
-    bodyDiv.addEventListener("scroll", syncHeaderScroll)
-    headerDiv.addEventListener("scroll", syncBodyScroll)
+    observer.current.observe(bodyDiv)
+    observer.current.observe(trackDiv)
+
+    bodyDiv.addEventListener("scroll", handleBodyScroll)
+    headerRef.current?.addEventListener("scroll", handleHeaderScroll)
+
+    // Initial call
+    updateThumbSize()
+    handleThumbPosition()
 
     return () => {
-      bodyDiv.removeEventListener("scroll", syncHeaderScroll)
-      headerDiv.removeEventListener("scroll", syncBodyScroll)
+      observer.current?.disconnect()
+      bodyDiv.removeEventListener("scroll", handleBodyScroll)
+      headerRef.current?.removeEventListener("scroll", handleHeaderScroll)
     }
+  }, [handleThumbPosition])
+
+  const handleTrackClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.preventDefault()
+      e.stopPropagation()
+      const { current: trackCurrent } = scrollTrackRef
+      const { current: contentCurrent } = bodyRef
+      const { current: headerCurrent } = headerRef
+      if (trackCurrent && contentCurrent && headerCurrent) {
+        // First, figure out where we clicked
+        const { clientX } = e
+        // Next, figure out the distance between the top of the track and the top of the viewport
+        const target = e.target as HTMLDivElement
+        const rect = target.getBoundingClientRect()
+        const trackLeft = rect.left
+        // We want the middle of the thumb to jump to where we clicked, so we subtract half the thumb's height to offset the position
+        const thumbOffset = -(thumbWidth / 2)
+        // Find the ratio of the new position to the total content length using the thumb and track values...
+        const clickRatio = (clientX - trackLeft + thumbOffset) / trackCurrent.clientWidth
+        // ...so that you can compute where the content should scroll to.
+        const scrollAmount = Math.floor(clickRatio * contentCurrent.scrollWidth)
+        // And finally, scroll to the new position!
+        contentCurrent.scrollTo({
+          left: scrollAmount,
+          behavior: "smooth",
+        })
+        headerCurrent.scrollTo({
+          left: scrollAmount,
+          behavior: "smooth",
+        })
+      }
+    },
+    [thumbWidth],
+  )
+
+  const handleThumbMousedown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setScrollStartPosition(e.clientX)
+    if (bodyRef.current) setInitialScrollLeft(bodyRef.current.scrollLeft)
+    if (headerRef.current) setInitialScrollLeft(headerRef.current.scrollLeft)
+    setIsDragging(true)
   }, [])
 
+  const handleThumbMouseup = useCallback(
+    (e: any) => {
+      e.preventDefault()
+      e.stopPropagation()
+      if (isDragging) {
+        setIsDragging(false)
+      }
+    },
+    [isDragging],
+  )
+
+  const handleThumbMousemove = useCallback(
+    (e: any) => {
+      e.preventDefault()
+      e.stopPropagation()
+      if (isDragging) {
+        const { scrollWidth: contentScrollWidth, offsetWidth: contentOffsetWidth } =
+          bodyRef.current!
+
+        // Subtract the current mouse X position from where you started to get the pixel difference in mouse position. Multiply by ratio of visible content height to thumb height to scale up the difference for content scrolling.
+        const deltaX = (e.clientX - scrollStartPosition!) * (contentOffsetWidth / thumbWidth)
+        const newScrollLeft = Math.min(
+          initialScrollLeft + deltaX,
+          contentScrollWidth - contentOffsetWidth,
+        )
+
+        bodyRef.current!.scrollLeft = newScrollLeft
+        headerRef.current!.scrollLeft = newScrollLeft
+      }
+    },
+    [isDragging, scrollStartPosition, thumbWidth],
+  )
+
+  // Listen for mouse events to handle scrolling by dragging the thumb
+  useEffect(() => {
+    document.addEventListener("mousemove", handleThumbMousemove)
+    document.addEventListener("mouseup", handleThumbMouseup)
+    document.addEventListener("mouseleave", handleThumbMouseup)
+    return () => {
+      document.removeEventListener("mousemove", handleThumbMousemove)
+      document.removeEventListener("mouseup", handleThumbMouseup)
+      document.removeEventListener("mouseleave", handleThumbMouseup)
+    }
+  }, [handleThumbMousemove, handleThumbMouseup])
+
+  const [colsWidth, setColWidths] = useState<number[]>([])
   useEffect(() => {
     if (!bodyRef.current || !headerRef.current) return
 
@@ -132,93 +273,123 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   return (
     <NowProvider>
       {/* Header for the splits table */}
-      <TableContainer
-        component={Box}
-        ref={headerRef}
-        key="SplitsTableHeaderContainer"
-        sx={{
-          scrollbarWidth: "none",
-          position: "sticky",
-          top: 0,
-          zIndex: 1,
-        }}
-      >
-        <Table size="small" key="SplitsTableHeader" sx={{ backgroundColor: "white" }}>
-          <TableHead key="TableHead">
-            <TableRow
-              key="tableHeadRow"
-              sx={{
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  width: "16px",
-                },
-                "&:after": {
-                  content: '""',
-                  display: "block",
-                  width: "16px",
-                },
-              }}
-            >
-              <TableCell
-                key="Time"
+      <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+        <TableContainer
+          component={Box}
+          ref={headerRef}
+          key="SplitsTableHeaderContainer"
+          sx={{
+            scrollbarWidth: "none",
+          }}
+        >
+          <Table size="small" key="SplitsTableHeader" sx={{ backgroundColor: "white" }}>
+            <TableHead key="TableHead">
+              <TableRow
+                key="tableHeadRow"
                 sx={{
-                  border: "none",
-                  py: "10px",
-                  px: "16px",
-                  minWidth: colsWidth[0],
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    width: "16px",
+                  },
+                  "&:after": {
+                    content: '""',
+                    display: "block",
+                    width: "16px",
+                  },
                 }}
               >
-                {t("ResultsStage.Times")}
-              </TableCell>
-              {showTimeLossColumn && (
                 <TableCell
-                  key="CleanTime"
+                  key="Time"
                   sx={{
-                    fontWeight: "bold",
                     border: "none",
                     py: "10px",
-                    px: "8px",
-                    minWidth: colsWidth[1],
+                    px: "16px",
+                    minWidth: colsWidth[0],
                   }}
                 >
-                  {t("ResultsStage.SplitsTable.CleanTime")}
+                  {t("ResultsStage.Times")}
                 </TableCell>
-              )}
-              {controlList.map((courseControl, idx) => {
-                // Calculate the correct index for colWidths
-                const baseIdx =
-                  1 + // Time column
-                  (showTimeLossColumn ? 1 : 0)
-                const colIdx = baseIdx + idx
+                {showTimeLossColumn && (
+                  <TableCell
+                    key="CleanTime"
+                    sx={{
+                      fontWeight: "bold",
+                      border: "none",
+                      py: "10px",
+                      px: "8px",
+                      minWidth: colsWidth[1],
+                    }}
+                  >
+                    {t("ResultsStage.SplitsTable.CleanTime")}
+                  </TableCell>
+                )}
+                {controlList.map((courseControl, idx) => {
+                  // Calculate the correct index for colWidths
+                  const baseIdx =
+                    1 + // Time column
+                    (showTimeLossColumn ? 1 : 0)
+                  const colIdx = baseIdx + idx
 
-                if (props.onlyRadios) {
-                  const radio = courseControl as OnlineControlModel
-                  return (
-                    <CourseControlTableHeader
-                      key={`courseControlHeader${radio.id}`}
-                      station={radio.station}
-                      onlyRadios={props.onlyRadios}
-                      colWidth={colsWidth[colIdx]}
-                    />
-                  )
-                } else {
-                  const course = courseControl as CourseControlModel
-                  return (
-                    <CourseControlTableHeader
-                      key={`courseControlHeader${course.order_number}${course.control?.id ?? "unknown"}`}
-                      station={course.control?.station}
-                      order_number={course.order_number}
-                      onlyRadios={props.onlyRadios}
-                      colWidth={colsWidth[colIdx]}
-                    />
-                  )
-                }
-              })}
-            </TableRow>
-          </TableHead>
-        </Table>
-      </TableContainer>
+                  if (props.onlyRadios) {
+                    const radio = courseControl as OnlineControlModel
+                    return (
+                      <CourseControlTableHeader
+                        key={`courseControlHeader${radio.id}`}
+                        station={radio.station}
+                        onlyRadios={props.onlyRadios}
+                        colWidth={colsWidth[colIdx]}
+                      />
+                    )
+                  } else {
+                    const course = courseControl as CourseControlModel
+                    return (
+                      <CourseControlTableHeader
+                        key={`courseControlHeader${course.order_number}${course.control?.id ?? "unknown"}`}
+                        station={course.control?.station}
+                        order_number={course.order_number}
+                        onlyRadios={props.onlyRadios}
+                        colWidth={colsWidth[colIdx]}
+                      />
+                    )
+                  }
+                })}
+              </TableRow>
+            </TableHead>
+          </Table>
+        </TableContainer>
+
+        <Box
+          key="ScrollBar"
+          sx={{ display: "block", width: "100%", height: "8px", position: "relative" }}
+        >
+          <Box
+            ref={scrollTrackRef}
+            onClick={handleTrackClick}
+            key="ScrollBarTrack"
+            sx={{
+              cursor: isDragging ? "grabbing" : "pointer",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              height: "8px",
+              backgroundColor: "#EFEFEF",
+            }}
+          ></Box>
+          <Box
+            ref={scrollThumbRef}
+            onMouseDown={handleThumbMousedown}
+            key="ScrollBarThumb"
+            sx={{
+              cursor: isDragging ? "grabbing" : "grab",
+              position: "absolute",
+              height: "8px",
+              backgroundColor: "#5E2572",
+              width: `${thumbWidth}px`,
+            }}
+          ></Box>
+        </Box>
+      </Box>
 
       {/* Table body */}
       <TableContainer
