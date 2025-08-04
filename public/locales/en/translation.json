@@ -70,7 +70,8 @@
       "errorFreeTime": "Error-free time",
       "errorTime": "Lost time (error)"
     },
-    "timeAxisLabel": "Time (seconds)"
+    "timeAxisLabel": "Time (seconds)",
+    "selectRunnersMessage": "Select runners to view the chart"
   },
   "lineChart": {
     "noData": "Select runners to view the line chart",

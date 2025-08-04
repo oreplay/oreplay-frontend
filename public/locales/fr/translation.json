@@ -84,7 +84,8 @@
       "errorFreeTime": "Temps sans erreurs",
       "errorTime": "Temps d'erreur (perte)"
     },
-    "timeAxisLabel": "Temps (secondes)"
+    "timeAxisLabel": "Temps (secondes)",
+    "selectRunnersMessage": "Sélectionnez des coureurs pour voir le graphique"
   },
   "lineChart": {
     "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
