@@ -1043,11 +1043,11 @@ describe("processParticipant", () => {
     const onlineControls: OnlineControlModel[] = [
       {
         id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
-        station: "32",
+        station: "31",
       },
       {
         id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
-        station: "31",
+        station: "32",
       },
     ]
 
