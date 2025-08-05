@@ -2,7 +2,6 @@ import { Grid, DialogTitle, IconButton, DialogContent, Dialog } from "@mui/mater
 import React from "react"
 import CloseIcon from "@mui/icons-material/Close"
 import { ProcessedRunnerModel } from "./shared/EntityTypes.ts"
-import ExperimentalFeatureAlert from "../../../../components/ExperimentalFeatureAlert.tsx"
 import { VirtualTicketContext } from "./shared/context.tsx"
 
 export interface VirtualTicketProps {
@@ -58,7 +57,6 @@ export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <ExperimentalFeatureAlert />
           {runner ? (
             <Grid container spacing={1}>
               <VirtualTicketContext.Provider
