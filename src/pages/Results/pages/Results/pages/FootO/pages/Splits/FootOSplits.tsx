@@ -35,6 +35,13 @@ export default function FootOSplits(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
   const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
+
+  const displayRadiosAlert =
+    props.isClass &&
+    props.activeItem &&
+    "splits" in props.activeItem &&
+    props.activeItem.splits.length > 0
+
   const [selectedView, setSelectedView] = useState<ViewType>(hasRadios ? "radios" : "splits")
 
   useEffect(() => {
@@ -162,9 +169,14 @@ export default function FootOSplits(
 
   const renderRadiosView = () => (
     <Box>
-      <Box sx={{ padding: "16px 16px 0 16px" }}>
-        <ExperimentalFeatureAlert />
-      </Box>
+      {displayRadiosAlert ? (
+        <></>
+      ) : (
+        <Box sx={{ padding: "16px 16px 0 16px" }}>
+          <ExperimentalFeatureAlert />
+        </Box>
+      )}
+
       <FootOSplitsTable
         onlyRadios={true}
         radiosList={"splits" in activeItem ? activeItem.splits : []}
@@ -180,9 +192,13 @@ export default function FootOSplits(
 
   const renderTimeLossView = () => (
     <Box>
-      <Box sx={{ padding: "16px 16px 0 16px" }}>
-        <ExperimentalFeatureAlert />
-      </Box>
+      {displayRadiosAlert ? (
+        <></>
+      ) : (
+        <Box sx={{ padding: "16px 16px 0 16px" }}>
+          <ExperimentalFeatureAlert />
+        </Box>
+      )}
       <Box sx={{ px: "16px", pb: "16px", display: "flex", alignItems: "center", gap: 2 }}>
         <Typography sx={{ whiteSpace: "nowrap" }}>
           {t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}
@@ -218,9 +234,13 @@ export default function FootOSplits(
 
   const renderChartView = () => (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Box sx={{ padding: "16px 16px 0 16px" }}>
-        <ExperimentalFeatureAlert />
-      </Box>
+      {displayRadiosAlert ? (
+        <></>
+      ) : (
+        <Box sx={{ padding: "16px 16px 0 16px" }}>
+          <ExperimentalFeatureAlert />
+        </Box>
+      )}
       {selectedView === "barChart" && (
         <Box sx={{ px: "16px", display: "flex", alignItems: "center", gap: 2 }}>
           <Typography>
@@ -280,11 +300,13 @@ export default function FootOSplits(
 
   return (
     <Box>
-      {
-        // @ts-expect-error TS2339 If props.isClass is True, props.activeItem is StageClassModel
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        props.isClass && props.activeItem.splits.length > 0 ? <RadiosExperimentalAlert /> : <></>
-      }
+      {displayRadiosAlert ? (
+        <Box sx={{ px: "16px" }}>
+          <RadiosExperimentalAlert />
+        </Box>
+      ) : (
+        <></>
+      )}
 
       <ViewSelector
         selectedView={selectedView}

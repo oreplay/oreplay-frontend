@@ -5,6 +5,7 @@ import Tooltip from "@mui/material/Tooltip"
 import { useTranslation } from "react-i18next"
 import { ArrowBack } from "@mui/icons-material"
 import React from "react"
+import { HorizontalLogo } from "../../assets/HorizontalLogo"
 
 type Props = {
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
@@ -34,6 +35,14 @@ const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
                 </IconButton>
               </Tooltip>
             )}
+          </Box>
+          <Box sx={{ width: "30%" }}>
+            <HorizontalLogo
+              sx={{ width: "100%" }}
+              onClick={() => {
+                void navigate("/competitions")
+              }}
+            ></HorizontalLogo>
           </Box>
           <Box display={"flex"} sx={{ justifyContent: "right" }}>
             <Tooltip title={t("Menu")}>
