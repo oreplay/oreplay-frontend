@@ -318,6 +318,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                       py: "10px",
                       px: "8px",
                       minWidth: colsWidth[1],
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {t("ResultsStage.SplitsTable.CleanTime")}

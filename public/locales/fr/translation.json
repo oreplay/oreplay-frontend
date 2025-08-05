@@ -190,7 +190,7 @@
   "StageHeader": {
     "StartTime": "Départ",
     "Results": "Résultats",
-    "Analysis": "Analyse",
+    "Splits": "Intermédiaires",
     "Graphs": "Graphiques",
     "ScorePoints": "Points",
     "RelayLegs": "Relais"

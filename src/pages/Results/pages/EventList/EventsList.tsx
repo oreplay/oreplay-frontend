@@ -30,7 +30,14 @@ export default function EventsList() {
   } else
     // Component
     return (
-      <Box sx={{ m: "50px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+      <Box
+        sx={{
+          m: { xs: "24px", sm: "50px" },
+          display: "flex",
+          flexDirection: "column",
+          flexGrow: 1,
+        }}
+      >
         {/** Today events **/}
         <TodayEvents eventList={todayEventList} />
 

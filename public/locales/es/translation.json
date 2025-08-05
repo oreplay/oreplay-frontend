@@ -187,7 +187,7 @@
   "StageHeader": {
     "StartTime": "Salida",
     "Results": "Resultados",
-    "Analysis": "Análisis",
+    "Splits": "Parciales",
     "Graphs": "Gráficos",
     "ScorePoints": "Puntos",
     "RelayLegs": "Postas"

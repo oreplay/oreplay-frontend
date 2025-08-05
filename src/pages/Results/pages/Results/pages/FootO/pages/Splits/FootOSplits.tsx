@@ -126,7 +126,6 @@ export default function FootOSplits(
 
   const renderSplitsView = () => (
     <Box>
-      <ExperimentalFeatureAlert />
       <FootOSplitsTable
         onlyRadios={false}
         radiosList={"splits" in activeItem ? activeItem.splits : []}
@@ -142,7 +141,6 @@ export default function FootOSplits(
 
   const renderAccumulatedView = () => (
     <Box>
-      <ExperimentalFeatureAlert />
       <FootOSplitsTable
         onlyRadios={false}
         radiosList={"splits" in activeItem ? activeItem.splits : []}
@@ -158,7 +156,9 @@ export default function FootOSplits(
 
   const renderRadiosView = () => (
     <Box>
-      <ExperimentalFeatureAlert />
+      <Box sx={{ padding: "16px 16px 0 16px" }}>
+        <ExperimentalFeatureAlert />
+      </Box>
       <FootOSplitsTable
         onlyRadios={true}
         radiosList={"splits" in activeItem ? activeItem.splits : []}
@@ -174,10 +174,13 @@ export default function FootOSplits(
 
   const renderTimeLossView = () => (
     <Box>
-      <ExperimentalFeatureAlert />
-
-      <Box mt={2} mb={2} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <Typography>{t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}</Typography>
+      <Box sx={{ padding: "16px 16px 0 16px" }}>
+        <ExperimentalFeatureAlert />
+      </Box>
+      <Box sx={{ px: "16px", pb: "16px", display: "flex", alignItems: "center", gap: 2 }}>
+        <Typography sx={{ whiteSpace: "nowrap" }}>
+          {t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}
+        </Typography>
         <Slider
           size="small"
           value={timeLossThreshold}
@@ -190,7 +193,7 @@ export default function FootOSplits(
               setTimeLossThreshold(newValue)
             }
           }}
-          sx={{ maxWidth: 125 }}
+          sx={{ flexGrow: 1, maxWidth: 300 }}
         />
       </Box>
 
@@ -209,10 +212,13 @@ export default function FootOSplits(
 
   const renderChartView = () => (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <Box sx={{ padding: "16px 16px 0 16px" }}>
+        <ExperimentalFeatureAlert />
+      </Box>
       {selectedView === "barChart" && (
-        <Box mt={2} mb={2} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box sx={{ px: "16px", display: "flex", alignItems: "center", gap: 2 }}>
           <Typography>
-            {t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}
+            {t("Graphs.ThresholdWithPercent", { percent: barChartThreshold })}
           </Typography>
           <Slider
             size="small"
@@ -226,7 +232,7 @@ export default function FootOSplits(
                 setBarChartThreshold(newValue)
               }
             }}
-            sx={{ maxWidth: 125 }}
+          sx={{ flexGrow: 1, maxWidth: 300 }}
           />
         </Box>
       )}

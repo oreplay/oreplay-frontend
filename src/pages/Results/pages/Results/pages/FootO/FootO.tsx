@@ -1,6 +1,6 @@
 import StageLayout from "../../components/Layout/StageLayout.tsx"
 import ResultTabs from "../../components/ResultTabs.tsx"
-import { BottomNavigationAction } from "@mui/material"
+import { BottomNavigationAction, Box } from "@mui/material"
 import { AccessTime } from "@mui/icons-material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import TimerIcon from "@mui/icons-material/Timer"
@@ -98,7 +98,7 @@ export default function FootO() {
           />,
           <BottomNavigationAction
             key={"FootOSplitsMenu"}
-            label={t("StageHeader.Analysis")}
+            label={t("StageHeader.Splits")}
             icon={<TimerIcon />}
           />,
         ]}

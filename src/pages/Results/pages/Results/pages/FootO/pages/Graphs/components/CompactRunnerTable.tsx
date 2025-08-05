@@ -85,7 +85,6 @@ export default function CompactRunnerTable({
       <TableContainer
         sx={{
           flex: 1,
-          maxHeight: isMobile ? "150px" : "none",
           overflowY: isMobile ? "auto" : "visible",
         }}
       >
