@@ -7,7 +7,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import RunnerRow from "./components/RunnerRow.tsx"
@@ -61,12 +60,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     runnerList,
     props.showCumulative,
   ])
-
-  if (runnerList.length === 0) {
-    return <NoRunnerWithSplitsMsg />
-  }
-
-  const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
   const isSyncingRef = useRef(false)
   const headerRef = useRef<HTMLDivElement | null>(null)
@@ -122,8 +115,9 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   useEffect(() => {
     const bodyDiv = bodyRef.current
     const trackDiv = scrollTrackRef.current
+    const headerDiv = headerRef.current
 
-    if (!bodyDiv || !trackDiv) return
+    if (!bodyDiv || !headerDiv || !trackDiv) return
 
     const updateThumbSize = () => {
       const trackSize = trackDiv.clientWidth
@@ -141,7 +135,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     observer.current.observe(trackDiv)
 
     bodyDiv.addEventListener("scroll", handleBodyScroll)
-    headerRef.current?.addEventListener("scroll", handleHeaderScroll)
+    headerDiv.addEventListener("scroll", handleHeaderScroll)
 
     // Initial call
     updateThumbSize()
@@ -150,9 +144,9 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     return () => {
       observer.current?.disconnect()
       bodyDiv.removeEventListener("scroll", handleBodyScroll)
-      headerRef.current?.removeEventListener("scroll", handleHeaderScroll)
+      headerDiv.removeEventListener("scroll", handleHeaderScroll)
     }
-  }, [handleThumbPosition])
+  }, [handleThumbPosition, handleBodyScroll, handleHeaderScroll])
 
   const handleTrackClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -198,7 +192,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   }, [])
 
   const handleThumbMouseup = useCallback(
-    (e: any) => {
+    (e: MouseEvent) => {
       e.preventDefault()
       e.stopPropagation()
       if (isDragging) {
@@ -209,14 +203,13 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   )
 
   const handleThumbMousemove = useCallback(
-    (e: any) => {
+    (e: MouseEvent) => {
       e.preventDefault()
       e.stopPropagation()
       if (isDragging) {
         const { scrollWidth: contentScrollWidth, offsetWidth: contentOffsetWidth } =
           bodyRef.current!
 
-        // Subtract the current mouse X position from where you started to get the pixel difference in mouse position. Multiply by ratio of visible content height to thumb height to scale up the difference for content scrolling.
         const deltaX = (e.clientX - scrollStartPosition!) * (contentOffsetWidth / thumbWidth)
         const newScrollLeft = Math.min(
           initialScrollLeft + deltaX,
@@ -227,7 +220,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
         headerRef.current!.scrollLeft = newScrollLeft
       }
     },
-    [isDragging, scrollStartPosition, thumbWidth],
+    [isDragging, scrollStartPosition, thumbWidth, initialScrollLeft],
   )
 
   // Listen for mouse events to handle scrolling by dragging the thumb
@@ -269,6 +262,12 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
 
     setColWidths(maxWidths)
   }, [])
+
+  if (runnerList.length === 0) {
+    return <NoRunnerWithSplitsMsg />
+  }
+
+  const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
   return (
     <NowProvider>
