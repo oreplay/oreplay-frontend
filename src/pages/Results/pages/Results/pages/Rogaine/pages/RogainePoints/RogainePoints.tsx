@@ -1,5 +1,13 @@
 import { useTranslation } from "react-i18next"
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material"
 import { getUniqueStationNumbers } from "../../shared/Functions.ts"
 import { parseResultStatus } from "../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
@@ -30,9 +38,17 @@ export default function RogainePoints(
   if (!props.activeItem) {
     return <ChooseClassMsg />
   } else if (!props.isClass) {
-    return <OnlyForClassesMsg />
+    return (
+      <Box sx={{ px: 2, height: "100%" }}>
+        <OnlyForClassesMsg />
+      </Box>
+    )
   } else if (props.runnersQuery.isFetching || props.runnersQuery.isLoading) {
-    return <ResultsListSkeleton />
+    return (
+      <Box sx={{ px: 2, height: "100%" }}>
+        <ResultsListSkeleton />
+      </Box>
+    )
   } else if (props.runnersQuery.isError) {
     return <GeneralErrorFallback />
   } else {

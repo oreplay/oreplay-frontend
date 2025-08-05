@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import StageLayout from "../../components/Layout/StageLayout.tsx"
 import ResultTabs from "../../components/ResultTabs.tsx"
-import { BottomNavigationAction } from "@mui/material"
+import { BottomNavigationAction, Box } from "@mui/material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import TimelineIcon from "@mui/icons-material/Timeline"
 import RogaineResults from "./pages/RogaineResults/RogaineResults.tsx"
@@ -97,12 +97,14 @@ export default function Rogaine() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <RogaineResults
-          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
-          activeItem={activeItem}
-          isClass={isClass}
-          setClassClubId={setClassClubId}
-        />
+        <Box sx={{ px: 3, height: "100%" }}>
+          <RogaineResults
+            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+            activeItem={activeItem}
+            isClass={isClass}
+            setClassClubId={setClassClubId}
+          />
+        </Box>
         <RogainePoints
           runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
           activeItem={activeItem}

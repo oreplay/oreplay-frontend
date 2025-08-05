@@ -1,7 +1,7 @@
 import RelayResults from "./pages/RelayResults/RelayResults.tsx"
 import StageLayout from "../../components/Layout/StageLayout.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
-import { BottomNavigationAction } from "@mui/material"
+import { BottomNavigationAction, Box } from "@mui/material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import ResultTabs from "../../components/ResultTabs.tsx"
 import { useTranslation } from "react-i18next"
@@ -55,39 +55,45 @@ export default function Relay() {
   }, [refreshClassesClubs, runnersQueryByClasses])
 
   return (
-    <StageLayout
-      key={"stageLayout"}
-      activeItem={activeItem}
-      isClass={isClass}
-      classesQuery={classesQuery}
-      clubsQuery={clubsQuery}
-      setActiveClassClub={setClassClubId}
-      handleRefreshClick={handleRefreshClick}
-    >
-      <ResultTabs
-        defaultMenu={0}
-        menuOptions={[
-          <BottomNavigationAction
-            key={"relayResults"}
-            label={t("StageHeader.Results")}
-            icon={<EmojiEventsIcon />}
-          />,
-          <BottomNavigationAction
-            key={"RogaineScorePointsMenu"}
-            label={t("StageHeader.RelayLegs")}
-            icon={<Person />}
-          />,
-        ]}
-        menuOptionsLabels={menu_options_labels}
+    <Box sx={{ px: 2, height: "100%" }}>
+      <StageLayout
+        key={"stageLayout"}
+        activeItem={activeItem}
+        isClass={isClass}
+        classesQuery={classesQuery}
+        clubsQuery={clubsQuery}
+        setActiveClassClub={setClassClubId}
+        handleRefreshClick={handleRefreshClick}
       >
-        <RelayResults
-          runnersQuery={runnersQueryByClasses}
-          activeItem={activeItem}
-          isClass={isClass}
-          setClassClubId={setClassClubId}
-        />
-        <RelayLegs runnersQuery={runnersQueryByClasses} activeItem={activeItem} isClass={isClass} />
-      </ResultTabs>
-    </StageLayout>
+        <ResultTabs
+          defaultMenu={0}
+          menuOptions={[
+            <BottomNavigationAction
+              key={"relayResults"}
+              label={t("StageHeader.Results")}
+              icon={<EmojiEventsIcon />}
+            />,
+            <BottomNavigationAction
+              key={"RogaineScorePointsMenu"}
+              label={t("StageHeader.RelayLegs")}
+              icon={<Person />}
+            />,
+          ]}
+          menuOptionsLabels={menu_options_labels}
+        >
+          <RelayResults
+            runnersQuery={runnersQueryByClasses}
+            activeItem={activeItem}
+            isClass={isClass}
+            setClassClubId={setClassClubId}
+          />
+          <RelayLegs
+            runnersQuery={runnersQueryByClasses}
+            activeItem={activeItem}
+            isClass={isClass}
+          />
+        </ResultTabs>
+      </StageLayout>
+    </Box>
   )
 }

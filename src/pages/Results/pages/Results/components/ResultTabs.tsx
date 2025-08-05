@@ -30,7 +30,7 @@ export default function ResultTabs(props: ResultTabsProps) {
       <ErrorBoundary fallback={<GeneralErrorFallback />}>
         {props.children[selectedMenu]}
       </ErrorBoundary>
-      <Paper sx={{ position: "fixed", bottom: 0, right: 0, left: 0 }}>
+      <Paper sx={{ position: "fixed", bottom: 0, right: 0, left: 0, zIndex: 999 }}>
         <BottomNavigation
           showLabels
           value={selectedMenu}

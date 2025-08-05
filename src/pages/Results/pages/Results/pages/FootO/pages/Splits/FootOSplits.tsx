@@ -120,7 +120,12 @@ export default function FootOSplits(
   }
 
   if (!activeItem) return <ChooseClassMsg />
-  if (!props.isClass) return <OnlyForClassesMsg />
+  if (!props.isClass)
+    return (
+      <Box sx={{ px: 2 }}>
+        <OnlyForClassesMsg />
+      </Box>
+    )
   if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
   if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
@@ -232,7 +237,7 @@ export default function FootOSplits(
                 setBarChartThreshold(newValue)
               }
             }}
-          sx={{ flexGrow: 1, maxWidth: 300 }}
+            sx={{ flexGrow: 1, maxWidth: 300 }}
           />
         </Box>
       )}
@@ -246,7 +251,7 @@ export default function FootOSplits(
           minHeight: 0,
         }}
       >
-        <Box sx={{ flex: 1, minHeight: 400, order: isMobile ? 2 : 1 }}>
+        <Box sx={{ flex: 1, minHeight: 400, order: isMobile ? 2 : 1, px: 2 }}>
           {selectedView === "lineChart" && <LineChart data={lineChartData} height={400} />}
           {selectedView === "barChart" && <BarChart data={barChartData} height={400} />}
           {selectedView === "positionChart" && (

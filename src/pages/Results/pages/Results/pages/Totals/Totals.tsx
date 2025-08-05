@@ -8,6 +8,7 @@ import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useParams } from "react-router-dom"
 import { useCallback } from "react"
 import { getTotalsByClass, getTotalsByClub } from "./services/TotalsService.ts"
+import { Box } from "@mui/material"
 
 export default function Totals() {
   // Get stage's and event's ids
@@ -58,20 +59,22 @@ export default function Totals() {
   }, [refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
 
   return (
-    <StageLayout
-      key={"stageLayout"}
-      activeItem={activeItem}
-      isClass={isClass}
-      classesQuery={classesQuery}
-      clubsQuery={clubsQuery}
-      setActiveClassClub={setClassClubId}
-      handleRefreshClick={handleRefreshClick}
-    >
-      <TotalsResults
-        runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+    <Box sx={{ px: 3, height: "100%" }}>
+      <StageLayout
+        key={"stageLayout"}
         activeItem={activeItem}
         isClass={isClass}
-      />
-    </StageLayout>
+        classesQuery={classesQuery}
+        clubsQuery={clubsQuery}
+        setActiveClassClub={setClassClubId}
+        handleRefreshClick={handleRefreshClick}
+      >
+        <TotalsResults
+          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+          activeItem={activeItem}
+          isClass={isClass}
+        />
+      </StageLayout>
+    </Box>
   )
 }
