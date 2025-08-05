@@ -11,6 +11,7 @@
   "ForbiddenAccess": "Forbidden access",
   "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
   "ExperimentalFeatureMsg": "Experimental feature",
+  "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Menu": "Menu",
   "Dates": "Dates",
   "Event": "Event",

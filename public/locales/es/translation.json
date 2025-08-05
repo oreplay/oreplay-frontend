@@ -11,6 +11,7 @@
   "ForbiddenAccess": "Acceso denegado",
   "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
   "ExperimentalFeatureMsg": "Funcionalidad experimental",
+  "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
   "Menu": "Menu",
   "Dates": "Fecha",
   "Event": "Evento",

@@ -22,6 +22,7 @@ import {
   transformRunnersForPositionChart,
 } from "./components/utils/chartDataTransform.ts"
 import { useTranslation } from "react-i18next"
+import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
 
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -279,6 +280,12 @@ export default function FootOSplits(
 
   return (
     <Box>
+      {
+        // @ts-expect-error TS2339 If props.isClass is True, props.activeItem is StageClassModel
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        props.isClass && props.activeItem.splits.length > 0 ? <RadiosExperimentalAlert /> : <></>
+      }
+
       <ViewSelector
         selectedView={selectedView}
         onViewChange={handleViewChange}
