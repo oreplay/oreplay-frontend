@@ -20,6 +20,7 @@ export default function NoTodayEvents(props: Props) {
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "space-between",
+          alignContent: "flex-start",
         }}
       >
         {props.eventList.map((event) => (

@@ -35,7 +35,6 @@ export default function EventsList() {
           m: { xs: "24px", sm: "50px" },
           display: "flex",
           flexDirection: "column",
-          flexGrow: 1,
         }}
       >
         {/** Today events **/}
