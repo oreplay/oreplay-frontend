@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Box, IconButton, Typography, useTheme } from "@mui/material"
 import {
   Timer as TimerIcon,
@@ -52,17 +52,39 @@ export default function ViewSelector({
     { key: "positionChart", labelKey: "view.positionChart", icon: <Timeline /> },
   ]
 
+  const boxRef = useRef<HTMLDivElement | null>(null)
+  const [hasScroll, setHasScroll] = useState(false)
+
+  useEffect(() => {
+    const checkScroll = () => {
+      const boxDiv = boxRef.current
+      if (boxDiv) {
+        setHasScroll(boxDiv.scrollWidth > boxDiv.clientWidth)
+      }
+    }
+
+    checkScroll()
+    window.addEventListener("resize", checkScroll)
+
+    return () => {
+      window.removeEventListener("resize", checkScroll)
+    }
+  }, [])
+
   return (
     <Box
+      ref={boxRef}
       sx={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: hasScroll ? "flex-start" : "center",
         gap: 1,
         padding: 2,
         borderBottom: `1px solid ${theme.palette.divider}`,
         backgroundColor: theme.palette.background.paper,
-        flexWrap: "wrap",
+        flexWrap: "nowrap",
+        overflowX: "auto",
+        maxWidth: "100%",
       }}
     >
       {viewOptions.map((option) => {
