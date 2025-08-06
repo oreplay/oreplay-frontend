@@ -1,6 +1,7 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes"
 import { ChartDataItem } from "../Charts/BarChart.tsx"
 import { getRunnerTimeLossInfo, TimeLossResults } from "./timeLossAnalysis.ts"
+import { hasChipDownload } from "../../../../../../shared/functions.ts"
 
 // Position Evolution Data Structures
 export interface PositionDataPoint {
@@ -153,7 +154,9 @@ export function transformRunnersForLineChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[],
 ): LineChartData[] {
-  const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
+  const selectedRunners = runners.filter(
+    (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
+  )
   const colors = generateRunnerColors(selectedRunners.length)
 
   const leaderTimes = calculateLeaderTimesForEachControl(runners)
@@ -282,8 +285,10 @@ export function transformRunnersForPositionChart(
 ): PositionChartData[] {
   if (selectedRunnerIds.length === 0) return []
 
-  // Use all runners, don't filter by status, no limit on the number of runners
-  const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
+  // Filter by hasChipDownload and selectedRunnerIds
+  const selectedRunners = runners.filter(
+    (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
+  )
   const colors = generateRunnerColors(selectedRunners.length)
 
   return selectedRunners
@@ -422,8 +427,10 @@ export function transformRunnersForBarChart(
   selectedRunnerIds: string[],
   timeLossResults?: TimeLossResults,
 ): ChartDataItem[] {
-  // Use all runners, not just "valid" ones - let each transformation decide
-  const selectedRunners = runners.filter((runner) => selectedRunnerIds.includes(runner.id))
+  // Filter by hasChipDownload and selectedRunnerIds
+  const selectedRunners = runners.filter(
+    (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
+  )
 
   if (selectedRunners.length === 0) {
     return []
