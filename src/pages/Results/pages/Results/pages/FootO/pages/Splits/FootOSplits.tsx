@@ -181,7 +181,6 @@ export default function FootOSplits(
   }
 
   const renderRadiosView = () => {
-
     return (
       <Box>
         {!displayRadiosAlert && (
@@ -332,8 +331,8 @@ export default function FootOSplits(
       {selectedView === "radios" && renderRadiosView()}
       {selectedView === "timeLoss" && renderTimeLossView()}
       {(selectedView === "lineChart" ||
-        selectedView === "barChart" ||
-        selectedView === "positionChart") &&
+          selectedView === "barChart" ||
+          selectedView === "positionChart") &&
         renderChartView()}
     </Box>
   )
