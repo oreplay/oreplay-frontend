@@ -23,6 +23,8 @@ import {
 } from "./components/utils/chartDataTransform.ts"
 import { useTranslation } from "react-i18next"
 import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
+import { hasChipDownload } from "../../../../shared/functions.ts"
+import NoRunnerWithSplitsMsg from "./components/FootOSplitsTable/components/NoRunnerWithSplitsMsg.tsx"
 
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -35,6 +37,9 @@ export default function FootOSplits(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
   const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
+
+  const runnersWithChipDownload = runners.filter((runner) => hasChipDownload(runner))
+  const hasChipDownloadData = runnersWithChipDownload.length > 0
 
   const displayRadiosAlert =
     props.isClass &&
@@ -68,7 +73,7 @@ export default function FootOSplits(
   useEffect(() => {
     if (runners.length > 0 && selectedRunners.length === 0) {
       const topRunners = runners
-        .filter((runner) => runner.stage.position && runner.stage.position <= 5)
+        .filter((runner) => runner.stage.position && hasChipDownload(runner))
         .sort((a, b) => (a.stage.position || 0) - (b.stage.position || 0))
         .slice(0, 5)
         .map((runner) => runner.id)
@@ -137,175 +142,184 @@ export default function FootOSplits(
   if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
   if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
-  const renderSplitsView = () => (
-    <Box>
-      <FootOSplitsTable
-        onlyRadios={false}
-        radiosList={"splits" in activeItem ? activeItem.splits : []}
-        showCumulative={showCumulative}
-        key={"FootOSplitsTable"}
-        runners={runners}
-        timeLossEnabled={false}
-        timeLossThreshold={timeLossThreshold}
-        timeLossResults={undefined}
-      />
-    </Box>
-  )
+  const renderSplitsView = () => {
+    if (!hasChipDownloadData) return <NoRunnerWithSplitsMsg />
 
-  const renderAccumulatedView = () => (
-    <Box>
-      <FootOSplitsTable
-        onlyRadios={false}
-        radiosList={"splits" in activeItem ? activeItem.splits : []}
-        showCumulative={true}
-        key={"FootOSplitsTableAccumulated"}
-        runners={runners}
-        timeLossEnabled={false}
-        timeLossThreshold={timeLossThreshold}
-        timeLossResults={undefined}
-      />
-    </Box>
-  )
-
-  const renderRadiosView = () => (
-    <Box>
-      {displayRadiosAlert ? (
-        <></>
-      ) : (
-        <Box sx={{ padding: "16px 16px 0 16px" }}>
-          <ExperimentalFeatureAlert />
-        </Box>
-      )}
-
-      <FootOSplitsTable
-        onlyRadios={true}
-        radiosList={"splits" in activeItem ? activeItem.splits : []}
-        showCumulative={showCumulative}
-        key={"FootOSplitsTableRadios"}
-        runners={runners}
-        timeLossEnabled={false}
-        timeLossThreshold={timeLossThreshold}
-        timeLossResults={undefined}
-      />
-    </Box>
-  )
-
-  const renderTimeLossView = () => (
-    <Box>
-      {displayRadiosAlert ? (
-        <></>
-      ) : (
-        <Box sx={{ padding: "16px 16px 0 16px" }}>
-          <ExperimentalFeatureAlert />
-        </Box>
-      )}
-      <Box sx={{ px: "16px", pb: "16px", display: "flex", alignItems: "center", gap: 2 }}>
-        <Typography sx={{ whiteSpace: "nowrap" }}>
-          {t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}
-        </Typography>
-        <Slider
-          size="small"
-          value={timeLossThreshold}
-          min={5}
-          max={100}
-          step={5}
-          marks
-          onChange={(_, newValue) => {
-            if (typeof newValue === "number") {
-              setTimeLossThreshold(newValue)
-            }
-          }}
-          sx={{ flexGrow: 1, maxWidth: 300 }}
+    return (
+      <Box>
+        <FootOSplitsTable
+          onlyRadios={false}
+          radiosList={"splits" in activeItem ? activeItem.splits : []}
+          showCumulative={showCumulative}
+          key={"FootOSplitsTable"}
+          runners={runners}
+          timeLossEnabled={false}
+          timeLossThreshold={timeLossThreshold}
+          timeLossResults={undefined}
         />
       </Box>
+    )
+  }
 
-      <FootOSplitsTable
-        onlyRadios={false}
-        radiosList={"splits" in activeItem ? activeItem.splits : []}
-        showCumulative={false}
-        key={"FootOSplitsTableTimeLoss"}
-        runners={runners}
-        timeLossEnabled={true}
-        timeLossThreshold={timeLossThreshold}
-        timeLossResults={timeLossResults}
-      />
-    </Box>
-  )
+  const renderAccumulatedView = () => {
+    if (!hasChipDownloadData) return <NoRunnerWithSplitsMsg />
 
-  const renderChartView = () => (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      {displayRadiosAlert ? (
-        <></>
-      ) : (
-        <Box sx={{ padding: "16px 16px 0 16px" }}>
-          <ExperimentalFeatureAlert />
-        </Box>
-      )}
-      {selectedView === "barChart" && (
-        <Box sx={{ px: "16px", display: "flex", alignItems: "center", gap: 2 }}>
-          <Typography>
-            {t("Graphs.ThresholdWithPercent", { percent: barChartThreshold })}
+    return (
+      <Box>
+        <FootOSplitsTable
+          onlyRadios={false}
+          radiosList={"splits" in activeItem ? activeItem.splits : []}
+          showCumulative={true}
+          key={"FootOSplitsTableAccumulated"}
+          runners={runners}
+          timeLossEnabled={false}
+          timeLossThreshold={timeLossThreshold}
+          timeLossResults={undefined}
+        />
+      </Box>
+    )
+  }
+
+  const renderRadiosView = () => {
+    if (!hasChipDownloadData) return <NoRunnerWithSplitsMsg />
+
+    return (
+      <Box>
+        {!displayRadiosAlert && (
+          <Box sx={{ padding: "16px 16px 0 16px" }}>
+            <ExperimentalFeatureAlert />
+          </Box>
+        )}
+        <FootOSplitsTable
+          onlyRadios={true}
+          radiosList={"splits" in activeItem ? activeItem.splits : []}
+          showCumulative={showCumulative}
+          key={"FootOSplitsTableRadios"}
+          runners={runners}
+          timeLossEnabled={false}
+          timeLossThreshold={timeLossThreshold}
+          timeLossResults={undefined}
+        />
+      </Box>
+    )
+  }
+
+  const renderTimeLossView = () => {
+    if (!hasChipDownloadData) return <NoRunnerWithSplitsMsg />
+
+    return (
+      <Box>
+        {!displayRadiosAlert && (
+          <Box sx={{ padding: "16px 16px 0 16px" }}>
+            <ExperimentalFeatureAlert />
+          </Box>
+        )}
+        <Box sx={{ px: "16px", pb: "16px", display: "flex", alignItems: "center", gap: 2 }}>
+          <Typography sx={{ whiteSpace: "nowrap" }}>
+            {t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}
           </Typography>
           <Slider
             size="small"
-            value={barChartThreshold}
+            value={timeLossThreshold}
             min={5}
             max={100}
             step={5}
             marks
             onChange={(_, newValue) => {
-              if (typeof newValue === "number") {
-                setBarChartThreshold(newValue)
-              }
+              if (typeof newValue === "number") setTimeLossThreshold(newValue)
             }}
             sx={{ flexGrow: 1, maxWidth: 300 }}
           />
         </Box>
-      )}
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          gap: 2,
-          flex: 1,
-          minHeight: 0,
-        }}
-      >
-        <Box sx={{ flex: 1, minHeight: 400, order: isMobile ? 2 : 1, px: 2 }}>
-          {selectedView === "lineChart" && <LineChart data={lineChartData} height={400} />}
-          {selectedView === "barChart" && <BarChart data={barChartData} height={400} />}
-          {selectedView === "positionChart" && (
-            <PositionChart data={positionChartData} height={400} />
-          )}
-        </Box>
+        <FootOSplitsTable
+          onlyRadios={false}
+          radiosList={"splits" in activeItem ? activeItem.splits : []}
+          showCumulative={false}
+          key={"FootOSplitsTableTimeLoss"}
+          runners={runners}
+          timeLossEnabled={true}
+          timeLossThreshold={timeLossThreshold}
+          timeLossResults={timeLossResults}
+        />
+      </Box>
+    )
+  }
+
+  const renderChartView = () => {
+    if (!hasChipDownloadData) return <NoRunnerWithSplitsMsg />
+
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        {!displayRadiosAlert && (
+          <Box sx={{ padding: "16px 16px 0 16px" }}>
+            <ExperimentalFeatureAlert />
+          </Box>
+        )}
+        {selectedView === "barChart" && (
+          <Box sx={{ px: "16px", display: "flex", alignItems: "center", gap: 2 }}>
+            <Typography>
+              {t("Graphs.ThresholdWithPercent", { percent: barChartThreshold })}
+            </Typography>
+            <Slider
+              size="small"
+              value={barChartThreshold}
+              min={5}
+              max={100}
+              step={5}
+              marks
+              onChange={(_, newValue) => {
+                if (typeof newValue === "number") {
+                  setBarChartThreshold(newValue)
+                }
+              }}
+              sx={{ flexGrow: 1, maxWidth: 300 }}
+            />
+          </Box>
+        )}
+
         <Box
           sx={{
-            width: isMobile ? "100%" : "auto",
-            height: 400,
-            overflowY: "auto",
-            overflowX: "hidden",
-            order: 2,
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
+            gap: 2,
+            flex: 1,
+            minHeight: 0,
           }}
         >
-          <CompactRunnerTable
-            runners={runners}
-            selectedRunners={selectedRunners}
-            onSelectionChange={handleRunnerSelectionChange}
-          />
+          <Box sx={{ flex: 1, minHeight: 400, order: isMobile ? 2 : 1, px: 2 }}>
+            {selectedView === "lineChart" && <LineChart data={lineChartData} height={400} />}
+            {selectedView === "barChart" && <BarChart data={barChartData} height={400} />}
+            {selectedView === "positionChart" && (
+              <PositionChart data={positionChartData} height={400} />
+            )}
+          </Box>
+          <Box
+            sx={{
+              width: isMobile ? "100%" : "auto",
+              height: 400,
+              overflowY: "auto",
+              overflowX: "hidden",
+              order: 2,
+            }}
+          >
+            <CompactRunnerTable
+              runners={runners}
+              selectedRunners={selectedRunners}
+              onSelectionChange={handleRunnerSelectionChange}
+            />
+          </Box>
         </Box>
       </Box>
-    </Box>
-  )
+    )
+  }
 
   return (
     <Box>
-      {displayRadiosAlert ? (
+      {displayRadiosAlert && (
         <Box sx={{ px: "16px" }}>
           <RadiosExperimentalAlert />
         </Box>
-      ) : (
-        <></>
       )}
 
       <ViewSelector
