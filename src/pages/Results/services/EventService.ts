@@ -79,6 +79,7 @@ export async function getRunnersInStage(
 
   if (class_id) {
     urlSearchParam.set("class_id", class_id)
+    urlSearchParam.set("forceSameDay", "true")
   }
   if (club_id) {
     urlSearchParam.set("club_id", club_id)
