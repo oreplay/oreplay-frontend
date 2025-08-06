@@ -68,3 +68,16 @@ export function parseTimeBehind(seconds: number | string): string {
   // Return
   return durationString
 }
+
+/**
+ * Format a score to display as integer without decimals
+ *
+ * @param score The score value (number or null)
+ * @returns Formatted score as integer string, or empty string if null/undefined
+ */
+export function formatScoreAsInteger(score: number | null | undefined): string {
+  if (score === null || score === undefined) {
+    return ""
+  }
+  return Math.round(score).toString()
+}
