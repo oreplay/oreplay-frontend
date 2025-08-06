@@ -87,16 +87,34 @@ export function getOnlineSplits(
 ): RadioSplitModel[] {
   // Extract splits that are radio controls
   const onlineSplitStationsNumber = radiosList.map((control) => control.station)
-  const Splits = splitList.filter((split) =>
-    split.control ? onlineSplitStationsNumber.includes(split.control.station) : true,
+  const Splits = splitList.filter(
+    (split) => (split.control ? onlineSplitStationsNumber.includes(split.control.station) : true), // `: true` picks the finish split
   )
 
   // Convert them to RadioSplitModel
   const radioSplits = Splits.map((split): RadioSplitModel => ({ ...split, is_next: null }))
 
   // Fill missing online controls from split list
-  //// Course controls
-  for (let i = 0; i < radiosList.length - 1; i++) {
+  if (radioSplits.length == 0) {
+    radioSplits.push({
+      id: `missingFinish`,
+      is_intermediate: true,
+      reading_time: null,
+      order_number: Infinity,
+      points: 0,
+      control: null,
+      time: null,
+      time_behind: null,
+      position: null,
+      cumulative_time: null,
+      cumulative_behind: null,
+      cumulative_position: null,
+      is_next: null,
+    })
+  }
+  //// Regular controls
+  console.log()
+  for (let i = 0; i < radiosList.length; i++) {
     const radioInRunner = radioSplits.at(i)?.control
     const radioInList = radiosList.at(i)
 
@@ -126,15 +144,14 @@ export function getOnlineSplits(
       radioSplits.splice(i, 0, missingRadio) //insert split
     }
   }
-  //// Finish Control
-  // TODO: Check why is not being filled always. Most likely, it should no be fixed here
 
   // Find the next radio split (the one the runner is going towards)
-  let prevTimeString = startTime
-  for (let i = 0; i < radioSplits.length; i++) {
-    //TODO: This loop should go the other way around to catch up missing radios
+  let prevTimeString: string | null | undefined
+  for (let i = radioSplits.length - 1; i >= 0; i--) {
+    prevTimeString = i - 1 >= 0 ? radioSplits.at(i - 1)?.reading_time : startTime
+
     const split = radioSplits[i]
-    if (split.reading_time === null && prevTimeString !== null) {
+    if (split.reading_time === null && prevTimeString) {
       split.is_next = DateTime.fromISO(prevTimeString)
       break
     } else {
