@@ -181,7 +181,6 @@ export default function FootOSplits(
   }
 
   const renderRadiosView = () => {
-    if (!hasChipDownloadData) return <NoRunnerWithSplitsMsg />
 
     return (
       <Box>
