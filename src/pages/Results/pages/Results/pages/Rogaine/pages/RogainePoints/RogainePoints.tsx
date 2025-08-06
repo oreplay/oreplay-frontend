@@ -10,7 +10,10 @@ import {
 } from "@mui/material"
 import { getUniqueStationNumbers } from "../../shared/Functions.ts"
 import { parseResultStatus } from "../../../../../../shared/sortingFunctions/sortRunners.ts"
-import { parseSecondsToMMSS } from "../../../../../../../../shared/Functions.tsx"
+import {
+  parseSecondsToMMSS,
+  formatScoreAsInteger,
+} from "../../../../../../../../shared/Functions.tsx"
 import ControlBadge from "./components/ControlBadge.tsx"
 import { RESULT_STATUS_TEXT } from "../../../../../../shared/constants.ts"
 import ParticipantName from "../../../../../../components/ParticipantName.tsx"
@@ -92,17 +95,17 @@ export default function RogainePoints(
                   </TableCell>
                   <TableCell key={`runner${runner.id}bonus`}>
                     {runnerResult.points_final || runnerResult.finish_time
-                      ? `+${runnerResult.points_bonus}`
+                      ? `+${formatScoreAsInteger(runnerResult.points_bonus)}`
                       : ""}
                   </TableCell>
                   <TableCell key={`runner${runner.id}penalty`}>
                     {runnerResult.points_final || runnerResult.finish_time
-                      ? `${runnerResult.points_penalty}`
+                      ? `${formatScoreAsInteger(runnerResult.points_penalty)}`
                       : ""}
                   </TableCell>
                   <TableCell key={`runner${runner.id}points`}>
                     {runnerResult.points_final || runnerResult.finish_time
-                      ? `${runnerResult.points_final}`
+                      ? `${formatScoreAsInteger(runnerResult.points_final)}`
                       : ""}
                   </TableCell>
                   <TableCell key={`runner${runner.id}time`}>
