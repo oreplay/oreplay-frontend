@@ -18,6 +18,7 @@ import ParticipantName from "../../../../../../components/ParticipantName.tsx"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../shared/functions.ts"
 import RacePosition from "../../../../../../components/RacePosition..tsx"
+import { formatScoreAsInteger } from "../../../../../../../../shared/Functions.tsx"
 
 interface RogainePointsProps
   extends ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>> {
@@ -89,7 +90,7 @@ export default function RogainePoints(props: RogainePointsProps) {
                 <Typography>
                   {statusOkOrNc
                     ? runnerResult.points_final || runnerResult.finish_time
-                      ? `${runnerResult.points_final}`
+                      ? `${formatScoreAsInteger(runnerResult.points_final)}`
                       : ""
                     : ""}
                 </Typography>
