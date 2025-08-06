@@ -16,6 +16,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { formatTime } from "../../Splits/components/utils/chartDataTransform.ts"
+import { hasChipDownload } from "../../../../../shared/functions.ts"
 
 interface CompactRunnerTableProps {
   runners: ProcessedRunnerModel[]
@@ -32,17 +33,13 @@ export default function CompactRunnerTable({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
-  const selectableRunnerIds = runners.filter((r) => r.stage.position).map((r) => r.id)
+  const selectableRunnerIds = runners
+    .filter((r) => r.stage.position && hasChipDownload(r))
+    .map((r) => r.id)
 
   useEffect(() => {
-    if (selectedRunners.length === 0 && runners.length > 0) {
-      const initialSelection = runners
-        .filter((r) => r.stage.position)
-        .slice(0, 5)
-        .map((r) => r.id)
-      onSelectionChange(initialSelection)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Note: Removed auto-refill behavior. Users can now have 0 selected runners.
+    // Initial selection is handled by the parent component (FootOSplits)
   }, [runners])
 
   const handleToggleRunner = (runnerId: string) => {
@@ -74,12 +71,14 @@ export default function CompactRunnerTable({
         <Typography variant="h6" sx={{ mb: 1 }}>
           {t("Graphs.RunnerSelection")}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {t("Graphs.SelectedCount", {
-            count: selectedRunners.length,
-            total: runners.length,
-          })}
-        </Typography>
+        {selectableRunnerIds.length > 0 && (
+          <Typography variant="body2" color="text.secondary">
+            {t("Graphs.SelectedCount", {
+              count: selectedRunners.length,
+              total: selectableRunnerIds.length,
+            })}
+          </Typography>
+        )}
       </Box>
 
       <TableContainer
@@ -106,7 +105,7 @@ export default function CompactRunnerTable({
           </TableHead>
           <TableBody>
             {runners.map((runner) => {
-              const isSelectable = !!runner.stage.position
+              const isSelectable = !!runner.stage.position && hasChipDownload(runner)
               const isChecked = selectedRunners.includes(runner.id)
               return (
                 <TableRow
