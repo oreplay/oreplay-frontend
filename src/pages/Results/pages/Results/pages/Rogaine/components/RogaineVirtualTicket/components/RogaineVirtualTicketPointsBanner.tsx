@@ -7,6 +7,7 @@ import RaceTime from "../../../../../../../components/RaceTime.tsx"
 import StartTime from "../../../../../../../components/StartTime.tsx"
 import { useTranslation } from "react-i18next"
 import { hasChipDownload } from "../../../../../shared/functions.ts"
+import { formatScoreAsInteger } from "../../../../../../../../../shared/Functions.tsx"
 
 type RogaineVirtualTicketPointsBannerProps = {
   runnerResult: ProcessedRunnerResultModel
@@ -42,7 +43,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
         <Typography style={titleStyles}>{t("ResultsStage.BonusPoints")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
-            ? `+${runnerResult.points_bonus}`
+            ? `+${formatScoreAsInteger(runnerResult.points_bonus)}`
             : ""}
         </Typography>
       </Grid>
@@ -50,7 +51,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
         <Typography style={titleStyles}>{t("ResultsStage.PenaltyPoints")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
-            ? `${runnerResult.points_penalty}`
+            ? `${formatScoreAsInteger(runnerResult.points_penalty)}`
             : ""}
         </Typography>
       </Grid>
@@ -58,7 +59,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
         <Typography style={titleStyles}>{t("ResultsStage.Points")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
-            ? `${runnerResult.points_final}`
+            ? `${formatScoreAsInteger(runnerResult.points_final)}`
             : ""}
         </Typography>
       </Grid>
