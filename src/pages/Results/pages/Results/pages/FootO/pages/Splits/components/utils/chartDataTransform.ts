@@ -159,8 +159,6 @@ export function transformRunnersForLineChart(
   )
   const colors = generateRunnerColors(selectedRunners.length)
 
-  const leaderTimes = calculateLeaderTimesForEachControl(runners)
-
   return selectedRunners.map((runner, index) => {
     const sortedSplits = [...runner.stage.splits].sort(
       (a, b) => (a.order_number || 0) - (b.order_number || 0),
@@ -193,8 +191,7 @@ export function transformRunnersForLineChart(
       const orderNumber = split.order_number || 0
       const cumulativeTime = split.cumulative_time
 
-      const leaderTimeAtControl = leaderTimes.get(controlId) || 0
-      const timeBehindLeader = cumulativeTime - leaderTimeAtControl
+      const timeBehindLeader = split.cumulative_behind || 0
 
       const timeBehindBestPartialIncremental = incrementalTimeBehindBestPartial.get(controlId) || 0
 
@@ -223,7 +220,7 @@ export function transformRunnersForLineChart(
         y: finishTimeBehindLeader,
         controlId: "FINISH",
         controlStation: "FINISH",
-        orderNumber: 999,
+        orderNumber: Infinity,
         runnerName: runner.full_name,
         position: runner.stage.position,
         timeBehindLeader: finishTimeBehindLeader,
@@ -238,41 +235,6 @@ export function transformRunnersForLineChart(
       data,
     }
   })
-}
-
-/**
- * Calculates leader times for each control (the best cumulative time at each control)
- */
-function calculateLeaderTimesForEachControl(runners: ProcessedRunnerModel[]): Map<string, number> {
-  const leaderTimes = new Map<string, number>()
-
-  // Get all unique control IDs
-  const controlIds = new Set<string>()
-  runners.forEach((runner) => {
-    runner.stage.splits.forEach((split) => {
-      if (split.control?.id) {
-        controlIds.add(split.control.id)
-      }
-    })
-  })
-
-  // Find the best cumulative time for each control
-  controlIds.forEach((controlId) => {
-    let bestCumulativeTime = Infinity
-
-    runners.forEach((runner) => {
-      const split = runner.stage.splits.find((s) => s.control?.id === controlId)
-      if (split && split.cumulative_time !== null && split.cumulative_time < bestCumulativeTime) {
-        bestCumulativeTime = split.cumulative_time
-      }
-    })
-
-    if (bestCumulativeTime !== Infinity) {
-      leaderTimes.set(controlId, bestCumulativeTime)
-    }
-  })
-
-  return leaderTimes
 }
 
 /**
