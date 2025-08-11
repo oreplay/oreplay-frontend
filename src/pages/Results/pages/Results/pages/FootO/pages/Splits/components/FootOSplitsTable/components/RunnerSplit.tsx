@@ -121,7 +121,9 @@ export default function RunnerSplit({
           {split.cumulative_time !== null ? (
             <>
               <Typography sx={timeStyles}>{parseSecondsToMMSS(split.cumulative_time)}</Typography>
-              <Typography sx={timeStyles}>{`(${split.cumulative_position})`}</Typography>
+              <Typography sx={timeStyles}>
+                {split.cumulative_position ? `(${split.cumulative_position})` : ""}
+              </Typography>
             </>
           ) : (
             "--"
@@ -152,7 +154,7 @@ export default function RunnerSplit({
           {split.time !== null ? (
             <>
               <Typography sx={timeStyles}>{parseSecondsToMMSS(split.time)}</Typography>
-              <Typography sx={timeStyles}>{`(${split.position})`}</Typography>
+              <Typography sx={timeStyles}>{split.position ? `(${split.position})` : ""}</Typography>
             </>
           ) : (
             "--"
