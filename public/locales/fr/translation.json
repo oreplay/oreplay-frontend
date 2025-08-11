@@ -252,10 +252,8 @@
   "view": {
     "splits": "Intermédiaires",
     "accumulated": "Cumulé",
-    "timeLoss": "Analyse des Pertes de Temps",
-    "lineChart": "Temps vs Leader",
-    "barChart": "Graphique des Pertes de Temps",
-    "positionChart": "Évolution de la Position",
+    "barChart": "Pertes de Temps",
+    "positionChart": "Position",
     "radios": "Radios"
   },
   "404Page": {

@@ -258,10 +258,10 @@
   "view": {
     "splits": "Splits",
     "accumulated": "Accumulated",
-    "timeLoss": "Time Loss Analysis",
-    "lineChart": "Time vs Leader",
-    "barChart": "Time Loss Chart",
-    "positionChart": "Position Evolution",
+    "timeLoss": "Time Loss Table",
+    "lineChart": "Behind leader",
+    "barChart": "Time Loss",
+    "positionChart": "Position",
     "radios": "Radios"
   },
   "404Page": {
