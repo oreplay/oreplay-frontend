@@ -49,6 +49,8 @@
     "Time": "Tiempo"
   },
   "Graphs": {
+    "Start": "Salida",
+    "Finish": "Meta",
     "LineChart": "Gráfico de Líneas",
     "BarChart": "Gráfico de Barras",
     "PositionChart": "Evolución de Posición",

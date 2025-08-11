@@ -115,8 +115,8 @@ export default function FootOSplits(
 
   const lineChartData = useMemo(() => {
     if (selectedView !== "lineChart" || selectedRunners.length === 0) return []
-    return transformRunnersForLineChart(runners, selectedRunners)
-  }, [selectedView, runners, selectedRunners])
+    return transformRunnersForLineChart(runners, selectedRunners, t)
+  }, [selectedView, runners, selectedRunners, t])
 
   const barChartData = useMemo(() => {
     if (selectedView !== "barChart" || selectedRunners.length === 0) return []
@@ -125,8 +125,8 @@ export default function FootOSplits(
 
   const positionChartData = useMemo(() => {
     if (selectedView !== "positionChart" || selectedRunners.length === 0) return []
-    return transformRunnersForPositionChart(runners, selectedRunners)
-  }, [selectedView, runners, selectedRunners])
+    return transformRunnersForPositionChart(runners, selectedRunners, t)
+  }, [selectedView, runners, selectedRunners, t])
 
   const handleRunnerSelectionChange = (runnerIds: string[]) => {
     setSelectedRunners(runnerIds)
