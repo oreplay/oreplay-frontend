@@ -100,7 +100,7 @@ export default function FootOGraphs(
 
   const lineChartData =
     selectedGraphType === "line" && selectedRunners.length > 0
-      ? transformRunnersForLineChart(runners, selectedRunners)
+      ? transformRunnersForLineChart(runners, selectedRunners, t)
       : []
 
   const barChartData =
@@ -110,7 +110,7 @@ export default function FootOGraphs(
 
   const positionChartData =
     selectedGraphType === "position" && selectedRunners.length > 0
-      ? transformRunnersForPositionChart(runners, selectedRunners)
+      ? transformRunnersForPositionChart(runners, selectedRunners, t)
       : []
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {

@@ -49,6 +49,8 @@
     "Time": "Time"
   },
   "Graphs": {
+    "Start": "Start",
+    "Finish": "Finish",
     "LineChart": "Line Chart",
     "BarChart": "Bar Chart",
     "PositionChart": "Position Chart",

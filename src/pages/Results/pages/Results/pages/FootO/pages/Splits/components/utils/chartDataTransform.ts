@@ -2,6 +2,7 @@ import { ProcessedRunnerModel } from "../../../../../../../../components/Virtual
 import { ChartDataItem } from "../Charts/BarChart.tsx"
 import { getRunnerTimeLossInfo, TimeLossResults } from "./timeLossAnalysis.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
+import { TFunction } from "i18next"
 
 // Position Evolution Data Structures
 export interface PositionDataPoint {
@@ -153,6 +154,7 @@ function calculateIncrementalTimeBehindBestPartial(
 export function transformRunnersForLineChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[],
+  t: TFunction,
 ): LineChartData[] {
   const selectedRunners = runners.filter(
     (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
@@ -172,7 +174,7 @@ export function transformRunnersForLineChart(
     const data: ChartDataPoint[] = []
 
     data.push({
-      x: "START",
+      x: t("Graphs.Start"),
       y: 0,
       controlId: "START",
       controlStation: "START",
@@ -216,7 +218,7 @@ export function transformRunnersForLineChart(
       const finalIncrementalTime = Array.from(incrementalTimeBehindBestPartial.values()).pop() || 0
 
       data.push({
-        x: "FINISH",
+        x: t("Graphs.Finish"),
         y: finishTimeBehindLeader,
         controlId: "FINISH",
         controlStation: "FINISH",
@@ -244,6 +246,7 @@ export function transformRunnersForLineChart(
 export function transformRunnersForPositionChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[],
+  t: TFunction,
 ): PositionChartData[] {
   if (selectedRunnerIds.length === 0) return []
 
@@ -259,7 +262,7 @@ export function transformRunnersForPositionChart(
 
       // Add a start position
       data.push({
-        x: "START",
+        x: t("Graphs.Start"),
         y: 1, // Everyone starts at position 1
         control: "START",
         controlStation: "START",
@@ -296,7 +299,7 @@ export function transformRunnersForPositionChart(
       // Add a finish position if available
       if (runner.stage?.position && runner.stage.position > 0) {
         data.push({
-          x: "FINISH",
+          x: t("Graphs.Finish"),
           y: runner.stage.position,
           control: "FINISH",
           controlStation: "FINISH",
