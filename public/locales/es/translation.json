@@ -251,11 +251,11 @@
   },
   "view": {
     "splits": "Parciales",
-    "accumulated": "Acumulado",
-    "timeLoss": "Análisis de Pérdida de Tiempo",
-    "lineChart": "Tiempo vs Líder",
-    "barChart": "Gráfico de Pérdida de Tiempo",
-    "positionChart": "Evolución de Posición",
+    "accumulated": "Acumulados",
+    "timeLoss": "Tabla de tiempo perdido",
+    "lineChart": "Detrás líder",
+    "barChart": "Tiempo perdido",
+    "positionChart": "Posición",
     "radios": "Radios"
   },
   "404Page": {
