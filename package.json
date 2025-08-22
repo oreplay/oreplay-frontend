@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "format": "npx prettier . --write",
     "format:check": "npx prettier . --check",
+    "i18n:check": "i18next --fail-on-update",
     "lint": "eslint . --ext ts,tsx,json --report-unused-disable-directives --max-warnings 0",
     "before-commit": "npm run format && npm run lint && npm run build",
     "preview": "vite preview --host 0.0.0.0",
@@ -45,6 +46,7 @@
     "react-router-dom": "^7.2.0"
   },
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
@@ -56,6 +58,7 @@
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "i18next-parser": "^9.3.0",
     "prettier": "3.4.2",
     "typescript": "5.5",
     "vite": "^6.1.1",
