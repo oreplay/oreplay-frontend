@@ -10,6 +10,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility"
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 import { EventModel, UserModel } from "../../../../shared/EntityTypes.ts"
 import { useAuth } from "../../../../shared/hooks.ts"
+import Tooltip from "@mui/material/Tooltip"
 
 interface EventDataGridColumns {
   id: string
@@ -70,9 +71,17 @@ export default function Dashboard() {
       renderCell: (params) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (params.row.isHidden) {
-          return <VisibilityOffIcon color={"disabled"} />
+          return (
+            <Tooltip title={t("EventAdmin.Hidden")}>
+              <VisibilityOffIcon color={"disabled"} />
+            </Tooltip>
+          )
         } else {
-          return <VisibilityIcon color={"action"} />
+          return (
+            <Tooltip title={t("EventAdmin.Public")}>
+              <VisibilityIcon color={"action"} />
+            </Tooltip>
+          )
         }
       },
     },
