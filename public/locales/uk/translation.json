@@ -1,1 +1,207 @@
-{}
+{
+    "Loading": "Завантаження",
+    "Search": {
+        "Search": "Пошук",
+        "ClearSearch": "Очистити пошук"
+    },
+    "GeneralErrorFallback": {
+        "title": "Сталася неочікувана помилка",
+        "msg": "Спробуйте оновити сторінку. Якщо помилка не зникає, спробуйте ще раз пізніше."
+    },
+    "ForbiddenAccess": "Заборонено доступ",
+    "ThisFunctionalityNotImplementedMsg": "Цю функцію ще не реалізовано.",
+    "ExperimentalFeatureMsg": "Експериментальна функція",
+    "Menu": "Меню",
+    "Dates": "Дати",
+    "Event": "Подія",
+    "Events": "Події",
+    "Stages": "Етапи",
+    "Location": "Розташування",
+    "Organizer": "Організатор",
+    "Name": "Ім'я",
+    "Edit": "Редагувати",
+    "Success": "Успіх",
+    "Cancel": "Скасувати",
+    "Delete": "Видалити",
+    "Save": "Зберегти",
+    "Settings": "Налаштування",
+    "EmailAddress": "Адреса електронної пошти",
+    "Password": "Пароль",
+    "GoBack": "Повернутися назад",
+    "This action cannot be undone": "Цю дію не можна скасувати.",
+    "Copied to the clipboard": "Скопійовано в буфер обміну.",
+    "Copy": "Копіювати",
+    "Organizers": "Інформація про організатора",
+    "AboutUs": {
+        "AboutUs": "Про нас",
+        "VersionMessage": "Ми активно розробляємося. Ви використовуєте версію "
+    },
+    "Home": {
+        "Home": "Дім"
+    },
+    "Results": {
+        "shortClass": "Клас",
+        "Class": "Клас",
+        "Classes": "Класи",
+        "Start": "Початок",
+        "Finish": "Фініш",
+        "SiCard": "Картка SI"
+    },
+    "Sign in": {
+        "Sign in": "Увійти",
+        "Logout": "Вийти",
+        "ForgotPassword": "Забули пароль?",
+        "NoAccount": "Немає облікового запису? Зареєструватися",
+        "RememberMe": "Запам'ятай мене"
+    },
+    "EventAdmin": {
+        "EventData": "Інформація про подію",
+        "EventName": "Назва події",
+        "StartDate": "Дата початку",
+        "FinishDate": "Дата завершення",
+        "Organizer": "Організатор",
+        "Website": "Вебсайт заходу",
+        "InvalidURLMsg": "Недійсна URL-адреса",
+        "Location": "Розташування",
+        "Public": "Громадськість",
+        "Hidden": "Прихований",
+        "Save": "Зберегти",
+        "Country": "Країна",
+        "Scopes": {
+            "Scope": "Сфера застосування",
+            "International": "Міжнародний",
+            "National": "Національний",
+            "RegionalHigh": "Федеральний",
+            "RegionalLow": "Регіональний",
+            "Local": "Місцевий",
+            "Club": "Клуб"
+        },
+        "Stages": {
+            "NewStage": "Нова сцена",
+            "GoToStage": "Вийти на сцену",
+            "DeleteStage": {
+                "MenuText": "Видалити",
+                "DialogTitle": "Ви хочете видалити цей етап?",
+                "DialogBody": "Етап та всі його результати будуть видалені. Цю дію не можна скасувати."
+            },
+            "Stats": {
+                "MenuText": "Статистика",
+                "DialogTitle": "Див. статистику етапів",
+                "DialogBody": "Буде відображена статистика етапів.",
+                "DialogConfirm": "OK"
+            },
+            "WipeOutRunners": {
+                "MenuText": "Скинути",
+                "DialogTitle": "Ви хочете скинути цей етап?",
+                "DialogBody": "Це видалить усі результати або час початку, завантажені на цей етап. Після цього ви зможете завантажити їх знову. Ця опція використовується для виправлення помилок у завантажених даних.",
+                "DialogConfirm": "Скинути"
+            },
+            "StagesTypes": {
+                "StageType": "Тип",
+                "FootO": "Foot-O / MTB-O'",
+                "Relay": "Реле",
+                "Rogaine": "Рогейн",
+                "TrailO": "Трейл-О",
+                "Totals": "Рейтинг / Підсумки",
+                "Raid": "Рейд",
+                "MassStart": "Масовий старт",
+                "ChaseStart": "Початок переслідування"
+            }
+        },
+        "EventSecurityTokens": "Секретний ключ для клієнта на робочому столі",
+        "EventSecurityTokensExpireDate": "Термін дії закінчується",
+        "Do you want to renew the security key?": "Ви хочете поновити ключ безпеки?",
+        "RenewEventTokenMsg": "Якщо ви поновите ключ безпеки, старий буде анульовано. Тому ніхто, хто має старий ключ, не зможе завантажити результати на цю подію.",
+        "Renew": "Поновити",
+        "EventId": "Ідентифікатор події",
+        "DangerArea": "Небезпечна Зона",
+        "DeleteEvent": "Видалити подію",
+        "Do you want to delete this event?": "Ви хочете видалити цю подію?",
+        "Renew security keys": "Згенерувати новий ключ безпеки",
+        "Create security keys": "Створіть ключ безпеки"
+    },
+    "Language": {
+        "Language": "Мова",
+        "Spanish": "Іспанська",
+        "English": "Англійська",
+        "French": "Французька"
+    },
+    "Dashboard": {
+        "Dashboard": "Інформаційна панель",
+        "YourEvents": "Ваші події",
+        "StartDate": "Дата початку",
+        "FinishDate": "Дата завершення",
+        "Name": "Назва події"
+    },
+    "EventList": {
+        "LiveToday": "Живи сьогодні",
+        "NoLiveEventsToday": "Сьогодні немає подій",
+        "FutureEvents": "Майбутні події",
+        "PastEvents": "Минулі події"
+    },
+    "StageHeader": {
+        "StartTime": "Час початку",
+        "Results": "Результати",
+        "Splits": "Розкол",
+        "ScorePoints": "Очки",
+        "RelayLegs": "Ноги"
+    },
+    "ResultsStage": {
+        "Refresh": "Оновити",
+        "ChooseClass": "Будь ласка, оберіть клас",
+        "NoData": "На жаль, дані недоступні",
+        "NoStartTime": "-",
+        "NotStarted": "-",
+        "Class": "Клас",
+        "Classes": "Класи",
+        "Position": "Позиція",
+        "Name": "Ім'я",
+        "Club": "Клуб",
+        "Clubs": "Клуби",
+        "NoClubMsg": "Без клубу",
+        "StartTime": "Початок",
+        "RaceTime": "Час",
+        "FinishTime": "Фініш",
+        "Times": "Час",
+        "Points": "Очки:",
+        "BonusPoints": "Бонус_",
+        "PenaltyPoints": "Штраф:",
+        "VirtualTicket": {
+            "FinishControl": "Кінець",
+            "Control": "Ctrl",
+            "StartHour": "Час початку:",
+            "FinishHour": "Час завершення:",
+            "RaceTime": "Час:",
+            "Partial": "Спліт",
+            "Cumulative": "Сукупний",
+            "NoDownloadMsg": "Немає зчитування чіпа"
+        },
+        "statusCodes": {
+            "nc": "NC",
+            "ok": "ok",
+            "dns": "DNS",
+            "dnf": "DNF",
+            "mp": "MP",
+            "disqualified": "DSQ",
+            "ot": "OT"
+        },
+        "SplitsTable": {
+            "NoRunnersWithSplits": "Жоден бігун не завантажив свій чіп",
+            "PartialTimes": "Часткові",
+            "CumulativeTimes": "Сукупний",
+            "OnlyForClasses": "Таблиця розбиття доступна лише у поданні на основі класів."
+        },
+        "PointsTable": {
+            "OnlyForClasses": "Перегляд балів доступний лише в режимі перегляду на основі класів."
+        },
+        "WrongFileUploaded": {
+            "Title": "Результати без розривів!",
+            "Msg": "Хронометрист завантажив остаточні результати без проміжків часу. Ці файли не слід завантажувати, оскільки вони можуть призвести до відображення відсутніх або неправильних даних. Більше інформації про те, як завантажити результати до нашого сервісу, можна знайти на сторінці <2>Організатори</2>."
+        }
+    },
+    "404Page": {
+        "Header": "Загубилися в лісі?",
+        "Message": "Нам не вдалося знайти сторінку, яку ви шукали.",
+        "ButtonMessage": "Початковий трикутник"
+    }
+}
