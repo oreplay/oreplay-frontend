@@ -22,9 +22,11 @@ const LanguageDropdown = () => {
   }
 
   const languages = [
-    { code: "es", flag: "🇪🇸", name: t("Language.Spanish") },
-    { code: "en", flag: "🇬🇧", name: t("Language.English") },
-    { code: "fr", flag: "🇫🇷", name: t("Language.French") },
+    { code: "es", flag: "🇪🇸", name: "Español" },
+    { code: "en", flag: "🇬🇧", name: "English" },
+    { code: "fr", flag: "🇫🇷", name: "Français" },
+    { code: "uk", flag: "🇺🇦", name: "українська" },
+    { code: "zh", flag: "🇨🇳", name: "简体中文" },
   ]
 
   return (
