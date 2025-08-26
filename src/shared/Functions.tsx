@@ -70,14 +70,22 @@ export function parseTimeBehind(seconds: number | string): string {
 }
 
 /**
- * Format a score to display as integer without decimals
+ * Format a score for display - rounds only when no decimal places exist
  *
  * @param score The score value (number or null)
- * @returns Formatted score as integer string, or empty string if null/undefined
+ * @returns Formatted score string: rounds integers for clean display, preserves decimals, or empty string if null/undefined
  */
 export function formatScoreAsInteger(score: number | null | undefined): string {
   if (score === null || score === undefined) {
     return ""
   }
-  return Math.round(score).toString()
+
+  // Check if the score has decimal places
+  if (score % 1 === 0) {
+    // No decimal places - round for clean integer display
+    return Math.round(score).toString()
+  } else {
+    // Has decimal places - display as-is
+    return score.toString()
+  }
 }
