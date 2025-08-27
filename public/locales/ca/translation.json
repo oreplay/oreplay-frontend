@@ -115,7 +115,10 @@
     "Country": "País"
   },
   "Language": {
-    "Language": "Idioma"
+    "Language": "Idioma",
+    "Spanish": "Español",
+    "English": "English",
+    "French": "Français"
   },
   "Dashboard": {
     "Dashboard": "Panell de control",
