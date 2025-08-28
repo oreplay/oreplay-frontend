@@ -1,207 +1,207 @@
 {
-  "404Page":{
-    "ButtonMessage":"Triangle de sortida",
-    "Header":"Perdut pel bosc?",
-    "Message":"No hem pogut trobar la pàgina que estaves buscant."
+  "404Page": {
+    "ButtonMessage": "Triangle de sortida",
+    "Header": "Perdut pel bosc?",
+    "Message": "No hem pogut trobar la pàgina que estaves buscant."
   },
-  "AboutUs":{
-    "AboutUs":"Sobre nosaltres",
-    "VersionMessage":"Estem en desenvolupament actiu. Estàs fent servir la versió "
+  "AboutUs": {
+    "AboutUs": "Sobre nosaltres",
+    "VersionMessage": "Estem en desenvolupament actiu. Estàs fent servir la versió "
   },
-  "Cancel":"Cancel·lar",
-  "Copied to the clipboard":"Copiat al portaretalls.",
-  "Copy":"Copiar",
-  "Dashboard":{
-    "Dashboard":"Panell de control",
-    "FinishDate":"Data fi",
-    "Name":"Nom de l'event",
-    "StartDate":"Data inici",
-    "YourEvents":"Els teus events"
+  "Cancel": "Cancel·lar",
+  "Copied to the clipboard": "Copiat al portaretalls.",
+  "Copy": "Copiar",
+  "Dashboard": {
+    "Dashboard": "Panell de control",
+    "FinishDate": "Data fi",
+    "Name": "Nom de l'event",
+    "StartDate": "Data inici",
+    "YourEvents": "Els teus events"
   },
-  "Dates":"Dates",
-  "Delete":"Esborrar",
-  "Edit":"Editar",
-  "EmailAddress":"Correu electrònic",
-  "Event":"Event",
-  "EventAdmin":{
-    "Country":"País",
-    "Create security keys":"Crear una clau de seguretat",
-    "DangerArea":"Zona de perill",
-    "DeleteEvent":"Eliminar event",
-    "Do you want to delete this event?":"Vols eliminar l'event?",
-    "Do you want to renew the security key?":"Vols renovar la clau de seguretat?",
-    "EventData":"Informació de l'event",
-    "EventId":"ID de l'event",
-    "EventName":"Nom de l'event",
-    "EventSecurityTokens":"Clau de seguretat per al client d'escriptori",
-    "EventSecurityTokensExpireDate":"Expira el",
-    "FinishDate":"Data de fi",
-    "Hidden":"Privat",
-    "InvalidURLMsg":"URL invàlida",
-    "Location":"Ubicació",
-    "Organizer":"Organitzador",
-    "Public":"Públic",
-    "Renew":"Renovar",
-    "Renew security keys":"Generar una clau de seguretat nova",
-    "RenewEventTokenMsg":"Si renoves la clau de seguretat, l'antiga serà invàlida. Ningú amb la clau de seguretat antiga podrà pujar resultats a aquest event.",
-    "Save":"Guardar",
-    "Scopes":{
-      "Club":"Club",
-      "International":"Internacional",
-      "Local":"Local",
-      "National":"Nacional",
-      "RegionalHigh":"Autonòmic",
-      "RegionalLow":"Provincial",
-      "Scope":"Àmbit"
+  "Dates": "Dates",
+  "Delete": "Esborrar",
+  "Edit": "Editar",
+  "EmailAddress": "Correu electrònic",
+  "Event": "Event",
+  "EventAdmin": {
+    "Country": "País",
+    "Create security keys": "Crear una clau de seguretat",
+    "DangerArea": "Zona de perill",
+    "DeleteEvent": "Eliminar event",
+    "Do you want to delete this event?": "Vols eliminar l'event?",
+    "Do you want to renew the security key?": "Vols renovar la clau de seguretat?",
+    "EventData": "Informació de l'event",
+    "EventId": "ID de l'event",
+    "EventName": "Nom de l'event",
+    "EventSecurityTokens": "Clau de seguretat per al client d'escriptori",
+    "EventSecurityTokensExpireDate": "Expira el",
+    "FinishDate": "Data de fi",
+    "Hidden": "Privat",
+    "InvalidURLMsg": "URL invàlida",
+    "Location": "Ubicació",
+    "Organizer": "Organitzador",
+    "Public": "Públic",
+    "Renew": "Renovar",
+    "Renew security keys": "Generar una clau de seguretat nova",
+    "RenewEventTokenMsg": "Si renoves la clau de seguretat, l'antiga serà invàlida. Ningú amb la clau de seguretat antiga podrà pujar resultats a aquest event.",
+    "Save": "Guardar",
+    "Scopes": {
+      "Club": "Club",
+      "International": "Internacional",
+      "Local": "Local",
+      "National": "Nacional",
+      "RegionalHigh": "Autonòmic",
+      "RegionalLow": "Provincial",
+      "Scope": "Àmbit"
     },
-    "Stages":{
-      "DeleteStage":{
-        "DialogBody":"L'etapa i tots els seus resultats s'eliminaran. Aquesta acció no es pot desfer.",
-        "DialogTitle":"Vols eliminar aquesta etapa?",
-        "MenuText":"Eliminar"
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "L'etapa i tots els seus resultats s'eliminaran. Aquesta acció no es pot desfer.",
+        "DialogTitle": "Vols eliminar aquesta etapa?",
+        "MenuText": "Eliminar"
       },
-      "GoToStage":"Veure l'etapa",
-      "NewStage":"Nova etapa",
-      "StagesTypes":{
-        "ChaseStart":"Sortida a la caça",
-        "FootO":"O-Peu / MTB-O",
-        "MassStart":"Sortida en massa",
-        "Raid":"Raid d'aventura",
-        "Relay":"Relleus",
-        "Rogaine":"Rogaine",
-        "StageType":"Tipus",
-        "Totals":"Rànquing / Totals",
-        "TrailO":"Trail-Orientació"
+      "GoToStage": "Veure l'etapa",
+      "NewStage": "Nova etapa",
+      "StagesTypes": {
+        "ChaseStart": "Sortida a la caça",
+        "FootO": "O-Peu / MTB-O",
+        "MassStart": "Sortida en massa",
+        "Raid": "Raid d'aventura",
+        "Relay": "Relleus",
+        "Rogaine": "Rogaine",
+        "StageType": "Tipus",
+        "Totals": "Rànquing / Totals",
+        "TrailO": "Trail-Orientació"
       },
-      "Stats":{
-        "DialogBody":"Es mostraran estadístiques de l'etapa.",
-        "DialogConfirm":"OK",
-        "DialogTitle":"Veure estadístiques de l'etapa",
-        "MenuText":"Estadístiques"
+      "Stats": {
+        "DialogBody": "Es mostraran estadístiques de l'etapa.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "Veure estadístiques de l'etapa",
+        "MenuText": "Estadístiques"
       },
-      "WipeOutRunners":{
-        "DialogBody":"S'eliminaran tots els resultats i hores de sortida pujats a aquesta etapa. Després, pots tornar-los a pujar. Aquesta opció s'utilitza per a corregir errors en les dades pujades.",
-        "DialogConfirm":"Restablir",
-        "DialogTitle":"Vols restablir aquesta etapa?",
-        "MenuText":"Restablir"
+      "WipeOutRunners": {
+        "DialogBody": "S'eliminaran tots els resultats i hores de sortida pujats a aquesta etapa. Després, pots tornar-los a pujar. Aquesta opció s'utilitza per a corregir errors en les dades pujades.",
+        "DialogConfirm": "Restablir",
+        "DialogTitle": "Vols restablir aquesta etapa?",
+        "MenuText": "Restablir"
       }
     },
-    "StartDate":"Data d'inici",
-    "Website":"Web de l'event"
+    "StartDate": "Data d'inici",
+    "Website": "Web de l'event"
   },
-  "EventList":{
-    "FutureEvents":"Events futurs",
-    "LiveToday":"En viu avui",
-    "NoLiveEventsToday":"No hi ha events avui",
-    "PastEvents":"Events passats"
+  "EventList": {
+    "FutureEvents": "Events futurs",
+    "LiveToday": "En viu avui",
+    "NoLiveEventsToday": "No hi ha events avui",
+    "PastEvents": "Events passats"
   },
-  "Events":"Events",
-  "ExperimentalFeatureMsg":"Funcionalitat experimental",
-  "ForbiddenAccess":"Accés denegat",
-  "GeneralErrorFallback":{
-    "msg":"Intenta refrescar la pàgina. Si l'error persisteix, intenti-ho de nou més tard.",
-    "title":"Ha ocorregut un error inesperat"
+  "Events": "Events",
+  "ExperimentalFeatureMsg": "Funcionalitat experimental",
+  "ForbiddenAccess": "Accés denegat",
+  "GeneralErrorFallback": {
+    "msg": "Intenta refrescar la pàgina. Si l'error persisteix, intenti-ho de nou més tard.",
+    "title": "Ha ocorregut un error inesperat"
   },
-  "GoBack":"Tornar enrere",
-  "Home":{
-    "Home":"Inici"
+  "GoBack": "Tornar enrere",
+  "Home": {
+    "Home": "Inici"
   },
-  "Language":{
-    "English":"English",
-    "French":"Français",
-    "Language":"Idioma",
-    "Spanish":"Español"
+  "Language": {
+    "English": "English",
+    "French": "Français",
+    "Language": "Idioma",
+    "Spanish": "Español"
   },
-  "Loading":"Carregant",
-  "Location":"Ubicació",
-  "Menu":"Menú",
-  "Name":"Nom",
-  "Organizer":"Organitzador",
-  "Organizers":"Organitzadors",
-  "Password":"Contrassenya",
-  "Results":{
-    "Class":"Categoria",
-    "Classes":"Categories",
-    "Finish":"Meta",
-    "SiCard":"Xip",
-    "Start":"Sortida",
-    "shortClass":"Categoria"
+  "Loading": "Carregant.",
+  "Location": "Ubicació",
+  "Menu": "Menú",
+  "Name": "Nom",
+  "Organizer": "Organitzador",
+  "Organizers": "Organitzadors",
+  "Password": "Contrassenya",
+  "Results": {
+    "Class": "Categoria",
+    "Classes": "Categories",
+    "Finish": "Meta",
+    "SiCard": "Xip",
+    "Start": "Sortida",
+    "shortClass": "Categoria"
   },
-  "ResultsStage":{
-    "BonusPoints":"Bonificació",
-    "ChooseClass":"Si us plau, seleccioni una categoria",
-    "Class":"Categoria",
-    "Classes":"Categories",
-    "Club":"Club",
-    "Clubs":"Clubs",
-    "FinishTime":"Final",
-    "Name":"Nom",
-    "NoClubMsg":"Sense club",
-    "NoData":"Ho sentim, no hi ha dades",
-    "NoStartTime":"-",
-    "NotStarted":"-",
-    "PenaltyPoints":"Penalització:",
-    "Points":"Punts:",
-    "PointsTable":{
-      "OnlyForClasses":"El visualitzador de punts només està disponible per a resultats per categories."
+  "ResultsStage": {
+    "BonusPoints": "Bonificació",
+    "ChooseClass": "Si us plau, seleccioni una categoria",
+    "Class": "Categoria",
+    "Classes": "Categories",
+    "Club": "Club",
+    "Clubs": "Clubs",
+    "FinishTime": "Final",
+    "Name": "Nom",
+    "NoClubMsg": "Sense club",
+    "NoData": "Ho sentim, no hi ha dades",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "PenaltyPoints": "Penalització:",
+    "Points": "Punts:",
+    "PointsTable": {
+      "OnlyForClasses": "El visualitzador de punts només està disponible per a resultats per categories."
     },
-    "Position":"Posició",
-    "RaceTime":"Temps",
-    "Refresh":"Refrescar",
-    "SplitsTable":{
-      "CumulativeTimes":"Acumulats",
-      "NoRunnersWithSplits":"Cap corredor ha descarregat el seu xip",
-      "OnlyForClasses":"La taula de parcials només està disponible per a resultats per categories.",
-      "PartialTimes":"Parcials"
+    "Position": "Posició",
+    "RaceTime": "Temps",
+    "Refresh": "Refrescar",
+    "SplitsTable": {
+      "CumulativeTimes": "Acumulats",
+      "NoRunnersWithSplits": "Cap corredor ha descarregat el seu xip",
+      "OnlyForClasses": "La taula de parcials només està disponible per a resultats per categories.",
+      "PartialTimes": "Parcials"
     },
-    "StartTime":"Sortida",
-    "Times":"Temps",
-    "VirtualTicket":{
-      "Control":"Fita",
-      "Cumulative":"Acumulat",
-      "FinishControl":"Meta",
-      "FinishHour":"Hora de meta:",
-      "NoDownloadMsg":"No hi ha lectura de xip",
-      "Partial":"Parcial",
-      "RaceTime":"Temps:",
-      "StartHour":"Hora de sortida:"
+    "StartTime": "Sortida",
+    "Times": "Temps",
+    "VirtualTicket": {
+      "Control": "Fita",
+      "Cumulative": "Acumulat",
+      "FinishControl": "Meta",
+      "FinishHour": "Hora de meta:",
+      "NoDownloadMsg": "No hi ha lectura de xip",
+      "Partial": "Parcial",
+      "RaceTime": "Temps:",
+      "StartHour": "Hora de sortida:"
     },
-    "WrongFileUploaded":{
-      "Msg":"El cronometrador ha pujat els resultats finals sense parcials. Aquests arxius no s'haurien de pujar i poden causar dades incorrectes o faltants. Pots trobar més informació sobre com pujar resultats al nostre servei a la pàgina d'<2>Organitzadors</2>.",
-      "Title":"Resultats Sense Parcials!"
+    "WrongFileUploaded": {
+      "Msg": "El cronometrador ha pujat els resultats finals sense parcials. Aquests arxius no s'haurien de pujar i poden causar dades incorrectes o faltants. Pots trobar més informació sobre com pujar resultats al nostre servei a la pàgina d'<2>Organitzadors</2>.",
+      "Title": "Resultats Sense Parcials!"
     },
-    "statusCodes":{
-      "disqualified":"Desq",
-      "dnf":"Aban",
-      "dns":"NS",
-      "mp":"MP",
-      "nc":"NC",
-      "ok":"ok",
-      "ot":"FT"
+    "statusCodes": {
+      "disqualified": "Desq",
+      "dnf": "Aban",
+      "dns": "NS",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "FT"
     }
   },
-  "Save":"Guardar",
-  "Search":{
-    "ClearSearch":"Esborrar cerca",
-    "Search":"Cerca"
+  "Save": "Guardar",
+  "Search": {
+    "ClearSearch": "Esborrar cerca",
+    "Search": "Cerca"
   },
-  "Settings":"Configuració",
-  "Sign in":{
-    "ForgotPassword":"Has oblidat la contrassenya?",
-    "Logout":"Tancar sessió",
-    "NoAccount":"No tens compte? Registra't",
-    "RememberMe":"Recordar-me",
-    "Sign in":"Iniciar sessió"
+  "Settings": "Configuració",
+  "Sign in": {
+    "ForgotPassword": "Has oblidat la contrassenya?",
+    "Logout": "Tancar sessió",
+    "NoAccount": "No tens compte? Registra't",
+    "RememberMe": "Recordar-me",
+    "Sign in": "Iniciar sessió"
   },
-  "StageHeader":{
-    "RelayLegs":"Posta",
-    "Results":"Resultats",
-    "ScorePoints":"Punts",
-    "Splits":"Parcials",
-    "StartTime":"Hora de Sortida"
+  "StageHeader": {
+    "RelayLegs": "Posta",
+    "Results": "Resultats",
+    "ScorePoints": "Punts",
+    "Splits": "Parcials",
+    "StartTime": "Hora de Sortida"
   },
-  "Stages":"Etapes",
-  "Success":"Èxit",
-  "This action cannot be undone":"Aquesta acció no es pot desfer.",
-  "ThisFunctionalityNotImplementedMsg":"Aquesta funcionalitat encara no està disponible."
+  "Stages": "Etapes",
+  "Success": "Èxit",
+  "This action cannot be undone": "Aquesta acció no es pot desfer.",
+  "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible."
 }
