@@ -3,30 +3,30 @@
     "ButtonMessage": "",
     "Header": "",
     "Message": ""
-      },
-      "AboutUs": {
-      "AboutUs": "",
-      "VersionMessage": ""
-      },
-      "Cancel": "",
-      "Copied to the clipboard": "",
-    "Copy": "",
-    "Dashboard": {
-      "Dashboard": "",
-      "FinishDate": "",
-      "Name": "",
-      "StartDate": "",
-      "YourEvents": ""
-      },
-      "Dates": "",
-      "Delete": "",
-    "Edit": "",
-    "EmailAddress": "",
-    "Event": "",
-    "EventAdmin": {
+  },
+  "AboutUs": {
+    "AboutUs": "",
+    "VersionMessage": ""
+  },
+  "Cancel": "",
+  "Copied to the clipboard": "",
+  "Copy": "",
+  "Dashboard": {
+    "Dashboard": "",
+    "FinishDate": "",
+    "Name": "",
+    "StartDate": "",
+    "YourEvents": ""
+  },
+  "Dates": "",
+  "Delete": "",
+  "Edit": "",
+  "EmailAddress": "",
+  "Event": "",
+  "EventAdmin": {
     "Country": "",
-      "Create security keys": "",
-      "DangerArea": "",
+    "Create security keys": "",
+    "DangerArea": "",
     "DeleteEvent": "",
     "Do you want to delete this event?": "",
     "Do you want to renew the security key?": "",
@@ -34,171 +34,171 @@
     "EventId": "",
     "EventName": "",
     "EventSecurityTokens": "",
-      "EventSecurityTokensExpireDate": "",
+    "EventSecurityTokensExpireDate": "",
     "FinishDate": "",
     "Hidden": "",
-      "InvalidURLMsg": "",
-      "Location": "",
-      "Organizer": "",
-      "Public": "",
+    "InvalidURLMsg": "",
+    "Location": "",
+    "Organizer": "",
+    "Public": "",
     "Renew": "",
     "Renew security keys": "",
     "RenewEventTokenMsg": "",
     "Save": "",
     "Scopes": {
-    "Club": "",
-    "International": "",
-    "Local": "",
-    "National": "",
-    "RegionalHigh": "",
-  "RegionalLow": "",
-  "Scope": ""
+      "Club": "",
+      "International": "",
+      "Local": "",
+      "National": "",
+      "RegionalHigh": "",
+      "RegionalLow": "",
+      "Scope": ""
     },
     "Stages": {
-    "DeleteStage": {
-    "DialogBody": "",
-    "DialogTitle": "",
-  "MenuText": ""
-  },
-  "GoToStage": "",
-    "NewStage": "",
+      "DeleteStage": {
+        "DialogBody": "",
+        "DialogTitle": "",
+        "MenuText": ""
+      },
+      "GoToStage": "",
+      "NewStage": "",
       "StagesTypes": {
         "ChaseStart": "",
         "FootO": "",
         "MassStart": "",
         "Raid": "",
-      "Relay": "",
-      "Rogaine": "",
+        "Relay": "",
+        "Rogaine": "",
         "StageType": "",
         "Totals": "",
         "TrailO": ""
-        },
+      },
       "Stats": {
-      "DialogBody": "",
+        "DialogBody": "",
         "DialogConfirm": "",
         "DialogTitle": "",
         "MenuText": ""
-        },
-        "WipeOutRunners": {
+      },
+      "WipeOutRunners": {
         "DialogBody": "",
         "DialogConfirm": "",
         "DialogTitle": "",
         "MenuText": ""
       }
-      },
-        "StartDate": "",
-        "Website": ""
-        },
-      "EventList": {
-      "FutureEvents": "",
-      "LiveToday": "",
+    },
+    "StartDate": "",
+    "Website": ""
+  },
+  "EventList": {
+    "FutureEvents": "",
+    "LiveToday": "",
     "NoLiveEventsToday": "",
     "PastEvents": ""
-      },
-      "Events": "",
-      "ExperimentalFeatureMsg": "",
-      "ForbiddenAccess": "",
-      "GeneralErrorFallback": {
-      "msg": "",
-      "title": ""
-    },
-    "GoBack": "",
-    "Home": {
+  },
+  "Events": "",
+  "ExperimentalFeatureMsg": "",
+  "ForbiddenAccess": "",
+  "GeneralErrorFallback": {
+    "msg": "",
+    "title": ""
+  },
+  "GoBack": "",
+  "Home": {
     "Home": ""
-    },
-    "Language": {
+  },
+  "Language": {
     "English": "",
     "French": "",
     "Language": "",
     "Spanish": ""
-    },
-    "Loading": "",
-    "Location": "",
-    "Menu": "",
-    "Name": "",
-    "Organizer": "",
-    "Organizers": "",
-    "Password": "",
-    "Results": {
+  },
+  "Loading": "",
+  "Location": "",
+  "Menu": "",
+  "Name": "",
+  "Organizer": "",
+  "Organizers": "",
+  "Password": "",
+  "Results": {
     "Class": "",
     "Classes": "",
     "Finish": "Ziel",
     "SiCard": "",
     "Start": "Start",
-  "shortClass": ""
+    "shortClass": ""
   },
-    "ResultsStage": {
+  "ResultsStage": {
     "BonusPoints": "",
     "ChooseClass": "",
     "Class": "",
-  "Classes": "",
-  "Club": "",
+    "Classes": "",
+    "Club": "",
     "Clubs": "",
     "FinishTime": "",
     "Name": "",
     "NoClubMsg": "",
     "NoData": "",
     "NoStartTime": "",
-  "NotStarted": "",
-  "PenaltyPoints": "",
-  "Points": "",
+    "NotStarted": "",
+    "PenaltyPoints": "",
+    "Points": "",
     "PointsTable": {
-    "OnlyForClasses": ""
+      "OnlyForClasses": ""
     },
     "Position": "",
     "RaceTime": "",
-  "Refresh": "",
-  "SplitsTable": {
-  "CumulativeTimes": "",
-  "NoRunnersWithSplits": "",
-    "OnlyForClasses": "",
-    "PartialTimes": ""
-  },
-  "StartTime": "",
+    "Refresh": "",
+    "SplitsTable": {
+      "CumulativeTimes": "",
+      "NoRunnersWithSplits": "",
+      "OnlyForClasses": "",
+      "PartialTimes": ""
+    },
+    "StartTime": "",
     "Times": "",
     "VirtualTicket": {
-    "Control": "",
-    "Cumulative": "",
-    "FinishControl": "",
-  "FinishHour": "",
-  "NoDownloadMsg": "",
-    "Partial": "",
-    "RaceTime": "",
-    "StartHour": ""
+      "Control": "",
+      "Cumulative": "",
+      "FinishControl": "",
+      "FinishHour": "",
+      "NoDownloadMsg": "",
+      "Partial": "",
+      "RaceTime": "",
+      "StartHour": ""
     },
-  "WrongFileUploaded": {
-  "Msg": "",
-  "Title": ""
-  },
-  "statusCodes": {
-  "disqualified": "",
-  "dnf": "",
-  "dns": "",
-    "mp": "",
-    "nc": "",
-  "ok": "",
-  "ot": ""
+    "WrongFileUploaded": {
+      "Msg": "",
+      "Title": ""
+    },
+    "statusCodes": {
+      "disqualified": "",
+      "dnf": "",
+      "dns": "",
+      "mp": "",
+      "nc": "",
+      "ok": "",
+      "ot": ""
     }
-    },
+  },
   "Save": "",
   "Search": {
     "ClearSearch": "",
-  "Search": ""
+    "Search": ""
   },
   "Settings": "",
-    "Sign in": {
+  "Sign in": {
     "ForgotPassword": "",
     "Logout": "",
-  "NoAccount": "",
-  "RememberMe": "",
-  "Sign in": ""
+    "NoAccount": "",
+    "RememberMe": "",
+    "Sign in": ""
   },
   "StageHeader": {
-  "RelayLegs": "",
-  "Results": "",
-  "ScorePoints": "",
-  "Splits": "",
-  "StartTime": ""
+    "RelayLegs": "",
+    "Results": "",
+    "ScorePoints": "",
+    "Splits": "",
+    "StartTime": ""
   },
   "Stages": "",
   "Success": "",
