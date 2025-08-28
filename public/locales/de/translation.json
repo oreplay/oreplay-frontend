@@ -2,84 +2,84 @@
   "404Page": {
     "ButtonMessage": "",
     "Header": "",
-    "Message":""
+    "Message": ""
       },
-      "AboutUs":{
+      "AboutUs": {
       "AboutUs": "",
-      "VersionMessage":""
+      "VersionMessage": ""
       },
       "Cancel": "",
-      "Copied to the clipboard":"",
-    "Copy":"",
+      "Copied to the clipboard": "",
+    "Copy": "",
     "Dashboard": {
       "Dashboard": "",
       "FinishDate": "",
       "Name": "",
       "StartDate": "",
-      "YourEvents":""
+      "YourEvents": ""
       },
       "Dates": "",
-      "Delete":"",
-    "Edit":"",
+      "Delete": "",
+    "Edit": "",
     "EmailAddress": "",
     "Event": "",
-    "EventAdmin":{
-    "Country":"",
+    "EventAdmin": {
+    "Country": "",
       "Create security keys": "",
-      "DangerArea":"",
-    "DeleteEvent":"",
+      "DangerArea": "",
+    "DeleteEvent": "",
     "Do you want to delete this event?": "",
     "Do you want to renew the security key?": "",
     "EventData": "",
     "EventId": "",
     "EventName": "",
-    "EventSecurityTokens":"",
-      "EventSecurityTokensExpireDate":"",
-    "FinishDate":"",
-    "Hidden":"",
+    "EventSecurityTokens": "",
+      "EventSecurityTokensExpireDate": "",
+    "FinishDate": "",
+    "Hidden": "",
       "InvalidURLMsg": "",
       "Location": "",
       "Organizer": "",
-      "Public":"",
-    "Renew":"",
+      "Public": "",
+    "Renew": "",
     "Renew security keys": "",
     "RenewEventTokenMsg": "",
     "Save": "",
-    "Scopes":{
+    "Scopes": {
     "Club": "",
     "International": "",
     "Local": "",
     "National": "",
-    "RegionalHigh":"",
-  "RegionalLow":"",
-  "Scope":""
+    "RegionalHigh": "",
+  "RegionalLow": "",
+  "Scope": ""
     },
-    "Stages":{
-    "DeleteStage":{
+    "Stages": {
+    "DeleteStage": {
     "DialogBody": "",
-    "DialogTitle":"",
-  "MenuText":""
+    "DialogTitle": "",
+  "MenuText": ""
   },
-  "GoToStage":"",
-    "NewStage":"",
+  "GoToStage": "",
+    "NewStage": "",
       "StagesTypes": {
         "ChaseStart": "",
         "FootO": "",
         "MassStart": "",
-        "Raid":"",
-      "Relay":"",
-      "Rogaine":"",
+        "Raid": "",
+      "Relay": "",
+      "Rogaine": "",
         "StageType": "",
         "Totals": "",
-        "TrailO":""
+        "TrailO": ""
         },
-      "Stats":{
-      "DialogBody":"",
+      "Stats": {
+      "DialogBody": "",
         "DialogConfirm": "",
         "DialogTitle": "",
-        "MenuText":""
+        "MenuText": ""
         },
-        "WipeOutRunners":{
+        "WipeOutRunners": {
         "DialogBody": "",
         "DialogConfirm": "",
         "DialogTitle": "",
@@ -87,30 +87,30 @@
       }
       },
         "StartDate": "",
-        "Website":""
+        "Website": ""
         },
-      "EventList":{
+      "EventList": {
       "FutureEvents": "",
-      "LiveToday":"",
-    "NoLiveEventsToday":"",
-    "PastEvents":""
+      "LiveToday": "",
+    "NoLiveEventsToday": "",
+    "PastEvents": ""
       },
       "Events": "",
       "ExperimentalFeatureMsg": "",
       "ForbiddenAccess": "",
-      "GeneralErrorFallback":{
+      "GeneralErrorFallback": {
       "msg": "",
       "title": ""
     },
     "GoBack": "",
-    "Home":{
-    "Home":""
+    "Home": {
+    "Home": ""
     },
-    "Language":{
+    "Language": {
     "English": "",
     "French": "",
     "Language": "",
-    "Spanish":""
+    "Spanish": ""
     },
     "Loading": "",
     "Location": "",
@@ -119,89 +119,89 @@
     "Organizer": "",
     "Organizers": "",
     "Password": "",
-    "Results":{
+    "Results": {
     "Class": "",
     "Classes": "",
-    "Finish": "",
+    "Finish": "Ziel",
     "SiCard": "",
-    "Start":"Start",
-  "shortClass":""
+    "Start": "Start",
+  "shortClass": ""
   },
-    "ResultsStage":{
+    "ResultsStage": {
     "BonusPoints": "",
     "ChooseClass": "",
-    "Class":"",
-  "Classes":"",
-  "Club":"",
+    "Class": "",
+  "Classes": "",
+  "Club": "",
     "Clubs": "",
     "FinishTime": "",
     "Name": "",
     "NoClubMsg": "",
     "NoData": "",
-    "NoStartTime":"",
-  "NotStarted":"",
+    "NoStartTime": "",
+  "NotStarted": "",
   "PenaltyPoints": "",
-  "Points":"",
-    "PointsTable":{
-    "OnlyForClasses":""
+  "Points": "",
+    "PointsTable": {
+    "OnlyForClasses": ""
     },
     "Position": "",
-    "RaceTime":"",
-  "Refresh":"",
-  "SplitsTable":{
+    "RaceTime": "",
+  "Refresh": "",
+  "SplitsTable": {
   "CumulativeTimes": "",
-  "NoRunnersWithSplits":"",
+  "NoRunnersWithSplits": "",
     "OnlyForClasses": "",
     "PartialTimes": ""
   },
-  "StartTime":"",
+  "StartTime": "",
     "Times": "",
-    "VirtualTicket":{
+    "VirtualTicket": {
     "Control": "",
     "Cumulative": "",
-    "FinishControl":"",
-  "FinishHour":"",
-  "NoDownloadMsg":"",
+    "FinishControl": "",
+  "FinishHour": "",
+  "NoDownloadMsg": "",
     "Partial": "",
     "RaceTime": "",
-    "StartHour":""
+    "StartHour": ""
     },
-  "WrongFileUploaded":{
+  "WrongFileUploaded": {
   "Msg": "",
-  "Title":""
+  "Title": ""
   },
-  "statusCodes":{
+  "statusCodes": {
   "disqualified": "",
   "dnf": "",
-  "dns":"",
+  "dns": "",
     "mp": "",
-    "nc":"",
-  "ok":"",
-  "ot":""
+    "nc": "",
+  "ok": "",
+  "ot": ""
     }
     },
-  "Save":"",
+  "Save": "",
   "Search": {
-    "ClearSearch":"",
-  "Search":""
+    "ClearSearch": "",
+  "Search": ""
   },
-  "Settings":"",
-    "Sign in":{
+  "Settings": "",
+    "Sign in": {
     "ForgotPassword": "",
-    "Logout":"",
-  "NoAccount":"",
+    "Logout": "",
+  "NoAccount": "",
   "RememberMe": "",
-  "Sign in":""
+  "Sign in": ""
   },
-  "StageHeader":{
+  "StageHeader": {
   "RelayLegs": "",
   "Results": "",
   "ScorePoints": "",
   "Splits": "",
-  "StartTime":""
+  "StartTime": ""
   },
   "Stages": "",
   "Success": "",
   "This action cannot be undone": "",
-  "ThisFunctionalityNotImplementedMsg":""
+  "ThisFunctionalityNotImplementedMsg": ""
 }
