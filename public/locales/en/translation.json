@@ -1,49 +1,49 @@
 {
-    "Loading": "Loading",
-    "Search": {
-        "Search": "Search",
-        "ClearSearch": "Clear search"
-    },
-    "GeneralErrorFallback": {
-        "title": "An unexpected error happened",
-        "msg": "Try refreshing the page. If the error persist, please try again later."
-    },
-    "ForbiddenAccess": "Forbidden access",
-    "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
-    "ExperimentalFeatureMsg": "Experimental feature",
-    "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
+  "Loading": "Loading",
+  "Search": {
+    "Search": "Search",
+    "ClearSearch": "Clear search"
+  },
+  "GeneralErrorFallback": {
+    "title": "An unexpected error happened",
+    "msg": "Try refreshing the page. If the error persist, please try again later."
+  },
+  "ForbiddenAccess": "Forbidden access",
+  "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
+  "ExperimentalFeatureMsg": "Experimental feature",
+  "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Menu": "Menu",
-    "Dates": "Dates",
-    "Event": "Event",
-    "Events": "Events",
-    "Stages": "Stages",
-    "Location": "Location",
-    "Organizer": "Organizer",
-    "Name": "Name",
-    "Edit": "Edit",
-    "Success": "Success",
-    "Cancel": "Cancel",
-    "Delete": "Delete",
-    "Save": "Save",
-    "Settings": "Settings",
-    "EmailAddress": "Email Address",
-    "Password": "Password",
-    "GoBack": "Go back",
-    "This action cannot be undone": "This action cannot be undone.",
-    "Copied to the clipboard": "Copied to the clipboard.",
-    "Copy": "Copy",
-    "Organizers": "Organizer's info",
-    "AboutUs": {
-        "AboutUs": "About us",
-        "VersionMessage": "We are under active development. You are using version "
-    },
-    "Results": {
-        "shortClass": "Class",
-        "Class": "Class",
-        "Classes": "Classes",
-        "Start": "Start",
-        "Finish": "Finish",
-        "SiCard": "SI Card",
+  "Dates": "Dates",
+  "Event": "Event",
+  "Events": "Events",
+  "Stages": "Stages",
+  "Location": "Location",
+  "Organizer": "Organizer",
+  "Name": "Name",
+  "Edit": "Edit",
+  "Success": "Success",
+  "Cancel": "Cancel",
+  "Delete": "Delete",
+  "Save": "Save",
+  "Settings": "Settings",
+  "EmailAddress": "Email Address",
+  "Password": "Password",
+  "GoBack": "Go back",
+  "This action cannot be undone": "This action cannot be undone.",
+  "Copied to the clipboard": "Copied to the clipboard.",
+  "Copy": "Copy",
+  "Organizers": "Organizer's info",
+  "AboutUs": {
+    "AboutUs": "About us",
+    "VersionMessage": "We are under active development. You are using version "
+  },
+  "Results": {
+    "shortClass": "Class",
+    "Class": "Class",
+    "Classes": "Classes",
+    "Start": "Start",
+    "Finish": "Finish",
+    "SiCard": "SI Card",
     "Position": "Position",
     "Name": "Name",
     "Time": "Time"
@@ -177,74 +177,74 @@
   "Language": {
     "Language": "Language",
     "Spanish": "Spanish",
-        "English": "English",
-        "French": "Français"
-    },
-    "Dashboard": {
-        "Dashboard": "Dashboard",
-        "YourEvents": "Your events",
-        "StartDate": "Start date",
-        "FinishDate": "Finish date",
-        "Name": "Event's name"
-    },
-    "EventList": {
-        "LiveToday": "Live today",
-        "NoLiveEventsToday": "There aren't events today",
-        "FutureEvents": "Future events",
-        "PastEvents": "Past events"
-    },
-    "StageHeader": {
-        "StartTime": "Start time",
-        "Results": "Results",
-        "Splits": "Splits",
-        "Graphs": "Graphs",
+    "English": "English",
+    "French": "Français"
+  },
+  "Dashboard": {
+    "Dashboard": "Dashboard",
+    "YourEvents": "Your events",
+    "StartDate": "Start date",
+    "FinishDate": "Finish date",
+    "Name": "Event's name"
+  },
+  "EventList": {
+    "LiveToday": "Live today",
+    "NoLiveEventsToday": "There aren't events today",
+    "FutureEvents": "Future events",
+    "PastEvents": "Past events"
+  },
+  "StageHeader": {
+    "StartTime": "Start time",
+    "Results": "Results",
+    "Splits": "Splits",
+    "Graphs": "Graphs",
     "ScorePoints": "Points",
-        "RelayLegs": "Legs"
+    "RelayLegs": "Legs"
+  },
+  "ResultsStage": {
+    "Refresh": "Refresh",
+    "ChooseClass": "Please, choose a class",
+    "NoData": "Sorry, no data is available",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "Class": "Class",
+    "Classes": "Classes",
+    "Position": "Position",
+    "Name": "Name",
+    "Club": "Club",
+    "Clubs": "Clubs",
+    "NoClubMsg": "No club",
+    "StartTime": "Start",
+    "RaceTime": "Time",
+    "FinishTime": "Finish",
+    "Times": "Time",
+    "Points": "Points:",
+    "BonusPoints": "Bonus_",
+    "PenaltyPoints": "Penalty:",
+    "VirtualTicket": {
+      "FinishControl": "Fin",
+      "Control": "Ctrl",
+      "StartHour": "Start time:",
+      "FinishHour": "Finish time:",
+      "RaceTime": "Time:",
+      "Partial": "Split",
+      "Cumulative": "Cumulative",
+      "NoDownloadMsg": "No chip reading"
     },
-    "ResultsStage": {
-        "Refresh": "Refresh",
-        "ChooseClass": "Please, choose a class",
-        "NoData": "Sorry, no data is available",
-        "NoStartTime": "-",
-        "NotStarted": "-",
-        "Class": "Class",
-        "Classes": "Classes",
-        "Position": "Position",
-        "Name": "Name",
-        "Club": "Club",
-        "Clubs": "Clubs",
-        "NoClubMsg": "No club",
-        "StartTime": "Start",
-        "RaceTime": "Time",
-        "FinishTime": "Finish",
-        "Times": "Time",
-        "Points": "Points:",
-        "BonusPoints": "Bonus_",
-        "PenaltyPoints": "Penalty:",
-        "VirtualTicket": {
-            "FinishControl": "Fin",
-            "Control": "Ctrl",
-            "StartHour": "Start time:",
-            "FinishHour": "Finish time:",
-            "RaceTime": "Time:",
-            "Partial": "Split",
-            "Cumulative": "Cumulative",
-            "NoDownloadMsg": "No chip reading"
-        },
-        "statusCodes": {
-            "nc": "NC",
-            "ok": "ok",
-            "dns": "DNS",
-            "dnf": "DNF",
-            "mp": "MP",
-            "dsq": "DSQ",
-            "ot": "OT"
-        },
-        "SplitsTable": {
-            "NoRunnersWithSplits": "No runner has downloaded their chip",
-            "PartialTimes": "Partials",
-            "CumulativeTimes": "Cumulative",
-            "OnlyForClasses": "Splits table is accessible only in the class-based view.",
+    "statusCodes": {
+      "nc": "NC",
+      "ok": "ok",
+      "dns": "DNS",
+      "dnf": "DNF",
+      "mp": "MP",
+      "dsq": "DSQ",
+      "ot": "OT"
+    },
+    "SplitsTable": {
+      "NoRunnersWithSplits": "No runner has downloaded their chip",
+      "PartialTimes": "Partials",
+      "CumulativeTimes": "Cumulative",
+      "OnlyForClasses": "Splits table is accessible only in the class-based view.",
       "CleanTime": "Without Error"
     },
     "PointsTable": {
@@ -265,10 +265,10 @@
     "radios": "Radios"
   },
   "404Page": {
-        "Header": "Lost in the woods?",
-        "Message": "We couldn't find the page you were looking for.",
-        "ButtonMessage": "Start triangle"
-    },
+    "Header": "Lost in the woods?",
+    "Message": "We couldn't find the page you were looking for.",
+    "ButtonMessage": "Start triangle"
+  },
   "sidebar": {
     "legalNotice": "Legal Notice",
     "privacyPolicy": "Privacy Policy",
