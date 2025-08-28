@@ -1,14 +1,14 @@
 {
-  "Loading": "Chargement...",
+  "Loading": "Chargement",
   "Search": {
-    "Search": "Rechercher",
+    "Search": "Recherche",
     "ClearSearch": "Effacer la recherche"
   },
   "GeneralErrorFallback": {
     "title": "Une erreur inattendue s'est produite",
-    "msg": "Essayez de rafraîchir la page. Si l'erreur persiste, réessayez plus tard."
+    "msg": "Essayez d'actualiser la page. Si l'erreur persiste, veuillez réessayer ultérieurement."
   },
-  "ForbiddenAccess": "Accès refusé",
+  "ForbiddenAccess": "Accès interdit",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
   "Menu": "Menu",
@@ -20,12 +20,12 @@
   "Organizer": "Organisateur",
   "Name": "Nom",
   "Edit": "Modifier",
-  "Success": "Succès!",
+  "Success": "Succès",
   "Cancel": "Annuler",
   "Delete": "Supprimer",
   "Save": "Sauvegarder",
-  "Settings": "Paramètres",
-  "EmailAddress": "adresse e-mail",
+  "Settings": "Configuration",
+  "EmailAddress": "Adresse e-mail",
   "Password": "Mot de passe",
   "GoBack": "Retourner",
   "This action cannot be undone": "Cette action ne peut pas être annulée.",
@@ -36,16 +36,13 @@
     "AboutUs": "À propos",
     "VersionMessage": "Nous sommes en développement actif. Vous utilisez la version "
   },
-  "Home": {
-    "Home": "Accueil"
-  },
   "Results": {
-    "shortClass": "Cat.",
+    "shortClass": "Catégorie",
     "Class": "Catégorie",
     "Classes": "Catégories",
     "Start": "Départ",
     "Finish": "Arrivée",
-    "SiCard": "Puce",
+    "SiCard": "SiCard",
     "Position": "Position",
     "Name": "Nom",
     "Time": "Temps"
@@ -103,7 +100,7 @@
     "RememberMe": "Souviens-toi de moi"
   },
   "EventAdmin": {
-    "EventData": "Informations sur l'événement",
+    "EventData": "Information sur l'événement",
     "EventName": "Nom de l'événement",
     "StartDate": "Date de début",
     "FinishDate": "Date de fin",
@@ -119,8 +116,8 @@
       "Scope": "Portée",
       "International": "Internationale",
       "National": "Nationale",
-      "RegionalHigh": "Régionale",
-      "RegionalLow": "Provinciale",
+      "RegionalHigh": "Fédéral",
+      "RegionalLow": "Régional",
       "Local": "Locale",
       "Club": "Club"
     },
@@ -134,8 +131,8 @@
       },
       "Stats": {
         "MenuText": "Statistiques",
-        "DialogTitle": "Voir les statistiques de l'étape",
-        "DialogBody": "Les statistiques de l'étape seront affichées.",
+        "DialogTitle": "Voir les statistiques des étapes",
+        "DialogBody": "Les statistiques des étapes seront affichées.",
         "DialogConfirm": "OK"
       },
       "WipeOutRunners": {
@@ -150,13 +147,13 @@
         "Relay": "Relais",
         "Rogaine": "Rogaine",
         "TrailO": "CO de précision",
+        "Totals": "Ranking / Totals",
         "Raid": "Raid",
-        "Totals": "Classements / Totaux",
         "MassStart": "Départ en masse",
         "ChaseStart": "Poursuite"
       }
     },
-    "EventSecurityTokens": "Clé de sécurité pour le client de bureau",
+    "EventSecurityTokens": "Clé secrète pour le client de bureau",
     "EventSecurityTokensExpireDate": "Expire le",
     "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
@@ -193,15 +190,15 @@
     "Splits": "Intermédiaires",
     "Graphs": "Graphiques",
     "ScorePoints": "Points",
-    "RelayLegs": "Relais"
+    "RelayLegs": "Postes"
   },
   "ResultsStage": {
     "Refresh": "Rafraîchir",
-    "ChooseClass": "S'il vous plaît, choisissez une classe",
+    "ChooseClass": "S'il vous plaît, choisissez une catégorie",
     "NoData": "Désolé, aucune donnée n'est disponible",
     "NoStartTime": "-",
     "NotStarted": "-",
-    "Class": "Class",
+    "Class": "Catégorie",
     "Classes": "Catégories",
     "Position": "Position",
     "Name": "Nom",
@@ -213,17 +210,17 @@
     "RaceTime": "Temps",
     "Times": "Temps",
     "Points": "Points:",
-    "BonusPoints": "Bonus:",
+    "BonusPoints": "Bonus_",
     "PenaltyPoints": "Pénalité:",
     "VirtualTicket": {
       "FinishControl": "Fin",
       "Control": "Contrôle",
       "StartHour": "Heure de départ:",
-      "FinishHour": "Heure d'arrivée:",
+      "FinishHour": "Heure de Arrivée:",
       "RaceTime": "Temps:",
       "Partial": "Intermédiaire",
       "Cumulative": "Cumulatif",
-      "NoDownloadMsg": "Aucune lecture de la puce"
+      "NoDownloadMsg": "Pas de lecture de puce"
     },
     "statusCodes": {
       "nc": "NC",
@@ -232,21 +229,21 @@
       "dnf": "DNF",
       "mp": "MP",
       "dsq": "DSQ",
-      "ot": "H.Délai"
+      "ot": "Hors délai"
     },
     "SplitsTable": {
       "NoRunnersWithSplits": "Aucun coureur n'a téléchargé sa puce",
-      "PartialTimes": "Temps intermédiaires",
-      "CumulativeTimes": "Temps cumulés",
-      "OnlyForClasses": "Le tableau des intermédiaires est uniquement disponible pour les résultats par catégorie.",
+      "PartialTimes": "Intermédiaire",
+      "CumulativeTimes": "Cumulatif",
+      "OnlyForClasses": "Le tableau des intermédiaires n'est accessible que dans la vue des catégories.",
       "CleanTime": "Sans erreurs"
     },
     "PointsTable": {
-      "OnlyForClasses": "Le tableau des points est uniquement disponible pour les résultats par catégorie"
+      "OnlyForClasses": "La vue Points est accessible uniquement dans la vue des catégories."
     },
     "WrongFileUploaded": {
-      "Title": "Résultats sans intermédiaires !",
-      "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés car ils peuvent entraîner des données manquantes ou incorrectes. Vous pouvez trouver plus d'informations sur la manière de télécharger les résultats sur notre page <2>Organisateurs</2>."
+      "Title": "Résultats sans partiels!",
+      "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés, car ils pourraient entraîner l'affichage de données manquantes ou incorrectes. Pour plus d'informations sur la manière de télécharger les résultats sur notre service, consultez la page <2>Organisateurs</2>."
     }
   },
   "view": {
@@ -257,7 +254,7 @@
     "radios": "Radios"
   },
   "404Page": {
-    "Header": "Perdu dans les bois ?",
+    "Header": "Perdu dans les bois?",
     "Message": "Nous n'avons pas pu trouver la page que vous recherchiez.",
     "ButtonMessage": "Triangle de départ"
   },
