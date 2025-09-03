@@ -103,6 +103,20 @@
     "title": "Сталася неочікувана помилка"
   },
   "GoBack": "Повернутися назад",
+  "Graphs": {
+    "BarChart": "Гістограма",
+    "Finish": "Фініш",
+    "LineChart": "Лінійна діаграма",
+    "PositionChart": "Діаграма позицій",
+    "RunnerCount": "бігун_{{count}}",
+    "RunnerSelection": "Вибір бігуна",
+    "SelectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграми",
+    "SelectedCount": "Вибрано {{count}} з {{total}}",
+    "Start": "Початок",
+    "Threshold": "Поріг",
+    "ThresholdWithPercent": "Поріг ({{percent}}%)",
+    "TimeLossAnalysis": "Аналіз втрат часу"
+  },
   "Home": {
     "Home": "Дім"
   },
@@ -119,12 +133,16 @@
   "Organizer": "Організатор",
   "Organizers": "Інформація про організатора",
   "Password": "Пароль",
+  "RadiosExperimentalMsg": "Під час використання онлайн-елементів керування функції, пов’язані з поділом, є експериментальними.",
   "Results": {
     "Class": "Клас",
     "Classes": "Класи",
     "Finish": "Фініш",
+    "Name": "Ім'я",
+    "Position": "Позиція",
     "SiCard": "Картка SI",
     "Start": "Початок",
+    "Time": "Час",
     "shortClass": "Клас"
   },
   "ResultsStage": {
@@ -149,6 +167,7 @@
     "RaceTime": "Час",
     "Refresh": "Оновити",
     "SplitsTable": {
+      "CleanTime": "Без помилок",
       "CumulativeTimes": "Сукупний",
       "NoRunnersWithSplits": "Жоден бігун не завантажив свій чіп",
       "OnlyForClasses": "Таблиця розбиття доступна лише у поданні на основі класів.",
@@ -174,6 +193,7 @@
       "disqualified": "DSQ",
       "dnf": "DNF",
       "dns": "DNS",
+      "dsq": "DSQ",
       "mp": "MP",
       "nc": "NC",
       "ok": "ok",
@@ -193,7 +213,13 @@
     "RememberMe": "Запам'ятай мене",
     "Sign in": "Увійти"
   },
+  "Splits": {
+    "Radios": "Радіоприймачі",
+    "Threshold": "Поріг",
+    "TimeLossAnalysis": "Аналіз втрат часу"
+  },
   "StageHeader": {
+    "Graphs": "Графіки",
     "RelayLegs": "Ноги",
     "Results": "Результати",
     "ScorePoints": "Очки",
@@ -203,5 +229,58 @@
   "Stages": "Етапи",
   "Success": "Успіх",
   "This action cannot be undone": "Цю дію не можна скасувати.",
-  "ThisFunctionalityNotImplementedMsg": "Цю функцію ще не реалізовано."
+  "ThisFunctionalityNotImplementedMsg": "Цю функцію ще не реалізовано.",
+  "authenticationError": "Сталася помилка",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Безпомилковий час",
+      "errorTime": "Втрачений час (помилка)"
+    },
+    "selectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграму",
+    "timeAxisLabel": "Час (секунди)"
+  },
+  "lineChart": {
+    "noData": "Виберіть бігунів, щоб переглянути лінійну діаграму",
+    "tooltip": {
+      "behindBestPartial": "Час позаду найкращого розриву",
+      "behindLeader": "Час відставання від лідера"
+    },
+    "xAxisLabel": "Елементи керування"
+  },
+  "positionChart": {
+    "caption": "* Позиція 1 зверху (найкраща), вищі цифри нижче (гірша)",
+    "noData": "Виберіть бігунів, щоб переглянути еволюцію позицій",
+    "tooltip": {
+      "control": "Контроль",
+      "position": "Позиція",
+      "splitTime": "Роздільний час",
+      "timeLost": "Час позаду найкращого розриву: {{timeLost}}"
+    },
+    "xAxisLabel": "Елементи керування",
+    "yAxisLabel": "Позиція"
+  },
+  "sidebar": {
+    "backendVersion": "Бекенд",
+    "cookiePolicy": "Політика щодо файлів cookie",
+    "frontendVersion": "Фронтенд",
+    "frontendVersionWithVersion": "Фронтенд v{{version}}",
+    "legalNotice": "Юридичне повідомлення",
+    "loading": "Завантаження...",
+    "privacyPolicy": "Політика конфіденційності"
+  },
+  "tooltip": {
+    "efficiency": "Ефективність",
+    "errorFreeTime": "Безпомилковий час",
+    "errorTime": "Втрачений час (помилка)",
+    "totalDisplayedTime": "Загальний відображений час"
+  },
+  "view": {
+    "accumulated": "Накопичено",
+    "barChart": "Втрата часу",
+    "lineChart": "Позаду лідера",
+    "positionChart": "Позиція",
+    "radios": "Радіоприймачі",
+    "splits": "Розкол",
+    "timeLoss": "Таблиця втрат часу"
+  }
 }
