@@ -2,6 +2,8 @@ import { useState } from "react"
 import { Menu, MenuItem, ListItemIcon, ListItemText, Box, Button } from "@mui/material"
 import LanguageIcon from "@mui/icons-material/Language"
 import { useTranslation } from "react-i18next"
+import CataloniaFlag from "../../../../assets/flags/Catalonia.tsx"
+import GaliciaFlag from "../../../../assets/flags/Galicia.tsx"
 
 const LanguageDropdown = () => {
   const { t, i18n } = useTranslation()
@@ -25,6 +27,8 @@ const LanguageDropdown = () => {
     { code: "es", flag: "🇪🇸", name: "Español" },
     { code: "en", flag: "🇬🇧", name: "English" },
     { code: "fr", flag: "🇫🇷", name: "Français" },
+    { code: "ca", flag: <CataloniaFlag fontSize={"inherit"} />, name: "Català" },
+    { code: "gl", flag: <GaliciaFlag fontSize={"inherit"} />, name: "Galego" },
     { code: "uk", flag: "🇺🇦", name: "українська" },
     { code: "zh", flag: "🇨🇳", name: "简体中文" },
   ]
