@@ -58,8 +58,10 @@
     "Threshold": "Threshold",
     "ThresholdWithPercent": "Threshold ({{percent}}%)",
     "RunnerSelection": "Runner Selection",
-    "SelectedCount": "{{count}} of {{total}} selected",
-    "SelectRunnersMessage": "Select runners to view charts",
+    "SelectedCount_zero": "{{count}} of {{total}} selected",
+    "SelectedCount_one": "{{count}} of {{total}} selected",
+    "SelectedCount_other": "{{count}} of {{total}} selected",
+    "SelectRunnersMessage": "Select runners to view charts"
   },
   "tooltip": {
     "totalDisplayedTime": "Total displayed time",

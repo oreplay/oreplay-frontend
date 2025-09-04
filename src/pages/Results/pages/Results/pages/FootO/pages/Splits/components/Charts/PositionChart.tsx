@@ -59,8 +59,8 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
       ...runner,
       data: runner.data.map((point, idx) => {
         let xLabel: string
-        if (idx === 0) xLabel = "START"
-        else if (idx === n - 1) xLabel = "FINISH"
+        if (idx === 0) xLabel = t("Graphs.Start")
+        else if (idx === n - 1) xLabel = t("Graphs.Finish")
         else xLabel = idx.toString()
 
         return {

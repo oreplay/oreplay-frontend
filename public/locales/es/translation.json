@@ -58,7 +58,9 @@
     "Threshold": "Umbral",
     "ThresholdWithPercent": "Umbral ({{percent}}%)",
     "RunnerSelection": "Selección de Corredores",
-    "SelectedCount": "{{count}} de {{total}} seleccionados",
+    "SelectedCount_zero": "{{count}} de {{total}} seleccionados",
+    "SelectedCount_one": "{{count}} de {{total}} seleccionado",
+    "SelectedCount_other": "{{count}} of {{total}} seleccionados",
     "SelectRunnersMessage": "Selecciona corredores para ver gráficos"
   },
   "positionChart": {
@@ -218,7 +220,7 @@
     "VirtualTicket": {
       "FinishControl": "Meta",
       "Control": "Ctrl",
-      "StartHour": "H.salida:",
+      "StartHour": "H. salida:",
       "FinishHour": "Hora de meta:",
       "RaceTime": "Tiempo:",
       "Partial": "Parcial",
