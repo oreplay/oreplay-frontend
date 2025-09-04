@@ -60,7 +60,6 @@
     "RunnerSelection": "Runner Selection",
     "SelectedCount": "{{count}} of {{total}} selected",
     "SelectRunnersMessage": "Select runners to view charts",
-    "RunnerCount": "runner_{{count}}"
   },
   "tooltip": {
     "totalDisplayedTime": "Total displayed time",
@@ -95,11 +94,6 @@
       "timeLost": "Time behind best split: {{timeLost}}"
     },
     "caption": "* Position 1 at the top (best), higher numbers lower (worse)"
-  },
-  "Splits": {
-    "Radios": "Radios",
-    "TimeLossAnalysis": "Time Loss Analysis",
-    "Threshold": "Threshold"
   },
   "Sign in": {
     "Sign in": "Sign in",
