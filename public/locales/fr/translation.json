@@ -109,7 +109,7 @@
     "PositionChart": "Évolution des Positions",
     "RunnerSelection": "Sélection des Coureurs",
     "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques",
-    "SelectedCount": "{{count}} sur {{total}} sélectionnés",
+    "SelectedCount_one": "{{count}} sur {{total}} sélectionnés",
     "Threshold": "Seuil",
     "ThresholdWithPercent": "Seuil ({{percent}}%)",
     "TimeLossAnalysis": "Analyse des Pertes de Temps"
