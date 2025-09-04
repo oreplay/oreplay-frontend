@@ -103,6 +103,20 @@
     "title": "Ocorreu un erro inesperado"
   },
   "GoBack": "Atrás",
+  "Graphs": {
+    "BarChart": "Gráfico de barras",
+    "Finish": "Meta",
+    "LineChart": "Gráfico de liñas",
+    "PositionChart": "Gráfico de postos",
+    "RunnerSelection": "Selección de corredor",
+    "SelectRunnersMessage": "Selecciona corredores para ver as gráficas",
+    "SelectedCount_one": "{{count}} de {{total}} selecccionado",
+    "SelectedCount_other": "{{count}} de {{total}} selecccionados",
+    "Start": "Saída",
+    "Threshold": "Limiar",
+    "ThresholdWithPercent": "Limiar ({{percent}}%)",
+    "TimeLossAnalysis": "Análise de tempo perdido"
+  },
   "Home": {
     "Home": "Inicio"
   },
@@ -119,12 +133,16 @@
   "Organizer": "Organizador",
   "Organizers": "Info de organizador",
   "Password": "Contrasinal",
+  "RadiosExperimentalMsg": "Cando se usan radiocontrois, as funcións relacionadas cos parciais son experimentais.",
   "Results": {
     "Class": "Categoría",
     "Classes": "Categorías",
     "Finish": "Meta",
+    "Name": "Nome",
+    "Position": "Posto",
     "SiCard": "Tarxeta SI",
     "Start": "Saída",
+    "Time": "Tempo",
     "shortClass": "Categoría"
   },
   "ResultsStage": {
@@ -145,10 +163,11 @@
     "PointsTable": {
       "OnlyForClasses": "A vista de puntos só é accesible na vista de categorías."
     },
-    "Position": "Posición",
+    "Position": "Posto",
     "RaceTime": "Tempo",
     "Refresh": "Refrescar",
     "SplitsTable": {
+      "CleanTime": "Sen erro",
       "CumulativeTimes": "Acumulativo",
       "NoRunnersWithSplits": "Ningún corredor descargou o seu chip",
       "OnlyForClasses": "A táboa de parciais só é accesible na vista de categorías.",
@@ -174,6 +193,7 @@
       "disqualified": "DSQ",
       "dnf": "DNF",
       "dns": "DNS",
+      "dsq": "DSQ",
       "mp": "MP",
       "nc": "NC",
       "ok": "ok",
@@ -194,6 +214,7 @@
     "Sign in": "Iniciar sesión"
   },
   "StageHeader": {
+    "Graphs": "Gráficas",
     "RelayLegs": "Postas",
     "Results": "Resultados",
     "ScorePoints": "Puntos",
@@ -203,5 +224,58 @@
   "Stages": "Etapas",
   "Success": "Éxito",
   "This action cannot be undone": "Esta acción non se pode desfacer.",
-  "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada."
+  "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada.",
+  "authenticationError": "Ocorreu un erro",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Tempo sen erros",
+      "errorTime": "Tempo perdido (erro)"
+    },
+    "selectRunnersMessage": "Selecciona corredores para ver o gráfico",
+    "timeAxisLabel": "Tempo (segundos)"
+  },
+  "lineChart": {
+    "noData": "Selecciona corredores para ver o gráfico de liñas",
+    "tooltip": {
+      "behindBestPartial": "Tempo respecto do mellor parcial",
+      "behindLeader": "Tempo respecto do líder"
+    },
+    "xAxisLabel": "Controis"
+  },
+  "positionChart": {
+    "caption": "* Posto 1 arriba (mellor), números máis altos abaixo (peor)",
+    "noData": "Selecciona corredores para ver a evolución do posto",
+    "tooltip": {
+      "control": "Control",
+      "position": "Posto",
+      "splitTime": "Tempo parcial",
+      "timeLost": "Tempo respecto ao mellor parcial: {{timeLost}}"
+    },
+    "xAxisLabel": "Controis",
+    "yAxisLabel": "Posto"
+  },
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Política de Cookies",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Aviso legal",
+    "loading": "Cargando...",
+    "privacyPolicy": "Política de privacidade"
+  },
+  "tooltip": {
+    "efficiency": "Eficiencia",
+    "errorFreeTime": "Tempo sen erros",
+    "errorTime": "Tempo perdido (erro)",
+    "totalDisplayedTime": "Tempo total mostrado"
+  },
+  "view": {
+    "accumulated": "Acumulados",
+    "barChart": "Tempo perdido",
+    "lineChart": "Detrás do líder",
+    "positionChart": "Posto",
+    "radios": "Radios",
+    "splits": "Parciais",
+    "timeLoss": "Táboa de tempo perdido"
+  }
 }
