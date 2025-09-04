@@ -1,7 +1,7 @@
 {
   "404Page": {
     "ButtonMessage": "Triangle de départ",
-    "Header": "Perdu dans les bois?",
+    "Header": "Perdu dans les bois ?",
     "Message": "Nous n'avons pas pu trouver la page que vous recherchiez."
   },
   "AboutUs": {
@@ -57,7 +57,7 @@
     "Stages": {
       "DeleteStage": {
         "DialogBody": "L'étape et tous ses résultats seront supprimés. Cette action ne peut pas être annulée.",
-        "DialogTitle": "Voulez-vous supprimer cette étape?",
+        "DialogTitle": "Voulez-vous supprimer cette étape ?",
         "MenuText": "Supprimer"
       },
       "GoToStage": "Aller sur l'étape",
@@ -105,11 +105,15 @@
   "GoBack": "Retourner",
   "Graphs": {
     "BarChart": "Graphique en Barres",
+    "Finish": "Arrivée",
     "LineChart": "Graphique Linéaire",
     "PositionChart": "Évolution des Positions",
     "RunnerSelection": "Sélection des Coureurs",
     "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques",
-    "SelectedCount_one": "{{count}} sur {{total}} sélectionnés",
+    "SelectedCount_many": "{{count}} sur {{total}} sélectionnés",
+    "SelectedCount_one": "{{count}} sur {{total}} sélectionné",
+    "SelectedCount_other": "{{count}} sur {{total}} sélectionnés",
+    "Start": "Départ",
     "Threshold": "Seuil",
     "ThresholdWithPercent": "Seuil ({{percent}}%)",
     "TimeLossAnalysis": "Analyse des Pertes de Temps"
@@ -127,6 +131,7 @@
   "Organizer": "Organisateur",
   "Organizers": "Info sur l'organisateur",
   "Password": "Mot de passe",
+  "RadiosExperimentalMsg": "Lors de l'utilisation de radiocontrôles, les fonctionnalités liées aux intermédiaires sont expérimentales.",
   "Results": {
     "Class": "Catégorie",
     "Classes": "Catégories",
@@ -151,8 +156,8 @@
     "NoData": "Désolé, aucune donnée n'est disponible",
     "NoStartTime": "-",
     "NotStarted": "-",
-    "PenaltyPoints": "Pénalité:",
-    "Points": "Points:",
+    "PenaltyPoints": "Pénalité :",
+    "Points": "Points :",
     "PointsTable": {
       "OnlyForClasses": "La vue Points est accessible uniquement dans la vue des catégories."
     },
@@ -164,7 +169,7 @@
       "CumulativeTimes": "Cumulatif",
       "NoRunnersWithSplits": "Aucun coureur n'a téléchargé sa puce",
       "OnlyForClasses": "Le tableau des intermédiaires n'est accessible que dans la vue des catégories.",
-      "PartialTimes": "Intermédiaire"
+      "PartialTimes": "Intermédiaires"
     },
     "StartTime": "Départ",
     "Times": "Temps",
@@ -172,15 +177,15 @@
       "Control": "Contrôle",
       "Cumulative": "Cumulatif",
       "FinishControl": "Fin",
-      "FinishHour": "Heure de Arrivée:",
+      "FinishHour": "Heure de Arrivée :",
       "NoDownloadMsg": "Pas de lecture de puce",
       "Partial": "Intermédiaire",
-      "RaceTime": "Temps:",
-      "StartHour": "Heure de départ:"
+      "RaceTime": "Temps :",
+      "StartHour": "Heure de départ :"
     },
     "WrongFileUploaded": {
       "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés, car ils pourraient entraîner l'affichage de données manquantes ou incorrectes. Pour plus d'informations sur la manière de télécharger les résultats sur notre service, consultez la page <2>Organisateurs</2>.",
-      "Title": "Résultats sans partiels!"
+      "Title": "Résultats sans intermédiaires !"
     },
     "statusCodes": {
       "dnf": "DNF",
@@ -199,7 +204,7 @@
   },
   "Settings": "Configuration",
   "Sign in": {
-    "ForgotPassword": "Mot de passe oublié?",
+    "ForgotPassword": "Mot de passe oublié ?",
     "Logout": "Fermer session",
     "NoAccount": "Vous n'avez pas de compte ? S'inscrire",
     "RememberMe": "Souviens-toi de moi",
@@ -229,7 +234,7 @@
   "lineChart": {
     "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
     "tooltip": {
-      "behindBestPartial": "Temps par rapport au meilleur intermédiaire",
+      "behindBestPartial": "Temps derrière le meilleur intermédiaire",
       "behindLeader": "Temps par rapport au leader"
     },
     "xAxisLabel": "Contrôles"
@@ -241,7 +246,7 @@
       "control": "Contrôle",
       "position": "Position",
       "splitTime": "Temps intermédiaire",
-      "timeLost": "Temps perdu par rapport au meilleur temps: {{timeLost}}"
+      "timeLost": "Temps derrière le meilleur intermédiaire : {{timeLost}}"
     },
     "xAxisLabel": "Contrôles",
     "yAxisLabel": "Position"
@@ -264,8 +269,10 @@
   "view": {
     "accumulated": "Cumulé",
     "barChart": "Pertes de Temps",
+    "lineChart": "Derrière le leader",
     "positionChart": "Position",
     "radios": "Radios",
-    "splits": "Intermédiaires"
+    "splits": "Intermédiaires",
+    "timeLoss": "Tableau des pertes de temps"
   }
 }
