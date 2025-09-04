@@ -1,278 +1,278 @@
 {
-  "Loading": "Loading",
-  "Search": {
-    "Search": "Search",
-    "ClearSearch": "Clear search"
+  "404Page": {
+    "ButtonMessage": "Start triangle",
+    "Header": "Lost in the woods?",
+    "Message": "We couldn't find the page you were looking for."
   },
-  "GeneralErrorFallback": {
-    "title": "An unexpected error happened",
-    "msg": "Try refreshing the page. If the error persist, please try again later."
-  },
-  "ForbiddenAccess": "Forbidden access",
-  "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
-  "ExperimentalFeatureMsg": "Experimental feature",
-  "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
-  "Menu": "Menu",
-  "Dates": "Dates",
-  "Event": "Event",
-  "Events": "Events",
-  "Stages": "Stages",
-  "Location": "Location",
-  "Organizer": "Organizer",
-  "Name": "Name",
-  "Edit": "Edit",
-  "Success": "Success",
-  "Cancel": "Cancel",
-  "Delete": "Delete",
-  "Save": "Save",
-  "Settings": "Settings",
-  "EmailAddress": "Email Address",
-  "Password": "Password",
-  "GoBack": "Go back",
-  "This action cannot be undone": "This action cannot be undone.",
-  "Copied to the clipboard": "Copied to the clipboard.",
-  "Copy": "Copy",
-  "Organizers": "Organizer's info",
   "AboutUs": {
     "AboutUs": "About us",
     "VersionMessage": "We are under active development. You are using version "
   },
-  "Results": {
-    "shortClass": "Class",
-    "Class": "Class",
-    "Classes": "Classes",
-    "Start": "Start",
-    "Finish": "Finish",
-    "SiCard": "SI Card",
-    "Position": "Position",
-    "Name": "Name",
-    "Time": "Time"
+  "Cancel": "Cancel",
+  "Copied to the clipboard": "Copied to the clipboard.",
+  "Copy": "Copy",
+  "Dashboard": {
+    "Dashboard": "Dashboard",
+    "FinishDate": "Finish date",
+    "Name": "Event's name",
+    "StartDate": "Start date",
+    "YourEvents": "Your events"
   },
+  "Dates": "Dates",
+  "Delete": "Delete",
+  "Edit": "Edit",
+  "EmailAddress": "Email Address",
+  "Event": "Event",
+  "EventAdmin": {
+    "Country": "Country",
+    "Create security keys": "Create a security key",
+    "DangerArea": "Danger zone",
+    "DeleteEvent": "Delete Event",
+    "Do you want to delete this event?": "Do you want to delete this event?",
+    "Do you want to renew the security key?": "Do you want to renew the security key?",
+    "EventData": "Event's information",
+    "EventId": "Event's ID",
+    "EventName": "Event's name",
+    "EventSecurityTokens": "Secret key for desktop client",
+    "EventSecurityTokensExpireDate": "Expires on",
+    "FinishDate": "Finish date",
+    "Hidden": "Hidden",
+    "InvalidURLMsg": "Invalid URL",
+    "Location": "Location",
+    "Organizer": "Organizer",
+    "Public": "Public",
+    "Renew": "Renew",
+    "Renew security keys": "Generate a new security key",
+    "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
+    "Save": "Save",
+    "Scopes": {
+      "Club": "Club",
+      "International": "International",
+      "Local": "Local",
+      "National": "National",
+      "RegionalHigh": "Federal",
+      "RegionalLow": "Regional",
+      "Scope": "Scope"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "The stage and all of its results will be deleted. This action cannot be undone.",
+        "DialogTitle": "Do you want to delete this stage?",
+        "MenuText": "Delete"
+      },
+      "GoToStage": "Go to the stage",
+      "NewStage": "New stage",
+      "StagesTypes": {
+        "ChaseStart": "Chase start",
+        "FootO": "Foot-O / MTB-O",
+        "MassStart": "Mass start",
+        "Raid": "Raid",
+        "Relay": "Relay",
+        "Rogaine": "Rogaine",
+        "StageType": "Type",
+        "Totals": "Ranking / Totals",
+        "TrailO": "Trail-O"
+      },
+      "Stats": {
+        "DialogBody": "Stages stats will be displayed.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "See stages stats",
+        "MenuText": "Stats"
+      },
+      "WipeOutRunners": {
+        "DialogBody": "This will delete all of the results or start times uploaded to this stage. Afterwards, you can upload them again. This option is used to correct errors on uploaded data.",
+        "DialogConfirm": "Reset",
+        "DialogTitle": "Do you want to reset this stage?",
+        "MenuText": "Reset"
+      }
+    },
+    "StartDate": "Start date",
+    "Website": "Event's website"
+  },
+  "EventList": {
+    "FutureEvents": "Future events",
+    "LiveToday": "Live today",
+    "NoLiveEventsToday": "There aren't events today",
+    "PastEvents": "Past events"
+  },
+  "Events": "Events",
+  "ExperimentalFeatureMsg": "Experimental feature",
+  "ForbiddenAccess": "Forbidden access",
+  "GeneralErrorFallback": {
+    "msg": "Try refreshing the page. If the error persist, please try again later.",
+    "title": "An unexpected error happened"
+  },
+  "GoBack": "Go back",
   "Graphs": {
-    "Start": "Start",
+    "BarChart": "Bar Chart",
     "Finish": "Finish",
     "LineChart": "Line Chart",
-    "BarChart": "Bar Chart",
     "PositionChart": "Position Chart",
-    "TimeLossAnalysis": "Time Loss Analysis",
-    "Threshold": "Threshold",
-    "ThresholdWithPercent": "Threshold ({{percent}}%)",
     "RunnerSelection": "Runner Selection",
-    "SelectedCount_zero": "{{count}} of {{total}} selected",
+    "SelectRunnersMessage": "Select runners to view charts",
     "SelectedCount_one": "{{count}} of {{total}} selected",
     "SelectedCount_other": "{{count}} of {{total}} selected",
-    "SelectRunnersMessage": "Select runners to view charts"
+    "SelectedCount_zero": "{{count}} of {{total}} selected",
+    "Start": "Start",
+    "Threshold": "Threshold",
+    "ThresholdWithPercent": "Threshold ({{percent}}%)",
+    "TimeLossAnalysis": "Time Loss Analysis"
   },
-  "tooltip": {
-    "totalDisplayedTime": "Total displayed time",
-    "errorFreeTime": "Error-free time",
-    "errorTime": "Lost time (error)",
-    "efficiency": "Efficiency"
+  "Language": {
+    "English": "English",
+    "French": "Français",
+    "Language": "Language",
+    "Spanish": "Spanish"
   },
+  "Loading": "Loading",
+  "Location": "Location",
+  "Menu": "Menu",
+  "Name": "Name",
+  "Organizer": "Organizer",
+  "Organizers": "Organizer's info",
+  "Password": "Password",
+  "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
+  "Results": {
+    "Class": "Class",
+    "Classes": "Classes",
+    "Finish": "Finish",
+    "Name": "Name",
+    "Position": "Position",
+    "SiCard": "SI Card",
+    "Start": "Start",
+    "Time": "Time",
+    "shortClass": "Class"
+  },
+  "ResultsStage": {
+    "BonusPoints": "Bonus_",
+    "ChooseClass": "Please, choose a class",
+    "Class": "Class",
+    "Classes": "Classes",
+    "Club": "Club",
+    "Clubs": "Clubs",
+    "FinishTime": "Finish",
+    "Name": "Name",
+    "NoClubMsg": "No club",
+    "NoData": "Sorry, no data is available",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "PenaltyPoints": "Penalty:",
+    "Points": "Points:",
+    "PointsTable": {
+      "OnlyForClasses": "Points view is accessible only in the class-based view."
+    },
+    "Position": "Position",
+    "RaceTime": "Time",
+    "Refresh": "Refresh",
+    "SplitsTable": {
+      "CleanTime": "Without Error",
+      "CumulativeTimes": "Cumulative",
+      "NoRunnersWithSplits": "No runner has downloaded their chip",
+      "OnlyForClasses": "Splits table is accessible only in the class-based view.",
+      "PartialTimes": "Partials"
+    },
+    "StartTime": "Start",
+    "Times": "Time",
+    "VirtualTicket": {
+      "Control": "Ctrl",
+      "Cumulative": "Cumulative",
+      "FinishControl": "Fin",
+      "FinishHour": "Finish time:",
+      "NoDownloadMsg": "No chip reading",
+      "Partial": "Split",
+      "RaceTime": "Time:",
+      "StartHour": "Start time:"
+    },
+    "WrongFileUploaded": {
+      "Msg": "The timekeeper has uploaded final results without splits. These files should not be uploaded and may cause missing or incorrect data to be displayed. More information on how to upload results to our service can be found on the <2>Organizers</2> page.",
+      "Title": "Results Without Splits!"
+    },
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "OT"
+    }
+  },
+  "Save": "Save",
+  "Search": {
+    "ClearSearch": "Clear search",
+    "Search": "Search"
+  },
+  "Settings": "Settings",
+  "Sign in": {
+    "ForgotPassword": "Forgot password?",
+    "Logout": "Logout",
+    "NoAccount": "Don't have an account? Sign Up",
+    "RememberMe": "Remember me",
+    "Sign in": "Sign in"
+  },
+  "StageHeader": {
+    "Graphs": "Graphs",
+    "RelayLegs": "Legs",
+    "Results": "Results",
+    "ScorePoints": "Points",
+    "Splits": "Splits",
+    "StartTime": "Start time"
+  },
+  "Stages": "Stages",
+  "Success": "Success",
+  "This action cannot be undone": "This action cannot be undone.",
+  "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
+  "authenticationError": "An error happened",
   "chart": {
     "legend": {
       "errorFreeTime": "Error-free time",
       "errorTime": "Lost time (error)"
     },
-    "timeAxisLabel": "Time (seconds)",
-    "selectRunnersMessage": "Select runners to view the chart"
+    "selectRunnersMessage": "Select runners to view the chart",
+    "timeAxisLabel": "Time (seconds)"
   },
   "lineChart": {
     "noData": "Select runners to view the line chart",
-    "xAxisLabel": "Controls",
     "tooltip": {
-      "behindLeader": "Time behind leader",
-      "behindBestPartial": "Time behind best split"
-    }
+      "behindBestPartial": "Time behind best split",
+      "behindLeader": "Time behind leader"
+    },
+    "xAxisLabel": "Controls"
   },
   "positionChart": {
+    "caption": "* Position 1 at the top (best), higher numbers lower (worse)",
     "noData": "Select runners to view position evolution",
-    "xAxisLabel": "Controls",
-    "yAxisLabel": "Position",
     "tooltip": {
       "control": "Control",
       "position": "Position",
       "splitTime": "Split time",
       "timeLost": "Time behind best split: {{timeLost}}"
     },
-    "caption": "* Position 1 at the top (best), higher numbers lower (worse)"
-  },
-  "Sign in": {
-    "Sign in": "Sign in",
-    "Logout": "Logout",
-    "ForgotPassword": "Forgot password?",
-    "NoAccount": "Don't have an account? Sign Up",
-    "RememberMe": "Remember me"
-  },
-  "EventAdmin": {
-    "EventData": "Event's information",
-    "EventName": "Event's name",
-    "StartDate": "Start date",
-    "FinishDate": "Finish date",
-    "Organizer": "Organizer",
-    "Website": "Event's website",
-    "InvalidURLMsg": "Invalid URL",
-    "Location": "Location",
-    "Public": "Public",
-    "Hidden": "Hidden",
-    "Save": "Save",
-    "Country": "Country",
-    "Scopes": {
-      "Scope": "Scope",
-      "International": "International",
-      "National": "National",
-      "RegionalHigh": "Federal",
-      "RegionalLow": "Regional",
-      "Local": "Local",
-      "Club": "Club"
-    },
-    "Stages": {
-      "NewStage": "New stage",
-      "GoToStage": "Go to the stage",
-      "DeleteStage": {
-        "MenuText": "Delete",
-        "DialogTitle": "Do you want to delete this stage?",
-        "DialogBody": "The stage and all of its results will be deleted. This action cannot be undone."
-      },
-      "Stats": {
-        "MenuText": "Stats",
-        "DialogTitle": "See stages stats",
-        "DialogBody": "Stages stats will be displayed.",
-        "DialogConfirm": "OK"
-      },
-      "WipeOutRunners": {
-        "MenuText": "Reset",
-        "DialogTitle": "Do you want to reset this stage?",
-        "DialogBody": "This will delete all of the results or start times uploaded to this stage. Afterwards, you can upload them again. This option is used to correct errors on uploaded data.",
-        "DialogConfirm": "Reset"
-      },
-      "StagesTypes": {
-        "StageType": "Type",
-        "FootO": "Foot-O / MTB-O",
-        "Relay": "Relay",
-        "Rogaine": "Rogaine",
-        "TrailO": "Trail-O",
-        "Totals": "Ranking / Totals",
-        "Raid": "Raid",
-        "MassStart": "Mass start",
-        "ChaseStart": "Chase start"
-      }
-    },
-    "EventSecurityTokens": "Secret key for desktop client",
-    "EventSecurityTokensExpireDate": "Expires on",
-    "Do you want to renew the security key?": "Do you want to renew the security key?",
-    "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
-    "Renew": "Renew",
-    "EventId": "Event's ID",
-    "DangerArea": "Danger zone",
-    "DeleteEvent": "Delete Event",
-    "Do you want to delete this event?": "Do you want to delete this event?",
-    "Renew security keys": "Generate a new security key",
-    "Create security keys": "Create a security key"
-  },
-  "Language": {
-    "Language": "Language",
-    "Spanish": "Spanish",
-    "English": "English",
-    "French": "Français"
-  },
-  "Dashboard": {
-    "Dashboard": "Dashboard",
-    "YourEvents": "Your events",
-    "StartDate": "Start date",
-    "FinishDate": "Finish date",
-    "Name": "Event's name"
-  },
-  "EventList": {
-    "LiveToday": "Live today",
-    "NoLiveEventsToday": "There aren't events today",
-    "FutureEvents": "Future events",
-    "PastEvents": "Past events"
-  },
-  "StageHeader": {
-    "StartTime": "Start time",
-    "Results": "Results",
-    "Splits": "Splits",
-    "Graphs": "Graphs",
-    "ScorePoints": "Points",
-    "RelayLegs": "Legs"
-  },
-  "ResultsStage": {
-    "Refresh": "Refresh",
-    "ChooseClass": "Please, choose a class",
-    "NoData": "Sorry, no data is available",
-    "NoStartTime": "-",
-    "NotStarted": "-",
-    "Class": "Class",
-    "Classes": "Classes",
-    "Position": "Position",
-    "Name": "Name",
-    "Club": "Club",
-    "Clubs": "Clubs",
-    "NoClubMsg": "No club",
-    "StartTime": "Start",
-    "RaceTime": "Time",
-    "FinishTime": "Finish",
-    "Times": "Time",
-    "Points": "Points:",
-    "BonusPoints": "Bonus_",
-    "PenaltyPoints": "Penalty:",
-    "VirtualTicket": {
-      "FinishControl": "Fin",
-      "Control": "Ctrl",
-      "StartHour": "Start time:",
-      "FinishHour": "Finish time:",
-      "RaceTime": "Time:",
-      "Partial": "Split",
-      "Cumulative": "Cumulative",
-      "NoDownloadMsg": "No chip reading"
-    },
-    "statusCodes": {
-      "nc": "NC",
-      "ok": "ok",
-      "dns": "DNS",
-      "dnf": "DNF",
-      "mp": "MP",
-      "dsq": "DSQ",
-      "ot": "OT"
-    },
-    "SplitsTable": {
-      "NoRunnersWithSplits": "No runner has downloaded their chip",
-      "PartialTimes": "Partials",
-      "CumulativeTimes": "Cumulative",
-      "OnlyForClasses": "Splits table is accessible only in the class-based view.",
-      "CleanTime": "Without Error"
-    },
-    "PointsTable": {
-      "OnlyForClasses": "Points view is accessible only in the class-based view."
-    },
-    "WrongFileUploaded": {
-      "Title": "Results Without Splits!",
-      "Msg": "The timekeeper has uploaded final results without splits. These files should not be uploaded and may cause missing or incorrect data to be displayed. More information on how to upload results to our service can be found on the <2>Organizers</2> page."
-    }
-  },
-  "view": {
-    "splits": "Splits",
-    "accumulated": "Accumulated",
-    "timeLoss": "Time Loss Table",
-    "lineChart": "Behind leader",
-    "barChart": "Time Loss",
-    "positionChart": "Position",
-    "radios": "Radios"
-  },
-  "404Page": {
-    "Header": "Lost in the woods?",
-    "Message": "We couldn't find the page you were looking for.",
-    "ButtonMessage": "Start triangle"
+    "xAxisLabel": "Controls",
+    "yAxisLabel": "Position"
   },
   "sidebar": {
-    "legalNotice": "Legal Notice",
-    "privacyPolicy": "Privacy Policy",
+    "backendVersion": "Backend",
     "cookiePolicy": "Cookie Policy",
     "frontendVersion": "Frontend",
     "frontendVersionWithVersion": "Frontend v{{version}}",
-    "backendVersion": "Backend",
-    "loading": "Loading..."
+    "legalNotice": "Legal Notice",
+    "loading": "Loading...",
+    "privacyPolicy": "Privacy Policy"
   },
-  "authenticationError": "An error happened"
+  "tooltip": {
+    "efficiency": "Efficiency",
+    "errorFreeTime": "Error-free time",
+    "errorTime": "Lost time (error)",
+    "totalDisplayedTime": "Total displayed time"
+  },
+  "view": {
+    "accumulated": "Accumulated",
+    "barChart": "Time Loss",
+    "lineChart": "Behind leader",
+    "positionChart": "Position",
+    "radios": "Radios",
+    "splits": "Splits",
+    "timeLoss": "Time Loss Table"
+  }
 }

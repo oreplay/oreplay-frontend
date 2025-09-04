@@ -1,278 +1,278 @@
 {
-  "Loading": "Cargando",
-  "Search": {
-    "Search": "Buscar",
-    "ClearSearch": "Limpiar búsqueda"
+  "404Page": {
+    "ButtonMessage": "Triángulo de salida",
+    "Header": "¿Perdido en el bosque?",
+    "Message": "No hemos podido encontrar la página que estabas buscando."
   },
-  "GeneralErrorFallback": {
-    "title": "Ha ocurrido un error inesperado",
-    "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde."
-  },
-  "ForbiddenAccess": "Acceso denegado",
-  "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
-  "ExperimentalFeatureMsg": "Funcionalidad experimental",
-  "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
-  "Menu": "Menu",
-  "Dates": "Fecha",
-  "Event": "Evento",
-  "Events": "Eventos",
-  "Stages": "Etapas",
-  "Location": "Ubicación",
-  "Organizer": "Organizador",
-  "Name": "Nombre",
-  "Edit": "Editar",
-  "Success": "Éxito",
-  "Cancel": "Cancelar",
-  "Delete": "Borrar",
-  "Save": "Guardar",
-  "Settings": "Ajustes",
-  "EmailAddress": "Correo electrónico",
-  "Password": "Contraseña",
-  "GoBack": "Volver atrás",
-  "This action cannot be undone": "Esta acción no puede deshacerse.",
-  "Copied to the clipboard": "Copiado al portapapeles.",
-  "Copy": "Copiar",
-  "Organizers": "Organizadores",
   "AboutUs": {
     "AboutUs": "Sobre nosotros",
     "VersionMessage": "Estamos en construcción. Estás usando la versión "
   },
-  "Results": {
-    "shortClass": "Categoría",
-    "Class": "Categoría",
-    "Classes": "Categorías",
-    "Start": "Salida",
-    "Finish": "Fin",
-    "SiCard": "Pinza",
-    "Position": "Posición",
-    "Name": "Nombre",
-    "Time": "Tiempo"
+  "Cancel": "Cancelar",
+  "Copied to the clipboard": "Copiado al portapapeles.",
+  "Copy": "Copiar",
+  "Dashboard": {
+    "Dashboard": "Panel de control",
+    "FinishDate": "Fecha fin",
+    "Name": "Nombre del evento",
+    "StartDate": "Fecha inicio",
+    "YourEvents": "Tus eventos"
   },
+  "Dates": "Fecha",
+  "Delete": "Borrar",
+  "Edit": "Editar",
+  "EmailAddress": "Correo electrónico",
+  "Event": "Evento",
+  "EventAdmin": {
+    "Country": "País",
+    "Create security keys": "Crear una clave de seguridad",
+    "DangerArea": "Zona de peligro",
+    "DeleteEvent": "Borrar evento",
+    "Do you want to delete this event?": "¿Desea borrar el evento?",
+    "Do you want to renew the security key?": "¿Desea renovar la clave de seguridad?",
+    "EventData": "Información del evento",
+    "EventId": "ID del evento",
+    "EventName": "Nombre del evento",
+    "EventSecurityTokens": "Clave de seguridad para el cliente de escritorio",
+    "EventSecurityTokensExpireDate": "Expira el",
+    "FinishDate": "Fecha de final",
+    "Hidden": "Privado",
+    "InvalidURLMsg": "URL inválida",
+    "Location": "Ubicación",
+    "Organizer": "Organizador",
+    "Public": "Público",
+    "Renew": "Renovar",
+    "Renew security keys": "Generar una nueva clave de seguridad",
+    "RenewEventTokenMsg": "Si renueva la clave de seguridad la antigua será invalidada. Nadie con la clave de seguridad antigua podrá subir resultados a este evento.",
+    "Save": "Guardar",
+    "Scopes": {
+      "Club": "Club",
+      "International": "Internacional",
+      "Local": "Local",
+      "National": "Nacional",
+      "RegionalHigh": "Autonómico",
+      "RegionalLow": "Provincial",
+      "Scope": "Ámbito"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "La etapa y todos sus resultados se borrarán. Esta acción no puede deshacerse.",
+        "DialogTitle": "Desea borrar esta etapa?",
+        "MenuText": "Borrar"
+      },
+      "GoToStage": "Ver la etapa",
+      "NewStage": "Nueva etapa",
+      "StagesTypes": {
+        "ChaseStart": "Salida a la caza",
+        "FootO": "O-Pie / MTB-O",
+        "MassStart": "Salida en masa",
+        "Raid": "Raid",
+        "Relay": "Relevo",
+        "Rogaine": "Rogaine",
+        "StageType": "Tipo",
+        "Totals": "Ranking / Totales",
+        "TrailO": "Trail-O"
+      },
+      "Stats": {
+        "DialogBody": "Se mostrarán estadísticas de la etapa.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "Ver estadísticas de la etapa",
+        "MenuText": "Estadísticas"
+      },
+      "WipeOutRunners": {
+        "DialogBody": "Se borrarán todos los resultados y horas de salida subidos a esta etapa. Después, puedes volverlos a subir. Esta opción se utiliza para corregir errores en los datos subidos.",
+        "DialogConfirm": "Restablecer",
+        "DialogTitle": "Desea restablecer esta etapa?",
+        "MenuText": "Restablecer"
+      }
+    },
+    "StartDate": "Fecha de comienzo",
+    "Website": "Web del evento"
+  },
+  "EventList": {
+    "FutureEvents": "Eventos futuros",
+    "LiveToday": "En vivo hoy",
+    "NoLiveEventsToday": "No hay eventos hoy",
+    "PastEvents": "Eventos pasados"
+  },
+  "Events": "Eventos",
+  "ExperimentalFeatureMsg": "Funcionalidad experimental",
+  "ForbiddenAccess": "Acceso denegado",
+  "GeneralErrorFallback": {
+    "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde.",
+    "title": "Ha ocurrido un error inesperado"
+  },
+  "GoBack": "Volver atrás",
   "Graphs": {
-    "Start": "Salida",
+    "BarChart": "Gráfico de Barras",
     "Finish": "Meta",
     "LineChart": "Gráfico de Líneas",
-    "BarChart": "Gráfico de Barras",
     "PositionChart": "Evolución de Posición",
-    "TimeLossAnalysis": "Análisis de pérdida de Tiempo",
-    "Threshold": "Umbral",
-    "ThresholdWithPercent": "Umbral ({{percent}}%)",
     "RunnerSelection": "Selección de Corredores",
-    "SelectedCount_zero": "{{count}} de {{total}} seleccionados",
+    "SelectRunnersMessage": "Selecciona corredores para ver gráficos",
     "SelectedCount_one": "{{count}} de {{total}} seleccionado",
     "SelectedCount_other": "{{count}} of {{total}} seleccionados",
-    "SelectRunnersMessage": "Selecciona corredores para ver gráficos"
+    "SelectedCount_zero": "{{count}} de {{total}} seleccionados",
+    "Start": "Salida",
+    "Threshold": "Umbral",
+    "ThresholdWithPercent": "Umbral ({{percent}}%)",
+    "TimeLossAnalysis": "Análisis de pérdida de Tiempo"
+  },
+  "Language": {
+    "English": "English",
+    "French": "Frances",
+    "Language": "Idioma",
+    "Spanish": "Español"
+  },
+  "Loading": "Cargando",
+  "Location": "Ubicación",
+  "Menu": "Menu",
+  "Name": "Nombre",
+  "Organizer": "Organizador",
+  "Organizers": "Organizadores",
+  "Password": "Contraseña",
+  "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
+  "Results": {
+    "Class": "Categoría",
+    "Classes": "Categorías",
+    "Finish": "Fin",
+    "Name": "Nombre",
+    "Position": "Posición",
+    "SiCard": "Pinza",
+    "Start": "Salida",
+    "Time": "Tiempo",
+    "shortClass": "Categoría"
+  },
+  "ResultsStage": {
+    "BonusPoints": "Bonus",
+    "ChooseClass": "Por favor, seleccione una categoría",
+    "Class": "Categoría",
+    "Classes": "Categorías",
+    "Club": "Club",
+    "Clubs": "Clubs",
+    "FinishTime": "Final",
+    "Name": "Nombre",
+    "NoClubMsg": "Sin club",
+    "NoData": "Lo sentimos, no hay datos",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "PenaltyPoints": "Penalización:",
+    "Points": "Puntos:",
+    "PointsTable": {
+      "OnlyForClasses": "El visor de puntos solo está disponible para resultados por categorías."
+    },
+    "Position": "Posición",
+    "RaceTime": "Tiempo",
+    "Refresh": "Refrescar",
+    "SplitsTable": {
+      "CleanTime": "Sin Errores",
+      "CumulativeTimes": "Acumulados",
+      "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
+      "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías.",
+      "PartialTimes": "Parciales"
+    },
+    "StartTime": "Salida",
+    "Times": "Tiempos",
+    "VirtualTicket": {
+      "Control": "Ctrl",
+      "Cumulative": "Acumulado",
+      "FinishControl": "Meta",
+      "FinishHour": "Hora de meta:",
+      "NoDownloadMsg": "No hay lectura del chip",
+      "Partial": "Parcial",
+      "RaceTime": "Tiempo:",
+      "StartHour": "H. salida:"
+    },
+    "WrongFileUploaded": {
+      "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>.",
+      "Title": "¡Resultados Sin Parciales!"
+    },
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "FC"
+    }
+  },
+  "Save": "Guardar",
+  "Search": {
+    "ClearSearch": "Limpiar búsqueda",
+    "Search": "Buscar"
+  },
+  "Settings": "Ajustes",
+  "Sign in": {
+    "ForgotPassword": "¿Olvidaste tu contraseña?",
+    "Logout": "Cerrar sesion",
+    "NoAccount": "¿No tienes cuenta? Regístrate",
+    "RememberMe": "Recordarme",
+    "Sign in": "Iniciar sesión"
+  },
+  "StageHeader": {
+    "Graphs": "Gráficos",
+    "RelayLegs": "Postas",
+    "Results": "Resultados",
+    "ScorePoints": "Puntos",
+    "Splits": "Parciales",
+    "StartTime": "Hora de Salida"
+  },
+  "Stages": "Etapas",
+  "Success": "Éxito",
+  "This action cannot be undone": "Esta acción no puede deshacerse.",
+  "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
+  "authenticationError": "Ha ocurrido un error",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Tiempo sin errores",
+      "errorTime": "Tiempo de error (pérdida)"
+    },
+    "selectRunnersMessage": "Selecciona corredores para ver el gráfico",
+    "timeAxisLabel": "Tiempo (segundos)"
+  },
+  "lineChart": {
+    "noData": "Selecciona corredores para ver el gráfico de líneas",
+    "tooltip": {
+      "behindBestPartial": "Tiempo respecto al mejor parcial",
+      "behindLeader": "Tiempo respecto al líder"
+    },
+    "xAxisLabel": "Controles"
   },
   "positionChart": {
+    "caption": "* Posición 1 arriba (mejor), posiciones más altas abajo (peor)",
     "noData": "Selecciona corredores para ver la evolución de posición",
-    "xAxisLabel": "Controles",
-    "yAxisLabel": "Posición",
     "tooltip": {
       "control": "Control",
       "position": "Posición",
       "splitTime": "Tiempo parcial",
       "timeLost": "Tiempo respecto al mejor parcial: {{timeLost}}"
     },
-    "caption": "* Posición 1 arriba (mejor), posiciones más altas abajo (peor)"
-  },
-  "tooltip": {
-    "totalDisplayedTime": "Tiempo total mostrado",
-    "errorFreeTime": "Tiempo sin errores",
-    "errorTime": "Tiempo perdido (pérdida)",
-    "efficiency": "Eficiencia"
-  },
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Tiempo sin errores",
-      "errorTime": "Tiempo de error (pérdida)"
-    },
-    "timeAxisLabel": "Tiempo (segundos)",
-    "selectRunnersMessage": "Selecciona corredores para ver el gráfico"
-  },
-  "lineChart": {
-    "noData": "Selecciona corredores para ver el gráfico de líneas",
     "xAxisLabel": "Controles",
-    "tooltip": {
-      "behindLeader": "Tiempo respecto al líder",
-      "behindBestPartial": "Tiempo respecto al mejor parcial"
-    }
-  },
-  "Sign in": {
-    "Sign in": "Iniciar sesión",
-    "Logout": "Cerrar sesion",
-    "ForgotPassword": "¿Olvidaste tu contraseña?",
-    "NoAccount": "¿No tienes cuenta? Regístrate",
-    "RememberMe": "Recordarme"
-  },
-  "EventAdmin": {
-    "EventData": "Información del evento",
-    "EventName": "Nombre del evento",
-    "StartDate": "Fecha de comienzo",
-    "FinishDate": "Fecha de final",
-    "Organizer": "Organizador",
-    "Website": "Web del evento",
-    "InvalidURLMsg": "URL inválida",
-    "Location": "Ubicación",
-    "Public": "Público",
-    "Hidden": "Privado",
-    "Save": "Guardar",
-    "Country": "País",
-    "Scopes": {
-      "Scope": "Ámbito",
-      "International": "Internacional",
-      "National": "Nacional",
-      "RegionalHigh": "Autonómico",
-      "RegionalLow": "Provincial",
-      "Local": "Local",
-      "Club": "Club"
-    },
-    "Stages": {
-      "NewStage": "Nueva etapa",
-      "GoToStage": "Ver la etapa",
-      "DeleteStage": {
-        "MenuText": "Borrar",
-        "DialogTitle": "Desea borrar esta etapa?",
-        "DialogBody": "La etapa y todos sus resultados se borrarán. Esta acción no puede deshacerse."
-      },
-      "Stats": {
-        "MenuText": "Estadísticas",
-        "DialogTitle": "Ver estadísticas de la etapa",
-        "DialogBody": "Se mostrarán estadísticas de la etapa.",
-        "DialogConfirm": "OK"
-      },
-      "WipeOutRunners": {
-        "MenuText": "Restablecer",
-        "DialogTitle": "Desea restablecer esta etapa?",
-        "DialogBody": "Se borrarán todos los resultados y horas de salida subidos a esta etapa. Después, puedes volverlos a subir. Esta opción se utiliza para corregir errores en los datos subidos.",
-        "DialogConfirm": "Restablecer"
-      },
-      "StagesTypes": {
-        "StageType": "Tipo",
-        "FootO": "O-Pie / MTB-O",
-        "Relay": "Relevo",
-        "Rogaine": "Rogaine",
-        "TrailO": "Trail-O",
-        "Raid": "Raid",
-        "Totals": "Ranking / Totales",
-        "MassStart": "Salida en masa",
-        "ChaseStart": "Salida a la caza"
-      }
-    },
-    "EventSecurityTokens": "Clave de seguridad para el cliente de escritorio",
-    "EventSecurityTokensExpireDate": "Expira el",
-    "Do you want to renew the security key?": "¿Desea renovar la clave de seguridad?",
-    "RenewEventTokenMsg": "Si renueva la clave de seguridad la antigua será invalidada. Nadie con la clave de seguridad antigua podrá subir resultados a este evento.",
-    "Renew": "Renovar",
-    "EventId": "ID del evento",
-    "DangerArea": "Zona de peligro",
-    "DeleteEvent": "Borrar evento",
-    "Do you want to delete this event?": "¿Desea borrar el evento?",
-    "Renew security keys": "Generar una nueva clave de seguridad",
-    "Create security keys": "Crear una clave de seguridad"
-  },
-  "Language": {
-    "Language": "Idioma",
-    "Spanish": "Español",
-    "English": "English",
-    "French": "Frances"
-  },
-  "Dashboard": {
-    "Dashboard": "Panel de control",
-    "YourEvents": "Tus eventos",
-    "StartDate": "Fecha inicio",
-    "FinishDate": "Fecha fin",
-    "Name": "Nombre del evento"
-  },
-  "EventList": {
-    "LiveToday": "En vivo hoy",
-    "NoLiveEventsToday": "No hay eventos hoy",
-    "FutureEvents": "Eventos futuros",
-    "PastEvents": "Eventos pasados"
-  },
-  "StageHeader": {
-    "StartTime": "Hora de Salida",
-    "Results": "Resultados",
-    "Splits": "Parciales",
-    "Graphs": "Gráficos",
-    "ScorePoints": "Puntos",
-    "RelayLegs": "Postas"
-  },
-  "ResultsStage": {
-    "Refresh": "Refrescar",
-    "ChooseClass": "Por favor, seleccione una categoría",
-    "NoData": "Lo sentimos, no hay datos",
-    "NoStartTime": "-",
-    "NotStarted": "-",
-    "Class": "Categoría",
-    "Position": "Posición",
-    "Name": "Nombre",
-    "Club": "Club",
-    "Clubs": "Clubs",
-    "Classes": "Categorías",
-    "NoClubMsg": "Sin club",
-    "StartTime": "Salida",
-    "FinishTime": "Final",
-    "RaceTime": "Tiempo",
-    "Times": "Tiempos",
-    "Points": "Puntos:",
-    "BonusPoints": "Bonus",
-    "PenaltyPoints": "Penalización:",
-    "VirtualTicket": {
-      "FinishControl": "Meta",
-      "Control": "Ctrl",
-      "StartHour": "H. salida:",
-      "FinishHour": "Hora de meta:",
-      "RaceTime": "Tiempo:",
-      "Partial": "Parcial",
-      "Cumulative": "Acumulado",
-      "NoDownloadMsg": "No hay lectura del chip"
-    },
-    "statusCodes": {
-      "nc": "NC",
-      "ok": "ok",
-      "dns": "DNS",
-      "dnf": "DNF",
-      "mp": "MP",
-      "dsq": "DSQ",
-      "ot": "FC"
-    },
-    "SplitsTable": {
-      "NoRunnersWithSplits": "Ningún corredor ha descargado su chip",
-      "PartialTimes": "Parciales",
-      "CumulativeTimes": "Acumulados",
-      "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías.",
-      "CleanTime": "Sin Errores"
-    },
-    "PointsTable": {
-      "OnlyForClasses": "El visor de puntos solo está disponible para resultados por categorías."
-    },
-    "WrongFileUploaded": {
-      "Title": "¡Resultados Sin Parciales!",
-      "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>."
-    }
-  },
-  "view": {
-    "splits": "Parciales",
-    "accumulated": "Acumulados",
-    "timeLoss": "Tabla de tiempo perdido",
-    "lineChart": "Detrás líder",
-    "barChart": "Tiempo perdido",
-    "positionChart": "Posición",
-    "radios": "Radios"
-  },
-  "404Page": {
-    "Header": "¿Perdido en el bosque?",
-    "Message": "No hemos podido encontrar la página que estabas buscando.",
-    "ButtonMessage": "Triángulo de salida"
+    "yAxisLabel": "Posición"
   },
   "sidebar": {
-    "legalNotice": "Aviso Legal",
-    "privacyPolicy": "Política de Privacidad",
+    "backendVersion": "Backend",
     "cookiePolicy": "Política de Cookies",
     "frontendVersion": "Frontend",
     "frontendVersionWithVersion": "Frontend v{{version}}",
-    "backendVersion": "Backend",
-    "loading": "Cargando..."
+    "legalNotice": "Aviso Legal",
+    "loading": "Cargando...",
+    "privacyPolicy": "Política de Privacidad"
   },
-  "authenticationError": "Ha ocurrido un error"
+  "tooltip": {
+    "efficiency": "Eficiencia",
+    "errorFreeTime": "Tiempo sin errores",
+    "errorTime": "Tiempo perdido (pérdida)",
+    "totalDisplayedTime": "Tiempo total mostrado"
+  },
+  "view": {
+    "accumulated": "Acumulados",
+    "barChart": "Tiempo perdido",
+    "lineChart": "Detrás líder",
+    "positionChart": "Posición",
+    "radios": "Radios",
+    "splits": "Parciales",
+    "timeLoss": "Tabla de tiempo perdido"
+  }
 }

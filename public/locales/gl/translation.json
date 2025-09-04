@@ -1,207 +1,207 @@
 {
-  "Loading": "Cargando",
-  "Search": {
-    "Search": "Buscar",
-    "ClearSearch": "Limpar busca"
+  "404Page": {
+    "ButtonMessage": "Triángulo de saída",
+    "Header": "Perdido no bosque?",
+    "Message": "Non atopamos a páxina que estabas buscando."
   },
-  "GeneralErrorFallback": {
-    "title": "Ocorreu un erro inesperado",
-    "msg": "Intente refrescando a páxina. Se o erro persiste, por favor inténteo de novo máis tarde."
-  },
-  "ForbiddenAccess": "Acceso prohibido",
-  "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada.",
-  "ExperimentalFeatureMsg": "Característica experimental",
-  "Menu": "Menú",
-  "Dates": "Datas",
-  "Event": "Evento",
-  "Events": "Eventos",
-  "Stages": "Etapas",
-  "Location": "Localización",
-  "Organizer": "Organizador",
-  "Name": "Nome",
-  "Edit": "Editar",
-  "Success": "Éxito",
-  "Cancel": "Cancelar",
-  "Delete": "Borrar",
-  "Save": "Gravar",
-  "Settings": "Configuración",
-  "EmailAddress": "Enderezo electrónico",
-  "Password": "Contrasinal",
-  "GoBack": "Atrás",
-  "This action cannot be undone": "Esta acción non se pode desfacer.",
-  "Copied to the clipboard": "Copiado no portapapeis.",
-  "Copy": "Copiar",
-  "Organizers": "Info de organizador",
   "AboutUs": {
     "AboutUs": "Sobre nós",
     "VersionMessage": "Estamos en desenvolvemento activo. Estás a usar a versión "
   },
-  "Home": {
-    "Home": "Inicio"
-  },
-  "Results": {
-    "shortClass": "Categoría",
-    "Class": "Categoría",
-    "Classes": "Categorías",
-    "Start": "Saída",
-    "Finish": "Meta",
-    "SiCard": "Tarxeta SI"
-  },
-  "Sign in": {
-    "Sign in": "Iniciar sesión",
-    "Logout": "Pechar sesión",
-    "ForgotPassword": "Contrasinal esquecido?",
-    "NoAccount": "Non tes unha conta? Rexístrate",
-    "RememberMe": "Lémbrame"
-  },
-  "EventAdmin": {
-    "EventData": "Información do evento",
-    "EventName": "Nome do evento",
-    "StartDate": "Data de inicio",
+  "Cancel": "Cancelar",
+  "Copied to the clipboard": "Copiado no portapapeis.",
+  "Copy": "Copiar",
+  "Dashboard": {
+    "Dashboard": "Panel de control",
     "FinishDate": "Data de remate",
-    "Organizer": "Organizador",
-    "Website": "Web do evento",
-    "InvalidURLMsg": "URL non válido",
-    "Location": "Localización",
-    "Public": "Público",
-    "Hidden": "Oculto",
-    "Save": "Gravar",
+    "Name": "Nome do evento",
+    "StartDate": "Data de inicio",
+    "YourEvents": "Os teus eventos"
+  },
+  "Dates": "Datas",
+  "Delete": "Borrar",
+  "Edit": "Editar",
+  "EmailAddress": "Enderezo electrónico",
+  "Event": "Evento",
+  "EventAdmin": {
     "Country": "País",
-    "Scopes": {
-      "Scope": "Ámbito",
-      "International": "Internacional",
-      "National": "Nacional",
-      "RegionalHigh": "Federal",
-      "RegionalLow": "Rexional",
-      "Local": "Local",
-      "Club": "Club"
-    },
-    "Stages": {
-      "NewStage": "Nova etapa",
-      "GoToStage": "Ir á etapa",
-      "DeleteStage": {
-        "MenuText": "Borrar",
-        "DialogTitle": "Queres borrar esta etapa?",
-        "DialogBody": "Esta etapa e todos os seus resultados serán borrados. Esta acción non se pode desfacer."
-      },
-      "Stats": {
-        "MenuText": "Estatísticas",
-        "DialogTitle": "Ver estatísticas das etapas",
-        "DialogBody": "As estatísticas das etapas serán visualizadas.",
-        "DialogConfirm": "OK"
-      },
-      "WipeOutRunners": {
-        "MenuText": "Reiniciar",
-        "DialogTitle": "Queres reiniciar esta etapa?",
-        "DialogBody": "Isto borrará todos os resultados ou horas de saída subidas nesta etapa. Despois, podes subilos de novo. Esta opción úsase para corrixir erros en datos subidos.",
-        "DialogConfirm": "Reiniciar"
-      },
-      "StagesTypes": {
-        "StageType": "Tipo",
-        "FootO": "O-Pé / MTBO",
-        "Relay": "Remudas",
-        "Rogaine": "Rogaine",
-        "TrailO": "Trail-O",
-        "Totals": "Ranking / Totais",
-        "Raid": "Raid",
-        "MassStart": "Saída en masa",
-        "ChaseStart": "Saída á caza"
-      }
-    },
-    "EventSecurityTokens": "Chave secreta para o cliente de escritorio",
-    "EventSecurityTokensExpireDate": "Expira o",
-    "Do you want to renew the security key?": "Queres renovar a chave de seguridade?",
-    "RenewEventTokenMsg": "Se renovas a chave de seguridade, a antiga será invalidada. Polo tanto, ninguén coa chave antiga poderá subir resultados neste evento.",
-    "Renew": "Renovar",
-    "EventId": "ID do evento",
+    "Create security keys": "Crear unha chave de seguridade",
     "DangerArea": "Zona de perigo",
     "DeleteEvent": "Borrar evento",
     "Do you want to delete this event?": "Queres borrar este evento?",
-    "Renew security keys": "Xerar unha nova chave de seguridade",
-    "Create security keys": "Crear unha chave de seguridade"
-  },
-  "Language": {
-    "Language": "Idioma",
-    "Spanish": "Español",
-    "English": "Inglés",
-    "French": "Francés"
-  },
-  "Dashboard": {
-    "Dashboard": "Panel de control",
-    "YourEvents": "Os teus eventos",
-    "StartDate": "Data de inicio",
+    "Do you want to renew the security key?": "Queres renovar a chave de seguridade?",
+    "EventData": "Información do evento",
+    "EventId": "ID do evento",
+    "EventName": "Nome do evento",
+    "EventSecurityTokens": "Chave secreta para o cliente de escritorio",
+    "EventSecurityTokensExpireDate": "Expira o",
     "FinishDate": "Data de remate",
-    "Name": "Nome do evento"
+    "Hidden": "Oculto",
+    "InvalidURLMsg": "URL non válido",
+    "Location": "Localización",
+    "Organizer": "Organizador",
+    "Public": "Público",
+    "Renew": "Renovar",
+    "Renew security keys": "Xerar unha nova chave de seguridade",
+    "RenewEventTokenMsg": "Se renovas a chave de seguridade, a antiga será invalidada. Polo tanto, ninguén coa chave antiga poderá subir resultados neste evento.",
+    "Save": "Gravar",
+    "Scopes": {
+      "Club": "Club",
+      "International": "Internacional",
+      "Local": "Local",
+      "National": "Nacional",
+      "RegionalHigh": "Federal",
+      "RegionalLow": "Rexional",
+      "Scope": "Ámbito"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "Esta etapa e todos os seus resultados serán borrados. Esta acción non se pode desfacer.",
+        "DialogTitle": "Queres borrar esta etapa?",
+        "MenuText": "Borrar"
+      },
+      "GoToStage": "Ir á etapa",
+      "NewStage": "Nova etapa",
+      "StagesTypes": {
+        "ChaseStart": "Saída á caza",
+        "FootO": "O-Pé / MTBO",
+        "MassStart": "Saída en masa",
+        "Raid": "Raid",
+        "Relay": "Remudas",
+        "Rogaine": "Rogaine",
+        "StageType": "Tipo",
+        "Totals": "Ranking / Totais",
+        "TrailO": "Trail-O"
+      },
+      "Stats": {
+        "DialogBody": "As estatísticas das etapas serán visualizadas.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "Ver estatísticas das etapas",
+        "MenuText": "Estatísticas"
+      },
+      "WipeOutRunners": {
+        "DialogBody": "Isto borrará todos os resultados ou horas de saída subidas nesta etapa. Despois, podes subilos de novo. Esta opción úsase para corrixir erros en datos subidos.",
+        "DialogConfirm": "Reiniciar",
+        "DialogTitle": "Queres reiniciar esta etapa?",
+        "MenuText": "Reiniciar"
+      }
+    },
+    "StartDate": "Data de inicio",
+    "Website": "Web do evento"
   },
   "EventList": {
+    "FutureEvents": "Eventos futuros",
     "LiveToday": "En directo hoxe",
     "NoLiveEventsToday": "Hoxe non hai eventos",
-    "FutureEvents": "Eventos futuros",
     "PastEvents": "Eventos pasados"
   },
-  "StageHeader": {
-    "StartTime": "Hora de comezo",
-    "Results": "Resultados",
-    "Splits": "Parciais",
-    "ScorePoints": "Puntos",
-    "RelayLegs": "Postas"
+  "Events": "Eventos",
+  "ExperimentalFeatureMsg": "Característica experimental",
+  "ForbiddenAccess": "Acceso prohibido",
+  "GeneralErrorFallback": {
+    "msg": "Intente refrescando a páxina. Se o erro persiste, por favor inténteo de novo máis tarde.",
+    "title": "Ocorreu un erro inesperado"
+  },
+  "GoBack": "Atrás",
+  "Home": {
+    "Home": "Inicio"
+  },
+  "Language": {
+    "English": "Inglés",
+    "French": "Francés",
+    "Language": "Idioma",
+    "Spanish": "Español"
+  },
+  "Loading": "Cargando",
+  "Location": "Localización",
+  "Menu": "Menú",
+  "Name": "Nome",
+  "Organizer": "Organizador",
+  "Organizers": "Info de organizador",
+  "Password": "Contrasinal",
+  "Results": {
+    "Class": "Categoría",
+    "Classes": "Categorías",
+    "Finish": "Meta",
+    "SiCard": "Tarxeta SI",
+    "Start": "Saída",
+    "shortClass": "Categoría"
   },
   "ResultsStage": {
-    "Refresh": "Refrescar",
+    "BonusPoints": "Bonificación_",
     "ChooseClass": "Por favor, selecciona unha categoría",
+    "Class": "Categoría",
+    "Classes": "Categorías",
+    "Club": "Club",
+    "Clubs": "Clubs",
+    "FinishTime": "Meta",
+    "Name": "Nome",
+    "NoClubMsg": "Sen club",
     "NoData": "Sentímolo, non hai datos dispoñibles",
     "NoStartTime": "-",
     "NotStarted": "-",
-    "Class": "Categoría",
-    "Classes": "Categorías",
-    "Position": "Posición",
-    "Name": "Nome",
-    "Club": "Club",
-    "Clubs": "Clubs",
-    "NoClubMsg": "Sen club",
-    "StartTime": "Saída",
-    "RaceTime": "Tempo",
-    "FinishTime": "Meta",
-    "Times": "Tempo",
-    "BonusPoints": "Bonificación_",
     "PenaltyPoints": "Penalización:",
-    "VirtualTicket": {
-      "FinishControl": "Meta",
-      "Control": "Ctrl",
-      "StartHour": "H.Saída:",
-      "FinishHour": "H.Meta:",
-      "RaceTime": "Tempo:",
-      "Partial": "Parcial",
-      "Cumulative": "Acumulativo",
-      "NoDownloadMsg": "Non hai lectura do chip"
-    },
-    "statusCodes": {
-      "nc": "NC",
-      "ok": "ok",
-      "dns": "DNS",
-      "dnf": "DNF",
-      "mp": "MP",
-      "disqualified": "DSQ",
-      "ot": "FC"
-    },
-    "SplitsTable": {
-      "NoRunnersWithSplits": "Ningún corredor descargou o seu chip",
-      "PartialTimes": "Parciais",
-      "CumulativeTimes": "Acumulativo",
-      "OnlyForClasses": "A táboa de parciais só é accesible na vista de categorías."
-    },
+    "Points": "Puntos:",
     "PointsTable": {
       "OnlyForClasses": "A vista de puntos só é accesible na vista de categorías."
     },
-    "WrongFileUploaded": {
-      "Title": "Resultados sen parciais!",
-      "Msg": "O cronometrador subiu os resultados finais sen parciais. Estes ficheiros non se deben subir e poden provocar que falten datos ou que se mostren datos incorrectos. Podes atopar máis información sobre como subir resultados ao noso servizo na páxina de <2>Organizadores</2>."
+    "Position": "Posición",
+    "RaceTime": "Tempo",
+    "Refresh": "Refrescar",
+    "SplitsTable": {
+      "CumulativeTimes": "Acumulativo",
+      "NoRunnersWithSplits": "Ningún corredor descargou o seu chip",
+      "OnlyForClasses": "A táboa de parciais só é accesible na vista de categorías.",
+      "PartialTimes": "Parciais"
     },
-    "Points": "Puntos:"
+    "StartTime": "Saída",
+    "Times": "Tempo",
+    "VirtualTicket": {
+      "Control": "Ctrl",
+      "Cumulative": "Acumulativo",
+      "FinishControl": "Meta",
+      "FinishHour": "H.Meta:",
+      "NoDownloadMsg": "Non hai lectura do chip",
+      "Partial": "Parcial",
+      "RaceTime": "Tempo:",
+      "StartHour": "H.Saída:"
+    },
+    "WrongFileUploaded": {
+      "Msg": "O cronometrador subiu os resultados finais sen parciais. Estes ficheiros non se deben subir e poden provocar que falten datos ou que se mostren datos incorrectos. Podes atopar máis información sobre como subir resultados ao noso servizo na páxina de <2>Organizadores</2>.",
+      "Title": "Resultados sen parciais!"
+    },
+    "statusCodes": {
+      "disqualified": "DSQ",
+      "dnf": "DNF",
+      "dns": "DNS",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "FC"
+    }
   },
-  "404Page": {
-    "Header": "Perdido no bosque?",
-    "Message": "Non atopamos a páxina que estabas buscando.",
-    "ButtonMessage": "Triángulo de saída"
-  }
+  "Save": "Gravar",
+  "Search": {
+    "ClearSearch": "Limpar busca",
+    "Search": "Buscar"
+  },
+  "Settings": "Configuración",
+  "Sign in": {
+    "ForgotPassword": "Contrasinal esquecido?",
+    "Logout": "Pechar sesión",
+    "NoAccount": "Non tes unha conta? Rexístrate",
+    "RememberMe": "Lémbrame",
+    "Sign in": "Iniciar sesión"
+  },
+  "StageHeader": {
+    "RelayLegs": "Postas",
+    "Results": "Resultados",
+    "ScorePoints": "Puntos",
+    "Splits": "Parciais",
+    "StartTime": "Hora de comezo"
+  },
+  "Stages": "Etapas",
+  "Success": "Éxito",
+  "This action cannot be undone": "Esta acción non se pode desfacer.",
+  "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada."
 }

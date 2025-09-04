@@ -1,271 +1,271 @@
 {
-  "Loading": "Chargement",
-  "Search": {
-    "Search": "Recherche",
-    "ClearSearch": "Effacer la recherche"
+  "404Page": {
+    "ButtonMessage": "Triangle de départ",
+    "Header": "Perdu dans les bois?",
+    "Message": "Nous n'avons pas pu trouver la page que vous recherchiez."
   },
-  "GeneralErrorFallback": {
-    "title": "Une erreur inattendue s'est produite",
-    "msg": "Essayez d'actualiser la page. Si l'erreur persiste, veuillez réessayer ultérieurement."
-  },
-  "ForbiddenAccess": "Accès interdit",
-  "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
-  "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
-  "Menu": "Menu",
-  "Dates": "Dates",
-  "Event": "Événement",
-  "Events": "Événements",
-  "Stages": "Etages",
-  "Location": "Emplacement",
-  "Organizer": "Organisateur",
-  "Name": "Nom",
-  "Edit": "Modifier",
-  "Success": "Succès",
-  "Cancel": "Annuler",
-  "Delete": "Supprimer",
-  "Save": "Sauvegarder",
-  "Settings": "Configuration",
-  "EmailAddress": "Adresse e-mail",
-  "Password": "Mot de passe",
-  "GoBack": "Retourner",
-  "This action cannot be undone": "Cette action ne peut pas être annulée.",
-  "Copied to the clipboard": "Copié dans le presse-papiers.",
-  "Copy": "Copier",
-  "Organizers": "Info sur l'organisateur",
   "AboutUs": {
     "AboutUs": "À propos",
     "VersionMessage": "Nous sommes en développement actif. Vous utilisez la version "
   },
-  "Results": {
-    "shortClass": "Catégorie",
-    "Class": "Catégorie",
-    "Classes": "Catégories",
-    "Start": "Départ",
-    "Finish": "Arrivée",
-    "SiCard": "SiCard",
-    "Position": "Position",
-    "Name": "Nom",
-    "Time": "Temps"
+  "Cancel": "Annuler",
+  "Copied to the clipboard": "Copié dans le presse-papiers.",
+  "Copy": "Copier",
+  "Dashboard": {
+    "Dashboard": "Tableau de bord",
+    "FinishDate": "Date de fin",
+    "Name": "Nom de l'événement",
+    "StartDate": "Date de début",
+    "YourEvents": "Vos événements"
   },
+  "Dates": "Dates",
+  "Delete": "Supprimer",
+  "Edit": "Modifier",
+  "EmailAddress": "Adresse e-mail",
+  "Event": "Événement",
+  "EventAdmin": {
+    "Country": "Pays",
+    "Create security keys": "Créer une clé de sécurité",
+    "DangerArea": "Zone dangereuse",
+    "DeleteEvent": "Supprimer l'événement",
+    "Do you want to delete this event?": "Voulez-vous supprimer cet événement ?",
+    "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
+    "EventData": "Information sur l'événement",
+    "EventId": "ID de l'événement",
+    "EventName": "Nom de l'événement",
+    "EventSecurityTokens": "Clé secrète pour le client de bureau",
+    "EventSecurityTokensExpireDate": "Expire le",
+    "FinishDate": "Date de fin",
+    "Hidden": "Caché",
+    "InvalidURLMsg": "URL invalide",
+    "Location": "Emplacement",
+    "Organizer": "Organisateur",
+    "Public": "Publique",
+    "Renew": "Renouveler",
+    "Renew security keys": "Créer une nouvelle clé de sécurité",
+    "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
+    "Save": "Sauvegarder",
+    "Scopes": {
+      "Club": "Club",
+      "International": "Internationale",
+      "Local": "Locale",
+      "National": "Nationale",
+      "RegionalHigh": "Fédéral",
+      "RegionalLow": "Régional",
+      "Scope": "Portée"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "L'étape et tous ses résultats seront supprimés. Cette action ne peut pas être annulée.",
+        "DialogTitle": "Voulez-vous supprimer cette étape?",
+        "MenuText": "Supprimer"
+      },
+      "GoToStage": "Aller sur l'étape",
+      "NewStage": "Nouvelle étape",
+      "StagesTypes": {
+        "ChaseStart": "Poursuite",
+        "FootO": "CO à pied / VTT-O",
+        "MassStart": "Départ en masse",
+        "Raid": "Raid",
+        "Relay": "Relais",
+        "Rogaine": "Rogaine",
+        "StageType": "Type",
+        "Totals": "Ranking / Totals",
+        "TrailO": "CO de précision"
+      },
+      "Stats": {
+        "DialogBody": "Les statistiques des étapes seront affichées.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "Voir les statistiques des étapes",
+        "MenuText": "Statistiques"
+      },
+      "WipeOutRunners": {
+        "DialogBody": "Cette option supprimera tous les résultats ou heures de départ téléchargés à cette étape. Vous pourrez ensuite les télécharger à nouveau. Cette option permet de corriger les erreurs sur les données téléchargées.",
+        "DialogConfirm": "Réinitialiser",
+        "DialogTitle": "Voulez-vous réinitialiser cette étape ?",
+        "MenuText": "Réinitialiser"
+      }
+    },
+    "StartDate": "Date de début",
+    "Website": "Site web"
+  },
+  "EventList": {
+    "FutureEvents": "Événements à venir",
+    "LiveToday": "Aujourd'hui en direct",
+    "NoLiveEventsToday": "Il n'y a pas d'événements aujourd'hui",
+    "PastEvents": "Événements passés"
+  },
+  "Events": "Événements",
+  "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
+  "ForbiddenAccess": "Accès interdit",
+  "GeneralErrorFallback": {
+    "msg": "Essayez d'actualiser la page. Si l'erreur persiste, veuillez réessayer ultérieurement.",
+    "title": "Une erreur inattendue s'est produite"
+  },
+  "GoBack": "Retourner",
   "Graphs": {
-    "LineChart": "Graphique Linéaire",
     "BarChart": "Graphique en Barres",
+    "LineChart": "Graphique Linéaire",
     "PositionChart": "Évolution des Positions",
-    "TimeLossAnalysis": "Analyse des Pertes de Temps",
+    "RunnerSelection": "Sélection des Coureurs",
+    "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques",
+    "SelectedCount": "{{count}} sur {{total}} sélectionnés",
     "Threshold": "Seuil",
     "ThresholdWithPercent": "Seuil ({{percent}}%)",
-    "RunnerSelection": "Sélection des Coureurs",
-    "SelectedCount": "{{count}} sur {{total}} sélectionnés",
-    "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques"
+    "TimeLossAnalysis": "Analyse des Pertes de Temps"
+  },
+  "Language": {
+    "English": "English",
+    "French": "Français",
+    "Language": "Langue",
+    "Spanish": "Español"
+  },
+  "Loading": "Chargement",
+  "Location": "Emplacement",
+  "Menu": "Menu",
+  "Name": "Nom",
+  "Organizer": "Organisateur",
+  "Organizers": "Info sur l'organisateur",
+  "Password": "Mot de passe",
+  "Results": {
+    "Class": "Catégorie",
+    "Classes": "Catégories",
+    "Finish": "Arrivée",
+    "Name": "Nom",
+    "Position": "Position",
+    "SiCard": "SiCard",
+    "Start": "Départ",
+    "Time": "Temps",
+    "shortClass": "Catégorie"
+  },
+  "ResultsStage": {
+    "BonusPoints": "Bonus_",
+    "ChooseClass": "S'il vous plaît, choisissez une catégorie",
+    "Class": "Catégorie",
+    "Classes": "Catégories",
+    "Club": "Club",
+    "Clubs": "Clubs",
+    "FinishTime": "Arrivée",
+    "Name": "Nom",
+    "NoClubMsg": "Pas de club",
+    "NoData": "Désolé, aucune donnée n'est disponible",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "PenaltyPoints": "Pénalité:",
+    "Points": "Points:",
+    "PointsTable": {
+      "OnlyForClasses": "La vue Points est accessible uniquement dans la vue des catégories."
+    },
+    "Position": "Position",
+    "RaceTime": "Temps",
+    "Refresh": "Rafraîchir",
+    "SplitsTable": {
+      "CleanTime": "Sans erreurs",
+      "CumulativeTimes": "Cumulatif",
+      "NoRunnersWithSplits": "Aucun coureur n'a téléchargé sa puce",
+      "OnlyForClasses": "Le tableau des intermédiaires n'est accessible que dans la vue des catégories.",
+      "PartialTimes": "Intermédiaire"
+    },
+    "StartTime": "Départ",
+    "Times": "Temps",
+    "VirtualTicket": {
+      "Control": "Contrôle",
+      "Cumulative": "Cumulatif",
+      "FinishControl": "Fin",
+      "FinishHour": "Heure de Arrivée:",
+      "NoDownloadMsg": "Pas de lecture de puce",
+      "Partial": "Intermédiaire",
+      "RaceTime": "Temps:",
+      "StartHour": "Heure de départ:"
+    },
+    "WrongFileUploaded": {
+      "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés, car ils pourraient entraîner l'affichage de données manquantes ou incorrectes. Pour plus d'informations sur la manière de télécharger les résultats sur notre service, consultez la page <2>Organisateurs</2>.",
+      "Title": "Résultats sans partiels!"
+    },
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "Hors délai"
+    }
+  },
+  "Save": "Sauvegarder",
+  "Search": {
+    "ClearSearch": "Effacer la recherche",
+    "Search": "Recherche"
+  },
+  "Settings": "Configuration",
+  "Sign in": {
+    "ForgotPassword": "Mot de passe oublié?",
+    "Logout": "Fermer session",
+    "NoAccount": "Vous n'avez pas de compte ? S'inscrire",
+    "RememberMe": "Souviens-toi de moi",
+    "Sign in": "Se connecter"
+  },
+  "StageHeader": {
+    "Graphs": "Graphiques",
+    "RelayLegs": "Postes",
+    "Results": "Résultats",
+    "ScorePoints": "Points",
+    "Splits": "Intermédiaires",
+    "StartTime": "Départ"
+  },
+  "Stages": "Etages",
+  "Success": "Succès",
+  "This action cannot be undone": "Cette action ne peut pas être annulée.",
+  "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
+  "authenticationError": "Une erreur s'est produite",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Temps sans erreurs",
+      "errorTime": "Temps d'erreur (perte)"
+    },
+    "selectRunnersMessage": "Sélectionnez des coureurs pour voir le graphique",
+    "timeAxisLabel": "Temps (secondes)"
+  },
+  "lineChart": {
+    "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
+    "tooltip": {
+      "behindBestPartial": "Temps par rapport au meilleur intermédiaire",
+      "behindLeader": "Temps par rapport au leader"
+    },
+    "xAxisLabel": "Contrôles"
   },
   "positionChart": {
+    "caption": "* Position 1 en haut (meilleur), positions plus élevées en bas (pire)",
     "noData": "Sélectionnez des coureurs pour voir l'évolution de la position",
-    "xAxisLabel": "Contrôles",
-    "yAxisLabel": "Position",
     "tooltip": {
       "control": "Contrôle",
       "position": "Position",
       "splitTime": "Temps intermédiaire",
       "timeLost": "Temps perdu par rapport au meilleur temps: {{timeLost}}"
     },
-    "caption": "* Position 1 en haut (meilleur), positions plus élevées en bas (pire)"
-  },
-  "tooltip": {
-    "totalDisplayedTime": "Temps total affiché",
-    "errorFreeTime": "Temps sans erreurs",
-    "errorTime": "Temps perdu (erreur)",
-    "efficiency": "Efficacité"
-  },
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Temps sans erreurs",
-      "errorTime": "Temps d'erreur (perte)"
-    },
-    "timeAxisLabel": "Temps (secondes)",
-    "selectRunnersMessage": "Sélectionnez des coureurs pour voir le graphique"
-  },
-  "lineChart": {
-    "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
     "xAxisLabel": "Contrôles",
-    "tooltip": {
-      "behindLeader": "Temps par rapport au leader",
-      "behindBestPartial": "Temps par rapport au meilleur intermédiaire"
-    }
-  },
-  "Sign in": {
-    "Sign in": "Se connecter",
-    "Logout": "Fermer session",
-    "ForgotPassword": "Mot de passe oublié?",
-    "NoAccount": "Vous n'avez pas de compte ? S'inscrire",
-    "RememberMe": "Souviens-toi de moi"
-  },
-  "EventAdmin": {
-    "EventData": "Information sur l'événement",
-    "EventName": "Nom de l'événement",
-    "StartDate": "Date de début",
-    "FinishDate": "Date de fin",
-    "Organizer": "Organisateur",
-    "Website": "Site web",
-    "InvalidURLMsg": "URL invalide",
-    "Location": "Emplacement",
-    "Public": "Publique",
-    "Hidden": "Caché",
-    "Save": "Sauvegarder",
-    "Country": "Pays",
-    "Scopes": {
-      "Scope": "Portée",
-      "International": "Internationale",
-      "National": "Nationale",
-      "RegionalHigh": "Fédéral",
-      "RegionalLow": "Régional",
-      "Local": "Locale",
-      "Club": "Club"
-    },
-    "Stages": {
-      "NewStage": "Nouvelle étape",
-      "GoToStage": "Aller sur l'étape",
-      "DeleteStage": {
-        "MenuText": "Supprimer",
-        "DialogTitle": "Voulez-vous supprimer cette étape?",
-        "DialogBody": "L'étape et tous ses résultats seront supprimés. Cette action ne peut pas être annulée."
-      },
-      "Stats": {
-        "MenuText": "Statistiques",
-        "DialogTitle": "Voir les statistiques des étapes",
-        "DialogBody": "Les statistiques des étapes seront affichées.",
-        "DialogConfirm": "OK"
-      },
-      "WipeOutRunners": {
-        "MenuText": "Réinitialiser",
-        "DialogTitle": "Voulez-vous réinitialiser cette étape ?",
-        "DialogBody": "Cette option supprimera tous les résultats ou heures de départ téléchargés à cette étape. Vous pourrez ensuite les télécharger à nouveau. Cette option permet de corriger les erreurs sur les données téléchargées.",
-        "DialogConfirm": "Réinitialiser"
-      },
-      "StagesTypes": {
-        "StageType": "Type",
-        "FootO": "CO à pied / VTT-O",
-        "Relay": "Relais",
-        "Rogaine": "Rogaine",
-        "TrailO": "CO de précision",
-        "Totals": "Ranking / Totals",
-        "Raid": "Raid",
-        "MassStart": "Départ en masse",
-        "ChaseStart": "Poursuite"
-      }
-    },
-    "EventSecurityTokens": "Clé secrète pour le client de bureau",
-    "EventSecurityTokensExpireDate": "Expire le",
-    "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
-    "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
-    "Renew": "Renouveler",
-    "EventId": "ID de l'événement",
-    "DangerArea": "Zone dangereuse",
-    "DeleteEvent": "Supprimer l'événement",
-    "Do you want to delete this event?": "Voulez-vous supprimer cet événement ?",
-    "Renew security keys": "Créer une nouvelle clé de sécurité",
-    "Create security keys": "Créer une clé de sécurité"
-  },
-  "Language": {
-    "Language": "Langue",
-    "Spanish": "Español",
-    "English": "English",
-    "French": "Français"
-  },
-  "Dashboard": {
-    "Dashboard": "Tableau de bord",
-    "YourEvents": "Vos événements",
-    "StartDate": "Date de début",
-    "FinishDate": "Date de fin",
-    "Name": "Nom de l'événement"
-  },
-  "EventList": {
-    "LiveToday": "Aujourd'hui en direct",
-    "NoLiveEventsToday": "Il n'y a pas d'événements aujourd'hui",
-    "FutureEvents": "Événements à venir",
-    "PastEvents": "Événements passés"
-  },
-  "StageHeader": {
-    "StartTime": "Départ",
-    "Results": "Résultats",
-    "Splits": "Intermédiaires",
-    "Graphs": "Graphiques",
-    "ScorePoints": "Points",
-    "RelayLegs": "Postes"
-  },
-  "ResultsStage": {
-    "Refresh": "Rafraîchir",
-    "ChooseClass": "S'il vous plaît, choisissez une catégorie",
-    "NoData": "Désolé, aucune donnée n'est disponible",
-    "NoStartTime": "-",
-    "NotStarted": "-",
-    "Class": "Catégorie",
-    "Classes": "Catégories",
-    "Position": "Position",
-    "Name": "Nom",
-    "Club": "Club",
-    "Clubs": "Clubs",
-    "NoClubMsg": "Pas de club",
-    "StartTime": "Départ",
-    "FinishTime": "Arrivée",
-    "RaceTime": "Temps",
-    "Times": "Temps",
-    "Points": "Points:",
-    "BonusPoints": "Bonus_",
-    "PenaltyPoints": "Pénalité:",
-    "VirtualTicket": {
-      "FinishControl": "Fin",
-      "Control": "Contrôle",
-      "StartHour": "Heure de départ:",
-      "FinishHour": "Heure de Arrivée:",
-      "RaceTime": "Temps:",
-      "Partial": "Intermédiaire",
-      "Cumulative": "Cumulatif",
-      "NoDownloadMsg": "Pas de lecture de puce"
-    },
-    "statusCodes": {
-      "nc": "NC",
-      "ok": "ok",
-      "dns": "DNS",
-      "dnf": "DNF",
-      "mp": "MP",
-      "dsq": "DSQ",
-      "ot": "Hors délai"
-    },
-    "SplitsTable": {
-      "NoRunnersWithSplits": "Aucun coureur n'a téléchargé sa puce",
-      "PartialTimes": "Intermédiaire",
-      "CumulativeTimes": "Cumulatif",
-      "OnlyForClasses": "Le tableau des intermédiaires n'est accessible que dans la vue des catégories.",
-      "CleanTime": "Sans erreurs"
-    },
-    "PointsTable": {
-      "OnlyForClasses": "La vue Points est accessible uniquement dans la vue des catégories."
-    },
-    "WrongFileUploaded": {
-      "Title": "Résultats sans partiels!",
-      "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés, car ils pourraient entraîner l'affichage de données manquantes ou incorrectes. Pour plus d'informations sur la manière de télécharger les résultats sur notre service, consultez la page <2>Organisateurs</2>."
-    }
-  },
-  "view": {
-    "splits": "Intermédiaires",
-    "accumulated": "Cumulé",
-    "barChart": "Pertes de Temps",
-    "positionChart": "Position",
-    "radios": "Radios"
-  },
-  "404Page": {
-    "Header": "Perdu dans les bois?",
-    "Message": "Nous n'avons pas pu trouver la page que vous recherchiez.",
-    "ButtonMessage": "Triangle de départ"
+    "yAxisLabel": "Position"
   },
   "sidebar": {
-    "legalNotice": "Mentions légales",
-    "privacyPolicy": "Politique de confidentialité",
+    "backendVersion": "Backend",
     "cookiePolicy": "Politique de cookies",
     "frontendVersion": "Frontend",
     "frontendVersionWithVersion": "Frontend v{{version}}",
-    "backendVersion": "Backend",
-    "loading": "Chargement..."
+    "legalNotice": "Mentions légales",
+    "loading": "Chargement...",
+    "privacyPolicy": "Politique de confidentialité"
   },
-  "authenticationError": "Une erreur s'est produite"
+  "tooltip": {
+    "efficiency": "Efficacité",
+    "errorFreeTime": "Temps sans erreurs",
+    "errorTime": "Temps perdu (erreur)",
+    "totalDisplayedTime": "Temps total affiché"
+  },
+  "view": {
+    "accumulated": "Cumulé",
+    "barChart": "Pertes de Temps",
+    "positionChart": "Position",
+    "radios": "Radios",
+    "splits": "Intermédiaires"
+  }
 }
