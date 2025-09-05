@@ -1,40 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Alert,
-  CircularProgress,
-} from "@mui/material";
-import { Download as DownloadIcon, QrCode as QrCodeIcon } from "@mui/icons-material";
-import QRCodeStyling from "qr-code-styling";
-import { useTranslation } from "react-i18next";
-import { API_DOMAIN } from "../services/ApiConfig.ts";
-import { HorizontalLogo } from "../assets/HorizontalLogo.tsx";
+import React, { useEffect, useRef, useState } from "react"
+import { Box, Button, Card, CardContent, Typography, Alert, CircularProgress } from "@mui/material"
+import { Download as DownloadIcon, QrCode as QrCodeIcon } from "@mui/icons-material"
+import QRCodeStyling from "qr-code-styling"
+import { useTranslation } from "react-i18next"
+import { API_DOMAIN } from "../services/ApiConfig.ts"
+import { HorizontalLogo } from "../assets/HorizontalLogo.tsx"
 
 interface QRCodeSectionProps {
-  eventId: string;
-  eventName?: string;
+  eventId: string
+  eventName?: string
 }
 
 const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => {
-  const { t } = useTranslation();
-  const [qrCode, setQrCode] = useState<QRCodeStyling | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation()
+  const [qrCode, setQrCode] = useState<QRCodeStyling | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const qrRef = useRef<HTMLDivElement>(null);
-  const qrContainerRef = useRef<HTMLDivElement>(null);
+  const qrRef = useRef<HTMLDivElement>(null)
+  const qrContainerRef = useRef<HTMLDivElement>(null)
 
-  const eventUrl = `${API_DOMAIN}competitions/${eventId}`;
+  const eventUrl = `${API_DOMAIN}competitions/${eventId}`
 
   useEffect(() => {
     const createQRCode = async () => {
       try {
-        setIsLoading(true);
-        setError(null);
+        setIsLoading(true)
+        setError(null)
 
         const qr = new QRCodeStyling({
           width: 200,
@@ -46,54 +38,54 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
           cornersSquareOptions: { color: "#000000", type: "extra-rounded" },
           cornersDotOptions: { color: "#000000", type: "dot" },
           qrOptions: { errorCorrectionLevel: "M" },
-        });
+        })
 
         try {
-          const logoResponse = await fetch("/logo.svg");
+          const logoResponse = await fetch("/logo.svg")
           if (logoResponse.ok) {
-            const logoSvg = await logoResponse.text();
-            const logoBlob = new Blob([logoSvg], { type: "image/svg+xml" });
-            const logoUrl = URL.createObjectURL(logoBlob);
+            const logoSvg = await logoResponse.text()
+            const logoBlob = new Blob([logoSvg], { type: "image/svg+xml" })
+            const logoUrl = URL.createObjectURL(logoBlob)
 
             qr.update({
               image: logoUrl,
               imageOptions: { crossOrigin: "anonymous", margin: 3, imageSize: 0.3 },
-            });
+            })
 
-            setTimeout(() => URL.revokeObjectURL(logoUrl), 5000);
+            setTimeout(() => URL.revokeObjectURL(logoUrl), 5000)
           }
         } catch {
-          console.warn("Logo could not be loaded, generating QR code without logo");
+          console.warn("Logo could not be loaded, generating QR code without logo")
         }
 
-        setQrCode(qr);
+        setQrCode(qr)
 
         if (qrRef.current) {
-          qrRef.current.innerHTML = "";
-          qr.append(qrRef.current);
+          qrRef.current.innerHTML = ""
+          qr.append(qrRef.current)
         }
 
-        setIsLoading(false);
+        setIsLoading(false)
       } catch (err) {
-        console.error("Error creating QR code:", err);
-        setError(t("EventAdmin.QRCode.Generating"));
-        setIsLoading(false);
+        console.error("Error creating QR code:", err)
+        setError(t("EventAdmin.QRCode.Generating"))
+        setIsLoading(false)
       }
-    };
+    }
 
     if (eventId) {
-      void createQRCode();
+      void createQRCode()
     }
-  }, [eventId, eventUrl, t]);
+  }, [eventId, eventUrl, t])
 
   const handleDownload = async () => {
     if (!qrCode || !qrContainerRef.current) {
-      setError(t("EventAdmin.QRCode.Download"));
-      return;
+      setError(t("EventAdmin.QRCode.Download"))
+      return
     }
 
     try {
-      const html2canvas = (await import("html2canvas")).default;
+      const html2canvas = (await import("html2canvas")).default
       const canvas = await html2canvas(qrContainerRef.current, {
         backgroundColor: null,
         scale: 2,
@@ -101,33 +93,37 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
         allowTaint: true,
         width: 400,
         height: 600,
-      });
+      })
 
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = `oreplay-event-${eventId}.png`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(url);
-        }
-      }, "image/png", 1.0);
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob)
+            const link = document.createElement("a")
+            link.href = url
+            link.download = `oreplay-event-${eventId}.png`
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            URL.revokeObjectURL(url)
+          }
+        },
+        "image/png",
+        1.0,
+      )
     } catch (err) {
-      console.error("Error downloading QR code:", err);
-      setError(t("EventAdmin.QRCode.Download"));
+      console.error("Error downloading QR code:", err)
+      setError(t("EventAdmin.QRCode.Download"))
     }
-  };
+  }
 
   const copyUrl = async () => {
     try {
-      await navigator.clipboard.writeText(eventUrl);
+      await navigator.clipboard.writeText(eventUrl)
     } catch (err) {
-      console.error("Failed to copy URL:", err);
+      console.error("Failed to copy URL:", err)
     }
-  };
+  }
 
   return (
     <Card variant="outlined" sx={{ marginY: 2 }}>
@@ -180,7 +176,9 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
               }}
             >
               {isLoading && (
-                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                <Box
+                  sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}
+                >
                   <CircularProgress />
                   <Typography variant="body2" color="text.secondary">
                     {t("EventAdmin.QRCode.Generating")}
@@ -250,19 +248,28 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
               >
                 {t("EventAdmin.QRCode.Download")}
               </Button>
-              <Button variant="outlined" onClick={() => void copyUrl()} disabled={isLoading} fullWidth>
+              <Button
+                variant="outlined"
+                onClick={() => void copyUrl()}
+                disabled={isLoading}
+                fullWidth
+              >
                 {t("EventAdmin.QRCode.CopyUrl")}
               </Button>
             </Box>
 
-            <Typography variant="caption" color="text.secondary" sx={{ marginTop: 2, display: "block" }}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ marginTop: 2, display: "block" }}
+            >
               {t("EventAdmin.QRCode.Instructions")}
             </Typography>
           </Box>
         </Box>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default QRCodeSection;
+export default QRCodeSection
