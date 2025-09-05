@@ -132,6 +132,17 @@
   "Organizer": "Organizer",
   "Organizers": "Organizer's info",
   "Password": "Password",
+  "QRCode": {
+    "CopyUrl": "Copy Event URL",
+    "Description": "Generate and download a QR code that links directly to this event on O-Replay.",
+    "Download": "Download QR Code (PNG)",
+    "EventName": "Event Name",
+    "EventQRCode": "Event QR Code",
+    "EventUrl": "Event URL",
+    "Generating": "Generating QR code...",
+    "Instructions": "Scanning this QR code will take users directly to the event page on O-Replay where they can view live results and event information.",
+    "Title": "Event QR Code"
+  },
   "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Results": {
     "Class": "Class",
