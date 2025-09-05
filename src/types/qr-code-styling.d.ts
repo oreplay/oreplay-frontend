@@ -30,9 +30,9 @@ declare module "qr-code-styling" {
     }
   }
 
-  interface DownloadOptions {
+  type DownloadOptions = {
     name?: string
-    extension?: "png" | "jpeg" | "webp" | "svg"
+    extension?: "png" | "jpeg" | "webp"
     width?: number
     height?: number
   }
