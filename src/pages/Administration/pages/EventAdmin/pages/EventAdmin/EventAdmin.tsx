@@ -88,7 +88,7 @@ export default function EventAdmin() {
           />
         </Box>
         <Box sx={{ marginY: "2em" }}>
-          <Typography variant={"h3"}>{t("QRCode.EventQRCode")}</Typography>
+          <Typography variant={"h3"}>{t("EventAdmin.QRCode.Title")}</Typography>
           {detail ? <QRCodeSection eventId={detail.id} eventName={detail.description} /> : <></>}
         </Box>
         <Box sx={{ marginY: "2em" }}>
