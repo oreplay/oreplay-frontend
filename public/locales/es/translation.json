@@ -42,6 +42,16 @@
     "Location": "Ubicación",
     "Organizer": "Organizador",
     "Public": "Público",
+    "QRCode": {
+      "CopyUrl": "Copiar URL del Evento",
+      "Description": "Genera y descarga un código QR que enlaza directamente a este evento en O-Replay.",
+      "Download": "Descargar Código QR (PNG)",
+      "EventName": "Nombre del Evento",
+      "EventUrl": "URL del Evento",
+      "Generating": "Generando código QR...",
+      "Instructions": "Escanear este código QR llevará a los usuarios directamente a la página del evento en O-Replay donde pueden ver resultados en vivo e información del evento.",
+      "Title": "Código QR del Evento"
+    },
     "Renew": "Renovar",
     "Renew security keys": "Generar una nueva clave de seguridad",
     "RenewEventTokenMsg": "Si renueva la clave de seguridad la antigua será invalidada. Nadie con la clave de seguridad antigua podrá subir resultados a este evento.",
@@ -132,17 +142,6 @@
   "Organizer": "Organizador",
   "Organizers": "Organizadores",
   "Password": "Contraseña",
-  "QRCode": {
-    "CopyUrl": "Copiar URL del evento",
-    "Description": "Genera y descarga un código QR que enlaza directamente a este evento en O-Replay.",
-    "Download": "Descargar código QR (PNG)",
-    "EventName": "Nombre del evento",
-    "EventQRCode": "Código QR del Evento",
-    "EventUrl": "URL del evento",
-    "Generating": "Generando código QR...",
-    "Instructions": "Al escanear este código QR, los usuarios irán directamente a la página del evento en O-Replay, donde podrán ver resultados en vivo e información del evento.",
-    "Title": "Código QR del Evento"
-  },
   "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
   "Results": {
     "Class": "Categoría",

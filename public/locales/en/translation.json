@@ -41,6 +41,16 @@
     "Location": "Location",
     "Organizer": "Organizer",
     "Public": "Public",
+    "QRCode": {
+      "CopyUrl": "Copy Event URL",
+      "Description": "Generate and download a QR code that links directly to this event on O-Replay.",
+      "Download": "Download QR Code (PNG)",
+      "EventName": "Event Name",
+      "EventUrl": "Event URL",
+      "Generating": "Generating QR code...",
+      "Instructions": "Scanning this QR code will take users directly to the event page on O-Replay where they can view live results and event information.",
+      "Title": "Event QR Code"
+    },
     "Renew": "Renew",
     "Renew security keys": "Generate a new security key",
     "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
@@ -132,17 +142,6 @@
   "Organizer": "Organizer",
   "Organizers": "Organizer's info",
   "Password": "Password",
-  "QRCode": {
-    "CopyUrl": "Copy Event URL",
-    "Description": "Generate and download a QR code that links directly to this event on O-Replay.",
-    "Download": "Download QR Code (PNG)",
-    "EventName": "Event Name",
-    "EventQRCode": "Event QR Code",
-    "EventUrl": "Event URL",
-    "Generating": "Generating QR code...",
-    "Instructions": "Scanning this QR code will take users directly to the event page on O-Replay where they can view live results and event information.",
-    "Title": "Event QR Code"
-  },
   "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Results": {
     "Class": "Class",
