@@ -5,6 +5,7 @@ import QRCodeStyling from "qr-code-styling"
 import { useTranslation } from "react-i18next"
 import { API_DOMAIN } from "../services/ApiConfig.ts"
 import { HorizontalLogo } from "../assets/HorizontalLogo.tsx"
+import { useNotifications } from "@toolpad/core/useNotifications"
 
 interface QRCodeSectionProps {
   eventId: string
@@ -21,6 +22,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
   const qrContainerRef = useRef<HTMLDivElement>(null)
 
   const eventUrl = `${API_DOMAIN}competitions/${eventId}`
+  const notifications = useNotifications()
 
   useEffect(() => {
     const createQRCode = async () => {
@@ -120,6 +122,10 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
   const copyUrl = async () => {
     try {
       await navigator.clipboard.writeText(eventUrl)
+      notifications.show(t("Copied to the clipboard"), {
+        severity: "info",
+        autoHideDuration: 3000,
+      })
     } catch (err) {
       console.error("Failed to copy URL:", err)
     }
