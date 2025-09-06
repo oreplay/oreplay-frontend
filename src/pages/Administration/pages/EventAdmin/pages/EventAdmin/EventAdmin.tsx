@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 import StagesDataGrid from "./components/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
 import DeleteEventButton from "./components/DeleteEventButton.tsx"
-import QRCodeSection from "../../../../../../components/QRCodeSection.tsx"
 import React, { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
 import { DateTime } from "luxon"
@@ -86,10 +85,6 @@ export default function EventAdmin() {
             handleSubmit={(evt) => void handleUpdateEvent(evt)}
             canEdit={isEventEditing}
           />
-        </Box>
-        <Box sx={{ marginY: "2em" }}>
-          <Typography variant={"h3"}>{t("EventAdmin.QRCode.Title")}</Typography>
-          {detail ? <QRCodeSection eventId={detail.id} eventName={detail.description} /> : <></>}
         </Box>
         <Box sx={{ marginY: "2em" }}>
           <Typography variant={"h3"}>{t("Stages")}</Typography>

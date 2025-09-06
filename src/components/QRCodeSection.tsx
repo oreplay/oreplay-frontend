@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Box, Button, Card, CardContent, Typography, Alert, CircularProgress } from "@mui/material"
-import { Download as DownloadIcon, QrCode as QrCodeIcon } from "@mui/icons-material"
+import { Box, Button, Typography, Alert, CircularProgress } from "@mui/material"
+import { Download as DownloadIcon } from "@mui/icons-material"
 import QRCodeStyling from "qr-code-styling"
 import { useTranslation } from "react-i18next"
 import { API_DOMAIN } from "../services/ApiConfig.ts"
@@ -126,149 +126,138 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
   }
 
   return (
-    <Card variant="outlined" sx={{ marginY: 2 }}>
-      <CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
-          <QrCodeIcon sx={{ marginRight: 1, color: "primary.main" }} />
-          <Typography variant="h6" component="h3">
-            {t("EventAdmin.QRCode.Title")}
-          </Typography>
-        </Box>
+    <>
+      <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 2 }}>
+        {t("EventAdmin.QRCode.Description")}
+      </Typography>
 
-        <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 2 }}>
-          {t("EventAdmin.QRCode.Description")}
-        </Typography>
-
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: { xs: "center", md: "flex-start" },
+          gap: 3,
+        }}
+      >
+        {/* QR Code Container with Orange Gradient */}
         <Box
+          ref={qrContainerRef}
           sx={{
+            background: "linear-gradient(180deg, #FF9454 0%, #FB6D26 100%)",
+            borderRadius: 4,
+            padding: 2,
             display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            alignItems: { xs: "center", md: "flex-start" },
-            gap: 3,
+            flexDirection: "column",
+            alignItems: "center",
+            minWidth: 250,
+            boxShadow: 2,
           }}
         >
-          {/* QR Code Container with Orange Gradient */}
+          {/* White Inner Container for QR Code */}
           <Box
-            ref={qrContainerRef}
             sx={{
-              background: "linear-gradient(180deg, #FF9454 0%, #FB6D26 100%)",
-              borderRadius: 4,
-              padding: 2,
+              backgroundColor: "white",
+              borderRadius: 3,
+              padding: 0.5,
               display: "flex",
-              flexDirection: "column",
+              justifyContent: "center",
               alignItems: "center",
-              minWidth: 250,
-              boxShadow: 2,
+              minHeight: 220,
+              minWidth: 220,
+              marginBottom: 1,
             }}
           >
-            {/* White Inner Container for QR Code */}
-            <Box
-              sx={{
-                backgroundColor: "white",
-                borderRadius: 3,
-                padding: 0.5,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                minHeight: 220,
-                minWidth: 220,
-                marginBottom: 1,
-              }}
-            >
-              {isLoading && (
-                <Box
-                  sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}
-                >
-                  <CircularProgress />
-                  <Typography variant="body2" color="text.secondary">
-                    {t("EventAdmin.QRCode.Generating")}
-                  </Typography>
-                </Box>
-              )}
-
-              {error && (
-                <Alert severity="error" sx={{ margin: 2 }}>
-                  {error}
-                </Alert>
-              )}
-
-              <div ref={qrRef} />
-            </Box>
-
-            {/* White Horizontal Logo at Bottom */}
-            <HorizontalLogo
-              sx={{
-                fontSize: 120,
-                width: 200,
-                height: "auto",
-                marginTop: 1,
-                filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.2))",
-                "& path": { fill: "white !important" },
-              }}
-            />
-          </Box>
-
-          <Box sx={{ flex: 1, minWidth: 250 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
-              {t("EventAdmin.QRCode.EventUrl")}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                marginBottom: 2,
-                padding: 1,
-                backgroundColor: "grey.100",
-                borderRadius: 1,
-                wordBreak: "break-all",
-                fontFamily: "monospace",
-                fontSize: "0.875rem",
-              }}
-            >
-              {eventUrl}
-            </Typography>
-
-            {eventName && (
-              <>
-                <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
-                  {t("EventAdmin.QRCode.EventName")}
+            {isLoading && (
+              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                <CircularProgress />
+                <Typography variant="body2" color="text.secondary">
+                  {t("EventAdmin.QRCode.Generating")}
                 </Typography>
-                <Typography variant="body2" sx={{ marginBottom: 2 }}>
-                  {eventName}
-                </Typography>
-              </>
+              </Box>
             )}
 
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <Button
-                variant="contained"
-                startIcon={<DownloadIcon />}
-                onClick={() => void handleDownload()}
-                disabled={!qrCode || isLoading}
-                fullWidth
-              >
-                {t("EventAdmin.QRCode.Download")}
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => void copyUrl()}
-                disabled={isLoading}
-                fullWidth
-              >
-                {t("EventAdmin.QRCode.CopyUrl")}
-              </Button>
-            </Box>
+            {error && (
+              <Alert severity="error" sx={{ margin: 2 }}>
+                {error}
+              </Alert>
+            )}
 
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ marginTop: 2, display: "block" }}
-            >
-              {t("EventAdmin.QRCode.Instructions")}
-            </Typography>
+            <div ref={qrRef} />
           </Box>
+
+          {/* White Horizontal Logo at Bottom */}
+          <HorizontalLogo
+            sx={{
+              fontSize: 120,
+              width: 200,
+              height: "auto",
+              marginTop: 1,
+              filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.2))",
+              "& path": { fill: "white !important" },
+            }}
+          />
         </Box>
-      </CardContent>
-    </Card>
+
+        <Box sx={{ flex: 1, minWidth: 250 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+            {t("EventAdmin.QRCode.EventUrl")}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              marginBottom: 2,
+              padding: 1,
+              backgroundColor: "grey.100",
+              borderRadius: 1,
+              wordBreak: "break-all",
+              fontFamily: "monospace",
+              fontSize: "0.875rem",
+            }}
+          >
+            {eventUrl}
+          </Typography>
+
+          {eventName && (
+            <>
+              <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+                {t("EventAdmin.QRCode.EventName")}
+              </Typography>
+              <Typography variant="body2" sx={{ marginBottom: 2 }}>
+                {eventName}
+              </Typography>
+            </>
+          )}
+
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            <Button
+              variant="contained"
+              startIcon={<DownloadIcon />}
+              onClick={() => void handleDownload()}
+              disabled={!qrCode || isLoading}
+              fullWidth
+            >
+              {t("EventAdmin.QRCode.Download")}
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => void copyUrl()}
+              disabled={isLoading}
+              fullWidth
+            >
+              {t("EventAdmin.QRCode.CopyUrl")}
+            </Button>
+          </Box>
+
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ marginTop: 2, display: "block" }}
+          >
+            {t("EventAdmin.QRCode.Instructions")}
+          </Typography>
+        </Box>
+      </Box>
+    </>
   )
 }
 

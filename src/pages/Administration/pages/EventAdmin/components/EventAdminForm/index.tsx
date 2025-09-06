@@ -20,6 +20,9 @@ import React, { useState } from "react"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import EditIcon from "@mui/icons-material/Edit"
+import { EventDetailModel, OrganizerModel } from "../../../../../shared/EntityTypes.ts"
+import { useOrganizerSearch } from "../../../services/EventAdminService.ts"
+import ShareEventDialog from "../pages/EventAdmin/components/ShareEventDialog.tsx"
 import { EventDetailModel, OrganizerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useOrganizerSearch } from "../../../../services/EventAdminService.ts"
 import WebsiteField from "./components/WebsiteField.tsx"
@@ -180,20 +183,30 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             marginTop: "24px",
           }}
         >
-          {props.canEdit ? (
-            <>
-              <Button variant="outlined" startIcon={<CloseIcon />} onClick={props.handleCancel}>
-                {t("Cancel")}
+          <>
+            {props.eventDetail ? (
+              <ShareEventDialog
+                eventId={props.eventDetail.id}
+                eventName={props.eventDetail.description}
+              />
+            ) : (
+              <></>
+            )}
+            {props.canEdit ? (
+              <>
+                <Button variant="outlined" startIcon={<CloseIcon />} onClick={props.handleCancel}>
+                  {t("Cancel")}
+                </Button>
+                <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
+                  {t("EventAdmin.Save")}
+                </Button>
+              </>
+            ) : (
+              <Button variant="contained" startIcon={<EditIcon />} onClick={props.handleEdit}>
+                {t("Edit")}
               </Button>
-              <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
-                {t("EventAdmin.Save")}
-              </Button>
-            </>
-          ) : (
-            <Button variant="outlined" startIcon={<EditIcon />} onClick={props.handleEdit}>
-              {t("Edit")}
-            </Button>
-          )}
+            )}
+          </>
         </Box>
       </Grid>
     </Container>
