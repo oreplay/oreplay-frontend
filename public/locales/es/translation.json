@@ -38,6 +38,7 @@
     "FinishDate": "Fecha de final",
     "Hidden": "Privado",
     "InvalidURLMsg": "URL inválida",
+    "TooLongMsg": "La URL puede tener una longitud máxima de {{count}} caracteres",
     "Location": "Ubicación",
     "Organizer": "Organizador",
     "Public": "Público",

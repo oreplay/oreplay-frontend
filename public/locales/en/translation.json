@@ -87,6 +87,7 @@
       }
     },
     "StartDate": "Start date",
+    "TooLongMsg": "The entered URL exceeds the maximum of {{count}} characters",
     "Website": "Event's website"
   },
   "EventList": {

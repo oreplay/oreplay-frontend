@@ -20,8 +20,9 @@ import React, { useState } from "react"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import EditIcon from "@mui/icons-material/Edit"
-import { EventDetailModel, OrganizerModel } from "../../../../../shared/EntityTypes.ts"
-import { useOrganizerSearch } from "../../../services/EventAdminService.ts"
+import { EventDetailModel, OrganizerModel } from "../../../../../../shared/EntityTypes.ts"
+import { useOrganizerSearch } from "../../../../services/EventAdminService.ts"
+import WebsiteField from "./components/WebsiteField.tsx"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -40,24 +41,6 @@ interface EventAdminFormProps {
 }
 
 /**
- * Validate that an string matches a URL pattern
- * @param url
- */
-const validateURL = (url: string) => {
-  const urlPattern = new RegExp(
-    "^(https?:\\/\\/)?" + // validate protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i",
-  ) // validate fragment locator
-
-  return urlPattern.test(url)
-}
-
-/**
  * This is are all the fields that can be set in an event. It can display the data if an event is
  * passed in its props. Data can be edited if an event is passed and canEdit is set to true. In this
  * case, the handleSubmit can update the data on the server. If no data provided, it can be used to
@@ -70,7 +53,6 @@ export default function EventAdminForm(props: EventAdminFormProps) {
   const [isEventPublic, setIsEventPublic] = useState<boolean>(
     props.eventDetail ? !props.eventDetail.is_hidden : false,
   )
-  const [isWebsiteValid, setIsWebsiteValid] = useState(true)
   const { data: organizersData, isSuccess: areOrganizersSuccess } = useOrganizerSearch(
     !props.canEdit,
   )
@@ -106,21 +88,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           />
         </Grid>
         <Grid item xs={12} md={8} lg={12}>
-          <TextField
-            fullWidth
-            id="website"
-            name="website"
-            label={t("EventAdmin.Website")}
-            {...style_props}
-            autoComplete="url"
-            defaultValue={props.eventDetail ? props.eventDetail.website : ""}
-            error={!isWebsiteValid}
-            helperText={!isWebsiteValid ? t("EventAdmin.InvalidURLMsg") : ""}
-            onBlur={(e) => {
-              const value = e.target.value
-              setIsWebsiteValid(!value || validateURL(value)) // Allow empty or valid URL
-            }}
-          />
+          <WebsiteField eventDetail={props.eventDetail} />
         </Grid>
         <Grid item xs={12} md={4} lg={4}>
           <Autocomplete<OrganizerModel, false, false, false>

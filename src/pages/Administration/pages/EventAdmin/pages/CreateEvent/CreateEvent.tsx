@@ -1,4 +1,4 @@
-import EventAdminForm from "../../components/EventAdminForm.tsx"
+import EventAdminForm from "../../components/EventAdminForm"
 import React from "react"
 import { postEvent } from "../../../../services/EventAdminService.ts"
 import { DateTime } from "luxon"

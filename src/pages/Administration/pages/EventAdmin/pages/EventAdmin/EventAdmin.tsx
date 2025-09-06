@@ -1,4 +1,4 @@
-import EventAdminForm from "../../components/EventAdminForm.tsx"
+import EventAdminForm from "../../components/EventAdminForm"
 import { Alert, AlertTitle, Box, Container, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import StagesDataGrid from "./components/StagesDataGrid.tsx"
