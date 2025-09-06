@@ -103,5 +103,11 @@ module.exports = {
         "@typescript-eslint/unified-signatures": "off",
       },
     },
+    {
+      files: ["public/locales/**/*.json"],
+      rules: {
+        "no-irregular-whitespace": "off",
+      },
+    },
   ],
 }
