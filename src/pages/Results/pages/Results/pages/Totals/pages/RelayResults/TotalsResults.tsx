@@ -6,13 +6,21 @@ import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
-import TotalsResultItem from "./components/TotalsResultItem.tsx"
+import EnhancedTotalsResultItem from "./components/EnhancedTotalsResultItem.tsx"
 import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
+import { calculateStageLeaders } from "./utils/stageLeaderCalculator.ts"
+import { useMemo } from "react"
 
 export default function TotalsResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
   const runnersList = props.runnersQuery.data
+
+  // Calculate stage leaders for difference calculations
+  const stageLeaders = useMemo(() => {
+    if (!runnersList) return []
+    return calculateStageLeaders(runnersList)
+  }, [runnersList])
 
   // @ts-expect-error TS6133: variable is declared but never used
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -30,7 +38,12 @@ export default function TotalsResults(
       <ResultListContainer>
         <NotImplementedAlertBox />
         {runnersList?.map((runner: ProcessedRunnerModel) => (
-          <TotalsResultItem key={runner.id} runner={runner} handleRowClick={handleRowClick} />
+          <EnhancedTotalsResultItem
+            key={runner.id}
+            runner={runner}
+            handleRowClick={handleRowClick}
+            stageLeaders={stageLeaders}
+          />
         ))}
       </ResultListContainer>
     )
