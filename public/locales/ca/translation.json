@@ -87,6 +87,7 @@
       }
     },
     "StartDate": "Data d'inici",
+    "TooLongMsg": "La URL pot tenir una longitud màxima de {{count}} caràcters",
     "Website": "Web de l'event"
   },
   "EventList": {
@@ -103,6 +104,21 @@
     "title": "Ha ocorregut un error inesperat"
   },
   "GoBack": "Tornar enrere",
+  "Graphs": {
+    "BarChart": "Gràfic de Barres",
+    "Finish": "Meta",
+    "LineChart": "Gràfic de Línies",
+    "PositionChart": "Evolució de Posició",
+    "RunnerSelection": "Selecció de Corredors",
+    "SelectRunnersMessage": "Selecciona corredors per a veure gràfics",
+    "SelectedCount_many": "{{count}} de {{total}} seleccionats",
+    "SelectedCount_one": "{{count}} de {{total}} seleccionat",
+    "SelectedCount_other": "{{count}} de {{total}} seleccionats",
+    "Start": "Sortida",
+    "Threshold": "Llindar",
+    "ThresholdWithPercent": "Llindar ({{percent}}%)",
+    "TimeLossAnalysis": "Anàlisi de pèrdua de Temps"
+  },
   "Home": {
     "Home": "Inici"
   },
@@ -119,12 +135,16 @@
   "Organizer": "Organitzador",
   "Organizers": "Organitzadors",
   "Password": "Contrassenya",
+  "RadiosExperimentalMsg": "Quan s'utilitzen radiocontrols, les funcionalitats relacionades amb els parcials són experimentals.",
   "Results": {
     "Class": "Categoria",
     "Classes": "Categories",
     "Finish": "Meta",
+    "Name": "Nom",
+    "Position": "Posició",
     "SiCard": "Xip",
     "Start": "Sortida",
+    "Time": "Temps",
     "shortClass": "Categoria"
   },
   "ResultsStage": {
@@ -149,6 +169,7 @@
     "RaceTime": "Temps",
     "Refresh": "Refrescar",
     "SplitsTable": {
+      "CleanTime": "Sense Errors",
       "CumulativeTimes": "Acumulats",
       "NoRunnersWithSplits": "Cap corredor ha descarregat el seu xip",
       "OnlyForClasses": "La taula de parcials només està disponible per a resultats per categories.",
@@ -174,6 +195,7 @@
       "disqualified": "Desq",
       "dnf": "Aban",
       "dns": "NS",
+      "dsq": "DSQ",
       "mp": "MP",
       "nc": "NC",
       "ok": "ok",
@@ -194,6 +216,7 @@
     "Sign in": "Iniciar sessió"
   },
   "StageHeader": {
+    "Graphs": "Gràfics",
     "RelayLegs": "Posta",
     "Results": "Resultats",
     "ScorePoints": "Punts",
@@ -203,5 +226,52 @@
   "Stages": "Etapes",
   "Success": "Èxit",
   "This action cannot be undone": "Aquesta acció no es pot desfer.",
-  "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible."
+  "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible.",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Temps sense errors"
+    },
+    "selectRunnersMessage": "Selecciona corredors per a veure el gràfic",
+    "timeAxisLabel": "Temps (segons)"
+  },
+  "lineChart": {
+    "noData": "Selecciona corredors per a veure el gràfic de línies",
+    "tooltip": {
+      "behindBestPartial": "Temps respecte el millor parcial",
+      "behindLeader": "Temps respecte el líder"
+    },
+    "xAxisLabel": "Fites"
+  },
+  "positionChart": {
+    "caption": "* Posició 1 a dalt (millor), posicions més altes a baix (pitjor)",
+    "noData": "Selecciona corredors per a veure l'evolució de posicions",
+    "tooltip": {
+      "control": "Fita",
+      "position": "Posició",
+      "splitTime": "Temps parcial",
+      "timeLost": "Temps respecte el millor parcial: {{timeLost}}"
+    },
+    "xAxisLabel": "Fites",
+    "yAxisLabel": "Posició"
+  },
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Política de Cookies (galetes)",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Avís Legal",
+    "loading": "Carregant...",
+    "privacyPolicy": "Política de Privacitat"
+  },
+  "tooltip": {
+    "efficiency": "Eficiència",
+    "errorFreeTime": "Temps sense errors",
+    "totalDisplayedTime": "Temps total mostrat"
+  },
+  "view": {
+    "accumulated": "Acumulats",
+    "positionChart": "Posició",
+    "radios": "Radios",
+    "splits": "Parcials"
+  }
 }
