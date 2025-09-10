@@ -110,6 +110,24 @@
     "LineChart": "Линейная диаграмма",
     "PositionChart": "Диаграмма позиций",
     "RunnerSelection": "Выбор бегуна",
-    "SelectRunnersMessage": "Выберите бегунов чтобы увидеть диаграммы"
-  }
+    "SelectRunnersMessage": "Выберите бегунов чтобы увидеть диаграммы",
+    "SelectedCount_few": "выбраны {{count}} из {{total}}",
+    "SelectedCount_many": "выбраны {{count}} из {{total}}",
+    "SelectedCount_one": "выбран {{count}} из {{total}}",
+    "Start": "Старт",
+    "Threshold": "Порог",
+    "ThresholdWithPercent": "Порог ({{percent}}%)",
+    "TimeLossAnalysis": "Анализ потери времени"
+  },
+  "Language": {
+    "English": "Английский",
+    "French": "Французский",
+    "Language": "Язык",
+    "Spanish": "Испанский"
+  },
+  "Loading": "Идёт загрузка",
+  "Location": "Местоположение",
+  "Menu": "Меню",
+  "Name": "Имя",
+  "Organizer": "Организатор"
 }
