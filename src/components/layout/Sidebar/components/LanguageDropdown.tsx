@@ -26,9 +26,10 @@ const LanguageDropdown = () => {
   const languages = [
     { code: "es", flag: "🇪🇸", name: "Español" },
     { code: "en", flag: "🇬🇧", name: "English" },
-    { code: "fr", flag: "🇫🇷", name: "Français" },
     { code: "ca", flag: <CataloniaFlag fontSize={"inherit"} />, name: "Català" },
+    { code: "fr", flag: "🇫🇷", name: "Français" },
     { code: "gl", flag: <GaliciaFlag fontSize={"inherit"} />, name: "Galego" },
+    { code: "pt", flag: "🇵🇹", name: "Português" },
     { code: "uk", flag: "🇺🇦", name: "українська" },
     { code: "zh", flag: "🇨🇳", name: "简体中文" },
   ]
