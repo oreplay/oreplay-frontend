@@ -38,12 +38,11 @@
     "FinishDate": "Fecha de final",
     "Hidden": "Privado",
     "InvalidURLMsg": "URL inválida",
-    "TooLongMsg": "La URL puede tener una longitud máxima de {{count}} caracteres",
     "Location": "Ubicación",
     "Organizer": "Organizador",
     "Public": "Público",
     "QRCode": {
-      "CopyUrl": "Copiar URL del Evento",
+      "CopyUrl": "Copiar URL del evento",
       "Description": "Genera y descarga un código QR que enlaza directamente a este evento en O-Replay.",
       "Download": "Descargar Código QR (PNG)",
       "EventName": "Nombre del Evento",
@@ -99,6 +98,7 @@
       }
     },
     "StartDate": "Fecha de comienzo",
+    "TooLongMsg": "La URL puede tener una longitud máxima de {{count}} caracteres",
     "Website": "Web del evento"
   },
   "EventList": {
@@ -122,6 +122,7 @@
     "PositionChart": "Evolución de Posición",
     "RunnerSelection": "Selección de Corredores",
     "SelectRunnersMessage": "Selecciona corredores para ver gráficos",
+    "SelectedCount_many": "",
     "SelectedCount_one": "{{count}} de {{total}} seleccionados",
     "SelectedCount_other": "{{count}} of {{total}} seleccionados",
     "Start": "Salida",
