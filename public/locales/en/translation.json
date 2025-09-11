@@ -124,7 +124,6 @@
     "SelectRunnersMessage": "Select runners to view charts",
     "SelectedCount_one": "{{count}} of {{total}} selected",
     "SelectedCount_other": "{{count}} of {{total}} selected",
-    "SelectedCount_zero": "{{count}} of {{total}} selected",
     "Start": "Start",
     "Threshold": "Threshold",
     "ThresholdWithPercent": "Threshold ({{percent}}%)",
