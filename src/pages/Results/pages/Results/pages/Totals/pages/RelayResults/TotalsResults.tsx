@@ -74,6 +74,7 @@ export default function TotalsResults(
             overallLeaderTime={overallLeaderTime}
             overallLeaderPoints={overallLeaderPoints}
             isPointsBasedEvent={isPointsBasedEvent}
+            isClass={props.isClass}
           />
         ))}
       </ResultListContainer>
