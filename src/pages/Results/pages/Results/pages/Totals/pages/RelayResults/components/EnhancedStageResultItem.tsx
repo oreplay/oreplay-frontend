@@ -16,14 +16,17 @@ interface StageLeaderData {
 interface EnhancedStageResultItemProps {
   stage: ProcessedOverallModel
   stageLeader?: StageLeaderData
+  isRunnerNC?: boolean // Add this prop to know if the overall runner is NC
 }
 
 export default function EnhancedStageResultItem({
   stage,
   stageLeader,
+  isRunnerNC = false,
 }: EnhancedStageResultItemProps) {
   const stageDescription = stage?.stage ? stage.stage.description : `Stage ${stage.stage_order}`
   const { t } = useTranslation()
+
   // Calculate time behind stage leader if applicable
   const timeBehindStageLeader =
     stageLeader?.bestTime && stage.time_seconds && stage.time_seconds > 0
@@ -33,15 +36,26 @@ export default function EnhancedStageResultItem({
   // Check if this runner was the stage leader (position 1 in this stage)
   const isStageLeader = stage.position === 1
 
-  // TODO: Add contribute flag to backend API and stage data structure
-  // For now, assume all stages contribute (contribute = true)
-  // When backend provides this flag, check: stage.contribute === false
-  const hasStrikethrough = false // stage.contribute === false
+  // Check for struck-through conditions:
+  // 1. contributory === false (from backend data)
+  // 2. points_final === 0 for NC stages in points-based events
+  // 3. Overall runner is NC (isRunnerNC prop)
+
+  // Get contributory status from the stage data if available
+  // Note: This assumes the backend provides a contributory field in the stage data
+  // If not available, we fall back to checking points_final === 0
+  const isContributory = (stage as any).contributory !== false // Default to true if not specified
+  const hasZeroPoints = stage.points_final === 0
+  const shouldShowStrikethrough = !isContributory || (isRunnerNC && hasZeroPoints)
 
   // Determine if this is a points-based or time-based stage
   const isPointsBased =
     stage.points_final !== null && stage.points_final !== undefined && stage.points_final > 0
   const isTimeBased = stage.time_seconds && stage.time_seconds > 0
+
+  // Check if this stage should show "----" for differences
+  // Show "----" if: runner is NC, or contributory is false, or points are 0 in points-based events
+  const shouldShowDashes = isRunnerNC || !isContributory || (isPointsBased && hasZeroPoints)
 
   return (
     <Box
@@ -63,10 +77,10 @@ export default function EnhancedStageResultItem({
             fontSize: "0.875rem",
             fontWeight: 400,
             color: "#000000",
-            textDecoration: hasStrikethrough ? "line-through" : "none",
+            textDecoration: shouldShowStrikethrough ? "line-through" : "none",
           }}
         >
-          {stage.position}.
+          {stage.position || 0}.
         </Typography>
       </Box>
 
@@ -76,7 +90,7 @@ export default function EnhancedStageResultItem({
             fontSize: "0.875rem",
             fontWeight: 400,
             color: "#000000",
-            textDecoration: hasStrikethrough ? "line-through" : "none",
+            textDecoration: shouldShowStrikethrough ? "line-through" : "none",
           }}
         >
           {stageDescription}
@@ -91,7 +105,7 @@ export default function EnhancedStageResultItem({
                 fontSize: "0.875rem",
                 fontWeight: 400,
                 color: "#000000",
-                textDecoration: hasStrikethrough ? "line-through" : "none",
+                textDecoration: shouldShowStrikethrough ? "line-through" : "none",
               }}
             >
               {parseSecondsToMMSS(stage.time_seconds!)}
@@ -103,10 +117,24 @@ export default function EnhancedStageResultItem({
                   fontSize: "0.875rem",
                   fontWeight: 400,
                   color: "#000000",
-                  textDecoration: hasStrikethrough ? "line-through" : "none",
+                  textDecoration: shouldShowStrikethrough ? "line-through" : "none",
                 }}
               >
-                {formatScoreAsInteger(stage.points_final)} {t("Overall.pointsAbbreviation")}
+                {shouldShowDashes
+                  ? "----"
+                  : `${formatScoreAsInteger(stage.points_final)} ${t("Overall.pointsAbbreviation")}`}
+              </Typography>
+            ) : shouldShowDashes ? (
+              // Show "----" for NC or non-contributory stages
+              <Typography
+                sx={{
+                  fontSize: "0.875rem",
+                  fontWeight: 400,
+                  color: "primary.main",
+                  textDecoration: shouldShowStrikethrough ? "line-through" : "none",
+                }}
+              >
+                ----
               </Typography>
             ) : isStageLeader ? (
               // Stage leader: show +00:00
@@ -115,7 +143,7 @@ export default function EnhancedStageResultItem({
                   fontSize: "0.875rem",
                   fontWeight: 400,
                   color: "primary.main",
-                  textDecoration: hasStrikethrough ? "line-through" : "none",
+                  textDecoration: shouldShowStrikethrough ? "line-through" : "none",
                 }}
               >
                 +00:00
@@ -127,7 +155,7 @@ export default function EnhancedStageResultItem({
                   fontSize: "0.875rem",
                   fontWeight: 400,
                   color: "primary.main",
-                  textDecoration: hasStrikethrough ? "line-through" : "none",
+                  textDecoration: shouldShowStrikethrough ? "line-through" : "none",
                 }}
               >
                 {parseTimeBehind(timeBehindStageLeader)}
@@ -142,10 +170,12 @@ export default function EnhancedStageResultItem({
               fontSize: "0.875rem",
               fontWeight: 400,
               color: "#000000",
-              textDecoration: hasStrikethrough ? "line-through" : "none",
+              textDecoration: shouldShowStrikethrough ? "line-through" : "none",
             }}
           >
-            {formatScoreAsInteger(stage.points_final)} {t("Overall.pointsAbbreviation")}
+            {shouldShowDashes
+              ? "----"
+              : `${formatScoreAsInteger(stage.points_final)} ${t("Overall.pointsAbbreviation")}`}
           </Typography>
         )}
         {!isTimeBased && !isPointsBased && (
@@ -154,10 +184,10 @@ export default function EnhancedStageResultItem({
               fontSize: "0.875rem",
               fontWeight: 400,
               color: "#999999",
-              textDecoration: hasStrikethrough ? "line-through" : "none",
+              textDecoration: shouldShowStrikethrough ? "line-through" : "none",
             }}
           >
-            --
+            ----
           </Typography>
         )}
       </Box>
