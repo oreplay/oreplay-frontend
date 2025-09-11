@@ -185,7 +185,7 @@
       "NoDownloadMsg": "No hi ha lectura de xip",
       "Partial": "Parcial",
       "RaceTime": "Temps:",
-      "StartHour": "Hora de sortida:"
+      "StartHour": "H. sortida:"
     },
     "WrongFileUploaded": {
       "Msg": "El cronometrador ha pujat els resultats finals sense parcials. Aquests arxius no s'haurien de pujar i poden causar dades incorrectes o faltants. Pots trobar més informació sobre com pujar resultats al nostre servei a la pàgina d'<2>Organitzadors</2>.",
@@ -227,6 +227,7 @@
   "Success": "Èxit",
   "This action cannot be undone": "Aquesta acció no es pot desfer.",
   "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible.",
+  "authenticationError": "S'ha produït un error",
   "chart": {
     "legend": {
       "errorFreeTime": "Temps sense errors"
@@ -270,6 +271,7 @@
   },
   "view": {
     "accumulated": "Acumulats",
+    "lineChart": "Darrere líder",
     "positionChart": "Posició",
     "radios": "Radios",
     "splits": "Parcials"
