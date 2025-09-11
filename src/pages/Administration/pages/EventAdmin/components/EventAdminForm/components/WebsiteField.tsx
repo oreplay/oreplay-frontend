@@ -1,10 +1,10 @@
 import { useState, FocusEvent } from "react"
-import TextField from "@mui/material/TextField"
+import TextField, { OutlinedTextFieldProps } from "@mui/material/TextField"
 import { useTranslation } from "react-i18next"
 
 interface WebsiteFieldProps {
   eventDetail?: { website?: string }
-  style_props?: Record<string, unknown>
+  style_props?: OutlinedTextFieldProps
 }
 
 interface ValidationError {

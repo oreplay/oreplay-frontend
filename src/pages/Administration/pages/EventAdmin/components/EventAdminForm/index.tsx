@@ -89,7 +89,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           />
         </Grid>
         <Grid item xs={12} md={8} lg={12}>
-          <WebsiteField eventDetail={props.eventDetail} />
+          <WebsiteField eventDetail={props.eventDetail} style_props={style_props} />
         </Grid>
         <Grid item xs={12} md={4} lg={4}>
           <Autocomplete<OrganizerModel, false, false, false>
