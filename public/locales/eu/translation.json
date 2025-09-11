@@ -1,1 +1,78 @@
-{}
+{
+  "404Page": {
+    "ButtonMessage": "Irteera Hirukia",
+    "Header": "Basoan galduta?",
+    "Message": "Ez izan dugu aurkitu bilatzen ari zinen orria."
+  },
+  "AboutUs": {
+    "AboutUs": "Guri buruz",
+    "VersionMessage": "Eraikitzen ari gara.   bertsioa erabiltzen ari zara. "
+  },
+  "Cancel": "Utzi",
+  "Copied to the clipboard": "Arbelean kopiatu da.",
+  "Copy": "Kopiatu",
+  "Dashboard": {
+    "Dashboard": "Kontrol panela",
+    "FinishDate": "Amaiera data",
+    "Name": "Ekitaldiaren izena",
+    "StartDate": "Hasiera data",
+    "YourEvents": "Zure ekitaldiak"
+  },
+  "Dates": "Data",
+  "Delete": "Ezabatu",
+  "Edit": "Editatu",
+  "EmailAddress": "Posta elektronikoa",
+  "Event": "Ekitaldia",
+  "EventAdmin": {
+    "Country": "Herrialdea",
+    "Create security keys": "Sortu segurtasun-giltza bat",
+    "DangerArea": "Arrisku eremua",
+    "DeleteEvent": "Ekitaldia ezabatu",
+    "Do you want to delete this event?": "Ekitaldi hau ezabatu nahi duzu?",
+    "Do you want to renew the security key?": "Segurtasun-giltza berritu nahi duzu?",
+    "EventData": "Ekitaldiaren informazioa",
+    "EventId": "Ekitaldiaren ID",
+    "EventName": "Ekitaldiaren izena",
+    "EventSecurityTokens": "Mahaigaineko bezeroarentzako segurtasun-giltza",
+    "EventSecurityTokensExpireDate": "Iraungitzen da",
+    "FinishDate": "Amaiera data",
+    "Hidden": "Pribatua",
+    "InvalidURLMsg": "URL baliogabea",
+    "Location": "Kokapena",
+    "Organizer": "Antolatzailea",
+    "Public": "Publikoa",
+    "Renew": "Berritu",
+    "Renew security keys": "Segurtasun-giltza berri bat sortu",
+    "RenewEventTokenMsg": "Segurtasun-giltza berritzen baduzu, zaharra baliogabetuko da. Beraz, giltza zaharra duen inork ezingo ditu emaitzak ekitaldi honetara igo.",
+    "Save": "Gorde",
+    "Scopes": {
+      "Club": "Kluba",
+      "International": "Nazioartekoa",
+      "Local": "Tokikoa",
+      "National": "Nazionala",
+      "RegionalHigh": "Autonomikoa",
+      "RegionalLow": "Regionala",
+      "Scope": "Esparrua"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "Etapa eta bere emaitza guztiak ezabatuko dira. Ekintza hau ezin da desegin.",
+        "DialogTitle": "Etapa hau ezabatu nahi duzu?",
+        "MenuText": "Ezabatu"
+      },
+      "GoToStage": "Etapa ikusi",
+      "NewStage": "Etapa berria",
+      "StagesTypes": {
+        "ChaseStart": "Ehiza irteera",
+        "FootO": "O-Oinez / MTB-O",
+        "MassStart": "Masa irteera",
+        "Raid": "Raida",
+        "Relay": "Errelebo",
+        "Rogaine": "Rogaine",
+        "StageType": "Tipoa",
+        "Totals": "Ranking / Totalak",
+        "TrailO": "Trail-O"
+      }
+    }
+  }
+}
