@@ -31,7 +31,6 @@ const LanguageDropdown = () => {
     { code: "gl", flag: <GaliciaFlag fontSize={"inherit"} />, name: "Galego" },
     { code: "pt", flag: "🇵🇹", name: "Português" },
     { code: "uk", flag: "🇺🇦", name: "українська" },
-    { code: "zh", flag: "🇨🇳", name: "简体中文" },
   ]
 
   return (
