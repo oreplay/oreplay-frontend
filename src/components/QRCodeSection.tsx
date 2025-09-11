@@ -3,7 +3,6 @@ import { Box, Button, Typography, Alert, CircularProgress } from "@mui/material"
 import { Download as DownloadIcon } from "@mui/icons-material"
 import QRCodeStyling from "qr-code-styling"
 import { useTranslation } from "react-i18next"
-import { API_DOMAIN } from "../services/ApiConfig.ts"
 import { HorizontalLogo } from "../assets/HorizontalLogo.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 
@@ -11,6 +10,8 @@ interface QRCodeSectionProps {
   eventId: string
   eventName?: string
 }
+
+const WEBSITE_DOMAIN = import.meta.env.VITE_WEBSITE_DOMAIN
 
 const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => {
   const { t } = useTranslation()
@@ -21,7 +22,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
   const qrRef = useRef<HTMLDivElement>(null)
   const qrContainerRef = useRef<HTMLDivElement>(null)
 
-  const eventUrl = `${API_DOMAIN}competitions/${eventId}`
+  const eventUrl = `${WEBSITE_DOMAIN}competitions/${eventId}`
   const notifications = useNotifications()
 
   useEffect(() => {
