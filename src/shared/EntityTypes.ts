@@ -146,6 +146,7 @@ export interface RunnerResultModel {
   points_bonus: number
   leg_number?: number
   splits: SplitModel[]
+  contributory?: boolean
 }
 
 export interface SplitModel {
@@ -207,6 +208,7 @@ export interface OverallModel {
   time_seconds: number | null
   points_final: number | null
   note: string | null
+  contributory?: boolean
 }
 
 export interface UserModel {
