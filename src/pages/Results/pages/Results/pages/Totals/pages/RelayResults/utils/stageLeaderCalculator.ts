@@ -8,6 +8,7 @@ export interface StageLeaderData {
 
 /**
  * Calculate the best time and points for each stage across all runners
+ * Only consider valid times and positions
  */
 export function calculateStageLeaders(runners: ProcessedRunnerModel[]): StageLeaderData[] {
   if (!runners || runners.length === 0) return []
@@ -17,11 +18,12 @@ export function calculateStageLeaders(runners: ProcessedRunnerModel[]): StageLea
   // Iterate through all runners and their stage results
   runners.forEach((runner) => {
     runner.overalls?.parts?.forEach((stage) => {
-      const stageId = stage.id
-      const existing = stageMap.get(stageId) || {}
+      // Use stage_order as the key instead of stage.id to group properly
+      const stageKey = stage.stage_order ? `stage_${stage.stage_order}` : stage.id
+      const existing = stageMap.get(stageKey) || {}
 
-      // Update best time (lower is better)
-      if (stage.time_seconds && stage.time_seconds > 0) {
+      // Update best time (lower is better) - only consider valid times and positions > 0
+      if (stage.time_seconds && stage.time_seconds > 0 && stage.position && stage.position > 0) {
         if (!existing.bestTime || stage.time_seconds < existing.bestTime) {
           existing.bestTime = stage.time_seconds
         }
@@ -34,7 +36,7 @@ export function calculateStageLeaders(runners: ProcessedRunnerModel[]): StageLea
         }
       }
 
-      stageMap.set(stageId, existing)
+      stageMap.set(stageKey, existing)
     })
   })
 
