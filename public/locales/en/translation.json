@@ -141,6 +141,9 @@
   "Name": "Name",
   "Organizer": "Organizer",
   "Organizers": "Organizer's info",
+  "Overall": {
+    "pointsAbbreviation": "pts"
+  },
   "Password": "Password",
   "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Results": {
