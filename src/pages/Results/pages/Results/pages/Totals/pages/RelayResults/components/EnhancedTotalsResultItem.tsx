@@ -29,6 +29,7 @@ interface EnhancedTotalsResultItemProps {
   overallLeaderTime?: number
   overallLeaderPoints?: number
   isPointsBasedEvent?: boolean
+  isClass?: boolean // Add this prop to determine if we're in class or club view
 }
 
 export default function EnhancedTotalsResultItem({
@@ -37,6 +38,7 @@ export default function EnhancedTotalsResultItem({
   overallLeaderTime,
   overallLeaderPoints,
   isPointsBasedEvent,
+  isClass = true, // Default to class view
 }: EnhancedTotalsResultItemProps) {
   const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
@@ -55,6 +57,9 @@ export default function EnhancedTotalsResultItem({
 
   const hasStageDetails = runner.overalls?.parts && runner.overalls.parts.length > 0
 
+  // Check if runner is NC
+  const isNC = runner.is_nc || runnerService.isNC(runner)
+
   // Calculate time behind overall leader
   const timeBehindOverallLeader =
     overallLeaderTime && result.time_seconds ? result.time_seconds - overallLeaderTime : 0
@@ -64,6 +69,11 @@ export default function EnhancedTotalsResultItem({
     overallLeaderPoints && result.points_final !== null && result.points_final !== undefined
       ? result.points_final - overallLeaderPoints
       : 0
+
+  // Determine subtitle: show class in club view, club in class view
+  const subtitle = isClass
+    ? runnerService.getClubName(runner, t)
+    : runnerService.getClassName(runner)
 
   return (
     <Box
@@ -79,13 +89,9 @@ export default function EnhancedTotalsResultItem({
     >
       <ResultListItem onClick={hasStageDetails ? handleExpandClick : undefined}>
         <FlexCol width="10px">
-          <RacePosition
-            position={result.position}
-            hasDownload={hasChipDownload}
-            isNC={runner.is_nc}
-          />
+          <RacePosition position={result.position} hasDownload={hasChipDownload} isNC={isNC} />
         </FlexCol>
-        <ParticipantName name={runner.full_name} subtitle={runnerService.getClubName(runner, t)} />
+        <ParticipantName name={runner.full_name} subtitle={subtitle} />
         <FlexCol flexGrow={1}>
           {isPointsBasedEvent ? (
             <Box
@@ -101,11 +107,14 @@ export default function EnhancedTotalsResultItem({
                 )}
               </Typography>
               <Typography sx={{ color: "primary.main", fontSize: 14, whiteSpace: "nowrap" }}>
-                {result.points_final !== null &&
-                result.points_final !== undefined &&
-                overallLeaderPoints
-                  ? `${pointsBehindOverallLeader >= 0 ? `+${pointsBehindOverallLeader}` : pointsBehindOverallLeader} pts`
-                  : ""}
+                {/* Show "----" for NC runners or when points are 0, otherwise show difference */}
+                {isNC || result.points_final === 0
+                  ? "----"
+                  : result.points_final !== null &&
+                      result.points_final !== undefined &&
+                      overallLeaderPoints
+                    ? `${pointsBehindOverallLeader >= 0 ? `+${pointsBehindOverallLeader}` : pointsBehindOverallLeader} pts`
+                    : ""}
               </Typography>
             </Box>
           ) : (
@@ -114,9 +123,12 @@ export default function EnhancedTotalsResultItem({
                 {result.time_seconds ? parseSecondsToMMSS(result.time_seconds) : ""}
               </Typography>
               <Typography sx={{ color: "primary.main", fontSize: 14 }}>
-                {result.time_seconds && overallLeaderTime
-                  ? parseTimeBehind(timeBehindOverallLeader)
-                  : ""}
+                {/* Show "----" for NC runners, otherwise show time difference */}
+                {isNC
+                  ? "----"
+                  : result.time_seconds && overallLeaderTime
+                    ? parseTimeBehind(timeBehindOverallLeader)
+                    : ""}
               </Typography>
             </>
           )}
@@ -156,6 +168,7 @@ export default function EnhancedTotalsResultItem({
                   key={stage.id}
                   stage={stage}
                   stageLeader={stageLeaders.find((leader) => leader.stageId === stageKey)}
+                  isRunnerNC={isNC}
                 />
               )
             })}
