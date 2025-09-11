@@ -49,7 +49,7 @@
       "EventName": "Nombre del Evento",
       "EventUrl": "URL del Evento",
       "Generating": "Generando código QR...",
-      "Instructions": "Escanear este código QR llevará a los usuarios directamente a la página del evento en O-Replay donde pueden ver resultados en vivo e información del evento.",
+      "Instructions": "Este código QR puede ser incluido en los mapas impresos para facilitar el acceso al evento en O-Replay.",
       "ShareEvent": "Compartir",
       "Title": "Código QR del Evento"
     },
