@@ -1,17 +1,19 @@
 import React, { useEffect, useRef, useState } from "react"
-import { Box, Button, Typography, Alert, CircularProgress } from "@mui/material"
-import { Download as DownloadIcon } from "@mui/icons-material"
+import { Box, Button, Typography, CircularProgress } from "@mui/material"
+import DownloadIcon from "@mui/icons-material/Download" // ✅ fixed import
 import QRCodeStyling from "qr-code-styling"
 import { useTranslation } from "react-i18next"
-import { HorizontalLogo } from "../assets/HorizontalLogo.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
+import GeneralErrorFallback from "./GeneralErrorFallback.tsx"
+// @ts-expect-error no type definitions for this asset
+import QRFrame from "../assets/QR-Frame.svg?raw"
+
+const WEBSITE_DOMAIN = import.meta.env.VITE_WEBSITE_DOMAIN
 
 interface QRCodeSectionProps {
   eventId: string
   eventName?: string
 }
-
-const WEBSITE_DOMAIN = import.meta.env.VITE_WEBSITE_DOMAIN
 
 const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => {
   const { t } = useTranslation()
@@ -31,18 +33,20 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
         setIsLoading(true)
         setError(null)
 
+        // Create QR code as SVG
         const qr = new QRCodeStyling({
-          width: 200,
-          height: 200,
-          type: "canvas",
+          width: 302.91998, // match your placeholder width
+          height: 301.94159, // match your placeholder height
+          type: "svg",
           data: eventUrl,
           dotsOptions: { color: "#000000", type: "rounded" },
-          backgroundOptions: { color: "#ffffff" },
+          backgroundOptions: { color: "transparent" },
           cornersSquareOptions: { color: "#000000", type: "extra-rounded" },
           cornersDotOptions: { color: "#000000", type: "dot" },
           qrOptions: { errorCorrectionLevel: "M" },
         })
 
+        // Optional: add logo
         try {
           const logoResponse = await fetch("/logo.svg")
           if (logoResponse.ok) {
@@ -52,7 +56,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
 
             qr.update({
               image: logoUrl,
-              imageOptions: { crossOrigin: "anonymous", margin: 3, imageSize: 0.3 },
+              imageOptions: { crossOrigin: "anonymous", margin: 3, imageSize: 0.6 },
             })
 
             setTimeout(() => URL.revokeObjectURL(logoUrl), 5000)
@@ -61,13 +65,24 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
           console.warn("Logo could not be loaded, generating QR code without logo")
         }
 
-        setQrCode(qr)
+        // Generate SVG string of QR code
+        const qrBlob = await qr.getRawData("svg")
+        const qrSvgText = await qrBlob?.text()
+        const qrInner = qrSvgText?.replace(/^<svg[^>]*>|<\/svg>$/g, "")
 
+        // Merge into frame SVG by replacing placeholder rect
+        // Assume qrFrameSvgText is your raw frame SVG string containing <rect id="qr-placeholder" ... />
+        const mergedSvgText = (QRFrame as string).replace(
+          /<rect[^>]*id="qr-placeholder"[^>]*\/>/,
+          `<g transform="translate(44.590008,44.209202)">${qrInner}</g>`,
+        )
+
+        // Inject merged SVG into DOM
         if (qrRef.current) {
-          qrRef.current.innerHTML = ""
-          qr.append(qrRef.current)
+          qrRef.current.innerHTML = mergedSvgText
         }
 
+        setQrCode(qr)
         setIsLoading(false)
       } catch (err) {
         console.error("Error creating QR code:", err)
@@ -104,7 +119,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
             const url = URL.createObjectURL(blob)
             const link = document.createElement("a")
             link.href = url
-            link.download = `oreplay-event-${eventId}.png`
+            link.download = `oreplay_event_${eventId}.png`
             document.body.appendChild(link)
             link.click()
             document.body.removeChild(link)
@@ -146,66 +161,45 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
           gap: 3,
         }}
       >
-        {/* QR Code Container with Orange Gradient */}
-        <Box
-          ref={qrContainerRef}
-          sx={{
-            background: "linear-gradient(180deg, #FF9454 0%, #FB6D26 100%)",
-            borderRadius: 4,
-            padding: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            minWidth: 250,
-            boxShadow: 2,
-          }}
-        >
-          {/* White Inner Container for QR Code */}
+        <Box sx={{ position: "relative" }}>
+          {isLoading && (
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+              <CircularProgress />
+              <Typography variant="body2" color="text.secondary">
+                {t("EventAdmin.QRCode.Generating")}
+              </Typography>
+            </Box>
+          )}
+
+          {error && <GeneralErrorFallback />}
+
           <Box
+            ref={qrContainerRef}
             sx={{
-              backgroundColor: "white",
-              borderRadius: 3,
-              padding: 0.5,
+              position: "relative",
+              width: 210,
+              height: 266,
               display: "flex",
-              justifyContent: "center",
               alignItems: "center",
-              minHeight: 220,
-              minWidth: 220,
-              marginBottom: 1,
+              justifyContent: "center",
             }}
           >
-            {isLoading && (
-              <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                <CircularProgress />
-                <Typography variant="body2" color="text.secondary">
-                  {t("EventAdmin.QRCode.Generating")}
-                </Typography>
-              </Box>
-            )}
-
-            {error && (
-              <Alert severity="error" sx={{ margin: 2 }}>
-                {error}
-              </Alert>
-            )}
-
-            <div ref={qrRef} />
+            <div ref={qrRef} style={{ width: "100%", height: "100%" }} />
           </Box>
-
-          {/* White Horizontal Logo at Bottom */}
-          <HorizontalLogo
-            sx={{
-              fontSize: 120,
-              width: 200,
-              height: "auto",
-              marginTop: 1,
-              filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.2))",
-              "& path": { fill: "white !important" },
-            }}
-          />
         </Box>
 
         <Box sx={{ flex: 1, minWidth: 250 }}>
+          {eventName && (
+            <>
+              <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+                {t("EventAdmin.QRCode.EventName")}
+              </Typography>
+              <Typography variant="body2" sx={{ marginBottom: 2 }}>
+                {eventName}
+              </Typography>
+            </>
+          )}
+
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
             {t("EventAdmin.QRCode.EventUrl")}
           </Typography>
@@ -223,17 +217,6 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
           >
             {eventUrl}
           </Typography>
-
-          {eventName && (
-            <>
-              <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
-                {t("EventAdmin.QRCode.EventName")}
-              </Typography>
-              <Typography variant="body2" sx={{ marginBottom: 2 }}>
-                {eventName}
-              </Typography>
-            </>
-          )}
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
             <Button

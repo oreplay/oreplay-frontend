@@ -20,12 +20,10 @@ import React, { useState } from "react"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import EditIcon from "@mui/icons-material/Edit"
-import { EventDetailModel, OrganizerModel } from "../../../../../shared/EntityTypes.ts"
-import { useOrganizerSearch } from "../../../services/EventAdminService.ts"
-import ShareEventDialog from "../pages/EventAdmin/components/ShareEventDialog.tsx"
-import { EventDetailModel, OrganizerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useOrganizerSearch } from "../../../../services/EventAdminService.ts"
 import WebsiteField from "./components/WebsiteField.tsx"
+import { EventDetailModel, OrganizerModel } from "../../../../../../shared/EntityTypes.ts"
+import ShareEventDialog from "../../pages/EventAdmin/components/ShareEventDialog.tsx"
 
 /**
  * @property eventDetail an event to be displayed in the form
