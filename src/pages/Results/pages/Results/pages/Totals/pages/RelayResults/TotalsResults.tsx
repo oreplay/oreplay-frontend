@@ -19,7 +19,35 @@ export default function TotalsResults(
   // Calculate stage leaders for difference calculations
   const stageLeaders = useMemo(() => {
     if (!runnersList) return []
-    return calculateStageLeaders(runnersList)
+    const leaders = calculateStageLeaders(runnersList)
+    console.log("Stage Leaders calculated:", leaders)
+    return leaders
+  }, [runnersList])
+
+  // Calculate overall leader time (position 1 runner's time)
+  const overallLeaderTime = useMemo(() => {
+    if (!runnersList) return undefined
+    const leader = runnersList.find((runner) => runner.overalls?.overall?.position === 1)
+    return leader?.overalls?.overall?.time_seconds || undefined
+  }, [runnersList])
+
+  // Calculate overall leader points (position 1 runner's points)
+  const overallLeaderPoints = useMemo(() => {
+    if (!runnersList) return undefined
+    const leader = runnersList.find((runner) => runner.overalls?.overall?.position === 1)
+    return leader?.overalls?.overall?.points_final || undefined
+  }, [runnersList])
+
+  // Determine if this is a points-based event
+  const isPointsBasedEvent = useMemo(() => {
+    if (!runnersList) return false
+    // Check if any runner has points_final > 0
+    return runnersList.some(
+      (runner) =>
+        runner.overalls?.overall?.points_final !== null &&
+        runner.overalls?.overall?.points_final !== undefined &&
+        runner.overalls?.overall?.points_final > 0,
+    )
   }, [runnersList])
 
   // @ts-expect-error TS6133: variable is declared but never used
@@ -43,6 +71,9 @@ export default function TotalsResults(
             runner={runner}
             handleRowClick={handleRowClick}
             stageLeaders={stageLeaders}
+            overallLeaderTime={overallLeaderTime}
+            overallLeaderPoints={overallLeaderPoints}
+            isPointsBasedEvent={isPointsBasedEvent}
           />
         ))}
       </ResultListContainer>
