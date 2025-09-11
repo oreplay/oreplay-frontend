@@ -137,6 +137,22 @@
     "Class": "Категория",
     "Classes": "Категории",
     "Finish": "Финиш",
-    "Name": "Имя"
+    "Name": "Имя",
+    "Position": "Позиция",
+    "SiCard": "Чип SI",
+    "Start": "Старт",
+    "Time": "Время",
+    "shortClass": "Категория"
+  },
+  "ResultsStage": {
+    "BonusPoints": "Бонус_",
+    "ChooseClass": "Пожалуйста, выберите категорию",
+    "Class": "Категория",
+    "Classes": "Категории",
+    "Club": "Клуб",
+    "Clubs": "Клубы",
+    "FinishTime": "Финиш",
+    "Name": "Имя",
+    "NoClubMsg": "Без клуба"
   }
 }
