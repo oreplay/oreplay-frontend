@@ -1,17 +1,17 @@
 import { createSvgIcon } from "@mui/material"
 
 const FranceFlag = createSvgIcon(
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
-      <clipPath id="roundClip">
-        <rect x="0" y="0" width="900" height="600" rx="80" ry="80" />
-      </clipPath>
+      <mask id="roundMask">
+        <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
+      </mask>
     </defs>
 
-    <g clipPath="url(#roundClip)">
-      <rect width="300" height="600" fill="#0055A4" />
-      <rect x="300" width="300" height="600" fill="#FFFFFF" />
-      <rect x="600" width="300" height="600" fill="#EF4135" />
+    <g mask="url(#roundMask)">
+      <rect width="16.67" height="30" fill="#0055A4" />
+      <rect x="16.67" width="16.67" height="30" fill="#FFFFFF" />
+      <rect x="33.33" width="16.67" height="30" fill="#EF4135" />
     </g>
   </svg>,
   "FranceFlag",
