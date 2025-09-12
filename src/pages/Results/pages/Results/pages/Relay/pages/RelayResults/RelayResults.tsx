@@ -6,10 +6,10 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import RelayResultItem from "./components/RelayResultItem.tsx"
-import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import RelayResultContainer from "./components/RelayResultContainer.tsx"
 import RelayVirtualTicket from "./components/RelayVirtualTicket/RelayVirtualTicket.tsx"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
+import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
 
 interface RelayResultProps
   extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
@@ -22,16 +22,31 @@ export default function RelayResults(props: RelayResultProps) {
   const [isTicketOpen, selectedRunner, handleRowClick, handleCloseTicket] = useVirtualTicket()
 
   if (!props.activeItem) {
-    return <ChooseClassMsg />
+    return (
+      <>
+        <NotImplementedAlertBox />
+        <ChooseClassMsg />
+      </>
+    )
   }
   if (props.runnersQuery.isFetching) {
-    return <ResultsListSkeleton />
+    return (
+      <>
+        <NotImplementedAlertBox />
+        <ResultsListSkeleton />
+      </>
+    )
   } else if (props.runnersQuery.isError) {
-    return <GeneralErrorFallback />
+    return (
+      <>
+        <NotImplementedAlertBox />
+        <GeneralErrorFallback />
+      </>
+    )
   } else {
     return (
       <>
-        <ExperimentalFeatureAlert />
+        <NotImplementedAlertBox />
         <RelayResultContainer>
           {runnersList?.map((runner: ProcessedRunnerModel) => (
             <RelayResultItem key={runner.id} runner={runner} handleRowClick={handleRowClick} />
