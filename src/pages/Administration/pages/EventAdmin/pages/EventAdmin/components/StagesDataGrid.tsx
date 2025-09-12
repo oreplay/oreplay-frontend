@@ -15,6 +15,7 @@ import {
   GridRowEditStopReasons,
   GridRowParams,
   GridToolbarProps,
+  GridRenderEditCellParams,
 } from "@mui/x-data-grid"
 import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
@@ -28,13 +29,14 @@ import {
 import Tooltip from "@mui/material/Tooltip"
 import { EventDetailModel } from "../../../../../../../shared/EntityTypes.ts"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
-import { stageTypes } from "../../../../../../../shared/Constants.ts"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
 import { Link } from "react-router-dom"
-import { Toolbar } from "@mui/material"
+import { MenuItem, Select, Toolbar } from "@mui/material"
+import { STAGE_TYPE_DATABASE_ID } from "../../../../../../Results/pages/Results/shared/constants.ts"
+import ConstructionIcon from "@mui/icons-material/Construction"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -88,6 +90,35 @@ export default function StagesDataGrid(props: Props) {
   const { t } = useTranslation()
   const { token } = useAuth()
   const notifications = useNotifications()
+
+  const stageTypeOptions = [
+    {
+      value: STAGE_TYPE_DATABASE_ID.FootO,
+      label: "FootO",
+    },
+    {
+      value: STAGE_TYPE_DATABASE_ID.Rogaine,
+      label: "Rogaine",
+    },
+    {
+      value: STAGE_TYPE_DATABASE_ID.Relay,
+      label: "Relay",
+      icon: (
+        <Tooltip title={t("UnderDevelopment")}>
+          <ConstructionIcon fontSize="small" />
+        </Tooltip>
+      ),
+    },
+    {
+      value: STAGE_TYPE_DATABASE_ID.Totals,
+      label: "Totals",
+      icon: (
+        <Tooltip title={t("UnderDevelopment")}>
+          <ConstructionIcon fontSize="small" />
+        </Tooltip>
+      ),
+    },
+  ]
 
   const initialRows: GridRowsProp<StageRow> = props.eventDetail.stages.map((stage) => ({
     id: stage.id,
@@ -233,16 +264,40 @@ export default function StagesDataGrid(props: Props) {
     },
     {
       field: "stageTypeId",
-      headerName: t("EventAdmin.Stages.StagesTypes.StageType"),
-      width: 150,
-      type: "singleSelect",
-      valueOptions: stageTypes.map((item: { value: string; label: string }) => {
-        const label: string = t(`EventAdmin.Stages.StagesTypes.${item.label}`)
-        return { value: item.value, label: label }
-      }), //Object.keys(stageTypesId),
-      align: "left",
-      headerAlign: "left",
+      headerName: "Stage Type",
+      width: 200,
       editable: true,
+      type: "singleSelect",
+      valueOptions: stageTypeOptions.map((opt) => ({ value: opt.value, label: opt.label })),
+      renderEditCell: (params: GridRenderEditCellParams<GridRowModel, string>) => {
+        const { id, field, value, api } = params
+        return (
+          <Select
+            value={(value as string) ?? ""}
+            onChange={(e) => {
+              void api.setEditCellValue({ id, field, value: e.target.value })
+            }}
+            fullWidth
+          >
+            {stageTypeOptions.map((opt) => (
+              <MenuItem key={opt.value} value={opt.value}>
+                {opt.icon}
+                <span style={{ marginLeft: 8 }}>{opt.label}</span>
+              </MenuItem>
+            ))}
+          </Select>
+        )
+      },
+      renderCell: (params) => {
+        const opt = stageTypeOptions.find((o) => o.value === params.value)
+        if (!opt) return null
+        return (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {opt.icon}
+            <span style={{ marginLeft: 6 }}>{opt.label}</span>
+          </div>
+        )
+      },
     },
     {
       field: "actions",
