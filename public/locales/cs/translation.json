@@ -1,1 +1,290 @@
-{}
+{
+  "404Page": {
+    "ButtonMessage": "Startovní trojúhelník",
+    "Header": "Ztracen v hustníku?",
+    "Message": "Požadovanou stránku se nepodařilo najít."
+  },
+  "AboutUs": {
+    "AboutUs": "O nás",
+    "VersionMessage": "Probíhá aktivní vývoj. Používáš verzi "
+  },
+  "Cancel": "Zrušit",
+  "Copied to the clipboard": "Zkopírované do schránky.",
+  "Copy": "Kopírovat",
+  "Dashboard": {
+    "Dashboard": "Přehled",
+    "FinishDate": "Konečné datum",
+    "Name": "Název akce",
+    "StartDate": "Datum startu",
+    "YourEvents": "Tvoje akce"
+  },
+  "Dates": "Datumy",
+  "Delete": "Smazat",
+  "Edit": "Upravit",
+  "EmailAddress": "Emailové adresy",
+  "Event": "Akce",
+  "EventAdmin": {
+    "Country": "Země",
+    "Create security keys": "Vytvořit bezpečnostní klíč",
+    "DangerArea": "Nebezpečná zóna",
+    "DeleteEvent": "Smazat akci",
+    "Do you want to delete this event?": "Chceš smazat tuto akci?",
+    "Do you want to renew the security key?": "Chceš obnovit bezpečnostní klíč?",
+    "EventData": "Informace o akci",
+    "EventId": "Id akce",
+    "EventName": "Název akce",
+    "EventSecurityTokens": "Bezpečnostní klíč pro desktopovou aplikaci",
+    "EventSecurityTokensExpireDate": "Expiruje",
+    "FinishDate": "Konečné datum",
+    "Hidden": "Skryté",
+    "InvalidURLMsg": "Neplatné URL",
+    "Location": "Lokalita",
+    "Organizer": "Pořadatel",
+    "Public": "Veřejné",
+    "QRCode": {
+      "CopyUrl": "Zkopírovat URL akce",
+      "Description": "Vygenerovat a stáhnout QR kód, který odkazuje na akci na O-Replay.",
+      "Download": "Stáhnout QR kód (PNG)",
+      "EventName": "Název akce",
+      "EventUrl": "Url akce",
+      "Generating": "Generování QR kódu...",
+      "Instructions": "QR kód může být umístěn na mapu pro snazší přístup k akci na O-Replay.",
+      "ShareEvent": "Sdílet",
+      "Title": "QR kód akce"
+    },
+    "Renew": "Obnovit",
+    "Renew security keys": "Generovat nový bezpečnostní klíč",
+    "RenewEventTokenMsg": "Pokud obnovíš bezpečnostní klíč, tak starý bude zneplatněn. Takže nikdo se starým klíčem nebude schopen nahrát výsledky k této akci.",
+    "Save": "Uložit",
+    "Scopes": {
+      "Club": "Klub",
+      "International": "Mezinárodní",
+      "Local": "Místní",
+      "National": "Národní",
+      "RegionalHigh": "Federální",
+      "RegionalLow": "Regionální",
+      "Scope": "Oblast"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "Etapa a všechny její výsledky budou smazány. Operaci není možné vrátit.",
+        "DialogTitle": "Chceš smazat tuto etapu?",
+        "MenuText": "Smazat"
+      },
+      "GoToStage": "Přejít na etapu",
+      "NewStage": "Nová etapa",
+      "StagesTypes": {
+        "ChaseStart": "Hendikepový start",
+        "FootO": "OB / MTBO",
+        "MassStart": "Hromadný start",
+        "Raid": "Rychlý",
+        "Relay": "Štafety",
+        "Rogaine": "Rogaining",
+        "StageType": "Typ",
+        "Totals": "Ranking / Celkově",
+        "TrailO": "Trail-O"
+      },
+      "Stats": {
+        "DialogBody": "Statistiky etap budou zobrazeny.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "Zobrazit statistiky etap",
+        "MenuText": "Statistiky"
+      },
+      "WipeOutRunners": {
+        "DialogBody": "Smaže všechny výsledky nebo startovky nahrané k etapě. Poté bude možné provést opakované nahrání. Možnost slouží k opravě chyb při nahrání dat.",
+        "DialogConfirm": "Resetovat",
+        "DialogTitle": "Chceš resetovat tuto etapu?",
+        "MenuText": "Resetovat"
+      }
+    },
+    "StartDate": "Datum startu",
+    "TooLongMsg": "Vložené URL přesahuje maximální délku {{count}} znaků",
+    "Website": "Webovky akce"
+  },
+  "EventList": {
+    "FutureEvents": "Budoucí akce",
+    "LiveToday": "Dnes živě",
+    "NoLiveEventsToday": "Dnes nejsou žádné akce",
+    "PastEvents": "Proběhlé akce"
+  },
+  "Events": "Akce",
+  "ExperimentalFeatureMsg": "Experimentální funkce",
+  "ForbiddenAccess": "Zakázaný přístup",
+  "GeneralErrorFallback": {
+    "msg": "Zkus obnovit stránku. Pokud chyba přetrvává, zkus to prosím později.",
+    "title": "Došlo k neočekávané chybě"
+  },
+  "GoBack": "Zpět",
+  "Graphs": {
+    "BarChart": "Sloupcový graf",
+    "Finish": "Cíl",
+    "LineChart": "Čárový graf",
+    "PositionChart": "Graf umístění",
+    "RunnerSelection": "Výběr běžce",
+    "SelectRunnersMessage": "Vyber běžce pro zobrazení grafů",
+    "SelectedCount_few": "{{count}} z {{total}} vybráno",
+    "SelectedCount_one": "{{count}} z {{total}} vybrán",
+    "SelectedCount_other": "{{count}} z {{total}} vybrané",
+    "Start": "Start",
+    "Threshold": "Prahová hodnota",
+    "ThresholdWithPercent": "Prahová hodnota ({{percent}}%)",
+    "TimeLossAnalysis": "Analýza časové ztráty"
+  },
+  "Language": {
+    "English": "Angličtina",
+    "French": "Francouzština",
+    "Language": "Jazyk",
+    "Spanish": "Španělština"
+  },
+  "Loading": "Načítání",
+  "Location": "Lokalita",
+  "Menu": "Menu",
+  "Name": "Název",
+  "Organizer": "Pořadatel",
+  "Organizers": "Organizační informace",
+  "Password": "Heslo",
+  "RadiosExperimentalMsg": "Když používáš radiokontroly, tak funkce s mezičasy jsou experimentální.",
+  "Results": {
+    "Class": "Kategorie",
+    "Classes": "Kategorie",
+    "Finish": "Cíl",
+    "Name": "Název",
+    "Position": "Umístění",
+    "SiCard": "SI čip",
+    "Start": "Start",
+    "Time": "Čas",
+    "shortClass": "Kategorie"
+  },
+  "ResultsStage": {
+    "BonusPoints": "Bonus_",
+    "ChooseClass": "Prosím, vyberte kategorii",
+    "Class": "Kategorie",
+    "Classes": "Kategorie",
+    "Club": "Klub",
+    "Clubs": "Kluby",
+    "FinishTime": "Cíl",
+    "Name": "Název",
+    "NoClubMsg": "Žádný klub",
+    "NoData": "Omlouváme se, data nejsou dostupná",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "PenaltyPoints": "Penalizace:",
+    "Points": "Body:",
+    "PointsTable": {
+      "OnlyForClasses": "Náhled na body je dostupný pouze v přehledu kategorie."
+    },
+    "Position": "Umístění",
+    "RaceTime": "Čas",
+    "Refresh": "Obnovit",
+    "SplitsTable": {
+      "CleanTime": "Bez chyb",
+      "CumulativeTimes": "Kumulativní",
+      "NoRunnersWithSplits": "Zatím žádný vyčtený čip",
+      "OnlyForClasses": "Tabulka s mezičasy je dostupná pouze v náhledu kategorie.",
+      "PartialTimes": "Částečné"
+    },
+    "StartTime": "Start",
+    "Times": "Čas",
+    "VirtualTicket": {
+      "Control": "Ctrl",
+      "Cumulative": "Kumulativní",
+      "FinishControl": "Cíl",
+      "FinishHour": "Cílový čas:",
+      "NoDownloadMsg": "Žádný čip k vyčtení",
+      "Partial": "Mezičas",
+      "RaceTime": "Čas:",
+      "StartHour": "Startovní čas:"
+    },
+    "WrongFileUploaded": {
+      "Msg": "Časoměřič nahrál konečné výsledky bez mezičasů. Tyto soubory by neměly být nahrávány, protože mohou způsobit chybějící nebo nesprávné zobrazení dat. Více informací o tom, jak nahrávat výsledky do naší služby, naleznete na stránce <2>Organizátoři</2>.",
+      "Title": "Výsledky bez mezičasů!"
+    },
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "OT"
+    }
+  },
+  "Save": "Uložit",
+  "Search": {
+    "ClearSearch": "Smazat filtr",
+    "Search": "Hledat"
+  },
+  "Settings": "Nastavení",
+  "Sign in": {
+    "ForgotPassword": "Zapomenuté heslo?",
+    "Logout": "Odhlásit",
+    "NoAccount": "Ještě nemáš účet? Zaregistruj se",
+    "RememberMe": "Zapamatuj si mě",
+    "Sign in": "Přihlásit"
+  },
+  "StageHeader": {
+    "Graphs": "Grafy",
+    "RelayLegs": "Úseky",
+    "Results": "Výsledky",
+    "ScorePoints": "Body",
+    "Splits": "Mezičasy",
+    "StartTime": "Startovní čas"
+  },
+  "Stages": "Etapy",
+  "Success": "Úspěch",
+  "This action cannot be undone": "Tato operace je nevratná.",
+  "ThisFunctionalityNotImplementedMsg": "Tato funkce ještě nebyla implementována.",
+  "authenticationError": "Došlo k chybě",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Čas bez chyb",
+      "errorTime": "Ztracený čas (chyba)"
+    },
+    "selectRunnersMessage": "Vyber závodníky pro zobrazení grafu",
+    "timeAxisLabel": "Čas (vteřiny)"
+  },
+  "lineChart": {
+    "noData": "Vyber závodníky pro zobrazení čárového grafu",
+    "tooltip": {
+      "behindBestPartial": "Ztráta na nejlepší mezičas",
+      "behindLeader": "Ztráta na vítěze"
+    },
+    "xAxisLabel": "Kontroly"
+  },
+  "positionChart": {
+    "caption": "* Umístění 1 nahoře (nejlepší), vyšší čísla jsou níž (horší)",
+    "noData": "Vyber závodníky pro zobrazení vývoje umístění",
+    "tooltip": {
+      "control": "Kontrola",
+      "position": "Umístění",
+      "splitTime": "Mezičas",
+      "timeLost": "Ztráta na nejlepší mezičas: {{timeLost}}"
+    },
+    "xAxisLabel": "Kontroly",
+    "yAxisLabel": "Umístění"
+  },
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Zásady používání souborů cookie",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Právní upozornění",
+    "loading": "Načítání...",
+    "privacyPolicy": "Zásady ochrany osobních údajů"
+  },
+  "tooltip": {
+    "efficiency": "Účinnost",
+    "errorFreeTime": "Čas bez chyb",
+    "errorTime": "Čas ztráty (chyba)",
+    "totalDisplayedTime": "Celkový zobrazený čas"
+  },
+  "view": {
+    "accumulated": "Akumulované",
+    "barChart": "Časová ztráta",
+    "lineChart": "Za vedoucím závodníkem",
+    "positionChart": "Umístění",
+    "radios": "Radiokontroly",
+    "splits": "Mezičasy",
+    "timeLoss": "Tabulka se ztrátami"
+  }
+}
