@@ -1,10 +1,7 @@
-import { createSvgIcon } from "@mui/material";
+import { createSvgIcon } from "@mui/material"
 
 const UkFlag = createSvgIcon(
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 50 30"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
       <mask id="roundMask">
         <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
@@ -29,7 +26,7 @@ const UkFlag = createSvgIcon(
       />
     </g>
   </svg>,
-  "UkFlag"
-);
+  "UkFlag",
+)
 
-export default UkFlag;
+export default UkFlag

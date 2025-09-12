@@ -1,11 +1,7 @@
-import {createSvgIcon} from "@mui/material";
+import { createSvgIcon } from "@mui/material"
 
 const PortugalFlag = createSvgIcon(
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 600 400"
-    preserveAspectRatio="xMidYMid meet"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
     <defs>
       <clipPath id="roundClip">
         <rect x="0" y="0" width="600" height="400" rx="40" ry="40" />
@@ -68,10 +64,7 @@ const PortugalFlag = createSvgIcon(
           />
           <path d="m186.81 147.69-.682 6.345 4.14.009c.04-5.25 3.975-6.123 4.07-6.103.09-.005 3.989 1.16 4.093 6.103h4.151l-.75-6.394-15.022.038v.002zM185.85 154.06h16.946c.357 0 .65.353.65.784 0 .43-.293.781-.65.781H185.85c-.357 0-.65-.35-.65-.781 0-.431.293-.784.65-.784z" />
           <path d="M192.01 154.03c.018-3.313 2.262-4.25 2.274-4.248 0 0 2.342.966 2.36 4.248h-4.634M186.21 145.05h16.245c.342 0 .623.318.623.705 0 .387-.28.704-.623.704H186.21c-.342 0-.623-.315-.623-.704 0-.387.28-.705.623-.705zM186.55 146.47h15.538c.327 0 .595.317.595.704 0 .388-.268.704-.595.704H186.55c-.327 0-.595-.316-.595-.704 0-.387.268-.704.595-.704zM191.57 135.88l1.227.002v.871h.895v-.89l1.257.004v.887h.897v-.89h1.258l-.002 2.01c0 .317-.254.521-.549.521h-4.41c-.297 0-.57-.237-.572-.526l-.003-1.988h.001zM196.19 138.57l.277 6.451-4.303-.015.285-6.453 3.741.017" />
-          <path
-            id="a"
-            d="m190.94 141.56.131 3.478-4.125.001.116-3.479h3.879-.001z"
-          />
+          <path id="a" d="m190.94 141.56.131 3.478-4.125.001.116-3.479h3.879-.001z" />
           <use xlinkHref="#a" x={10.609} />
           <path
             id="b"
@@ -114,7 +107,7 @@ const PortugalFlag = createSvgIcon(
       <use xlinkHref="#f" y={25.784} />
     </g>
   </svg>,
-  "PortugalFlag"
-);
+  "PortugalFlag",
+)
 
 export default PortugalFlag

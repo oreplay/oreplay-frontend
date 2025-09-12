@@ -1,12 +1,7 @@
-
 import { createSvgIcon } from "@mui/material"
 
 const GaliciaFlag = createSvgIcon(
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 600 400"
-    preserveAspectRatio="xMidYMid meet"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
     <defs>
       <clipPath id="roundClip">
         <rect x="0" y="0" width="600" height="400" rx="40" ry="40" />
@@ -1692,7 +1687,7 @@ const GaliciaFlag = createSvgIcon(
       />
     </g>
   </svg>,
-  "GaliciaFlag"
-);
+  "GaliciaFlag",
+)
 
 export default GaliciaFlag
