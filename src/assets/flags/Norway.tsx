@@ -1,17 +1,19 @@
 import { createSvgIcon } from "@mui/material"
 
 const NorwayFlag = createSvgIcon(
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
-      <clipPath id="roundClip">
-        <rect x="0" y="0" width="900" height="600" rx="80" ry="80" />
-      </clipPath>
+      <mask id="roundMask">
+        <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
+      </mask>
     </defs>
 
-    <g clipPath="url(#roundClip)">
-      <path fill="#ba0c2f" d="M0 0h22v16H0z" />
-      <path stroke="#fff" strokeWidth={4} d="M0 8h22M8 0v16" />
-      <path stroke="#00205b" strokeWidth={2} d="M0 8h22M8 0v16" />
+    <g mask="url(#roundMask)">
+      <rect width="50" height="30" fill="#ba0c2f" />
+      <rect x="0" y="12" width="50" height="6" fill="#fff" />
+      <rect x="15" y="0" width="6" height="30" fill="#fff" />
+      <rect x="0" y="13.5" width="50" height="3" fill="#00205b" />
+      <rect x="16.5" y="0" width="3" height="30" fill="#00205b" />
     </g>
   </svg>,
   "NorwayFlag",

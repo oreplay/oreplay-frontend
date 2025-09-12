@@ -1,16 +1,17 @@
 import { createSvgIcon } from "@mui/material"
 
 const SwedenFlag = createSvgIcon(
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
-      <clipPath id="roundClip">
-        <rect x="0" y="0" width="900" height="600" rx="80" ry="80" />
-      </clipPath>
+      <mask id="roundMask">
+        <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
+      </mask>
     </defs>
 
-    <g clipPath="url(#roundClip)">
-      <path fill="#005293" d="M0 0h8v5H0Z" />
-      <path stroke="#fecb00" d="M0 2.5h8M3 0v5" />
+    <g mask="url(#roundMask)">
+      <rect width="50" height="30" fill="#005293" />
+      <rect x="0" y="12.5" width="50" height="5" fill="#fecb00" />
+      <rect x="15" y="0" width="5" height="30" fill="#fecb00" />
     </g>
   </svg>,
   "SwedenFlag",
