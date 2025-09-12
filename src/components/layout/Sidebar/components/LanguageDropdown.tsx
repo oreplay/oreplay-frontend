@@ -4,6 +4,11 @@ import LanguageIcon from "@mui/icons-material/Language"
 import { useTranslation } from "react-i18next"
 import CataloniaFlag from "../../../../assets/flags/Catalonia.tsx"
 import GaliciaFlag from "../../../../assets/flags/Galicia.tsx"
+import UKFlag from "../../../../assets/flags/Uk.tsx"
+import PortugalFlag from "../../../../assets/flags/Portugal.tsx"
+import UkraineFlag from "../../../../assets/flags/Ukraine.tsx"
+import SpainFlag from "../../../../assets/flags/Spain.tsx"
+import FranceFlag from "../../../../assets/flags/France.tsx"
 
 const LanguageDropdown = () => {
   const { t, i18n } = useTranslation()
@@ -24,13 +29,13 @@ const LanguageDropdown = () => {
   }
 
   const languages = [
-    { code: "es", flag: "🇪🇸", name: "Español" },
-    { code: "en", flag: "🇬🇧", name: "English" },
+    { code: "es", flag: <SpainFlag fontSize={"inherit"} />, name: "Español" },
+    { code: "en", flag: <UKFlag fontSize={"inherit"} />, name: "English" },
     { code: "ca", flag: <CataloniaFlag fontSize={"inherit"} />, name: "Català" },
-    { code: "fr", flag: "🇫🇷", name: "Français" },
+    { code: "fr", flag: <FranceFlag fontSize={"inherit"} />, name: "Français" },
     { code: "gl", flag: <GaliciaFlag fontSize={"inherit"} />, name: "Galego" },
-    { code: "pt", flag: "🇵🇹", name: "Português" },
-    { code: "uk", flag: "🇺🇦", name: "українська" },
+    { code: "pt", flag: <PortugalFlag fontSize={"inherit"} />, name: "Português" },
+    { code: "uk", flag: <UkraineFlag fontSize={"inherit"} />, name: "українська" },
   ]
 
   return (
