@@ -1,22 +1,40 @@
 import { createSvgIcon } from "@mui/material"
 
 const ChinaFlag = createSvgIcon(
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
-      <clipPath id="roundClip">
-        <rect x="0" y="0" width="900" height="600" rx="80" ry="80" />
-      </clipPath>
+      <mask id="roundMask">
+        <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
+      </mask>
+      <g id="star">
+        <polygon
+          points="0,-1 0.2245,-0.309 0.9511,-0.309 0.3633,0.118 0.5878,0.809 -0,0.382 -0.5878,0.809 -0.3633,0.118 -0.9511,-0.309 -0.2245,-0.309"
+          fill="#ffde00"
+        />
+      </g>
     </defs>
 
-    <g clipPath="url(#roundClip)">
-      <path fill="#EE1C25" d="M0 0h900v600H0" />
-      <g transform="matrix(3 0 0 3 150 150)">
-        <path id="a" fill="#FF0" d="m0-30 17.634 54.27-46.166-33.54h57.064l-46.166 33.54Z" />
+    <g mask="url(#roundMask)">
+      <rect width="50" height="30" fill="#de2910" />
+
+      {/* Large star (about 1/4 of flag height) */}
+      <g transform="translate(8,7.5) scale(7.5)">
+        <use href="#star" />
       </g>
-      <use xlinkHref="#a" transform="rotate(23.036 2.784 766.082)" />
-      <use xlinkHref="#a" transform="rotate(45.87 38.201 485.396)" />
-      <use xlinkHref="#a" transform="rotate(69.945 29.892 362.328)" />
-      <use xlinkHref="#a" transform="rotate(20.66 -590.66 957.955)" />
+
+      {/* Small stars, bigger than before but proportionally smaller than main star */}
+      <g transform="translate(20,4) rotate(20) scale(2.5)">
+        <use href="#star" />
+      </g>
+      <g transform="translate(24,8) rotate(45) scale(2.5)">
+        <use href="#star" />
+      </g>
+      <g transform="translate(24,15) rotate(70) scale(2.5)">
+        <use href="#star" />
+      </g>
+      <g transform="translate(20,19) rotate(20) scale(2.5)">
+        <use href="#star" />
+      </g>
     </g>
   </svg>,
   "ChinaFlag",
