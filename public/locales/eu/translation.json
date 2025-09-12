@@ -41,6 +41,17 @@
     "Location": "Kokapena",
     "Organizer": "Antolatzailea",
     "Public": "Publikoa",
+    "QRCode": {
+      "CopyUrl": "Ekitaldiaren URL kopiatu",
+      "Description": "Sortu eta deskargatu O-Replay-eko ekitaldi honetara zuzenean estekatzen duen QR kode bat.",
+      "Download": "QR Kodea (PNG) Deskargatu",
+      "EventName": "Ekitaldiaren Izena",
+      "EventUrl": "Ekitaldiaren URL",
+      "Generating": "QR kodea Sortzen...",
+      "Instructions": "QR kode hau inprimatutako mapetan sar daiteke O-Replay-en ekitaldira errazago sartzeko.",
+      "ShareEvent": "Partekatu",
+      "Title": "Ekitaldiaren QR Kodea"
+    },
     "Renew": "Berritu",
     "Renew security keys": "Segurtasun-giltza berri bat sortu",
     "RenewEventTokenMsg": "Segurtasun-giltza berritzen baduzu, zaharra baliogabetuko da. Beraz, giltza zaharra duen inork ezingo ditu emaitzak ekitaldi honetara igo.",
@@ -72,7 +83,207 @@
         "StageType": "Tipoa",
         "Totals": "Ranking / Totalak",
         "TrailO": "Trail-O"
+      },
+      "Stats": {
+        "DialogBody": "Etapa estatistikak bistaratuko dira.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "Ikusi etaparen estatistikak",
+        "MenuText": "Estatistikak"
+      },
+      "WipeOutRunners": {
+        "DialogBody": "Honek etapa honetara igotako emaitza edo hasiera-ordu guztiak ezabatuko ditu. Ondoren, berriro igo ditzakezu. Aukera hau igotako datuetan dauden akatsak zuzentzeko erabiltzen da.",
+        "DialogConfirm": "Berrezarri",
+        "DialogTitle": "Etapa hau berrezarri nahi duzu?",
+        "MenuText": "Berrezarri"
       }
+    },
+    "StartDate": "Irteera data",
+    "TooLongMsg": "Sartutako URLak {{count}} karaktereko gehienezko muga gainditzen du",
+    "Website": "Ekitaldiaren webgunea"
+  },
+  "EventList": {
+    "FutureEvents": "Etorkizuneko ekitaldiak",
+    "LiveToday": "Zuzenean gaur",
+    "NoLiveEventsToday": "Ez dago ekitaldirik gaur",
+    "PastEvents": "Iraganeko ekitaldiak"
+  },
+  "Events": "Ekitaldiak",
+  "ExperimentalFeatureMsg": "Ezaugarri esperimentala",
+  "ForbiddenAccess": "Sarbide debekatua",
+  "GeneralErrorFallback": {
+    "msg": "Saiatu orria freskatzen. Akatsa jarraitzen badu, saiatu berriro geroago.",
+    "title": "Ustekabeko akats bat gertatu da"
+  },
+  "GoBack": "Atzera egin",
+  "Graphs": {
+    "BarChart": "Barra-diagrama",
+    "Finish": "Meta",
+    "LineChart": "Lerro-diagrama",
+    "PositionChart": "Posizio-diagrama",
+    "RunnerSelection": "Korrikalarien hautaketa",
+    "SelectRunnersMessage": "Hautatu korrikalariak grafikoak ikusteko",
+    "SelectedCount_one": "{{total}}tik {{count}} hautatua",
+    "SelectedCount_other": "{{total}}tik {{count}} hautatuak",
+    "Start": "Irteera",
+    "Threshold": "Atalasea",
+    "ThresholdWithPercent": "Atalasea ({{percent}}%)",
+    "TimeLossAnalysis": "Denbora-galeren analisia"
+  },
+  "Language": {
+    "English": "Ingelesa",
+    "French": "Frantsesa",
+    "Language": "Hizkuntza",
+    "Spanish": "Gaztelania"
+  },
+  "Loading": "Kargatzen",
+  "Location": "Kokapena",
+  "Menu": "Menua",
+  "Name": "Izena",
+  "Organizer": "Antolatzailea",
+  "Organizers": "Antolatzailearen informazioa",
+  "Password": "Pasahitza",
+  "RadiosExperimentalMsg": "Irrati-kontrolak erabiltzean, zatitzearekin lotutako funtzioak esperimentalak dira.",
+  "Results": {
+    "Class": "Kategoria",
+    "Classes": "Kategoriak",
+    "Finish": "Amaiera",
+    "Name": "Izena",
+    "Position": "Posizioa",
+    "SiCard": "SI Txartela",
+    "Start": "Irteera",
+    "Time": "Denbora",
+    "shortClass": "Kategoria"
+  },
+  "ResultsStage": {
+    "BonusPoints": "Bonus_",
+    "ChooseClass": "Mesedez, kategoria bat hautatu",
+    "Class": "Kategoria",
+    "Classes": "Kategoriak",
+    "Club": "Kluba",
+    "Clubs": "Klubak",
+    "FinishTime": "Amaiera",
+    "Name": "Izena",
+    "NoClubMsg": "Klubik ez",
+    "NoData": "Barkatu, ez dago daturik eskuragarri",
+    "NoStartTime": "-",
+    "NotStarted": "-",
+    "PenaltyPoints": "Zigorra:",
+    "Points": "Puntuak:",
+    "PointsTable": {
+      "OnlyForClasses": "Puntuen ikuspegia kategorietan oinarritutako ikuspegian bakarrik dago eskuragarri."
+    },
+    "Position": "Posizioa",
+    "RaceTime": "Denbora",
+    "Refresh": "Freskatu",
+    "SplitsTable": {
+      "CleanTime": "Akatsik gabe",
+      "CumulativeTimes": "Metatua",
+      "NoRunnersWithSplits": "Inongo korrikalarik ez du bere txipa deskargatu",
+      "OnlyForClasses": "Partzialen taula kategorietan oinarritutako ikuspegian bakarrik dago eskuragarri.",
+      "PartialTimes": "Partzialak"
+    },
+    "StartTime": "Irteera",
+    "Times": "Denbora",
+    "VirtualTicket": {
+      "Control": "Ctrl",
+      "Cumulative": "Metatua",
+      "FinishControl": "Amaiera",
+      "FinishHour": "Meta denbora:",
+      "NoDownloadMsg": "Txip irakurketarik ez",
+      "Partial": "Partziala",
+      "RaceTime": "Denbora:",
+      "StartHour": "Irteera ordua:"
+    },
+    "WrongFileUploaded": {
+      "Msg": "Kronometratzaileak azken emaitzak partzialik gabe igo ditu. Fitxategi hauek ez dira igo behar eta datu falta edo okerrak bistaratzea eragin dezakete. Emaitzak gure zerbitzura nola igo jakiteko informazio gehiago aurki daiteke <2>Antolatzaileak</2> orrian.",
+      "Title": "Emaitzak partzialik gabe!"
+    },
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "KK"
     }
+  },
+  "Save": "Gorde",
+  "Search": {
+    "ClearSearch": "Bilaketa garbitu",
+    "Search": "Bilatu"
+  },
+  "Settings": "Ezarpenak",
+  "Sign in": {
+    "ForgotPassword": "Pasahitza ahaztu duzu?",
+    "Logout": "Saioa amaitu",
+    "NoAccount": "Ez duzu konturik? Eman izena",
+    "RememberMe": "Gogorarazi",
+    "Sign in": "Saioa hasi"
+  },
+  "StageHeader": {
+    "Graphs": "Grafikoak",
+    "RelayLegs": "Postak",
+    "Results": "Emaitzak",
+    "ScorePoints": "Puntuak",
+    "Splits": "Partzialak",
+    "StartTime": "Irteera ordua"
+  },
+  "Stages": "Etapak",
+  "Success": "Arrakasta",
+  "This action cannot be undone": "Ekintza hau ezin da desegin.",
+  "ThisFunctionalityNotImplementedMsg": "Ezaugarri hau oraindik ez da inplementatu.",
+  "authenticationError": "Akats bat gertatu da",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Akatsik gabeko denbora",
+      "errorTime": "Denbora galdua (akatsa)"
+    },
+    "selectRunnersMessage": "Hautatu korrikalariak taula ikusteko",
+    "timeAxisLabel": "Denbora (segundoak)"
+  },
+  "lineChart": {
+    "noData": "Hautatu korrikalariak lerro-diagrama ikusteko",
+    "tooltip": {
+      "behindBestPartial": "Denbora partzial onenarekiko erlatiboa",
+      "behindLeader": "Liderrarekiko denbora-aldea"
+    },
+    "xAxisLabel": "Kontrolak"
+  },
+  "positionChart": {
+    "caption": "* 1. posizioa goian (onena), zenbaki altuenak behean (okerragoak)",
+    "noData": "Hautatu korrikalariak posizioen bilakaera ikusteko",
+    "tooltip": {
+      "control": "Kontrola",
+      "position": "Posizioa",
+      "splitTime": "Denbora partziala",
+      "timeLost": "Denbora partzial onenari dagokionez: {{timeLost}}"
+    },
+    "xAxisLabel": "Kontrolak",
+    "yAxisLabel": "Posizioak"
+  },
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Cookie politika",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Lege Oharra",
+    "loading": "Kargatzen...",
+    "privacyPolicy": "Pribatutasun politika"
+  },
+  "tooltip": {
+    "efficiency": "Eraginkortasuna",
+    "errorFreeTime": "Akatsik gabeko denbora",
+    "errorTime": "Denbora galdua (akatsa)",
+    "totalDisplayedTime": "Erakutsitako denbora guztira"
+  },
+  "view": {
+    "accumulated": "Metatua",
+    "barChart": "Denbora galduta",
+    "lineChart": "Liderraren atzetik",
+    "positionChart": "Posizioa",
+    "radios": "Irratiak",
+    "splits": "Partzialak",
+    "timeLoss": "Denbora Galera Taula"
   }
 }
