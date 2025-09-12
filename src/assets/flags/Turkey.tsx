@@ -1,18 +1,18 @@
 import { createSvgIcon } from "@mui/material"
 
 const TurkeyFlag = createSvgIcon(
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
-      <clipPath id="roundClip">
-        <rect x="0" y="0" width="900" height="600" rx="80" ry="80" />
-      </clipPath>
+      <mask id="roundMask">
+        <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
+      </mask>
     </defs>
 
-    <g clipPath="url(#roundClip)">
-      <path fill="#e30a17" d="M0-30000h90000v60000H0z" />
+    <g mask="url(#roundMask)">
+      <rect fill="#e30a17" width="50" height="30" />
       <path
         fill="#fff"
-        d="m41750 0 13568-4408-8386 11541V-7133l8386 11541zm925 8021a15000 15000 0 1 1 0-16042 12000 12000 0 1 0 0 16042z"
+        d="m23.19 15 7.54-2.45-4.66 6.42V12.03l4.66 6.42zm.51 4.46a8.33 8.33 0 1 1 0-8.92 6.67 6.67 0 1 0 0 8.92z"
       />
     </g>
   </svg>,

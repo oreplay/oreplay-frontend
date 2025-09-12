@@ -1,16 +1,16 @@
 import { createSvgIcon } from "@mui/material"
 
 const PolandFlag = createSvgIcon(
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
-      <clipPath id="roundClip">
-        <rect x="0" y="0" width="900" height="600" rx="80" ry="80" />
-      </clipPath>
+      <mask id="roundMask">
+        <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
+      </mask>
     </defs>
 
-    <g clipPath="url(#roundClip)">
-      <path fill="#dc143c" d="M0 0h8v5H0z" />
-      <path fill="#fff" d="M0 0h8v2.5H0z" />
+    <g mask="url(#roundMask)">
+      <rect width="50" height="15" fill="#fff" />
+      <rect y="15" width="50" height="15" fill="#dc143c" />
     </g>
   </svg>,
   "PolandFlag",

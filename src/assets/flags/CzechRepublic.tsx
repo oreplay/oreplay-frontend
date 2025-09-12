@@ -1,19 +1,20 @@
 import { createSvgIcon } from "@mui/material"
 
 const CzechRepublicFlag = createSvgIcon(
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
-      <clipPath id="roundClip">
-        <rect x="0" y="0" width="600" height="400" rx="40" ry="40" />
-      </clipPath>
+      <mask id="roundMask">
+        <rect x="0" y="0" width="50" height="30" rx="4" ry="4" fill="white" />
+      </mask>
     </defs>
 
-    <g clipPath="url(#roundClip)">
-      <path fill="#d7141a" d="M0 0h900v600H0z" />
-      <path fill="#fff" d="M0 0h900v300H0z" />
-      <path fill="#11457e" d="M450 300 0 0v600z" />
+    <g mask="url(#roundMask)">
+      <rect width="50" height="15" fill="#fff" />
+      <rect y="15" width="50" height="15" fill="#D7141A" />
+      <path d="M0 0 L25 15 L0 30 Z" fill="#11457E" />
     </g>
   </svg>,
   "CzechRepublicFlag",
 )
+
 export default CzechRepublicFlag
