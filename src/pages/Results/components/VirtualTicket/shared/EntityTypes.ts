@@ -37,7 +37,7 @@ export interface ProcessedOverallsModel extends OverallsModel {
 }
 
 export interface ProcessedOverallModel extends OverallModel {
-  status_code: string;
+  status_code: string
 }
 
 export interface ProcessedRunnerResultModel {
