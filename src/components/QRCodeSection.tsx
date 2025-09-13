@@ -145,7 +145,6 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
     try {
       await navigator.clipboard.writeText(eventUrl)
       notifications.show(t("Copied to the clipboard"), {
-        severity: "info",
         autoHideDuration: 3000,
       })
     } catch (err) {

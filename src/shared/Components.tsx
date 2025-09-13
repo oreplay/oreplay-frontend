@@ -24,7 +24,6 @@ export function CopyToClipBoardButton(props: CopyToClipBoardButtonParams) {
     void navigator.clipboard.writeText(props.value)
     notifications.show(t("Copied to the clipboard"), {
       autoHideDuration: 5000,
-      severity: "success",
     })
   }
 
