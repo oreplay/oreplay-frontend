@@ -36,15 +36,15 @@ interface EnhancedTotalsResultItemProps {
 }
 
 export default function EnhancedTotalsResultItem({
-                                                   runner,
-                                                   stageLeaders,
-                                                   overallLeaderTime,
-                                                   overallLeaderPoints,
-                                                   isPointsBasedEvent,
-                                                   isClass = true, // Default to class view
-                                                   categoryLeaderTime,
-                                                   categoryLeaderPoints,
-                                                 }: EnhancedTotalsResultItemProps) {
+  runner,
+  stageLeaders,
+  overallLeaderTime,
+  overallLeaderPoints,
+  isPointsBasedEvent,
+  isClass = true, // Default to class view
+  categoryLeaderTime,
+  categoryLeaderPoints,
+}: EnhancedTotalsResultItemProps) {
   const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
 
@@ -70,11 +70,11 @@ export default function EnhancedTotalsResultItem({
   const shouldShowStatusText = statusCode !== RESULT_STATUS.ok
 
   // Calculate time behind category leader (for club view) or overall leader (for class view)
-  const leaderTime = isClass ? overallLeaderTime : (categoryLeaderTime || overallLeaderTime)
+  const leaderTime = isClass ? overallLeaderTime : categoryLeaderTime || overallLeaderTime
   const timeBehindLeader = leaderTime && result.time_seconds ? result.time_seconds - leaderTime : 0
 
   // Calculate points behind category leader (for club view) or overall leader (for class view)
-  const leaderPoints = isClass ? overallLeaderPoints : (categoryLeaderPoints || overallLeaderPoints)
+  const leaderPoints = isClass ? overallLeaderPoints : categoryLeaderPoints || overallLeaderPoints
   const pointsBehindLeader =
     leaderPoints && result.points_final !== null && result.points_final !== undefined
       ? result.points_final - leaderPoints
@@ -138,8 +138,8 @@ export default function EnhancedTotalsResultItem({
                 {isNC || result.points_final === 0
                   ? "----"
                   : result.points_final !== null &&
-                  result.points_final !== undefined &&
-                  leaderPoints
+                      result.points_final !== undefined &&
+                      leaderPoints
                     ? `${pointsBehindLeader >= 0 ? `+${pointsBehindLeader}` : pointsBehindLeader} pts`
                     : ""}
               </Typography>
