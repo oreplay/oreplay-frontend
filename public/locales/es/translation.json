@@ -123,7 +123,7 @@
     "PositionChart": "Evolución de Posición",
     "RunnerSelection": "Selección de Corredores",
     "SelectRunnersMessage": "Selecciona corredores para ver gráficos",
-    "SelectedCount_many": "",
+    "SelectedCount_many": "{{count}} de {{total}} seleccionados",
     "SelectedCount_one": "{{count}} de {{total}} seleccionados",
     "SelectedCount_other": "{{count}} of {{total}} seleccionados",
     "Start": "Salida",
