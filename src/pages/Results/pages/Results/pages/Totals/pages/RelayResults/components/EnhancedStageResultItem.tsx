@@ -3,8 +3,7 @@ import { ProcessedOverallModel } from "../../../../../../../components/VirtualTi
 import {
   parseSecondsToMMSS,
   formatScoreAsInteger,
-  parseTimeBehind,
-} from "../../../../../../../../../shared/Functions.tsx"
+  parseTimeBehind,} from "../../../../../../../../../shared/Functions.tsx"
 import { useTranslation } from "react-i18next"
 
 interface StageLeaderData {
@@ -80,7 +79,7 @@ export default function EnhancedStageResultItem({
             textDecoration: shouldShowStrikethrough ? "line-through" : "none",
           }}
         >
-          {stage.position || 0}.
+          {!isContributory ? "-" : `${stage.position || 0}.`}
         </Typography>
       </Box>
 
@@ -116,7 +115,7 @@ export default function EnhancedStageResultItem({
                 sx={{
                   fontSize: "0.875rem",
                   fontWeight: 400,
-                  color: "#000000",
+                  color: "primary.main",
                   textDecoration: shouldShowStrikethrough ? "line-through" : "none",
                 }}
               >
