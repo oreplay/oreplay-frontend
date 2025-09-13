@@ -8,7 +8,6 @@ import {
   Typography,
   Box,
 } from "@mui/material"
-import ShareIcon from "@mui/icons-material/Share"
 import CloseIcon from "@mui/icons-material/Close"
 import QRCodeSection from "../../../../../../../components/QRCodeSection.tsx"
 import { QrCode as QrCodeIcon } from "@mui/icons-material"
@@ -33,7 +32,7 @@ export default function ShareEventDialog({ eventId, eventName }: ShareEventDialo
   return (
     <div>
       {/* Button to open dialog */}
-      <Button variant="outlined" startIcon={<ShareIcon />} onClick={handleClickOpen}>
+      <Button variant="outlined" startIcon={<QrCodeIcon />} onClick={handleClickOpen}>
         {t("EventAdmin.QRCode.ShareEvent")}
       </Button>
 
