@@ -27,6 +27,9 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
   const eventUrl = `${WEBSITE_DOMAIN}competitions/${eventId}`
   const notifications = useNotifications()
 
+  const QRCodeWidth = 210
+  const QRCodeHeight = 266
+
   useEffect(() => {
     const createQRCode = async () => {
       try {
@@ -106,11 +109,11 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
       const html2canvas = (await import("html2canvas")).default
       const canvas = await html2canvas(qrContainerRef.current, {
         backgroundColor: null,
-        scale: 2,
+        scale: 4,
         useCORS: true,
         allowTaint: true,
-        width: 400,
-        height: 600,
+        width: QRCodeWidth,
+        height: QRCodeHeight,
       })
 
       canvas.toBlob(
@@ -177,8 +180,8 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
             ref={qrContainerRef}
             sx={{
               position: "relative",
-              width: 210,
-              height: 266,
+              width: QRCodeWidth,
+              height: QRCodeHeight,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
