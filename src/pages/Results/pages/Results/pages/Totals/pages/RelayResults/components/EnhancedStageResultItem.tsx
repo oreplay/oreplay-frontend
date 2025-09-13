@@ -3,7 +3,8 @@ import { ProcessedOverallModel } from "../../../../../../../components/VirtualTi
 import {
   parseSecondsToMMSS,
   formatScoreAsInteger,
-  parseTimeBehind,} from "../../../../../../../../../shared/Functions.tsx"
+  parseTimeBehind,
+} from "../../../../../../../../../shared/Functions.tsx"
 import { useTranslation } from "react-i18next"
 import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
 import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
@@ -21,10 +22,10 @@ interface EnhancedStageResultItemProps {
 }
 
 export default function EnhancedStageResultItem({
-                                                  stage,
-                                                  stageLeader,
-                                                  isRunnerNC = false,
-                                                }: EnhancedStageResultItemProps) {
+  stage,
+  stageLeader,
+  isRunnerNC = false,
+}: EnhancedStageResultItemProps) {
   const stageDescription = stage?.stage ? stage.stage.description : `Stage ${stage.stage_order}`
   const { t } = useTranslation()
 
@@ -50,6 +51,7 @@ export default function EnhancedStageResultItem({
   // Get contributory status from the stage data if available
   // Note: This assumes the backend provides a contributory field in the stage data
   // If not available, we fall back to checking points_final === 0
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const isContributory = (stage as any).contributory !== false // Default to true if not specified
   const hasZeroPoints = stage.points_final === 0
   const shouldShowStrikethrough = !isContributory || (isRunnerNC && hasZeroPoints)
@@ -61,7 +63,8 @@ export default function EnhancedStageResultItem({
 
   // Check if this stage should show "----" for differences
   // Show "----" if: runner is NC, or contributory is false, or points are 0 in points-based events, or status is not OK
-  const shouldShowDashes = isRunnerNC || !isContributory || (isPointsBased && hasZeroPoints) || shouldShowStatusText
+  const shouldShowDashes =
+    isRunnerNC || !isContributory || (isPointsBased && hasZeroPoints) || shouldShowStatusText
 
   return (
     <Box
@@ -86,7 +89,9 @@ export default function EnhancedStageResultItem({
             textDecoration: shouldShowStrikethrough ? "line-through" : "none",
           }}
         >
-          {!isContributory || shouldShowStatusText || (stage.position === 0) ? "-" : `${stage.position || 0}.`}
+          {!isContributory || shouldShowStatusText || stage.position === 0
+            ? "-"
+            : `${stage.position || 0}.`}
         </Typography>
       </Box>
 

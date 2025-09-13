@@ -58,8 +58,11 @@ export default function TotalsResults(
         existing.time = result.time_seconds
       }
 
-      if (result.points_final !== null && result.points_final !== undefined &&
-        (!existing.points || result.points_final > existing.points)) {
+      if (
+        result.points_final !== null &&
+        result.points_final !== undefined &&
+        (!existing.points || result.points_final > existing.points)
+      ) {
         existing.points = result.points_final
       }
 
@@ -114,9 +117,10 @@ export default function TotalsResults(
         {runnersList?.map((runner: ProcessedRunnerModel) => {
           // Get category leader for this runner (only for club view)
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          const categoryLeader = !props.isClass && runner.class?.short_name
-            ? categoryLeaders.get(runner.class.short_name)
-            : undefined
+          const categoryLeader =
+            !props.isClass && runner.class?.short_name
+              ? categoryLeaders.get(runner.class.short_name)
+              : undefined
 
           return (
             <EnhancedTotalsResultItem
