@@ -5,6 +5,8 @@ import {
   formatScoreAsInteger,
   parseTimeBehind,} from "../../../../../../../../../shared/Functions.tsx"
 import { useTranslation } from "react-i18next"
+import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
+import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
 
 interface StageLeaderData {
   stageId: string
@@ -19,12 +21,16 @@ interface EnhancedStageResultItemProps {
 }
 
 export default function EnhancedStageResultItem({
-  stage,
-  stageLeader,
-  isRunnerNC = false,
-}: EnhancedStageResultItemProps) {
+                                                  stage,
+                                                  stageLeader,
+                                                  isRunnerNC = false,
+                                                }: EnhancedStageResultItemProps) {
   const stageDescription = stage?.stage ? stage.stage.description : `Stage ${stage.stage_order}`
   const { t } = useTranslation()
+
+  // Check status code - show status text if not OK (0)
+  const statusCode = stage.status_code || "0"
+  const shouldShowStatusText = statusCode !== RESULT_STATUS.ok
 
   // Calculate time behind stage leader if applicable
   const timeBehindStageLeader =
@@ -39,6 +45,7 @@ export default function EnhancedStageResultItem({
   // 1. contributory === false (from backend data)
   // 2. points_final === 0 for NC stages in points-based events
   // 3. Overall runner is NC (isRunnerNC prop)
+  // 4. Status is not OK (shouldShowStatusText)
 
   // Get contributory status from the stage data if available
   // Note: This assumes the backend provides a contributory field in the stage data
@@ -53,8 +60,8 @@ export default function EnhancedStageResultItem({
   const isTimeBased = stage.time_seconds && stage.time_seconds > 0
 
   // Check if this stage should show "----" for differences
-  // Show "----" if: runner is NC, or contributory is false, or points are 0 in points-based events
-  const shouldShowDashes = isRunnerNC || !isContributory || (isPointsBased && hasZeroPoints)
+  // Show "----" if: runner is NC, or contributory is false, or points are 0 in points-based events, or status is not OK
+  const shouldShowDashes = isRunnerNC || !isContributory || (isPointsBased && hasZeroPoints) || shouldShowStatusText
 
   return (
     <Box
@@ -79,7 +86,7 @@ export default function EnhancedStageResultItem({
             textDecoration: shouldShowStrikethrough ? "line-through" : "none",
           }}
         >
-          {!isContributory ? "-" : `${stage.position || 0}.`}
+          {!isContributory || shouldShowStatusText || (stage.position === 0) ? "-" : `${stage.position || 0}.`}
         </Typography>
       </Box>
 
@@ -97,7 +104,31 @@ export default function EnhancedStageResultItem({
       </Box>
 
       <Box sx={{ width: "60px", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-        {isTimeBased && (
+        {shouldShowStatusText ? (
+          // Show status text when runner status is not OK
+          <>
+            <Typography
+              sx={{
+                fontSize: "0.875rem",
+                fontWeight: 400,
+                color: "#000000",
+              }}
+            >
+              {t(`ResultsStage.statusCodes.${parseResultStatus(stage.status_code)}`)}
+            </Typography>
+            {/* Empty second line */}
+            <Typography
+              sx={{
+                fontSize: "0.875rem",
+                fontWeight: 400,
+                color: "primary.main",
+                visibility: "hidden",
+              }}
+            >
+              --
+            </Typography>
+          </>
+        ) : isTimeBased ? (
           <>
             <Typography
               sx={{
@@ -161,8 +192,7 @@ export default function EnhancedStageResultItem({
               </Typography>
             ) : null}
           </>
-        )}
-        {!isTimeBased && isPointsBased && (
+        ) : isPointsBased ? (
           // Points only (no time)
           <Typography
             sx={{
@@ -176,8 +206,7 @@ export default function EnhancedStageResultItem({
               ? "----"
               : `${formatScoreAsInteger(stage.points_final)} ${t("Overall.pointsAbbreviation")}`}
           </Typography>
-        )}
-        {!isTimeBased && !isPointsBased && (
+        ) : (
           <Typography
             sx={{
               fontSize: "0.875rem",

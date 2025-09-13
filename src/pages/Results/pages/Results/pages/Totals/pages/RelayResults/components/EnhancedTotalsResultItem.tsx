@@ -15,6 +15,7 @@ import {
   formatScoreAsInteger,
 } from "../../../../../../../../../shared/Functions.tsx"
 import { useState } from "react"
+import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
 
 interface StageLeaderData {
   stageId: string
@@ -30,16 +31,20 @@ interface EnhancedTotalsResultItemProps {
   overallLeaderPoints?: number
   isPointsBasedEvent?: boolean
   isClass?: boolean // Add this prop to determine if we're in class or club view
+  categoryLeaderTime?: number // Category leader time for relative calculations
+  categoryLeaderPoints?: number // Category leader points for relative calculations
 }
 
 export default function EnhancedTotalsResultItem({
-  runner,
-  stageLeaders,
-  overallLeaderTime,
-  overallLeaderPoints,
-  isPointsBasedEvent,
-  isClass = true, // Default to class view
-}: EnhancedTotalsResultItemProps) {
+                                                   runner,
+                                                   stageLeaders,
+                                                   overallLeaderTime,
+                                                   overallLeaderPoints,
+                                                   isPointsBasedEvent,
+                                                   isClass = true, // Default to class view
+                                                   categoryLeaderTime,
+                                                   categoryLeaderPoints,
+                                                 }: EnhancedTotalsResultItemProps) {
   const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
 
@@ -60,14 +65,19 @@ export default function EnhancedTotalsResultItem({
   // Check if runner is NC
   const isNC = runner.is_nc || runnerService.isNC(runner)
 
-  // Calculate time behind overall leader
-  const timeBehindOverallLeader =
-    overallLeaderTime && result.time_seconds ? result.time_seconds - overallLeaderTime : 0
+  // Check if runner status is NOT OK (0) - then show status text instead of time/points
+  const statusCode = result.status_code || "0"
+  const shouldShowStatusText = statusCode !== RESULT_STATUS.ok
 
-  // Calculate points behind overall leader
-  const pointsBehindOverallLeader =
-    overallLeaderPoints && result.points_final !== null && result.points_final !== undefined
-      ? result.points_final - overallLeaderPoints
+  // Calculate time behind category leader (for club view) or overall leader (for class view)
+  const leaderTime = isClass ? overallLeaderTime : (categoryLeaderTime || overallLeaderTime)
+  const timeBehindLeader = leaderTime && result.time_seconds ? result.time_seconds - leaderTime : 0
+
+  // Calculate points behind category leader (for club view) or overall leader (for class view)
+  const leaderPoints = isClass ? overallLeaderPoints : (categoryLeaderPoints || overallLeaderPoints)
+  const pointsBehindLeader =
+    leaderPoints && result.points_final !== null && result.points_final !== undefined
+      ? result.points_final - leaderPoints
       : 0
 
   // Determine subtitle: show class in club view, club in class view
@@ -89,11 +99,28 @@ export default function EnhancedTotalsResultItem({
     >
       <ResultListItem onClick={hasStageDetails ? handleExpandClick : undefined}>
         <FlexCol width="10px">
-          <RacePosition position={result.position} hasDownload={hasChipDownload} isNC={isNC} />
+          <RacePosition
+            position={shouldShowStatusText ? 0 : result.position}
+            hasDownload={hasChipDownload}
+            isNC={isNC}
+          />
         </FlexCol>
         <ParticipantName name={runner.full_name} subtitle={subtitle} />
         <FlexCol flexGrow={1}>
-          {isPointsBasedEvent ? (
+          {shouldShowStatusText ? (
+            // Show status text when runner status is not OK
+            <Box
+              sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end", minWidth: 0 }}
+            >
+              <Typography sx={{ fontSize: "0.875rem", fontWeight: 400 }}>
+                {t(`ResultsStage.statusCodes.${statusCode}`)}
+              </Typography>
+              {/* Empty second line where points/time difference would normally be */}
+              <Typography sx={{ color: "primary.main", fontSize: 14, visibility: "hidden" }}>
+                --
+              </Typography>
+            </Box>
+          ) : isPointsBasedEvent ? (
             <Box
               sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end", minWidth: 0 }}
             >
@@ -107,13 +134,13 @@ export default function EnhancedTotalsResultItem({
                 )}
               </Typography>
               <Typography sx={{ color: "primary.main", fontSize: 14, whiteSpace: "nowrap" }}>
-                {/* Show "----" for NC runners or when points are 0, otherwise show difference */}
+                {/* Show "----" for NC runners or when points are 0, otherwise show difference relative to category/overall leader */}
                 {isNC || result.points_final === 0
                   ? "----"
                   : result.points_final !== null &&
-                      result.points_final !== undefined &&
-                      overallLeaderPoints
-                    ? `${pointsBehindOverallLeader >= 0 ? `+${pointsBehindOverallLeader}` : pointsBehindOverallLeader} pts`
+                  result.points_final !== undefined &&
+                  leaderPoints
+                    ? `${pointsBehindLeader >= 0 ? `+${pointsBehindLeader}` : pointsBehindLeader} pts`
                     : ""}
               </Typography>
             </Box>
@@ -123,11 +150,11 @@ export default function EnhancedTotalsResultItem({
                 {result.time_seconds ? parseSecondsToMMSS(result.time_seconds) : ""}
               </Typography>
               <Typography sx={{ color: "primary.main", fontSize: 14 }}>
-                {/* Show "----" for NC runners, otherwise show time difference */}
+                {/* Show "----" for NC runners, otherwise show time difference relative to category/overall leader */}
                 {isNC
                   ? "----"
-                  : result.time_seconds && overallLeaderTime
-                    ? parseTimeBehind(timeBehindOverallLeader)
+                  : result.time_seconds && leaderTime
+                    ? parseTimeBehind(timeBehindLeader)
                     : ""}
               </Typography>
             </>
