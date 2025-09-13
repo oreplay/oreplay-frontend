@@ -38,6 +38,37 @@ export default function TotalsResults(
     return leader?.overalls?.overall?.points_final || undefined
   }, [runnersList])
 
+  // Calculate category leaders (for club view - category-relative differences)
+  const categoryLeaders = useMemo(() => {
+    if (!runnersList || props.isClass) return new Map() // Only needed for club view
+
+    const categoryMap = new Map<string, { time?: number; points?: number }>()
+
+    runnersList.forEach((runner) => {
+      const className = runner.class?.short_name
+      if (!className) return
+
+      const result = runner.overalls?.overall
+      if (!result || result.position !== 1) return // Only position 1 runners
+
+      const existing = categoryMap.get(className) || {}
+
+      // Update category leader time and points
+      if (result.time_seconds && (!existing.time || result.time_seconds < existing.time)) {
+        existing.time = result.time_seconds
+      }
+
+      if (result.points_final !== null && result.points_final !== undefined &&
+        (!existing.points || result.points_final > existing.points)) {
+        existing.points = result.points_final
+      }
+
+      categoryMap.set(className, existing)
+    })
+
+    return categoryMap
+  }, [runnersList, props.isClass])
+
   // Determine if this is a points-based event
   const isPointsBasedEvent = useMemo(() => {
     if (!runnersList) return false
@@ -80,18 +111,30 @@ export default function TotalsResults(
     return (
       <ResultListContainer>
         <NotImplementedAlertBox />
-        {runnersList?.map((runner: ProcessedRunnerModel) => (
-          <EnhancedTotalsResultItem
-            key={runner.id}
-            runner={runner}
-            handleRowClick={handleRowClick}
-            stageLeaders={stageLeaders}
-            overallLeaderTime={overallLeaderTime}
-            overallLeaderPoints={overallLeaderPoints}
-            isPointsBasedEvent={isPointsBasedEvent}
-            isClass={props.isClass}
-          />
-        ))}
+        {runnersList?.map((runner: ProcessedRunnerModel) => {
+          // Get category leader for this runner (only for club view)
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          const categoryLeader = !props.isClass && runner.class?.short_name
+            ? categoryLeaders.get(runner.class.short_name)
+            : undefined
+
+          return (
+            <EnhancedTotalsResultItem
+              key={runner.id}
+              runner={runner}
+              handleRowClick={handleRowClick}
+              stageLeaders={stageLeaders}
+              overallLeaderTime={overallLeaderTime}
+              overallLeaderPoints={overallLeaderPoints}
+              isPointsBasedEvent={isPointsBasedEvent}
+              isClass={props.isClass}
+              /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
+              categoryLeaderTime={categoryLeader?.time}
+              /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access */
+              categoryLeaderPoints={categoryLeader?.points}
+            />
+          )
+        })}
       </ResultListContainer>
     )
   }
