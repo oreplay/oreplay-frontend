@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, MouseEvent } from "react"
 import { Menu, MenuItem, ListItemIcon, ListItemText, Box, Button } from "@mui/material"
 import LanguageIcon from "@mui/icons-material/Language"
 import { useTranslation } from "react-i18next"
@@ -17,7 +17,7 @@ const LanguageDropdown = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -69,9 +69,6 @@ const LanguageDropdown = () => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "language-button",
-        }}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left",
@@ -80,10 +77,15 @@ const LanguageDropdown = () => {
           vertical: "top",
           horizontal: "left",
         }}
-        PaperProps={{
-          sx: {
-            minWidth: "150px",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+        slotProps={{
+          paper: {
+            sx: {
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.15)",
+              minWidth: "150px",
+            },
+          },
+          list: {
+            "aria-labelledby": "language-button",
           },
         }}
       >
@@ -93,11 +95,11 @@ const LanguageDropdown = () => {
             onClick={() => handleLanguageChange(language.code)}
             selected={i18n.language === language.code}
             sx={{
-              fontSize: "0.875rem",
-              minHeight: "36px",
               "&.Mui-selected": {
                 backgroundColor: "action.selected",
               },
+              fontSize: "0.875rem",
+              minHeight: "36px",
             }}
           >
             <ListItemIcon sx={{ minWidth: "28px" }}>
@@ -105,9 +107,11 @@ const LanguageDropdown = () => {
             </ListItemIcon>
             <ListItemText
               primary={language.name}
-              primaryTypographyProps={{
-                fontSize: "0.875rem",
-                fontWeight: i18n.language === language.code ? 500 : 400,
+              slotProps={{
+                primary: {
+                  fontSize: "0.875rem",
+                  fontWeight: i18n.language === language.code ? 500 : 400,
+                },
               }}
             />
           </MenuItem>
