@@ -41,6 +41,17 @@
     "Location": "Розташування",
     "Organizer": "Організатор",
     "Public": "Громадськість",
+    "QRCode": {
+      "CopyUrl": "Копіювати URL-адресу події",
+      "Description": "Згенеруйте та завантажте QR-код, який безпосередньо посилається на цю подію на O-Replay.",
+      "Download": "Завантажити QR-код (PNG)",
+      "EventName": "Назва Події",
+      "EventUrl": "URL-адреса події",
+      "Generating": "Генерування QR-коду...",
+      "Instructions": "Цей QR-код можна включити до друкованих карт, щоб полегшити доступ до події в O-Replay.",
+      "ShareEvent": "Поділитися",
+      "Title": "QR-код події"
+    },
     "Renew": "Поновити",
     "Renew security keys": "Згенерувати новий ключ безпеки",
     "RenewEventTokenMsg": "Якщо ви поновите ключ безпеки, старий буде анульовано. Тому ніхто, хто має старий ключ, не зможе завантажити результати на цю подію.",
@@ -112,8 +123,8 @@
     "RunnerCount": "бігун_{{count}}",
     "RunnerSelection": "Вибір бігуна",
     "SelectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграми",
-    "SelectedCount_few": "",
-    "SelectedCount_many": "",
+    "SelectedCount_few": "Вибране {{count}} з {{total}}",
+    "SelectedCount_many": "Вибрані {{count}} з {{total}}",
     "SelectedCount_one": "Вибрано {{count}} з {{total}}",
     "Start": "Початок",
     "Threshold": "Поріг",
@@ -233,6 +244,7 @@
   "Success": "Успіх",
   "This action cannot be undone": "Цю дію не можна скасувати.",
   "ThisFunctionalityNotImplementedMsg": "Цю функцію ще не реалізовано.",
+  "UnderDevelopment": "У розробці",
   "authenticationError": "Сталася помилка",
   "chart": {
     "legend": {
