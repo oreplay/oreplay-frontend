@@ -132,6 +132,9 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
         "image/png",
         1.0,
       )
+      notifications.show(t("EventAdmin.QRCode.DownloadSuccessful"), {
+        autoHideDuration: 3000,
+      })
     } catch (err) {
       console.error("Error downloading QR code:", err)
       setError(t("EventAdmin.QRCode.Download"))

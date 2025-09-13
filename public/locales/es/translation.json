@@ -45,6 +45,7 @@
       "CopyUrl": "Copiar URL del evento",
       "Description": "Genera y descarga un código QR que enlaza directamente a este evento en O-Replay.",
       "Download": "Descargar Código QR (PNG)",
+      "DownloadSuccessful": "Código QR descargado correctamente",
       "EventName": "Nombre del Evento",
       "EventUrl": "URL del Evento",
       "Generating": "Generando código QR...",
