@@ -1,6 +1,6 @@
 import { createSvgIcon } from "@mui/material"
 
-const BasqueFlag = createSvgIcon(
+const BasqueCountryFlag = createSvgIcon(
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30">
     <defs>
       <mask id="roundMask">
@@ -17,4 +17,4 @@ const BasqueFlag = createSvgIcon(
   "BasqueFlag",
 )
 
-export default BasqueFlag
+export default BasqueCountryFlag

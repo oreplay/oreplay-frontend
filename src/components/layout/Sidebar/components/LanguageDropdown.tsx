@@ -9,6 +9,7 @@ import PortugalFlag from "../../../../assets/flags/Portugal.tsx"
 import UkraineFlag from "../../../../assets/flags/Ukraine.tsx"
 import SpainFlag from "../../../../assets/flags/Spain.tsx"
 import FranceFlag from "../../../../assets/flags/France.tsx"
+import BasqueCountryFlag from "../../../../assets/flags/BasqueCountry.tsx"
 
 const LanguageDropdown = () => {
   const { t, i18n } = useTranslation()
@@ -32,6 +33,7 @@ const LanguageDropdown = () => {
     { code: "es", flag: <SpainFlag fontSize={"inherit"} />, name: "Español" },
     { code: "en", flag: <UKFlag fontSize={"inherit"} />, name: "English" },
     { code: "ca", flag: <CataloniaFlag fontSize={"inherit"} />, name: "Català" },
+    { code: "eu", flag: <BasqueCountryFlag fontSize={"inherit"} />, name: "Euskara" },
     { code: "fr", flag: <FranceFlag fontSize={"inherit"} />, name: "Français" },
     { code: "gl", flag: <GaliciaFlag fontSize={"inherit"} />, name: "Galego" },
     { code: "pt", flag: <PortugalFlag fontSize={"inherit"} />, name: "Português" },
