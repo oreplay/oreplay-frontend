@@ -52,7 +52,7 @@ export default function EnhancedStageResultItem({
   // Note: This assumes the backend provides a contributory field in the stage data
   // If not available, we fall back to checking points_final === 0
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const isContributory = (stage as any).contributory !== false // Default to true if not specified
+  const isContributory = stage?.contributory !== false
   const hasZeroPoints = stage.points_final === 0
   const shouldShowStrikethrough = !isContributory || (isRunnerNC && hasZeroPoints)
 
