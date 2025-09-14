@@ -75,15 +75,23 @@
       "GoToStage": "Go to the stage",
       "NewStage": "New stage",
       "StagesTypes": {
-        "ChaseStart": "Chase start",
-        "FootO": "Foot-O / MTB-O",
-        "MassStart": "Mass start",
-        "Raid": "Raid",
-        "Relay": "Relay",
-        "Rogaine": "Rogaine",
+        "FootO": {
+          "description": "Time-based, individual or team, linear course.",
+          "title": "Classic"
+        },
+        "Relay": {
+          "description": "Time-based team race with consecutive legs on different courses.",
+          "title": "Relay"
+        },
+        "Rogaine": {
+          "description": "Point-based event, individual or team, on a score course. Time breaks ties.",
+          "title": "Score"
+        },
         "StageType": "Type",
-        "Totals": "Ranking / Totals",
-        "TrailO": "Trail-O"
+        "Totals": {
+          "description": "Combined point-based or time-based result across two or more stages.",
+          "title": "Overall"
+        }
       },
       "Stats": {
         "DialogBody": "Stages stats will be displayed.",

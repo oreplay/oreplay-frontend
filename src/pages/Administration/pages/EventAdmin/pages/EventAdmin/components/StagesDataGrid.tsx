@@ -94,15 +94,18 @@ export default function StagesDataGrid(props: Props) {
   const stageTypeOptions = [
     {
       value: STAGE_TYPE_DATABASE_ID.FootO,
-      label: "FootO",
+      label: t("EventAdmin.Stages.StagesTypes.FootO.title"),
+      description: t("EventAdmin.Stages.StagesTypes.FootO.description"),
     },
     {
       value: STAGE_TYPE_DATABASE_ID.Rogaine,
-      label: "Rogaine",
+      label: t("EventAdmin.Stages.StagesTypes.Rogaine.title"),
+      description: t("EventAdmin.Stages.StagesTypes.Rogaine.description"),
     },
     {
       value: STAGE_TYPE_DATABASE_ID.Relay,
-      label: "Relay",
+      label: t("EventAdmin.Stages.StagesTypes.Relay.title"),
+      description: t("EventAdmin.Stages.StagesTypes.Relay.description"),
       icon: (
         <Tooltip title={t("UnderDevelopment")}>
           <ConstructionIcon fontSize="small" />
@@ -111,7 +114,8 @@ export default function StagesDataGrid(props: Props) {
     },
     {
       value: STAGE_TYPE_DATABASE_ID.Totals,
-      label: "Totals",
+      label: t("EventAdmin.Stages.StagesTypes.Totals.title"),
+      description: t("EventAdmin.Stages.StagesTypes.Totals.description"),
       icon: (
         <Tooltip title={t("UnderDevelopment")}>
           <ConstructionIcon fontSize="small" />
@@ -264,7 +268,7 @@ export default function StagesDataGrid(props: Props) {
     },
     {
       field: "stageTypeId",
-      headerName: "Stage Type",
+      headerName: t("EventAdmin.Stages.StagesTypes.StageType"),
       width: 200,
       editable: true,
       type: "singleSelect",
@@ -278,11 +282,60 @@ export default function StagesDataGrid(props: Props) {
               void api.setEditCellValue({ id, field, value: e.target.value })
             }}
             fullWidth
+            renderValue={(selected) => {
+              const opt = stageTypeOptions.find((o) => o.value === selected)
+              if (!opt) return ""
+              return (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {opt.icon}
+                  <span style={{ marginLeft: 8 }}>{opt.label}</span>
+                </div>
+              )
+            }}
+            MenuProps={{
+              PaperProps: {
+                style: { maxWidth: 300 },
+              },
+            }}
           >
             {stageTypeOptions.map((opt) => (
-              <MenuItem key={opt.value} value={opt.value}>
-                {opt.icon}
-                <span style={{ marginLeft: 8 }}>{opt.label}</span>
+              <MenuItem key={opt.value} value={opt.value} sx={{ maxWidth: 300 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* First line: icon + title */}
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    {opt.icon}
+                    <span
+                      style={{
+                        marginLeft: 8,
+                        fontWeight: 500,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {opt.label}
+                    </span>
+                  </div>
+
+                  {/* Second line: description */}
+                  <div
+                    style={{
+                      marginLeft: 8, // aligns under text (not icon)
+                      fontSize: "0.8rem",
+                      color: "gray",
+                      whiteSpace: "normal",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    {opt.description}
+                  </div>
+                </div>
               </MenuItem>
             ))}
           </Select>
