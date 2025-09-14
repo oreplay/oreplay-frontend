@@ -76,13 +76,25 @@
       "NewStage": "Nueva etapa",
       "StagesTypes": {
         "ChaseStart": "Salida a la caza",
-        "FootO": "O-Pie / MTB-O",
+        "FootO": {
+          "description": "Recorrido lineal, individual o por equipos, basado en tiempos.",
+          "title": "Clásica"
+        },
         "MassStart": "Salida en masa",
         "Raid": "Raid",
-        "Relay": "Relevo",
-        "Rogaine": "Rogaine",
+        "Relay": {
+          "description": "Carrera por equipos, basada en tiempos, con relevistas consecutivos haciendo diferentes recorridos.",
+          "title": "Relevo"
+        },
+        "Rogaine": {
+          "description": "Carrera basada en puntos, individual o por equipos, en un recorrido con orden libre. El tiempo rompe los desempates.",
+          "title": "Score"
+        },
         "StageType": "Tipo",
-        "Totals": "Ranking / Totales",
+        "Totals": {
+          "description": "Resultados por suma de tiempos o suma de puntos de todas las etapas.",
+          "title": "Totales"
+        },
         "TrailO": "Trail-O"
       },
       "Stats": {
