@@ -113,6 +113,16 @@ export default function StagesDataGrid(props: Props) {
       ),
     },
     {
+      value: STAGE_TYPE_DATABASE_ID.OneManRelay,
+      label: t("EventAdmin.Stages.StagesTypes.OneManRelay.title"),
+      description: t("EventAdmin.Stages.StagesTypes.OneManRelay.description"),
+      icon: (
+        <Tooltip title={t("UnderDevelopment")}>
+          <ConstructionIcon fontSize="small" />
+        </Tooltip>
+      ),
+    },
+    {
       value: STAGE_TYPE_DATABASE_ID.Totals,
       label: t("EventAdmin.Stages.StagesTypes.Totals.title"),
       description: t("EventAdmin.Stages.StagesTypes.Totals.description"),

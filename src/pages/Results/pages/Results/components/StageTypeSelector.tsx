@@ -1,5 +1,7 @@
 import { STAGE_TYPE_DATABASE_ID } from "../shared/constants.ts"
 import { lazy } from "react"
+import Ranking from "../pages/Ranking"
+import OneManRelay from "../pages/OneManRelay"
 const FootO = lazy(() => import("../pages/FootO/FootO.tsx"))
 const Relay = lazy(() => import("../pages/Relay/Relay.tsx"))
 const Rogaine = lazy(() => import("../pages/Rogaine/Rogaine.tsx"))
@@ -19,6 +21,10 @@ export default function StageTypeSelector(props: StageTypeSelectorProps) {
       return <Relay />
     case STAGE_TYPE_DATABASE_ID.Totals:
       return <Totals />
+    case STAGE_TYPE_DATABASE_ID.Ranking:
+      return <Ranking />
+    case STAGE_TYPE_DATABASE_ID.OneManRelay:
+      return <OneManRelay />
     default:
       throw new Error("Unknown stage type")
   }
