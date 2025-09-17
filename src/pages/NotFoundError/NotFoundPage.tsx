@@ -19,13 +19,15 @@ const NotFoundPage = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100%",
+        gap: "1em",
+        marginX: "2em",
         textAlign: "center",
       }}
     >
       <Typography variant="h3" component="h1" gutterBottom>
         {t("404Page.Header")}
       </Typography>
-      <Typography variant="h5" paragraph>
+      <Typography variant="h5" component={"p"}>
         {t("404Page.Message")}
       </Typography>
       <Button

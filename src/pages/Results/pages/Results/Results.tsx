@@ -9,6 +9,7 @@ import StageTypeSelector from "./components/StageTypeSelector.tsx"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { STAGE_TYPE_DATABASE_ID } from "./shared/constants.ts"
+import PrivateEventPage from "../../../PrivateEventError"
 
 export default function Results() {
   const { t } = useTranslation()
@@ -28,9 +29,12 @@ export default function Results() {
 
     // Error states
   } else if (isError) {
-    if (error.response?.status === 403 || error.response?.status === 404) {
+    if (error.response?.status === 404) {
       return <NotFoundPage />
-    } else {
+    } else if (error.response?.status === 401 || error.response?.status === 403) {
+      return <PrivateEventPage />
+    }
+    {
       return <GeneralErrorFallback displayMsg />
     }
 

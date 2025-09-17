@@ -151,6 +151,10 @@
   "Organizer": "Organizer",
   "Organizers": "Organizer's info",
   "Password": "Password",
+  "PrivateEventPage": {
+    "Header": "Private Event",
+    "Message": "This event has been set to private by the organizer. If you believe this is an error, please contact the event organizer."
+  },
   "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Results": {
     "Class": "Class",
