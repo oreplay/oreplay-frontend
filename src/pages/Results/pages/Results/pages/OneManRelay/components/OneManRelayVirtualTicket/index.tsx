@@ -1,17 +1,17 @@
-import React, { CSSProperties } from "react"
 import {
   VirtualTicketContainer,
   VirtualTicketProps,
 } from "../../../../../../components/VirtualTicket/VirtualTicketContainer.tsx"
-import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
-import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
-import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
-import RogaineVirtualTicketPointsBanner from "./components/RogaineVirtualTicketPointsBanner.tsx"
-import RogaineVirtualTicketSplit from "./components/RogaineVirtualTicketSplits.tsx"
+import OneManRelayVirtualTicketSplit from "./components/OneManRelayVirtualTicketSplit"
+import { CSSProperties } from "react"
 import { Grid, Typography } from "@mui/material"
+import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
+import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
+import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
+import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 import { useTranslation } from "react-i18next"
 import { hasChipDownload } from "../../../../shared/functions.ts"
-import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
+import FootOVirtualTicketTimesBanner from "../../../FootO/components/FootOVirtualTicket/components/FootOVirtualTicketTimesBanner.tsx"
 
 /**
  * This is the Virtual Ticket for Score results
@@ -21,12 +21,12 @@ import { runnerService } from "../../../../../../../../domain/services/RunnerSer
  * @param handleCloseTicket
  * @constructor
  */
-const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
+export default function OneManRelayVirtualTicket({
   isTicketOpen,
   runner,
   handleCloseTicket,
   setClassClubId,
-}) => {
+}: VirtualTicketProps) {
   const { t } = useTranslation()
 
   const headersStyles: CSSProperties = {
@@ -44,7 +44,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
       >
         <VirtualTicketHeader>
           <VirtualTicketRunnerInfo runner={runner} setClassClubId={setClassClubId} />
-          <RogaineVirtualTicketPointsBanner runnerResult={runner.stage} />
+          <FootOVirtualTicketTimesBanner runnerResult={runner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits download={hasChipDownload(runner)} isDNS={runnerService.isDNS(runner)}>
           <Grid item xs={3}>
@@ -63,7 +63,7 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
             </Typography>
           </Grid>
           {runner.stage.splits.map((split, index) => (
-            <RogaineVirtualTicketSplit key={split.id} split={split} index={index} />
+            <OneManRelayVirtualTicketSplit key={split.id} split={split} index={index} />
           ))}
         </VirtualTicketSplits>
       </VirtualTicketContainer>
@@ -72,5 +72,3 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
     return <></>
   }
 }
-
-export default RogaineVirtualTicket

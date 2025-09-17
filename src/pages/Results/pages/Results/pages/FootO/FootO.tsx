@@ -52,7 +52,7 @@ export default function FootO() {
   )
 
   const runnersQueryByClubs = useQuery<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>(
-    [eventId, stageId, "results", "classes", activeItem?.id],
+    [eventId, stageId, "results", "clubs", activeItem?.id],
     () =>
       activeItem
         ? getFootORunnersByClub(eventId, stageId, activeItem?.id, classesQuery.data?.data)
