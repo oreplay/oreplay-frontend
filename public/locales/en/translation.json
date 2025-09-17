@@ -88,6 +88,10 @@
           "title": "Score"
         },
         "StageType": "Type",
+        "OneManRelay": {
+          "description": "Time-based, individual or team, linear and individual courses.",
+          "title": "One Man Relay"
+        },
         "Totals": {
           "description": "Combined point-based or time-based result across two or more stages.",
           "title": "Overall"
