@@ -89,8 +89,8 @@
         },
         "StageType": "Type",
         "OneManRelay": {
-          "description": "Time-based, individual or team, linear and individual courses.",
-          "title": "One Man Relay"
+          "description": "Time-based, individual or team, linear course where each participant runs it's own course.",
+          "title": "Forked course"
         },
         "Totals": {
           "description": "Combined point-based or time-based result across two or more stages.",
