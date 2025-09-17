@@ -205,7 +205,7 @@ export interface OverallModel {
   upload_type: string
   stage?: StageOrder | null
   position: number | null
-  status_code: number | null
+  status_code: number | string | null
   time_seconds: number | null
   points_final: number | null
   note: string | null
