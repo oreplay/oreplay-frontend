@@ -13,11 +13,9 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ParticipantName from "../../../../../../components/ParticipantName.tsx"
-import FlexCol from "../../../../../../components/FlexCol.tsx"
 import RunnerSicard from "../../../../../../components/RunnerSicard.tsx"
-import FlexRow from "../../../../../../components/FlexRow.tsx"
-import TeamRunnerRow from "../../../../../../components/TeamRunnerRow.tsx"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
+import ResultListItemColumn from "../../../../../../components/ResultsList/ResultListItemColumn.tsx"
 
 export default function FootOStartTime(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -43,32 +41,28 @@ export default function FootOStartTime(
       <ResultListContainer>
         {runnersByStartTime.map((runner) => (
           <ResultListItem key={runner.id}>
-            <FlexCol width="100%">
-              <FlexRow>
-                <ParticipantName
-                  name={runner.full_name}
-                  subtitle={
-                    props.isClass
-                      ? runnerService.getClubName(runner, t)
-                      : runnerService.getClassName(runner)
-                  }
-                />
-                <FlexCol>
-                  <StartTime
-                    displayStatus
-                    startTime={runner.stage.start_time}
-                    status={parseResultStatus(runner.stage?.status_code as string)}
-                  ></StartTime>
-                  <RunnerSicard sicard={runner.sicard}></RunnerSicard>
-                </FlexCol>
-              </FlexRow>
-              {(runner.runners || [])
-                .slice() // Create a shallow copy to avoid mutating the original array
-                .sort(runnerService.compareLegNumber)
-                .map((teamRunner) => (
-                  <TeamRunnerRow key={teamRunner.id} runner={teamRunner}></TeamRunnerRow>
-                ))}
-            </FlexCol>
+            <ResultListItemColumn>
+              <ParticipantName
+                name={runner.full_name}
+                subtitle={
+                  props.isClass
+                    ? runnerService.getClubName(runner, t)
+                    : runnerService.getClassName(runner)
+                }
+              />
+            </ResultListItemColumn>
+            <ResultListItemColumn
+              slotProps={{
+                box: { display: "flex", flexDirection: "column", alignItems: "center" },
+              }}
+            >
+              <StartTime
+                displayStatus
+                startTime={runner.stage.start_time}
+                status={parseResultStatus(runner.stage?.status_code as string)}
+              ></StartTime>
+              <RunnerSicard sicard={runner.sicard}></RunnerSicard>
+            </ResultListItemColumn>
           </ResultListItem>
         ))}
       </ResultListContainer>

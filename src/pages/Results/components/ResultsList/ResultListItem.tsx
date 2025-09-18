@@ -9,17 +9,18 @@ interface ResultListItemProps {
 export default function ResultListItem({ children, onClick }: ResultListItemProps) {
   return (
     <Box
-      display="flex"
-      justifyContent="flex-start"
       sx={{
-        flexDirection: "row",
+        display: "flex",
+        justifyContent: "space-between",
         borderBottom: "1px solid #f2f2f2",
-        marginY: "0 !important",
-        paddingY: ".8em",
+        flexDirection: "row",
+        gap: 1,
         cursor: onClick ? "pointer" : undefined,
         "&:hover": {
           backgroundColor: onClick ? "#fffbf0" : undefined,
+          borderRadius: onClick ? 2 : undefined,
         },
+        paddingX: 0.5,
       }}
       onClick={onClick}
     >
