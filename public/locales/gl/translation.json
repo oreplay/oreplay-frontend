@@ -41,6 +41,18 @@
     "Location": "Localización",
     "Organizer": "Organizador",
     "Public": "Público",
+    "QRCode": {
+      "CopyUrl": "",
+      "Description": "",
+      "Download": "",
+      "DownloadSuccessful": "",
+      "EventName": "",
+      "EventUrl": "",
+      "Generating": "",
+      "Instructions": "",
+      "ShareEvent": "",
+      "Title": ""
+    },
     "Renew": "Renovar",
     "Renew security keys": "Xerar unha nova chave de seguridade",
     "RenewEventTokenMsg": "Se renovas a chave de seguridade, a antiga será invalidada. Polo tanto, ninguén coa chave antiga poderá subir resultados neste evento.",
@@ -64,9 +76,29 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Saída á caza",
+        "FootO": {
+          "description": "",
+          "title": ""
+        },
         "MassStart": "Saída en masa",
+        "OneManRelay": {
+          "description": "",
+          "title": ""
+        },
         "Raid": "Raid",
+        "Relay": {
+          "description": "",
+          "title": ""
+        },
+        "Rogaine": {
+          "description": "",
+          "title": ""
+        },
         "StageType": "Tipo",
+        "Totals": {
+          "description": "",
+          "title": ""
+        },
         "TrailO": "Trail-O"
       },
       "Stats": {
@@ -83,6 +115,7 @@
       }
     },
     "StartDate": "Data de inicio",
+    "TooLongMsg": "",
     "Website": "Web do evento"
   },
   "EventList": {
@@ -129,6 +162,10 @@
   "Organizer": "Organizador",
   "Organizers": "Info de organizador",
   "Password": "Contrasinal",
+  "PrivateEventPage": {
+    "Header": "",
+    "Message": ""
+  },
   "RadiosExperimentalMsg": "Cando se usan radiocontrois, as funcións relacionadas cos parciais son experimentais.",
   "Results": {
     "Class": "Categoría",
@@ -221,6 +258,7 @@
   "Success": "Éxito",
   "This action cannot be undone": "Esta acción non se pode desfacer.",
   "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada.",
+  "UnderDevelopment": "",
   "authenticationError": "Ocorreu un erro",
   "chart": {
     "legend": {

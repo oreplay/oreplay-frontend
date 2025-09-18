@@ -41,6 +41,18 @@
     "Location": "Localização",
     "Organizer": "Organização",
     "Public": "Público",
+    "QRCode": {
+      "CopyUrl": "",
+      "Description": "",
+      "Download": "",
+      "DownloadSuccessful": "",
+      "EventName": "",
+      "EventUrl": "",
+      "Generating": "",
+      "Instructions": "",
+      "ShareEvent": "",
+      "Title": ""
+    },
     "Renew": "Renovar",
     "Renew security keys": "Gerar uma nova palavra passe",
     "RenewEventTokenMsg": "Se renovar a palavra passe, a antiga será invalidada. Assim, ninguém com a passe antiga poderá enviar resultados para este evento.",
@@ -64,9 +76,29 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Chasing start",
+        "FootO": {
+          "description": "",
+          "title": ""
+        },
         "MassStart": "Partida em massa",
+        "OneManRelay": {
+          "description": "",
+          "title": ""
+        },
         "Raid": "Raid",
+        "Relay": {
+          "description": "",
+          "title": ""
+        },
+        "Rogaine": {
+          "description": "",
+          "title": ""
+        },
         "StageType": "Tipo",
+        "Totals": {
+          "description": "",
+          "title": ""
+        },
         "TrailO": "Trail-O"
       },
       "Stats": {
@@ -128,6 +160,10 @@
   "Organizer": "Organizador",
   "Organizers": "Informação do organizador",
   "Password": "Palavra passe",
+  "PrivateEventPage": {
+    "Header": "",
+    "Message": ""
+  },
   "RadiosExperimentalMsg": "Ao utilizar controlos online, os recursos relacionados com os splits são experimentais.",
   "Results": {
     "Class": "Escalão",
@@ -219,6 +255,7 @@
   "Success": "Sucesso",
   "This action cannot be undone": "Esta ação não pode ser anulada.",
   "ThisFunctionalityNotImplementedMsg": "Esta ação ainda não foi implementado.",
+  "UnderDevelopment": "",
   "authenticationError": "Um erro aconteceu",
   "chart": {
     "legend": {

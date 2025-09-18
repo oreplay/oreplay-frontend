@@ -41,6 +41,18 @@
     "Location": "Ubicació",
     "Organizer": "Organitzador",
     "Public": "Públic",
+    "QRCode": {
+      "CopyUrl": "",
+      "Description": "",
+      "Download": "",
+      "DownloadSuccessful": "",
+      "EventName": "",
+      "EventUrl": "",
+      "Generating": "",
+      "Instructions": "",
+      "ShareEvent": "",
+      "Title": ""
+    },
     "Renew": "Renovar",
     "Renew security keys": "Generar una clau de seguretat nova",
     "RenewEventTokenMsg": "Si renoves la clau de seguretat, l'antiga serà invàlida. Ningú amb la clau de seguretat antiga podrà pujar resultats a aquest event.",
@@ -64,9 +76,29 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Sortida a la caça",
+        "FootO": {
+          "description": "",
+          "title": ""
+        },
         "MassStart": "Sortida en massa",
+        "OneManRelay": {
+          "description": "",
+          "title": ""
+        },
         "Raid": "Raid d'aventura",
+        "Relay": {
+          "description": "",
+          "title": ""
+        },
+        "Rogaine": {
+          "description": "",
+          "title": ""
+        },
         "StageType": "Tipus",
+        "Totals": {
+          "description": "",
+          "title": ""
+        },
         "TrailO": "Trail-Orientació"
       },
       "Stats": {
@@ -131,6 +163,10 @@
   "Organizer": "Organitzador",
   "Organizers": "Organitzadors",
   "Password": "Contrassenya",
+  "PrivateEventPage": {
+    "Header": "",
+    "Message": ""
+  },
   "RadiosExperimentalMsg": "Quan s'utilitzen radiocontrols, les funcionalitats relacionades amb els parcials són experimentals.",
   "Results": {
     "Class": "Categoria",
@@ -223,10 +259,12 @@
   "Success": "Èxit",
   "This action cannot be undone": "Aquesta acció no es pot desfer.",
   "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible.",
+  "UnderDevelopment": "",
   "authenticationError": "S'ha produït un error",
   "chart": {
     "legend": {
-      "errorFreeTime": "Temps sense errors"
+      "errorFreeTime": "Temps sense errors",
+      "errorTime": ""
     },
     "selectRunnersMessage": "Selecciona corredors per a veure el gràfic",
     "timeAxisLabel": "Temps (segons)"
@@ -263,13 +301,16 @@
   "tooltip": {
     "efficiency": "Eficiència",
     "errorFreeTime": "Temps sense errors",
+    "errorTime": "",
     "totalDisplayedTime": "Temps total mostrat"
   },
   "view": {
     "accumulated": "Acumulats",
+    "barChart": "",
     "lineChart": "Darrere líder",
     "positionChart": "Posició",
     "radios": "Radios",
-    "splits": "Parcials"
+    "splits": "Parcials",
+    "timeLoss": ""
   }
 }

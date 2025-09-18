@@ -1,1 +1,305 @@
-{}
+{
+  "404Page": {
+    "ButtonMessage": "",
+    "Header": "",
+    "Message": ""
+  },
+  "AboutUs": {
+    "AboutUs": "",
+    "VersionMessage": ""
+  },
+  "Cancel": "",
+  "Copied to the clipboard": "",
+  "Copy": "",
+  "Dashboard": {
+    "Dashboard": "",
+    "FinishDate": "",
+    "Name": "",
+    "StartDate": "",
+    "YourEvents": ""
+  },
+  "Dates": "",
+  "Delete": "",
+  "Edit": "",
+  "EmailAddress": "",
+  "Event": "",
+  "EventAdmin": {
+    "Country": "",
+    "Create security keys": "",
+    "DangerArea": "",
+    "DeleteEvent": "",
+    "Do you want to delete this event?": "",
+    "Do you want to renew the security key?": "",
+    "EventData": "",
+    "EventId": "",
+    "EventName": "",
+    "EventSecurityTokens": "",
+    "EventSecurityTokensExpireDate": "",
+    "FinishDate": "",
+    "Hidden": "",
+    "InvalidURLMsg": "",
+    "Location": "",
+    "Organizer": "",
+    "Public": "",
+    "QRCode": {
+      "CopyUrl": "",
+      "Description": "",
+      "Download": "",
+      "DownloadSuccessful": "",
+      "EventName": "",
+      "EventUrl": "",
+      "Generating": "",
+      "Instructions": "",
+      "ShareEvent": "",
+      "Title": ""
+    },
+    "Renew": "",
+    "Renew security keys": "",
+    "RenewEventTokenMsg": "",
+    "Save": "",
+    "Scopes": {
+      "Club": "",
+      "International": "",
+      "Local": "",
+      "National": "",
+      "RegionalHigh": "",
+      "RegionalLow": "",
+      "Scope": ""
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "",
+        "DialogTitle": "",
+        "MenuText": ""
+      },
+      "GoToStage": "",
+      "NewStage": "",
+      "StagesTypes": {
+        "FootO": {
+          "description": "",
+          "title": ""
+        },
+        "OneManRelay": {
+          "description": "",
+          "title": ""
+        },
+        "Relay": {
+          "description": "",
+          "title": ""
+        },
+        "Rogaine": {
+          "description": "",
+          "title": ""
+        },
+        "StageType": "",
+        "Totals": {
+          "description": "",
+          "title": ""
+        }
+      },
+      "Stats": {
+        "DialogBody": "",
+        "DialogConfirm": "",
+        "DialogTitle": "",
+        "MenuText": ""
+      },
+      "WipeOutRunners": {
+        "DialogBody": "",
+        "DialogConfirm": "",
+        "DialogTitle": "",
+        "MenuText": ""
+      }
+    },
+    "StartDate": "",
+    "TooLongMsg": "",
+    "Website": ""
+  },
+  "EventList": {
+    "FutureEvents": "",
+    "LiveToday": "",
+    "NoLiveEventsToday": "",
+    "PastEvents": ""
+  },
+  "Events": "",
+  "ExperimentalFeatureMsg": "",
+  "ForbiddenAccess": "",
+  "GeneralErrorFallback": {
+    "msg": "",
+    "title": ""
+  },
+  "GoBack": "",
+  "Graphs": {
+    "BarChart": "",
+    "Finish": "",
+    "LineChart": "",
+    "PositionChart": "",
+    "RunnerSelection": "",
+    "SelectRunnersMessage": "",
+    "Start": "",
+    "Threshold": "",
+    "ThresholdWithPercent": "",
+    "TimeLossAnalysis": ""
+  },
+  "Language": {
+    "English": "",
+    "French": "",
+    "Language": "",
+    "Spanish": ""
+  },
+  "Loading": "",
+  "Location": "",
+  "Menu": "",
+  "Name": "",
+  "Organizer": "",
+  "Organizers": "",
+  "Password": "",
+  "PrivateEventPage": {
+    "Header": "",
+    "Message": ""
+  },
+  "RadiosExperimentalMsg": "",
+  "Results": {
+    "Class": "",
+    "Classes": "",
+    "Finish": "",
+    "Name": "",
+    "Position": "",
+    "SiCard": "",
+    "Start": "",
+    "Time": "",
+    "shortClass": ""
+  },
+  "ResultsStage": {
+    "BonusPoints": "",
+    "ChooseClass": "",
+    "Class": "",
+    "Classes": "",
+    "Club": "",
+    "Clubs": "",
+    "FinishTime": "",
+    "Name": "",
+    "NoClubMsg": "",
+    "NoData": "",
+    "NoStartTime": "",
+    "NotStarted": "",
+    "PenaltyPoints": "",
+    "Points": "",
+    "PointsTable": {
+      "OnlyForClasses": ""
+    },
+    "Position": "",
+    "RaceTime": "",
+    "Refresh": "",
+    "SplitsTable": {
+      "CleanTime": "",
+      "CumulativeTimes": "",
+      "NoRunnersWithSplits": "",
+      "OnlyForClasses": "",
+      "PartialTimes": ""
+    },
+    "StartTime": "",
+    "Times": "",
+    "VirtualTicket": {
+      "Control": "",
+      "Cumulative": "",
+      "FinishControl": "",
+      "FinishHour": "",
+      "NoDownloadMsg": "",
+      "Partial": "",
+      "RaceTime": "",
+      "StartHour": ""
+    },
+    "WrongFileUploaded": {
+      "Msg": "",
+      "Title": ""
+    },
+    "statusCodes": {
+      "dnf": "",
+      "dns": "",
+      "dsq": "",
+      "mp": "",
+      "nc": "",
+      "ok": "",
+      "ot": ""
+    }
+  },
+  "Save": "",
+  "Search": {
+    "ClearSearch": "",
+    "Search": ""
+  },
+  "Settings": "",
+  "Sign in": {
+    "ForgotPassword": "",
+    "Logout": "",
+    "NoAccount": "",
+    "RememberMe": "",
+    "Sign in": ""
+  },
+  "StageHeader": {
+    "Graphs": "",
+    "RelayLegs": "",
+    "Results": "",
+    "ScorePoints": "",
+    "Splits": "",
+    "StartTime": ""
+  },
+  "Stages": "",
+  "Success": "",
+  "This action cannot be undone": "",
+  "ThisFunctionalityNotImplementedMsg": "",
+  "UnderDevelopment": "",
+  "authenticationError": "",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "",
+      "errorTime": ""
+    },
+    "selectRunnersMessage": "",
+    "timeAxisLabel": ""
+  },
+  "lineChart": {
+    "noData": "",
+    "tooltip": {
+      "behindBestPartial": "",
+      "behindLeader": ""
+    },
+    "xAxisLabel": ""
+  },
+  "positionChart": {
+    "caption": "",
+    "noData": "",
+    "tooltip": {
+      "control": "",
+      "position": "",
+      "splitTime": "",
+      "timeLost": ""
+    },
+    "xAxisLabel": "",
+    "yAxisLabel": ""
+  },
+  "sidebar": {
+    "backendVersion": "",
+    "cookiePolicy": "",
+    "frontendVersion": "",
+    "frontendVersionWithVersion": "",
+    "legalNotice": "",
+    "loading": "",
+    "privacyPolicy": ""
+  },
+  "tooltip": {
+    "efficiency": "",
+    "errorFreeTime": "",
+    "errorTime": "",
+    "totalDisplayedTime": ""
+  },
+  "view": {
+    "accumulated": "",
+    "barChart": "",
+    "lineChart": "",
+    "positionChart": "",
+    "radios": "",
+    "splits": "",
+    "timeLoss": ""
+  }
+}

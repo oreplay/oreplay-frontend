@@ -41,6 +41,18 @@
     "Location": "Emplacement",
     "Organizer": "Organisateur",
     "Public": "Publique",
+    "QRCode": {
+      "CopyUrl": "",
+      "Description": "",
+      "Download": "",
+      "DownloadSuccessful": "",
+      "EventName": "",
+      "EventUrl": "",
+      "Generating": "",
+      "Instructions": "",
+      "ShareEvent": "",
+      "Title": ""
+    },
     "Renew": "Renouveler",
     "Renew security keys": "Créer une nouvelle clé de sécurité",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
@@ -64,9 +76,29 @@
       "NewStage": "Nouvelle étape",
       "StagesTypes": {
         "ChaseStart": "Poursuite",
+        "FootO": {
+          "description": "",
+          "title": ""
+        },
         "MassStart": "Départ en masse",
+        "OneManRelay": {
+          "description": "",
+          "title": ""
+        },
         "Raid": "Raid",
+        "Relay": {
+          "description": "",
+          "title": ""
+        },
+        "Rogaine": {
+          "description": "",
+          "title": ""
+        },
         "StageType": "Type",
+        "Totals": {
+          "description": "",
+          "title": ""
+        },
         "TrailO": "CO de précision"
       },
       "Stats": {
@@ -83,6 +115,7 @@
       }
     },
     "StartDate": "Date de début",
+    "TooLongMsg": "",
     "Website": "Site web"
   },
   "EventList": {
@@ -127,6 +160,10 @@
   "Organizer": "Organisateur",
   "Organizers": "Info sur l'organisateur",
   "Password": "Mot de passe",
+  "PrivateEventPage": {
+    "Header": "",
+    "Message": ""
+  },
   "RadiosExperimentalMsg": "Lors de l'utilisation de radiocontrôles, les fonctionnalités liées aux intermédiaires sont expérimentales.",
   "Results": {
     "Class": "Catégorie",
@@ -218,6 +255,7 @@
   "Success": "Succès",
   "This action cannot be undone": "Cette action ne peut pas être annulée.",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
+  "UnderDevelopment": "",
   "authenticationError": "Une erreur s'est produite",
   "chart": {
     "legend": {

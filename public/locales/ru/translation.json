@@ -81,6 +81,10 @@
           "title": "Классика"
         },
         "MassStart": "Общий старт",
+        "OneManRelay": {
+          "description": "",
+          "title": ""
+        },
         "Raid": "Рейд",
         "Relay": {
           "description": "Командная гонка с учётом времени, с последовательной сменой участников команды с разными дистанциями.",
@@ -156,6 +160,10 @@
   "Organizer": "Организатор",
   "Organizers": "Организаторы",
   "Password": "Пароль",
+  "PrivateEventPage": {
+    "Header": "",
+    "Message": ""
+  },
   "RadiosExperimentalMsg": "При использовании радио-КП, связанные со сплитами функции являются экспериментальными.",
   "Results": {
     "Class": "Категория",
@@ -244,5 +252,61 @@
     "StartTime": "Время старта"
   },
   "Stages": "Этапы соревнования",
-  "Success": "Успех"
+  "Success": "Успех",
+  "This action cannot be undone": "",
+  "ThisFunctionalityNotImplementedMsg": "",
+  "UnderDevelopment": "",
+  "authenticationError": "",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "",
+      "errorTime": ""
+    },
+    "selectRunnersMessage": "",
+    "timeAxisLabel": ""
+  },
+  "lineChart": {
+    "noData": "",
+    "tooltip": {
+      "behindBestPartial": "",
+      "behindLeader": ""
+    },
+    "xAxisLabel": ""
+  },
+  "positionChart": {
+    "caption": "",
+    "noData": "",
+    "tooltip": {
+      "control": "",
+      "position": "",
+      "splitTime": "",
+      "timeLost": ""
+    },
+    "xAxisLabel": "",
+    "yAxisLabel": ""
+  },
+  "sidebar": {
+    "backendVersion": "",
+    "cookiePolicy": "",
+    "frontendVersion": "",
+    "frontendVersionWithVersion": "",
+    "legalNotice": "",
+    "loading": "",
+    "privacyPolicy": ""
+  },
+  "tooltip": {
+    "efficiency": "",
+    "errorFreeTime": "",
+    "errorTime": "",
+    "totalDisplayedTime": ""
+  },
+  "view": {
+    "accumulated": "",
+    "barChart": "",
+    "lineChart": "",
+    "positionChart": "",
+    "radios": "",
+    "splits": "",
+    "timeLoss": ""
+  }
 }
