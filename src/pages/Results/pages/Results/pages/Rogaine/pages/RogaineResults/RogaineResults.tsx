@@ -19,6 +19,7 @@ import { runnerService } from "../../../../../../../../domain/services/RunnerSer
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../shared/functions.ts"
 import RacePosition from "../../../../../../components/RacePosition..tsx"
 import { formatScoreAsInteger } from "../../../../../../../../shared/Functions.tsx"
+import ResultListItemColumn from "../../../../../../components/ResultsList/ResultListItemColumn.tsx"
 
 interface RogainePointsProps
   extends ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>> {
@@ -52,57 +53,53 @@ export default function RogainePoints(props: RogainePointsProps) {
 
           return (
             <ResultListItem key={runner.id} onClick={() => handleRowClick(runner)}>
-              <Box
-                sx={{
-                  flexShrink: 0,
-                  display: "flex", // Enables flex properties
-                  flexDirection: "column", // Stack content vertically
-                  justifyContent: "flex-start", // Align content to the top
-                  alignItems: "flex-end",
-                  flexGrow: 0,
-                  width: "10px",
+              <ResultListItemColumn
+                slotProps={{
+                  box: {
+                    alignItems: "flex-start",
+                    flexGrow: 1,
+                    display: "flex",
+                    flexDirection: "row",
+                    height: "100%",
+                  },
                 }}
               >
                 <RacePosition
                   position={runner.stage.position}
                   isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
                   hasDownload={hasDownload}
+                  slotProps={{ text: { marginRight: 1 } }}
                 />
-              </Box>
-              <ParticipantName
-                name={runner.full_name}
-                subtitle={
-                  props.isClass
-                    ? runnerService.getClubName(runner, t)
-                    : runnerService.getClassName(runner)
-                }
-              />
-              <Box
-                sx={{
-                  flexShrink: 0,
-                  display: "flex", // Enables flex properties
-                  flexDirection: "column", // Stack content vertically
-                  justifyContent: "flex-start", // Align content to the top
-                  alignItems: "flex-end",
-                  flexGrow: 1,
-                }}
-              >
-                <Typography>
-                  {statusOkOrNc
-                    ? runnerResult.points_final || runnerResult.finish_time
-                      ? `${formatScoreAsInteger(runnerResult.points_final)}`
-                      : ""
-                    : ""}
-                </Typography>
-                <RaceTime
-                  displayStatus
-                  status={status}
-                  isFinalTime={hasDownload}
-                  start_time={runnerResult.start_time}
-                  finish_time={runnerResult.finish_time}
-                  time_seconds={runnerResult.time_seconds}
-                />
-              </Box>
+                <Box sx={{ flexGrow: 1 }}>
+                  <ParticipantName
+                    name={runner.full_name}
+                    subtitle={
+                      props.isClass
+                        ? runnerService.getClubName(runner, t)
+                        : runnerService.getClassName(runner)
+                    }
+                  />
+                </Box>
+              </ResultListItemColumn>
+              <ResultListItemColumn>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+                  <Typography>
+                    {statusOkOrNc
+                      ? runnerResult.points_final || runnerResult.finish_time
+                        ? `${formatScoreAsInteger(runnerResult.points_final)}`
+                        : ""
+                      : ""}
+                  </Typography>
+                  <RaceTime
+                    displayStatus
+                    status={status}
+                    isFinalTime={hasDownload}
+                    start_time={runnerResult.start_time}
+                    finish_time={runnerResult.finish_time}
+                    time_seconds={runnerResult.time_seconds}
+                  />
+                </Box>
+              </ResultListItemColumn>
             </ResultListItem>
           )
         })}

@@ -97,7 +97,7 @@ export default function Rogaine() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <Box sx={{ px: 3, height: "100%" }}>
+        <Box sx={{ px: 1, height: "100%" }}>
           <RogaineResults
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
             activeItem={activeItem}
