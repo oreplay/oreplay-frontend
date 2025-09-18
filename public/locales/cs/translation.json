@@ -45,7 +45,6 @@
       "CopyUrl": "Zkopírovat URL akce",
       "Description": "Vygenerovat a stáhnout QR kód, který odkazuje na akci na O-Replay.",
       "Download": "Stáhnout QR kód (PNG)",
-      "DownloadSuccessful": "",
       "EventName": "Název akce",
       "EventUrl": "Url akce",
       "Generating": "Generování QR kódu...",
@@ -76,29 +75,9 @@
       "NewStage": "Nová etapa",
       "StagesTypes": {
         "ChaseStart": "Hendikepový start",
-        "FootO": {
-          "description": "",
-          "title": ""
-        },
         "MassStart": "Hromadný start",
-        "OneManRelay": {
-          "description": "",
-          "title": ""
-        },
         "Raid": "Rychlý",
-        "Relay": {
-          "description": "",
-          "title": ""
-        },
-        "Rogaine": {
-          "description": "",
-          "title": ""
-        },
         "StageType": "Typ",
-        "Totals": {
-          "description": "",
-          "title": ""
-        },
         "TrailO": "Trail-O"
       },
       "Stats": {
@@ -160,10 +139,6 @@
   "Organizer": "Pořadatel",
   "Organizers": "Organizační informace",
   "Password": "Heslo",
-  "PrivateEventPage": {
-    "Header": "",
-    "Message": ""
-  },
   "RadiosExperimentalMsg": "Když používáš radiokontroly, tak funkce s mezičasy jsou experimentální.",
   "Results": {
     "Class": "Kategorie",
@@ -255,7 +230,6 @@
   "Success": "Úspěch",
   "This action cannot be undone": "Tato operace je nevratná.",
   "ThisFunctionalityNotImplementedMsg": "Tato funkce ještě nebyla implementována.",
-  "UnderDevelopment": "",
   "authenticationError": "Došlo k chybě",
   "chart": {
     "legend": {

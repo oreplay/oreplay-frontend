@@ -45,7 +45,6 @@
       "CopyUrl": "Ekitaldiaren URL kopiatu",
       "Description": "Sortu eta deskargatu O-Replay-eko ekitaldi honetara zuzenean estekatzen duen QR kode bat.",
       "Download": "QR Kodea (PNG) Deskargatu",
-      "DownloadSuccessful": "",
       "EventName": "Ekitaldiaren Izena",
       "EventUrl": "Ekitaldiaren URL",
       "Generating": "QR kodea Sortzen...",
@@ -76,29 +75,9 @@
       "NewStage": "Etapa berria",
       "StagesTypes": {
         "ChaseStart": "Ehiza irteera",
-        "FootO": {
-          "description": "",
-          "title": ""
-        },
         "MassStart": "Masa irteera",
-        "OneManRelay": {
-          "description": "",
-          "title": ""
-        },
         "Raid": "Raida",
-        "Relay": {
-          "description": "",
-          "title": ""
-        },
-        "Rogaine": {
-          "description": "",
-          "title": ""
-        },
         "StageType": "Tipoa",
-        "Totals": {
-          "description": "",
-          "title": ""
-        },
         "TrailO": "Trail-O"
       },
       "Stats": {
@@ -159,10 +138,6 @@
   "Organizer": "Antolatzailea",
   "Organizers": "Antolatzailearen informazioa",
   "Password": "Pasahitza",
-  "PrivateEventPage": {
-    "Header": "",
-    "Message": ""
-  },
   "RadiosExperimentalMsg": "Irrati-kontrolak erabiltzean, zatitzearekin lotutako funtzioak esperimentalak dira.",
   "Results": {
     "Class": "Kategoria",
@@ -254,7 +229,6 @@
   "Success": "Arrakasta",
   "This action cannot be undone": "Ekintza hau ezin da desegin.",
   "ThisFunctionalityNotImplementedMsg": "Ezaugarri hau oraindik ez da inplementatu.",
-  "UnderDevelopment": "",
   "authenticationError": "Akats bat gertatu da",
   "chart": {
     "legend": {
