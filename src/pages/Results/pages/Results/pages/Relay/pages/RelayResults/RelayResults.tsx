@@ -49,7 +49,12 @@ export default function RelayResults(props: RelayResultProps) {
         <NotImplementedAlertBox />
         <RelayResultContainer>
           {runnersList?.map((runner: ProcessedRunnerModel) => (
-            <RelayResultItem key={runner.id} runner={runner} handleRowClick={handleRowClick} />
+            <RelayResultItem
+              key={runner.id}
+              runner={runner}
+              handleRowClick={handleRowClick}
+              isClass={props.isClass}
+            />
           ))}
         </RelayResultContainer>
         <RelayVirtualTicket
