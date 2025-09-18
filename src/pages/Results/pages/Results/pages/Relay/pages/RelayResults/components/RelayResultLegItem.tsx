@@ -1,15 +1,20 @@
 import { Box, Typography } from "@mui/material"
 import RaceTime from "../../../../../../../components/RaceTime.tsx"
 import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
-import { ProcessedTeamRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import {
+  ProcessedRunnerModel,
+  ProcessedTeamRunnerModel,
+} from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 
 type RelayResultLegItemProps = {
   legParticipant: ProcessedTeamRunnerModel
-  handleRowClick?: (runner: ProcessedTeamRunnerModel) => void
+  runner: ProcessedRunnerModel
+  handleRowClick?: (runner: ProcessedRunnerModel, leg: number) => void
 }
 
 export default function RelayResultLegItem({
   legParticipant,
+  runner,
   handleRowClick,
 }: RelayResultLegItemProps) {
   const status = parseResultStatus(legParticipant.stage.status_code as string)
@@ -24,7 +29,7 @@ export default function RelayResultLegItem({
           backgroundColor: "#fffbf0",
         },
       }}
-      onClick={handleRowClick ? () => handleRowClick(legParticipant) : undefined}
+      onClick={handleRowClick ? () => handleRowClick(runner, legParticipant.leg_number) : undefined}
     >
       <Box sx={{ display: "table-cell", textAlign: "left", padding: "4px 0px" }}>
         <Typography sx={{ fontSize: "small" }}>{`${legParticipant.leg_number}.`}</Typography>
