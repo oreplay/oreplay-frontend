@@ -16,17 +16,14 @@ export default function RelayResultItem({
   handleRowClick,
 }: {
   runner: ProcessedRunnerModel
-  handleRowClick: (runner: ProcessedRunnerModel) => void
+  handleRowClick: (runner: ProcessedRunnerModel, leg: number) => void
 }) {
   const status = parseResultStatus(runner.stage.status_code as string)
   const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || isRunnerNC(runner)
   const hasChipDownload = hasChipDownloadFunction(runner)
 
   return (
-    <Box
-      sx={{ display: "table-row", borderBottom: "1px solid #f2f2f2" }}
-      onClick={() => handleRowClick(runner)}
-    >
+    <Box sx={{ display: "table-row", borderBottom: "1px solid #f2f2f2" }}>
       <Box sx={{ display: "table-cell", padding: "12px 2px" }}>
         <RacePosition
           position={runner.stage.position}
@@ -69,7 +66,12 @@ export default function RelayResultItem({
           </Box>
           <Box sx={{ display: "table" }}>
             {runner.runners?.map((legRunner) => (
-              <RelayResultLegItem key={legRunner.id} legParticipant={legRunner} />
+              <RelayResultLegItem
+                key={legRunner.id}
+                runner={runner}
+                legParticipant={legRunner}
+                handleRowClick={handleRowClick}
+              />
             ))}
           </Box>
         </Box>

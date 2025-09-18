@@ -39,7 +39,7 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({
     }
   }
 
-  // Actual compontet
+  // Actual component
   return (
     <Grid item xs={12} sx={{ mb: 1 }}>
       <Typography sx={{ fontWeight: "bold" }}>{`${runner.full_name}`}</Typography>

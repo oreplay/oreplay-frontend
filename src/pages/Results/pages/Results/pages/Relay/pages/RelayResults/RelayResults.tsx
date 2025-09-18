@@ -19,7 +19,7 @@ interface RelayResultProps
 export default function RelayResults(props: RelayResultProps) {
   const runnersList = props.runnersQuery.data
 
-  const [isTicketOpen, selectedRunner, handleRowClick, handleCloseTicket] = useVirtualTicket()
+  const [isTicketOpen, selectedRunner, handleRowClick, handleCloseTicket, leg] = useVirtualTicket()
 
   if (!props.activeItem) {
     return (
@@ -57,6 +57,7 @@ export default function RelayResults(props: RelayResultProps) {
           runner={selectedRunner}
           handleCloseTicket={handleCloseTicket}
           setClassClubId={props.setClassClubId}
+          leg={leg}
         />
       </>
     )
