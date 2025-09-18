@@ -12,7 +12,23 @@ export async function getRelayRunnersByClass(
   const runnersPage = await getRunnersInStage(eventId, stageId, classId)
   let runnersList = runnersPage.data
 
-  // Order
+  // Sort
+  runnersList = sortRunners(runnersList)
+
+  // Runner processing
+  return processRunnerData(runnersList)
+}
+
+export async function getRelayRunnersByClub(
+  eventId: string,
+  stageId: string,
+  clubId: string,
+): Promise<ProcessedRunnerModel[]> {
+  // Make query
+  const runnersPage = await getRunnersInStage(eventId, stageId, undefined, clubId)
+  let runnersList = runnersPage.data
+
+  // Sort
   runnersList = sortRunners(runnersList)
 
   // Runner processing

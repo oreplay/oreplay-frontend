@@ -8,15 +8,18 @@ import {
   hasChipDownload as hasChipDownloadFunction,
   isRunnerNC,
 } from "../../../../../shared/functions.ts"
-import { Box, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import RelayResultLegItem from "./RelayResultLegItem.tsx"
+import ParticipantName from "../../../../../../../components/ParticipantName.tsx"
 
 export default function RelayResultItem({
   runner,
   handleRowClick,
+  isClass,
 }: {
   runner: ProcessedRunnerModel
   handleRowClick: (runner: ProcessedRunnerModel, leg: number) => void
+  isClass: boolean
 }) {
   const status = parseResultStatus(runner.stage.status_code as string)
   const statusOkOrNc = status === RESULT_STATUS_TEXT.ok || isRunnerNC(runner)
@@ -47,9 +50,10 @@ export default function RelayResultItem({
             }}
           >
             <Box sx={{ overflow: "hidden", flexGrow: 1 }}>
-              <Typography sx={{ fontSize: "1em", color: "inherit", overflow: "hidden" }}>
-                {runner.full_name}
-              </Typography>
+              <ParticipantName
+                name={runner.full_name}
+                subtitle={!isClass ? runner.class?.short_name : undefined} //TODO: Temporally consider runner.class nullable until back gets fixed
+              />
             </Box>
             <RaceTime
               displayStatus

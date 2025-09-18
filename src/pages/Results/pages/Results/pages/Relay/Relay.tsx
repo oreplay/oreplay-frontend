@@ -13,7 +13,7 @@ import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useParams } from "react-router-dom"
 import { useCallback } from "react"
 import RelayLegs from "./pages/RelayLegs/RelayLegs.tsx"
-import { getRelayRunnersByClass } from "./services/RelayService.ts"
+import { getRelayRunnersByClass, getRelayRunnersByClub } from "./services/RelayService.ts"
 
 const menu_options_labels = ["results", "legs"]
 
@@ -26,6 +26,7 @@ export default function Relay() {
     throw new Error("Event Id or Stage Id is missing")
   }
 
+  // Fetch classes and clubs
   const {
     activeItem,
     classesQuery,
@@ -35,24 +36,39 @@ export default function Relay() {
     refresh: refreshClassesClubs,
   } = useFetchClasses()
 
-  // Query runners
+  // Fetch runners
   const runnersQueryByClasses = useQuery<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>(
-    ["results", "classes", activeItem?.id],
+    [eventId, stageId, "results", "classes", activeItem?.id],
     () =>
       activeItem
         ? getRelayRunnersByClass(eventId, stageId, activeItem.id)
         : Promise.reject(new Error("No active class")),
     {
-      enabled: !!activeItem && isClass,
+      enabled: !!activeItem && isClass && !!classesQuery.data,
       refetchOnWindowFocus: false,
     },
   )
 
-  // Handle re-fetching
+  const runnersQueryByClubs = useQuery<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>(
+    [eventId, stageId, "results", "clubs", activeItem?.id],
+    () =>
+      activeItem
+        ? getRelayRunnersByClub(eventId, stageId, activeItem?.id)
+        : Promise.reject(new Error("No active club")),
+    {
+      enabled: !!activeItem && !isClass && !!classesQuery.data,
+      refetchOnWindowFocus: false,
+    },
+  )
+
   const handleRefreshClick = useCallback(() => {
     refreshClassesClubs()
-    void runnersQueryByClasses.refetch()
-  }, [refreshClassesClubs, runnersQueryByClasses])
+    if (isClass) {
+      void runnersQueryByClasses.refetch()
+    } else {
+      void runnersQueryByClubs.refetch()
+    }
+  }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
 
   return (
     <Box sx={{ px: 2, height: "100%" }}>
@@ -82,13 +98,13 @@ export default function Relay() {
           menuOptionsLabels={menu_options_labels}
         >
           <RelayResults
-            runnersQuery={runnersQueryByClasses}
+            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
             activeItem={activeItem}
             isClass={isClass}
             setClassClubId={setClassClubId}
           />
           <RelayLegs
-            runnersQuery={runnersQueryByClasses}
+            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
             activeItem={activeItem}
             isClass={isClass}
           />
