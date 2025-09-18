@@ -75,13 +75,9 @@
       "NewStage": "Nová etapa",
       "StagesTypes": {
         "ChaseStart": "Hendikepový start",
-        "FootO": "OB / MTBO",
         "MassStart": "Hromadný start",
         "Raid": "Rychlý",
-        "Relay": "Štafety",
-        "Rogaine": "Rogaining",
         "StageType": "Typ",
-        "Totals": "Ranking / Celkově",
         "TrailO": "Trail-O"
       },
       "Stats": {

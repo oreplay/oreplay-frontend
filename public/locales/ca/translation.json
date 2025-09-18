@@ -64,13 +64,9 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Sortida a la caça",
-        "FootO": "O-Peu / MTB-O",
         "MassStart": "Sortida en massa",
         "Raid": "Raid d'aventura",
-        "Relay": "Relleus",
-        "Rogaine": "Rogaine",
         "StageType": "Tipus",
-        "Totals": "Rànquing / Totals",
         "TrailO": "Trail-Orientació"
       },
       "Stats": {

@@ -64,13 +64,9 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Chasing start",
-        "FootO": "Pedestre / O-BTT",
         "MassStart": "Partida em massa",
         "Raid": "Raid",
-        "Relay": "Estafeta",
-        "Rogaine": "Rogaine",
         "StageType": "Tipo",
-        "Totals": "Ranking / total",
         "TrailO": "Trail-O"
       },
       "Stats": {

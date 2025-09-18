@@ -64,13 +64,9 @@
       "NewStage": "Nouvelle étape",
       "StagesTypes": {
         "ChaseStart": "Poursuite",
-        "FootO": "CO à pied / VTT-O",
         "MassStart": "Départ en masse",
         "Raid": "Raid",
-        "Relay": "Relais",
-        "Rogaine": "Rogaine",
         "StageType": "Type",
-        "Totals": "Ranking / Totals",
         "TrailO": "CO de précision"
       },
       "Stats": {

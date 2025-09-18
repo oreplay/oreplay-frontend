@@ -75,13 +75,9 @@
       "NewStage": "Etapa berria",
       "StagesTypes": {
         "ChaseStart": "Ehiza irteera",
-        "FootO": "O-Oinez / MTB-O",
         "MassStart": "Masa irteera",
         "Raid": "Raida",
-        "Relay": "Errelebo",
-        "Rogaine": "Rogaine",
         "StageType": "Tipoa",
-        "Totals": "Ranking / Totalak",
         "TrailO": "Trail-O"
       },
       "Stats": {
