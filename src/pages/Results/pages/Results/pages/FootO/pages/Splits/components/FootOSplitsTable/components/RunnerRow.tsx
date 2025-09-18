@@ -97,6 +97,7 @@ export default function RunnerRow(props: RunnerRowProps) {
     RESULT_STATUS_TEXT.dnf,
     RESULT_STATUS_TEXT.dsq,
     RESULT_STATUS_TEXT.dns,
+    RESULT_STATUS_TEXT.ot,
   ]
 
   const showTimeBehind = statusOkOrNc && result.finish_time != null && hasChipDownload
@@ -136,6 +137,7 @@ export default function RunnerRow(props: RunnerRowProps) {
               position={props.runner.stage.position}
               isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
               hasDownload={hasChipDownload}
+              slotProps={{ text: { marginRight: 1 } }}
             />
             <ParticipantName
               name={props.runner.full_name}

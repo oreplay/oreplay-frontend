@@ -1,5 +1,5 @@
 import { ReactNode, FC } from "react"
-import { Box, Stack } from "@mui/material"
+import { Box } from "@mui/material"
 import NowProvider from "../NowProvider.tsx"
 
 interface ResultListContainerProps {
@@ -12,16 +12,9 @@ const ResultListContainer: FC<ResultListContainerProps> = ({
   return (
     <NowProvider>
       <Box
-        sx={{
-          height: "100%",
-          marginBottom: "2rem",
-          maxWidth: "600px",
-          width: "100%",
-        }}
+        sx={{ display: "flex", flexDirection: "column", width: "100%", borderCollapse: "collapse" }}
       >
-        <Stack direction={"column"} spacing={2} sx={{ flexWrap: "wrap" }}>
-          {children}
-        </Stack>
+        {children}
       </Box>
     </NowProvider>
   )

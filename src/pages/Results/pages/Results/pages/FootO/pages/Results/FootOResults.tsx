@@ -14,12 +14,13 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import { AxiosError } from "axios"
-import FlexCol from "../../../../../../components/FlexCol.tsx"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
 import RaceTimeBehind from "../../../../../../components/RaceTimeBehind.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../shared/functions.ts"
 import RacePosition from "../../../../../../components/RacePosition..tsx"
 import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
+import ResultListItemColumn from "../../../../../../components/ResultsList/ResultListItemColumn.tsx"
+import { Box } from "@mui/material"
 
 interface FootOResultProps
   extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
@@ -57,35 +58,50 @@ export default function FootOResults(props: FootOResultProps) {
 
             return (
               <ResultListItem key={runner.id} onClick={() => handleRowClick(runner)}>
-                <FlexCol width="10px">
+                <ResultListItemColumn
+                  slotProps={{
+                    box: {
+                      alignItems: "flex-start",
+                      flexGrow: 1,
+                      display: "flex",
+                      flexDirection: "row",
+                      height: "100%",
+                    },
+                  }}
+                >
                   <RacePosition
                     position={runner.stage.position}
                     hasDownload={hasChipDownload}
                     isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
+                    slotProps={{ text: { marginRight: 1 } }}
                   />
-                </FlexCol>
-                <ParticipantName
-                  name={runner.full_name}
-                  subtitle={
-                    props.isClass
-                      ? runnerService.getClubName(runner, t)
-                      : runnerService.getClassName(runner)
-                  }
-                />
-                <FlexCol flexGrow={1}>
-                  <RaceTime
-                    displayStatus
-                    isFinalTime={hasChipDownload}
-                    status={status}
-                    finish_time={runner.stage.finish_time}
-                    time_seconds={runner.stage.time_seconds}
-                    start_time={runner.stage.start_time}
-                  />
-                  <RaceTimeBehind
-                    display={statusOkOrNc && runner.stage.finish_time != null && hasChipDownload}
-                    time_behind={runner.stage.time_behind}
-                  />
-                </FlexCol>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <ParticipantName
+                      name={runner.full_name}
+                      subtitle={
+                        props.isClass
+                          ? runnerService.getClubName(runner, t)
+                          : runnerService.getClassName(runner)
+                      }
+                    />
+                  </Box>
+                </ResultListItemColumn>
+                <ResultListItemColumn>
+                  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+                    <RaceTime
+                      displayStatus
+                      isFinalTime={hasChipDownload}
+                      status={status}
+                      finish_time={runner.stage.finish_time}
+                      time_seconds={runner.stage.time_seconds}
+                      start_time={runner.stage.start_time}
+                    />
+                    <RaceTimeBehind
+                      display={statusOkOrNc && runner.stage.finish_time != null && hasChipDownload}
+                      time_behind={runner.stage.time_behind}
+                    />
+                  </Box>
+                </ResultListItemColumn>
               </ResultListItem>
             )
           })}

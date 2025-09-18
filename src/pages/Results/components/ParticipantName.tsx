@@ -11,11 +11,9 @@ const ParticipantName = ({ name, subtitle = "", color = "inherit" }: Participant
     <Box
       sx={{
         display: "flex",
-        flexGrow: 1,
         flexDirection: "column",
         justifyContent: "space-between",
-        width: "calc(100% - 20px)",
-        marginLeft: ".3em",
+        width: "100%",
       }}
     >
       <Typography sx={{ fontSize: "1em", color: color }}>{name}</Typography>
