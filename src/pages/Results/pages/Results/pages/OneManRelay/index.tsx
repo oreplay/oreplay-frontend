@@ -100,14 +100,14 @@ export default function OneManRelay() {
         ]}
         menuOptionsLabels={menu_options_labels}
       >
-        <Box sx={{ px: 2, height: "100%" }}>
+        <Box sx={{ px: 1, height: "100%" }}>
           <FootOStartTime
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
             activeItem={activeItem}
             isClass={isClass}
           />
         </Box>
-        <Box sx={{ px: 3, height: "100%" }}>
+        <Box sx={{ px: 1, height: "100%" }}>
           <OneManRelayResults
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
             activeItem={activeItem}
