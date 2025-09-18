@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material"
+import { Box, Stack, SxProps, Theme, Typography } from "@mui/material"
 
 interface EventStageBannerProps {
   eventName: string
@@ -8,10 +8,12 @@ interface EventStageBannerProps {
 }
 
 export default function EventStageBanner(props: EventStageBannerProps) {
-  const styles = {
+  const styles: { organizerStyles: SxProps<Theme> } = {
     organizerStyles: {
       color: "text.secondary",
       fontSize: "small",
+      whiteSpace: "normal", // Ensure wrapping is allowed
+      wordWrap: "break-word", // Break long words if needed
     },
   }
 
