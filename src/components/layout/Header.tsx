@@ -21,7 +21,7 @@ const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     <Box ref={ref}>
       <AppBar sx={{ backgroundColor: "white" }} elevation={0} position="static">
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box>
+          <Box sx={{ minWidth: "48px", minHeight: "48px" }}>
             {location?.key !== "default" && (
               <Tooltip title={t("GoBack")}>
                 <IconButton
@@ -38,11 +38,11 @@ const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
           </Box>
           <Box sx={{ width: "30%" }}>
             <HorizontalLogo
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", cursor: "pointer" }}
               onClick={() => {
                 void navigate("/competitions")
               }}
-            ></HorizontalLogo>
+            />
           </Box>
           <Box display={"flex"} sx={{ justifyContent: "right" }}>
             <Tooltip title={t("Menu")}>
