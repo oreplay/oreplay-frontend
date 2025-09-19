@@ -41,6 +41,17 @@
     "Location": "Ubicació",
     "Organizer": "Organitzador",
     "Public": "Públic",
+    "QRCode": {
+      "Description": "Genera i descarrega un codi QR que enllaci directament a aquest event a O-Replay.",
+      "Download": "Descarregar Codi QR (PNG)",
+      "DownloadSuccessful": "Codi QR descarregat correctament",
+      "EventName": "Nom de l'event",
+      "EventUrl": "URL de l'Event",
+      "Generating": "Generant codi QR...",
+      "Instructions": "Aquest codi QR es pot incloure als mapes impresos per a facilitar l'accés a l'event a O-Replay.",
+      "ShareEvent": "Compartir",
+      "Title": "Codi QR de l'Event"
+    },
     "Renew": "Renovar",
     "Renew security keys": "Generar una clau de seguretat nova",
     "RenewEventTokenMsg": "Si renoves la clau de seguretat, l'antiga serà invàlida. Ningú amb la clau de seguretat antiga podrà pujar resultats a aquest event.",
@@ -64,9 +75,28 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Sortida a la caça",
+        "FootO": {
+          "description": "Recorregut lineal, individual o per equips, basat en temps.",
+          "title": "Clàssica"
+        },
         "MassStart": "Sortida en massa",
+        "OneManRelay": {
+          "description": "Cursa basada en temps, individual o per equips, recorregut lineal on cada participant té el seu propi recorregut."
+        },
         "Raid": "Raid d'aventura",
+        "Relay": {
+          "description": "Cursa per equips, basada en temps, amb rellevistes consecutius fent diferents recorreguts.",
+          "title": "Relleu"
+        },
+        "Rogaine": {
+          "description": "Cursa basada en punts, individual o per equips, en un recorregut amb ordre lliure. El temps trenca els empats.",
+          "title": "Score"
+        },
         "StageType": "Tipus",
+        "Totals": {
+          "description": "Resultats per suma de temps o suma de punts de totes les etapes.",
+          "title": "Totals"
+        },
         "TrailO": "Trail-Orientació"
       },
       "Stats": {
@@ -131,6 +161,10 @@
   "Organizer": "Organitzador",
   "Organizers": "Organitzadors",
   "Password": "Contrassenya",
+  "PrivateEventPage": {
+    "Header": "Event Privat",
+    "Message": "Aquest event s'ha configurat com a privat per l'organitzador. Si creu que és un error, si us plau, contacta amb l'organitzador de l'event."
+  },
   "RadiosExperimentalMsg": "Quan s'utilitzen radiocontrols, les funcionalitats relacionades amb els parcials són experimentals.",
   "Results": {
     "Class": "Categoria",
@@ -223,10 +257,12 @@
   "Success": "Èxit",
   "This action cannot be undone": "Aquesta acció no es pot desfer.",
   "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible.",
+  "UnderDevelopment": "En desenvolupament",
   "authenticationError": "S'ha produït un error",
   "chart": {
     "legend": {
-      "errorFreeTime": "Temps sense errors"
+      "errorFreeTime": "Temps sense errors",
+      "errorTime": "Temps perdut (error)"
     },
     "selectRunnersMessage": "Selecciona corredors per a veure el gràfic",
     "timeAxisLabel": "Temps (segons)"
@@ -263,13 +299,16 @@
   "tooltip": {
     "efficiency": "Eficiència",
     "errorFreeTime": "Temps sense errors",
+    "errorTime": "Temps perdut (error)",
     "totalDisplayedTime": "Temps total mostrat"
   },
   "view": {
     "accumulated": "Acumulats",
+    "barChart": "Temps perdut",
     "lineChart": "Darrere líder",
     "positionChart": "Posició",
     "radios": "Radios",
-    "splits": "Parcials"
+    "splits": "Parcials",
+    "timeLoss": "Taula de temps perdut"
   }
 }
