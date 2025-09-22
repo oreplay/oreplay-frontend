@@ -45,6 +45,7 @@
       "CopyUrl": "Ekitaldiaren URL kopiatu",
       "Description": "Sortu eta deskargatu O-Replay-eko ekitaldi honetara zuzenean estekatzen duen QR kode bat.",
       "Download": "QR Kodea (PNG) Deskargatu",
+      "DownloadSuccessful": "QR kodea ondo deskargatu da",
       "EventName": "Ekitaldiaren Izena",
       "EventUrl": "Ekitaldiaren URL",
       "Generating": "QR kodea Sortzen...",
@@ -75,9 +76,29 @@
       "NewStage": "Etapa berria",
       "StagesTypes": {
         "ChaseStart": "Ehiza irteera",
+        "FootO": {
+          "description": "Denboran oinarritutako ibilbide lineala, banakakoa edo taldekakoa.",
+          "title": "Klasikoa"
+        },
         "MassStart": "Masa irteera",
+        "OneManRelay": {
+          "description": "Denboran oinarritutako ibilbide lineala, banakakoa edo taldekakoa, non parte-hartzaile bakoitzak bere ibilbidea egiten duena.",
+          "title": "Forking duen ibilbidea"
+        },
         "Raid": "Raida",
+        "Relay": {
+          "description": "Taldekako lasterketa, denboran oinarritutakoa, erreleboko korrikalariek ibilbide desberdinak osatuz.",
+          "title": "Erreleboa"
+        },
+        "Rogaine": {
+          "description": "Puntu lasterketa, banakakoa edo taldekakoa, ausazko ordenako ibilbide batean. Denbora erabiltzen da berdinketa erabakitzeko.",
+          "title": "Score"
+        },
         "StageType": "Tipoa",
+        "Totals": {
+          "description": "Bi etapa edo gehiagotan puntuetan edo denboran oinarritutako emaitza konbinatua.",
+          "title": "Totalak"
+        },
         "TrailO": "Trail-O"
       },
       "Stats": {
@@ -138,6 +159,10 @@
   "Organizer": "Antolatzailea",
   "Organizers": "Antolatzailearen informazioa",
   "Password": "Pasahitza",
+  "PrivateEventPage": {
+    "Header": "Ekitaldi Pribatua",
+    "Message": "Ekitaldi hau antolatzaileak pribatu gisa ezarri du. Akats bat dela uste baduzu, jarri harremanetan ekitaldiaren antolatzailearekin."
+  },
   "RadiosExperimentalMsg": "Irrati-kontrolak erabiltzean, zatitzearekin lotutako funtzioak esperimentalak dira.",
   "Results": {
     "Class": "Kategoria",
@@ -229,6 +254,7 @@
   "Success": "Arrakasta",
   "This action cannot be undone": "Ekintza hau ezin da desegin.",
   "ThisFunctionalityNotImplementedMsg": "Ezaugarri hau oraindik ez da inplementatu.",
+  "UnderDevelopment": "Garapenean",
   "authenticationError": "Akats bat gertatu da",
   "chart": {
     "legend": {
