@@ -81,6 +81,10 @@
           "title": "Clásica"
         },
         "MassStart": "Salida en masa",
+        "OneManRelay": {
+          "description": "Recorrido lineal, cronometrado, individual o por equipos, en el que cada participante corre su propia variante.",
+          "title": "Recorrido con variantes"
+        },
         "Raid": "Raid",
         "Relay": {
           "description": "Carrera por equipos, basada en tiempos, con relevistas consecutivos haciendo diferentes recorridos.",
@@ -156,6 +160,10 @@
   "Organizer": "Organizador",
   "Organizers": "Organizadores",
   "Password": "Contraseña",
+  "PrivateEventPage": {
+    "Header": "Evento privado",
+    "Message": "El organizador ha configurado este evento como privado. Si crees que es un error, por favor contacta con el organizador del evento."
+  },
   "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
   "Results": {
     "Class": "Categoría",
