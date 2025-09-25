@@ -158,8 +158,7 @@ describe("getOnlineSplits", () => {
     expect(actual).toEqual(expectedSplits)
   })
 
-  it("should handle missing online punches", () =>{
-
+  it("should handle missing online punches", () => {
     const splitList: ProcessedSplitModel[] = [
       {
         ...baseControl,
@@ -233,8 +232,6 @@ describe("getOnlineSplits", () => {
 
     const actual = getOnlineSplits(splitList, radiosList, startTime)
     expect(actual).toEqual(expectedOnlineSplitList)
-
-
   })
 
   it("should get online splits when there is a full chip reading", () => {
