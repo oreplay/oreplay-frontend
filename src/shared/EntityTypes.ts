@@ -148,6 +148,7 @@ export interface RunnerResultModel {
   points_bonus: number
   leg_number?: number
   splits: SplitModel[]
+  contributory?: boolean
 }
 
 export interface SplitModel {
@@ -206,9 +207,11 @@ export interface OverallModel {
   upload_type: string
   stage?: StageOrder | null
   position: number | null
+  status_code: number | string | null
   time_seconds: number | null
   points_final: number | null
   note: string | null
+  contributory?: boolean
 }
 
 export interface UserModel {

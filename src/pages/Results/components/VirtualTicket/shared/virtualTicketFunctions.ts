@@ -29,6 +29,7 @@ export function processRunnerData(
       }
       fully_processed_runner.runners.sort((a, b) => a.leg_number - b.leg_number)
 
+      // @ts-expect-error It is not picking up that if runners enters the other conditional it is empty and, thus a valid ProcessedTeamRunner
       return fully_processed_runner
     } else {
       // @ts-expect-error It is not picking up that if runners enters the other conditional it is empty and, thus a valid ProcessedTeamRunner
