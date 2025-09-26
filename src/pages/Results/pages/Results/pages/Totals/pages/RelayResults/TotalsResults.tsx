@@ -19,12 +19,27 @@ export default function TotalsResults(
   const handleRowClick = (runner: RunnerModel) => {}
 
   if (!props.activeItem) {
-    return <ChooseClassMsg />
+    return (
+      <>
+        <NotImplementedAlertBox />
+        <ChooseClassMsg />
+      </>
+    )
   }
   if (props.runnersQuery.isFetching) {
-    return <ResultsListSkeleton />
+    return (
+      <>
+        <NotImplementedAlertBox />
+        <ResultsListSkeleton />
+      </>
+    )
   } else if (props.runnersQuery.isError) {
-    return <GeneralErrorFallback />
+    return (
+      <>
+        <NotImplementedAlertBox />
+        <GeneralErrorFallback />
+      </>
+    )
   } else {
     return (
       <ResultListContainer>
