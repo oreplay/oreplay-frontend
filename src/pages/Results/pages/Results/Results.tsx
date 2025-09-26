@@ -54,7 +54,7 @@ export default function Results() {
             stageName={
               stageDetail.stage_type.id !== STAGE_TYPE_DATABASE_ID.Totals
                 ? stageDetail.description
-                : t("EventAdmin.Stages.StagesTypes.Totals")
+                : t("EventAdmin.Stages.StagesTypes.Totals.title")
             }
             singleStage={singleStage}
           />
