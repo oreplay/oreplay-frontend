@@ -118,7 +118,7 @@ export default function EventDetail() {
             {detail?.stages.map((stage) => {
               let description = stage.description
               if (stage.stage_type.id === STAGE_TYPE_DATABASE_ID.Totals) {
-                description = t("EventAdmin.Stages.StagesTypes.Totals")
+                description = t("EventAdmin.Stages.StagesTypes.Totals.title")
               }
               return (
                 <Box
