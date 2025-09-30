@@ -45,6 +45,7 @@
       "CopyUrl": "Zkopírovat URL akce",
       "Description": "Vygenerovat a stáhnout QR kód, který odkazuje na akci na O-Replay.",
       "Download": "Stáhnout QR kód (PNG)",
+      "DownloadSuccessful": "QR kód úspěšně stažen",
       "EventName": "Název akce",
       "EventUrl": "Url akce",
       "Generating": "Generování QR kódu...",
@@ -75,9 +76,29 @@
       "NewStage": "Nová etapa",
       "StagesTypes": {
         "ChaseStart": "Hendikepový start",
+        "FootO": {
+          "description": "Na čas, individuální či týmový, pevné pořadí.",
+          "title": "Normální"
+        },
         "MassStart": "Hromadný start",
+        "OneManRelay": {
+          "description": "Na čas, individuální či týmový s pevným pořadím, kdy má každý účastník svojí trať.",
+          "title": "Větvená trať"
+        },
         "Raid": "Rychlý",
+        "Relay": {
+          "description": "Týmový závod na čas s postupnými variantami na rozdílných tratích.",
+          "title": "Štafeta"
+        },
+        "Rogaine": {
+          "description": "Bodový individuální či týmový závod. Kratší čas rozhoduje při shodě.",
+          "title": "Bodový"
+        },
         "StageType": "Typ",
+        "Totals": {
+          "description": "Kombinované na body nebo na čas napříč dvěma nebo více etapami.",
+          "title": "Celkové"
+        },
         "TrailO": "Trail-O"
       },
       "Stats": {
@@ -139,6 +160,10 @@
   "Organizer": "Pořadatel",
   "Organizers": "Organizační informace",
   "Password": "Heslo",
+  "PrivateEventPage": {
+    "Header": "Soukromá událost",
+    "Message": "Tato událost byla nastavena jako soukromá. Pokud ti to přijde jako chyba, tak se obrať na pořadatele."
+  },
   "RadiosExperimentalMsg": "Když používáš radiokontroly, tak funkce s mezičasy jsou experimentální.",
   "Results": {
     "Class": "Kategorie",
@@ -230,6 +255,7 @@
   "Success": "Úspěch",
   "This action cannot be undone": "Tato operace je nevratná.",
   "ThisFunctionalityNotImplementedMsg": "Tato funkce ještě nebyla implementována.",
+  "UnderDevelopment": "Ve vývoji",
   "authenticationError": "Došlo k chybě",
   "chart": {
     "legend": {
