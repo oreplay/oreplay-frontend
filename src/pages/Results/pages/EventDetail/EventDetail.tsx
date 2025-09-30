@@ -84,6 +84,9 @@ export default function EventDetail() {
           justifyContent={"center"}
           sx={{
             bgcolor: "primary.light",
+            paddingY: 3,
+            flexGrow: 1,
+            flexShrink: 0,
           }}
         >
           <Typography style={styles.aligns} sx={{ color: "text.secondary", fontSize: "small" }}>
