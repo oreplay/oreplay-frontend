@@ -4,7 +4,7 @@ import {
 } from "../../pages/Results/components/VirtualTicket/shared/EntityTypes.ts"
 import { TFunction } from "i18next"
 import { ParticipantModel, RunnerModel } from "../../shared/EntityTypes.ts"
-import { RESULT_STATUS } from "../../pages/Results/shared/constants.ts"
+import { RESULT_STATUS, RESULT_STATUS_TEXT } from "../../pages/Results/shared/constants.ts"
 import { isRunnerNC } from "../../pages/Results/pages/Results/shared/functions.ts"
 
 const getClubName = (
@@ -33,10 +33,15 @@ const isNC = (runner: ProcessedRunnerModel | RunnerModel): boolean => {
   return isRunnerNC(runner) // TODO: Move this logic here
 }
 
+const isOK = (runner: ProcessedRunnerModel | RunnerModel) =>
+  runner.stage.status_code === RESULT_STATUS.ok ||
+  runner.stage.status_code === RESULT_STATUS_TEXT.ok
+
 export const runnerService = {
   getClubName,
   getClassName,
   compareLegNumber,
   isDNS,
   isNC,
+  isOK,
 }

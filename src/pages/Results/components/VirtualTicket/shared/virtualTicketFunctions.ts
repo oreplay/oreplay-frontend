@@ -6,6 +6,7 @@ import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Sp
 import { processParticipant } from "../../../pages/Results/shared/functions/runnerProccesing.ts"
 
 import { captureException as sentryCaptureException, withScope } from "@sentry/react"
+import { runnerService } from "../../../../../domain/services/RunnerService.ts"
 
 /**
  * Create a processed runners from runners
@@ -82,7 +83,7 @@ export function calculatePositionsAndBehindsFootO(
         if (
           runner.stage.splits[index] &&
           hasChipDownload(runner) &&
-          (missingPunchFrom === -1 || missingPunchFrom > index)
+          (missingPunchFrom === -1 || missingPunchFrom > index || runnerService.isOK(runner))
         ) {
           // handle nc
           if (isRunnerNC(runner) && excludeNC) {
@@ -136,7 +137,7 @@ export function calculatePositionsAndBehindsFootO(
               // Check when cumulative differences should be meaningful
               const cumulative_difference =
                 split.cumulative_time !== null &&
-                (missingPunchFrom === -1 || missingPunchFrom > index)
+                (missingPunchFrom === -1 || missingPunchFrom > index || runnerService.isOK(runner))
 
               return {
                 ...split,
