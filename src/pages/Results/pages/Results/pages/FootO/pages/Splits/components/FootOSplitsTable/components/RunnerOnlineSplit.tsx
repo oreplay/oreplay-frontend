@@ -32,11 +32,19 @@ export default function RunnerOnlineSplit({ split, startTimeTimestamp }: RunnerO
             if (provTime.as("days") >= 1) {
               return ""
             } else {
-              return (
-                <Typography
-                  sx={{ color: "text.secondary" }}
-                >{`(${parseSecondsToMMSS(provTime.as("seconds"))})`}</Typography>
-              )
+              const currentTimeSeconds = provTime.as("seconds")
+
+              if (currentTimeSeconds >= 0) {
+                // Consider if the runner has started
+                return (
+                  <Typography
+                    sx={{ color: "text.secondary" }}
+                  >{`(${parseSecondsToMMSS(currentTimeSeconds)})`}</Typography>
+                )
+              } else {
+                // runner haven't started
+                return ""
+              }
             }
           }}
         </NowContext.Consumer>
