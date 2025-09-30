@@ -108,12 +108,28 @@ export function calculatePositionsAndBehindsFootO(
       })
     })
 
+    // compute best time
+    const bestTimeIndex = runners.findIndex(
+      (runner) =>
+        runner.stage.time_behind === 0 && runnerService.isOK(runner) && hasChipDownload(runner),
+    )
+    const bestTime = bestTimeIndex !== -1 ? runners.at(bestTimeIndex)!.stage.time_seconds : null
+
     // update runners
     return runners.map((runner): ProcessedRunnerModel => {
+      runner.stage.points_final = 0 // To make sure its 0
+
       // only compute for runners with downloads
       if (hasChipDownload(runner)) {
+        // compute 1000 points formula
+        if (bestTime && runnerService.isOK(runner) && !runnerService.isNC(runner)) {
+          runner.stage.points_final = Math.round((1e3 * bestTime) / runner.stage.time_seconds)
+        }
+
+        // compute splits
         try {
           const isNC = isRunnerNC(runner)
+
           const newSplits = runner.stage.splits.map((split, index, splitsArray) => {
             const bestTime: number | null = timesTable[index][0]
             const best_cumulative: number | null = cumulativeTable[index][0]
