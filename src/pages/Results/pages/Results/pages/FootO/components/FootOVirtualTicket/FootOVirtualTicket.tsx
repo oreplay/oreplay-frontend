@@ -16,6 +16,7 @@ import ListSkeleton from "../../../../../../../../components/ListSkeleton/ListSk
 import FootOVirtualTicketSplitSkeletonItem from "./components/FootOVirtualTicketSplitSkeletonItem.tsx"
 import { useFillClubRunner } from "./shared/hooks.ts"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
+import FootOVirtualTicketPoints from "./components/FootOVirtualTicketPoints.tsx"
 
 interface FootOVirtualTicketProps extends VirtualTicketProps {
   isClass?: boolean
@@ -54,6 +55,9 @@ export default function FootOVirtualTicket({
       >
         <VirtualTicketHeader>
           <VirtualTicketRunnerInfo runner={displayedRunner} setClassClubId={setClassClubId} />
+          {hasChipDownload(displayedRunner) ? (
+            <FootOVirtualTicketPoints points={displayedRunner.stage.points_final} />
+          ) : null}
           <FootOVirtualTicketTimesBanner runnerResult={displayedRunner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits

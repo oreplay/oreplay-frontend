@@ -206,6 +206,11 @@
       "Cumulative": "Cumulative",
       "FinishControl": "Fin",
       "FinishHour": "Finish time:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": "Points obtained by 1000-point formula: 1000*(winner's time / your time)"
+        }
+      },
       "NoDownloadMsg": "No chip reading",
       "Partial": "Split",
       "RaceTime": "Time:",

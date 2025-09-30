@@ -211,6 +211,11 @@
       "Cumulative": "Acumulado",
       "FinishControl": "Meta",
       "FinishHour": "Hora de meta:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": "Fórmula de los 1000 puntos: 1000*(tiempo ganador / tu tiempo)"
+        }
+      },
       "NoDownloadMsg": "No hay lectura del chip",
       "Partial": "Parcial",
       "RaceTime": "Tiempo:",
