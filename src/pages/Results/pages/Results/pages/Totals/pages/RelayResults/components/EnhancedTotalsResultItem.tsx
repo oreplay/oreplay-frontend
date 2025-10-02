@@ -17,33 +17,15 @@ import {
 import { useState } from "react"
 import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
 
-interface StageLeaderData {
-  stageId: string
-  bestTime?: number
-  bestPoints?: number
-}
-
 interface EnhancedTotalsResultItemProps {
   runner: ProcessedRunnerModel
   handleRowClick: (runner: RunnerModel) => void
-  stageLeaders: StageLeaderData[]
-  overallLeaderTime?: number
-  overallLeaderPoints?: number
-  isPointsBasedEvent?: boolean
   isClass?: boolean // Add this prop to determine if we're in class or club view
-  categoryLeaderTime?: number // Category leader time for relative calculations
-  categoryLeaderPoints?: number // Category leader points for relative calculations
 }
 
 export default function EnhancedTotalsResultItem({
   runner,
-  stageLeaders,
-  overallLeaderTime,
-  overallLeaderPoints,
-  isPointsBasedEvent,
   isClass = true, // Default to class view
-  categoryLeaderTime,
-  categoryLeaderPoints,
 }: EnhancedTotalsResultItemProps) {
   const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
@@ -62,25 +44,17 @@ export default function EnhancedTotalsResultItem({
 
   const hasStageDetails = runner.overalls?.parts && runner.overalls.parts.length > 0
 
-  // Check if runner is NC
   const isNC = runner.is_nc || runnerService.isNC(runner)
 
-  // Check if runner status is NOT OK (0) - then show status text instead of time/points
   const statusCode = result.status_code || "0"
   const shouldShowStatusText = statusCode !== RESULT_STATUS.ok
 
-  // Calculate time behind category leader (for club view) or overall leader (for class view)
-  const leaderTime = isClass ? overallLeaderTime : categoryLeaderTime || overallLeaderTime
-  const timeBehindLeader = leaderTime && result.time_seconds ? result.time_seconds - leaderTime : 0
+  // Determine if this is a points-based event based on upload_type
+  const isPointsBasedEvent = result.upload_type === "total_points"
 
-  // Calculate points behind category leader (for club view) or overall leader (for class view)
-  const leaderPoints = isClass ? overallLeaderPoints : categoryLeaderPoints || overallLeaderPoints
-  const pointsBehindLeader =
-    leaderPoints && result.points_final !== null && result.points_final !== undefined
-      ? result.points_final - leaderPoints
-      : 0
+  const timeBehind = result.time_behind ?? 0
+  const pointsBehind = result.points_behind ?? null
 
-  // Determine subtitle: show class in club view, club in class view
   const subtitle = isClass
     ? runnerService.getClubName(runner, t)
     : runnerService.getClassName(runner)
@@ -108,7 +82,6 @@ export default function EnhancedTotalsResultItem({
         <ParticipantName name={runner.full_name} subtitle={subtitle} />
         <FlexCol flexGrow={1}>
           {shouldShowStatusText ? (
-            // Show status text when runner status is not OK
             <Box
               sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end", minWidth: 0 }}
             >
@@ -134,13 +107,10 @@ export default function EnhancedTotalsResultItem({
                 )}
               </Typography>
               <Typography sx={{ color: "primary.main", fontSize: 14, whiteSpace: "nowrap" }}>
-                {/* Show "----" for NC runners or when points are 0, otherwise show difference relative to category/overall leader */}
                 {isNC || result.points_final === 0
                   ? "----"
-                  : result.points_final !== null &&
-                      result.points_final !== undefined &&
-                      leaderPoints
-                    ? `${pointsBehindLeader >= 0 ? `+${pointsBehindLeader}` : pointsBehindLeader} pts`
+                  : pointsBehind !== null && pointsBehind !== undefined
+                    ? `${pointsBehind >= 0 ? `+${pointsBehind}` : pointsBehind} pts`
                     : ""}
               </Typography>
             </Box>
@@ -150,12 +120,7 @@ export default function EnhancedTotalsResultItem({
                 {result.time_seconds ? parseSecondsToMMSS(result.time_seconds) : ""}
               </Typography>
               <Typography sx={{ color: "primary.main", fontSize: 14 }}>
-                {/* Show "----" for NC runners, otherwise show time difference relative to category/overall leader */}
-                {isNC
-                  ? "----"
-                  : result.time_seconds && leaderTime
-                    ? parseTimeBehind(timeBehindLeader)
-                    : ""}
+                {isNC ? "----" : parseTimeBehind(timeBehind)}
               </Typography>
             </>
           )}
@@ -189,15 +154,7 @@ export default function EnhancedTotalsResultItem({
             }}
           >
             {runner.overalls?.parts?.map((stage) => {
-              const stageKey = stage.stage_order ? `stage_${stage.stage_order}` : stage.id
-              return (
-                <EnhancedStageResultItem
-                  key={stage.id}
-                  stage={stage}
-                  stageLeader={stageLeaders.find((leader) => leader.stageId === stageKey)}
-                  isRunnerNC={isNC}
-                />
-              )
+              return <EnhancedStageResultItem key={stage.id} stage={stage} isRunnerNC={isNC} />
             })}
           </Box>
         </Collapse>
