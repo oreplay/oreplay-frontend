@@ -1,5 +1,5 @@
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { FunctionComponent, memo, useContext } from "react"
+import { FunctionComponent, useContext } from "react"
 import { NowContext } from "../../../../shared/context.ts"
 import { DateTime } from "luxon"
 
@@ -26,11 +26,9 @@ export default function RunnerSorter<T extends RunnerRowBaseProps>({
   const now = useContext(NowContext)
 
   const sortedRunnerList = sortingFunction(runnerList, now)
-  const RunnerRowMemo = memo<T>(RunnerRow)
 
   return sortedRunnerList.map((runner) => {
-    const props = { runner, ...runnerRowProps } as T
-
-    return <RunnerRowMemo key={runner.id} {...props} />
+    // @ts-expect-error typescript doesn't pick up that runner & omit<T,"runner"> = T
+    return <RunnerRow key={runner.id} runner={runner} {...runnerRowProps} />
   })
 }

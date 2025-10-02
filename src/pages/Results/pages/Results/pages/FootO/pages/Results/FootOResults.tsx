@@ -12,6 +12,7 @@ import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.ts
 import { sortFootORunners } from "../../shared/functions.ts"
 import RunnerSorter from "../../../../components/RunnerSorter"
 import FootOResultRow from "./components/FootOResultRow"
+import { memo, useMemo } from "react"
 
 interface FootOResultProps
   extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
@@ -23,6 +24,16 @@ export default function FootOResults(props: FootOResultProps) {
 
   const [isVirtualTicketOpen, selectedRunner, handleRowClick, handleCloseVirtualTicket] =
     useVirtualTicket()
+
+  const runnerRowProps = useMemo(
+    () => ({
+      isClass: props.isClass,
+      onClick: handleRowClick,
+    }),
+    [props.isClass, handleRowClick],
+  )
+
+  const FootOResultRowMemo = memo(FootOResultRow)
 
   if (!props.activeItem) {
     return <ChooseClassMsg />
@@ -42,12 +53,9 @@ export default function FootOResults(props: FootOResultProps) {
         <ResultListContainer>
           <RunnerSorter
             runnerList={runnersList ? runnersList : []}
-            RunnerRow={FootOResultRow}
+            RunnerRow={FootOResultRowMemo}
             sortingFunction={sortFootORunners}
-            runnerRowProps={{
-              isClass: props.isClass,
-              onClick: handleRowClick
-            }}
+            runnerRowProps={runnerRowProps}
           />
           <FootOVirtualTicket
             isTicketOpen={isVirtualTicketOpen}

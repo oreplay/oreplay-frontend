@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { ProcessedRunnerModel } from "./EntityTypes"
 
 export function useVirtualTicket(): [
@@ -12,11 +12,11 @@ export function useVirtualTicket(): [
   const [selectedRunner, setSelectedRunner] = useState<ProcessedRunnerModel | null>(null)
   const [selectedLeg, setSelectedLeg] = useState<number | undefined>(undefined)
 
-  const handleRowClick = (runner: ProcessedRunnerModel, leg?: number) => {
+  const handleRowClick = useCallback((runner: ProcessedRunnerModel, leg?: number) => {
     setSelectedRunner(runner)
     setSelectedLeg(leg)
     setDialogOpen(true)
-  }
+  }, [])
 
   const handleCloseDialog = () => {
     setDialogOpen(false)
