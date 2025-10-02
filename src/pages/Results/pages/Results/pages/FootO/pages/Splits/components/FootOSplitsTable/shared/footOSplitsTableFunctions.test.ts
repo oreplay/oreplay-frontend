@@ -371,4 +371,8 @@ describe("getOnlineSplits", () => {
 
     expect(actual).toEqual(expectedOnlineControls)
   })
+
+  it("should not be running towards the first online control if runner has not started", () => {
+    // TODO: Fill this up and fix the bug
+  })
 })
