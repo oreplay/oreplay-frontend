@@ -1,6 +1,4 @@
 import { useParams } from "react-router-dom"
-import { DateTime } from "luxon"
-import { ProcessedRunnerModel } from "../pages/Results/components/VirtualTicket/shared/EntityTypes.ts"
 
 /**
  * Paginated list from backend
@@ -257,18 +255,4 @@ export interface GetEventTokenResponse {
   token: string
   expires: string
   created: string
-}
-
-export interface RunnerState {
-  runner: ProcessedRunnerModel
-  statusCode: string
-  hasStarted: boolean
-  isFinished: boolean
-  position: number
-  currentRaceTime: number
-  lastPassedControl: number
-  lastPassedTime: number | null
-  controlTimes: Record<number, number>
-  nextControl: number | null
-  nextControlReadingTime: DateTime | null
 }

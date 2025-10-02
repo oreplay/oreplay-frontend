@@ -20,16 +20,6 @@ export const RESULT_STATUS_TEXT = {
   nc: "nc", // not competitive
 }
 
-export const RESULT_STATUS_PRIORITY: Record<string, number> = {
-  [RESULT_STATUS.ok]: 1,
-  [RESULT_STATUS.nc]: 2,
-  [RESULT_STATUS.ot]: 3,
-  [RESULT_STATUS.mp]: 4,
-  [RESULT_STATUS.dnf]: 5,
-  [RESULT_STATUS.dsq]: 6,
-  [RESULT_STATUS.dns]: 7,
-}
-
 export const NORMAL_CONTROL: ControlTypeModel = {
   id: "f3cc5efa-065f-4ad6-844b-74e99612889b",
   description: "Normal Control",

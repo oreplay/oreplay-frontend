@@ -1,23 +1,20 @@
 import { RunnerModel } from "../../../../shared/EntityTypes.ts"
-import { ProcessedRunnerModel } from "../../components/VirtualTicket/shared/EntityTypes.ts"
+import {
+  ProcessedRunnerModel,
+  RadioSplitModel,
+} from "../../components/VirtualTicket/shared/EntityTypes.ts"
 import { RESULT_STATUS } from "../constants.ts"
 import { runnerService } from "../../../../domain/services/RunnerService.ts"
+import { DateTime } from "luxon"
 
 /**
  * This helper functions assigns each status code a number with the priority it should appear on result
  * @param status A valid RUNNER_STATUS
- * @param position Position of the runner
  */
-function statusOrder(status: string | null, position: number | null) {
+function statusOrder(status: string | null) {
   switch (status) {
     case RESULT_STATUS.ok:
-      if (position == 0) {
-        //is in-race
-        return 2
-      } else {
-        // has finished
-        return 0
-      }
+      return 0
     case RESULT_STATUS.ot:
       return 1
     case RESULT_STATUS.mp:
@@ -35,14 +32,9 @@ function statusOrder(status: string | null, position: number | null) {
   }
 }
 
-function byStatus(
-  aStatusCode: string | null,
-  bStatusCode: string | null,
-  aPosition: number | null,
-  bPosition: number | null,
-) {
-  const statusA = statusOrder(aStatusCode, aPosition)
-  const statusB = statusOrder(bStatusCode, bPosition)
+function byStatus(aStatusCode: string | null, bStatusCode: string | null) {
+  const statusA = statusOrder(aStatusCode)
+  const statusB = statusOrder(bStatusCode)
 
   if (statusA !== undefined && statusB !== undefined) {
     return statusA - statusB // Smaller status comes first
@@ -59,10 +51,8 @@ function byStageStatus(
 ): number {
   const aStatus = a.stage?.status_code
   const bStatus = b.stage?.status_code
-  const aPosition = a.stage?.position
-  const bPosition = b.stage?.position
 
-  return byStatus(aStatus, bStatus, aPosition, bPosition)
+  return byStatus(aStatus, bStatus)
 }
 
 /**
@@ -82,7 +72,7 @@ function byPosition(
 ): number {
   if (!!a && !!b) {
     if (a === b) {
-      return runnerCompareFunctions.byIsNC(isANC, isBNC)
+      return byIsNC(isANC, isBNC)
     } else {
       return a - b
     }
@@ -203,13 +193,193 @@ function byIsNC(isANC: boolean, isBNC: boolean): number {
   }
 }
 
-const runnerCompareFunctions = {
-  byStagePosition: byStagePosition,
-  byStageStatus: byStageStatus,
-  byOverallPosition: byOverallPosition,
-  byName: byName,
-  byStartTime: byStartTime,
-  byIsNC: byIsNC,
+/**
+ * Extract the index of the online control the runner is running to. It returns
+ * -1 if it is not running towards any online control (it has not finished or started)
+ * or if no online controls are being used
+ * @param splitList
+ */
+function extractOnlineSplitRunningTowards(splitList: RadioSplitModel[]): number {
+  return splitList.findIndex((split) => split.is_next != null)
 }
 
+/**
+ * Helper function for sorting. Compare two runners considering the control they are running towards
+ * @param a First runner in the comparison
+ * @param b Second runner in the comparison
+ * @param now Actual time
+ */
+function byControlRunningTowards(
+  a: ProcessedRunnerModel,
+  b: ProcessedRunnerModel,
+  now: DateTime<true>,
+): number {
+  const onlineSplitsA = a.stage.online_splits
+  const onlineSplitsB = b.stage.online_splits
+
+  const startTimeA = a.stage.start_time ? DateTime.fromISO(a.stage.start_time) : null
+  const startTimeB = b.stage.start_time ? DateTime.fromISO(b.stage.start_time) : null
+
+  // Using online splits
+  if (onlineSplitsA && onlineSplitsB && startTimeA && startTimeB) {
+    const aRunningTo = extractOnlineSplitRunningTowards(onlineSplitsA)
+    const bRunningTo = extractOnlineSplitRunningTowards(onlineSplitsB)
+
+    // One of them is not running anywhere
+    if (aRunningTo == -1 || bRunningTo == -1) {
+      return 0
+    }
+
+    // A runs towards a control B already punched
+    if (aRunningTo < bRunningTo) {
+      const cumulativeTimeA = now.diff(startTimeA)
+      const splitB = onlineSplitsB.at(aRunningTo)!
+
+      if (splitB.cumulative_time) {
+        if (cumulativeTimeA.as("seconds") < splitB.cumulative_time) {
+          // A is doing better => we cannot compare
+          return 0
+        } else {
+          // A is already doing worst
+          return 1
+        }
+      }
+      // B runs to a control A already punched
+    } else if (aRunningTo > bRunningTo) {
+      const cumulativeTimeB = now.diff(startTimeB)
+      const splitA = onlineSplitsA.at(bRunningTo)!
+
+      if (splitA.cumulative_time) {
+        if (cumulativeTimeB.as("seconds") < splitA.cumulative_time) {
+          // B is doing better
+          return 0
+        } else {
+          // B is already doing worst
+          return -1
+        }
+      }
+    }
+    // A and B run to the same control (they are equal)
+  }
+
+  // Not using online splits or any of the prev conditions failed
+  return 0
+}
+
+function byLastCommonOnlineControl(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
+  const onlineSplitsA = a.stage.online_splits
+  const onlineSplitsB = b.stage.online_splits
+
+  if (onlineSplitsA && onlineSplitsB && onlineSplitsA.length > 0 && onlineSplitsB.length > 0) {
+    for (let i = onlineSplitsA.length - 1; i >= 0; i--) {
+      // Here we assume onlineSplitsA.length === onlineSplitsB.length
+
+      const splitA = onlineSplitsA.at(i)!
+      const splitB = onlineSplitsB.at(i)!
+
+      if (splitA.cumulative_time && splitB.cumulative_time) {
+        return splitA.cumulative_time - splitB.cumulative_time
+      }
+    }
+  }
+
+  return 0
+}
+
+/**
+ * Helper function for sorting. Compare two runners considering that the finished runners goes first
+ * @param a First runner in comparison
+ * @param b Second runner in comparison
+ */
+function byFinishedStatus(
+  a: RunnerModel | ProcessedRunnerModel,
+  b: RunnerModel | ProcessedRunnerModel,
+): number {
+  const finishedA = runnerService.hasFinished(a)
+  const finishedB = runnerService.hasFinished(b)
+
+  if (finishedA && finishedB) {
+    return 0
+  }
+  if (finishedA) {
+    return -1
+  }
+  if (finishedB) {
+    return 1
+  }
+  return 0
+}
+
+function byStartedStatus(
+  a: RunnerModel | ProcessedRunnerModel,
+  b: RunnerModel | ProcessedRunnerModel,
+  now?: DateTime<true>,
+): number {
+  const aStarted = runnerService.hasStarted(a, now)
+  const bStarted = runnerService.hasStarted(b, now)
+
+  if (aStarted && bStarted) {
+    return 0
+  } else if (aStarted) {
+    // b did no
+    return -1
+  } else if (bStarted) {
+    // a did not
+    return 1
+  } else {
+    // none started
+    return 0
+  }
+}
+
+function byTime(
+  a: RunnerModel | ProcessedRunnerModel,
+  b: RunnerModel | ProcessedRunnerModel,
+): number {
+  const aTimeSeconds = a.stage.time_seconds
+  const bTimeSeconds = b.stage.time_seconds
+  return aTimeSeconds - bTimeSeconds
+}
+
+function haveBothFinished(
+  a: RunnerModel | ProcessedRunnerModel,
+  b: RunnerModel | ProcessedRunnerModel,
+): boolean {
+  const finishedA = runnerService.hasFinished(a)
+  const finishedB = runnerService.hasFinished(b)
+
+  return finishedA && finishedB
+}
+
+/**
+ * Check if both runners have started
+ * @param a First runner
+ * @param b Second runner
+ * @param now Current time, if not provided `DateTime.now()` is invoked
+ */
+function haveBothStarted(
+  a: RunnerModel | ProcessedRunnerModel,
+  b: RunnerModel | ProcessedRunnerModel,
+  now?: DateTime<true>,
+): boolean {
+  const aStarted = runnerService.hasStarted(a, now)
+  const bStarted = runnerService.hasStarted(b, now)
+
+  return aStarted && bStarted
+}
+
+const runnerCompareFunctions = {
+  byStagePosition,
+  byStageStatus,
+  byOverallPosition,
+  byName,
+  byStartTime,
+  byControlRunningTowards,
+  byLastCommonOnlineControl,
+  byFinishedStatus,
+  byStartedStatus,
+  byTime,
+  haveBothFinished,
+  haveBothStarted,
+}
 export default runnerCompareFunctions

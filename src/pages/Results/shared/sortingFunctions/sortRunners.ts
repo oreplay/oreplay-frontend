@@ -45,6 +45,20 @@ export function multiLevelCompare<T>(
   return compareResult
 }
 
+export function conditionalCompare<T>(
+  a: T,
+  b: T,
+  condition: (a: T, b: T) => boolean,
+  compareTrue: (a: T, b: T) => number,
+  compareFalse: (a: T, b: T) => number,
+) {
+  if (condition(a, b)) {
+    return compareTrue(a, b)
+  } else {
+    return compareFalse(a, b)
+  }
+}
+
 /**
  * Sort a list of runners
  * @param runnersList List of runners to be ordered
@@ -53,6 +67,7 @@ export function sortRunners(runnersList: RunnerModel[]) {
   return runnersList.sort((a, b) => {
     return multiLevelCompare(a, b, [
       runnerCompareFunctions.byStageStatus,
+      runnerCompareFunctions.byFinishedStatus,
       runnerCompareFunctions.byStagePosition,
       runnerCompareFunctions.byOverallPosition,
       (a, b) => runnerCompareFunctions.byStartTime(a, b, false), // reverse

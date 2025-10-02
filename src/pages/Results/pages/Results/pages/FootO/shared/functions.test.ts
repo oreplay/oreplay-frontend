@@ -1,10 +1,13 @@
-import { describe, it, expect, vi } from "vitest"
+import { describe, it, expect } from "vitest"
 import { sortRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 import { sortFootORunners } from "./functions.ts"
 import { DateTime } from "luxon"
+import { UPLOAD_TYPES } from "../../../shared/constants.ts"
 
 describe("sortRunners and sortFootORunners", () => {
+  const now = DateTime.fromISO("2025-06-27T12:00:00.000+00:00") as DateTime<true>
+
   it("should handle different classification statuses", () => {
     const baseRunner = {
       id: "string",
@@ -111,7 +114,7 @@ describe("sortRunners and sortFootORunners", () => {
     ]
 
     expect(sortRunners(runnerList), "Failed regular runners").toEqual(expected)
-    expect(sortFootORunners(runnerList), "Failed footO runners").toEqual(expected)
+    expect(sortFootORunners(runnerList, now), "Failed footO runners").toEqual(expected)
   })
 
   it("should handle nc", () => {
@@ -196,7 +199,7 @@ describe("sortRunners and sortFootORunners", () => {
     ]
 
     expect(sortRunners(runnerList), "Failed regular runners").toEqual(expected)
-    expect(sortFootORunners(runnerList), "Failed footO runners").toEqual(expected)
+    expect(sortFootORunners(runnerList, now), "Failed footO runners").toEqual(expected)
   })
 
   it("should handle in-race runners mixed with finished runners", () => {
@@ -222,7 +225,7 @@ describe("sortRunners and sortFootORunners", () => {
         result_type_id: "string",
         start_time: "2025-06-27T09:00:00.000+00:00",
         finish_time: "2025-06-27T09:07:00.000+00:00",
-        upload_type: "res_splits",
+        upload_type: UPLOAD_TYPES.SPLIT_RESULT,
         time_seconds: 420,
         position: 2,
         status_code: RESULT_STATUS.ok,
@@ -247,6 +250,7 @@ describe("sortRunners and sortFootORunners", () => {
       full_name: "Runner Finished 1",
       stage: {
         ...baseRunner.stage,
+        upload_type: UPLOAD_TYPES.SPLIT_RESULT,
         finish_time: "2025-06-27T09:07:00.000+00:00",
         position: 1,
       },
@@ -258,6 +262,7 @@ describe("sortRunners and sortFootORunners", () => {
       stage: {
         ...baseRunner.stage,
         finish_time: null,
+        upload_type: UPLOAD_TYPES.START_TIMES,
         position: 0,
       },
     }
@@ -297,6 +302,7 @@ describe("sortRunners and sortFootORunners", () => {
       stage: {
         ...baseRunner.stage,
         start_time: "2025-06-27T10:00:00.000+00:00",
+        upload_type: UPLOAD_TYPES.START_TIMES,
         finish_time: null,
         position: 0,
       },
@@ -321,7 +327,7 @@ describe("sortRunners and sortFootORunners", () => {
     ]
 
     expect(sortRunners(runnerList), "Failed regular runners").toEqual(expected)
-    expect(sortFootORunners(runnerList), "Failed FootO runners").toEqual(expected)
+    expect(sortFootORunners(runnerList, now), "Failed FootO runners").toEqual(expected)
   })
 
   it("should handle runners without start time (they should be at the end)", () => {
@@ -399,14 +405,12 @@ describe("sortRunners and sortFootORunners", () => {
     const expected = [runnerWithStartTime2, runnerWithStartTime, runnerWithoutStartTime]
 
     expect(sortRunners(runnerList)).toEqual(expected)
-    expect(sortFootORunners(runnerList)).toEqual(expected)
+    expect(sortFootORunners(runnerList, now)).toEqual(expected)
   })
 })
 
 describe("sortFootORunners with detailed online_splits", () => {
-  vi.spyOn(DateTime, "now").mockReturnValue(
-    DateTime.fromISO("2025-06-27T10:00:00.000+00:00") as DateTime<true>,
-  )
+  const now = DateTime.fromISO("2025-06-27T10:00:00.000+00:00") as DateTime<true>
 
   const baseRunner = {
     id: "runner1",
@@ -423,7 +427,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       result_type_id: "res",
       start_time: "2025-06-27T09:50:00.000+00:00",
       finish_time: null,
-      upload_type: "res_splits",
+      upload_type: UPLOAD_TYPES.ONLINE_SPLITS,
       time_seconds: 0,
       position: 0,
       status_code: "0",
@@ -492,10 +496,10 @@ describe("sortFootORunners with detailed online_splits", () => {
             .toISO()
         : null,
       points: 0,
-      time_behind: 0,
-      position: 0,
-      cumulative_position: 0,
-      cumulative_behind: 0,
+      time_behind: null,
+      position: null,
+      cumulative_position: null,
+      cumulative_behind: null,
       cumulative_time: cumulative_time,
       order_number: order_number,
       control: station
@@ -505,14 +509,14 @@ describe("sortFootORunners with detailed online_splits", () => {
             control_type: { id: "ctrl-type-1", description: "Normal Control" },
           }
         : null,
-      time: split_time ?? null, // Fixed: now properly handles split time vs cumulative time
+      time: split_time ?? null,
       status_code: "0",
       leg_number: 1,
-      is_next: is_next ?? null, // Fixed: now properly handles is_next field
+      is_next: is_next ?? null,
     }
   }
 
-  it("should sort runners by last shared control cumulative_time", () => {
+  it("should sort runners by the control they are running towards and the prev", () => {
     const runnerA = {
       ...baseRunner,
       id: "A",
@@ -526,9 +530,14 @@ describe("sortFootORunners with detailed online_splits", () => {
             station: "32",
             cumulative: 10 * 60,
             split_time: 2 * 60,
-            is_next: DateTime.fromISO("2025-06-27T09:58:00.000+00:00"),
           },
-          { order: 33, station: "33", cumulative: 12 * 60, split_time: 2 * 60 },
+          {
+            order: 33,
+            station: "33",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO("2025-06-27T10:00:00.000+00:00"),
+          },
         ]),
         finish_time: null,
         position: 0,
@@ -548,61 +557,15 @@ describe("sortFootORunners with detailed online_splits", () => {
             station: "31",
             cumulative: 4 * 60,
             split_time: 4 * 60,
-            is_next: DateTime.fromISO("2025-06-27T09:54:00.000+00:00"),
           },
-        ]),
-        finish_time: null,
-        position: 0,
-        status_code: "0",
-      },
-    }
-
-    const sorted = sortFootORunners([runnerA, runnerB])
-    const expected = [runnerB, runnerA] // B ahead because faster at last shared control
-
-    expect(sorted).toEqual(expected)
-  })
-
-  it("should sort runners correctly when one has more controls but is slower at last shared control", () => {
-    const runnerA = {
-      ...baseRunner,
-      id: "A",
-      full_name: "Runner A",
-      stage: {
-        ...baseRunner.stage,
-        online_splits: makeCompleteCourse([
-          { order: 31, station: "31", cumulative: 8 * 60, split_time: 8 * 60 },
-          { order: 32, station: "32", cumulative: 10 * 60, split_time: 2 * 60 },
-          {
-            order: 33,
-            station: "33",
-            cumulative: 12 * 60,
-            split_time: 2 * 60,
-            is_next: DateTime.fromISO("2025-06-27T10:02:00.000+00:00"),
-          },
-        ]),
-        finish_time: null,
-        position: 0,
-        status_code: "0",
-      },
-    }
-
-    const runnerB = {
-      // Fixed: Both runners now have the same number of splits but some are empty
-      ...baseRunner,
-      id: "B",
-      full_name: "Runner B",
-      stage: {
-        ...baseRunner.stage,
-        online_splits: makeCompleteCourse([
-          { order: 31, station: "31", cumulative: 4 * 60, split_time: 4 * 60 },
           {
             order: 32,
             station: "32",
-            cumulative: 9 * 60,
-            split_time: 5 * 60,
-            is_next: DateTime.fromISO("2025-06-27T09:59:00.000+00:00"),
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO("2025-06-27T09:54:00.000+00:00"),
           },
+          { order: 33, station: "33", cumulative: null, split_time: null },
         ]),
         finish_time: null,
         position: 0,
@@ -610,10 +573,17 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerA, runnerB])
-    const expected = [runnerB, runnerA] // B ahead because faster at last shared control 32
+    // Case already loosing
+    let now = DateTime.fromISO("2025-06-27T10:00:00.000+00:00") as DateTime<true>
+    let sorted = sortFootORunners([runnerB, runnerA], now)
+    let expected = [runnerA, runnerB] // A ahead because B already loosing
+    expect(sorted, "B is already loosing at second control").toEqual(expected)
 
-    expect(sorted).toEqual(expected)
+    // Case not loosing
+    now = DateTime.fromISO("2025-06-27T09:56:00.000+00:00") as DateTime<true>
+    sorted = sortFootORunners([runnerA, runnerB], now)
+    expected = [runnerB, runnerA] // B ahead because he was winning in first radio and is still winning
+    expect(sorted, "A was winning at the last common control").toEqual(expected)
   })
 
   it("should put finished runner by position but allow faster in-race runner ahead", () => {
@@ -677,7 +647,10 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerFinished, runnerInProgressFast, runnerInProgressSlow])
+    const sorted = sortFootORunners(
+      [runnerFinished, runnerInProgressFast, runnerInProgressSlow],
+      now,
+    )
     const expected = [runnerInProgressFast, runnerFinished, runnerInProgressSlow] // Order by speed & position
 
     expect(sorted).toEqual(expected)
@@ -722,8 +695,8 @@ describe("sortFootORunners with detailed online_splits", () => {
           {
             order: 31,
             station: "31",
-            cumulative: 300,
-            split_time: 300,
+            cumulative: null,
+            split_time: null,
             is_next: DateTime.fromISO("2025-06-27T09:55:00.000+00:00"),
           },
         ]),
@@ -733,7 +706,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerNotStarted2, runnerStarted, runnerNotStarted1])
+    const sorted = sortFootORunners([runnerNotStarted2, runnerStarted, runnerNotStarted1], now)
     const expected = [runnerStarted, runnerNotStarted1, runnerNotStarted2]
 
     expect(sorted).toEqual(expected)
@@ -753,7 +726,7 @@ describe("sortFootORunners with detailed online_splits", () => {
             station: "31",
             cumulative: 300,
             split_time: 300,
-            is_next: DateTime.fromISO("2025-06-27T09:05:00.000+00:00"),
+            is_next: DateTime.fromISO("2025-06-27T09:00:00.000+00:00"),
           },
         ]),
         finish_time: null,
@@ -795,7 +768,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerDSQ, runnerOk, runnerDNF])
+    const sorted = sortFootORunners([runnerDSQ, runnerOk, runnerDNF], now)
 
     const expected = [runnerOk, runnerDNF, runnerDSQ]
 
@@ -931,14 +904,14 @@ describe("sortFootORunners with detailed online_splits", () => {
       runnerInProgressFast,
       runnerNotStarted1,
     ]
-    const sorted = sortFootORunners(runners)
+    const sorted = sortFootORunners(runners, now)
 
     const expectedOrder = [
       runnerInProgressFast, // Faster in progress first
       runnerFinished, // Finished next by position
       runnerInProgressSlow, // Slower in progress
-      runnerNotStarted1, // Not started ordered by start_time (earlier)
-      runnerNotStarted2, // Not started ordered by start_time (later)
+      runnerNotStarted1, // Not started ordered by start_time (later)
+      runnerNotStarted2, // Not started ordered by start_time (earlier)
       runnerDNF, // DNF near end
       runnerDSQ, // DSQ last
     ]
@@ -1007,7 +980,7 @@ describe("sortFootORunners with detailed online_splits", () => {
 
     const expectedRunnerList = [runnerRunningWinning, runnerPos1, runnerPos2]
 
-    expect(sortFootORunners(runnerList)).toEqual(expectedRunnerList)
+    expect(sortFootORunners(runnerList, now)).toEqual(expectedRunnerList)
   })
 
   it("should handle projection logic: runner with fewer splits but slower projected time", () => {
@@ -1058,7 +1031,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerA, runnerB])
+    const sorted = sortFootORunners([runnerA, runnerB], now)
     // Runner B should be ahead because even though they have more splits,
     // their last split time (20s) is better than Runner A's projected time
     const expected = [runnerB, runnerA]
@@ -1108,7 +1081,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerFinishedSlow, runnerInProgressFast])
+    const sorted = sortFootORunners([runnerFinishedSlow, runnerInProgressFast], now)
     // Fast in-progress runner should be ahead of slow finished runner
     const expected = [runnerInProgressFast, runnerFinishedSlow]
 
@@ -1154,7 +1127,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerWithMissedControl, runnerNormal])
+    const sorted = sortFootORunners([runnerWithMissedControl, runnerNormal], now)
     // Runner with missed control should still be sorted based on available data
     // Since runnerWithMissedControl was faster at control 31, they should be ahead
     const expected = [runnerWithMissedControl, runnerNormal]
@@ -1227,7 +1200,7 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerDSQ, runnerDNS, runnerOK, runnerDNF])
+    const sorted = sortFootORunners([runnerDSQ, runnerDNS, runnerOK, runnerDNF], now)
     // OK runner first, then DNF, then DSQ, then DNS (based on status priority)
     const expected = [runnerOK, runnerDNF, runnerDSQ, runnerDNS]
 
@@ -1327,13 +1300,10 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([
-      runnerDSQ,
-      runnerNotStarted,
-      runnerInProgressSlow,
-      runnerFinished1st,
-      runnerInProgressFast,
-    ])
+    const sorted = sortFootORunners(
+      [runnerDSQ, runnerNotStarted, runnerInProgressSlow, runnerFinished1st, runnerInProgressFast],
+      now,
+    )
 
     // Expected order:
     // 1. Fast in-progress runner (projected to beat finished runner)
@@ -1392,124 +1362,9 @@ describe("sortFootORunners with detailed online_splits", () => {
       },
     }
 
-    const sorted = sortFootORunners([runnerSameProgressNoNext, runnerApproachingNext])
+    const sorted = sortFootORunners([runnerSameProgressNoNext, runnerApproachingNext], now)
     // Runner approaching next control should be prioritized
     const expected = [runnerApproachingNext, runnerSameProgressNoNext]
-
-    expect(sorted).toEqual(expected)
-  })
-
-  it("should handle runners with different is_next timing", () => {
-    const runnerRecentNext = {
-      ...baseRunner,
-      id: "RN",
-      full_name: "Recent Next Control",
-      stage: {
-        ...baseRunner.stage,
-        start_time: "2025-06-27T09:50:00.000+00:00",
-        online_splits: makeCompleteCourse([
-          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
-          {
-            order: 32,
-            station: "32",
-            cumulative: null,
-            split_time: null,
-            is_next: DateTime.fromISO("2025-06-27T09:58:00.000+00:00"),
-          },
-        ]),
-        finish_time: null,
-        position: 0,
-        status_code: "0",
-      },
-    }
-
-    const runnerOlderNext = {
-      ...baseRunner,
-      id: "ON",
-      full_name: "Older Next Control",
-      stage: {
-        ...baseRunner.stage,
-        start_time: "2025-06-27T09:50:00.000+00:00",
-        online_splits: makeCompleteCourse([
-          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
-          {
-            order: 32,
-            station: "32",
-            cumulative: null,
-            split_time: null,
-            is_next: DateTime.fromISO("2025-06-27T09:55:00.000+00:00"),
-          },
-        ]),
-        finish_time: null,
-        position: 0,
-        status_code: "0",
-      },
-    }
-
-    const sorted = sortFootORunners([runnerOlderNext, runnerRecentNext])
-    // Runner with more recent is_next time should be prioritized (closer to reaching control)
-    const expected = [runnerRecentNext, runnerOlderNext]
-
-    expect(sorted).toEqual(expected)
-  })
-
-  it("should handle comprehensive edge cases with empty and null values", () => {
-    const runnerWithNulls = {
-      ...baseRunner,
-      id: "WN",
-      full_name: "With Nulls",
-      stage: {
-        ...baseRunner.stage,
-        start_time: null, // No start time
-        online_splits: makeCompleteCourse([]), // Empty splits
-        finish_time: null,
-        position: 0,
-        status_code: "0",
-      },
-    }
-
-    const runnerPartialData = {
-      ...baseRunner,
-      id: "PD",
-      full_name: "Partial Data",
-      stage: {
-        ...baseRunner.stage,
-        start_time: "2025-06-27T09:50:00.000+00:00",
-        online_splits: makeCompleteCourse([
-          { order: 31, station: "31", cumulative: null, split_time: null }, // Missed control
-          { order: 32, station: "32", cumulative: 8 * 60, split_time: 8 * 60 }, // Got this one somehow
-        ]),
-        finish_time: null,
-        position: 0,
-        status_code: "0",
-      },
-    }
-
-    const runnerNormal = {
-      ...baseRunner,
-      id: "N",
-      full_name: "Normal",
-      stage: {
-        ...baseRunner.stage,
-        start_time: "2025-06-27T09:55:00.000+00:00",
-        online_splits: makeCompleteCourse([
-          {
-            order: 31,
-            station: "31",
-            cumulative: 4 * 60,
-            split_time: 4 * 60,
-            is_next: DateTime.fromISO("2025-06-27T09:59:00.000+00:00"),
-          },
-        ]),
-        finish_time: null,
-        position: 0,
-        status_code: "0",
-      },
-    }
-
-    const sorted = sortFootORunners([runnerWithNulls, runnerPartialData, runnerNormal])
-    // Normal runner first, then partial data, then runner with nulls at end
-    const expected = [runnerNormal, runnerPartialData, runnerWithNulls]
 
     expect(sorted).toEqual(expected)
   })
