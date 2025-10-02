@@ -42,6 +42,7 @@
     "Organizer": "Organitzador",
     "Public": "Públic",
     "QRCode": {
+      "CopyUrl": "Copiar URL de l'event",
       "Description": "Genera i descarrega un codi QR que enllaci directament a aquest event a O-Replay.",
       "Download": "Descarregar Codi QR (PNG)",
       "DownloadSuccessful": "Codi QR descarregat correctament",
@@ -81,7 +82,8 @@
         },
         "MassStart": "Sortida en massa",
         "OneManRelay": {
-          "description": "Cursa basada en temps, individual o per equips, recorregut lineal on cada participant té el seu propi recorregut."
+          "description": "Recorregut lineal, cronometrat, individual o per equips, on cada participant té la seva pròpia variant.",
+          "title": "Recorregut amb variants"
         },
         "Raid": "Raid d'aventura",
         "Relay": {
@@ -212,6 +214,11 @@
       "Cumulative": "Acumulat",
       "FinishControl": "Meta",
       "FinishHour": "Hora de meta:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": "Fórmula dels 1000 punts: 1000 * (temps guanyador / el teu temps)"
+        }
+      },
       "NoDownloadMsg": "No hi ha lectura de xip",
       "Partial": "Parcial",
       "RaceTime": "Temps:",
