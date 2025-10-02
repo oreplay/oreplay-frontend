@@ -207,11 +207,13 @@ export interface OverallModel {
   upload_type: string
   stage?: StageOrder | null
   position: number | null
-  status_code: number | string | null
+  status_code: string | null
   time_seconds: number | null
+  time_behind: number | null
   points_final: number | null
+  points_behind?: number | null
   note: string | null
-  contributory?: boolean
+  contributory: boolean
 }
 
 export interface UserModel {
