@@ -10,9 +10,10 @@ import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
 import { sortFootORunners } from "../../shared/functions.ts"
+
+import { memo, useMemo } from "react"
 import RunnerSorter from "../../../../components/RunnerSorter"
 import FootOResultRow from "./components/FootOResultRow"
-import { memo, useMemo } from "react"
 
 interface FootOResultProps
   extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
