@@ -19,6 +19,7 @@ import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
 
 interface EnhancedTotalsResultItemProps {
   runner: ProcessedRunnerModel
+  isRunnerNC?: boolean
   handleRowClick: (runner: RunnerModel) => void
   isClass?: boolean // Add this prop to determine if we're in class or club view
 }
