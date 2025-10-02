@@ -60,7 +60,6 @@ export function sortFootORunners(
   runners: ProcessedRunnerModel[],
   now?: DateTime<true>,
 ): ProcessedRunnerModel[] {
-
   now = now ? now : DateTime.now()
 
   return runners.sort((a, b) => {
