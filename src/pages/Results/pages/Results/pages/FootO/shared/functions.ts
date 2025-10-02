@@ -58,8 +58,11 @@ function compareIfBothHaveNotStarted(
 
 export function sortFootORunners(
   runners: ProcessedRunnerModel[],
-  now: DateTime<true>,
+  now?: DateTime<true>,
 ): ProcessedRunnerModel[] {
+
+  now = now ? now : DateTime.now()
+
   return runners.sort((a, b) => {
     return multiLevelCompare(a, b, [
       compareFunctions.byStageStatus,
