@@ -33,7 +33,7 @@ export default function EnhancedStageResultItem({
   const shouldShowStrikethrough = !isContributory || (isRunnerNC && hasZeroPoints)
 
   // Determine if this is a points-based or time-based stage based on upload_type
-  const isPointsBased = stage.upload_type === "total_points"
+  const isPointsBased = stage.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
   const isTimeBased = stage.time_seconds && stage.time_seconds > 0
 
   const shouldShowDashes =
