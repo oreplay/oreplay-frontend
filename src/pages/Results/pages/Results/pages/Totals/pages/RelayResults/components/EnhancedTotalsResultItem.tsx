@@ -16,6 +16,7 @@ import {
 } from "../../../../../../../../../shared/Functions.tsx"
 import { useState } from "react"
 import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
+import { UPLOAD_TYPES } from "../../../../../shared/constants.ts"
 
 interface EnhancedTotalsResultItemProps {
   runner: ProcessedRunnerModel
