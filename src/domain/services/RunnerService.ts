@@ -43,6 +43,7 @@ const isOK = (runner: ProcessedRunnerModel | RunnerModel) =>
  * @param runner The runner we want to check
  */
 function hasFinished(runner: RunnerModel | ProcessedRunnerModel): boolean {
+  if (!runner.stage) return false
   return (
     !!runner.stage.finish_time ||
     runner.stage.position != 0 ||
