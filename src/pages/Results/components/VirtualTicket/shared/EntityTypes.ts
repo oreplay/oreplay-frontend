@@ -4,6 +4,7 @@ import {
   ControlModel,
   OverallModel,
   OverallsModel,
+  UploadType,
 } from "../../../../../shared/EntityTypes.ts"
 import { DateTime } from "luxon"
 
@@ -45,7 +46,7 @@ export interface ProcessedRunnerResultModel {
   result_type_id: string
   start_time: string | null
   finish_time: string | null
-  upload_type: string
+  upload_type: UploadType
   time_seconds: number
   position: number
   status_code: string | null

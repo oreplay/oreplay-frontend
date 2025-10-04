@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { UPLOAD_TYPES } from "../pages/Results/pages/Results/shared/constants.ts"
 
 /**
  * Paginated list from backend
@@ -131,7 +132,7 @@ export interface RunnerResultModel {
   result_type_id: string
   start_time: string | null
   finish_time: string | null
-  upload_type: string
+  upload_type: UploadType
   time_seconds: number
   position: number
   status_code: string | null
@@ -199,10 +200,12 @@ export interface StageOrder {
   description: string
 }
 
+export type UploadType = (typeof UPLOAD_TYPES)[keyof typeof UPLOAD_TYPES]
+
 export interface OverallModel {
   id: string
   stage_order: number | null
-  upload_type: string
+  upload_type: UploadType
   stage?: StageOrder | null
   position: number | null
   status_code: string | null

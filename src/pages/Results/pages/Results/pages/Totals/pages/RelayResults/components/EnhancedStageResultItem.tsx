@@ -8,6 +8,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
 import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
+import { UPLOAD_TYPES } from "../../../../../shared/constants.ts"
 
 interface EnhancedStageResultItemProps {
   stage: ProcessedOverallModel
