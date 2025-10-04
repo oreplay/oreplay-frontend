@@ -168,9 +168,7 @@ export default function EnhancedStageResultItem({
               textDecoration: shouldShowStrikethrough ? "line-through" : "none",
             }}
           >
-            {shouldShowDashes
-              ? "----"
-              : `${formatScoreAsInteger(stage.points_final)} ${t("Overall.pointsAbbreviation")}`}
+            {`${formatScoreAsInteger(stage.points_final)} ${t("Overall.pointsAbbreviation")}`}
           </Typography>
         ) : (
           <Typography
