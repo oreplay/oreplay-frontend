@@ -16,6 +16,7 @@ import {
 } from "../../../../../../../../../shared/Functions.tsx"
 import { useState } from "react"
 import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
+import { UPLOAD_TYPES } from "../../../../../shared/constants.ts"
 
 interface EnhancedTotalsResultItemProps {
   runner: ProcessedRunnerModel
@@ -51,7 +52,7 @@ export default function EnhancedTotalsResultItem({
   const shouldShowStatusText = statusCode !== RESULT_STATUS.ok
 
   // Determine if this is a points-based event based on upload_type
-  const isPointsBasedEvent = result.upload_type === "total_points"
+  const isPointsBasedEvent = result.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
 
   const timeBehind = result.time_behind ?? 0
   const pointsBehind = result.points_behind ?? null

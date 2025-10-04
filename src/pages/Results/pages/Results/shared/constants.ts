@@ -12,4 +12,8 @@ export const UPLOAD_TYPES = {
   SPLIT_RESULT: "res_splits",
   FINAL_RESULT: "res_finish",
   START_TIMES: "start_list",
+  TOTAL_POINTS: "total_points",
+  TOTAL_TIMES: "total_times",
+  RANKING_COMPUTED: "ranking_computed",
+  COMPUTABLE_ORG: "computable_org",
 }
