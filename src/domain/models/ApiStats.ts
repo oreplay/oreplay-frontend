@@ -25,3 +25,15 @@ export type CategoryData = Record<
 >
 
 export type ApiStats = Record<CategoryName, CategoryData>
+
+export interface StageStatsModel {
+  class: string
+  total: number
+  ok: number
+  mp: number
+  dnf: number
+  ot: number
+  dsq: number
+  dns: number
+  bestTime: number
+}

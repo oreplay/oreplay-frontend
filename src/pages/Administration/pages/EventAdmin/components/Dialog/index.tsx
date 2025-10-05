@@ -39,7 +39,7 @@ export const Dialog = forwardRef<DialogRef, DialogProps>((props: DialogProps, re
       handleOpen: handleOpen,
       handleClose: handleClose,
     }),
-    [handleOpen, handleClose],
+    [open, handleOpen, handleClose],
   )
 
   return (
