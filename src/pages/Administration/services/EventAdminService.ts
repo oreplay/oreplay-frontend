@@ -203,7 +203,7 @@ export async function getEventStats(eventId: string, stageId: string): Promise<D
     "F-E,F-21A,F-21B,F-35,F-35B,F-35A,F-40,F-45,F-50,F-55,F-60,F-65,F-70,F-75,F-80,F-85,F-90,F-95"
   return get(
     baseUrl +
-      `/${eventId}/stages/${stageId}/stats?officialSub20M=${sub20M}&officialSub20F=${sub20F}&officialSeniorM=${senM}&officialSeniorF=${senF}`,
+      `/${eventId}/stages/${stageId}/fedo-stats?officialSub20M=${sub20M}&officialSub20F=${sub20F}&officialSeniorM=${senM}&officialSeniorF=${senF}`,
   )
 }
 
