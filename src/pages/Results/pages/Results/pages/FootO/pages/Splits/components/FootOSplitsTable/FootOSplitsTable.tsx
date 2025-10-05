@@ -16,7 +16,7 @@ import {
   getOnlineControlsCourseFromClassSplits,
 } from "./shared/footOSplitsTablefunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
-import NowProvider from "../../../../../../../../components/NowProvider.tsx"
+import NowProvider from "../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"

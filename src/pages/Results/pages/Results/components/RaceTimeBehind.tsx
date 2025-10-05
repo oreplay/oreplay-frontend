@@ -1,6 +1,6 @@
 import React from "react"
 import { Typography } from "@mui/material"
-import { parseTimeBehind } from "../../../shared/Functions.tsx"
+import { parseTimeBehind } from "../../../../../shared/Functions.tsx"
 
 type RaceTimeBehindProps = {
   display?: boolean

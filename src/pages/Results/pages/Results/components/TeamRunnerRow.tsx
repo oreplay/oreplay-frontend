@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
-import ParticipantName from "./ParticipantName"
+import ParticipantName from "./ParticipantName.tsx"
 import FlexRow from "./FlexRow.tsx"
-import { ProcessedTeamRunnerModel } from "./VirtualTicket/shared/EntityTypes.ts"
+import { ProcessedTeamRunnerModel } from "../../../components/VirtualTicket/shared/EntityTypes.ts"
 
 interface TeamRunnerRowProps {
   runner: ProcessedTeamRunnerModel

@@ -1,13 +1,13 @@
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import FlexCol from "../../../../../../../components/FlexCol.tsx"
-import RacePosition from "../../../../../../../components/RacePosition..tsx"
+import FlexCol from "../../../../../components/FlexCol.tsx"
+import RacePosition from "../../../../../components/RacePosition..tsx"
 import { runnerService } from "../../../../../../../../../domain/services/RunnerService.ts"
 import { useTranslation } from "react-i18next"
-import ParticipantName from "../../../../../../../components/ParticipantName.tsx"
+import ParticipantName from "../../../../../components/ParticipantName.tsx"
 import EnhancedStageResultItem from "./EnhancedStageResultItem.tsx"
 import { Box, Typography, Collapse, IconButton } from "@mui/material"
 import { ExpandMore } from "@mui/icons-material"
-import ResultListItem from "../../../../../../../components/ResultsList/ResultListItem.tsx"
+import ResultListItem from "../../../../../components/ResultsList/ResultListItem.tsx"
 import { RunnerModel } from "../../../../../../../../../shared/EntityTypes.ts"
 import {
   parseSecondsToMMSS,

@@ -1,6 +1,6 @@
 import { ProcessedRunnerResultModel } from "../../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { Grid, Typography } from "@mui/material"
-import RaceTime from "../../../../../../../../../../components/RaceTime.tsx"
+import RaceTime from "../../../../../../../../components/RaceTime.tsx"
 import { hasChipDownload } from "../../../../../../../../shared/functions.ts"
 import { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"

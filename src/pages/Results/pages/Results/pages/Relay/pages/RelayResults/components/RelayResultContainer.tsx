@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { Box } from "@mui/material"
-import NowProvider from "../../../../../../../components/NowProvider.tsx"
+import NowProvider from "../../../../../components/NowProvider.tsx"
 
 interface RelayResultContainerProps {
   children?: ReactNode

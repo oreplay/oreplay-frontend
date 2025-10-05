@@ -1,8 +1,8 @@
 import React, { CSSProperties } from "react"
-import { parseStartTime } from "../../../shared/Functions.tsx"
+import { parseStartTime } from "../../../../../shared/Functions.tsx"
 import { useTranslation } from "react-i18next"
 import { Typography } from "@mui/material"
-import { RESULT_STATUS } from "../shared/constants.ts"
+import { RESULT_STATUS } from "../../../shared/constants.ts"
 import Status from "./Status.tsx"
 
 type StartTimeProps = {

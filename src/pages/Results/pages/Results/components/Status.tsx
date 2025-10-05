@@ -1,4 +1,4 @@
-import { RESULT_STATUS_TEXT } from "../shared/constants.ts"
+import { RESULT_STATUS_TEXT } from "../../../shared/constants.ts"
 import { Typography } from "@mui/material"
 import React from "react"
 import { useTranslation } from "react-i18next"
