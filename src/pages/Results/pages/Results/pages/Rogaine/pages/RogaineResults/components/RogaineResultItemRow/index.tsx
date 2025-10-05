@@ -1,19 +1,24 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import RogaineResultItemRowColumnResult from "./components/RogaineResultItemRowColumnResult.tsx"
 import IndividualResult from "../../../../../../components/ResultsList/IndividualResult/individualResult.tsx"
-import IndividualResultColumnResultTimeAndDiff from "../../../../../../components/ResultsList/IndividualResultColumnResultTimeAndDiff"
 
-export interface FootOResultRowProps {
+interface RogaineResultItemRowProps {
   runner: ProcessedRunnerModel
-  onClick: (runner: ProcessedRunnerModel) => void
   isClass: boolean
+  onClick: (runner: ProcessedRunnerModel) => void
 }
-export default function FootOResultRow({ runner, onClick, isClass }: FootOResultRowProps) {
+
+export default function RogaineResultItemRow({
+  runner,
+  isClass,
+  onClick,
+}: RogaineResultItemRowProps) {
   return (
     <IndividualResult
       runner={runner}
       isClass={isClass}
       onClick={onClick}
-      ResultColumn={IndividualResultColumnResultTimeAndDiff}
+      ResultColumn={RogaineResultItemRowColumnResult}
     />
   )
 }
