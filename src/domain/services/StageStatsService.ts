@@ -6,8 +6,11 @@ import {
   CategoryData,
   CategoryName,
   ApiStats,
+  StageStatsModel,
 } from "../models/ApiStats.ts"
 import { Gender, GENDERS } from "../models/Gender.ts"
+import { get } from "../../services/ApiConfig.ts"
+import { Data } from "../../shared/EntityTypes.ts"
 
 function getGenders(categoryData: CategoryData): Gender[] {
   return Object.keys(categoryData).filter((key) => GENDERS.includes(key as Gender)) as Gender[]
@@ -156,4 +159,8 @@ export const stageStatsService = {
   processData,
   formatAsTxtTables,
   formatAsHtmlTables,
+}
+
+export function getStageStats(eventId: string, stageId: string): Promise<Data<StageStatsModel[]>> {
+  return get<Data<StageStatsModel[]>>(`events/${eventId}/stages/${stageId}/stats`)
 }

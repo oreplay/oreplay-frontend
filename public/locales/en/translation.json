@@ -112,10 +112,10 @@
         }
       },
       "Stats": {
-        "DialogBody": "Stages stats will be displayed.",
-        "DialogConfirm": "OK",
-        "DialogTitle": "See stages stats",
-        "MenuText": "Stats"
+        "BestTime": "Best time",
+        "MenuText": "Stats",
+        "MenuTitle": "Stats: {{stageName}}",
+        "TotalRunners": "Total"
       },
       "WipeOutRunners": {
         "DialogBody": "This will delete all of the results or start times uploaded to this stage. Afterwards, you can upload them again. This option is used to correct errors on uploaded data.",

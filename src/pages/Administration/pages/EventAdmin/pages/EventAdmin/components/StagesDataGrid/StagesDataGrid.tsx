@@ -20,7 +20,6 @@ import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
 import {
   deleteStage,
-  getEventStats,
   patchStage,
   postStage,
   wipeOutStage,
@@ -31,7 +30,6 @@ import { useAuth } from "../../../../../../../../shared/hooks.ts"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "./components/GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
-import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
 import { Link } from "react-router-dom"
 import { IconButton, MenuItem, Select, Toolbar } from "@mui/material"
 import { STAGE_TYPE_DATABASE_ID } from "../../../../../../../Results/pages/Results/shared/constants.ts"
@@ -169,30 +167,6 @@ export default function StagesDataGrid(props: Props) {
     await deleteStage(props.eventDetail.id, row.row.stageId, token as string).then(() =>
       setRows(rows.filter((thisRow) => thisRow.id !== row.id)),
     )
-  }
-
-  const handleStatsClick = async (row: GridRowParams<StageRow>) => {
-    try {
-      const res = await getEventStats(props.eventDetail.id, row.row.stageId)
-      const dataProcessed = stageStatsService.processData(res.data)
-      const txtTable = stageStatsService.formatAsTxtTables(dataProcessed)
-      const htmlTable = stageStatsService.formatAsHtmlTables(dataProcessed)
-      await navigator.clipboard.writeText(txtTable)
-      notifications.show(
-        <span
-          dangerouslySetInnerHTML={{ __html: t("Copied to the clipboard") + "</br>" + htmlTable }}
-        />,
-        {
-          autoHideDuration: 15000,
-          severity: "success",
-        },
-      )
-    } catch (e) {
-      notifications.show("Error", {
-        autoHideDuration: 3000,
-        severity: "error",
-      })
-    }
   }
 
   const handleWipeOutRunnersClick = async (row: GridRowParams<StageRow>) => {
@@ -405,9 +379,11 @@ export default function StagesDataGrid(props: Props) {
 
         return [
           <GridActionsSettingsMenu
+            eventId={props.eventDetail.id}
+            stageId={row.row.stageId}
+            stageName={row.row.stageName}
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
-            handleStatsClick={() => void handleStatsClick(row)}
             handleWipeOutRunnersClick={() => void handleWipeOutRunnersClick(row)}
           />,
           <Tooltip title={t("EventAdmin.Stages.GoToStage")}>
