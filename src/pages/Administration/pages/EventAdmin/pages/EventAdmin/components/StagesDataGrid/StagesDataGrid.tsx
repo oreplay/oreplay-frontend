@@ -24,17 +24,17 @@ import {
   patchStage,
   postStage,
   wipeOutStage,
-} from "../../../../../services/EventAdminService.ts"
+} from "../../../../../../services/EventAdminService.ts"
 import Tooltip from "@mui/material/Tooltip"
-import { EventDetailModel } from "../../../../../../../shared/EntityTypes.ts"
-import { useAuth } from "../../../../../../../shared/hooks.ts"
+import { EventDetailModel } from "../../../../../../../../shared/EntityTypes.ts"
+import { useAuth } from "../../../../../../../../shared/hooks.ts"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
+import GridActionsSettingsMenu from "./components/GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
-import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
+import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
 import { Link } from "react-router-dom"
 import { IconButton, MenuItem, Select, Toolbar } from "@mui/material"
-import { STAGE_TYPE_DATABASE_ID } from "../../../../../../Results/pages/Results/shared/constants.ts"
+import { STAGE_TYPE_DATABASE_ID } from "../../../../../../../Results/pages/Results/shared/constants.ts"
 import ConstructionIcon from "@mui/icons-material/Construction"
 
 /**
