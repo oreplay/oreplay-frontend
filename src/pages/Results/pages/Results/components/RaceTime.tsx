@@ -1,9 +1,9 @@
 import React, { CSSProperties } from "react"
-import { RESULT_STATUS_TEXT } from "../shared/constants.ts"
+import { RESULT_STATUS_TEXT } from "../../../shared/constants.ts"
 import { Typography } from "@mui/material"
-import { parseSecondsToMMSS } from "../../../shared/Functions.tsx"
+import { parseSecondsToMMSS } from "../../../../../shared/Functions.tsx"
 import { useTranslation } from "react-i18next"
-import { NowContext } from "../shared/context.ts"
+import { NowContext } from "../../../shared/context.ts"
 import { DateTime } from "luxon"
 import Status from "./Status.tsx"
 

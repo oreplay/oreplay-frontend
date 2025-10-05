@@ -3,7 +3,7 @@ import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
-import ResultsListSkeleton from "../../../../../../components/ResultsList/ResultListSkeleton.tsx"
+import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import RelayResultItem from "./components/RelayResultItem.tsx"
 import RelayResultContainer from "./components/RelayResultContainer.tsx"

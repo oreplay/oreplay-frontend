@@ -2,7 +2,7 @@ import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
-import ResultListContainer from "../../../../../../components/ResultsList/ResultListContainer.tsx"
+import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
 import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
 
 export default function RelayLegs(

@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react"
 import { DateTime } from "luxon"
-import { NowContext } from "../shared/context"
+import { NowContext } from "../../../shared/context.ts"
 
 type NowProviderProps = {
   children: ReactNode

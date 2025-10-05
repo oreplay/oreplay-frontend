@@ -1,16 +1,16 @@
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../../shared/constants.ts"
-import RacePosition from "../../../../../../../components/RacePosition..tsx"
-import RaceTime from "../../../../../../../components/RaceTime.tsx"
-import RaceTimeBehind from "../../../../../../../components/RaceTimeBehind.tsx"
+import RacePosition from "../../../../../components/RacePosition..tsx"
+import RaceTime from "../../../../../components/RaceTime.tsx"
+import RaceTimeBehind from "../../../../../components/RaceTimeBehind.tsx"
 import {
   hasChipDownload as hasChipDownloadFunction,
   isRunnerNC,
 } from "../../../../../shared/functions.ts"
 import { Box } from "@mui/material"
 import RelayResultLegItem from "./RelayResultLegItem.tsx"
-import ParticipantName from "../../../../../../../components/ParticipantName.tsx"
+import ParticipantName from "../../../../../components/ParticipantName.tsx"
 
 export default function RelayResultItem({
   runner,
