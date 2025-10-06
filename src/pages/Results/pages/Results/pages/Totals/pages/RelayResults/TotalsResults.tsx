@@ -6,7 +6,7 @@ import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
-import EnhancedTotalsResultItem from "./components/EnhancedTotalsResultItem.tsx"
+import EnhancedTotalsResultItem from "./components/TotalsResultItem.tsx"
 import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
 
 export default function TotalsResults(

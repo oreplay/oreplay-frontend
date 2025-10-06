@@ -4,7 +4,7 @@ import RacePosition from "../../../../../components/RacePosition..tsx"
 import { runnerService } from "../../../../../../../../../domain/services/RunnerService.ts"
 import { useTranslation } from "react-i18next"
 import ParticipantName from "../../../../../components/ParticipantName.tsx"
-import EnhancedStageResultItem from "./EnhancedStageResultItem.tsx"
+import StageResultItem from "./StageResultItem.tsx"
 import { Box, Typography, Collapse, IconButton } from "@mui/material"
 import { ExpandMore } from "@mui/icons-material"
 import ResultListItem from "../../../../../components/ResultsList/ResultListItem.tsx"
@@ -25,9 +25,10 @@ interface EnhancedTotalsResultItemProps {
   isClass?: boolean // Add this prop to determine if we're in class or club view
 }
 
-export default function EnhancedTotalsResultItem({
+export default function TotalsResultItem({
   runner,
-  isClass = true, // Default to class view
+  isClass = true, // Default t
+  // o class view
 }: EnhancedTotalsResultItemProps) {
   const { t } = useTranslation()
   const [expanded, setExpanded] = useState(false)
@@ -156,7 +157,7 @@ export default function EnhancedTotalsResultItem({
             }}
           >
             {runner.overalls?.parts?.map((stage) => {
-              return <EnhancedStageResultItem key={stage.id} stage={stage} isRunnerNC={isNC} />
+              return <StageResultItem key={stage.id} stage={stage} isRunnerNC={isNC} />
             })}
           </Box>
         </Collapse>
