@@ -162,6 +162,9 @@
   "Name": "Nom",
   "Organizer": "Organitzador",
   "Organizers": "Organitzadors",
+  "Overall": {
+    "pointsAbbreviation": "pts"
+  },
   "Password": "Contrassenya",
   "PrivateEventPage": {
     "Header": "Event Privat",
