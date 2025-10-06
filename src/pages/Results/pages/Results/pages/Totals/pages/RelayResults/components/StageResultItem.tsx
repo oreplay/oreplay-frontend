@@ -15,7 +15,7 @@ interface EnhancedStageResultItemProps {
   isRunnerNC?: boolean
 }
 
-export default function EnhancedStageResultItem({
+export default function StageResultItem({
   stage,
   isRunnerNC = false,
 }: EnhancedStageResultItemProps) {
