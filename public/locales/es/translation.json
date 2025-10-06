@@ -159,6 +159,9 @@
   "Name": "Nombre",
   "Organizer": "Organizador",
   "Organizers": "Organizadores",
+  "Overall": {
+    "pointsAbbreviation": "pts"
+  },
   "Password": "Contraseña",
   "PrivateEventPage": {
     "Header": "Evento privado",
