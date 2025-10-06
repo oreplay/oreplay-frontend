@@ -1,24 +1,21 @@
 import { Typography, Box } from "@mui/material"
-import { ProcessedOverallModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { ProcessedOverallModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import {
   parseSecondsToMMSS,
   formatScoreAsInteger,
   parseTimeBehind,
-} from "../../../../../../../../../shared/Functions.tsx"
+} from "../../../../../../../../../../shared/Functions.tsx"
 import { useTranslation } from "react-i18next"
-import { RESULT_STATUS } from "../../../../../../../shared/constants.ts"
-import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
-import { UPLOAD_TYPES } from "../../../../../shared/constants.ts"
+import { RESULT_STATUS } from "../../../../../../../../shared/constants.ts"
+import { parseResultStatus } from "../../../../../../../../shared/sortingFunctions/sortRunners.ts"
+import { UPLOAD_TYPES } from "../../../../../../shared/constants.ts"
 
 interface EnhancedStageResultItemProps {
   stage: ProcessedOverallModel
   isRunnerNC?: boolean
 }
 
-export default function StageResultItem({
-  stage,
-  isRunnerNC = false,
-}: EnhancedStageResultItemProps) {
+export default function Index({ stage, isRunnerNC = false }: EnhancedStageResultItemProps) {
   const stageDescription = stage?.stage ? stage.stage.description : `Stage ${stage.stage_order}`
   const { t } = useTranslation()
 
