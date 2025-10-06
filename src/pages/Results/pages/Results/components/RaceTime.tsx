@@ -10,7 +10,7 @@ import Status from "./Status.tsx"
 type FinishTimeProps = {
   displayStatus?: boolean
   isFinalTime?: boolean
-  status: string | null
+  status?: string | null
   start_time?: string | null
   finish_time: string | null
   time_seconds: number | string | null

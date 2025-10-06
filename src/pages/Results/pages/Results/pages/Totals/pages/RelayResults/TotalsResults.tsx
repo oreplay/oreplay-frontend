@@ -6,8 +6,8 @@ import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
-import EnhancedTotalsResultItem from "./components/TotalsResultItem.tsx"
 import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
+import TotalsResultItem from "./components/TotalResultItem"
 
 export default function TotalsResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -42,19 +42,21 @@ export default function TotalsResults(
     )
   } else {
     return (
-      <ResultListContainer>
+      <>
         <NotImplementedAlertBox />
-        {runnersList?.map((runner: ProcessedRunnerModel) => {
-          return (
-            <EnhancedTotalsResultItem
-              key={runner.id}
-              runner={runner}
-              handleRowClick={handleRowClick}
-              isClass={props.isClass}
-            />
-          )
-        })}
-      </ResultListContainer>
+        <ResultListContainer>
+          {runnersList?.map((runner: ProcessedRunnerModel) => {
+            return (
+              <TotalsResultItem
+                key={runner.id}
+                runner={runner}
+                handleRowClick={handleRowClick}
+                isClass={props.isClass}
+              />
+            )
+          })}
+        </ResultListContainer>
+      </>
     )
   }
 }
