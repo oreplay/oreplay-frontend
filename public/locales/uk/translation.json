@@ -163,6 +163,9 @@
   "Name": "Ім'я",
   "Organizer": "Організатор",
   "Organizers": "Інформація про організатора",
+  "Overall": {
+    "pointsAbbreviation": "бали"
+  },
   "Password": "Пароль",
   "PrivateEventPage": {
     "Header": "Приватний захід",
