@@ -22,6 +22,7 @@ import OrderedList from "../../components/OrderedList.tsx"
 import { useQuery } from "react-query"
 import getLatestClientVersion from "./services/DesktopClientService.ts"
 import UploadOnlineControlsTabs from "./components/UploadOnlineControlsTabs.tsx"
+import UploadingTotalsTabs from "./components/UploadingTotalsTabs.tsx"
 
 const organizersTheme = (theme: Theme) =>
   createTheme({
@@ -39,12 +40,14 @@ const organizersTheme = (theme: Theme) =>
         fontSize: 26,
       },
       h3: {
+        marginTop: "24px",
         fontWeight: 500,
         marginBottom: "12px",
         fontSize: 20,
       },
       h4: {
         fontWeight: 500,
+        marginTop: "24px",
         marginBottom: "10px",
         fontSize: 20,
       },
@@ -262,6 +265,10 @@ const Organizers = (): React.ReactNode => {
         <Typography>{t("DuringRace.UploadingOnlineControls.p1")}</Typography>
         <UploadOnlineControlsTabs />
         <Typography />
+        <Typography variant={"h3"}>{"🆕" + t("DuringRace.UploadingTotals.title")}</Typography>
+        <Typography>{t("DuringRace.UploadingTotals.p1")}</Typography>
+        <Typography>{t("DuringRace.UploadingTotals.p2")}</Typography>
+        <UploadingTotalsTabs />
         <Typography variant={"h3"}>{t("DuringRace.WhatIfAnythingWrong.title")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p1")}</Typography>
         <Typography>{t("DuringRace.WhatIfAnythingWrong.p2")}</Typography>
