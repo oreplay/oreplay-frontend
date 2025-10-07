@@ -4,12 +4,15 @@ import { useTranslation } from "react-i18next"
 import StageResultItemPointBasedColumn from "./components/StageResultItemPointBasedColumn"
 import { UPLOAD_TYPES } from "../../../../../../shared/constants.ts"
 import StageResultItemTimeBased from "./components/StageResultItemTimeBased"
+import ContributoryChip from "./components/Chips/ContributoryChip.tsx"
+import NonContributoryChip from "./components/Chips/NonContributoryChip.tsx"
 
 interface StageResultItemProps {
   stage: ProcessedOverallModel
+  displayContributory?: boolean
 }
 
-export default function StageResultItem({ stage }: StageResultItemProps) {
+export default function StageResultItem({ stage, displayContributory }: StageResultItemProps) {
   const { t } = useTranslation()
   const stageDescription = stage?.stage
     ? stage.stage.description
@@ -31,10 +34,27 @@ export default function StageResultItem({ stage }: StageResultItemProps) {
         },
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 1,
+          flexWrap: "wrap",
+        }}
+      >
         <Typography sx={{ fontSize: "small", color: "text.secondary" }}>
           {stageDescription}
         </Typography>
+        {displayContributory ? (
+          stage.contributory ? (
+            <ContributoryChip />
+          ) : (
+            <NonContributoryChip />
+          )
+        ) : (
+          <></>
+        )}
       </Box>
       {isPointsBased ? (
         <StageResultItemPointBasedColumn

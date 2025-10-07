@@ -15,7 +15,6 @@ interface TotalStageTimeProps {
 
 const style: CSSProperties = {
   fontSize: "small",
-  color: "text.secondary",
 }
 
 export default function TotalsStageTime({
@@ -25,7 +24,7 @@ export default function TotalsStageTime({
   highlight,
   position,
 }: TotalStageTimeProps) {
-  const trueStyle = { ...style, color: highlight ? "primary.main" : undefined }
+  const trueStyle = { ...style, color: highlight ? "primary.main" : "text.secondary" }
 
   if (time) {
     // Runner did run the race
