@@ -1,6 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import StageResultItem from "../StageResultItem"
-import { Box, Collapse } from "@mui/material"
+import { Collapse } from "@mui/material"
 import { memo, useCallback, useState } from "react"
 import IndividualResult from "../../../../../../components/ResultsList/IndividualResult/individualResult.tsx"
 import TotalResultsItemPointBasedColumn from "./components/TotalResultItemPointBasedColumn"
@@ -29,7 +29,7 @@ export default function TotalsResultItem({
   const isPointBased = runner.overalls?.overall.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
 
   return (
-    <div>
+    <>
       <MemoIndividualResult
         runner={runner}
         isClass={isClass}
@@ -38,19 +38,22 @@ export default function TotalsResultItem({
         }
         onClick={handleExpandClick}
       />
-      <Collapse in={expanded} timeout={300}>
-        <Box
-          sx={{
-            backgroundColor: "#f8f9fa",
-            borderRadius: "0 0 8px 8px",
-            overflow: "hidden",
-          }}
-        >
-          {runner.overalls?.parts?.map((stage) => {
-            return <StageResultItem key={stage.id} stage={stage} />
-          })}
-        </Box>
+      <Collapse
+        in={expanded}
+        timeout={300}
+        sx={{
+          background:
+            "linear-gradient(0deg, #00000008 0%, #F6F6F6FF 10%), linear-gradient(90deg, #00000008 0%, #F6F6F6FF 10%)",
+          backgroundBlendMode: "darken",
+          backgroundColor: "#f8f8f8",
+          borderRadius: "0px 0px 8px 8px",
+          overflow: "hidden",
+        }}
+      >
+        {runner.overalls?.parts?.map((stage) => {
+          return <StageResultItem key={stage.id} stage={stage} />
+        })}
       </Collapse>
-    </div>
+    </>
   )
 }
