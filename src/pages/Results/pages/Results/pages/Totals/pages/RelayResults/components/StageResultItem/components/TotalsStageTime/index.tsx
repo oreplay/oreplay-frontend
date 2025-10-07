@@ -23,7 +23,7 @@ export default function TotalsStageTime({
   time,
   status,
   highlight,
-  position
+  position,
 }: TotalStageTimeProps) {
   const trueStyle = { ...style, color: highlight ? "primary.main" : undefined }
 

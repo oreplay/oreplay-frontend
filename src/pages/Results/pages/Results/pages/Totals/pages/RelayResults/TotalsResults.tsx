@@ -42,13 +42,7 @@ export default function TotalsResults(
         <ExperimentalFeatureAlert />
         <ResultListContainer>
           {runnersList?.map((runner: ProcessedRunnerModel) => {
-            return (
-              <TotalsResultItem
-                key={runner.id}
-                runner={runner}
-                isClass={props.isClass}
-              />
-            )
+            return <TotalsResultItem key={runner.id} runner={runner} isClass={props.isClass} />
           })}
         </ResultListContainer>
       </>

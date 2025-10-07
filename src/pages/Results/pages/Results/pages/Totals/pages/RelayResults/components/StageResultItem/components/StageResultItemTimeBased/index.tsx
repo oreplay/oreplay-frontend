@@ -7,6 +7,10 @@ interface StageResultItemTimeBasedProps {
   contributory?: boolean
 }
 
-export default function StageResultItemTimeBased({ time, status, position }: StageResultItemTimeBasedProps) {
+export default function StageResultItemTimeBased({
+  time,
+  status,
+  position,
+}: StageResultItemTimeBasedProps) {
   return <TotalsStageTime displayStatus time={time} status={status} position={position} />
 }
