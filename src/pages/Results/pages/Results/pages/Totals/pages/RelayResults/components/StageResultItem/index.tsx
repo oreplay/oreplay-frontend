@@ -40,6 +40,7 @@ export default function StageResultItem({ stage }: StageResultItemProps) {
         <StageResultItemPointBasedColumn
           points={stage.points_final!}
           time={stage.time_seconds!}
+          position={stage.position!}
           status={stage.status_code}
           contributory={stage.contributory}
         />
@@ -47,6 +48,7 @@ export default function StageResultItem({ stage }: StageResultItemProps) {
         <StageResultItemTimeBased
           time={stage.time_seconds!}
           status={stage.status_code}
+          position={stage.position!}
           contributory={stage.contributory}
         />
       )}
