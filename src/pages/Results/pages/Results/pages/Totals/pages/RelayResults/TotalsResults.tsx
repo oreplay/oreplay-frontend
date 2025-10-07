@@ -14,10 +14,6 @@ export default function TotalsResults(
 ) {
   const runnersList = props.runnersQuery.data
 
-  // @ts-expect-error TS6133: variable is declared but never used
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleRowClick = (runner: RunnerModel) => {}
-
   if (!props.activeItem) {
     return (
       <>
@@ -50,7 +46,6 @@ export default function TotalsResults(
               <TotalsResultItem
                 key={runner.id}
                 runner={runner}
-                handleRowClick={handleRowClick}
                 isClass={props.isClass}
               />
             )
