@@ -175,7 +175,7 @@
     "shortClass": "Class"
   },
   "ResultsStage": {
-    "BonusPoints": "Bonus_",
+    "BonusPoints": "Bonus",
     "ChooseClass": "Please, choose a class",
     "Class": "Class",
     "Classes": "Classes",
@@ -202,6 +202,7 @@
       "OnlyForClasses": "Splits table is accessible only in the class-based view.",
       "PartialTimes": "Partials"
     },
+    "StageNumber": "Stage {{number}}",
     "StartTime": "Start",
     "Times": "Time",
     "VirtualTicket": {

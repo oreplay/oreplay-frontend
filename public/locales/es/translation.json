@@ -207,6 +207,7 @@
       "OnlyForClasses": "La tabla de parciales solo está disponible para resultados por categorías.",
       "PartialTimes": "Parciales"
     },
+    "StageNumber": "Etapa {{number}}",
     "StartTime": "Salida",
     "Times": "Tiempos",
     "VirtualTicket": {

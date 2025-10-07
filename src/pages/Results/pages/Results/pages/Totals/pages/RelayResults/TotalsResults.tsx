@@ -6,8 +6,8 @@ import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
-import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
 import TotalsResultItem from "./components/TotalResultItem"
+import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 
 export default function TotalsResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -21,7 +21,7 @@ export default function TotalsResults(
   if (!props.activeItem) {
     return (
       <>
-        <NotImplementedAlertBox />
+        <ExperimentalFeatureAlert />
         <ChooseClassMsg />
       </>
     )
@@ -29,21 +29,21 @@ export default function TotalsResults(
   if (props.runnersQuery.isFetching) {
     return (
       <>
-        <NotImplementedAlertBox />
+        <ExperimentalFeatureAlert />
         <ResultsListSkeleton />
       </>
     )
   } else if (props.runnersQuery.isError) {
     return (
       <>
-        <NotImplementedAlertBox />
+        <ExperimentalFeatureAlert />
         <GeneralErrorFallback />
       </>
     )
   } else {
     return (
       <>
-        <NotImplementedAlertBox />
+        <ExperimentalFeatureAlert />
         <ResultListContainer>
           {runnersList?.map((runner: ProcessedRunnerModel) => {
             return (
