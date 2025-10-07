@@ -1,11 +1,10 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import Index from "../StageResultItem"
+import StageResultItem from "../StageResultItem"
 import { Box, Collapse } from "@mui/material"
 import { RunnerModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { memo, useCallback, useState } from "react"
 import IndividualResult from "../../../../../../components/ResultsList/IndividualResult/individualResult.tsx"
 import TotalResultsItemPointBasedColumn from "./components/TotalResultItemPointBasedColumn"
-import { runnerService } from "../../../../../../../../../../domain/services/RunnerService.ts"
 import { UPLOAD_TYPES } from "../../../../../../shared/constants.ts"
 import TotalResultItemTimeBasedColumn from "./components/TotalResultItemTimeBasedColumn"
 
@@ -50,7 +49,7 @@ export default function TotalsResultItem({
           }}
         >
           {runner.overalls?.parts?.map((stage) => {
-            return <Index key={stage.id} stage={stage} isRunnerNC={runnerService.isNC(runner)} />
+            return <StageResultItem key={stage.id} stage={stage} />
           })}
         </Box>
       </Collapse>
