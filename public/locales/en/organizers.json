@@ -263,6 +263,46 @@
         }
       }
     },
+    "UploadingTotals": {
+      "title": "Uploading Multi-Stage Overall Results",
+      "p1": "It is common for multi-stage competitions to award prizes based on the results of all races. In such cases, the overall result of a runner is calculated either as the sum of their individual race times or as the sum of the points earned in each race according to a specific formula. Both methods are supported. Additionally, in some competitions, only X out of Y races count toward the final result — this option is also supported.",
+      "p2": "There is a special stage type called 'overalls' used to store these results. This stage is automatically created when you upload overall results for the first time. It does not matter which stage you are uploading results to — the overall file will be automatically recognized and uploaded to the special 'overalls' stage. You also do not need to specify in advance whether you are uploading time-based or point-based results; the system automatically detects the type.",
+      "tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "You must upload the results using the '.csv' format. If you choose the '.xml' format, point-based events will not be uploaded correctly."
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "You must upload the results using the '.csv' format. If you choose the '.xml' format, point-based events will not be uploaded correctly.",
+          "p2": "Go to Results → All stages → Official results → Classes ",
+          "img1": {
+            "url": "/organizers/en/OE12/ExportTotals_ChooseMenu.png",
+            "alt": "The menu that has to be chosen"
+          },
+          "p3": "Setup your computation method. An example of a point-based overall result using 1000-point formula. The best 2 out of 3 stages are used.",
+          "img2": {
+            "url": "/organizers/en/OE12/ExportTotals_SetupPoints.png",
+            "alt": "Example of the configuration of a point-based overall result using 1000-point formula. The best 2 out of 3 stages are used."
+          },
+          "p4": "This is an example of a time-based overall result",
+          "img3": {
+            "url": "/organizers/en/OE12/ExportTotals_SetupTime.png",
+            "alt": "Example of the configuration of a time-based overall result."
+          },
+          "p5": "Go to the 'Automatic report' and export the results at your desired export interval.",
+          "img4": {
+            "url": "/organizers/en/OE12/ExportTotals_AutomaticExport.png",
+            "alt": "Automatic export dialog"
+          },
+          "p6": "Export the file to the folder O-Replay is listening to using '.csv' format.",
+          "img5": {
+            "url": "/organizers/en/OE12/ExportTotals_ExportDialog.png",
+            "alt": "Export dialog options. Pick '.csv' format."
+          }
+        }
+      }
+    },
     "WhatIfAnythingWrong": {
       "title": "What to Do If Something Goes Wrong",
       "p1": "If you encounter any issues while uploading start times or results (e.g., uploading data to the wrong stage), you can reset the stage. This will delete all the data uploaded to that stage, allowing you to start over. When you reset a stage, it will be completely empty—just as if it had been newly created—so you will need to re-upload the start times and results.",
