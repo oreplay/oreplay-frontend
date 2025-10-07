@@ -6,6 +6,7 @@ interface StageResultItemPointBasedColumn {
   points: number
   time: number
   status: string
+  position: number
   contributory?: boolean
 }
 
@@ -13,6 +14,7 @@ export default function StageResultItemPointBasedColumn({
   points,
   time,
   status,
+  position,
   contributory,
 }: StageResultItemPointBasedColumn) {
   return (
@@ -25,7 +27,7 @@ export default function StageResultItemPointBasedColumn({
       }}
     >
       <RacePoints points={points} highlight={contributory} />
-      <TotalsStageTime time={time} status={status} displayStatus />
+      <TotalsStageTime displayStatus time={time} status={status} position={position} />
     </Box>
   )
 }
