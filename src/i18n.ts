@@ -21,4 +21,7 @@ i18n
       loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
   })
+
+i18n.on('languageChanged', (lng) => (document.documentElement.lang = lng))
+
 export default i18n
