@@ -8,7 +8,7 @@ export default function ContributoryChip() {
     <Chip
       label={t("ResultsStage.Contributory")}
       variant={"outlined"}
-      color={"success"}
+      color={"primary"}
       sx={{
         fontSize: "0.65rem",
         height: 18,
