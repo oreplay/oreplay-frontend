@@ -1,7 +1,7 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import StageResultItem from "../StageResultItem"
 import { Collapse } from "@mui/material"
-import { memo, useCallback, useMemo, useState } from "react"
+import { memo, useCallback, useState } from "react"
 import IndividualResult from "../../../../../../components/ResultsList/IndividualResult/individualResult.tsx"
 import TotalResultsItemPointBasedColumn from "./components/TotalResultItemPointBasedColumn"
 import { UPLOAD_TYPES } from "../../../../../../shared/constants.ts"
@@ -28,11 +28,6 @@ export default function TotalsResultItem({
 
   const isPointBased = runner.overalls?.overall.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
 
-  const hasNonContributory = useMemo(
-    () => runner.overalls?.parts?.some((part) => !part.contributory)!,
-    [runner.overalls?.parts!],
-  )
-
   return (
     <>
       <MemoIndividualResult
@@ -56,13 +51,7 @@ export default function TotalsResultItem({
         }}
       >
         {runner.overalls?.parts?.map((stage) => {
-          return (
-            <StageResultItem
-              displayContributory={hasNonContributory}
-              key={stage.id}
-              stage={stage}
-            />
-          )
+          return <StageResultItem displayContributory key={stage.id} stage={stage} />
         })}
       </Collapse>
     </>
