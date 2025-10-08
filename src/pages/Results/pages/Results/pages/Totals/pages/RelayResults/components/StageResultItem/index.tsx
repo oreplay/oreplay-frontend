@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 import StageResultItemPointBasedColumn from "./components/StageResultItemPointBasedColumn"
 import { UPLOAD_TYPES } from "../../../../../../shared/constants.ts"
 import StageResultItemTimeBased from "./components/StageResultItemTimeBased"
-import ContributoryChip from "./components/Chips/ContributoryChip.tsx"
 import NonContributoryChip from "./components/Chips/NonContributoryChip.tsx"
 
 interface StageResultItemProps {
@@ -46,15 +45,7 @@ export default function StageResultItem({ stage, displayContributory }: StageRes
         <Typography sx={{ fontSize: "small", color: "text.secondary" }}>
           {stageDescription}
         </Typography>
-        {displayContributory ? (
-          stage.contributory ? (
-            <ContributoryChip />
-          ) : (
-            <NonContributoryChip />
-          )
-        ) : (
-          <></>
-        )}
+        {displayContributory && !stage.contributory ? <NonContributoryChip /> : <></>}
       </Box>
       {isPointsBased ? (
         <StageResultItemPointBasedColumn
