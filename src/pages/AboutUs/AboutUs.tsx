@@ -143,7 +143,7 @@ export default function AboutUs() {
           </ListItem>
           <ListItem>
             <Typography component={"span"}>
-              {`❌ ${t("OngoingProject.AvailableFeatures.list1.item8")}`}
+              {`✅ ${t("OngoingProject.AvailableFeatures.list1.item8")}`}
             </Typography>
           </ListItem>
           <ListItem>
