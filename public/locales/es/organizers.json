@@ -263,6 +263,41 @@
         }
       }
     },
+    "UploadingTotals": {
+      "title": "Subiendo resultados totales de una competición multietapa",
+      "p1": "En competiciones con varias etapas es común hacer una clasificación global del evento. En estos casos, el resultado total se calcula como la suma de tiempos de todas las carreras o como la suma de puntos tras aplicar alguna fórmula. Ambos métodos están disponibles en O-Replay. Además, algunas comepeticiones tienen en cuenta el resultado de solo las X mejores de Y etapas. También contamos con esta posibilidad.",
+      "p2": "Hay un tipo especial de etapa llamada \"totales\" para guardar este tipo de resultados. La etapa se crea automáticamente cuando subes por primera vez resultados totales. También, se puede crear de forma manual con antelación. No importa a que etapa estes subiendo resultados, los archivos de resultados totales se identifican y se envían a la etapa correcta automáticamente. Tampoco, hace falta indicar en ningún sitio si el resultado total se basa en tiempos o en puntos.",
+      "tabs1": {
+        "OE2010": {
+          "title": "OE2010",
+          "p1": "Sube los resultados usando únicamente el formato \".csv\". Si se utiliza el formato \".xml\" los eventos basados en puntos no se representarán correctamente."
+        },
+        "OE12": {
+          "title": "OE12",
+          "p1": "Sube los resultados usando únicamente el formato \".csv\". Si se utiliza el formato \".xml\" los eventos basados en puntos no se representarán correctamente.",
+          "p2": "Ve a Resultados → Todas las etapas → Resultados oficiales → Categorías ",
+          "img1": {
+            "alt": "Captura de pantalla de OE12: Menú que debe ser elegido."
+          },
+          "p3": "Configura el método de cálculo utilizado. En la imagen puedes ver un ejemplo de totales por puntos. Se usa la fóruma de los 1000 puntos y solo se tienen en cuenta las mejores 2 etapas de 3 que tenía ese evento.",
+          "img2": {
+            "alt": "Captura de pantalla de OE12: Ejemplo de la configuración de totales por puntos. Los puntos se generan con la formula de los 1000 puntos y solo se tienen en cuenta las 2 mejores etapas de 3 que tenía el evento."
+          },
+          "p4": "La siguiente imagen muestra un ejemplo de totales como suma de tiempos.",
+          "img3": {
+            "alt": "Captura de pantalla de OE12: Ejemplo de configuración de un resultado total por suma de tiempos."
+          },
+          "p5": "Diríjase a \"Informe automático\" y exporte los resultados con el intervalo deseado.",
+          "img4": {
+            "alt": "Captura de pantalla de OE12: Formulario de informe automático."
+          },
+          "p6": "Exporte el archivo a la carpeta en la que el cliente está escuchando. Debe usar necesariamente el formato \".csv\"",
+          "img5": {
+            "alt": "Captura de pantalla de OE12: Opciones del formulario de exportación."
+          }
+        }
+      }
+    },
     "WhatIfAnythingWrong": {
       "title": "Qué hacer si algo va mal",
       "p1": "Si tiene algún problema al subir las horas de salida o los resultados (por ejemplo, si sube datos en la etapa equivocada), puede restablecer la etapa. Esto borrará todos los datos cargados en esa etapa, permitiéndole empezar de nuevo. Al restablecer una etapa, ésta quedará completamente vacía (como si se hubiera creado de nuevo), por lo que tendrá que volver a cargar las horas de inicio y los resultados.",
