@@ -8,9 +8,10 @@ export default function NonContributoryChip() {
     <Chip
       label={t("ResultsStage.NonContributory")}
       variant={"outlined"}
-      color={"warning"}
+      color={"default"}
       sx={{
         fontSize: "0.65rem",
+        color: "text.disabled",
         height: 18,
         "& .MuiChip-label": {
           px: 0.6,
