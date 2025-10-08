@@ -41,6 +41,18 @@
     "Location": "Emplacement",
     "Organizer": "Organisateur",
     "Public": "Publique",
+    "QRCode": {
+      "CopyUrl": "Copier l’URL de l’événement",
+      "Description": "Générer et télécharger un code QR pointant directement vers cet événement sur O-Replay.",
+      "Download": "Télécharger le code QR (PNG)",
+      "DownloadSuccessful": "Code QR téléchargé avec succès",
+      "EventName": "Nom de l’événement",
+      "EventUrl": "URL de l’événement",
+      "Generating": "Génération du code QR…",
+      "Instructions": "Ce code QR peut être inclus sur les cartes imprimées pour faciliter l’accès à l’événement sur O-Replay.",
+      "ShareEvent": "Partager",
+      "Title": "Code QR de l’événement"
+    },
     "Renew": "Renouveler",
     "Renew security keys": "Créer une nouvelle clé de sécurité",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
@@ -64,9 +76,29 @@
       "NewStage": "Nouvelle étape",
       "StagesTypes": {
         "ChaseStart": "Poursuite",
+        "FootO": {
+          "description": "Épreuve chronométrée, individuelle ou par équipe, sur parcours linéaire.",
+          "title": "Classique"
+        },
         "MassStart": "Départ en masse",
+        "OneManRelay": {
+          "description": "Épreuve chronométrée, individuelle ou par équipe, sur parcours linéaire où chaque participant suit son propre parcours.",
+          "title": "Parcours à variantes"
+        },
         "Raid": "Raid",
+        "Relay": {
+          "description": "Course par équipe chronométrée avec des relais consécutifs sur différents parcours.",
+          "title": "Relais"
+        },
+        "Rogaine": {
+          "description": "Épreuve à points, individuelle ou par équipe, sur parcours à score. Le temps départage en cas d’égalité.",
+          "title": "Score"
+        },
         "StageType": "Type",
+        "Totals": {
+          "description": "Résultat combiné, basé sur les points ou le temps, sur deux étapes ou plus.",
+          "title": "Général"
+        },
         "TrailO": "CO de précision"
       },
       "Stats": {
@@ -83,6 +115,7 @@
       }
     },
     "StartDate": "Date de début",
+    "TooLongMsg": "L’URL saisie dépasse le maximum de {{count}} caractères",
     "Website": "Site web"
   },
   "EventList": {
@@ -126,7 +159,14 @@
   "Name": "Nom",
   "Organizer": "Organisateur",
   "Organizers": "Info sur l'organisateur",
+  "Overall": {
+    "pointsAbbreviation": "pts"
+  },
   "Password": "Mot de passe",
+  "PrivateEventPage": {
+    "Header": "Événement privé",
+    "Message": "Cet événement a été défini comme privé par l’organisateur. Si vous pensez qu’il s’agit d’une erreur, veuillez contacter l’organisateur de l’événement."
+  },
   "RadiosExperimentalMsg": "Lors de l'utilisation de radiocontrôles, les fonctionnalités liées aux intermédiaires sont expérimentales.",
   "Results": {
     "Class": "Catégorie",
@@ -174,6 +214,11 @@
       "Cumulative": "Cumulatif",
       "FinishControl": "Fin",
       "FinishHour": "Heure de Arrivée :",
+      "FootO": {
+        "Points": {
+          "HelpMsg": "Points obtenus selon la formule à 1000 points : 1000 × (temps du vainqueur / votre temps)"
+        }
+      },
       "NoDownloadMsg": "Pas de lecture de puce",
       "Partial": "Intermédiaire",
       "RaceTime": "Temps :",
@@ -218,6 +263,7 @@
   "Success": "Succès",
   "This action cannot be undone": "Cette action ne peut pas être annulée.",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
+  "UnderDevelopment": "En cours de développement",
   "authenticationError": "Une erreur s'est produite",
   "chart": {
     "legend": {
