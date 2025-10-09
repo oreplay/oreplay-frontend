@@ -183,7 +183,7 @@
     "shortClass": "Categoria"
   },
   "ResultsStage": {
-    "BonusPoints": "Bonificació",
+    "BonusPoints": "Bonus",
     "ChooseClass": "Si us plau, seleccioni una categoria",
     "Class": "Categoria",
     "Classes": "Categories",
@@ -194,6 +194,7 @@
     "NoClubMsg": "Sense club",
     "NoData": "Ho sentim, no hi ha dades",
     "NoStartTime": "-",
+    "NonContributory": "No puntua",
     "NotStarted": "-",
     "PenaltyPoints": "Penalització:",
     "Points": "Punts:",
@@ -210,6 +211,7 @@
       "OnlyForClasses": "La taula de parcials només està disponible per a resultats per categories.",
       "PartialTimes": "Parcials"
     },
+    "StageNumber": "Etapa {{number}}",
     "StartTime": "Sortida",
     "Times": "Temps",
     "VirtualTicket": {
