@@ -184,7 +184,7 @@
     "shortClass": "Клас"
   },
   "ResultsStage": {
-    "BonusPoints": "Бонус_",
+    "BonusPoints": "Бонус",
     "ChooseClass": "Будь ласка, оберіть клас",
     "Class": "Клас",
     "Classes": "Класи",
@@ -195,6 +195,7 @@
     "NoClubMsg": "Без клубу",
     "NoData": "На жаль, дані недоступні",
     "NoStartTime": "-",
+    "NonContributory": "Випало",
     "NotStarted": "-",
     "PenaltyPoints": "Штраф:",
     "Points": "Очки:",
@@ -211,6 +212,7 @@
       "OnlyForClasses": "Таблиця розбиття доступна лише у поданні на основі класів.",
       "PartialTimes": "Часткові"
     },
+    "StageNumber": "Етап {{number}}",
     "StartTime": "Початок",
     "Times": "Час",
     "VirtualTicket": {
