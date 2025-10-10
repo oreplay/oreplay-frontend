@@ -41,6 +41,18 @@
     "Location": "Localización",
     "Organizer": "Organizador",
     "Public": "Público",
+    "QRCode": {
+      "CopyUrl": "Copiar URL do evento",
+      "Description": "Xerar e descargar un código QR que enlaza directamente a este evento en O-Replay.",
+      "Download": "Descargar Código QR (PNG)",
+      "DownloadSuccessful": "Código QR descargado con éxito",
+      "EventName": "Nome do Evento",
+      "EventUrl": "URL do Evento",
+      "Generating": "Xerando código QR...",
+      "Instructions": "Este código QR pódese incluir nos mapas impresos para facilitar o acceso ao evento en O-Replay.",
+      "ShareEvent": "Compartir",
+      "Title": "Código QR do Evento"
+    },
     "Renew": "Renovar",
     "Renew security keys": "Xerar unha nova chave de seguridade",
     "RenewEventTokenMsg": "Se renovas a chave de seguridade, a antiga será invalidada. Polo tanto, ninguén coa chave antiga poderá subir resultados neste evento.",
@@ -64,9 +76,29 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Saída á caza",
+        "FootO": {
+          "description": "Percorrido lineal, individual ou por equipos, baseado en tempo.",
+          "title": "Clásico"
+        },
         "MassStart": "Saída en masa",
+        "OneManRelay": {
+          "description": "Percorrido lineal, individual ou por equipos, baseado en tempo, cada participante corre o seu propio percorrido.",
+          "title": "Percorrido con variantes"
+        },
         "Raid": "Raid",
+        "Relay": {
+          "description": "Carreira por equipos baseada en tempo con postas consecutivas e diferentes percorridos.",
+          "title": "Remudas"
+        },
+        "Rogaine": {
+          "description": "Evento baseado en puntos, individual ou por equipos, con percorrido de puntuación. O desempate é por tempos.",
+          "title": "Puntuación"
+        },
         "StageType": "Tipo",
+        "Totals": {
+          "description": "Resultados combinados baseados en puntos ou tempos ao longo de dúas etapas ou máis.",
+          "title": "Xeral"
+        },
         "TrailO": "Trail-O"
       },
       "Stats": {
