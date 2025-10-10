@@ -115,6 +115,7 @@
       }
     },
     "StartDate": "Data de inicio",
+    "TooLongMsg": "A URL inserida excede o máximo de {{count}} caracteres",
     "Website": "Web do evento"
   },
   "EventList": {
@@ -160,7 +161,14 @@
   "Name": "Nome",
   "Organizer": "Organizador",
   "Organizers": "Info de organizador",
+  "Overall": {
+    "pointsAbbreviation": "pts"
+  },
   "Password": "Contrasinal",
+  "PrivateEventPage": {
+    "Header": "Evento Privado",
+    "Message": "O organizador configurou este evento como privado. Se cres que se trata dun erro, ponte en contacto co organizador do evento."
+  },
   "RadiosExperimentalMsg": "Cando se usan radiocontrois, as funcións relacionadas cos parciais son experimentais.",
   "Results": {
     "Class": "Categoría",
@@ -174,7 +182,7 @@
     "shortClass": "Categoría"
   },
   "ResultsStage": {
-    "BonusPoints": "Bonificación_",
+    "BonusPoints": "Bonificación",
     "ChooseClass": "Por favor, selecciona unha categoría",
     "Class": "Categoría",
     "Classes": "Categorías",
@@ -185,6 +193,7 @@
     "NoClubMsg": "Sen club",
     "NoData": "Sentímolo, non hai datos dispoñibles",
     "NoStartTime": "-",
+    "NonContributory": "Imaxina un evento con 3 etapas e na clasificación xeral só contan os dous mellores resultados. A etapa descartada é aquela na que conseguiches menos puntos, de xeito que non se contabiliza no resultado final",
     "NotStarted": "-",
     "PenaltyPoints": "Penalización:",
     "Points": "Puntos:",
@@ -201,6 +210,7 @@
       "OnlyForClasses": "A táboa de parciais só é accesible na vista de categorías.",
       "PartialTimes": "Parciais"
     },
+    "StageNumber": "Etapa {{number}}",
     "StartTime": "Saída",
     "Times": "Tempo",
     "VirtualTicket": {
@@ -208,6 +218,11 @@
       "Cumulative": "Acumulativo",
       "FinishControl": "Meta",
       "FinishHour": "H.Meta:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": "Puntos obtidos segundo a fórmula dos 1000 puntos: 1000*(tempo do gañador / teu tempo)"
+        }
+      },
       "NoDownloadMsg": "Non hai lectura do chip",
       "Partial": "Parcial",
       "RaceTime": "Tempo:",
@@ -253,6 +268,7 @@
   "Success": "Éxito",
   "This action cannot be undone": "Esta acción non se pode desfacer.",
   "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada.",
+  "UnderDevelopment": "En desenvolvemento",
   "authenticationError": "Ocorreu un erro",
   "chart": {
     "legend": {
