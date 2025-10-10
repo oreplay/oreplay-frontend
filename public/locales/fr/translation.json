@@ -180,7 +180,7 @@
     "shortClass": "Catégorie"
   },
   "ResultsStage": {
-    "BonusPoints": "Bonus_",
+    "BonusPoints": "Bonus",
     "ChooseClass": "S'il vous plaît, choisissez une catégorie",
     "Class": "Catégorie",
     "Classes": "Catégories",
@@ -191,6 +191,7 @@
     "NoClubMsg": "Pas de club",
     "NoData": "Désolé, aucune donnée n'est disponible",
     "NoStartTime": "-",
+    "NonContributory": "non contributif",
     "NotStarted": "-",
     "PenaltyPoints": "Pénalité :",
     "Points": "Points :",
@@ -207,6 +208,7 @@
       "OnlyForClasses": "Le tableau des intermédiaires n'est accessible que dans la vue des catégories.",
       "PartialTimes": "Intermédiaires"
     },
+    "StageNumber": "Étape {{number}}",
     "StartTime": "Départ",
     "Times": "Temps",
     "VirtualTicket": {
