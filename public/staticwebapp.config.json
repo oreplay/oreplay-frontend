@@ -1,0 +1,6 @@
+{
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "https://www.oreplay.es",
+    "Access-Control-Allow-Methods": "HEAD, GET, OPTIONS"
+  }
+}
