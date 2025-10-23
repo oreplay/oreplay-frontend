@@ -41,18 +41,6 @@
     "Location": "Localização",
     "Organizer": "Organização",
     "Public": "Público",
-    "QRCode": {
-      "CopyUrl": "",
-      "Description": "",
-      "Download": "",
-      "DownloadSuccessful": "",
-      "EventName": "",
-      "EventUrl": "",
-      "Generating": "",
-      "Instructions": "",
-      "ShareEvent": "",
-      "Title": ""
-    },
     "Renew": "Renovar",
     "Renew security keys": "Gerar uma nova palavra passe",
     "RenewEventTokenMsg": "Se renovar a palavra passe, a antiga será invalidada. Assim, ninguém com a passe antiga poderá enviar resultados para este evento.",
@@ -76,29 +64,9 @@
       "NewStage": "Nova etapa",
       "StagesTypes": {
         "ChaseStart": "Chasing start",
-        "FootO": {
-          "description": "",
-          "title": ""
-        },
         "MassStart": "Partida em massa",
-        "OneManRelay": {
-          "description": "",
-          "title": ""
-        },
         "Raid": "Raid",
-        "Relay": {
-          "description": "",
-          "title": ""
-        },
-        "Rogaine": {
-          "description": "",
-          "title": ""
-        },
         "StageType": "Tipo",
-        "Totals": {
-          "description": "",
-          "title": ""
-        },
         "TrailO": "Trail-O"
       },
       "Stats": {
@@ -159,14 +127,7 @@
   "Name": "Nome",
   "Organizer": "Organizador",
   "Organizers": "Informação do organizador",
-  "Overall": {
-    "pointsAbbreviation": ""
-  },
   "Password": "Palavra passe",
-  "PrivateEventPage": {
-    "Header": "",
-    "Message": ""
-  },
   "RadiosExperimentalMsg": "Ao utilizar controlos online, os recursos relacionados com os splits são experimentais.",
   "Results": {
     "Class": "Escalão",
@@ -191,7 +152,6 @@
     "NoClubMsg": "Sem clube",
     "NoData": "Lamentamos, não há dados disponíveis",
     "NoStartTime": "-",
-    "NonContributory": "",
     "NotStarted": "-",
     "PenaltyPoints": "Penalização:",
     "Points": "Pontos:",
@@ -208,7 +168,6 @@
       "OnlyForClasses": "A tabela de splits só pode ser acedida na vista baseada em classes.",
       "PartialTimes": "Parciais"
     },
-    "StageNumber": "",
     "StartTime": "Partida",
     "Times": "Tempo",
     "VirtualTicket": {
@@ -216,11 +175,6 @@
       "Cumulative": "Acumulativo",
       "FinishControl": "Fim",
       "FinishHour": "Tempo final:",
-      "FootO": {
-        "Points": {
-          "HelpMsg": ""
-        }
-      },
       "NoDownloadMsg": "Não existe leitura de chip",
       "Partial": "Parcial",
       "RaceTime": "Tempo:",
@@ -265,7 +219,6 @@
   "Success": "Sucesso",
   "This action cannot be undone": "Esta ação não pode ser anulada.",
   "ThisFunctionalityNotImplementedMsg": "Esta ação ainda não foi implementado.",
-  "UnderDevelopment": "",
   "authenticationError": "Um erro aconteceu",
   "chart": {
     "legend": {

@@ -158,9 +158,6 @@
   "Name": "Izena",
   "Organizer": "Antolatzailea",
   "Organizers": "Antolatzailearen informazioa",
-  "Overall": {
-    "pointsAbbreviation": ""
-  },
   "Password": "Pasahitza",
   "PrivateEventPage": {
     "Header": "Ekitaldi Pribatua",
@@ -190,7 +187,6 @@
     "NoClubMsg": "Klubik ez",
     "NoData": "Barkatu, ez dago daturik eskuragarri",
     "NoStartTime": "-",
-    "NonContributory": "",
     "NotStarted": "-",
     "PenaltyPoints": "Zigorra:",
     "Points": "Puntuak:",
@@ -207,7 +203,6 @@
       "OnlyForClasses": "Partzialen taula kategorietan oinarritutako ikuspegian bakarrik dago eskuragarri.",
       "PartialTimes": "Partzialak"
     },
-    "StageNumber": "",
     "StartTime": "Irteera",
     "Times": "Denbora",
     "VirtualTicket": {
@@ -215,11 +210,6 @@
       "Cumulative": "Metatua",
       "FinishControl": "Amaiera",
       "FinishHour": "Meta denbora:",
-      "FootO": {
-        "Points": {
-          "HelpMsg": ""
-        }
-      },
       "NoDownloadMsg": "Txip irakurketarik ez",
       "Partial": "Partziala",
       "RaceTime": "Denbora:",
