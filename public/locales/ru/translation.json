@@ -159,6 +159,9 @@
   "Name": "Имя",
   "Organizer": "Организатор",
   "Organizers": "Организаторы",
+  "Overall": {
+    "pointsAbbreviation": ""
+  },
   "Password": "Пароль",
   "PrivateEventPage": {
     "Header": "Приватный Ивент",
@@ -204,6 +207,7 @@
       "OnlyForClasses": "Посмотреть сплиты можно только в результатах по категориям.",
       "PartialTimes": "Промежуточные времена"
     },
+    "StageNumber": "",
     "StartTime": "Старт",
     "Times": "Время",
     "VirtualTicket": {
@@ -211,6 +215,11 @@
       "Cumulative": "Кумулятивное время",
       "FinishControl": "Финиш",
       "FinishHour": "Время финиша:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": ""
+        }
+      },
       "NoDownloadMsg": "Нет данных чипа",
       "Partial": "Сплит",
       "RaceTime": "Время:",
@@ -266,6 +275,47 @@
     "timeAxisLabel": "Время (секунды)"
   },
   "lineChart": {
-    "noData": "Выберите бегунки для просмотра линейного графика"
+    "noData": "Выберите бегунки для просмотра линейного графика",
+    "tooltip": {
+      "behindBestPartial": "",
+      "behindLeader": ""
+    },
+    "xAxisLabel": ""
+  },
+  "positionChart": {
+    "caption": "",
+    "noData": "",
+    "tooltip": {
+      "control": "",
+      "position": "",
+      "splitTime": "",
+      "timeLost": ""
+    },
+    "xAxisLabel": "",
+    "yAxisLabel": ""
+  },
+  "sidebar": {
+    "backendVersion": "",
+    "cookiePolicy": "",
+    "frontendVersion": "",
+    "frontendVersionWithVersion": "",
+    "legalNotice": "",
+    "loading": "",
+    "privacyPolicy": ""
+  },
+  "tooltip": {
+    "efficiency": "",
+    "errorFreeTime": "",
+    "errorTime": "",
+    "totalDisplayedTime": ""
+  },
+  "view": {
+    "accumulated": "",
+    "barChart": "",
+    "lineChart": "",
+    "positionChart": "",
+    "radios": "",
+    "splits": "",
+    "timeLoss": ""
   }
 }
