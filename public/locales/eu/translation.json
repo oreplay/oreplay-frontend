@@ -158,6 +158,9 @@
   "Name": "Izena",
   "Organizer": "Antolatzailea",
   "Organizers": "Antolatzailearen informazioa",
+  "Overall": {
+    "pointsAbbreviation": ""
+  },
   "Password": "Pasahitza",
   "PrivateEventPage": {
     "Header": "Ekitaldi Pribatua",
@@ -203,6 +206,7 @@
       "OnlyForClasses": "Partzialen taula kategorietan oinarritutako ikuspegian bakarrik dago eskuragarri.",
       "PartialTimes": "Partzialak"
     },
+    "StageNumber": "",
     "StartTime": "Irteera",
     "Times": "Denbora",
     "VirtualTicket": {
@@ -210,6 +214,11 @@
       "Cumulative": "Metatua",
       "FinishControl": "Amaiera",
       "FinishHour": "Meta denbora:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": ""
+        }
+      },
       "NoDownloadMsg": "Txip irakurketarik ez",
       "Partial": "Partziala",
       "RaceTime": "Denbora:",
