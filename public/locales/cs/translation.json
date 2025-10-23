@@ -159,6 +159,9 @@
   "Name": "Název",
   "Organizer": "Pořadatel",
   "Organizers": "Organizační informace",
+  "Overall": {
+    "pointsAbbreviation": ""
+  },
   "Password": "Heslo",
   "PrivateEventPage": {
     "Header": "Soukromá událost",
@@ -204,6 +207,7 @@
       "OnlyForClasses": "Tabulka s mezičasy je dostupná pouze v náhledu kategorie.",
       "PartialTimes": "Částečné"
     },
+    "StageNumber": "",
     "StartTime": "Start",
     "Times": "Čas",
     "VirtualTicket": {
@@ -211,6 +215,11 @@
       "Cumulative": "Kumulativní",
       "FinishControl": "Cíl",
       "FinishHour": "Cílový čas:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": ""
+        }
+      },
       "NoDownloadMsg": "Žádný čip k vyčtení",
       "Partial": "Mezičas",
       "RaceTime": "Čas:",
