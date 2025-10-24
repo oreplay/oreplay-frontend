@@ -159,6 +159,9 @@
   "Name": "Имя",
   "Organizer": "Организатор",
   "Organizers": "Организаторы",
+  "Overall": {
+    "pointsAbbreviation": "оч."
+  },
   "Password": "Пароль",
   "PrivateEventPage": {
     "Header": "Приватный Ивент",
@@ -177,7 +180,7 @@
     "shortClass": "Категория"
   },
   "ResultsStage": {
-    "BonusPoints": "Бонус_",
+    "BonusPoints": "Бонус",
     "ChooseClass": "Пожалуйста, выберите категорию",
     "Class": "Категория",
     "Classes": "Категории",
@@ -188,6 +191,7 @@
     "NoClubMsg": "Без клуба",
     "NoData": "Извините, данных нет",
     "NoStartTime": "-",
+    "NonContributory": "Не считается",
     "NotStarted": "-",
     "PenaltyPoints": "Штрафные очки:",
     "Points": "Количество очков:",
@@ -204,6 +208,7 @@
       "OnlyForClasses": "Посмотреть сплиты можно только в результатах по категориям.",
       "PartialTimes": "Промежуточные времена"
     },
+    "StageNumber": "Этап {{number}}",
     "StartTime": "Старт",
     "Times": "Время",
     "VirtualTicket": {
@@ -211,6 +216,11 @@
       "Cumulative": "Кумулятивное время",
       "FinishControl": "Финиш",
       "FinishHour": "Время финиша:",
+      "FootO": {
+        "Points": {
+          "HelpMsg": "Очки, полученные по формуле 1000 очков: 1000*(время победителя / ваше время)"
+        }
+      },
       "NoDownloadMsg": "Нет данных чипа",
       "Partial": "Сплит",
       "RaceTime": "Время:",
@@ -266,6 +276,47 @@
     "timeAxisLabel": "Время (секунды)"
   },
   "lineChart": {
-    "noData": "Выберите бегунки для просмотра линейного графика"
+    "noData": "Выберите бегунки для просмотра линейного графика",
+    "tooltip": {
+      "behindBestPartial": "Время отставания от лучшего сплита",
+      "behindLeader": "Время отставания от лидера"
+    },
+    "xAxisLabel": "Контрольные пункты"
+  },
+  "positionChart": {
+    "caption": "* Позиция 1 выше всех (лучшая), более высокие цифры ниже (хуже)",
+    "noData": "Выберите бегунов для просмотра динамики позиции",
+    "tooltip": {
+      "control": "КП",
+      "position": "Позиция",
+      "splitTime": "Сплит-время",
+      "timeLost": "Время отставания от лучшего сплита: {{timeLost}}"
+    },
+    "xAxisLabel": "Контрольные пункты",
+    "yAxisLabel": "Позиция"
+  },
+  "sidebar": {
+    "backendVersion": "Бэкенд",
+    "cookiePolicy": "Политика использования файлов cookie",
+    "frontendVersion": "Фронтенд",
+    "frontendVersionWithVersion": "Фронтенд v{{version}}",
+    "legalNotice": "Юридическая информация",
+    "loading": "Идёт загрузка...",
+    "privacyPolicy": "Политика конфиденциальности"
+  },
+  "tooltip": {
+    "efficiency": "Эффективность",
+    "errorFreeTime": "Время без ошибок",
+    "errorTime": "Потерянное время (ошибка)",
+    "totalDisplayedTime": "Общее отображаемое время"
+  },
+  "view": {
+    "accumulated": "Накопленные",
+    "barChart": "Потеря времени",
+    "lineChart": "Отставание от лидера",
+    "positionChart": "Позиция",
+    "radios": "Радио-КП",
+    "splits": "Сплиты",
+    "timeLoss": "Таблица потери времени"
   }
 }
