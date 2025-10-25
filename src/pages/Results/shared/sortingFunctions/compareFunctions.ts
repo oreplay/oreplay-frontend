@@ -344,6 +344,33 @@ function byTime(
   return aTimeSeconds - bTimeSeconds
 }
 
+/**
+ * NC runner should go after non-NC runners
+ * @param a first runner to be checked
+ * @param b second runner to be checked
+ */
+function byNC(
+  a: RunnerModel | ProcessedRunnerModel,
+  b: RunnerModel | ProcessedRunnerModel,
+): number {
+  const aNC = runnerService.isNC(a)
+  const bNC = runnerService.isNC(b)
+
+  if (aNC && bNC) {
+    return 0
+  }
+
+  if (aNC) {
+    return 1
+  }
+
+  if (bNC) {
+    return -1
+  }
+
+  return 0
+}
+
 function haveBothFinished(
   a: RunnerModel | ProcessedRunnerModel,
   b: RunnerModel | ProcessedRunnerModel,
@@ -382,6 +409,7 @@ const runnerCompareFunctions = {
   byFinishedStatus,
   byStartedStatus,
   byTime,
+  byNC,
   haveBothFinished,
   haveBothStarted,
 }
