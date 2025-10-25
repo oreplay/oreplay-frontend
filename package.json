@@ -34,6 +34,7 @@
     "@toolpad/core": "^0.12.0",
     "@types/luxon": "^3.4.2",
     "axios": "^1.7.9",
+    "framer-motion": "^12.23.24",
     "html2canvas": "^1.4.1",
     "i18next": "^23.10.0",
     "i18next-browser-languagedetector": "^7.2.0",
