@@ -26,6 +26,10 @@ const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({
     fontSize: "small",
   }
 
+  if (time && time < 0) {
+    time = 0
+  }
+
   return (
     <Grid item xs={5}>
       <Box
