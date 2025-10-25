@@ -25,6 +25,7 @@ import { useTranslation } from "react-i18next"
 import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/FootOSplitsTable/components/NoRunnerWithSplitsMsg.tsx"
+import { sortFootORunners } from "../../shared/functions.ts"
 
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -37,6 +38,11 @@ export default function FootOSplits(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const runners = props.runnersQuery.data || []
   const hasRadios = !!(activeItem && "splits" in activeItem && activeItem.splits.length > 0)
+
+  useEffect(() => {
+    sortFootORunners(runners)
+    console.log("runners sorted")
+  }, [runners])
 
   const runnersWithChipDownload = runners.filter((runner) => hasChipDownload(runner))
   const hasChipDownloadData = runnersWithChipDownload.length > 0
