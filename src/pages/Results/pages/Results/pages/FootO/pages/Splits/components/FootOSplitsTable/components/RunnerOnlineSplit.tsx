@@ -7,9 +7,14 @@ import { DateTime } from "luxon"
 type RunnerOnlineSplitProps = {
   split: RadioSplitModel
   startTimeTimestamp: string | null
+  displayRunningTowards?: boolean
 }
 
-export default function RunnerOnlineSplit({ split, startTimeTimestamp }: RunnerOnlineSplitProps) {
+export default function RunnerOnlineSplit({
+  split,
+  startTimeTimestamp,
+  displayRunningTowards,
+}: RunnerOnlineSplitProps) {
   // Reading for this split
   if (split.cumulative_time) {
     return <Typography>{parseSecondsToMMSS(split.cumulative_time)}</Typography>
@@ -17,7 +22,7 @@ export default function RunnerOnlineSplit({ split, startTimeTimestamp }: RunnerO
     // No reading for this split
   } else {
     // Running to this control
-    if (split.is_next !== null) {
+    if (split.is_next !== null && displayRunningTowards) {
       return (
         <NowContext.Consumer>
           {(nowDateTime) => {

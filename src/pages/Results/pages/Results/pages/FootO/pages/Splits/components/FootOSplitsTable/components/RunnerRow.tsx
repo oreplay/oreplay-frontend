@@ -236,6 +236,7 @@ export default function RunnerRow(props: RunnerRowProps) {
                 <RunnerOnlineSplit
                   split={split as RadioSplitModel}
                   startTimeTimestamp={props.runner.stage.start_time}
+                  displayRunningTowards={statusOkOrNc}
                 />
               ) : (
                 <RunnerSplit
