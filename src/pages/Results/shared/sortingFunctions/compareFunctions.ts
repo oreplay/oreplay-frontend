@@ -276,8 +276,11 @@ function byLastCommonOnlineControl(a: ProcessedRunnerModel, b: ProcessedRunnerMo
 
       const splitA = onlineSplitsA.at(i)!
       const splitB = onlineSplitsB.at(i)!
+      if (splitA.cumulative_time && !splitB) {
+        console.log("we would expect this splitB to be defined for the runner", b)
+      }
 
-      if (splitA.cumulative_time && splitB.cumulative_time) {
+      if (splitA.cumulative_time && splitB && splitB.cumulative_time) {
         return splitA.cumulative_time - splitB.cumulative_time
       }
     }
