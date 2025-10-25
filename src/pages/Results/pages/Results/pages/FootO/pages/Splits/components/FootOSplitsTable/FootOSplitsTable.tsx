@@ -22,6 +22,7 @@ import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
+import { runnerService } from "../../../../../../../../../../domain/services/RunnerService.ts"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
@@ -35,7 +36,9 @@ type FootOSplitsTableProps = {
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const { t } = useTranslation()
-  const runnerList = props.onlyRadios ? props.runners : props.runners.filter(hasChipDownload)
+  const runnerList = props.onlyRadios
+    ? props.runners.filter((runner) => !runnerService.isDNS(runner))
+    : props.runners.filter((runner) => hasChipDownload(runner) && !runnerService.isDNS(runner))
 
   const onlineControlList = useMemo(
     () => getOnlineControlsCourseFromClassSplits(props.radiosList),
