@@ -32,7 +32,7 @@ const postInBatches = async (classArray: string[], token: string, batchSize: num
   }
 }
 
-export async function calculateRanking(
+export async function calculateRankingBatches(
   rankingId: string,
   eventId: string,
   stageId: string,
@@ -71,7 +71,7 @@ export async function handleRanking(
     severity: "info",
   })
   try {
-    const res = await calculateRanking(
+    const res = await calculateRankingBatches(
       rankingId,
       eventId, // props.eventDetail.id,
       row.row.stageId,
