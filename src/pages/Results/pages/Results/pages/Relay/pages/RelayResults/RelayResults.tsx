@@ -10,6 +10,9 @@ import RelayResultContainer from "./components/RelayResultContainer.tsx"
 import RelayVirtualTicket from "./components/RelayVirtualTicket/RelayVirtualTicket.tsx"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
 import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
+import RunnerSorter from "../../../../components/RunnerSorter"
+import { memo, useMemo } from "react"
+import { sortRelayRunners } from "../../shared/sortRelayRunners.ts"
 
 interface RelayResultProps
   extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
@@ -20,6 +23,16 @@ export default function RelayResults(props: RelayResultProps) {
   const runnersList = props.runnersQuery.data
 
   const [isTicketOpen, selectedRunner, handleRowClick, handleCloseTicket, leg] = useVirtualTicket()
+
+  const runnerRowProps = useMemo(
+    () => ({
+      isClass: props.isClass,
+      handleRowClick: handleRowClick,
+    }),
+    [props.isClass, handleRowClick],
+  )
+
+  const RelayResultItemMemo = memo(RelayResultItem)
 
   if (!props.activeItem) {
     return (
@@ -48,14 +61,12 @@ export default function RelayResults(props: RelayResultProps) {
       <>
         <NotImplementedAlertBox />
         <RelayResultContainer>
-          {runnersList?.map((runner: ProcessedRunnerModel) => (
-            <RelayResultItem
-              key={runner.id}
-              runner={runner}
-              handleRowClick={handleRowClick}
-              isClass={props.isClass}
-            />
-          ))}
+          <RunnerSorter
+            runnerList={runnersList ? runnersList : []}
+            RunnerRow={RelayResultItemMemo}
+            runnerRowProps={runnerRowProps}
+            sortingFunction={sortRelayRunners}
+          />
         </RelayResultContainer>
         <RelayVirtualTicket
           isTicketOpen={isTicketOpen}
