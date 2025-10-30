@@ -42,7 +42,7 @@ export function liveRelayTime(
   maxLeg?: number,
 ): number | null {
   // If the team already has time, use that time
-  if (runner.stage.time_seconds !== null) {
+  if (runner.stage.time_seconds) {
     return runner.stage.time_seconds
   }
 
@@ -56,7 +56,7 @@ export function liveRelayTime(
   let shouldReturn: boolean = false
   let legTime: number | null
 
-  maxLeg = maxLeg !== undefined ? maxLeg - 1 : runner.runners.length - 1
+  maxLeg = maxLeg !== undefined ? maxLeg : runner.runners.length
   for (let index = 0; index < maxLeg; index++) {
     legTime = liveParticipantTime(runner.runners[index], now)
 
