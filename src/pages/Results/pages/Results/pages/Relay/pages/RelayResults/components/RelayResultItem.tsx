@@ -2,7 +2,6 @@ import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTic
 import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../../shared/constants.ts"
 import RacePosition from "../../../../../components/RacePosition..tsx"
-import RaceTime from "../../../../../components/RaceTime.tsx"
 import RaceTimeBehind from "../../../../../components/RaceTimeBehind.tsx"
 import {
   hasChipDownload as hasChipDownloadFunction,
@@ -11,6 +10,7 @@ import {
 import { Box } from "@mui/material"
 import RelayResultLegItem from "./RelayResultLegItem.tsx"
 import ParticipantName from "../../../../../components/ParticipantName.tsx"
+import RelayRaceTime from "./RelayRaceTime"
 
 export default function RelayResultItem({
   runner,
@@ -55,14 +55,7 @@ export default function RelayResultItem({
                 subtitle={!isClass ? runner.class?.short_name : undefined} //TODO: Temporally consider runner.class nullable until back gets fixed
               />
             </Box>
-            <RaceTime
-              displayStatus
-              isFinalTime={hasChipDownload}
-              status={status}
-              finish_time={runner.stage.finish_time}
-              time_seconds={runner.stage.time_seconds}
-              start_time={runner.stage.start_time}
-            />
+            <RelayRaceTime displayStatus isFinalTime={hasChipDownload} runner={runner} />
             <RaceTimeBehind
               display={statusOkOrNc && runner.stage.finish_time != null && hasChipDownload}
               time_behind={runner.stage.time_behind}

@@ -41,7 +41,7 @@ const baseLeg: ProcessedTeamRunnerModel = {
     points_bonus: 0,
     leg_number: 1,
     splits: [],
-    online_splits: []
+    online_splits: [],
   },
   overalls: null,
 }
@@ -83,7 +83,7 @@ const baseRunner: ProcessedRunnerModel = {
     points_bonus: 0,
     leg_number: 4,
     splits: [],
-    online_splits: []
+    online_splits: [],
   },
   overalls: null,
 }
@@ -192,7 +192,7 @@ describe("liveRelayTime", () => {
     expect(result).toBeNull()
   })
 
-  it("Should return the right time if the team is in-race (first runner only)", ()=>{
+  it("Should return the right time if the team is in-race (first runner only)", () => {
     const teamRunning: ProcessedRunnerModel = {
       ...baseRunner,
       stage: { ...baseRunner.stage, time_seconds: 0 },
@@ -221,10 +221,10 @@ describe("liveRelayTime", () => {
     const now = DateTime.fromISO("2025-10-26T09:05:00.000+00:00") as DateTime<true>
 
     const result = liveRelayTime(teamRunning, now)
-    expect(result).toEqual(5*60)
+    expect(result).toEqual(5 * 60)
   })
 
-  it("Should return the right time if the team is in-race (second runner only)", ()=>{
+  it("Should return the right time if the team is in-race (second runner only)", () => {
     const teamRunning: ProcessedRunnerModel = {
       ...baseRunner,
       stage: { ...baseRunner.stage, time_seconds: 0 },
@@ -253,10 +253,10 @@ describe("liveRelayTime", () => {
     const now = DateTime.fromISO("2025-10-26T09:05:00.000+00:00") as DateTime<true>
 
     const result = liveRelayTime(teamRunning, now)
-    expect(result).toEqual(5*60)
+    expect(result).toEqual(5 * 60)
   })
 
-  it("Should return the right time if the team is in-race (two runners running)", ()=>{
+  it("Should return the right time if the team is in-race (two runners running)", () => {
     const teamRunning: ProcessedRunnerModel = {
       ...baseRunner,
       stage: { ...baseRunner.stage, time_seconds: 0 },
@@ -285,7 +285,7 @@ describe("liveRelayTime", () => {
     const now = DateTime.fromISO("2025-10-26T09:05:00.000+00:00") as DateTime<true>
 
     const result = liveRelayTime(teamRunning, now)
-    expect(result).toEqual(8*60)
+    expect(result).toEqual(8 * 60)
   })
 
   it("should respect maxLeg parameter when summing legs", () => {
@@ -301,6 +301,6 @@ describe("liveRelayTime", () => {
 
     // maxLeg=2 means (maxLeg - 1) = 1 → only first leg counted
     const result = liveRelayTime(teamThreeLegs, defaultNow, 2)
-    expect(result).toBe(60+90)
+    expect(result).toBe(60 + 90)
   })
 })
