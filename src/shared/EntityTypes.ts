@@ -142,6 +142,7 @@ export interface RunnerResultModel {
   time_penalty: number
   time_bonus: number
   points_final: number
+  points_behind: number
   points_adjusted: number
   points_penalty: number
   points_bonus: number
