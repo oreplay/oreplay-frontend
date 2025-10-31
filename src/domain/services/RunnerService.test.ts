@@ -37,6 +37,7 @@ const baseRunner: RunnerModel = {
     time_penalty: 0,
     time_bonus: 0,
     points_final: 0,
+    points_behind: 0,
     points_adjusted: 0,
     points_penalty: 0,
     points_bonus: 0,
