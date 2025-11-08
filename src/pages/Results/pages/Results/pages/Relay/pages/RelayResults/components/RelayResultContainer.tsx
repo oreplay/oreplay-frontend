@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
-import { Box } from "@mui/material"
 import NowProvider from "../../../../../components/NowProvider.tsx"
+import { AnimatePresence, motion } from "framer-motion"
 
 interface RelayResultContainerProps {
   children?: ReactNode
@@ -8,8 +8,17 @@ interface RelayResultContainerProps {
 
 export default function RelayResultContainer({ children }: RelayResultContainerProps) {
   return (
-    <Box sx={{ display: "table", width: "100%", borderCollapse: "collapse" }}>
-      <NowProvider>{children}</NowProvider>
-    </Box>
+    <NowProvider>
+      <motion.table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+        }}
+      >
+        <AnimatePresence>
+          {children}
+        </AnimatePresence>
+      </motion.table>
+    </NowProvider>
   )
 }

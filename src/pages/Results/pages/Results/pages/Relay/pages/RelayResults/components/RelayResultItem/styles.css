@@ -1,0 +1,15 @@
+.runner-row {
+  border-bottom: 1px solid #f2f2f2;
+  vertical-align: top;
+}
+
+.runner-cell {
+  padding: 12px 2px;
+  vertical-align: top;
+}
+
+.runner-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}

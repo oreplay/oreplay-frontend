@@ -1,6 +1,6 @@
 import { ReactNode, FC } from "react"
-import { Box } from "@mui/material"
 import NowProvider from "../NowProvider.tsx"
+import { AnimatePresence, motion } from "framer-motion"
 
 interface ResultListContainerProps {
   children: ReactNode
@@ -11,11 +11,18 @@ const ResultListContainer: FC<ResultListContainerProps> = ({
 }: ResultListContainerProps) => {
   return (
     <NowProvider>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", width: "100%", borderCollapse: "collapse" }}
+      <motion.div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          borderCollapse: "collapse",
+        }}
       >
-        {children}
-      </Box>
+        <AnimatePresence>
+          {children}
+        </AnimatePresence>
+      </motion.div>
     </NowProvider>
   )
 }
