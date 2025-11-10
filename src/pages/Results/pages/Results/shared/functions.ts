@@ -73,3 +73,15 @@ export function isWrongFileUploaded(runnerList: RunnerModel[] | ProcessedRunnerM
 
   return filteredRunners.length !== 0 && runnerList.length !== 0
 }
+
+/**
+ * This is a helper function targeting development debugging for animations
+ * @param array
+ */
+export function shuffleInPlace<T>(array: T[]): T[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  return array
+}
