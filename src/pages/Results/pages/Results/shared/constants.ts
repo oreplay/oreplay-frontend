@@ -17,3 +17,12 @@ export const UPLOAD_TYPES = {
   RANKING_COMPUTED: "ranking_computed",
   COMPUTABLE_ORG: "computable_org",
 }
+
+/**
+ * Options used on results queries
+ */
+export const RESULTS_QUERY = {
+  staleTime: 10000,
+  refetchInterval: 45000,
+  refetchOnWindowFocus: true,
+}

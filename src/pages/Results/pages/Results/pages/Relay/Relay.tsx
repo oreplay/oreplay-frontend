@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom"
 import { useCallback } from "react"
 import RelayLegs from "./pages/RelayLegs/RelayLegs.tsx"
 import { getRelayRunnersByClass, getRelayRunnersByClub } from "./services/RelayService.ts"
+import { RESULTS_QUERY } from "../../shared/constants.ts"
 
 const menu_options_labels = ["results", "legs"]
 
@@ -44,8 +45,8 @@ export default function Relay() {
         ? getRelayRunnersByClass(eventId, stageId, activeItem.id)
         : Promise.reject(new Error("No active class")),
     {
+      ...RESULTS_QUERY,
       enabled: !!activeItem && isClass && !!classesQuery.data,
-      refetchOnWindowFocus: false,
     },
   )
 
@@ -56,8 +57,8 @@ export default function Relay() {
         ? getRelayRunnersByClub(eventId, stageId, activeItem?.id)
         : Promise.reject(new Error("No active club")),
     {
+      ...RESULTS_QUERY,
       enabled: !!activeItem && !isClass && !!classesQuery.data,
-      refetchOnWindowFocus: false,
     },
   )
 
