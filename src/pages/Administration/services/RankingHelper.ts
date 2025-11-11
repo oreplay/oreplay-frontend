@@ -6,6 +6,28 @@ import { Data } from "../../../shared/EntityTypes.ts"
 import { ApiStats } from "../../../domain/models/ApiStats.ts"
 import { post } from "../../../services/ApiConfig.ts"
 
+export function postCreateOrganizer(
+  eventId: string,
+  stageId: string,
+  runnerId: string,
+  stageOrder: number,
+  token: string,
+) {
+  const rankingId = currentRankingId()
+  if (!rankingId || !eventId || !stageId || !stageOrder || !runnerId || !token) {
+    throw new Error("All parameters are mandatory to set computable_org")
+  }
+  return post(
+    `/rankings/${rankingId}/events/${eventId}/stages/${stageId}/runnerResults/`,
+    {
+      upload_type: "computable_org",
+      runner_id: runnerId,
+      stage_order: stageOrder,
+    },
+    token,
+  )
+}
+
 export async function calculateRankingFull(
   rankingId: string,
   eventId: string,
@@ -58,14 +80,18 @@ export async function calculateRankingBatches(
   return classes
 }
 
+export function currentRankingId() {
+  return "regional100pts" // TODO change name
+}
+
 export async function handleRanking(
   row: GridRowParams<StageRow>,
-  rankingId: string,
   eventId: string,
   token: string,
   show: ShowNotification,
   close: CloseNotification,
 ) {
+  const rankingId = currentRankingId()
   const resetNotification = show(t("Loading"), {
     autoHideDuration: 30000,
     severity: "info",
