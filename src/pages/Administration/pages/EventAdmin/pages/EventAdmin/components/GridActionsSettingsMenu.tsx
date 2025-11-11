@@ -9,19 +9,22 @@ import EditIcon from "@mui/icons-material/Edit"
 import GridActionsSettingsMenuDialogItem from "./GridActionsSettingsMenuDialogItem.tsx"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import PersonOffIcon from "@mui/icons-material/PersonOff"
+import RankingDialogItem from "./RankingDialogItem.tsx"
 
 type GridActionsSettingsMenuProps = {
   handleDeleteClick: () => void
   handleEditClick: () => void
   handleWipeOutRunnersClick: () => void
   handleStatsClick: () => void
+  handleRankingClick: () => void
 }
 
-const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
+const GridActionsSettingsMenu = ({
   handleDeleteClick,
   handleEditClick,
   handleWipeOutRunnersClick,
-}) => {
+  handleRankingClick,
+}: GridActionsSettingsMenuProps) => {
   const { t } = useTranslation()
 
   // Menu functions
@@ -52,6 +55,13 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           </ListItemIcon>
           <ListItemText>{t("Edit")}</ListItemText>
         </MenuItem>
+        <RankingDialogItem
+          action={() => {
+            handleClose()
+            handleRankingClick()
+          }}
+          menuCloseAction={handleClose}
+        />
         <Divider />
         <GridActionsSettingsMenuDialogItem
           icon={<PersonOffIcon />}

@@ -38,6 +38,7 @@ import { MenuItem, Select, Toolbar } from "@mui/material"
 import { STAGE_TYPE_DATABASE_ID } from "../../../../../../Results/pages/Results/shared/constants.ts"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import ScienceIcon from "@mui/icons-material/Science"
+import { handleRanking } from "../../../../../services/RankingHelper.ts"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -162,6 +163,16 @@ export default function StagesDataGrid(props: Props) {
   const handleDeleteClick = async (row: GridRowParams<StageRow>) => {
     await deleteStage(props.eventDetail.id, row.row.stageId, token as string).then(() =>
       setRows(rows.filter((thisRow) => thisRow.id !== row.id)),
+    )
+  }
+
+  const handleRankingClick = async (row: GridRowParams<StageRow>) => {
+    await handleRanking(
+      row,
+      props.eventDetail.id,
+      token as string,
+      notifications.show,
+      notifications.close,
     )
   }
 
@@ -401,6 +412,7 @@ export default function StagesDataGrid(props: Props) {
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
             handleStatsClick={() => void handleStatsClick(row)}
+            handleRankingClick={() => void handleRankingClick(row)}
             handleWipeOutRunnersClick={() => void handleWipeOutRunnersClick(row)}
           />,
           <Tooltip title={t("EventAdmin.Stages.GoToStage")}>
