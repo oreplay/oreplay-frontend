@@ -1,0 +1,15 @@
+td.relay-result-column {
+  vertical-align: top;
+  padding-top: 12px;
+  padding-left: 12px;
+  padding-bottom: 12px;
+}
+
+td:first-child.relay-result-column {
+  padding-left: 0;
+}
+
+td.min-width {
+  width: 1%;
+  white-space: nowrap;
+}

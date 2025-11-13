@@ -1,14 +1,14 @@
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { FunctionComponent, useContext } from "react"
+import { ElementType, FunctionComponent, useContext } from "react"
 import { NowContext } from "../../../../shared/context.ts"
 import { DateTime } from "luxon"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, AnimatePresenceProps, motion, MotionProps } from "framer-motion"
 
-interface RunnerRowBaseProps {
+export interface RunnerRowBaseProps {
   runner: ProcessedRunnerModel
 }
 
-interface RunnerSorterProps<T extends RunnerRowBaseProps> {
+export interface RunnerSorterProps<T extends RunnerRowBaseProps> {
   runnerList: ProcessedRunnerModel[]
   RunnerRow: FunctionComponent<T>
   runnerRowProps: Omit<T, "runner">
@@ -16,6 +16,9 @@ interface RunnerSorterProps<T extends RunnerRowBaseProps> {
     runnerList: ProcessedRunnerModel[],
     now?: DateTime<true>,
   ) => ProcessedRunnerModel[]
+  ContainerComponent?: ElementType<MotionProps>
+  ItemComponent?: ElementType<MotionProps>
+  animatePresenceProps?: AnimatePresenceProps
 }
 
 export default function RunnerSorter<T extends RunnerRowBaseProps>({
@@ -23,16 +26,19 @@ export default function RunnerSorter<T extends RunnerRowBaseProps>({
   RunnerRow,
   sortingFunction,
   runnerRowProps,
+  ContainerComponent = motion.div,
+  ItemComponent = motion.div,
+  animatePresenceProps,
 }: RunnerSorterProps<T>) {
   const now = useContext(NowContext)
   const sortedRunnerList = sortingFunction(runnerList, now)
 
   return (
-    <motion.div>
-      <AnimatePresence>
+    <ContainerComponent>
+      <AnimatePresence {...animatePresenceProps}>
         {sortedRunnerList.map((runner, index) => {
           return (
-            <motion.div
+            <ItemComponent
               key={runner.id}
               layout
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -47,10 +53,10 @@ export default function RunnerSorter<T extends RunnerRowBaseProps>({
             >
               {/** @ts-expect-error typescript doesn't pick up that runner & omit<T,"runner"> = T **/}
               <RunnerRow key={runner.id} runner={runner} {...runnerRowProps} />
-            </motion.div>
+            </ItemComponent>
           )
         })}
       </AnimatePresence>
-    </motion.div>
+    </ContainerComponent>
   )
 }

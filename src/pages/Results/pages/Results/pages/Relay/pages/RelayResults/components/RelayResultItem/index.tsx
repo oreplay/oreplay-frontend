@@ -1,16 +1,17 @@
-import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
-import { RESULT_STATUS_TEXT } from "../../../../../../../shared/constants.ts"
-import RacePosition from "../../../../../components/RacePosition..tsx"
-import RaceTimeBehind from "../../../../../components/RaceTimeBehind.tsx"
+import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { parseResultStatus } from "../../../../../../../../shared/sortingFunctions/sortRunners.ts"
+import { RESULT_STATUS_TEXT } from "../../../../../../../../shared/constants.ts"
+import RacePosition from "../../../../../../components/RacePosition..tsx"
+import RaceTimeBehind from "../../../../../../components/RaceTimeBehind.tsx"
 import {
   hasChipDownload as hasChipDownloadFunction,
   isRunnerNC,
-} from "../../../../../shared/functions.ts"
+} from "../../../../../../shared/functions.ts"
 import { Box } from "@mui/material"
-import RelayResultLegItem from "./RelayResultLegItem.tsx"
-import ParticipantName from "../../../../../components/ParticipantName.tsx"
-import RelayRaceTime from "./RelayRaceTime"
+import RelayResultLegItem from "../RelayResultLegItem.tsx"
+import ParticipantName from "../../../../../../components/ParticipantName.tsx"
+import RelayRaceTime from "../RelayRaceTime"
+import "./styles.css"
 
 export default function RelayResultItem({
   runner,
@@ -26,15 +27,15 @@ export default function RelayResultItem({
   const hasChipDownload = hasChipDownloadFunction(runner)
 
   return (
-    <Box sx={{ display: "table-row", borderBottom: "1px solid #f2f2f2" }}>
-      <Box sx={{ display: "table-cell", padding: "12px 2px" }}>
+    <>
+      <td className="relay-result-column min-width">
         <RacePosition
           position={runner.stage.position}
           hasDownload={hasChipDownload}
           isNC={isRunnerNC(runner)}
         />
-      </Box>
-      <Box sx={{ display: "table-cell", padding: "12px 2px" }}>
+      </td>
+      <td className="relay-result-column">
         <Box
           sx={{
             width: "100%",
@@ -72,7 +73,7 @@ export default function RelayResultItem({
             ))}
           </Box>
         </Box>
-      </Box>
-    </Box>
+      </td>
+    </>
   )
 }
