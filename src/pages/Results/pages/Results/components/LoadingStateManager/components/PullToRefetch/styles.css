@@ -1,0 +1,47 @@
+.pull-to-refetch {
+  position: relative;
+}
+
+.pull-to-refetch-content {
+  will-change: transform;
+}
+
+.pull-to-refetch-indicator {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(0);
+  will-change: opacity, top, transform;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.refresh-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  transition: transform 0.1s linear;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
