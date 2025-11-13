@@ -22,7 +22,7 @@ export const UPLOAD_TYPES = {
  * Options used on results queries
  */
 export const RESULTS_QUERY = {
-  staleTime: 10000,
-  refetchInterval: 45000,
+  staleTime: 30000,
+  refetchInterval: 90000,
   refetchOnWindowFocus: true,
 }
