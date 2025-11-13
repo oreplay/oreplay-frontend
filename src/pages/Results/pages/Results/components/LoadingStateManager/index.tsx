@@ -2,6 +2,7 @@ import { UseQueryResult } from "react-query"
 import React from "react"
 import ChooseClassMsg from "../ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
+import PullToRefetch from "./components/PullToRefetch"
 
 interface LoadingStateManagerProps<TData, TError> {
   skeleton: React.ReactNode
@@ -32,5 +33,13 @@ export default function LoadingStateManager<TData, TError>({
     return <GeneralErrorFallback />
   }
 
-  return <>{children}</>
+  return (
+    <PullToRefetch
+      onRefresh={async () => {
+        await query.refetch()
+      }}
+    >
+      {children}
+    </PullToRefetch>
+  )
 }
