@@ -7,7 +7,6 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import TotalsResultItem from "./components/TotalResultItem"
-import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 
 export default function TotalsResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -17,7 +16,6 @@ export default function TotalsResults(
   if (!props.activeItem) {
     return (
       <>
-        <ExperimentalFeatureAlert />
         <ChooseClassMsg />
       </>
     )
@@ -25,21 +23,18 @@ export default function TotalsResults(
   if (props.runnersQuery.isFetching) {
     return (
       <>
-        <ExperimentalFeatureAlert />
         <ResultsListSkeleton />
       </>
     )
   } else if (props.runnersQuery.isError) {
     return (
       <>
-        <ExperimentalFeatureAlert />
         <GeneralErrorFallback />
       </>
     )
   } else {
     return (
       <>
-        <ExperimentalFeatureAlert />
         <ResultListContainer>
           {runnersList?.map((runner: ProcessedRunnerModel) => {
             return <TotalsResultItem key={runner.id} runner={runner} isClass={props.isClass} />

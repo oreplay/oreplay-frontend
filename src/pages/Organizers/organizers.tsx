@@ -265,7 +265,7 @@ const Organizers = (): React.ReactNode => {
         <Typography>{t("DuringRace.UploadingOnlineControls.p1")}</Typography>
         <UploadOnlineControlsTabs />
         <Typography />
-        <Typography variant={"h3"}>{"🆕" + t("DuringRace.UploadingTotals.title")}</Typography>
+        <Typography variant={"h3"}>{t("DuringRace.UploadingTotals.title")}</Typography>
         <Typography>{t("DuringRace.UploadingTotals.p1")}</Typography>
         <Typography>{t("DuringRace.UploadingTotals.p2")}</Typography>
         <UploadingTotalsTabs />
