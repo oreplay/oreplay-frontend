@@ -37,7 +37,6 @@ import { Link } from "react-router-dom"
 import { MenuItem, Select, Toolbar } from "@mui/material"
 import { STAGE_TYPE_DATABASE_ID } from "../../../../../../Results/pages/Results/shared/constants.ts"
 import ConstructionIcon from "@mui/icons-material/Construction"
-import ScienceIcon from "@mui/icons-material/Science"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -127,11 +126,6 @@ export default function StagesDataGrid(props: Props) {
       value: STAGE_TYPE_DATABASE_ID.Totals,
       label: t("EventAdmin.Stages.StagesTypes.Totals.title"),
       description: t("EventAdmin.Stages.StagesTypes.Totals.description"),
-      icon: (
-        <Tooltip title={t("UnderDevelopment")}>
-          <ScienceIcon fontSize="small" />
-        </Tooltip>
-      ),
     },
   ]
 
