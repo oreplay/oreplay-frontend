@@ -1,8 +1,7 @@
 import React, { CSSProperties } from "react"
 import { parseStartTime } from "../../../../../shared/Functions.tsx"
-import { useTranslation } from "react-i18next"
 import { Typography } from "@mui/material"
-import { RESULT_STATUS } from "../../../shared/constants.ts"
+import { RESULT_STATUS_TEXT } from "../../../shared/constants.ts"
 import Status from "./Status.tsx"
 
 type StartTimeProps = {
@@ -12,13 +11,18 @@ type StartTimeProps = {
   style?: CSSProperties
 }
 
+/**
+ * Display the start time of a runner
+ * @param startTime start time ISO string
+ * @param status result_status_text string
+ * @param displayStatus weather to display the status of a runner when it is not ok and the runner doesn't have a start time. This is useful to display DNS runners without start time.
+ * @param style
+ * @constructor
+ */
 const StartTime: React.FC<StartTimeProps> = ({ startTime, status, displayStatus, style }) => {
-  const { t } = useTranslation()
   if (startTime == null) {
-    if (status != RESULT_STATUS.ok && displayStatus && status) {
+    if (status != RESULT_STATUS_TEXT.ok && displayStatus && status) {
       return <Status status={status} />
-    } else {
-      return t("ResultsStage.NoStartTime")
     }
   } else {
     const start = parseStartTime(startTime)
