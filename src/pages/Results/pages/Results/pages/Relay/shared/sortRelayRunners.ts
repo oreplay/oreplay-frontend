@@ -51,11 +51,10 @@ function compareIfNotBothHaveStarted(a: ProcessedRunnerModel, b: ProcessedRunner
   return multiLevelCompare(a, b, [compareFunctions.byStartedStatus, compareFunctions.byStartTime])
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function compareIfSameLegIsRunning(_a: ProcessedRunnerModel, _b: ProcessedRunnerModel): number {
-  // TODO: Implement. This make online controls work
+function compareIfSameLegIsRunning(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
+  // TODO: Implement online controls
 
-  return 0
+  return relayCompareFunctions.byLastCommonLegTime(a, b)
 }
 
 function compareIfNotSameLegIsRunning(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
