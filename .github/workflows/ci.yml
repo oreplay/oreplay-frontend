@@ -5,7 +5,7 @@ on:
     branches:
       - "*"
     tags:
-      - "*" # Runs when a tag is pushed
+      - "*"
   pull_request:
     branches:
       - "*"
@@ -57,6 +57,13 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: startsWith(github.ref, 'refs/tags/') # Artifacts are used only with tags
+        with:
+          name: dist-${{ github.ref_name }}
+          path: dist
+
   docker-build-push:
     needs: build
     if: startsWith(github.ref, 'refs/tags/')
@@ -85,3 +92,29 @@ jobs:
         run: |
           docker build -t oreplay/frontend:${VERSION} -f docker/Dockerfile .
           docker push oreplay/frontend:${VERSION}
+
+  deploy:
+    needs: [build, docker-build-push]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    name: Deploy production
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-${{ github.ref_name }}
+          path: dist
+
+      - name: Deploy
+        id: deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_COAST_02F129503 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          action: "upload"
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          app_location: "/" # App source code path
+          output_location: "dist" # Built app content directory - optional
+          skip_app_build: true
+          ###### End of Repository/Build Configurations ######
