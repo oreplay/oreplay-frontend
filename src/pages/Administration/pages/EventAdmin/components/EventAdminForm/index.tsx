@@ -6,9 +6,9 @@ import {
   InputLabel,
   Select,
   TextField,
-  Grid,
   Autocomplete,
   TextFieldProps,
+  Grid2 as Grid,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { DatePicker } from "@mui/x-date-pickers"
@@ -77,7 +77,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={12} md={12} lg={12}>
+        <Grid size={{ xs: 12, md: 12, lg: 12 }}>
           <TextField
             fullWidth
             id="description"
@@ -88,10 +88,10 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             defaultValue={props.eventDetail ? props.eventDetail.description : ""}
           />
         </Grid>
-        <Grid item xs={12} md={8} lg={12}>
+        <Grid size={{ xs: 12, md: 8, lg: 12 }}>
           <WebsiteField eventDetail={props.eventDetail} style_props={style_props} />
         </Grid>
-        <Grid item xs={12} md={4} lg={4}>
+        <Grid size={{ xs: 12, md: 4, lg: 4 }}>
           <Autocomplete<OrganizerModel, false, false, false>
             fullWidth
             id="organizer"
@@ -119,7 +119,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             isOptionEqualToValue={(option, value) => option.id === value.id}
           />
         </Grid>
-        <Grid item xs={12} md={2.7} lg={2}>
+        <Grid size={{ xs: 12, md: 2.7, lg: 2 }}>
           <DatePicker
             name={"startDate"}
             label={t("EventAdmin.StartDate") + " *"}
@@ -130,7 +130,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             }
           />
         </Grid>
-        <Grid item xs={12} md={2.7} lg={2}>
+        <Grid size={{ xs: 12, md: 2.7, lg: 2 }}>
           <DatePicker
             name={"endDate"}
             label={t("EventAdmin.FinishDate") + " *"}
@@ -139,7 +139,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
           />
         </Grid>
-        <Grid item xs={12} md={2.6} lg={2.5}>
+        <Grid size={{ xs: 12, md: 2.6, lg: 2.5 }}>
           <FormControl fullWidth required disabled={style_props.disabled}>
             <InputLabel id="scope-label">{t("EventAdmin.Scopes.Scope")}</InputLabel>
             <Select
@@ -158,7 +158,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={2} lg={1.5}>
+        <Grid size={{ xs: 12, md: 2, lg: 1.5 }}>
           <FormControl fullWidth>
             <FormControlLabel
               id={"isPublic"}
@@ -171,7 +171,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           </FormControl>
         </Grid>
       </Grid>
-      <Grid item xs={12} md={12} lg={12}>
+      <Grid size={{ xs: 12, md: 12, lg: 12 }}>
         <Box
           sx={{
             display: "flex",
