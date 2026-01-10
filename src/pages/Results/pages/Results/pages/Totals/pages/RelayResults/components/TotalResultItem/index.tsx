@@ -15,8 +15,7 @@ interface TotalsResultItemProps {
 
 export default function TotalsResultItem({
   runner,
-  isClass = true, // Default t
-  // o class view
+  isClass = true, // Default to class view
 }: TotalsResultItemProps) {
   const [expanded, setExpanded] = useState(false)
 
@@ -24,7 +23,13 @@ export default function TotalsResultItem({
 
   const handleExpandClick = useCallback(() => {
     setExpanded((value) => !value)
-  }, [setExpanded])
+    const channel = new BroadcastChannel("user_interaction")
+    channel.postMessage({
+      type: "RUNNER_EXPANDED",
+      payload: runner,
+      path: window.location.pathname,
+    })
+  }, [runner])
 
   const isPointBased = runner.overalls?.overall.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
 
