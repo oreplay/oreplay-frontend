@@ -19,11 +19,13 @@ import Checkbox from "@mui/material/Checkbox"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import EditIcon from "@mui/icons-material/Edit"
-import { useOrganizerSearch } from "../../../../services/EventAdminService.ts"
+import { getOrganizerList } from "../../../../services/EventAdminService.ts"
 import { EventDetailModel, OrganizerModel } from "../../../../../../shared/EntityTypes.ts"
 import ShareEventDialog from "../../pages/EventAdmin/components/ShareEventDialog.tsx"
 import { useForm } from "@tanstack/react-form"
 import { validateURL } from "./functions.ts"
+import { useQuery } from "react-query"
+import { useNotifications } from "@toolpad/core/useNotifications"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -63,6 +65,7 @@ const EVENT_NAME_MAX_LENGTH = 255
  */
 export default function EventAdminForm(props: EventAdminFormProps) {
   const { t } = useTranslation()
+  const notifications = useNotifications()
 
   const form = useForm({
     defaultValues: {
@@ -77,8 +80,20 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     onSubmit: ({ value }) => props.handleSubmit(value),
   })
 
-  const { data: organizersData, isSuccess: areOrganizersSuccess } = useOrganizerSearch(
-    !props.canEdit,
+  const organizersQuery = useQuery(
+    ["organizers"], // Query key
+    () => getOrganizerList(),
+    {
+      staleTime: Infinity,
+      enabled: props.canEdit,
+      onError: (error) => {
+        console.error(error)
+        notifications.show(t("EventAdmin.FailedToLoadOrganizers"), {
+          severity: "error",
+          autoHideDuration: 3000,
+        })
+      },
+    },
   )
 
   const style_props: TextFieldProps = {
@@ -174,7 +189,8 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                 value={field.state.value}
                 onChange={(_, newOrganizer) => field.handleChange(newOrganizer)}
                 disabled={style_props.disabled}
-                options={areOrganizersSuccess ? organizersData?.data : []}
+                loading={organizersQuery.isLoading}
+                options={organizersQuery.isSuccess ? organizersQuery.data?.data : []}
                 getOptionLabel={(option) => option.name || ""}
                 renderInput={(params) => (
                   <>

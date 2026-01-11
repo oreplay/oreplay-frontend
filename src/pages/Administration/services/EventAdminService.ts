@@ -11,8 +11,6 @@ import {
 } from "../../../shared/EntityTypes.ts"
 import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
 const baseUrl = "events"
-import { useQuery } from "react-query"
-import { AxiosError } from "axios"
 import { ApiStats } from "../../../domain/models/ApiStats.ts"
 
 export async function getEventsFromUser(
@@ -248,19 +246,4 @@ export async function invalidateEventToken(eventId: string, eventToken: string, 
 
 export async function getOrganizerList(): Promise<Page<OrganizerModel>> {
   return await get<Page<OrganizerModel>>("organizers")
-}
-
-/**
- * Custom hook to manage organizer search using React Query.
- *
- * @returns The query result.
- */
-export function useOrganizerSearch(disabled?: boolean) {
-  return useQuery<Page<OrganizerModel>, AxiosError<Page<OrganizerModel>>>(
-    ["organizers"], // Query key
-    () => getOrganizerList(),
-    {
-      enabled: !disabled,
-    },
-  )
 }
