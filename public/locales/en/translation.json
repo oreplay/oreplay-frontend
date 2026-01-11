@@ -111,7 +111,8 @@
       }
     },
     "StartDate": "Start date",
-    "TooLongMsg": "The entered URL exceeds the maximum of {{count}} characters",
+    "TooLongDescriptionMsg": "The provided name exceeds the maximum of {{count}} characters.",
+    "TooLongMsg": "The entered URL exceeds the maximum of {{count}} characters.",
     "Website": "Event's website"
   },
   "EventList": {
@@ -259,6 +260,7 @@
   "Stages": "Stages",
   "Success": "Success",
   "This action cannot be undone": "This action cannot be undone.",
+  "ThisFieldIsRequiredMsg": "This field is required.",
   "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
   "UnderDevelopment": "Under development",
   "authenticationError": "An error happened",

@@ -1,7 +1,5 @@
-import EventAdminForm from "../../components/EventAdminForm"
-import React from "react"
+import EventAdminForm, { EventAdminFormValues } from "../../components/EventAdminForm"
 import { postEvent } from "../../../../services/EventAdminService.ts"
-import { DateTime } from "luxon"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../../../../shared/hooks.ts"
 import { Container } from "@mui/material"
@@ -14,25 +12,22 @@ export default function CreateEvent() {
   const notifications = useNotifications()
 
   const handleCancel = () => void navigate("/dashboard")
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = (event: EventAdminFormValues) => {
     void createEvent(event)
   }
 
-  const createEvent = async (event: React.FormEvent<HTMLFormElement>) => {
-    const data = new FormData(event.currentTarget)
-    console.log(data)
+  const createEvent = async (event: EventAdminFormValues) => {
     try {
       const response = await postEvent(
-        data.get("description") as string,
-        DateTime.fromFormat(data.get("startDate") as string, "dd/MM/yyyy").toSQLDate() as string,
-        DateTime.fromFormat(data.get("endDate") as string, "dd/MM/yyyy").toSQLDate() as string,
-        data.get("scope") as string,
-        !!data.get("isPublic"),
+        event.description,
+        event.startDate?.toSQLDate() as string,
+        event.endDate?.toSQLDate() as string,
+        event.scope,
+        event.isPublic,
         token,
-        data.get("website") ? (data.get("website") as string) : undefined,
+        event.website,
         undefined,
-        data.get("organizerId") as string,
+        event.organizer?.id,
       )
       await navigate(`/admin/${response.data.id}`)
     } catch (e) {

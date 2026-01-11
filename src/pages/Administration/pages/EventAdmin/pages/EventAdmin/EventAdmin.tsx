@@ -1,12 +1,11 @@
-import EventAdminForm from "../../components/EventAdminForm"
+import EventAdminForm, { EventAdminFormValues } from "../../components/EventAdminForm"
 import { Alert, AlertTitle, Box, Container, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import StagesDataGrid from "./components/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
 import DeleteEventButton from "./components/DeleteEventButton.tsx"
-import React, { useState } from "react"
+import { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
-import { DateTime } from "luxon"
 import { EventDetailModel, useRequiredParams } from "../../../../../../shared/EntityTypes.ts"
 import { useAuth } from "../../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx"
@@ -26,21 +25,20 @@ export default function EventAdmin() {
 
   // Functions to handle Event update
   const [isEventEditing, setIsEventEditing] = useState<boolean>(false)
-  const handleUpdateEvent = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
+  const handleUpdateEvent = async (values: EventAdminFormValues) => {
+    console.log(values)
     try {
       await patchEvent(
         eventId,
-        data.get("description") as string,
-        DateTime.fromFormat(data.get("startDate") as string, "dd/MM/yyyy").toSQLDate() as string,
-        DateTime.fromFormat(data.get("endDate") as string, "dd/MM/yyyy").toSQLDate() as string,
-        data.get("scope") as string,
-        !!data.get("isPublic"),
+        values.description,
+        values.startDate?.toSQLDate() as string,
+        values.endDate?.toSQLDate() as string,
+        values.scope,
+        values.isPublic,
         token as string,
-        data.get("website") ? (data.get("website") as string) : undefined,
+        values.website,
         undefined,
-        data.get("organizerId") ? (data.get("organizerId") as string) : undefined,
+        values.organizer?.id,
       )
       setIsEventEditing(false)
     } catch (e) {
@@ -53,7 +51,6 @@ export default function EventAdmin() {
 
   const handleCancelEditingEvent = () => {
     setIsEventEditing(false)
-    //BUG, return to previous state
   }
 
   const handleClickEditEvent = () => setIsEventEditing(true)
@@ -82,7 +79,7 @@ export default function EventAdmin() {
             eventDetail={detail as EventDetailModel}
             handleCancel={handleCancelEditingEvent}
             handleEdit={handleClickEditEvent}
-            handleSubmit={(evt) => void handleUpdateEvent(evt)}
+            handleSubmit={(values) => void handleUpdateEvent(values)}
             canEdit={isEventEditing}
           />
         </Box>
