@@ -16,14 +16,14 @@ import { DateTime } from "luxon"
 import MenuItem from "@mui/material/MenuItem"
 import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
-import React, { useState } from "react"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import EditIcon from "@mui/icons-material/Edit"
 import { useOrganizerSearch } from "../../../../services/EventAdminService.ts"
-import WebsiteField from "./components/WebsiteField.tsx"
 import { EventDetailModel, OrganizerModel } from "../../../../../../shared/EntityTypes.ts"
 import ShareEventDialog from "../../pages/EventAdmin/components/ShareEventDialog.tsx"
+import { useForm } from "@tanstack/react-form"
+import { validateURL } from "./functions.ts"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -36,10 +36,23 @@ import ShareEventDialog from "../../pages/EventAdmin/components/ShareEventDialog
 interface EventAdminFormProps {
   eventDetail?: EventDetailModel
   canEdit?: boolean
-  handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
+  handleSubmit: (values: EventAdminFormValues) => void
   handleCancel?: () => void
   handleEdit?: () => void
 }
+
+export interface EventAdminFormValues {
+  description: string
+  website?: string
+  organizer: OrganizerModel | null
+  startDate: DateTime | null
+  endDate: DateTime | null
+  scope: string
+  isPublic: boolean
+}
+
+const WEBSITE_MAX_LENGTH = 120
+const EVENT_NAME_MAX_LENGTH = 255
 
 /**
  * This is are all the fields that can be set in an event. It can display the data if an event is
@@ -51,9 +64,19 @@ interface EventAdminFormProps {
 export default function EventAdminForm(props: EventAdminFormProps) {
   const { t } = useTranslation()
 
-  const [isEventPublic, setIsEventPublic] = useState<boolean>(
-    props.eventDetail ? !props.eventDetail.is_hidden : false,
-  )
+  const form = useForm({
+    defaultValues: {
+      description: props.eventDetail?.description ?? "",
+      website: props.eventDetail?.website ?? "",
+      organizer: props.eventDetail?.organizer || null,
+      startDate: props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null,
+      endDate: props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null,
+      scope: props.eventDetail?.scope ?? "",
+      isPublic: props.eventDetail ? !props.eventDetail.is_hidden : false,
+    },
+    onSubmit: ({ value }) => props.handleSubmit(value),
+  })
+
   const { data: organizersData, isSuccess: areOrganizersSuccess } = useOrganizerSearch(
     !props.canEdit,
   )
@@ -63,14 +86,14 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     disabled: !props.canEdit,
   }
 
-  const [selectedOrganizer, setSelectedOrganizer] = useState<OrganizerModel | null>(
-    props.eventDetail?.organizer ? props.eventDetail.organizer : null,
-  )
-
   return (
     <Container
       component="form"
-      onSubmit={props.handleSubmit}
+      onSubmit={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        void form.handleSubmit()
+      }}
       disableGutters
       sx={{
         marginY: "1em",
@@ -78,97 +101,173 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     >
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 12, lg: 12 }}>
-          <TextField
-            fullWidth
-            id="description"
-            name="description"
-            required
-            label={t("EventAdmin.EventName")}
-            {...style_props}
-            defaultValue={props.eventDetail ? props.eventDetail.description : ""}
-          />
+          <form.Field
+            name={"description"}
+            validators={{
+              onBlur: ({ value }) => (!value ? t("ThisFieldIsRequiredMsg") : undefined),
+              onChange: ({ value }) =>
+                !value
+                  ? undefined
+                  : value.length > EVENT_NAME_MAX_LENGTH
+                    ? t("EventAdmin.TooLongDescriptionMsg", { count: EVENT_NAME_MAX_LENGTH })
+                    : undefined,
+            }}
+          >
+            {(field) => (
+              <TextField
+                required
+                fullWidth
+                label={t("EventAdmin.EventName")}
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                error={!!field.state.meta.errors.length}
+                helperText={field.state.meta.errors.join(" ")}
+                {...style_props}
+              />
+            )}
+          </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 8, lg: 12 }}>
-          <WebsiteField eventDetail={props.eventDetail} style_props={style_props} />
+          <form.Field
+            name={"website"}
+            validators={{
+              onChange: ({ value }) =>
+                value
+                  ? value.length > WEBSITE_MAX_LENGTH
+                    ? t("EventAdmin.TooLongMsg", { count: WEBSITE_MAX_LENGTH })
+                    : undefined
+                  : undefined,
+              onBlur: ({ value }) =>
+                value
+                  ? validateURL(value)
+                    ? undefined
+                    : t("EventAdmin.InvalidURLMsg")
+                  : undefined,
+            }}
+          >
+            {(field) => (
+              <TextField
+                fullWidth
+                id="website"
+                name="website"
+                label={t("EventAdmin.Website")}
+                {...style_props}
+                autoComplete="url"
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => {
+                  field.handleChange(e.target.value)
+                }}
+                error={!!field.state.meta.errors.length}
+                helperText={field.state.meta.errors.join(" ")}
+              />
+            )}
+          </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 4, lg: 4 }}>
-          <Autocomplete<OrganizerModel, false, false, false>
-            fullWidth
-            id="organizer"
-            value={selectedOrganizer}
-            onChange={(_, newOrganizer) => setSelectedOrganizer(newOrganizer)}
-            disabled={style_props.disabled}
-            options={areOrganizersSuccess ? organizersData?.data : []}
-            getOptionLabel={(option) => option.name || ""}
-            renderInput={(params) => (
-              <>
-                <TextField
-                  {...params}
-                  label={t("EventAdmin.Organizer")}
-                  required
-                  {...style_props}
-                />
-                <input
-                  type={"hidden"}
-                  id="organizerId"
-                  name="organizerId"
-                  value={selectedOrganizer?.id || ""}
-                />
-              </>
+          <form.Field name={"organizer"}>
+            {(field) => (
+              <Autocomplete<OrganizerModel, false, false, false>
+                fullWidth
+                id="organizer"
+                value={field.state.value}
+                onChange={(_, newOrganizer) => field.handleChange(newOrganizer)}
+                disabled={style_props.disabled}
+                options={areOrganizersSuccess ? organizersData?.data : []}
+                getOptionLabel={(option) => option.name || ""}
+                renderInput={(params) => (
+                  <>
+                    <TextField
+                      {...params}
+                      label={t("EventAdmin.Organizer")}
+                      required
+                      {...style_props}
+                    />
+                  </>
+                )}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+              />
             )}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-          />
+          </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 2.7, lg: 2 }}>
-          <DatePicker
-            name={"startDate"}
-            label={t("EventAdmin.StartDate") + " *"}
-            disabled={style_props.disabled}
-            slotProps={{ textField: { ...style_props, fullWidth: true } }}
-            defaultValue={
-              props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null
-            }
-          />
+          <form.Field name={"startDate"}>
+            {(field) => (
+              <DatePicker
+                name={"startDate"}
+                label={t("EventAdmin.StartDate")}
+                disabled={style_props.disabled}
+                slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
+                value={field.state.value}
+                onChange={(date) => field.handleChange(date)}
+              />
+            )}
+          </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 2.7, lg: 2 }}>
-          <DatePicker
-            name={"endDate"}
-            label={t("EventAdmin.FinishDate") + " *"}
-            disabled={style_props.disabled}
-            slotProps={{ textField: { ...style_props, fullWidth: true } }}
-            defaultValue={props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null}
-          />
+          <form.Field name={"endDate"}>
+            {(field) => (
+              <DatePicker
+                name={"endDate"}
+                label={t("EventAdmin.FinishDate")}
+                disabled={style_props.disabled}
+                slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
+                value={field.state.value}
+                onChange={(date) => {
+                  field.handleChange(date)
+                }}
+              />
+            )}
+          </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 2.6, lg: 2.5 }}>
-          <FormControl fullWidth required disabled={style_props.disabled}>
-            <InputLabel id="scope-label">{t("EventAdmin.Scopes.Scope")}</InputLabel>
-            <Select
-              id="scope"
-              name={"scope"}
-              labelId="scope-label"
-              label={t("EventAdmin.Scopes.Scope")}
-              defaultValue={props.eventDetail ? props.eventDetail.scope : ""}
-            >
-              <MenuItem value={"int"}>{t("EventAdmin.Scopes.International")}</MenuItem>
-              <MenuItem value={"nat"}>{t("EventAdmin.Scopes.National")}</MenuItem>
-              <MenuItem value={"r.h"}>{t("EventAdmin.Scopes.RegionalHigh")}</MenuItem>
-              <MenuItem value={"r.l"}>{t("EventAdmin.Scopes.RegionalLow")}</MenuItem>
-              <MenuItem value={"loc"}>{t("EventAdmin.Scopes.Local")}</MenuItem>
-              <MenuItem value={"clu"}>{t("EventAdmin.Scopes.Club")}</MenuItem>
-            </Select>
-          </FormControl>
+          <form.Field name={"scope"}>
+            {(field) => (
+              <FormControl fullWidth required disabled={style_props.disabled}>
+                <InputLabel id="scope-label">{t("EventAdmin.Scopes.Scope")}</InputLabel>
+                <Select
+                  id="scope"
+                  name={"scope"}
+                  labelId="scope-label"
+                  label={t("EventAdmin.Scopes.Scope")}
+                  value={field.state.value}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value)
+                  }}
+                >
+                  <MenuItem value={"int"}>{t("EventAdmin.Scopes.International")}</MenuItem>
+                  <MenuItem value={"nat"}>{t("EventAdmin.Scopes.National")}</MenuItem>
+                  <MenuItem value={"r.h"}>{t("EventAdmin.Scopes.RegionalHigh")}</MenuItem>
+                  <MenuItem value={"r.l"}>{t("EventAdmin.Scopes.RegionalLow")}</MenuItem>
+                  <MenuItem value={"loc"}>{t("EventAdmin.Scopes.Local")}</MenuItem>
+                  <MenuItem value={"clu"}>{t("EventAdmin.Scopes.Club")}</MenuItem>
+                </Select>
+              </FormControl>
+            )}
+          </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 2, lg: 1.5 }}>
-          <FormControl fullWidth>
-            <FormControlLabel
-              id={"isPublic"}
-              name={"isPublic"}
-              control={<Checkbox checked={isEventPublic} />}
-              onChange={() => setIsEventPublic(!isEventPublic)}
-              label={t("EventAdmin.Public")}
-              disabled={!props.canEdit}
-            />
-          </FormControl>
+          <form.Field name={"isPublic"}>
+            {(field) => (
+              <FormControl fullWidth>
+                <FormControlLabel
+                  id={"isPublic"}
+                  name={"isPublic"}
+                  control={
+                    <Checkbox
+                      onChange={(e) => {
+                        field.handleChange(e.target.checked)
+                      }}
+                      checked={field.state.value}
+                    />
+                  }
+                  label={t("EventAdmin.Public")}
+                  disabled={!props.canEdit}
+                />
+              </FormControl>
+            )}
+          </form.Field>
         </Grid>
       </Grid>
       <Grid size={{ xs: 12, md: 12, lg: 12 }}>
@@ -192,7 +291,17 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             )}
             {props.canEdit ? (
               <>
-                <Button variant="outlined" startIcon={<CloseIcon />} onClick={props.handleCancel}>
+                <Button
+                  variant="outlined"
+                  startIcon={<CloseIcon />}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    form.reset()
+                    if (props.handleCancel) {
+                      props.handleCancel()
+                    }
+                  }}
+                >
                   {t("Cancel")}
                 </Button>
                 <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
