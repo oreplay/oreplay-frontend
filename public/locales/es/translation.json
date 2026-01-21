@@ -249,7 +249,7 @@
   "Sign in": {
     "ForgotPassword": "¿Olvidaste tu contraseña?",
     "Logout": "Cerrar sesion",
-    "NoAccount": "¿No tienes cuenta? Regístrate",
+    "NoAccount": "¿No tienes cuenta? <1>Regístrate</1>",
     "RememberMe": "Recordarme",
     "Sign in": "Iniciar sesión"
   },

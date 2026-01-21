@@ -18,6 +18,7 @@ const InItSignIn = lazy(
   () => import("./pages/Administration/pages/Authentication/pages/InItSignIn.tsx"),
 )
 const SignIn = lazy(() => import("./pages/Administration/pages/Authentication/pages/SignIn.tsx"))
+const SignUp = lazy(() => import("./pages/Administration/pages/Authentication/pages/SignUp"))
 const Authentication = lazy(
   () => import("./pages/Administration/pages/Authentication/pages/Authentication.tsx"),
 )
@@ -89,6 +90,7 @@ export default function App() {
                   <Route path={"form"} element={<SignIn />} />
                   <Route path={"auth"} element={<Authentication />} />
                 </Route>
+                <Route path={"/sign-up"} element={<SignUp />} />
               </Routes>
             </BrowserRouter>
           </Suspense>

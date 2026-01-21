@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material"
 import React from "react"
-import { useTranslation } from "react-i18next"
+import { Trans, useTranslation } from "react-i18next"
 import { Navigate, useSearchParams } from "react-router-dom"
 import { API_DOMAIN } from "../../../../../services/ApiConfig.ts"
 
@@ -103,16 +103,21 @@ export default function SignIn() {
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               {t("Sign in.Sign in")}
             </Button>
-            <Grid container sx={{ display: "none" }}>
-              <Grid item xs>
+            <Grid container>
+              <Grid item xs sx={{ display: "none" }}>
                 <Link href="#" variant="body2">
                   {t("Sign in.ForgotPassword")}
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {t("Sign in.NoAccount")}
-                </Link>
+                <Typography sx={{ fontSize: "small" }}>
+                  <Trans i18nKey={"Sign in.NoAccount"}>
+                    Don't have an account?
+                    <Link href="/sign-up" variant="body2">
+                      Sign up
+                    </Link>
+                  </Trans>
+                </Typography>
               </Grid>
             </Grid>
           </Box>
