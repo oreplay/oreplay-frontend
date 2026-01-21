@@ -1,4 +1,4 @@
-import i18next from "i18next"
+import i18next, { TFunction } from "i18next"
 import { DateTime, Duration } from "luxon"
 
 export function parseDate(dateString: string) {
@@ -87,5 +87,17 @@ export function formatScoreAsInteger(score: number | null | undefined): string {
   } else {
     // Has decimal places - display as-is
     return score.toString()
+  }
+}
+
+export function maxLengthValidator(
+  value: string,
+  maxLength: number,
+  t: TFunction,
+): string | undefined {
+  if (value.length > maxLength) {
+    return t("FieldTooLongMsg", { count: maxLength })
+  } else {
+    return undefined
   }
 }
