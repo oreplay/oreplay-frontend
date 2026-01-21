@@ -123,6 +123,7 @@
   },
   "Events": "Events",
   "ExperimentalFeatureMsg": "Experimental feature",
+  "FieldTooLongMsg": "Maximum {{count}} characters allowed.",
   "ForbiddenAccess": "Forbidden access",
   "GeneralErrorFallback": {
     "msg": "Try refreshing the page. If the error persist, please try again later.",
@@ -245,9 +246,44 @@
   "Sign in": {
     "ForgotPassword": "Forgot password?",
     "Logout": "Logout",
-    "NoAccount": "Don't have an account? Sign Up",
+    "NoAccount": "Don't have an account? <1>Sign Up</1>",
     "RememberMe": "Remember me",
     "Sign in": "Sign in"
+  },
+  "SignUp": {
+    "AlreadyHaveAccount": "Already have an account? <1>Sign in</1>",
+    "Email": {
+      "Validation": {
+        "EnterValidEmailAddress": "Please, enter a valid email address."
+      }
+    },
+    "EmailVerification": {
+      "title": "Please verify your email address",
+      "msg": "A verification link has been sent to {{email}}. Please check your inbox and click the link to verify your account."
+    },
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "Password": {
+      "Validation": {
+        "AtLeastCharacter_one": "At least {{count}} character",
+        "AtLeastCharacter_other": "At least {{count}} characters",
+        "AtLeastLowercase_one": "At least {{count}} lowercase letter",
+        "AtLeastLowercase_other": "At least {{count}} lowercase letters",
+        "AtLeastNumber_one": "At least {{count}} number",
+        "AtLeastNumber_other": "At least {{count}} numbers",
+        "AtLeastSymbol_one": "At least {{count}} special character",
+        "AtLeastSymbol_other": "At least {{count}} special character",
+        "AtLeastUppercase_one": "At least {{count}} uppercase letter",
+        "AtLeastUppercase_other": "At least {{count}} uppercase letters",
+        "DoesntMeetCriteria": "Password doesn't meet the requirements"
+      },
+      "InvalidPassword": "Invalid password"
+    },
+    "SignUp": "Sign up",
+    "TermsConditions": {
+      "label": "I have read and accept the <1>terms and conditions</1>.",
+      "notChecked": "You must accept the terms and conditions."
+    }
   },
   "StageHeader": {
     "Graphs": "Graphs",
