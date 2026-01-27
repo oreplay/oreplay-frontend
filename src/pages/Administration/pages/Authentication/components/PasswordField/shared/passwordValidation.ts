@@ -77,7 +77,7 @@ export function passwordChecks(
     },
     {
       label: t("SignUp.Password.Validation.AtLeastSymbol", { count: options.minSymbol }),
-      valid: /[!@#$%^&*.,]/.test(password),
+      valid: /[!@#$%^&*.,-]/.test(password),
     },
   ]
 }
