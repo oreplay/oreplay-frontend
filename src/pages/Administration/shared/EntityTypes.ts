@@ -13,4 +13,5 @@ export interface SignUpUser {
   last_name: string
   email: string
   password: string
+  preferred_language: string
 }

@@ -30,14 +30,6 @@ const MAX_LENGTH = {
   password: 64,
 }
 
-const formDefaultValues: SignUpFormState = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  password: "",
-  terms_conditions: false,
-}
-
 interface SignUpFormProps {
   onSubmit: (value: SignUpFormState) => void
   isSubmitting?: boolean
@@ -49,7 +41,16 @@ interface SignUpFormProps {
  * @param isSubmitting State of the mutation associated to the form submission.
  */
 export default function SignUpForm({ onSubmit, isSubmitting }: SignUpFormProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+
+  const formDefaultValues: SignUpFormState = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    terms_conditions: false,
+    preferred_language: i18n.language,
+  }
   const form = useForm({
     defaultValues: formDefaultValues,
     onSubmit: ({ value }) => onSubmit(value),
