@@ -9,9 +9,10 @@ interface SignUpResponseModel extends SignUpUser {
 }
 
 export interface SignUpUser {
+  email: string
+  email_me: boolean
   first_name: string
   last_name: string
-  email: string
   password: string
   preferred_language: string
 }
