@@ -44,12 +44,13 @@ export default function SignUpForm({ onSubmit, isSubmitting }: SignUpFormProps) 
   const { t, i18n } = useTranslation()
 
   const formDefaultValues: SignUpFormState = {
-    first_name: "",
-    last_name: "",
     email: "",
+    first_name: "",
+    email_me: false,
+    last_name: "",
     password: "",
-    terms_conditions: false,
     preferred_language: i18n.language,
+    terms_conditions: false,
   }
   const form = useForm({
     defaultValues: formDefaultValues,
@@ -76,7 +77,6 @@ export default function SignUpForm({ onSubmit, isSubmitting }: SignUpFormProps) 
           e.stopPropagation()
           void form.handleSubmit()
         }}
-        maxWidth="xs"
         sx={{
           marginTop: 4,
           display: "flex",
@@ -84,6 +84,7 @@ export default function SignUpForm({ onSubmit, isSubmitting }: SignUpFormProps) 
           justifyContent: "flex-start",
           alignItems: "center",
           gap: 2,
+          maxWidth: "450px",
         }}
       >
         <form.Field
@@ -162,15 +163,16 @@ export default function SignUpForm({ onSubmit, isSubmitting }: SignUpFormProps) 
         >
           {(field) => <PasswordField field={field} />}
         </form.Field>
-        <form.Field
-          name={"terms_conditions"}
-          validators={{
-            onSubmit: ({ value }) => (value ? undefined : t("SignUp.TermsConditions.notChecked")),
-            onChange: ({ value }) => (value ? undefined : t("SignUp.TermsConditions.notChecked")),
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            marginX: "1rem",
           }}
         >
-          {(field) => (
-            <FormControl error={!!field.state.meta.errors}>
+          <form.Field name={"email_me"}>
+            {(field) => (
               <FormControlLabel
                 control={
                   <Checkbox
@@ -180,24 +182,47 @@ export default function SignUpForm({ onSubmit, isSubmitting }: SignUpFormProps) 
                     color="primary"
                   />
                 }
-                label={
-                  <Typography variant={"caption"}>
-                    <Trans i18nKey={"SignUp.TermsConditions.label"}>
-                      First
-                      <Link target={"_blank"} href={"/legal-notice"}>
-                        terms and conditions
-                      </Link>
-                      last.
-                    </Trans>
-                  </Typography>
-                }
+                label={<Typography variant={"caption"}>{t("SignUp.EmailMe")}</Typography>}
               />
-              {field.state.meta.errors && (
-                <FormHelperText>{field.state.meta.errors[0]}</FormHelperText>
-              )}
-            </FormControl>
-          )}
-        </form.Field>
+            )}
+          </form.Field>
+          <form.Field
+            name={"terms_conditions"}
+            validators={{
+              onSubmit: ({ value }) => (value ? undefined : t("SignUp.TermsConditions.notChecked")),
+              onChange: ({ value }) => (value ? undefined : t("SignUp.TermsConditions.notChecked")),
+            }}
+          >
+            {(field) => (
+              <FormControl error={!!field.state.meta.errors}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={!!field.state.value}
+                      onChange={(e) => field.handleChange(e.target.checked)}
+                      onBlur={field.handleBlur}
+                      color="primary"
+                    />
+                  }
+                  label={
+                    <Typography variant={"caption"}>
+                      <Trans i18nKey={"SignUp.TermsConditions.label"}>
+                        First
+                        <Link target={"_blank"} href={"/legal-notice"}>
+                          terms and conditions
+                        </Link>
+                        last.
+                      </Trans>
+                    </Typography>
+                  }
+                />
+                {field.state.meta.errors && (
+                  <FormHelperText>{field.state.meta.errors[0]}</FormHelperText>
+                )}
+              </FormControl>
+            )}
+          </form.Field>
+        </Box>
         <Button
           type="submit"
           fullWidth

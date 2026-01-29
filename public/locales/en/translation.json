@@ -251,6 +251,7 @@
     "Sign in": "Sign in"
   },
   "SignUp": {
+    "EmailMe": "I want to receive updates via email.",
     "AlreadyHaveAccount": "Already have an account? <1>Sign in</1>",
     "Email": {
       "Validation": {
@@ -259,7 +260,7 @@
     },
     "EmailVerification": {
       "title": "Please verify your email address",
-      "msg": "A verification link has been sent to {{email}}. Please check your inbox and click the link to verify your account."
+      "msg": "A verification link has been sent to {{email}}. Please check your inbox and click the link to verify your account. You can safely close this window."
     },
     "FirstName": "First Name",
     "LastName": "Last Name",
@@ -281,7 +282,7 @@
     },
     "SignUp": "Sign up",
     "TermsConditions": {
-      "label": "I have read and accept the <1>terms and conditions</1>.",
+      "label": "I have read and accept the <1>terms and conditions</1>.*",
       "notChecked": "You must accept the terms and conditions."
     }
   },
