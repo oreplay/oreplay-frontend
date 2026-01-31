@@ -8,14 +8,15 @@ export const STAGE_TYPE_DATABASE_ID = {
 }
 
 export const UPLOAD_TYPES = {
-  ONLINE_SPLITS: "res_intermediates",
-  SPLIT_RESULT: "res_splits",
+  COMPUTABLE_ORG: "computable_org",
+  ENTRY_LIST: "entry_list",
   FINAL_RESULT: "res_finish",
+  ONLINE_SPLITS: "res_intermediates",
+  RANKING_COMPUTED: "ranking_computed",
+  SPLIT_RESULT: "res_splits",
   START_TIMES: "start_list",
   TOTAL_POINTS: "total_points",
   TOTAL_TIMES: "total_times",
-  RANKING_COMPUTED: "ranking_computed",
-  COMPUTABLE_ORG: "computable_org",
 }
 
 /**

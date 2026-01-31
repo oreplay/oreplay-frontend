@@ -27,6 +27,9 @@ export function hasChipDownload(
     case UPLOAD_TYPES.START_TIMES:
       return false
 
+    case UPLOAD_TYPES.ENTRY_LIST:
+      return false
+
     case UPLOAD_TYPES.ONLINE_SPLITS:
       return false
 
