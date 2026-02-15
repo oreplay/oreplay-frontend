@@ -26,14 +26,17 @@ export default function TotalsStageTime({
 }: TotalStageTimeProps) {
   const trueStyle = { ...style, color: highlight ? "primary.main" : "text.secondary" }
 
+  const isStatusOkOrNc = !displayStatus || status == RESULT_STATUS.ok || status === RESULT_STATUS.nc
   if (time) {
     // Runner did run the race
 
-    if (!displayStatus || status == RESULT_STATUS.ok || status === RESULT_STATUS.nc) {
+    if (isStatusOkOrNc) {
       return <Typography sx={style}>{`${parseSecondsToMMSS(time)} (${position})`}</Typography>
     } else if (displayStatus) {
       return <Status status={parseResultStatus(status)} style={trueStyle} />
     }
+  } else if (position && isStatusOkOrNc) {
+    return <Typography sx={style}>{`(${position}º)`}</Typography>
   }
 
   return <Typography sx={trueStyle}>{"--"}</Typography>
