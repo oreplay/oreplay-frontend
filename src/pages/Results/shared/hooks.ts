@@ -31,6 +31,7 @@ export function useFetchClasses(): {
     () => getClassesInStage(eventId as string, stageId as string),
     {
       refetchOnWindowFocus: false,
+      staleTime: 15000,
     },
   )
 
@@ -39,6 +40,7 @@ export function useFetchClasses(): {
     () => getClubsInStage(eventId as string, stageId as string),
     {
       refetchOnWindowFocus: false,
+      staleTime: 15000,
     },
   )
 

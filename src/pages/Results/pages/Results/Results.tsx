@@ -10,6 +10,9 @@ import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { STAGE_TYPE_DATABASE_ID } from "./shared/constants.ts"
 import PrivateEventPage from "../../../PrivateEventError"
+import { useQuery } from "react-query"
+import { getClassesInStage } from "../../services/EventService.ts"
+import NoDataInStageMsg from "./components/NoDataInStageMsg.tsx"
 
 export default function Results() {
   const { t } = useTranslation()
@@ -23,8 +26,17 @@ export default function Results() {
   const singleStage: boolean = eventDetail?.stages.length == 1
   const stageDetail = eventDetail?.stages.find((stage) => stage.id === stageId)
 
+  // Has the stage data uploaded? Check if classes are created
+  const classesQuery = useQuery(
+    ["classes", stageId, eventId],
+    () => getClassesInStage(eventId as string, stageId as string),
+    {
+      refetchOnWindowFocus: false,
+    },
+  )
+
   // Loading states
-  if (isLoading) {
+  if (isLoading || classesQuery.isLoading) {
     return <GeneralSuspenseFallback />
 
     // Error states
@@ -34,9 +46,9 @@ export default function Results() {
     } else if (error.response?.status === 401 || error.response?.status === 403) {
       return <PrivateEventPage />
     }
-    {
-      return <GeneralErrorFallback displayMsg />
-    }
+    return <GeneralErrorFallback displayMsg />
+  } else if (classesQuery.isError) {
+    return <GeneralErrorFallback displayMsg />
 
     // Component
   } else {
@@ -58,10 +70,15 @@ export default function Results() {
             }
             singleStage={singleStage}
           />
-          <StageTypeSelector
-            key={`StageTypeSelector${eventDetail?.id}`}
-            stageType={stageDetail?.stage_type.id}
-          />
+          {classesQuery.isSuccess && classesQuery.data.data.length > 0 ? (
+            <StageTypeSelector // display stage data
+              key={`StageTypeSelector${eventDetail?.id}`}
+              stageType={stageDetail?.stage_type.id}
+            />
+          ) : (
+            // No classes created: no data available
+            <NoDataInStageMsg />
+          )}
         </ErrorBoundary>
       </Suspense>
     )
