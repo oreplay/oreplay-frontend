@@ -1,32 +1,12 @@
 import { Box, Container, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import { GridColDef, DataGrid, GridRowParams } from "@mui/x-data-grid"
-import { useEffect, useState } from "react"
-import { getEventsFromUser } from "../../services/EventAdminService.ts"
 import { useNavigate } from "react-router-dom"
 import Button from "@mui/material/Button"
 import AddIcon from "@mui/icons-material/Add"
-import VisibilityIcon from "@mui/icons-material/Visibility"
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
-import { EventModel, UserModel } from "../../../../shared/EntityTypes.ts"
-import { useAuth } from "../../../../shared/hooks.ts"
-import Tooltip from "@mui/material/Tooltip"
-
-interface EventDataGridColumns {
-  id: string
-  startDate: string
-  endDate: string
-  name: string
-  isHidden: boolean
-}
+import EventsDataGrid from "./components/EventsDataGrid"
 
 export default function Dashboard() {
   const { t } = useTranslation()
-  const { user, token } = useAuth()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const rowsPerPage = 15
-  const [totalRows, setTotalRows] = useState<number>(0)
-  const [page, setPage] = useState<number>(0)
   const navigate = useNavigate()
 
   function handleClick(params: GridRowParams) {
@@ -93,23 +73,17 @@ export default function Dashboard() {
         <Typography variant="h1" color="primary.main">
           {t("Dashboard.YourEvents")}
         </Typography>
-        <Box sx={{ mb: "10px" }}>
-          <Button onClick={() => void navigate("/admin/create-event")} variant="contained">
-            <AddIcon />
-          </Button>
-        </Box>
-        <DataGrid
-          columns={columns}
-          loading={isLoading}
-          rows={rows}
-          rowCount={totalRows}
-          paginationMode={"server"}
-          paginationModel={{ page: page, pageSize: rowsPerPage }}
-          onPaginationModelChange={(model) => {
-            setPage(model.page)
-          }}
-          onRowClick={handleClick}
-        />
+        <Typography component={"p"} variant={"body2"} color="text.secondary" sx={{ mb: 4 }}>
+          {t("Dashboard.YourEvents.description")}
+        </Typography>
+        <Container sx={{ p: 4, borderRadius: 3, backgroundColor: "white" }}>
+          <Box sx={{ mb: "10px" }}>
+            <Button onClick={() => void navigate("/admin/create-event")} variant="contained">
+              <AddIcon />
+            </Button>
+            <EventsDataGrid />
+          </Box>
+        </Container>
       </Container>
     </Box>
   )
