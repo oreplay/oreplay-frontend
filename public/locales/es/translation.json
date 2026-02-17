@@ -33,7 +33,7 @@
     "EventData": "Información del evento",
     "EventId": "ID del evento",
     "EventName": "Nombre del evento",
-    "EventSecurityTokens": "Clave de seguridad para el cliente de escritorio",
+    "EventSecurityTokens": "Clave de seguridad",
     "EventSecurityTokensExpireDate": "Expira el",
     "FinishDate": "Fecha de final",
     "Hidden": "Privado",

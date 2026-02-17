@@ -17,8 +17,6 @@ export default function EventsDataGridToolbar() {
       sx={{
         display: "flex",
         justifyContent: "flex-end",
-        borderBottom: "1px solid",
-        borderColor: "divider",
         backgroundColor: "background.paper",
       }}
     >

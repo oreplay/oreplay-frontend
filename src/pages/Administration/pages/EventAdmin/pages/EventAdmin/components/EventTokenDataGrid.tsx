@@ -4,7 +4,7 @@ import {
   invalidateEventToken,
   postEventToken,
 } from "../../../../../services/EventAdminService.ts"
-import { Container, Grid, TextField } from "@mui/material"
+import { Container, FormLabel, Grid2 as Grid, TextField } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
 import { DateTime } from "luxon"
@@ -69,33 +69,35 @@ export default function EventTokenDataGrid(props: Props) {
           marginY: "2em",
         }}
       >
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
+          <FormLabel>{t("EventAdmin.EventSecurityTokens")}</FormLabel>
           <TextField
             fullWidth
             id="securityToken"
             name="securityToken"
-            label={t("EventAdmin.EventSecurityTokens")}
             value={isLoading ? t("Loading") : eventToken ? `${props.event_id}${eventToken}` : ""}
             disabled
-            InputProps={{
-              endAdornment: (
-                <RefreshButton
-                  eventToken={eventToken || ""}
-                  handleRenewToken={handleRenewToken}
-                  eventId={props.event_id}
-                />
-              ),
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <RefreshButton
+                    eventToken={eventToken || ""}
+                    handleRenewToken={handleRenewToken}
+                    eventId={props.event_id}
+                  />
+                ),
+              },
             }}
           />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
+          <FormLabel>{t("EventAdmin.EventSecurityTokensExpireDate")}</FormLabel>
           <TextField
             fullWidth
             id="tokenExpiracyDate"
             name="token expiry date"
             error={eventTokenExpireDate ? eventTokenExpireDate < DateTime.now() : false}
             disabled
-            label={t("EventAdmin.EventSecurityTokensExpireDate")}
             value={
               isLoading
                 ? t("Loading")
