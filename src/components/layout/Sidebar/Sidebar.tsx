@@ -24,6 +24,7 @@ import AuthenticationSidebarItem from "./components/AuthenticationSidebarItem.ts
 import { useAuth } from "../../../shared/hooks.ts"
 import { useQuery } from "react-query"
 import { getBackendVersion } from "../../../services/VersionService.ts"
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts"
 
 type Props = {
   openSidebar: boolean
@@ -120,19 +121,34 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
           </ListItem>
           <Divider />
           {user && (
-            <ListItem>
-              <ListItemButton
-                onClick={() => {
-                  void navigate("/dashboard")
-                  setOpenSidebar((prev) => !prev)
-                }}
-              >
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary={t("Dashboard.Dashboard")} />
-              </ListItemButton>
-            </ListItem>
+            <>
+              <ListItem>
+                <ListItemButton
+                  onClick={() => {
+                    void navigate("/dashboard")
+                    setOpenSidebar((prev) => !prev)
+                  }}
+                >
+                  <ListItemIcon>
+                    <DashboardIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={t("Dashboard.Dashboard")} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton
+                  onClick={() => {
+                    void navigate("/my-account")
+                    setOpenSidebar((prev) => !prev)
+                  }}
+                >
+                  <ListItemIcon>
+                    <ManageAccountsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={t("MyAccount.title")} />
+                </ListItemButton>
+              </ListItem>
+            </>
           )}
           <AuthenticationSidebarItem />
         </List>

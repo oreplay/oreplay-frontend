@@ -151,6 +151,13 @@
   "Loading": "Loading",
   "Location": "Location",
   "Menu": "Menu",
+  "MyAccount": {
+    "title": "My profile",
+    "description": "Manage your personal information.",
+    "personalInformation": {
+      "title": "Personal information"
+    }
+  },
   "Name": "Name",
   "Organizer": "Organizer",
   "Organizers": "Organizer's info",
@@ -313,5 +320,7 @@
     "radios": "Radios",
     "splits": "Splits",
     "timeLoss": "Time Loss Table"
-  }
+  },
+  "firstName": "First name",
+  "lastName": "Last Name"
 }
