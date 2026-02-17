@@ -26,7 +26,7 @@ export default function Layout() {
   }, [notifications, t])
 
   return (
-    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Header key={"AppHeader"} setOpenSidebar={setIsSideBarOpen} />
       <Sidebar key={"AppSidebar"} openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
 
