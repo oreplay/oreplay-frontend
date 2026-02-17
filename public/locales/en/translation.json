@@ -35,15 +35,22 @@
     "Do you want to delete this event?": "Do you want to delete this event?",
     "Do you want to renew the security key?": "Do you want to renew the security key?",
     "EventData": "Event's information",
+    "EventDataDescription": "View and edit the main details of your event",
     "EventId": "Event's ID",
     "EventName": "Event's name",
-    "EventSecurityTokens": "Secret key for desktop client",
-    "EventSecurityTokensExpireDate": "Expires on",
+    "DataUpload": {
+      "title": "Data upload",
+      "description": "This security information allows data uploads to this specific event. Share it only with your team. It can be revoked at any time."
+    },
+    "EventNamePlaceholder": "A great event to participate on",
+    "EventSecurityTokens": "Secret key",
+    "EventSecurityTokensExpireDate": "Expiration date",
     "FinishDate": "Finish date",
     "Hidden": "Hidden",
     "InvalidURLMsg": "Invalid URL",
     "Location": "Location",
     "Organizer": "Organizer",
+    "OrganizerPlaceholder": "Awesome club",
     "Public": "Public",
     "QRCode": {
       "CopyUrl": "Copy Event URL",
@@ -62,6 +69,7 @@
     "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
     "Save": "Save",
     "Scopes": {
+      "Placeholder": "Scope",
       "Club": "Club",
       "International": "International",
       "Local": "Local",
@@ -71,6 +79,7 @@
       "Scope": "Scope"
     },
     "Stages": {
+      "description": "Create as many stages as your event requires. Each event must have at least one stage.",
       "DeleteStage": {
         "DialogBody": "The stage and all of its results will be deleted. This action cannot be undone.",
         "DialogTitle": "Do you want to delete this stage?",
@@ -117,7 +126,8 @@
     "StartDate": "Start date",
     "TooLongDescriptionMsg": "The provided name exceeds the maximum of {{count}} characters.",
     "TooLongMsg": "The entered URL exceeds the maximum of {{count}} characters.",
-    "Website": "Event's website"
+    "Website": "Event's website",
+    "WebsitePlaceholder": "https://yourclub.com/yourevent"
   },
   "EventList": {
     "FutureEvents": "Future events",

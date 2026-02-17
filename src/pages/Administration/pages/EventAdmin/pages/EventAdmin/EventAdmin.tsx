@@ -1,5 +1,5 @@
 import EventAdminForm, { EventAdminFormValues } from "../../components/EventAdminForm"
-import { Alert, AlertTitle, Box, Container, Typography } from "@mui/material"
+import { Alert, AlertTitle, Box, Container, Divider, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import StagesDataGrid from "./components/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
@@ -72,9 +72,24 @@ export default function EventAdmin() {
     return <GeneralErrorFallback />
   } else {
     return (
-      <Container>
-        <Box sx={{ marginY: "2em" }}>
-          <Typography variant={"h3"}>{t("EventAdmin.EventData")}</Typography>
+      <Box sx={{ height: "100%", backgroundColor: "#f6f6f6", py: 6 }}>
+        <Container maxWidth={"md"}>
+          {/* Header information */}
+          <Typography component="h1" variant="h5" fontWeight={600} gutterBottom>
+            {detail?.description}
+          </Typography>
+          <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+            {detail?.organizer?.name}
+          </Typography>
+          <Divider sx={{ mb: 4 }} />
+
+          {/* Event's information */}
+          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mb: 1 }}>
+            {t("EventAdmin.EventData")}
+          </Typography>
+          <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {t("EventAdmin.EventDataDescription")}
+          </Typography>
           <EventAdminForm
             eventDetail={detail as EventDetailModel}
             handleCancel={handleCancelEditingEvent}
@@ -82,20 +97,38 @@ export default function EventAdmin() {
             handleSubmit={(values) => void handleUpdateEvent(values)}
             canEdit={isEventEditing}
           />
-        </Box>
-        <Box sx={{ marginY: "2em" }}>
-          <Typography variant={"h3"}>{t("Stages")}</Typography>
-          {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
-        </Box>
-        <Box sx={{ marginY: "2em" }}>
-          <Typography variant={"h3"}>{t("EventAdmin.EventSecurityTokens")}</Typography>
-          <EventTokenDataGrid event_id={detail ? detail.id : ""} />
-        </Box>
-        <Box sx={{ marginY: "12em" }}>
-          <Typography variant={"h3"}>{t("EventAdmin.DangerArea")}</Typography>
-          {detail ? <DeleteEventButton event={detail} /> : <></>}
-        </Box>
-      </Container>
+
+          {/* Stages  */}
+          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mt: 4, mb: 1 }}>
+            {t("Stages")}
+          </Typography>
+          <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {t("EventAdmin.Stages.description")}
+          </Typography>
+          <Box sx={{ p: 4, borderRadius: 3, backgroundColor: "white" }}>
+            {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
+          </Box>
+
+          {/* Upload data */}
+          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mt: 4, mb: 1 }}>
+            {t("EventAdmin.DataUpload.title")}
+          </Typography>
+          <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {t("EventAdmin.DataUpload.description")}
+          </Typography>
+          <Box sx={{ paddingX: 4, paddingY: 1, borderRadius: 3, backgroundColor: "white" }}>
+            <EventTokenDataGrid event_id={detail ? detail.id : ""} />
+          </Box>
+
+          {/* Danger zone */}
+          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mt: 4, mb: 2 }}>
+            {t("EventAdmin.DangerArea")}
+          </Typography>
+          <Box sx={{ p: 4, borderRadius: 3, backgroundColor: "white" }}>
+            {detail ? <DeleteEventButton event={detail} /> : <></>}
+          </Box>
+        </Container>
+      </Box>
     )
   }
 }

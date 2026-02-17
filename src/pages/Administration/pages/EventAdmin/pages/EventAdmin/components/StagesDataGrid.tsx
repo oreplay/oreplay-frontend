@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
 import AddIcon from "@mui/icons-material/Add"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
@@ -34,7 +33,7 @@ import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
 import { Link } from "react-router-dom"
-import { MenuItem, Select, Toolbar } from "@mui/material"
+import { IconButton, MenuItem, Select, Toolbar } from "@mui/material"
 import { STAGE_TYPE_DATABASE_ID } from "../../../../../../Results/pages/Results/shared/constants.ts"
 import ConstructionIcon from "@mui/icons-material/Construction"
 
@@ -59,10 +58,23 @@ function EditToolbar(props: EditToolbarProps) {
   }
 
   return (
-    <Toolbar>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        {t("EventAdmin.Stages.NewStage")}
-      </Button>
+    <Toolbar
+      sx={{
+        display: "flex",
+        justifyContent: "flex-end",
+        backgroundColor: "background.paper",
+      }}
+    >
+      <Tooltip title={t("EventAdmin.Stages.NewStage")}>
+        <IconButton
+          onClick={handleClick}
+          sx={{
+            borderRadius: Infinity,
+          }}
+        >
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
     </Toolbar>
   )
 }
@@ -266,6 +278,7 @@ export default function StagesDataGrid(props: Props) {
       field: "stageName",
       headerName: t("Name"),
       flex: 1,
+      minWidth: 200,
       type: "string",
       align: "left",
       headerAlign: "left",
