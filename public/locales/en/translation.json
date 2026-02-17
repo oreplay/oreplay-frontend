@@ -16,7 +16,11 @@
     "FinishDate": "Finish date",
     "Name": "Event's name",
     "StartDate": "Start date",
-    "YourEvents": "Your events"
+    "YourEvents": {
+      "title": "Your events",
+      "description": "Create and manage all your events in a single place.",
+      "CreateEvent": "Create event"
+    }
   },
   "Dates": "Dates",
   "Delete": "Delete",
@@ -277,6 +281,8 @@
     "selectRunnersMessage": "Select runners to view the chart",
     "timeAxisLabel": "Time (seconds)"
   },
+  "firstName": "First name",
+  "lastName": "Last Name",
   "lineChart": {
     "noData": "Select runners to view the line chart",
     "tooltip": {
@@ -320,7 +326,5 @@
     "radios": "Radios",
     "splits": "Splits",
     "timeLoss": "Time Loss Table"
-  },
-  "firstName": "First name",
-  "lastName": "Last Name"
+  }
 }

@@ -9,6 +9,7 @@ import { getEventsFromUser } from "../../../../services/EventAdminService.ts"
 import { useAuth } from "../../../../../../shared/hooks.ts"
 import { useCallback, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import EventsDataGridToolbar from "./components/EventsDataGridToolbar"
 
 const ROWS_PER_PAGE = 15
 
@@ -98,6 +99,14 @@ export default function EventsDataGrid() {
         setPage(model.page)
       }}
       onRowClick={handleClick}
+      slots={{
+        toolbar: EventsDataGridToolbar,
+      }}
+      sx={{
+        "& .MuiDataGrid-columnHeaderTitle": {
+          fontWeight: 700,
+        },
+      }}
     />
   )
 }
