@@ -12,7 +12,7 @@ export default function NoDataInStageMsg() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "70%",
+        flexGrow: 1,
       }}
     >
       <PersonOffIcon sx={{ fontSize: 100 }} />
