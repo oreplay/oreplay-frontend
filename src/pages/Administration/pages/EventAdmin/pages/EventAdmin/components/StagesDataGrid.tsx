@@ -454,6 +454,24 @@ export default function StagesDataGrid(props: Props) {
           // @ts-expect-error TS2353 the custom component contains extra props
           toolbar: { setRows, setRowModesModel },
         }}
+        sx={{
+          backgroundColor: "white",
+          borderRadius: 3,
+          border: "1px solid",
+          borderColor: "divider",
+
+          // Remove square corners from internal container
+          "& .MuiDataGrid-main": {
+            borderRadius: 3,
+          },
+
+          // Remove default border and create padding
+          "&.MuiDataGrid-root": {
+            border: "none",
+            paddingX: 4,
+            paddingY: 2,
+          },
+        }}
       />
     </Box>
   )

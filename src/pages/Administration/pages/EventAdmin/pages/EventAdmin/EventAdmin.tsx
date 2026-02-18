@@ -105,9 +105,7 @@ export default function EventAdmin() {
           <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
             {t("EventAdmin.Stages.description")}
           </Typography>
-          <Box sx={{ p: 4, borderRadius: 3, backgroundColor: "white" }}>
-            {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
-          </Box>
+          {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
 
           {/* Upload data */}
           <Typography component="h2" variant="h6" fontWeight={500} sx={{ mt: 4, mb: 1 }}>

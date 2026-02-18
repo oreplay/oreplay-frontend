@@ -14,9 +14,7 @@ export default function Dashboard() {
         <Typography component={"p"} variant={"body2"} color="text.secondary" sx={{ mb: 4 }}>
           {t("Dashboard.YourEvents.description")}
         </Typography>
-        <Container sx={{ p: 4, borderRadius: 3, backgroundColor: "white" }}>
-          <EventsDataGrid />
-        </Container>
+        <EventsDataGrid />
       </Container>
     </Box>
   )

@@ -103,8 +103,21 @@ export default function EventsDataGrid() {
         toolbar: EventsDataGridToolbar,
       }}
       sx={{
-        "& .MuiDataGrid-columnHeaderTitle": {
-          fontWeight: 700,
+        backgroundColor: "white",
+        borderRadius: 3,
+        border: "1px solid",
+        borderColor: "divider",
+
+        // Remove square corners from internal container
+        "& .MuiDataGrid-main": {
+          borderRadius: 3,
+        },
+
+        // Remove default border and create padding
+        "&.MuiDataGrid-root": {
+          border: "none",
+          paddingX: 4,
+          paddingY: 2,
         },
       }}
     />
