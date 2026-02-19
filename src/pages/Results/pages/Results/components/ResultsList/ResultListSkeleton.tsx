@@ -1,5 +1,4 @@
 import { Box, Skeleton, Stack } from "@mui/material"
-import { useEffect, useRef, useState } from "react"
 
 function ResultListItemSkeleton() {
   return (
@@ -34,37 +33,15 @@ function ResultListItemSkeleton() {
 }
 
 export default function ResultsListSkeleton() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [skeletonCount, setSkeletonCount] = useState(0)
 
-  useEffect(() => {
-    const updateSkeletonCount = () => {
-      if (containerRef.current) {
-        const containerHeight = containerRef.current.clientHeight
-        const skeletonHeight = 75 // Set the height of each skeleton (e.g., 40px)
-        const count = Math.floor(containerHeight / skeletonHeight)
-        setSkeletonCount(count)
-      }
-    }
-
-    // Initial calculation
-    updateSkeletonCount()
-
-    // Recalculate on window resize
-    window.addEventListener("resize", updateSkeletonCount)
-    return () => {
-      window.removeEventListener("resize", updateSkeletonCount)
-    }
-  }, [])
 
   return (
     <Stack
-      ref={containerRef}
       style={{ height: "100%", overflow: "hidden" }}
       direction={"column"}
       gap={0}
     >
-      {Array.from({ length: skeletonCount }).map((_, index) => (
+      {Array.from({ length: 10 }).map((_, index) => (
         <ResultListItemSkeleton key={index} />
       ))}
     </Stack>
