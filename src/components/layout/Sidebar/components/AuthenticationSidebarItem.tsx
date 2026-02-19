@@ -12,9 +12,9 @@ const AuthenticationSidebarItem = () => {
 
   function onLogoutClick() {
     void (async () => {
+      await navigate("/")
       await logoutAction()
       //TODO: Implement real logout within logoutAction
-      await navigate("/")
     })()
   }
 
