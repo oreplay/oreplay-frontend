@@ -36,6 +36,8 @@ import { validateURL } from "./functions.ts"
 interface EventAdminFormProps {
   eventDetail?: EventDetailModel
   canEdit?: boolean
+  displayIsPublic?: boolean
+  displayPlaceholders?: boolean
   handleSubmit: (values: EventAdminFormValues) => void
   handleCancel?: () => void
   handleEdit?: () => void
@@ -120,7 +122,9 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                   required
                   fullWidth
                   value={field.state.value}
-                  placeholder={t("EventAdmin.EventNamePlaceholder")}
+                  placeholder={
+                    props.displayPlaceholders ? t("EventAdmin.EventNamePlaceholder") : undefined
+                  }
                   onChange={(e) => field.handleChange(e.target.value)}
                   onBlur={field.handleBlur}
                   error={!!field.state.meta.errors.length}
@@ -161,7 +165,9 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                   {...style_props}
                   autoComplete="url"
                   value={field.state.value}
-                  placeholder={t("EventAdmin.WebsitePlaceholder")}
+                  placeholder={
+                    props.displayPlaceholders ? t("EventAdmin.WebsitePlaceholder") : undefined
+                  }
                   onBlur={field.handleBlur}
                   onChange={(e) => {
                     field.handleChange(e.target.value)
@@ -190,7 +196,11 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     <>
                       <TextField
                         {...params}
-                        placeholder={t("EventAdmin.OrganizerPlaceholder")}
+                        placeholder={
+                          props.displayPlaceholders
+                            ? t("EventAdmin.OrganizerPlaceholder")
+                            : undefined
+                        }
                         required
                         {...style_props}
                       />
@@ -253,11 +263,15 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     displayEmpty
                     renderValue={(selected) => {
                       if (!selected) {
-                        return (
-                          <span style={{ color: "#888" }}>
-                            {t("EventAdmin.Scopes.Placeholder")}
-                          </span>
-                        )
+                        if (props.displayPlaceholders) {
+                          return (
+                            <span style={{ color: "#888" }}>
+                              {t("EventAdmin.Scopes.Placeholder")}
+                            </span>
+                          )
+                        } else {
+                          return ""
+                        }
                       }
                       const map: Record<string, string> = {
                         int: t("EventAdmin.Scopes.International"),
@@ -307,6 +321,9 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                   }
                   label={t("EventAdmin.Public")}
                   disabled={!props.canEdit}
+                  sx={{
+                    display: props.displayIsPublic ? undefined : "none",
+                  }}
                 />
               </FormControl>
             )}

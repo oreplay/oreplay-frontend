@@ -33,14 +33,8 @@ function ResultListItemSkeleton() {
 }
 
 export default function ResultsListSkeleton() {
-
-
   return (
-    <Stack
-      style={{ height: "100%", overflow: "hidden" }}
-      direction={"column"}
-      gap={0}
-    >
+    <Stack style={{ height: "100%", overflow: "hidden" }} direction={"column"} gap={0}>
       {Array.from({ length: 10 }).map((_, index) => (
         <ResultListItemSkeleton key={index} />
       ))}
