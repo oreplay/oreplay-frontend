@@ -41,7 +41,6 @@ export default function StageLayout(props: StageLayoutProps) {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          maxWidth: "600px",
           padding: "16px 16px",
         }}
       >
