@@ -15,8 +15,7 @@
     "Dashboard": "Kontrol panela",
     "FinishDate": "Amaiera data",
     "Name": "Ekitaldiaren izena",
-    "StartDate": "Hasiera data",
-    "YourEvents": "Zure ekitaldiak"
+    "StartDate": "Hasiera data"
   },
   "Dates": "Data",
   "Delete": "Ezabatu",
@@ -75,17 +74,14 @@
       "GoToStage": "Etapa ikusi",
       "NewStage": "Etapa berria",
       "StagesTypes": {
-        "ChaseStart": "Ehiza irteera",
         "FootO": {
           "description": "Denboran oinarritutako ibilbide lineala, banakakoa edo taldekakoa.",
           "title": "Klasikoa"
         },
-        "MassStart": "Masa irteera",
         "OneManRelay": {
           "description": "Denboran oinarritutako ibilbide lineala, banakakoa edo taldekakoa, non parte-hartzaile bakoitzak bere ibilbidea egiten duena.",
           "title": "Forking duen ibilbidea"
         },
-        "Raid": "Raida",
         "Relay": {
           "description": "Taldekako lasterketa, denboran oinarritutakoa, erreleboko korrikalariek ibilbide desberdinak osatuz.",
           "title": "Erreleboa"
@@ -98,8 +94,7 @@
         "Totals": {
           "description": "Bi etapa edo gehiagotan puntuetan edo denboran oinarritutako emaitza konbinatua.",
           "title": "Totalak"
-        },
-        "TrailO": "Trail-O"
+        }
       },
       "Stats": {
         "DialogBody": "Etapa estatistikak bistaratuko dira.",

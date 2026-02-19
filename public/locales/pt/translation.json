@@ -15,8 +15,7 @@
     "Dashboard": "Painel",
     "FinishDate": "Data final",
     "Name": "Nome do evento",
-    "StartDate": "Data de início",
-    "YourEvents": "Os vossos eventos"
+    "StartDate": "Data de início"
   },
   "Dates": "Datas",
   "Delete": "Apagar",
@@ -63,11 +62,7 @@
       "GoToStage": "Ir para a etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
-        "ChaseStart": "Chasing start",
-        "MassStart": "Partida em massa",
-        "Raid": "Raid",
-        "StageType": "Tipo",
-        "TrailO": "Trail-O"
+        "StageType": "Tipo"
       },
       "Stats": {
         "DialogBody": "As estatísticas das etapas serão apresentadas.",

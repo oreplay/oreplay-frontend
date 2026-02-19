@@ -15,8 +15,7 @@
     "Dashboard": "Panell de control",
     "FinishDate": "Data fi",
     "Name": "Nom de l'event",
-    "StartDate": "Data inici",
-    "YourEvents": "Els teus events"
+    "StartDate": "Data inici"
   },
   "Dates": "Dates",
   "Delete": "Esborrar",
@@ -75,17 +74,14 @@
       "GoToStage": "Veure l'etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
-        "ChaseStart": "Sortida a la caça",
         "FootO": {
           "description": "Recorregut lineal, individual o per equips, basat en temps.",
           "title": "Clàssica"
         },
-        "MassStart": "Sortida en massa",
         "OneManRelay": {
           "description": "Recorregut lineal, cronometrat, individual o per equips, on cada participant té la seva pròpia variant.",
           "title": "Recorregut amb variants"
         },
-        "Raid": "Raid d'aventura",
         "Relay": {
           "description": "Cursa per equips, basada en temps, amb rellevistes consecutius fent diferents recorreguts.",
           "title": "Relleu"
@@ -98,8 +94,7 @@
         "Totals": {
           "description": "Resultats per suma de temps o suma de punts de totes les etapes.",
           "title": "Totals"
-        },
-        "TrailO": "Trail-Orientació"
+        }
       },
       "Stats": {
         "DialogBody": "Es mostraran estadístiques de l'etapa.",
@@ -146,9 +141,6 @@
     "Threshold": "Llindar",
     "ThresholdWithPercent": "Llindar ({{percent}}%)",
     "TimeLossAnalysis": "Anàlisi de pèrdua de Temps"
-  },
-  "Home": {
-    "Home": "Inici"
   },
   "Language": {
     "English": "English",
@@ -234,7 +226,6 @@
       "Title": "Resultats Sense Parcials!"
     },
     "statusCodes": {
-      "disqualified": "Desq",
       "dnf": "Aban",
       "dns": "NS",
       "dsq": "DSQ",

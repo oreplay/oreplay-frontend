@@ -15,8 +15,7 @@
     "Dashboard": "Tableau de bord",
     "FinishDate": "Date de fin",
     "Name": "Nom de l'événement",
-    "StartDate": "Date de début",
-    "YourEvents": "Vos événements"
+    "StartDate": "Date de début"
   },
   "Dates": "Dates",
   "Delete": "Supprimer",
@@ -75,17 +74,14 @@
       "GoToStage": "Aller sur l'étape",
       "NewStage": "Nouvelle étape",
       "StagesTypes": {
-        "ChaseStart": "Poursuite",
         "FootO": {
           "description": "Épreuve chronométrée, individuelle ou par équipe, sur parcours linéaire.",
           "title": "Classique"
         },
-        "MassStart": "Départ en masse",
         "OneManRelay": {
           "description": "Épreuve chronométrée, individuelle ou par équipe, sur parcours linéaire où chaque participant suit son propre parcours.",
           "title": "Parcours à variantes"
         },
-        "Raid": "Raid",
         "Relay": {
           "description": "Course par équipe chronométrée avec des relais consécutifs sur différents parcours.",
           "title": "Relais"
@@ -98,8 +94,7 @@
         "Totals": {
           "description": "Résultat combiné, basé sur les points ou le temps, sur deux étapes ou plus.",
           "title": "Général"
-        },
-        "TrailO": "CO de précision"
+        }
       },
       "Stats": {
         "DialogBody": "Les statistiques des étapes seront affichées.",

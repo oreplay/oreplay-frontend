@@ -15,8 +15,7 @@
     "Dashboard": "Інформаційна панель",
     "FinishDate": "Дата завершення",
     "Name": "Назва події",
-    "StartDate": "Дата початку",
-    "YourEvents": "Ваші події"
+    "StartDate": "Дата початку"
   },
   "Dates": "Дати",
   "Delete": "Видалити",
@@ -75,17 +74,14 @@
       "GoToStage": "Вийти на сцену",
       "NewStage": "Нова сцена",
       "StagesTypes": {
-        "ChaseStart": "Початок переслідування",
         "FootO": {
           "description": "Лінійний курс, індивідуальний або командний, з обмеженим часом.",
           "title": "Класичний"
         },
-        "MassStart": "Масовий старт",
         "OneManRelay": {
           "description": "Лінійний курс, що базується на часі, індивідуальний або командний, де кожен учасник проходить свій власний маршрут.",
           "title": "Роздвоєний курс"
         },
-        "Raid": "Рейд",
         "Relay": {
           "description": "Командні перегони на час з послідовними етапами на різних трасах.",
           "title": "Реле"
@@ -98,8 +94,7 @@
         "Totals": {
           "description": "Комбінований результат, що базується на балах або часі, за два або більше етапів.",
           "title": "Загалом"
-        },
-        "TrailO": "Трейл-О"
+        }
       },
       "Stats": {
         "DialogBody": "Буде відображена статистика етапів.",
@@ -137,7 +132,6 @@
     "Finish": "Фініш",
     "LineChart": "Лінійна діаграма",
     "PositionChart": "Діаграма позицій",
-    "RunnerCount": "бігун_{{count}}",
     "RunnerSelection": "Вибір бігуна",
     "SelectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграми",
     "SelectedCount_few": "Вибране {{count}} з {{total}}",
@@ -147,9 +141,6 @@
     "Threshold": "Поріг",
     "ThresholdWithPercent": "Поріг ({{percent}}%)",
     "TimeLossAnalysis": "Аналіз втрат часу"
-  },
-  "Home": {
-    "Home": "Дім"
   },
   "Language": {
     "English": "Англійська",
@@ -235,7 +226,6 @@
       "Title": "Результати без розривів!"
     },
     "statusCodes": {
-      "disqualified": "DSQ",
       "dnf": "DNF",
       "dns": "DNS",
       "dsq": "DSQ",
@@ -257,11 +247,6 @@
     "NoAccount": "Немає облікового запису? Зареєструватися",
     "RememberMe": "Запам'ятай мене",
     "Sign in": "Увійти"
-  },
-  "Splits": {
-    "Radios": "Радіоприймачі",
-    "Threshold": "Поріг",
-    "TimeLossAnalysis": "Аналіз втрат часу"
   },
   "StageHeader": {
     "Graphs": "Графіки",

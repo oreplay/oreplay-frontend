@@ -15,8 +15,7 @@
     "Dashboard": "Přehled",
     "FinishDate": "Konečné datum",
     "Name": "Název akce",
-    "StartDate": "Datum startu",
-    "YourEvents": "Tvoje akce"
+    "StartDate": "Datum startu"
   },
   "Dates": "Datumy",
   "Delete": "Smazat",
@@ -75,17 +74,14 @@
       "GoToStage": "Přejít na etapu",
       "NewStage": "Nová etapa",
       "StagesTypes": {
-        "ChaseStart": "Hendikepový start",
         "FootO": {
           "description": "Na čas, individuální či týmový, pevné pořadí.",
           "title": "Normální"
         },
-        "MassStart": "Hromadný start",
         "OneManRelay": {
           "description": "Na čas, individuální či týmový s pevným pořadím, kdy má každý účastník svojí trať.",
           "title": "Větvená trať"
         },
-        "Raid": "Rychlý",
         "Relay": {
           "description": "Týmový závod na čas s postupnými variantami na rozdílných tratích.",
           "title": "Štafeta"
@@ -98,8 +94,7 @@
         "Totals": {
           "description": "Kombinované na body nebo na čas napříč dvěma nebo více etapami.",
           "title": "Celkové"
-        },
-        "TrailO": "Trail-O"
+        }
       },
       "Stats": {
         "DialogBody": "Statistiky etap budou zobrazeny.",

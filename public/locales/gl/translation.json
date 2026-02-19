@@ -15,8 +15,7 @@
     "Dashboard": "Panel de control",
     "FinishDate": "Data de remate",
     "Name": "Nome do evento",
-    "StartDate": "Data de inicio",
-    "YourEvents": "Os teus eventos"
+    "StartDate": "Data de inicio"
   },
   "Dates": "Datas",
   "Delete": "Borrar",
@@ -75,17 +74,14 @@
       "GoToStage": "Ir á etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
-        "ChaseStart": "Saída á caza",
         "FootO": {
           "description": "Percorrido lineal, individual ou por equipos, baseado en tempo.",
           "title": "Clásico"
         },
-        "MassStart": "Saída en masa",
         "OneManRelay": {
           "description": "Percorrido lineal, individual ou por equipos, baseado en tempo, cada participante corre o seu propio percorrido.",
           "title": "Percorrido con variantes"
         },
-        "Raid": "Raid",
         "Relay": {
           "description": "Carreira por equipos baseada en tempo con postas consecutivas e diferentes percorridos.",
           "title": "Remudas"
@@ -98,8 +94,7 @@
         "Totals": {
           "description": "Resultados combinados baseados en puntos ou tempos ao longo de dúas etapas ou máis.",
           "title": "Xeral"
-        },
-        "TrailO": "Trail-O"
+        }
       },
       "Stats": {
         "DialogBody": "As estatísticas das etapas serán visualizadas.",
@@ -145,9 +140,6 @@
     "Threshold": "Limiar",
     "ThresholdWithPercent": "Limiar ({{percent}}%)",
     "TimeLossAnalysis": "Análise de tempo perdido"
-  },
-  "Home": {
-    "Home": "Inicio"
   },
   "Language": {
     "English": "Inglés",
@@ -233,7 +225,6 @@
       "Title": "Resultados sen parciais!"
     },
     "statusCodes": {
-      "disqualified": "DSQ",
       "dnf": "DNF",
       "dns": "DNS",
       "dsq": "DSQ",
