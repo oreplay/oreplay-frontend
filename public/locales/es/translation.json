@@ -15,7 +15,12 @@
     "Dashboard": "Panel de control",
     "FinishDate": "Fecha fin",
     "Name": "Nombre del evento",
-    "StartDate": "Fecha inicio"
+    "StartDate": "Fecha inicio",
+    "YourEvents": {
+      "CreateEvent": "Crear evento",
+      "description": "Crea y administra todos tus eventos en un solo lugar.",
+      "title": "Tus eventos"
+    }
   },
   "Dates": "Fecha",
   "Delete": "Borrar",
@@ -26,19 +31,26 @@
     "Country": "País",
     "Create security keys": "Crear una clave de seguridad",
     "DangerArea": "Zona de peligro",
+    "DataUpload": {
+      "description": "Esta información de seguridad permite subir datos a este evento. Compártela solo con tu equipo. Puede revocarse en cualquier momento.",
+      "title": "Subida de datos"
+    },
     "DeleteEvent": "Borrar evento",
     "Do you want to delete this event?": "¿Desea borrar el evento?",
     "Do you want to renew the security key?": "¿Desea renovar la clave de seguridad?",
     "EventData": "Información del evento",
+    "EventDataDescription": "Aquí puedes ver y actualizar la información del evento",
     "EventId": "ID del evento",
     "EventName": "Nombre del evento",
+    "EventNamePlaceholder": "El evento del año",
     "EventSecurityTokens": "Clave de seguridad",
-    "EventSecurityTokensExpireDate": "Expira el",
+    "EventSecurityTokensExpireDate": "Fecha de expiración",
     "FinishDate": "Fecha de final",
     "Hidden": "Privado",
     "InvalidURLMsg": "URL inválida",
     "Location": "Ubicación",
     "Organizer": "Organizador",
+    "OrganizerPlaceholder": "Mejor club",
     "Public": "Público",
     "QRCode": {
       "CopyUrl": "Copiar URL del evento",
@@ -61,6 +73,7 @@
       "International": "Internacional",
       "Local": "Local",
       "National": "Nacional",
+      "Placeholder": "Ámbito",
       "RegionalHigh": "Autonómico",
       "RegionalLow": "Provincial",
       "Scope": "Ámbito"
@@ -71,6 +84,7 @@
         "DialogTitle": "Desea borrar esta etapa?",
         "MenuText": "Borrar"
       },
+      "FailedToLoadOrganizers": "No se han podido cargar los organizadores",
       "GoToStage": "Ver la etapa",
       "NewStage": "Nueva etapa",
       "StagesTypes": {
@@ -107,11 +121,14 @@
         "DialogConfirm": "Restablecer",
         "DialogTitle": "Desea restablecer esta etapa?",
         "MenuText": "Restablecer"
-      }
+      },
+      "description": "Crea tantas etapas como tenga tu evento. Cada evento debe tener al menos una etapa."
     },
     "StartDate": "Fecha de comienzo",
+    "TooLongDescriptionMsg": "El nombre proporcionado excede el máximo de {{count}} caracteres.",
     "TooLongMsg": "La URL puede tener una longitud máxima de {{count}} caracteres",
-    "Website": "Web del evento"
+    "Website": "Web del evento",
+    "WebsitePlaceholder": "https:://tuclub.es/tuevento"
   },
   "EventList": {
     "FutureEvents": "Eventos futuros",
@@ -151,6 +168,13 @@
   "Loading": "Cargando",
   "Location": "Ubicación",
   "Menu": "Menu",
+  "MyAccount": {
+    "description": "Administra tu información personal.",
+    "personalInformation": {
+      "title": "Información personal"
+    },
+    "title": "Mi perfil"
+  },
   "Name": "Nombre",
   "Organizer": "Organizador",
   "Organizers": "Organizadores",
@@ -184,7 +208,7 @@
     "FinishTime": "Final",
     "Name": "Nombre",
     "NoClubMsg": "Sin club",
-    "NoData": "No hay datos",
+    "NoData": "No hay datos disponibles",
     "NoStartTime": "-",
     "NonContributory": "No puntúa",
     "NotStarted": "-",
@@ -259,6 +283,7 @@
   "Stages": "Etapas",
   "Success": "Éxito",
   "This action cannot be undone": "Esta acción no puede deshacerse.",
+  "ThisFieldIsRequiredMsg": "Este campo es obligatorio.",
   "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
   "UnderDevelopment": "En desarrollo",
   "authenticationError": "Ha ocurrido un error",
@@ -270,6 +295,8 @@
     "selectRunnersMessage": "Selecciona corredores para ver el gráfico",
     "timeAxisLabel": "Tiempo (segundos)"
   },
+  "firstName": "Nombre",
+  "lastName": "Apellidos",
   "lineChart": {
     "noData": "Selecciona corredores para ver el gráfico de líneas",
     "tooltip": {
