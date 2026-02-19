@@ -126,9 +126,9 @@
     },
     "StartDate": "Fecha de comienzo",
     "TooLongDescriptionMsg": "El nombre proporcionado excede el máximo de {{count}} caracteres.",
-    "TooLongMsg": "La URL puede tener una longitud máxima de {{count}} caracteres",
+    "TooLongMsg": "La URL puede tener una longitud máxima de {{count}} caracteres.",
     "Website": "Web del evento",
-    "WebsitePlaceholder": "https:://tuclub.es/tuevento"
+    "WebsitePlaceholder": "https://tuclub.es/tuevento"
   },
   "EventList": {
     "FutureEvents": "Eventos futuros",
