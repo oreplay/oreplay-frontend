@@ -96,6 +96,7 @@ export default function EventAdmin() {
             handleEdit={handleClickEditEvent}
             handleSubmit={(values) => void handleUpdateEvent(values)}
             canEdit={isEventEditing}
+            displayIsPublic
           />
 
           {/* Stages  */}

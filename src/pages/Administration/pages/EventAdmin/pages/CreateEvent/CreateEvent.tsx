@@ -46,7 +46,12 @@ export default function CreateEvent() {
         <Typography component="h1" variant="h5" fontWeight={600} gutterBottom>
           {t("Dashboard.YourEvents.CreateEvent")}
         </Typography>
-        <EventAdminForm canEdit handleSubmit={handleSubmit} handleCancel={handleCancel} />
+        <EventAdminForm
+          canEdit
+          displayPlaceholders
+          handleSubmit={handleSubmit}
+          handleCancel={handleCancel}
+        />
       </Container>
     </Box>
   )
