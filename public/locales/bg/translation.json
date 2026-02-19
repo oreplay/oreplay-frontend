@@ -15,7 +15,10 @@
     "Dashboard": "Табло",
     "FinishDate": "Дата на завършване",
     "Name": "Име на събитието",
-    "StartDate": "Дата на старт"
+    "StartDate": "Дата на старт",
+    "YourEvents": {
+      "title": "Вашите събития"
+    }
   },
   "Dates": "Дати",
   "Delete": "Изтрий",
