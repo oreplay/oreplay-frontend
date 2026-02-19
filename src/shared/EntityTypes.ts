@@ -45,13 +45,13 @@ export interface EventDetailModel {
   id: string
   is_hidden: boolean
   description: string
-  picture: string
+  picture?: string | null
   website: string
   scope: string
-  location: string
+  location?: string | null
   initial_date: string
   final_date: string
-  federation_id: string
+  federation_id?: string | null
   created: string
   modified: string
   federation: FederationModel

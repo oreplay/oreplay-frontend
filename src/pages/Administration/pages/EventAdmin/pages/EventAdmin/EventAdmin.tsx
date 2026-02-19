@@ -14,21 +14,28 @@ import { useFetchEventDetail } from "../../../../../Results/services/FetchHooks.
 import NotFoundPage from "../../../../../NotFoundError/NotFoundPage.tsx"
 import { apiErrorService } from "../../../../../../domain/services/ApiErrorService.ts"
 import { useNotifications } from "@toolpad/core/useNotifications"
+import { useMutation, useQueryClient } from "react-query"
+import { AxiosError } from "axios"
 
 export default function EventAdmin() {
   const notifications = useNotifications()
   const { eventId } = useRequiredParams<{ eventId: string }>()
   const { data: eventData, error, isError, isLoading } = useFetchEventDetail(eventId)
+  const queryClient = useQueryClient()
   const detail = eventData?.data
   const { t } = useTranslation()
   const { token } = useAuth()
 
   // Functions to handle Event update
   const [isEventEditing, setIsEventEditing] = useState<boolean>(false)
-  const handleUpdateEvent = async (values: EventAdminFormValues) => {
-    console.log(values)
-    try {
-      await patchEvent(
+
+  const updateEventMutation = useMutation<
+    EventDetailModel,
+    AxiosError<EventDetailModel>,
+    EventAdminFormValues
+  >(
+    (values) =>
+      patchEvent(
         eventId,
         values.description,
         values.startDate?.toSQLDate() as string,
@@ -39,14 +46,48 @@ export default function EventAdmin() {
         values.website,
         undefined,
         values.organizer?.id,
-      )
-      setIsEventEditing(false)
-    } catch (e) {
-      notifications.show("Edit event failed. " + apiErrorService.toString(e), {
-        autoHideDuration: 3000,
-        severity: "error", // Could be 'success', 'error', 'warning', 'info'.
-      })
-    }
+      ),
+    {
+      onMutate: async (values: EventAdminFormValues) => {
+        await queryClient.cancelQueries({ queryKey: ["eventDetail", eventId] })
+
+        const previous = queryClient.getQueryData<EventDetailModel>(["eventDetail", eventId])
+
+        // Optimistic update
+        queryClient.setQueryData<EventDetailModel>(
+          ["eventDetail", eventId],
+          (old: EventDetailModel | undefined): EventDetailModel => {
+            return {
+              ...old!,
+              id: old?.id ?? "",
+              description: values.description,
+              website: values.website as string,
+              organizer: values.organizer,
+              initial_date: values.startDate?.toSQLDate() ?? "",
+              final_date: values.endDate?.toSQLDate() ?? "",
+              scope: values.scope,
+              is_hidden: !values.isPublic,
+            }
+          },
+        )
+
+        return { previous }
+      },
+      onError: (err, context) => {
+        queryClient.setQueryData(["eventDetail", eventId], context)
+        notifications.show("Edit event failed. " + apiErrorService.toString(err), {
+          autoHideDuration: 3000,
+          severity: "error",
+        })
+      },
+      onSettled: () => {
+        void queryClient.invalidateQueries(["eventDetail", eventId])
+      },
+    },
+  )
+  const handleUpdateEvent = (values: EventAdminFormValues) => {
+    updateEventMutation.mutate(values)
+    setIsEventEditing(false)
   }
 
   const handleCancelEditingEvent = () => {

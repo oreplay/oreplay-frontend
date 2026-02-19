@@ -8,6 +8,7 @@ import {
   PostEventTokenResponse,
   PostStageResponse,
   OrganizerModel,
+  EventDetailModel,
 } from "../../../shared/EntityTypes.ts"
 import { deleteRequest, get, patch, post } from "../../../services/ApiConfig.ts"
 const baseUrl = "events"
@@ -104,7 +105,7 @@ export async function patchEvent(
   federation_id?: string,
   organizer_id?: string,
 ) {
-  return patch(
+  return patch<EventDetailModel>(
     `${baseUrl}/${event_id}`,
     {
       description: description,
