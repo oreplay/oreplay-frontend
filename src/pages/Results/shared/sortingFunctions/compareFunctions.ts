@@ -230,6 +230,17 @@ function byControlRunningTowards(
       return 0
     }
 
+    // Filter if they both go to the first
+    if (aRunningTo == 0 || bRunningTo == 0) {
+      if (aRunningTo == bRunningTo) {
+        return 0
+      }
+      if (aRunningTo < bRunningTo) {
+        return 1 // b first
+      }
+      return -1 // a first
+    }
+
     // A runs towards a control B already punched
     if (aRunningTo < bRunningTo) {
       const cumulativeTimeA = now.diff(startTimeA)
