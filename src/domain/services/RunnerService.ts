@@ -35,8 +35,8 @@ const isNC = (runner: ProcessedRunnerModel | RunnerModel): boolean => {
 }
 
 const isOK = (runner: ProcessedRunnerModel | RunnerModel) =>
-  runner.stage.status_code === RESULT_STATUS.ok ||
-  runner.stage.status_code === RESULT_STATUS_TEXT.ok ||
+  runner.stage?.status_code === RESULT_STATUS.ok ||
+  runner.stage?.status_code === RESULT_STATUS_TEXT.ok ||
   runner.overalls?.overall.status_code === RESULT_STATUS.ok
 
 /**
