@@ -8,6 +8,7 @@ export default defineConfig({
     include: ["@emotion/styled", "@mui/material/Tooltip"],
   },
 
+  base: "https://purple-coast-02f129503.2.azurestaticapps.net/",
   plugins: [
     react(),
     sentryVitePlugin({
