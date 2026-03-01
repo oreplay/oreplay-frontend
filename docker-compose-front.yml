@@ -6,8 +6,9 @@ services:
     #build:
     #  context: .
     #  dockerfile: docker/Dockerfile
-    command: bash -c "cd /var/www && npm install --ignore-scripts && npm run dev"
+    command: bash -c "npm install --ignore-scripts && npm run dev"
     #command: sh -c "tail -f /dev/null"
+    working_dir: /var/www
     env_file:
       - .env
     ports:
