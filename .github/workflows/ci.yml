@@ -118,3 +118,23 @@ jobs:
           app_location: "dist" # Built app content directory - optional
           skip_app_build: true
           ###### End of Repository/Build Configurations ######
+
+      - name: Smoke test production URL
+        run: |
+          URL="https://www.oreplay.es?updateFront=1"
+          MAX_RETRIES=5
+          SLEEP=15
+
+          for i in $(seq 1 $MAX_RETRIES); do
+            echo "Waiting $SLEEP seconds before try..."
+            sleep $SLEEP
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" $URL || echo 000)
+            echo "Attempt $i → HTTP $STATUS"
+            if [ "$STATUS" -eq 200 ]; then
+              echo "Production is up"
+              exit 0
+            fi
+          done
+
+          echo "Production did not become healthy after $MAX_RETRIES attempts"
+          exit 1
