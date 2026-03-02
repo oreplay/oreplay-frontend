@@ -5,21 +5,25 @@ import {
   Checkbox,
   Container,
   FormControlLabel,
+  IconButton,
+  InputAdornment,
   Link,
   TextField,
   Typography,
 } from "@mui/material"
 import { Grid2 as Grid } from "@mui/material"
-import React from "react"
+import React, { useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Navigate, useSearchParams } from "react-router-dom"
 import { API_DOMAIN } from "../../../../../services/ApiConfig.ts"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
 
 export default function SignIn() {
   //const [isErrorInEmail,setIsErrorInEmail] = useState(false);
   //const [isErrorInPassword,setIsErrorInPassword] = useState(false);
   const loginFormAction: string = API_DOMAIN + "api/v1/oauth/token"
   const { t } = useTranslation()
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const [searchParams] = useSearchParams()
   const loginChallenge = searchParams.get("login_challenge")
@@ -70,9 +74,24 @@ export default function SignIn() {
               fullWidth
               name="password"
               label={t("Password")}
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        edge="end"
+                        aria-label={showPassword ? t("Hide password") : t("Show password")}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
             <TextField //TODO: Remove this text field
               name="login_challenge"
