@@ -11,5 +11,5 @@ interface ResultListItemProps {
 }
 
 export default function ResultListItemColumn({ children, slotProps }: ResultListItemProps) {
-  return <Box sx={{ padding: "12px 2px", ...slotProps?.box }}>{children}</Box>
+  return <Box sx={{ padding: "8px 2px", ...slotProps?.box }}>{children}</Box>
 }
