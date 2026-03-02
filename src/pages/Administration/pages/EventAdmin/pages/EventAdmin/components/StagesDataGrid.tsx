@@ -228,7 +228,9 @@ export default function StagesDataGrid(props: Props) {
   }
 
   const processRowUpdate = async (newRow: GridRowModel<StageRow>) => {
+    const originalId = newRow.id
     const updatedRow: GridRowModel<StageRow> = { ...newRow, isEdit: false, isNew: false }
+
     if (newRow.isNew) {
       // Case row is posted to the server
       try {
@@ -259,13 +261,8 @@ export default function StagesDataGrid(props: Props) {
     }
 
     // Update DataGridView
-    console.log(rows)
-    setRows(
-      rows.map(
-        (row): GridRowModel<StageRow> =>
-          row.id === newRow.id || row.id == "newlyCreatedStage" ? updatedRow : row,
-      ),
-    )
+    setRows(rows.map((row): GridRowModel<StageRow> => (row.id === originalId ? updatedRow : row)))
+
     return updatedRow
   }
 
