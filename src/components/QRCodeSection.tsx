@@ -51,7 +51,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
 
         // Optional: add logo
         try {
-          const logoResponse = await fetch("/logo.svg")
+          const logoResponse = await fetch("/img/logo.svg")
           if (logoResponse.ok) {
             const logoSvg = await logoResponse.text()
             const logoBlob = new Blob([logoSvg], { type: "image/svg+xml" })
