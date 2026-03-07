@@ -24,18 +24,20 @@ import {
   patchStage,
   postStage,
   wipeOutStage,
-} from "../../../../../services/EventAdminService.ts"
+} from "../../../../../../services/EventAdminService.ts"
 import Tooltip from "@mui/material/Tooltip"
-import { EventDetailModel } from "../../../../../../../shared/EntityTypes.ts"
-import { useAuth } from "../../../../../../../shared/hooks.ts"
+import { EventDetailModel } from "../../../../../../../../shared/EntityTypes.ts"
+import { useAuth } from "../../../../../../../../shared/hooks.ts"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-import GridActionsSettingsMenu from "./GridActionsSettingsMenu.tsx"
+import GridActionsSettingsMenu from "../GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
-import { stageStatsService } from "../../../../../../../domain/services/StageStatsService.ts"
+import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
 import { Link } from "react-router-dom"
 import { IconButton, MenuItem, Select, Toolbar } from "@mui/material"
-import { STAGE_TYPE_DATABASE_ID } from "../../../../../../Results/pages/Results/shared/constants.ts"
+import { STAGE_TYPE_DATABASE_ID } from "../../../../../../../Results/pages/Results/shared/constants.ts"
 import ConstructionIcon from "@mui/icons-material/Construction"
+import { DateTime } from "luxon"
+import { GridLuxonDateTimeEditCell } from "./components/GridDateTimeEditCell"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -94,6 +96,7 @@ export interface StageRow {
   stageId: string
   stageName: string
   stageTypeId: string
+  start: DateTime | null
   isNew?: boolean
   isEdit?: boolean
 }
@@ -146,6 +149,7 @@ export default function StagesDataGrid(props: Props) {
     stageId: stage.id,
     stageName: stage.description,
     stageTypeId: stage.stage_type.id,
+    start: stage.start ? DateTime.fromISO(stage.start) : null,
   }))
 
   const [rows, setRows] = useState(initialRows)
@@ -238,6 +242,7 @@ export default function StagesDataGrid(props: Props) {
           props.eventDetail.id,
           newRow.stageName,
           newRow.stageTypeId,
+          newRow.start!,
           token,
         )
         updatedRow.id = response.data.id
@@ -253,6 +258,7 @@ export default function StagesDataGrid(props: Props) {
           newRow.stageId,
           newRow.stageName,
           newRow.stageTypeId,
+          newRow.start!,
           token as string,
         )
       } catch (error) {
@@ -282,9 +288,19 @@ export default function StagesDataGrid(props: Props) {
       editable: true,
     },
     {
+      field: "start",
+      headerName: t("EventAdmin.Stages.Start"),
+      minWidth: 150,
+      maxWidth: 220,
+      editable: true,
+      renderEditCell: (params) => <GridLuxonDateTimeEditCell {...params} />,
+      valueFormatter: (value: DateTime | null) =>
+        value ? value.toLocaleString(DateTime.DATETIME_SHORT) : "",
+    },
+    {
       field: "stageTypeId",
       headerName: t("EventAdmin.Stages.StagesTypes.StageType"),
-      width: 200,
+      width: 150,
       editable: true,
       type: "singleSelect",
       valueOptions: stageTypeOptions.map((opt) => ({ value: opt.value, label: opt.label })),
