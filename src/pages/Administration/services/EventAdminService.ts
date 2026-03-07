@@ -135,12 +135,14 @@ export async function deleteEvent(id: string, token: string | null) {
  * @param eventId
  * @param stageName
  * @param stageTypeId
+ * @param start Date time at which this stage starts
  * @param token
  */
 export async function postStage(
   eventId: string,
   stageName: string,
   stageTypeId: string,
+  start: DateTime,
   token: string | null,
 ): Promise<Data<PostStageResponse>> {
   return post(
@@ -148,6 +150,7 @@ export async function postStage(
     {
       description: stageName,
       stage_type_id: stageTypeId,
+      start: start.toISO(),
     },
     token,
   )
@@ -159,6 +162,7 @@ export async function postStage(
  * @param stageId Id of the stage we want to edit
  * @param stageTypeId Id of the type the stage has
  * @param description New name of the stage
+ * @param start The date time at which the stage starts
  * @param token User's authentication token
  */
 export async function patchStage(
@@ -166,6 +170,7 @@ export async function patchStage(
   stageId: string,
   description: string,
   stageTypeId: string,
+  start: DateTime,
   token: string,
 ) {
   return patch(
@@ -173,6 +178,7 @@ export async function patchStage(
     {
       description: description,
       stage_type_id: stageTypeId,
+      start: start.toISO(),
     },
     token,
   )

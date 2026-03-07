@@ -88,6 +88,7 @@ export interface StageModel {
   description: string
   last_logs: StateLog[]
   stage_type: StageTypeModel
+  start: string | null
 }
 
 export interface FederationModel {
