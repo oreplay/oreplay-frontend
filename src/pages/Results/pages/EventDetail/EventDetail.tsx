@@ -8,6 +8,7 @@ import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import { useFetchEventDetail } from "../../services/FetchHooks.ts"
 import { STAGE_TYPE_DATABASE_ID } from "../Results/shared/constants.ts"
+import { DateTime } from "luxon"
 
 const styles = {
   titleEvent: {
@@ -134,6 +135,7 @@ export default function EventDetail() {
                   }}
                   display={"flex"}
                   justifyContent={"space-between"}
+                  alignItems="center"
                   key={stage.id}
                   onClick={() =>
                     void navigate(`/competitions/${id}/${stage.id}`, {
@@ -146,7 +148,23 @@ export default function EventDetail() {
                     })
                   }
                 >
-                  <Typography color={"text.primary"}>{description}</Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      gap: 0.5,
+                    }}
+                  >
+                    <Typography color={"text.primary"}>{description}</Typography>
+                    {stage.start ? (
+                      <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
+                        {DateTime.fromISO(stage.start).toLocaleString(
+                          DateTime.DATETIME_MED_WITH_WEEKDAY,
+                        )}
+                      </Typography>
+                    ) : null}
+                  </Box>
                   <ArrowForward sx={{ color: "text.primary" }} />
                 </Box>
               )
