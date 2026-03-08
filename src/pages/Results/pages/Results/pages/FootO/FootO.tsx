@@ -16,6 +16,8 @@ import { useParams } from "react-router-dom"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
+import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
+import { DateTime } from "luxon"
 
 const menu_options_labels = ["startTimes", "results", "splits"]
 
@@ -27,6 +29,8 @@ export default function FootO() {
   if (!eventId || !stageId) {
     throw new Error("Event Id or Stage Id is missing")
   }
+
+  const { data: eventDetail } = useFetchStageDetail(eventId, stageId, { staleTime: Infinity })
 
   // Fetch classes and clubs
   const {
@@ -84,7 +88,9 @@ export default function FootO() {
     >
       <ResultTabs
         key={"ResultTabs"}
-        defaultMenu={1}
+        defaultMenu={
+          eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1 // display start times if the race has not started
+        }
         menuOptions={[
           <BottomNavigationAction
             key={"FootOStartTimeMenu"}
