@@ -21,7 +21,12 @@ export default function Results() {
   const { eventId, stageId } = useParams<string>()
 
   // Event's and stage's info
-  const { data: eventData, isLoading, isError, error } = useFetchEventDetail(eventId as string)
+  const {
+    data: eventData,
+    isLoading,
+    isError,
+    error,
+  } = useFetchEventDetail(eventId as string, { staleTime: 15000 }) // stale time avoids future refetched while loading the component
   const eventDetail = eventData?.data
   const singleStage: boolean = eventDetail?.stages.length == 1
   const stageDetail = eventDetail?.stages.find((stage) => stage.id === stageId)

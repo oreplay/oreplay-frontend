@@ -17,6 +17,8 @@ import {
   getOneManRelayRunnersByClass,
   getOneManRelayRunnersByClub,
 } from "./services/OneManRelayService.ts"
+import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
+import { DateTime } from "luxon"
 
 const menu_options_labels = ["startTimes", "results"]
 
@@ -28,6 +30,7 @@ export default function OneManRelay() {
   if (!eventId || !stageId) {
     throw new Error("Event Id or Stage Id is missing")
   }
+  const { data: eventDetail } = useFetchStageDetail(eventId, stageId, { staleTime: Infinity })
 
   // Fetch classes and clubs
   const {
@@ -85,7 +88,9 @@ export default function OneManRelay() {
     >
       <ResultTabs
         key={"ResultTabs"}
-        defaultMenu={1}
+        defaultMenu={
+          eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1 // display start times if the race has not started
+        }
         menuOptions={[
           <BottomNavigationAction
             key={"OneManRelayStartTimeMenu"}
