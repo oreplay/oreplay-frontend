@@ -15,7 +15,12 @@
     "Dashboard": "Tableau de bord",
     "FinishDate": "Date de fin",
     "Name": "Nom de l'événement",
-    "StartDate": "Date de début"
+    "StartDate": "Date de début",
+    "YourEvents": {
+      "CreateEvent": "Créer un événement",
+      "description": "Créez et gérez tous vos événements depuis un seul endroit.",
+      "title": "Vos événements"
+    }
   },
   "Dates": "Dates",
   "Delete": "Supprimer",
@@ -26,19 +31,26 @@
     "Country": "Pays",
     "Create security keys": "Créer une clé de sécurité",
     "DangerArea": "Zone dangereuse",
+    "DataUpload": {
+      "description": "Cet information de sécurité autorise le chargement de données pour cet événement spécifique. Partagez-le uniquement avec votre équipe. L'autorisation peut être révoquée à tout moment.",
+      "title": "Téléchargement de données"
+    },
     "DeleteEvent": "Supprimer l'événement",
     "Do you want to delete this event?": "Voulez-vous supprimer cet événement ?",
     "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
     "EventData": "Information sur l'événement",
+    "EventDataDescription": "Consultez et modifiez les principaux détails de votre événement",
     "EventId": "ID de l'événement",
     "EventName": "Nom de l'événement",
-    "EventSecurityTokens": "Clé secrète pour le client de bureau",
-    "EventSecurityTokensExpireDate": "Expire le",
+    "EventNamePlaceholder": "Un événement formidable auquel participer",
+    "EventSecurityTokens": "Clé secrète",
+    "EventSecurityTokensExpireDate": "Date d'expiration",
     "FinishDate": "Date de fin",
     "Hidden": "Caché",
     "InvalidURLMsg": "URL invalide",
     "Location": "Emplacement",
     "Organizer": "Organisateur",
+    "OrganizerPlaceholder": "Club génial",
     "Public": "Publique",
     "QRCode": {
       "CopyUrl": "Copier l’URL de l’événement",
@@ -61,6 +73,7 @@
       "International": "Internationale",
       "Local": "Locale",
       "National": "Nationale",
+      "Placeholder": "Portée",
       "RegionalHigh": "Fédéral",
       "RegionalLow": "Régional",
       "Scope": "Portée"
@@ -71,6 +84,7 @@
         "DialogTitle": "Voulez-vous supprimer cette étape ?",
         "MenuText": "Supprimer"
       },
+      "FailedToLoadOrganizers": "Échec du chargement des organisateurs",
       "GoToStage": "Aller sur l'étape",
       "NewStage": "Nouvelle étape",
       "StagesTypes": {
@@ -107,11 +121,14 @@
         "DialogConfirm": "Réinitialiser",
         "DialogTitle": "Voulez-vous réinitialiser cette étape ?",
         "MenuText": "Réinitialiser"
-      }
+      },
+      "description": "Créez autant de étapes que votre événement l'exige. Chaque événement doit comporter au moins une étape."
     },
     "StartDate": "Date de début",
-    "TooLongMsg": "L’URL saisie dépasse le maximum de {{count}} caractères",
-    "Website": "Site web"
+    "TooLongDescriptionMsg": "Le nom fourni dépasse le maximum de {{count}} caractères.",
+    "TooLongMsg": "L’URL saisie dépasse le maximum de {{count}} caractères.",
+    "Website": "Site web",
+    "WebsitePlaceholder": "https://votreclub.com/votreevenement"
   },
   "EventList": {
     "FutureEvents": "Événements à venir",
@@ -121,6 +138,7 @@
   },
   "Events": "Événements",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
+  "FieldTooLongMsg": "Nombre maximal de caractères autorisé : {{count}}.",
   "ForbiddenAccess": "Accès interdit",
   "GeneralErrorFallback": {
     "msg": "Essayez d'actualiser la page. Si l'erreur persiste, veuillez réessayer ultérieurement.",
@@ -151,6 +169,13 @@
   "Loading": "Chargement",
   "Location": "Emplacement",
   "Menu": "Menu",
+  "MyAccount": {
+    "description": "Gérez vos informations personnelles.",
+    "personalInformation": {
+      "title": "Informations personnelles"
+    },
+    "title": "Mon profil"
+  },
   "Name": "Nom",
   "Organizer": "Organisateur",
   "Organizers": "Info sur l'organisateur",
@@ -184,7 +209,7 @@
     "FinishTime": "Arrivée",
     "Name": "Nom",
     "NoClubMsg": "Pas de club",
-    "NoData": "Désolé, aucune donnée n'est disponible",
+    "NoData": "Aucune donnée n'est disponible",
     "NoStartTime": "-",
     "NonContributory": "non contributif",
     "NotStarted": "-",
@@ -244,9 +269,50 @@
   "Sign in": {
     "ForgotPassword": "Mot de passe oublié ?",
     "Logout": "Fermer session",
-    "NoAccount": "Vous n'avez pas de compte ? S'inscrire",
+    "NoAccount": "Vous n'avez pas de compte ? <1>S'enregistrer</1>",
     "RememberMe": "Souviens-toi de moi",
     "Sign in": "Se connecter"
+  },
+  "SignUp": {
+    "AlreadyHaveAccount": "Vous avez déjà un compte ? <1>Se connecter</1>",
+    "Email": {
+      "Validation": {
+        "EnterValidEmailAddress": "S'il vous plaît, mettez une adresse email valide."
+      }
+    },
+    "EmailMe": "Je souhaite recevoir les mises à jour par e-mail.",
+    "EmailVerification": {
+      "msg": "Un lien de vérification a été envoyé à {{email}}. Veuillez consulter votre boîte de réception et cliquer sur le lien pour vérifier votre compte. Vous pouvez fermer cette fenêtre sans risque.",
+      "title": "Veuillez vérifier votre adresse e-mail"
+    },
+    "FirstName": "Prénom",
+    "LastName": "Nom de famille",
+    "Password": {
+      "InvalidPassword": "Mot de passe invalide",
+      "Validation": {
+        "AtLeastCharacter_many": "Au moins {{count}} caractères",
+        "AtLeastCharacter_one": "Au moins {{count}} caractère",
+        "AtLeastCharacter_other": "Au moins {{count}} caractères",
+        "AtLeastLowercase_many": "Au moins {{count}} lettres minuscules",
+        "AtLeastLowercase_one": "Au moins {{count}} lettre minuscule",
+        "AtLeastLowercase_other": "Au moins {{count}} lettres minuscules",
+        "AtLeastNumber_many": "Au moins {{count}} numéros",
+        "AtLeastNumber_one": "Au moins {{count}} numéro",
+        "AtLeastNumber_other": "Au moins {{count}} numéros",
+        "AtLeastSymbol_many": "Au moins {{count}} caractères spéciaux",
+        "AtLeastSymbol_one": "Au moins {{count}} caractère spécial",
+        "AtLeastSymbol_other": "Au moins {{count}} caractères spéciaux",
+        "AtLeastUppercase_many": "Au moins {{count}} lettres majuscules",
+        "AtLeastUppercase_one": "Au moins {{count}} lettre majuscule",
+        "AtLeastUppercase_other": "Au moins {{count}} lettres majuscules",
+        "DoesntMeetCriteria": "Le mot de passe ne répond pas aux exigences"
+      }
+    },
+    "SignUp": "S'enregistrer",
+    "TermsConditions": {
+      "label": "J'ai lu et j'accepte les <1>conditions générales</1>.*",
+      "notChecked": "Vous devez accepter les conditions générales."
+    }
   },
   "StageHeader": {
     "Graphs": "Graphiques",
@@ -259,6 +325,7 @@
   "Stages": "Etages",
   "Success": "Succès",
   "This action cannot be undone": "Cette action ne peut pas être annulée.",
+  "ThisFieldIsRequiredMsg": "Ce champ est obligatoire.",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
   "UnderDevelopment": "En cours de développement",
   "authenticationError": "Une erreur s'est produite",
@@ -270,6 +337,8 @@
     "selectRunnersMessage": "Sélectionnez des coureurs pour voir le graphique",
     "timeAxisLabel": "Temps (secondes)"
   },
+  "firstName": "Prénom",
+  "lastName": "Nom de famille",
   "lineChart": {
     "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
     "tooltip": {

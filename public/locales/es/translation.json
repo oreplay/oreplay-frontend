@@ -138,6 +138,7 @@
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Funcionalidad experimental",
+  "FieldTooLongMsg": "Máximo de {{count}} caracteres permitidos.",
   "ForbiddenAccess": "Acceso denegado",
   "GeneralErrorFallback": {
     "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde.",
@@ -271,6 +272,47 @@
     "NoAccount": "¿No tienes cuenta? <1>Regístrate</1>",
     "RememberMe": "Recordarme",
     "Sign in": "Iniciar sesión"
+  },
+  "SignUp": {
+    "AlreadyHaveAccount": "¿Ya tienes una cuenta? <1>Inicia sesión</1>",
+    "Email": {
+      "Validation": {
+        "EnterValidEmailAddress": "Por favor, introduce una dirección de correo electrónico válida."
+      }
+    },
+    "EmailMe": "Deseo recibir actualizaciones por email.",
+    "EmailVerification": {
+      "msg": "Un enlace de verificación ha sido enviado a {{email}}. Por favor, comprueba tu bandeja de entrada y pulsa sobre el enlace para verificar tu cuenta. Puedes cerrar esta ventana.",
+      "title": "Por favor, verifica tu dirección de correo electrónico"
+    },
+    "FirstName": "Nombre",
+    "LastName": "Apellidos",
+    "Password": {
+      "InvalidPassword": "Contraseña invalida",
+      "Validation": {
+        "AtLeastCharacter_many": "Al menos {{count}} caracteres",
+        "AtLeastCharacter_one": "Al menos un carácter",
+        "AtLeastCharacter_other": "Al menos {{count}} caracteres",
+        "AtLeastLowercase_many": "Al menos {{count}} letras minúsculas",
+        "AtLeastLowercase_one": "Al menos una letra minúscula",
+        "AtLeastLowercase_other": "Al menos {{count}} letras minúsculas",
+        "AtLeastNumber_many": "Al menos {{count}} números",
+        "AtLeastNumber_one": "Al menos un número",
+        "AtLeastNumber_other": "Al menos {{count}} números",
+        "AtLeastSymbol_many": "Al menos {{count}} caracteres especiales",
+        "AtLeastSymbol_one": "Al menos un caracter especial",
+        "AtLeastSymbol_other": "Al menos {{count}} caracteres especiales",
+        "AtLeastUppercase_many": "Al menos {{count}} letras mayúsculas",
+        "AtLeastUppercase_one": "Al menos una letra mayúscula",
+        "AtLeastUppercase_other": "Al menos {{count}} letras mayúsculas",
+        "DoesntMeetCriteria": "La contraseña no cumple los requisitos"
+      }
+    },
+    "SignUp": "Registrarse",
+    "TermsConditions": {
+      "label": "He leído y acepto los <1>términos y condiciones</1>.*",
+      "notChecked": "Debes aceptar los términos y condiciones."
+    }
   },
   "StageHeader": {
     "Graphs": "Gráficos",

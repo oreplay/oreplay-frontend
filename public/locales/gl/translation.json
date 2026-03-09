@@ -15,7 +15,12 @@
     "Dashboard": "Panel de control",
     "FinishDate": "Data de remate",
     "Name": "Nome do evento",
-    "StartDate": "Data de inicio"
+    "StartDate": "Data de inicio",
+    "YourEvents": {
+      "CreateEvent": "Crear evento",
+      "description": "Crea e xestiona os teus eventos nun só lugar.",
+      "title": "Os teus eventos"
+    }
   },
   "Dates": "Datas",
   "Delete": "Borrar",
@@ -26,19 +31,26 @@
     "Country": "País",
     "Create security keys": "Crear unha chave de seguridade",
     "DangerArea": "Zona de perigo",
+    "DataUpload": {
+      "description": "Esta información de seguridade permite subir datos a este evento. Comparte só co teu equipo. Pode ser revocada en calquera momento.",
+      "title": "Subida de datos"
+    },
     "DeleteEvent": "Borrar evento",
     "Do you want to delete this event?": "Queres borrar este evento?",
     "Do you want to renew the security key?": "Queres renovar a chave de seguridade?",
     "EventData": "Información do evento",
+    "EventDataDescription": "Ver e editar os detalles principais do teu evento",
     "EventId": "ID do evento",
     "EventName": "Nome do evento",
-    "EventSecurityTokens": "Chave secreta para o cliente de escritorio",
-    "EventSecurityTokensExpireDate": "Expira o",
+    "EventNamePlaceholder": "Un gran evento no que participar",
+    "EventSecurityTokens": "Chave secreta",
+    "EventSecurityTokensExpireDate": "Data de caducidade",
     "FinishDate": "Data de remate",
     "Hidden": "Oculto",
     "InvalidURLMsg": "URL non válido",
     "Location": "Localización",
     "Organizer": "Organizador",
+    "OrganizerPlaceholder": "Club impresionante",
     "Public": "Público",
     "QRCode": {
       "CopyUrl": "Copiar URL do evento",
@@ -61,6 +73,7 @@
       "International": "Internacional",
       "Local": "Local",
       "National": "Nacional",
+      "Placeholder": "Alcance",
       "RegionalHigh": "Federal",
       "RegionalLow": "Rexional",
       "Scope": "Ámbito"
@@ -71,6 +84,7 @@
         "DialogTitle": "Queres borrar esta etapa?",
         "MenuText": "Borrar"
       },
+      "FailedToLoadOrganizers": "Erro cargando organizadores",
       "GoToStage": "Ir á etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
@@ -107,11 +121,14 @@
         "DialogConfirm": "Reiniciar",
         "DialogTitle": "Queres reiniciar esta etapa?",
         "MenuText": "Reiniciar"
-      }
+      },
+      "description": "Crea tantas etapas como necesites para o teu evento. Cada evento debe ter polo menos unha etapa."
     },
     "StartDate": "Data de inicio",
-    "TooLongMsg": "A URL inserida excede o máximo de {{count}} caracteres",
-    "Website": "Web do evento"
+    "TooLongDescriptionMsg": "O nome proporcionado excede o máximo de {{count}} caracteres.",
+    "TooLongMsg": "A URL inserida excede o máximo de {{count}} caracteres.",
+    "Website": "Web do evento",
+    "WebsitePlaceholder": "https://teuclub.com/teuevento"
   },
   "EventList": {
     "FutureEvents": "Eventos futuros",
@@ -121,6 +138,7 @@
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Característica experimental",
+  "FieldTooLongMsg": "Máximo de {{count}} caracteres permitidos.",
   "ForbiddenAccess": "Acceso prohibido",
   "GeneralErrorFallback": {
     "msg": "Intente refrescando a páxina. Se o erro persiste, por favor inténteo de novo máis tarde.",
@@ -150,11 +168,18 @@
   "Loading": "Cargando",
   "Location": "Localización",
   "Menu": "Menú",
+  "MyAccount": {
+    "description": "Xestiona a túa información persoal.",
+    "personalInformation": {
+      "title": "Información persoal"
+    },
+    "title": "Meu perfil"
+  },
   "Name": "Nome",
   "Organizer": "Organizador",
   "Organizers": "Info de organizador",
   "Overall": {
-    "pointsAbbreviation": "pts"
+    "pointsAbbreviation": "puntos"
   },
   "Password": "Contrasinal",
   "PrivateEventPage": {
@@ -183,7 +208,7 @@
     "FinishTime": "Meta",
     "Name": "Nome",
     "NoClubMsg": "Sen club",
-    "NoData": "Sentímolo, non hai datos dispoñibles",
+    "NoData": "Non hai datos dispoñibles",
     "NoStartTime": "-",
     "NonContributory": "Non contribúe",
     "NotStarted": "-",
@@ -243,9 +268,45 @@
   "Sign in": {
     "ForgotPassword": "Contrasinal esquecido?",
     "Logout": "Pechar sesión",
-    "NoAccount": "Non tes unha conta? Rexístrate",
+    "NoAccount": "Non tes unha conta? <1>Rexístrate</1>",
     "RememberMe": "Lémbrame",
     "Sign in": "Iniciar sesión"
+  },
+  "SignUp": {
+    "AlreadyHaveAccount": "Xa tés unha conta? <1>Acceder</1>",
+    "Email": {
+      "Validation": {
+        "EnterValidEmailAddress": "Por favor, insire un enderezo electrónico válido."
+      }
+    },
+    "EmailMe": "Quero recibir actualizacións vía email.",
+    "EmailVerification": {
+      "msg": "Enviouse unha ligazón de verificación a {{email}}. Por favor, comproba a túa bandexa de entrada e preme na ligazón para verificar a túa conta. Podes pechar esta ventá con toda seguridade.",
+      "title": "Por favor verifica o teu enderezo electrónico"
+    },
+    "FirstName": "Nome",
+    "LastName": "Apelidos",
+    "Password": {
+      "InvalidPassword": "Contrasinal non válido",
+      "Validation": {
+        "AtLeastCharacter_one": "Polo menos {{count}} carácter",
+        "AtLeastCharacter_other": "Polo menos {{count}} caracteres",
+        "AtLeastLowercase_one": "Polo menos {{count}} letra en minúscula",
+        "AtLeastLowercase_other": "Polo menos {{count}} letras en minúscula",
+        "AtLeastNumber_one": "Polo menos {{count}} número",
+        "AtLeastNumber_other": "Polo menos {{count}} números",
+        "AtLeastSymbol_one": "Polo menos {{count}} carácter especial",
+        "AtLeastSymbol_other": "Polo menos {{count}} caracteres especiais",
+        "AtLeastUppercase_one": "Polo menos {{count}} letra en maiúscula",
+        "AtLeastUppercase_other": "Polo menos {{count}} letras en maiúscula",
+        "DoesntMeetCriteria": "O contrasinal non cumpre os requisitos"
+      }
+    },
+    "SignUp": "Rexístrate",
+    "TermsConditions": {
+      "label": "Lin e acepto os <1>termos e condicións</1>.*",
+      "notChecked": "Debes aceptar os termos e condicións."
+    }
   },
   "StageHeader": {
     "Graphs": "Gráficas",
@@ -258,6 +319,7 @@
   "Stages": "Etapas",
   "Success": "Éxito",
   "This action cannot be undone": "Esta acción non se pode desfacer.",
+  "ThisFieldIsRequiredMsg": "Este campo é obrigatorio.",
   "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada.",
   "UnderDevelopment": "En desenvolvemento",
   "authenticationError": "Ocorreu un erro",
@@ -269,6 +331,8 @@
     "selectRunnersMessage": "Selecciona corredores para ver o gráfico",
     "timeAxisLabel": "Tempo (segundos)"
   },
+  "firstName": "Nome",
+  "lastName": "Apelidos",
   "lineChart": {
     "noData": "Selecciona corredores para ver o gráfico de liñas",
     "tooltip": {

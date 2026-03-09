@@ -1,1 +1,91 @@
-{}
+{
+  "404Page": {
+    "ButtonMessage": "Üçgeni başlat",
+    "Header": "Odunları kayıp mı ettiniz?",
+    "Message": "Ulaşmaya çalıştığınız sayfayı bulamadık."
+  },
+  "AboutUs": {
+    "AboutUs": "Hakkımızda",
+    "VersionMessage": "Geliştirme aşamasındayız, kullandığınız yazılım sürümü "
+  },
+  "Cancel": "İptal et",
+  "Copied to the clipboard": "Panoya kopyalandı.",
+  "Copy": "Kopyala",
+  "Dashboard": {
+    "Dashboard": "Gösterge paneli",
+    "FinishDate": "Bitiş tarihi",
+    "Name": "Etkinliğin adı",
+    "StartDate": "Başlangıç tarihi",
+    "YourEvents": {
+      "CreateEvent": "Etkinlik oluştur",
+      "description": "Etkinliklerinizi tek bir yerden oluşturup düzenleyin.",
+      "title": "Etkinlikleriniz"
+    }
+  },
+  "Dates": "Tarihler",
+  "Delete": "Sil",
+  "Edit": "Düzenle",
+  "EmailAddress": "E-posta adresi",
+  "Event": "Etkinlik",
+  "EventAdmin": {
+    "Country": "Bölge",
+    "Create security keys": "Güvenlik anahtarı oluştur",
+    "DangerArea": "Tehlikeli bölge",
+    "DataUpload": {
+      "description": "Bu güvenlik bildirisi çeşitli etkinliklere dosya eklenebildiğini hatırlatmak içindir. Sadece takımınız ile paylaşın. Başka bir zaman iptal edebilirsiniz.",
+      "title": "Dosya yükle"
+    },
+    "DeleteEvent": "Etkinliği sil",
+    "Do you want to delete this event?": "Bu etkinliği silmek istediğinize emin misiniz?",
+    "Do you want to renew the security key?": "Yeni bir anahtar oluşturmak istediğinize emin misiniz?",
+    "EventData": "Etkinlik bilgileri",
+    "EventDataDescription": "Etkinliğinizin asıl bilgilerini görüntüleyin ve düzenleyin",
+    "EventId": "Etkinlik numarası",
+    "EventName": "Etkinlik adı",
+    "EventNamePlaceholder": "Katılmanız için harika bir etkinlik",
+    "EventSecurityTokens": "Gizli anahtar",
+    "EventSecurityTokensExpireDate": "Son kullanım tarihi",
+    "FinishDate": "Bitiş tarihi",
+    "Hidden": "Gizlenmiş",
+    "InvalidURLMsg": "Tanımsız URL",
+    "Location": "Lokasyon",
+    "Organizer": "Organizatör",
+    "OrganizerPlaceholder": "Harika kulüp",
+    "Public": "Herkese açık",
+    "QRCode": {
+      "CopyUrl": "Etkinlik URL'sini kopyala",
+      "Description": "O-Replay'i direkt açacak link için bir QR kod oluştur ve indir.",
+      "Download": "QR kodu indir (PNG)",
+      "DownloadSuccessful": "QR kod başarıyla indirildi",
+      "EventName": "Etkinliğin adı",
+      "EventUrl": "Etkinliğin URL'si",
+      "Generating": "QR kod oluşturuluyor...",
+      "Instructions": "Bu QR kod haritada ilgili etkinliği O-Replay'de daha rahat ulaşılabilsin diye konumlandırılabilir.",
+      "ShareEvent": "Paylaş",
+      "Title": "Etkinliğin QR kodu"
+    },
+    "Renew": "Yenile",
+    "Renew security keys": "Yeni bir güvenlik anahtarı oluştur",
+    "RenewEventTokenMsg": "Yeni bir anahtar oluşturursanız eski anahtar geçersiz kalır. Eski anahtara sahip olanlar ise sonuçlarını etkinliğe yükleyemez.",
+    "Save": "Kaydet",
+    "Scopes": {
+      "Club": "Kulüp",
+      "International": "Uluslararası",
+      "Local": "Yerel",
+      "National": "Bölgrsel",
+      "Placeholder": "Kapsam",
+      "RegionalHigh": "Federal",
+      "RegionalLow": "Bölgesel",
+      "Scope": "Kapsam"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "DialogBody": "Bu bölüm ve ilgili olan diğer sonuçlar silinmiştir. Bu geri alınamaz.",
+        "DialogTitle": "Bu bölümü silmek istediğinize emin misiniz?",
+        "MenuText": "Sil"
+      },
+      "FailedToLoadOrganizers": "Organizatörler listelenirken sorun oluştu",
+      "description": "Etkinliğiniz için birkaç tane gereklilik ekleyin, en az bir tane ekleyeblirsiniz."
+    }
+  }
+}
