@@ -5,12 +5,7 @@
     "title": "Prerrequsitos",
     "Registering": {
       "title": "Registrarse en O-Replay",
-      "p1": "Actualmente, la única forma de registrarse es enviando un correo electrónico a <2>support@oreplay.es</2> con la siguiente información (hablamos tanto inglés como español):",
-      "list": {
-        "item1": "Nombre",
-        "item2": "Dirección de correo electrónico",
-        "item3": "Nombre del Club"
-      },
+      "p1": "Accede a nuestra página de registro <1>www.oreplay.com/sign-up</1> para crear una cuenta.",
       "p2": "Tenga en cuenta que O-Replay está en desarrollo constante. Muchas de las funcionalidades previstas aún no están disponibles, pero el sistema está listo para usarse."
     },
     "DesktopClient": {
@@ -35,7 +30,7 @@
           "url": "/organizers/en/DesktopClient/Client.png",
           "alt": "Captura de pantalla del cliente de escritorio"
         },
-        "p2": "La opción \"Dividir por categoría\" hace una conexión diferente al servidor para cada categoría. Esta opción se creó con fines de desarrollo, puede estar marcada o desmarcada."
+        "p2": "La opción \"Dividir por categoría\" hace una conexión diferente al servidor para cada categoría. Esta opción es recomendad para conexiones lentas o inestables."
       }
     }
   },

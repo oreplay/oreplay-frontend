@@ -93,16 +93,10 @@ const Organizers = (): React.ReactNode => {
         <Typography variant="h3">{t("Prerequisites.Registering.title")}</Typography>
         <Typography>
           <Trans t={t} i18nKey="Prerequisites.Registering.p1">
-            Currently, the only way to register is by sending an email to{" "}
-            <Link href={"mailto:support@oreplay.es"}>support@oreplay.es</Link> with the following
-            information (we speak both English and Spanish):
+            Navigate to our sign up page <Link href={"/sign-up"}>www.oreplay.com/sign-up</Link>
+            to create an account.
           </Trans>
         </Typography>
-        <OrderedList>
-          <ListItem>{t("Prerequisites.Registering.list.item1")}</ListItem>
-          <ListItem>{t("Prerequisites.Registering.list.item2")}</ListItem>
-          <ListItem>{t("Prerequisites.Registering.list.item3")}</ListItem>
-        </OrderedList>
         <Typography>{t("Prerequisites.Registering.p2")}</Typography>
         <Typography variant={"h3"}>{t("Prerequisites.DesktopClient.title")}</Typography>
         <Typography variant={"h4"}>
