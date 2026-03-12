@@ -125,7 +125,8 @@
       }
     },
     "StartDate": "Start date",
-    "TooLongDescriptionMsg": "The provided name exceeds the maximum of {{count}} characters.",
+    "TooLongDescriptionMsg_one": "The provided name exceeds the maximum of one character.",
+    "TooLongDescriptionMsg_other": "The provided name exceeds the maximum of {{count}} characters.",
     "TooLongMsg": "The entered URL exceeds the maximum of {{count}} characters.",
     "Website": "Event's website",
     "WebsitePlaceholder": "https://yourclub.com/yourevent"
