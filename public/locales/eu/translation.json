@@ -210,6 +210,7 @@
     "NoClubMsg": "Klubik ez",
     "NoData": "Ez dago daturik eskuragarri",
     "NoStartTime": "-",
+    "NonContributory": "baztertutako",
     "NotStarted": "-",
     "PenaltyPoints": "Zigorra:",
     "Points": "Puntuak:",
@@ -267,7 +268,7 @@
   "Sign in": {
     "ForgotPassword": "Pasahitza ahaztu duzu?",
     "Logout": "Saioa amaitu",
-    "NoAccount": "Ez duzu konturik? Eman izena",
+    "NoAccount": "Ez duzu konturik? <1>Eman izena</1>",
     "RememberMe": "Gogorarazi",
     "Sign in": "Saioa hasi"
   },

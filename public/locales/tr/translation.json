@@ -85,6 +85,8 @@
         "MenuText": "Sil"
       },
       "FailedToLoadOrganizers": "Organizatörler listelenirken sorun oluştu",
+      "GoToStage": "İlgili bölüme git",
+      "NewStage": "Yeni bölüm",
       "description": "Etkinliğiniz için birkaç tane gereklilik ekleyin, en az bir tane ekleyeblirsiniz."
     }
   }

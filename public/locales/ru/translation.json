@@ -125,9 +125,12 @@
       "description": "Создайте столько этапов, сколько требуется вашему соревнованию. Каждое соревнование должно иметь по крайней мере один этап."
     },
     "StartDate": "Дата начала",
-    "TooLongDescriptionMsg": "Указанное имя превышает максимальную длину из {{count}} символов.",
+    "TooLongDescriptionMsg_few": "Указанное имя превышает максимальную длину из {{count}} символов.",
+    "TooLongDescriptionMsg_many": "Указанное имя превышает максимальную длину из {{count}} символов.",
+    "TooLongDescriptionMsg_one": "Указанное имя превышает максимальную длину из {{count}} символа.",
     "TooLongMsg": "Введенный URL-адрес превышает максимальную длину из {{count}} символов.",
-    "Website": "Веб-сайт соревнования"
+    "Website": "Веб-сайт соревнования",
+    "WebsitePlaceholder": "https://вашклуб.com/вашесоревнование"
   },
   "EventList": {
     "FutureEvents": "Будущие соревнования",
@@ -285,7 +288,33 @@
       "title": "Пожалуйста, подтвердите ваш адрес электронной почты"
     },
     "FirstName": "Имя",
-    "LastName": "Фамилия"
+    "LastName": "Фамилия",
+    "Password": {
+      "InvalidPassword": "Неверный пароль",
+      "Validation": {
+        "AtLeastCharacter_few": "Не менее {{count}} символов",
+        "AtLeastCharacter_many": "Не менее {{count}} символов",
+        "AtLeastCharacter_one": "Как минимум {{count}} символ",
+        "AtLeastLowercase_few": "Как минимум {{count}} строчные буквы",
+        "AtLeastLowercase_many": "Как минимум {{count}} строчных букв",
+        "AtLeastLowercase_one": "Как минимум {{count}} строчная буква",
+        "AtLeastNumber_few": "Как минимум {{count}} цифры",
+        "AtLeastNumber_many": "Как минимум {{count}} цифр",
+        "AtLeastNumber_one": "Как минимум {{count}} цифра",
+        "AtLeastSymbol_few": "Как минимум {{count}} специальных символа",
+        "AtLeastSymbol_many": "Как минимум {{count}} специальных символов",
+        "AtLeastSymbol_one": "Как минимум {{count}} специальный символ",
+        "AtLeastUppercase_few": "Как минимум {{count}} заглавные буквы",
+        "AtLeastUppercase_many": "Как минимум {{count}} заглавных букв",
+        "AtLeastUppercase_one": "Как минимум {{count}} заглавная буква",
+        "DoesntMeetCriteria": "Пароль не соответствует требованиям"
+      }
+    },
+    "SignUp": "Зарегистрируйтесь",
+    "TermsConditions": {
+      "label": "Я прочитал(а) и принимаю <1>условия и положения</1>.*",
+      "notChecked": "Вы должны принять условия и положения."
+    }
   },
   "StageHeader": {
     "Graphs": "Графики",
@@ -298,6 +327,7 @@
   "Stages": "Этапы соревнования",
   "Success": "Успех",
   "This action cannot be undone": "Это действие нельзя отменить.",
+  "ThisFieldIsRequiredMsg": "Это поле обязательно для заполнения.",
   "ThisFunctionalityNotImplementedMsg": "Эта функция еще не реализована.",
   "UnderDevelopment": "В стадии разработки",
   "authenticationError": "Произошла ошибка",
@@ -309,10 +339,50 @@
     "selectRunnersMessage": "Выберите бегунов для просмотра графика",
     "timeAxisLabel": "Время (секунды)"
   },
+  "firstName": "Имя",
+  "lastName": "Фамилия",
   "lineChart": {
-    "noData": "Выберите бегунки для просмотра линейного графика"
+    "noData": "Выберите бегунки для просмотра линейного графика",
+    "tooltip": {
+      "behindBestPartial": "Время отставания от лучшего сплита",
+      "behindLeader": "Время отставания от лидера"
+    },
+    "xAxisLabel": "Контрольные пункты"
+  },
+  "positionChart": {
+    "caption": "* Позиция 1 выше всех (лучшая), большие числа ниже (хуже)",
+    "noData": "Выберите бегунов для просмотра динамики позиции",
+    "tooltip": {
+      "control": "КП",
+      "position": "Позиция",
+      "splitTime": "Сплит-время",
+      "timeLost": "Время отставания от лучшего сплита: {{timeLost}}"
+    },
+    "xAxisLabel": "Контрольные пункты",
+    "yAxisLabel": "Позиция"
+  },
+  "sidebar": {
+    "backendVersion": "Бэкенд",
+    "cookiePolicy": "Политика использования файлов cookie",
+    "frontendVersion": "Фронтенд",
+    "frontendVersionWithVersion": "Фронтенд v{{version}}",
+    "legalNotice": "Юридическая информация",
+    "loading": "Идёт загрузка...",
+    "privacyPolicy": "Политика конфиденциальности"
+  },
+  "tooltip": {
+    "efficiency": "Эффективность",
+    "errorFreeTime": "Время без ошибок",
+    "errorTime": "Потерянное время (ошибка)",
+    "totalDisplayedTime": "Общее отображаемое время"
   },
   "view": {
+    "accumulated": "Накопленные",
+    "barChart": "Потеря времени",
+    "lineChart": "Отставание от лидера",
+    "positionChart": "Позиция",
+    "radios": "Радио-КП",
+    "splits": "Сплиты",
     "timeLoss": "Таблица потери времени"
   }
 }

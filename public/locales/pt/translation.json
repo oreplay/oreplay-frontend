@@ -78,7 +78,7 @@
       }
     },
     "StartDate": "Data de início",
-    "TooLongMsg": "O URL introduzido excede o máximo de {{count}} caracteres",
+    "TooLongMsg": "O URL introduzido excede o máximo de {{count}} caracteres.",
     "Website": "Site do evento"
   },
   "EventList": {
