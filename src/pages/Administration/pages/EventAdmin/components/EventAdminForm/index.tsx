@@ -26,6 +26,11 @@ import { useForm } from "@tanstack/react-form"
 import { validateURL } from "./functions.ts"
 import { useQuery } from "react-query"
 import { useNotifications } from "@toolpad/core/useNotifications"
+import TimezoneAutocomplete, { TimezoneOption } from "./components/TimeZoneAutocomplete"
+import {
+  getUserTimeZone,
+  timeZoneOptionGenerator,
+} from "./components/TimeZoneAutocomplete/functions.ts"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -53,6 +58,7 @@ export interface EventAdminFormValues {
   endDate: DateTime | null
   scope: string
   isPublic: boolean
+  timezone: TimezoneOption
 }
 
 const WEBSITE_MAX_LENGTH = 120
@@ -66,7 +72,7 @@ const EVENT_NAME_MAX_LENGTH = 255
  * @param props
  */
 export default function EventAdminForm(props: EventAdminFormProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const notifications = useNotifications()
 
   const form = useForm({
@@ -78,6 +84,10 @@ export default function EventAdminForm(props: EventAdminFormProps) {
       endDate: props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null,
       scope: props.eventDetail?.scope ?? "",
       isPublic: props.eventDetail ? !props.eventDetail.is_hidden : false,
+      timezone: timeZoneOptionGenerator(
+        props.eventDetail?.timezone ?? getUserTimeZone(),
+        i18n.language,
+      ),
     },
     onSubmit: ({ value }) => props.handleSubmit(value),
   })
@@ -312,8 +322,22 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             )}
           </form.Field>
         </Grid>
+        <Grid size={{ xs: 12, md: 4 }}>
+          <form.Field name={"timezone"}>
+            {(field) => (
+              <>
+                <FormLabel required>{t("TimeZone")}</FormLabel>
+                <TimezoneAutocomplete
+                  value={field.state.value}
+                  onChange={field.handleChange}
+                  disabled={style_props.disabled}
+                />
+              </>
+            )}
+          </form.Field>
+        </Grid>
         <Grid
-          size={{ xs: 12, md: 8 }}
+          size={{ xs: 12, md: 4 }}
           sx={{
             display: "flex",
             flexDirection: "row",
