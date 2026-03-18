@@ -57,6 +57,7 @@ export interface EventDetailModel {
   federation: FederationModel
   stages: StageModel[]
   organizer: OrganizerModel | null
+  timezone: string
 }
 
 export interface StageTypeModel {

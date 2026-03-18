@@ -38,6 +38,7 @@ export async function getEventsFromUser(
  * @param website URL to the event's webpage on the organizer website
  * @param federation_id federation id of the data source
  * @param organizer_id organizer id of the data source
+ * @param timezone timezone of the event  eg: Europe/Madrid
  */
 export async function postEvent(
   description: string,
@@ -56,6 +57,7 @@ export async function postEvent(
   website?: string,
   federation_id?: string,
   organizer_id?: string,
+  timezone?: string,
 ): Promise<Data<PostEventResponse>> {
   return post(
     baseUrl,
@@ -68,6 +70,7 @@ export async function postEvent(
       federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
       organizer_id: organizer_id,
+      timezone: timezone ? timezone : null,
     },
     token,
   )
@@ -85,6 +88,7 @@ export async function postEvent(
  * @param website URL to the event's webpage on the organizer website
  * @param federation_id federation id of the data source
  * @param organizer_id organizer id of the data source
+ * @param timezone timezone of the event  eg: Europe/Madrid
  */
 export async function patchEvent(
   event_id: string,
@@ -104,6 +108,7 @@ export async function patchEvent(
   website?: string,
   federation_id?: string,
   organizer_id?: string,
+  timezone?: string,
 ) {
   return patch<EventDetailModel>(
     `${baseUrl}/${event_id}`,
@@ -116,6 +121,7 @@ export async function patchEvent(
       federation_id: federation_id ? federation_id : null,
       website: website ? website : null,
       organizer_id: organizer_id,
+      timezone: timezone ? timezone : null,
     },
     token,
   )

@@ -323,7 +323,15 @@
   "This action cannot be undone": "This action cannot be undone.",
   "ThisFieldIsRequiredMsg": "This field is required.",
   "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
+  "TimeZone": "Time zone",
   "UnderDevelopment": "Under development",
+  "WorldContinents": {
+    "America": "America",
+    "Asia": "Asia",
+    "Australia": "Australia",
+    "Europe": "Europe",
+    "Other": "Other"
+  },
   "authenticationError": "An error happened",
   "chart": {
     "legend": {
