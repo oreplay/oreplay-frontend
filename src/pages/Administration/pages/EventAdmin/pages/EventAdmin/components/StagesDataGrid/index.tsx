@@ -293,9 +293,13 @@ export default function StagesDataGrid(props: Props) {
       minWidth: 150,
       maxWidth: 220,
       editable: true,
-      renderEditCell: (params) => <GridLuxonDateTimeEditCell {...params} />,
+      renderEditCell: (params) => (
+        <GridLuxonDateTimeEditCell timezone={props.eventDetail.timezone} {...params} />
+      ),
       valueFormatter: (value: DateTime | null) =>
-        value ? value.toLocaleString(DateTime.DATETIME_SHORT) : "",
+        value
+          ? value.setZone(props.eventDetail.timezone).toLocaleString(DateTime.DATETIME_SHORT) // Use event's timezone
+          : "",
     },
     {
       field: "stageTypeId",
