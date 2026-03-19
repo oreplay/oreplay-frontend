@@ -148,7 +148,7 @@ export async function postStage(
   eventId: string,
   stageName: string,
   stageTypeId: string,
-  start: DateTime,
+  start: DateTime | null,
   token: string | null,
 ): Promise<Data<PostStageResponse>> {
   return post(
@@ -156,7 +156,7 @@ export async function postStage(
     {
       description: stageName,
       stage_type_id: stageTypeId,
-      start: start.toISO(),
+      start: start ? start.toISO() : null,
     },
     token,
   )
@@ -176,7 +176,7 @@ export async function patchStage(
   stageId: string,
   description: string,
   stageTypeId: string,
-  start: DateTime,
+  start: DateTime | null,
   token: string,
 ) {
   return patch(
@@ -184,7 +184,7 @@ export async function patchStage(
     {
       description: description,
       stage_type_id: stageTypeId,
-      start: start.toISO(),
+      start: start ? start.toISO() : null,
     },
     token,
   )

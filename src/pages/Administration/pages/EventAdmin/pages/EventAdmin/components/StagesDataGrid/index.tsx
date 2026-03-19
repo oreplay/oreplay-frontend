@@ -242,7 +242,7 @@ export default function StagesDataGrid(props: Props) {
           props.eventDetail.id,
           newRow.stageName,
           newRow.stageTypeId,
-          newRow.start!,
+          newRow.start,
           token,
         )
         updatedRow.id = response.data.id
@@ -258,7 +258,7 @@ export default function StagesDataGrid(props: Props) {
           newRow.stageId,
           newRow.stageName,
           newRow.stageTypeId,
-          newRow.start!,
+          newRow.start,
           token as string,
         )
       } catch (error) {
