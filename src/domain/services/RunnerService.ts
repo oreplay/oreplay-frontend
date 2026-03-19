@@ -75,6 +75,16 @@ function hasStarted(runner: RunnerModel | ProcessedRunnerModel, now?: DateTime<t
   return false // If runner doesn't have start time it looks like never starts
 }
 
+/**
+ * Check if a runner is a team or individual participant
+ * @param runner
+ */
+function isTeam(runner: RunnerModel | ProcessedRunnerModel) {
+  const runners = runner.runners
+
+  return !!(runners && runners.length > 0)
+}
+
 export const runnerService = {
   getClubName,
   getClassName,
@@ -82,6 +92,7 @@ export const runnerService = {
   isDNS,
   isNC,
   isOK,
+  isTeam,
   hasFinished,
   hasStarted,
 }

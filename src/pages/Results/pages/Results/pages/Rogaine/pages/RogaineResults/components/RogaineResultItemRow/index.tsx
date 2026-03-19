@@ -1,6 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import RogaineResultItemRowColumnResult from "./components/RogaineResultItemRowColumnResult.tsx"
-import IndividualResult from "../../../../../../components/ResultsList/IndividualResult/individualResult.tsx"
+import IndividualOrTeamResult from "../../../../../../components/ResultsList/IndividualOrTeamResult"
 
 interface RogaineResultItemRowProps {
   runner: ProcessedRunnerModel
@@ -14,7 +14,7 @@ export default function RogaineResultItemRow({
   onClick,
 }: RogaineResultItemRowProps) {
   return (
-    <IndividualResult
+    <IndividualOrTeamResult
       runner={runner}
       isClass={isClass}
       onClick={onClick}
