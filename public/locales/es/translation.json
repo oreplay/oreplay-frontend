@@ -110,6 +110,7 @@
           "title": "Totales"
         }
       },
+      "Start": "Hora cero (hora local)",
       "Stats": {
         "DialogBody": "Se mostrarán estadísticas de la etapa.",
         "DialogConfirm": "OK",
@@ -125,7 +126,9 @@
       "description": "Crea tantas etapas como tenga tu evento. Cada evento debe tener al menos una etapa."
     },
     "StartDate": "Fecha de comienzo",
-    "TooLongDescriptionMsg": "El nombre proporcionado excede el máximo de {{count}} caracteres.",
+    "TooLongDescriptionMsg_many": "El nombre proporcionado excede el máximo de {{count}} caracteres.",
+    "TooLongDescriptionMsg_one": "El nombre proporcionado excede el máximo de {{count}} caracter.",
+    "TooLongDescriptionMsg_other": "El nombre proporcionado excede el máximo de {{count}} caracteres.",
     "TooLongMsg": "La URL puede tener una longitud máxima de {{count}} caracteres.",
     "Website": "Web del evento",
     "WebsitePlaceholder": "https://tuclub.es/tuevento"
@@ -177,6 +180,7 @@
     "title": "Mi perfil"
   },
   "Name": "Nombre",
+  "NotApplicable": "No aplica",
   "Organizer": "Organizador",
   "Organizers": "Organizadores",
   "Overall": {
@@ -327,7 +331,16 @@
   "This action cannot be undone": "Esta acción no puede deshacerse.",
   "ThisFieldIsRequiredMsg": "Este campo es obligatorio.",
   "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
+  "TimeZone": "Zona horaria",
+  "TimezoneMismatchRunnerMsg": "Estas en una zona horaria diferente a la del evento. Todas las horas mostradas, incluyendo las de salida, se muestran en tu hora local y no en la del evento.",
   "UnderDevelopment": "En desarrollo",
+  "WorldContinents": {
+    "America": "America",
+    "Asia": "Asia",
+    "Australia": "Australia",
+    "Europe": "Europa",
+    "Other": "Otro"
+  },
   "authenticationError": "Ha ocurrido un error",
   "chart": {
     "legend": {
