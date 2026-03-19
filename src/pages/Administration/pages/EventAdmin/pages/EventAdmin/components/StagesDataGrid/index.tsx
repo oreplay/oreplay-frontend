@@ -39,6 +39,7 @@ import ConstructionIcon from "@mui/icons-material/Construction"
 import { DateTime } from "luxon"
 import { GridLuxonDateTimeEditCell } from "./components/GridDateTimeEditCell"
 import { isStartApplicable } from "./functions.ts"
+import { useQueryClient } from "react-query"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -106,6 +107,7 @@ export default function StagesDataGrid(props: Props) {
   const { t } = useTranslation()
   const { token } = useAuth()
   const notifications = useNotifications()
+  const queryClient = useQueryClient()
 
   const stageTypeOptions = [
     {
@@ -248,6 +250,7 @@ export default function StagesDataGrid(props: Props) {
         )
         updatedRow.id = response.data.id
         updatedRow.stageId = response.data.id
+        void queryClient.invalidateQueries(["eventDetail", props.eventDetail.id])
       } catch (error) {
         console.error("Something bad happened while posting the stage: ", error)
       }
@@ -262,6 +265,7 @@ export default function StagesDataGrid(props: Props) {
           newRow.start,
           token as string,
         )
+        void queryClient.invalidateQueries(["eventDetail", props.eventDetail.id])
       } catch (error) {
         console.error("Something bad happened while updating the stage: ", error)
       }
