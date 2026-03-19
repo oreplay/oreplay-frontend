@@ -8,16 +8,19 @@ import { VirtualTicketContext } from "./shared/context.tsx"
 type VirtualTicketRunnerInfoProps = {
   runner: ProcessedRunnerModel
   setClassClubId: (newClassOrClubId: string, isClass: boolean) => void
+  displayTeamMemberNames?: boolean
 }
 
 /**
  * Display a runners name, club and class within a virtual ticket.
  * @param runner Runner to be displayed
  * @param setClassClubId The function to change to another class or club. It is used to provide links with-in the club and club fields
+ * @param displayTeamMemberNames If true, team members will be shown below club and class
  */
 const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({
   runner,
   setClassClubId,
+  displayTeamMemberNames,
 }) => {
   const { t } = useTranslation()
   const textStyles: SxProps = {
@@ -75,6 +78,17 @@ const VirtualTicketRunnerInfo: React.FC<VirtualTicketRunnerInfoProps> = ({
           {runner.class.short_name}
         </Link>
       </Box>
+      {displayTeamMemberNames ? (
+        <Box
+          sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", paddingTop: 1 }}
+        >
+          {runner.runners?.map((teamMember) => (
+            <Typography key={teamMember.id} variant="body2" color="textSecondary">
+              {teamMember.full_name}
+            </Typography>
+          ))}
+        </Box>
+      ) : null}
     </Grid>
   )
 }
