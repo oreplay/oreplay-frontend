@@ -1,4 +1,3 @@
-import React, { CSSProperties } from "react"
 import {
   VirtualTicketContainer,
   VirtualTicketProps,
@@ -7,11 +6,19 @@ import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/
 import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
 import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
 import RogaineVirtualTicketPointsBanner from "./components/RogaineVirtualTicketPointsBanner.tsx"
-import RogaineVirtualTicketSplit from "./components/RogaineVirtualTicketSplits.tsx"
-import { Grid, Typography } from "@mui/material"
-import { useTranslation } from "react-i18next"
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
+import { Grid2 as Grid, Tab, Tabs } from "@mui/material"
+import { useState } from "react"
+import TimelineIcon from "@mui/icons-material/Timeline"
+import TimerIcon from "@mui/icons-material/Timer"
+import TabPanel from "../../../../../../../../components/TabPanel"
+import RogaineVirtualTicketSplitsTab from "./components/RogaineVirtualTicketSplitsTab"
+import RogaineVirtualTicketPointsTab from "./components/RogaineVirtualTicketPointsTab"
+
+interface RogaineVirtualTicketProps extends VirtualTicketProps {
+  controls: bigint[] | null
+}
 
 /**
  * This is the Virtual Ticket for Score results
@@ -21,19 +28,14 @@ import { runnerService } from "../../../../../../../../domain/services/RunnerSer
  * @param handleCloseTicket
  * @constructor
  */
-const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
+export default function RogaineVirtualTicket({
   isTicketOpen,
   runner,
   handleCloseTicket,
   setClassClubId,
-}) => {
-  const { t } = useTranslation()
-
-  const headersStyles: CSSProperties = {
-    fontWeight: "bold",
-    fontSize: "medium",
-    textAlign: "center",
-  }
+  controls,
+}: RogaineVirtualTicketProps) {
+  const [openTab, setOpenTab] = useState<number>(0)
 
   if (runner) {
     return (
@@ -51,24 +53,24 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
           <RogaineVirtualTicketPointsBanner runnerResult={runner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits download={hasChipDownload(runner)} isDNS={runnerService.isDNS(runner)}>
-          <Grid item xs={3}>
-            <Typography variant="subtitle2" sx={headersStyles}>
-              {t("ResultsStage.VirtualTicket.Control")}
-            </Typography>
+          <Grid sx={{ marginTop: 2 }} size={12}>
+            <Tabs value={openTab} onChange={(_, newValue: number) => setOpenTab(newValue)}>
+              <Tab icon={<TimelineIcon />} />
+              <Tab icon={<TimerIcon />} />
+            </Tabs>
+            <TabPanel value={openTab} index={0}>
+              <RogaineVirtualTicketPointsTab controls={controls} splits={runner.stage.splits} />
+            </TabPanel>
+            <TabPanel
+              index={1}
+              value={openTab}
+              slotProps={{ div: { width: "100%" }, box: { padding: 0 } }}
+            >
+              <Grid sx={{ marginTop: 1 }} container>
+                <RogaineVirtualTicketSplitsTab splitList={runner.stage.splits} />
+              </Grid>
+            </TabPanel>
           </Grid>
-          <Grid item xs={4}>
-            <Typography variant="subtitle2" sx={headersStyles}>
-              {t("ResultsStage.VirtualTicket.Partial")}
-            </Typography>
-          </Grid>
-          <Grid item xs={5}>
-            <Typography variant="subtitle2" sx={headersStyles}>
-              {t("ResultsStage.VirtualTicket.Cumulative")}
-            </Typography>
-          </Grid>
-          {runner.stage.splits.map((split, index) => (
-            <RogaineVirtualTicketSplit key={split.id} split={split} index={index} />
-          ))}
         </VirtualTicketSplits>
       </VirtualTicketContainer>
     )
@@ -76,5 +78,3 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
     return <></>
   }
 }
-
-export default RogaineVirtualTicket
