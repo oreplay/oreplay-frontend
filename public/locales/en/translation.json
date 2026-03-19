@@ -178,6 +178,7 @@
     }
   },
   "Name": "Name",
+  "NotApplicable": "Doesn't apply",
   "Organizer": "Organizer",
   "Organizers": "Organizer's info",
   "Overall": {
