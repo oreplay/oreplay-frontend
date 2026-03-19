@@ -1,26 +1,13 @@
-import { useTranslation } from "react-i18next"
-import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
-import ResultListItem from "../ResultListItem.tsx"
+import { ResultItemProps } from "../shared/types.ts"
 import ResultListItemColumn from "../ResultListItemColumn.tsx"
 import RacePosition from "../../RacePosition..tsx"
-import { Box } from "@mui/material"
-import ParticipantName from "../../ParticipantName.tsx"
+import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
-import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { ResultItemProps } from "../shared/types.ts"
+import { Box, Typography } from "@mui/material"
+import ParticipantName from "../../ParticipantName.tsx"
+import ResultListItem from "../ResultListItem.tsx"
 
-export interface ResultColumnProps {
-  runner: ProcessedRunnerModel
-}
-
-export default function IndividualResult({
-  runner,
-  isClass,
-  onClick,
-  ResultColumn,
-}: ResultItemProps) {
-  const { t } = useTranslation()
-
+export default function TeamResult({ runner, onClick, ResultColumn }: ResultItemProps) {
   return (
     <ResultListItem key={runner.id} onClick={onClick ? () => onClick(runner) : undefined}>
       <ResultListItemColumn
@@ -41,12 +28,12 @@ export default function IndividualResult({
           slotProps={{ text: { marginRight: 1 } }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          <ParticipantName
-            name={runner.full_name}
-            subtitle={
-              isClass ? runnerService.getClubName(runner, t) : runnerService.getClassName(runner)
-            }
-          />
+          <ParticipantName name={runner.full_name} />
+          {runner.runners?.map((teamMember) => (
+            <Typography key={teamMember.id} variant="body2" color="textSecondary">
+              {teamMember.full_name}
+            </Typography>
+          ))}
         </Box>
       </ResultListItemColumn>
       <ResultListItemColumn>
