@@ -10,6 +10,7 @@ import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallb
 //import NoDataInStageMsg from "../NoDataInStageMsg.tsx"
 import WrongResultsFileUploadedMsg from "../WrongResultsFileUploadedMsg.tsx"
 import { UseQueryResult } from "react-query"
+import TimezoneMsg from "./components/TimezoneMsg.tsx"
 
 type StageLayoutProps = {
   handleRefreshClick: () => void
@@ -20,11 +21,13 @@ type StageLayoutProps = {
   activeItem: ClassModel | ClubModel | null
   isWrongFileUploaded?: boolean
   children: React.ReactNode
+  displayTimezoneMsg?: boolean
 }
 
 export default function StageLayout(props: StageLayoutProps) {
   const { t } = useTranslation()
 
+  // Component
   return (
     <Box
       sx={{
@@ -57,6 +60,7 @@ export default function StageLayout(props: StageLayoutProps) {
           </IconButton>
         </Tooltip>
       </Box>
+      {props.displayTimezoneMsg ? <TimezoneMsg /> : null}
       <Box sx={{ marginTop: "12px", flex: 1, paddingBottom: "56px" }}>
         <ErrorBoundary fallback={<GeneralErrorFallback displayMsg />}>
           {props.children}

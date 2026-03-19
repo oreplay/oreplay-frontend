@@ -11,10 +11,13 @@ import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/share
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useParams } from "react-router-dom"
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import RelayLegs from "./pages/RelayLegs/RelayLegs.tsx"
 import { getRelayRunnersByClass, getRelayRunnersByClub } from "./services/RelayService.ts"
 import { RESULTS_QUERY } from "../../shared/constants.ts"
+import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
+import { DateTime } from "luxon"
+import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 
 const menu_options_labels = ["results", "legs"]
 
@@ -26,6 +29,18 @@ export default function Relay() {
   if (!eventId || !stageId) {
     throw new Error("Event Id or Stage Id is missing")
   }
+
+  const { data: stageData, eventData } = useFetchStageDetail(eventId, stageId, {
+    staleTime: Infinity,
+  })
+
+  const timezoneMatch = useMemo(() => {
+    if (!stageData?.start || !eventData?.timezone) {
+      return true
+    }
+
+    return checkIfEventTimezoneMatchesUser(DateTime.fromISO(stageData.start), eventData.timezone)
+  }, [stageData?.start, eventData?.timezone])
 
   // Fetch classes and clubs
   const {
@@ -81,6 +96,7 @@ export default function Relay() {
         clubsQuery={clubsQuery}
         setActiveClassClub={setClassClubId}
         handleRefreshClick={handleRefreshClick}
+        displayTimezoneMsg={!timezoneMatch}
       >
         <ResultTabs
           defaultMenu={0}

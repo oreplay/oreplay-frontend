@@ -324,6 +324,7 @@
   "ThisFieldIsRequiredMsg": "This field is required.",
   "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
   "TimeZone": "Time zone",
+  "TimezoneMismatchRunnerMsg": "You’re viewing this event in a different timezone. All displayed times (including start times) are in your local timezone, not the event’s.",
   "UnderDevelopment": "Under development",
   "WorldContinents": {
     "America": "America",

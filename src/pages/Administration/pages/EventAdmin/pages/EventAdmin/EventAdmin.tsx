@@ -126,6 +126,7 @@ export default function EventAdmin() {
           </Typography>
           <Divider sx={{ mb: 4 }} />
 
+          {}
           {/* Event's information */}
           <Typography component="h2" variant="h6" fontWeight={500} sx={{ mb: 1 }}>
             {t("EventAdmin.EventData")}

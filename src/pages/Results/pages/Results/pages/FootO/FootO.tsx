@@ -9,7 +9,7 @@ import FootOStartTime from "./pages/StartTime/FootOStartTime.tsx"
 import FootOResults from "./pages/Results/FootOResults.tsx"
 import FootOSplits from "./pages/Splits/FootOSplits.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import { useQuery } from "react-query"
 import { getFootORunnersByClass, getFootORunnersByClub } from "./services/FootOService.ts"
 import { useParams } from "react-router-dom"
@@ -18,6 +18,7 @@ import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { DateTime } from "luxon"
+import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 
 const menu_options_labels = ["startTimes", "results", "splits"]
 
@@ -30,7 +31,17 @@ export default function FootO() {
     throw new Error("Event Id or Stage Id is missing")
   }
 
-  const { data: eventDetail } = useFetchStageDetail(eventId, stageId, { staleTime: Infinity })
+  const { data: eventDetail, eventData } = useFetchStageDetail(eventId, stageId, {
+    staleTime: Infinity,
+  })
+
+  const timezoneMatch = useMemo(() => {
+    if (!eventDetail?.start || !eventData?.timezone) {
+      return true
+    }
+
+    return checkIfEventTimezoneMatchesUser(DateTime.fromISO(eventDetail.start), eventData.timezone)
+  }, [eventDetail?.start, eventData?.timezone])
 
   // Fetch classes and clubs
   const {
@@ -85,6 +96,7 @@ export default function FootO() {
       clubsQuery={clubsQuery}
       setActiveClassClub={setClassClubId}
       handleRefreshClick={refetch}
+      displayTimezoneMsg={!timezoneMatch}
     >
       <ResultTabs
         key={"ResultTabs"}
