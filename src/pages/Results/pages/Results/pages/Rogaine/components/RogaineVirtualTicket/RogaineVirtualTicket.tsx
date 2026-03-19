@@ -43,7 +43,11 @@ const RogaineVirtualTicket: React.FC<VirtualTicketProps> = ({
         handleCloseTicket={handleCloseTicket}
       >
         <VirtualTicketHeader>
-          <VirtualTicketRunnerInfo runner={runner} setClassClubId={setClassClubId} />
+          <VirtualTicketRunnerInfo
+            runner={runner}
+            setClassClubId={setClassClubId}
+            displayTeamMemberNames
+          />
           <RogaineVirtualTicketPointsBanner runnerResult={runner.stage} />
         </VirtualTicketHeader>
         <VirtualTicketSplits download={hasChipDownload(runner)} isDNS={runnerService.isDNS(runner)}>
