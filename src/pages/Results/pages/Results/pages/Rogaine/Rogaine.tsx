@@ -13,7 +13,10 @@ import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
+import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
+import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
+import { DateTime } from "luxon"
 
 const menu_options_labels = ["results", "points"]
 
@@ -25,6 +28,18 @@ export default function Rogaine() {
   if (!eventId || !stageId) {
     throw new Error("Event Id or Stage Id is missing")
   }
+
+  const { data: eventDetail, eventData } = useFetchStageDetail(eventId, stageId, {
+    staleTime: Infinity,
+  })
+
+  const timezoneMatch = useMemo(() => {
+    if (!eventDetail?.start || !eventData?.timezone) {
+      return true
+    }
+
+    return checkIfEventTimezoneMatchesUser(DateTime.fromISO(eventDetail.start), eventData.timezone)
+  }, [eventDetail?.start, eventData?.timezone])
 
   // Get classes
   const {
@@ -80,6 +95,7 @@ export default function Rogaine() {
       classesQuery={classesQuery}
       clubsQuery={clubsQuery}
       setActiveClassClub={setClassClubId}
+      displayTimezoneMsg={!timezoneMatch}
     >
       <ResultTabs
         defaultMenu={0}

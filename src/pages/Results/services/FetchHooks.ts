@@ -41,6 +41,7 @@ interface StageDetailHookResult {
   isSuccess: boolean
   data?: StageModel
   error?: string
+  eventData?: EventDetailModel
 }
 
 export function useFetchStageDetail(
@@ -71,5 +72,5 @@ export function useFetchStageDetail(
     error = queryError instanceof Error ? queryError.message : String(queryError)
   }
 
-  return { isLoading, isError, isSuccess, data: stageDetail, error }
+  return { isLoading, isError, isSuccess, data: stageDetail, error, eventData: data?.data }
 }
