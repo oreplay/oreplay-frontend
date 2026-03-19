@@ -46,6 +46,7 @@ export default function RogainePoints(props: RogainePointsProps) {
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
           setClassClubId={props.setClassClubId}
+          controls={props.runnersQuery.data ? props.runnersQuery.data[1] : null}
         />
       </ResultListContainer>
     )

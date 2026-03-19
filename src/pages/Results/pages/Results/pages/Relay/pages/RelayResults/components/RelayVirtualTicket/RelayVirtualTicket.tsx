@@ -11,7 +11,7 @@ import FootOVirtualTicketTimesBanner from "../../../../../FootO/components/FootO
 import GeneralErrorFallback from "../../../../../../../../../../components/GeneralErrorFallback.tsx"
 import NotImplementedAlertBox from "../../../../../../../../../../components/NotImplementedAlertBox.tsx"
 import { Divider, Grid, Typography } from "@mui/material"
-import RogaineVirtualTicketSplit from "../../../../../Rogaine/components/RogaineVirtualTicket/components/RogaineVirtualTicketSplits.tsx"
+import RogaineVirtualTicketSplit from "../../../../../Rogaine/components/RogaineVirtualTicket/components/RogaineVirtualTicketSplitsTab/components/RogaineVirtualTicketSplits.tsx"
 import { useTranslation } from "react-i18next"
 import { CSSProperties } from "react"
 
