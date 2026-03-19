@@ -33,11 +33,12 @@ import GridActionsSettingsMenu from "../GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
 import { Link } from "react-router-dom"
-import { IconButton, MenuItem, Select, Toolbar } from "@mui/material"
+import { IconButton, MenuItem, Select, Toolbar, Typography } from "@mui/material"
 import { STAGE_TYPE_DATABASE_ID } from "../../../../../../../Results/pages/Results/shared/constants.ts"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import { DateTime } from "luxon"
 import { GridLuxonDateTimeEditCell } from "./components/GridDateTimeEditCell"
+import { isStartApplicable } from "./functions.ts"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -288,20 +289,6 @@ export default function StagesDataGrid(props: Props) {
       editable: true,
     },
     {
-      field: "start",
-      headerName: t("EventAdmin.Stages.Start"),
-      minWidth: 150,
-      maxWidth: 220,
-      editable: true,
-      renderEditCell: (params) => (
-        <GridLuxonDateTimeEditCell timezone={props.eventDetail.timezone} {...params} />
-      ),
-      valueFormatter: (value: DateTime | null) =>
-        value
-          ? value.setZone(props.eventDetail.timezone).toLocaleString(DateTime.DATETIME_SHORT) // Use event's timezone
-          : "",
-    },
-    {
       field: "stageTypeId",
       headerName: t("EventAdmin.Stages.StagesTypes.StageType"),
       width: 150,
@@ -315,6 +302,10 @@ export default function StagesDataGrid(props: Props) {
             value={(value as string) ?? ""}
             onChange={(e) => {
               void api.setEditCellValue({ id, field, value: e.target.value })
+              if (isStartApplicable(value as string)) {
+                // instantly display not applicable to start
+                void api.setEditCellValue({ id, field: "start", value: null })
+              }
             }}
             fullWidth
             renderValue={(selected) => {
@@ -385,6 +376,67 @@ export default function StagesDataGrid(props: Props) {
             <span style={{ marginLeft: 6 }}>{opt.label}</span>
           </div>
         )
+      },
+    },
+    {
+      field: "start",
+      headerName: t("EventAdmin.Stages.Start"),
+      align: "center",
+      minWidth: 150,
+      maxWidth: 220,
+      editable: true,
+      renderEditCell: (params: GridRenderEditCellParams<StageRow, DateTime | null>) => {
+        const thisStageType = params.row.stageTypeId
+
+        if (!isStartApplicable(thisStageType)) {
+          return (
+            <Typography
+              component={"span"}
+              color={"text.disabled"}
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {t("NotApplicable")}
+            </Typography>
+          )
+        }
+
+        return (
+          <GridLuxonDateTimeEditCell
+            id={params.id}
+            field={params.field}
+            value={params.value ?? null}
+            timezone={props.eventDetail.timezone}
+            api={params.api}
+            row={params.row}
+            rowNode={params.rowNode}
+            colDef={params.colDef}
+            cellMode={"view"}
+            hasFocus={false}
+            tabIndex={0}
+          />
+        )
+      },
+      renderCell: (params: GridRenderEditCellParams<StageRow, DateTime | null>) => {
+        const thisStageType = params.row.stageTypeId
+
+        if (!isStartApplicable(thisStageType)) {
+          return (
+            <Typography component="span" color="text.disabled" fontWeight={"small"}>
+              {t("NotApplicable")}
+            </Typography>
+          )
+        }
+
+        const value = params.value as DateTime | null
+        return value
+          ? value.setZone(props.eventDetail.timezone).toLocaleString(DateTime.DATETIME_SHORT)
+          : ""
       },
     },
     {
