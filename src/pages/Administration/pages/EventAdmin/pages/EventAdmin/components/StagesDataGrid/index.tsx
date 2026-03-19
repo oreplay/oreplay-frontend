@@ -302,9 +302,15 @@ export default function StagesDataGrid(props: Props) {
             value={(value as string) ?? ""}
             onChange={(e) => {
               void api.setEditCellValue({ id, field, value: e.target.value })
-              if (isStartApplicable(value as string)) {
+              if (!isStartApplicable(e.target.value)) {
                 // instantly display not applicable to start
                 void api.setEditCellValue({ id, field: "start", value: null })
+              } else {
+                // reset when changing it
+                const row = api.getRow<StageRow>(id)
+                if (!row?.start) {
+                  void api.setEditCellValue({ id, field: "start", value: undefined })
+                }
               }
             }}
             fullWidth
