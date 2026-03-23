@@ -12,6 +12,7 @@ import {
 import { DateTime } from "luxon"
 import { NORMAL_CONTROL } from "../../../../../../../../../shared/constants.ts"
 import { hasChipDownload } from "../../../../../../../shared/functions.ts"
+import { captureException as sentryCaptureException, withScope } from "@sentry/react"
 
 export type CourseControlModel = {
   control: ControlModel | null
@@ -75,6 +76,56 @@ export function getOnlineControlsCourseFromClassSplits(
 }
 
 /**
+ * Helper function to create missing online controls
+ * @param station Code of the control
+ * @param orderNumber Order in which this online control is visited
+ */
+export function createMissingRadioSplit(
+  station: number | null,
+  orderNumber: number,
+): RadioSplitModel {
+  return {
+    id: `missingRadio-${station}`,
+    is_intermediate: true,
+    reading_time: null,
+    order_number: orderNumber,
+    points: 0,
+    control: station
+      ? {
+          id: `missingRadio-control-${station}`,
+          station: station.toString(),
+          control_type: NORMAL_CONTROL,
+        }
+      : null,
+    time: null,
+    time_behind: null,
+    position: null,
+    cumulative_time: null,
+    cumulative_behind: null,
+    cumulative_position: null,
+    is_next: null,
+  }
+}
+
+export function createMissingRadioFinish(): RadioSplitModel {
+  return {
+    id: `missingFinish`,
+    is_intermediate: true,
+    reading_time: null,
+    order_number: Infinity,
+    points: 0,
+    control: null,
+    time: null,
+    time_behind: null,
+    position: null,
+    cumulative_time: null,
+    cumulative_behind: null,
+    cumulative_position: null,
+    is_next: null,
+  }
+}
+
+/**
  * Get online splits from a Processed Splits list and compute the next online control
  * @param splitList List of ProcessedSplitModel to extract online controls from
  * @param radiosList List of OnlineControlModel with the online controls
@@ -96,50 +147,18 @@ export function getOnlineSplits(
 
   // Fill missing online controls from split list
   if (radioSplits.length == 0) {
-    radioSplits.push({
-      id: `missingFinish`,
-      is_intermediate: true,
-      reading_time: null,
-      order_number: Infinity,
-      points: 0,
-      control: null,
-      time: null,
-      time_behind: null,
-      position: null,
-      cumulative_time: null,
-      cumulative_behind: null,
-      cumulative_position: null,
-      is_next: null,
-    })
+    radioSplits.push(createMissingRadioFinish())
   }
   //// Regular controls
-  console.log()
   for (let i = 0; i < radiosList.length; i++) {
     const radioInRunner = radioSplits.at(i)?.control
     const radioInList = radiosList.at(i)
 
     if (radioInRunner?.station !== radioInList?.station) {
-      const missingRadio: RadioSplitModel = {
-        id: `missingRadio-${radioInList?.station}`,
-        is_intermediate: true,
-        reading_time: null,
-        order_number: i + 1,
-        points: 0,
-        control: radioInList?.station
-          ? {
-              id: `missingRadio-control-${radioInList?.station}`,
-              station: radioInList?.station,
-              control_type: NORMAL_CONTROL,
-            }
-          : null,
-        time: null,
-        time_behind: null,
-        position: null,
-        cumulative_time: null,
-        cumulative_behind: null,
-        cumulative_position: null,
-        is_next: null,
-      }
+      const missingRadio: RadioSplitModel = createMissingRadioSplit(
+        radioInList?.station ? Number(radioInList.station) : null,
+        i + 1,
+      )
 
       radioSplits.splice(i, 0, missingRadio) //insert split
     }
@@ -157,6 +176,34 @@ export function getOnlineSplits(
     } else {
       prevTimeString = split.reading_time
     }
+  }
+
+  // Error check
+  if (radioSplits.length != radiosList.length + 1) {
+    console.error(
+      "The resulting number of online controls and the number of online controls defined for this class differ",
+    )
+
+    try {
+      throw new Error(
+        "The resulting number of online controls and the number of online controls defined for this class differ",
+      )
+    } catch (error) {
+      withScope((scope) => {
+        scope.setExtra("splitList", splitList)
+        scope.setExtra("radioList", radiosList)
+        scope.setExtra("origin", "getOnlineSplits")
+
+        sentryCaptureException(error)
+      })
+    }
+
+    // Return all online controls as missing
+    const allMissingRadioSplits = radiosList.map((onlineControl, index) =>
+      createMissingRadioSplit(Number(onlineControl.station), index + 1),
+    )
+    allMissingRadioSplits.push(createMissingRadioFinish())
+    return allMissingRadioSplits
   }
 
   // Return radio splits
