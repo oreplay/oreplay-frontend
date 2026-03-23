@@ -1,10 +1,14 @@
-import { describe, it, expect } from "vitest"
+import { describe, it, vi, expect } from "vitest"
 import { OnlineControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
 import {
   ProcessedSplitModel,
   RadioSplitModel,
 } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { getOnlineSplits } from "./footOSplitsTablefunctions.ts"
+import {
+  createMissingRadioFinish,
+  createMissingRadioSplit,
+  getOnlineSplits,
+} from "./footOSplitsTablefunctions.ts"
 import { DateTime } from "luxon"
 
 describe("getOnlineSplits", () => {
@@ -370,6 +374,60 @@ describe("getOnlineSplits", () => {
     const actual = getOnlineSplits(splitList, radiosList, startTime)
 
     expect(actual).toEqual(expectedOnlineControls)
+  })
+
+  it("should return all missing if the order in the splits and declared online controls does not match", () => {
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {})
+
+    const splitList: ProcessedSplitModel[] = [
+      {
+        ...baseControl,
+        control: {
+          ...baseControl.control,
+          id: "control-41",
+          station: "41",
+        },
+        id: "41",
+        order_number: 1,
+        time: 60,
+        cumulative_time: 60,
+        reading_time: "2025-08-05T09:01:00.000+00:00",
+      },
+      {
+        ...baseControl,
+        control: {
+          ...baseControl.control,
+          id: "control-31",
+          station: "31",
+        },
+        id: "31",
+        order_number: 2,
+        time: 120,
+        cumulative_time: 180,
+        reading_time: "2025-08-05T09:03:00.000+00:00",
+      },
+      {
+        ...baseControl,
+        control: null,
+        id: "finish",
+        order_number: Infinity,
+        time: null,
+        cumulative_time: null,
+        reading_time: null,
+      },
+    ]
+
+    const expectedOnlineControls: RadioSplitModel[] = [31, 41, 51].map((station, index) =>
+      createMissingRadioSplit(station, index + 1),
+    )
+    expectedOnlineControls.push(createMissingRadioFinish())
+
+    const actual = getOnlineSplits(splitList, radiosList, startTime)
+
+    expect(actual).toEqual(expectedOnlineControls)
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockClear()
   })
 
   it("should not be running towards the first online control if runner has not started", () => {
