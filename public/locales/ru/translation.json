@@ -110,6 +110,7 @@
           "title": "Итоговые результаты"
         }
       },
+      "Start": "Начало (местное время)",
       "Stats": {
         "DialogBody": "Отобразится статистика этапа.",
         "DialogConfirm": "OK",
@@ -179,6 +180,7 @@
     "title": "Мой профиль"
   },
   "Name": "Имя",
+  "NotApplicable": "Не применяется",
   "Organizer": "Организатор",
   "Organizers": "Организаторы",
   "Overall": {
@@ -329,7 +331,16 @@
   "This action cannot be undone": "Это действие нельзя отменить.",
   "ThisFieldIsRequiredMsg": "Это поле обязательно для заполнения.",
   "ThisFunctionalityNotImplementedMsg": "Эта функция еще не реализована.",
+  "TimeZone": "Часовой пояс",
+  "TimezoneMismatchRunnerMsg": "Вы смотрите это событие в другом часовом поясе. Все временные метки (включая время старта) отображаются в вашем местном часовом поясе, а не в часовом поясе события.",
   "UnderDevelopment": "В стадии разработки",
+  "WorldContinents": {
+    "America": "Америка",
+    "Asia": "Азия",
+    "Australia": "Австралия",
+    "Europe": "Европа",
+    "Other": "Другой"
+  },
   "authenticationError": "Произошла ошибка",
   "chart": {
     "legend": {

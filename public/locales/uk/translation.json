@@ -110,6 +110,7 @@
           "title": "Загалом"
         }
       },
+      "Start": "Старт (місцевий час)",
       "Stats": {
         "DialogBody": "Буде відображена статистика етапів.",
         "DialogConfirm": "OK",
@@ -179,6 +180,7 @@
     "title": "Мій профіль"
   },
   "Name": "Ім'я",
+  "NotApplicable": "Не застосовується",
   "Organizer": "Організатор",
   "Organizers": "Інформація про організатора",
   "Overall": {
@@ -329,7 +331,16 @@
   "This action cannot be undone": "Цю дію не можна скасувати.",
   "ThisFieldIsRequiredMsg": "Це поле є обов'язковим.",
   "ThisFunctionalityNotImplementedMsg": "Цю функцію ще не реалізовано.",
+  "TimeZone": "Часовий пояс",
+  "TimezoneMismatchRunnerMsg": "Ви бачите цю подію в іншому часовому поясі. Всі відображені часи (включаючи стартові часи) відображені у вашому часовому поясі, а не в часовому поясі події.",
   "UnderDevelopment": "У розробці",
+  "WorldContinents": {
+    "America": "Америка",
+    "Asia": "Азія",
+    "Australia": "Австралія",
+    "Europe": "Європа",
+    "Other": "Інші"
+  },
   "authenticationError": "Сталася помилка",
   "chart": {
     "legend": {
