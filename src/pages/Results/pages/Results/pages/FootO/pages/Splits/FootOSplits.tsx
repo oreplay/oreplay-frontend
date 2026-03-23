@@ -41,7 +41,6 @@ export default function FootOSplits(
 
   useEffect(() => {
     sortFootORunners(runners)
-    console.log("runners sorted")
   }, [runners])
 
   const runnersWithChipDownload = runners.filter((runner) => hasChipDownload(runner))
