@@ -106,9 +106,9 @@ function wrongOnlineSplitsOrderWorkaround(
           // Update online controls
           console.debug("Online controls order updated through chip readings")
           thisClass.splits = sortedOnlineControls
+        } else {
+          console.debug("Online controls order not updated because no chip readings were founds")
         }
-      } else {
-        console.debug("Online controls order not updated because no chip readings were founds")
       }
     }
   } catch (error) {
