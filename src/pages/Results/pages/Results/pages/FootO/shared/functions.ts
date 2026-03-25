@@ -41,6 +41,7 @@ function compareIfBothHaveStarted(
     (a, b) => compareFunctions.byControlRunningTowards(a, b, now),
     compareFunctions.byLastCommonOnlineControl,
     compareFunctions.byFinishedStatus,
+    compareFunctions.byRunningTowardsFirstOnline,
     (a, b) => compareFunctions.byStartTime(a, b, false),
   ])
 }
