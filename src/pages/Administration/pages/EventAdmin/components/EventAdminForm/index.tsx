@@ -247,37 +247,73 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 3 }}>
-          <form.Field name={"startDate"}>
-            {(field) => (
-              <>
-                <FormLabel required>{t("EventAdmin.StartDate")}</FormLabel>
-                <DatePicker
-                  name={"startDate"}
-                  disabled={style_props.disabled}
-                  slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
-                  value={field.state.value}
-                  onChange={(date) => field.handleChange(date)}
-                />
-              </>
-            )}
+          <form.Field
+            name={"startDate"}
+            validators={{
+              onChangeListenTo: ["endDate"],
+              onChange: ({ value }) => {
+                const endDate = form.getFieldValue("endDate")
+
+                if (endDate && value && endDate < value) {
+                  return t("EventAdmin.StartMustBeAfterEnd")
+                }
+                return undefined
+              },
+            }}
+          >
+            {(field) => {
+              const error = field.state.meta.errors.join(" ")
+
+              return (
+                <FormControl fullWidth error={!!error}>
+                  <FormLabel required>{t("EventAdmin.StartDate")}</FormLabel>
+                  <DatePicker
+                    name={"startDate"}
+                    disabled={style_props.disabled}
+                    slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
+                    value={field.state.value}
+                    onChange={(date) => field.handleChange(date)}
+                  />
+                  {error ? <FormHelperText>{error}</FormHelperText> : null}
+                </FormControl>
+              )
+            }}
           </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 3 }}>
-          <form.Field name={"endDate"}>
-            {(field) => (
-              <>
-                <FormLabel required>{t("EventAdmin.FinishDate")}</FormLabel>
-                <DatePicker
-                  name={"endDate"}
-                  disabled={style_props.disabled}
-                  slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
-                  value={field.state.value}
-                  onChange={(date) => {
-                    field.handleChange(date)
-                  }}
-                />
-              </>
-            )}
+          <form.Field
+            name={"endDate"}
+            validators={{
+              onChangeListenTo: ["endDate"],
+              onChange: ({ value }) => {
+                const startDate = form.getFieldValue("startDate")
+
+                if (startDate && value && startDate > value) {
+                  return t("EventAdmin.EndMustBeBeforeEnd")
+                }
+                return undefined
+              },
+            }}
+          >
+            {(field) => {
+              const error = field.state.meta.errors.join(" ")
+
+              return (
+                <FormControl fullWidth error={!!error}>
+                  <FormLabel required>{t("EventAdmin.FinishDate")}</FormLabel>
+                  <DatePicker
+                    name={"endDate"}
+                    disabled={style_props.disabled}
+                    slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
+                    value={field.state.value}
+                    onChange={(date) => {
+                      field.handleChange(date)
+                    }}
+                  />
+                  {error ? <FormHelperText>{error}</FormHelperText> : null}
+                </FormControl>
+              )
+            }}
           </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>

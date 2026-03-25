@@ -53,6 +53,8 @@
     "Organizer": "Organizer",
     "OrganizerPlaceholder": "Awesome club",
     "Public": "Public",
+    "StartMustBeAfterEnd": "Start date cannot be after end date.",
+    "EndMustBeBeforeEnd": "End date cannot be before start date.",
     "QRCode": {
       "CopyUrl": "Copy Event URL",
       "Description": "Generate and download a QR code that links directly to this event on O-Replay.",
