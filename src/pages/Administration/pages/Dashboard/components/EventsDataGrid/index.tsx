@@ -36,6 +36,11 @@ export default function EventsDataGrid() {
     {
       staleTime: 60000,
       keepPreviousData: true,
+      placeholderData: {
+        data: [],
+        limit: ROWS_PER_PAGE,
+        total: 0,
+      },
     },
   )
 
