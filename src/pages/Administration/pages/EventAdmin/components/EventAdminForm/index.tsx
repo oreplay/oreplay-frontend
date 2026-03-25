@@ -9,6 +9,7 @@ import {
   TextFieldProps,
   Grid2 as Grid,
   FormLabel,
+  FormHelperText,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { DatePicker } from "@mui/x-date-pickers"
@@ -31,6 +32,7 @@ import {
   getUserTimeZone,
   timeZoneOptionGenerator,
 } from "./components/TimeZoneAutocomplete/functions.ts"
+import { useEffect } from "react"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -113,6 +115,12 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     disabled: !props.canEdit,
   }
 
+  // Re-run isPublic validation on event detail updates
+  useEffect(() => {
+    void form.validateField("isPublic", "submit")
+  }, [form, props.eventDetail])
+
+  // Actual component
   return (
     <Container
       component="form"
@@ -345,28 +353,43 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             alignItems: "center",
           }}
         >
-          <form.Field name={"isPublic"}>
-            {(field) => (
-              <FormControl fullWidth>
-                <FormControlLabel
-                  id={"isPublic"}
-                  name={"isPublic"}
-                  control={
-                    <Checkbox
-                      onChange={(e) => {
-                        field.handleChange(e.target.checked)
-                      }}
-                      checked={field.state.value}
-                    />
-                  }
-                  label={t("EventAdmin.Public")}
-                  disabled={!props.canEdit}
-                  sx={{
-                    display: props.displayIsPublic ? undefined : "none",
-                  }}
-                />
-              </FormControl>
-            )}
+          <form.Field
+            name={"isPublic"}
+            validators={{
+              onSubmit: ({ value }) => {
+                if (value && props.eventDetail?.stages.length == 0) {
+                  return t("EventAdmin.CannotBePublicWithoutStages")
+                }
+                return undefined
+              },
+            }}
+          >
+            {(field) => {
+              const error = field.state.meta.errors?.join(" ")
+
+              return (
+                <FormControl fullWidth error={!!error}>
+                  <FormControlLabel
+                    id={"isPublic"}
+                    name={"isPublic"}
+                    control={
+                      <Checkbox
+                        onChange={(e) => {
+                          field.handleChange(e.target.checked)
+                        }}
+                        checked={field.state.value}
+                      />
+                    }
+                    label={t("EventAdmin.Public")}
+                    disabled={!props.canEdit}
+                    sx={{
+                      display: props.displayIsPublic ? undefined : "none",
+                    }}
+                  />
+                  {error ? <FormHelperText>{error}</FormHelperText> : null}
+                </FormControl>
+              )
+            }}
           </form.Field>
         </Grid>
       </Grid>
