@@ -409,6 +409,40 @@ function haveBothStarted(
   return aStarted && bStarted
 }
 
+/**
+ * Helper function to sort runners. Runners that have already punched the first online control
+ * should be first that runners that just started
+ * @param a
+ * @param b
+ */
+function byRunningTowardsFirstOnline(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
+  const onlineSplitsA = a.stage.online_splits
+  const onlineSplitsB = b.stage.online_splits
+
+  if (onlineSplitsA && onlineSplitsB && onlineSplitsA.length > 0 && onlineSplitsB.length > 0) {
+    const firstOnlineA = onlineSplitsA.at(0)!
+    const firstOnlineB = onlineSplitsB.at(0)!
+
+    const isRunningTowardsFirstOnlineA = firstOnlineA.is_next !== null
+    const isRunningTowardsFirstOnlineB = firstOnlineB.is_next !== null
+
+    if (isRunningTowardsFirstOnlineA && isRunningTowardsFirstOnlineB) {
+      return 0
+    }
+    if (!isRunningTowardsFirstOnlineA && !isRunningTowardsFirstOnlineB) {
+      return 0
+    }
+    if (isRunningTowardsFirstOnlineA) {
+      return 1
+    }
+    if (isRunningTowardsFirstOnlineB) {
+      return -1
+    }
+  }
+
+  return 0
+}
+
 const runnerCompareFunctions = {
   byStagePosition,
   byStageStatus,
@@ -417,6 +451,7 @@ const runnerCompareFunctions = {
   byStartTime,
   byControlRunningTowards,
   byLastCommonOnlineControl,
+  byRunningTowardsFirstOnline,
   byFinishedStatus,
   byStartedStatus,
   byTime,

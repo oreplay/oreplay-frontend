@@ -8,50 +8,50 @@ import { UPLOAD_TYPES } from "../../../shared/constants.ts"
 describe("sortRunners and sortFootORunners", () => {
   const now = DateTime.fromISO("2025-06-27T12:00:00.000+00:00") as DateTime<true>
 
-  it("should handle different classification statuses", () => {
-    const baseRunner = {
+  const baseRunner = {
+    id: "string",
+    bib_number: "1234",
+    is_nc: false,
+    eligibility: null,
+    sicard: "12345678",
+    sex: "M",
+    class: {
       id: "string",
-      bib_number: "1234",
-      is_nc: false,
-      eligibility: null,
-      sicard: "12345678",
-      sex: "M",
-      class: {
-        id: "string",
-        short_name: "string",
-        long_name: "string",
-      },
-      club: {
-        id: "string",
-        short_name: "string",
-      },
-      full_name: "string",
-      stage: {
-        id: "string",
-        result_type_id: "string",
-        start_time: "2025-06-27T09:00:00.000+00:00",
-        finish_time: "2025-06-27T09:07:00.000+00:00",
-        upload_type: "res_splits",
-        time_seconds: 420,
-        position: 2,
-        status_code: RESULT_STATUS.ok,
-        time_behind: 0,
-        time_neutralization: 0,
-        time_adjusted: 0,
-        time_penalty: 0,
-        time_bonus: 0,
-        points_final: 0,
-        points_behind: 0,
-        points_adjusted: 0,
-        points_penalty: 0,
-        points_bonus: 0,
-        leg_number: 1,
-        splits: [],
-        online_splits: [],
-      },
-      overalls: null,
-    }
+      short_name: "string",
+      long_name: "string",
+    },
+    club: {
+      id: "string",
+      short_name: "string",
+    },
+    full_name: "string",
+    stage: {
+      id: "string",
+      result_type_id: "string",
+      start_time: "2025-06-27T09:00:00.000+00:00",
+      finish_time: "2025-06-27T09:07:00.000+00:00",
+      upload_type: "res_splits",
+      time_seconds: 420,
+      position: 2,
+      status_code: RESULT_STATUS.ok,
+      time_behind: 0,
+      time_neutralization: 0,
+      time_adjusted: 0,
+      time_penalty: 0,
+      time_bonus: 0,
+      points_final: 0,
+      points_behind: 0,
+      points_adjusted: 0,
+      points_penalty: 0,
+      points_bonus: 0,
+      leg_number: 1,
+      splits: [],
+      online_splits: [],
+    },
+    overalls: null,
+  }
 
+  it("should handle different classification statuses", () => {
     const runnerStatusOK = {
       ...baseRunner,
       full_name: "string",
@@ -119,52 +119,10 @@ describe("sortRunners and sortFootORunners", () => {
   })
 
   it("should handle nc", () => {
-    const baseRunner = {
-      id: "string",
-      bib_number: "1234",
-      is_nc: false,
-      eligibility: null,
-      sicard: "12345678",
-      sex: "M",
-      class: {
-        id: "string",
-        short_name: "string",
-        long_name: "string",
-      },
-      club: {
-        id: "string",
-        short_name: "string",
-      },
-      full_name: "string",
-      stage: {
-        id: "string",
-        result_type_id: "string",
-        start_time: "2025-06-27T09:00:00.000+00:00",
-        finish_time: "2025-06-27T09:07:00.000+00:00",
-        upload_type: "res_splits",
-        time_seconds: 420,
-        position: 2,
-        status_code: RESULT_STATUS.ok,
-        time_behind: 0,
-        time_neutralization: 0,
-        time_adjusted: 0,
-        time_penalty: 0,
-        time_bonus: 0,
-        points_final: 0,
-        points_behind: 0,
-        points_adjusted: 0,
-        points_penalty: 0,
-        points_bonus: 0,
-        leg_number: 1,
-        splits: [],
-        online_splits: [],
-      },
-      overalls: null,
-    }
-
     const runnerOK = {
       ...baseRunner,
       full_name: "string1",
+      position: 1,
       is_nc: false,
       stage: {
         ...baseRunner.stage,
@@ -175,6 +133,7 @@ describe("sortRunners and sortFootORunners", () => {
     const runnerNC = {
       ...baseRunner,
       full_name: "string nc",
+      position: 1,
       is_nc: true,
       stage: {
         ...baseRunner.stage,
@@ -205,49 +164,6 @@ describe("sortRunners and sortFootORunners", () => {
   })
 
   it("should handle in-race runners mixed with finished runners", () => {
-    const baseRunner = {
-      id: "string",
-      bib_number: "1234",
-      is_nc: false,
-      eligibility: null,
-      sicard: "12345678",
-      sex: "M",
-      class: {
-        id: "string",
-        short_name: "short name",
-        long_name: "long name",
-      },
-      club: {
-        id: "string",
-        short_name: "club name",
-      },
-      full_name: "Base Runner",
-      stage: {
-        id: "string",
-        result_type_id: "string",
-        start_time: "2025-06-27T09:00:00.000+00:00",
-        finish_time: "2025-06-27T09:07:00.000+00:00",
-        upload_type: UPLOAD_TYPES.SPLIT_RESULT,
-        time_seconds: 420,
-        position: 2,
-        status_code: RESULT_STATUS.ok,
-        time_behind: 0,
-        time_neutralization: 0,
-        time_adjusted: 0,
-        time_penalty: 0,
-        time_bonus: 0,
-        points_final: 0,
-        points_behind: 0,
-        points_adjusted: 0,
-        points_penalty: 0,
-        points_bonus: 0,
-        leg_number: 1,
-        splits: [],
-        online_splits: [],
-      },
-      overalls: null,
-    }
-
     const runnerFinished1 = {
       ...baseRunner,
       full_name: "Runner Finished 1",
@@ -1372,5 +1288,148 @@ describe("sortFootORunners with detailed online_splits", () => {
     const expected = [runnerApproachingNext, runnerSameProgressNoNext]
 
     expect(sorted).toEqual(expected)
+  })
+
+  it("should put runners running to the first online after the ones that already punched it", () => {
+    const runnerGoingToFirst = {
+      ...baseRunner,
+      full_name: "A",
+      stage: {
+        ...baseRunner.stage,
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO(baseRunner.stage.start_time),
+          },
+        ]),
+      },
+    }
+
+    const runnerGoingToSecond = {
+      ...baseRunner,
+      full_name: "B",
+      stage: {
+        ...baseRunner.stage,
+        finish_time: null,
+        position: 0,
+        status_code: "0",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+          {
+            order: 32,
+            station: "32",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO(baseRunner.stage.start_time),
+          },
+        ]),
+      },
+    }
+
+    const runnerList = [runnerGoingToFirst, runnerGoingToSecond]
+    const expectedRunnerList = [runnerGoingToSecond, runnerGoingToFirst]
+
+    const actual = sortFootORunners(runnerList, now)
+
+    expect(actual).toEqual(expectedRunnerList)
+  })
+
+  it("should handle many online runners", () => {
+    const runner1 = {
+      ...baseRunner,
+      full_name: "One",
+      stage: {
+        ...baseRunner.stage,
+        position: 0,
+        status_code: "0",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+          { order: 32, station: "32", cumulative: 9 * 60, split_time: 14 * 60 },
+          {
+            order: 33,
+            station: "33",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO(baseRunner.stage.start_time),
+          },
+        ]),
+      },
+    }
+
+    const runner2 = {
+      ...baseRunner,
+      full_name: "Two",
+      stage: {
+        ...baseRunner.stage,
+        finish_time: "2025-06-27T11:10:00.000+00:00",
+        time: 100 * 60,
+        position: 1,
+        status_code: "0",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+          { order: 32, station: "32", cumulative: 10 * 60, split_time: 15 * 60 },
+          { order: 33, station: "33", cumulative: 20 * 60, split_time: 35 * 60 },
+          {
+            order: Infinity,
+            station: "FINISH",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO(baseRunner.stage.start_time),
+          },
+        ]),
+      },
+    }
+
+    const runner3 = {
+      ...baseRunner,
+      full_name: "Three",
+      stage: {
+        ...baseRunner.stage,
+        position: 0,
+        status_code: "0",
+        online_splits: makeCompleteCourse([
+          { order: 31, station: "31", cumulative: 5 * 60, split_time: 5 * 60 },
+          { order: 32, station: "32", cumulative: 10 * 60, split_time: 15 * 60 },
+          { order: 33, station: "33", cumulative: 22 * 60, split_time: 37 * 60 },
+          {
+            order: Infinity,
+            station: "FINISH",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO(baseRunner.stage.start_time),
+          },
+        ]),
+      },
+    }
+
+    const runner4 = {
+      ...baseRunner,
+      full_name: "Four",
+      stage: {
+        ...baseRunner.stage,
+        position: 0,
+        status_code: "0",
+        online_splits: makeCompleteCourse([
+          {
+            order: 31,
+            station: "31",
+            cumulative: null,
+            split_time: null,
+            is_next: DateTime.fromISO(baseRunner.stage.start_time),
+          },
+        ]),
+      },
+    }
+
+    const expectedRunners = [runner1, runner2, runner3, runner4]
+    const actual = sortFootORunners([runner4, runner1, runner2, runner3], now)
+
+    expect(actual).toEqual(expectedRunners)
   })
 })
