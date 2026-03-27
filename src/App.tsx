@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react"
+import { lazy, Suspense, useState } from "react"
 import { ThemeProvider, createTheme } from "@mui/material"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon"
@@ -7,6 +7,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers"
 import GeneralSuspenseFallback from "./components/GeneralSuspenseFallback.tsx"
 import Layout from "./components/layout/Layout.tsx"
 import { NotificationsProvider } from "@toolpad/core"
+import { useTranslation } from "react-i18next"
+import { Settings as LuxonSettings } from "luxon"
 
 const EventsList = lazy(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
 const EventDetail = lazy(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
@@ -55,10 +57,21 @@ const theme = createTheme({
 })
 
 export default function App() {
+  const {i18n} = useTranslation()
+
+  // Update luxon and MUI locales locale
+  const [lng, setLng] = useState<string>(i18n.language)
+  LuxonSettings.defaultLocale = i18n.language
+  i18n.on("languageChanged", (newLanguage) => {
+    console.debug("Language changed: ", newLanguage.trim())
+    LuxonSettings.defaultLocale = newLanguage
+    setLng(newLanguage)
+  })
+
+  // Component
   return (
     <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={"es-ES"}>
-        {/** TODO: manage real location**/}
+      <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={lng}>
         <NotificationsProvider
           slotProps={{
             snackbar: {
