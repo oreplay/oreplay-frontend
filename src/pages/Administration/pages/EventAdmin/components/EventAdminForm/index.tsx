@@ -284,7 +284,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <form.Field
             name={"endDate"}
             validators={{
-              onChangeListenTo: ["endDate"],
+              onChangeListenTo: ["startDate"],
               onChange: ({ value }) => {
                 const startDate = form.getFieldValue("startDate")
 
