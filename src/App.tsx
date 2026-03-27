@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
 import { ThemeProvider, createTheme } from "@mui/material"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon"
@@ -57,16 +57,23 @@ const theme = createTheme({
 })
 
 export default function App() {
-  const {i18n} = useTranslation()
+  const { i18n } = useTranslation()
 
   // Update luxon and MUI locales locale
   const [lng, setLng] = useState<string>(i18n.language)
-  LuxonSettings.defaultLocale = i18n.language
-  i18n.on("languageChanged", (newLanguage) => {
-    console.debug("Language changed: ", newLanguage.trim())
-    LuxonSettings.defaultLocale = newLanguage
-    setLng(newLanguage)
-  })
+  useEffect(() => {
+    LuxonSettings.defaultLocale = i18n.language
+    // Within a useEffect to avoid listeners accumulation
+    const handler = (newLanguage: string) => {
+      console.debug("Language changed: ", newLanguage.trim())
+      LuxonSettings.defaultLocale = newLanguage
+      setLng(newLanguage)
+    }
+    i18n.on("languageChanged", handler)
+    return () => {
+      i18n.off("languageChanged", handler)
+    }
+  }, [i18n])
 
   // Component
   return (
