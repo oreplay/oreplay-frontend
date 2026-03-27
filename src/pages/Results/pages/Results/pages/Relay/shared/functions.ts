@@ -3,8 +3,10 @@ import {
   ProcessedRunnerModel,
 } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { DateTime } from "luxon"
-import { ParticipantModel } from "../../../../../../../shared/EntityTypes.ts"
+import { ParticipantModel, RunnerModel } from "../../../../../../../shared/EntityTypes.ts"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
+import { maxBy } from "../../../../../../../utils/generalFunctions.ts"
+import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 
 function liveParticipantTime(
   runner: ParticipantModel | ProcessedParticipantModel,
@@ -36,6 +38,12 @@ function liveParticipantTime(
   return null
 }
 
+/**
+ * Compute the time of a Relay team considering 2nd start
+ * @param runner Team
+ * @param now When we want to know the team's time
+ * @param maxLeg Time for the first n legs (non-inclusive) maxLeg=2 mean only first leg
+ */
 export function liveRelayTime(
   runner: ProcessedRunnerModel,
   now?: DateTime<true>,
@@ -106,4 +114,43 @@ export function findLegsNumberRunning(
   )
 
   return legsRunning.map((leg) => leg.leg_number)
+}
+
+export function computeTeamStatus(
+  runner: ProcessedRunnerModel | RunnerModel,
+  maxLeg?: number,
+): string | null {
+  const runnersOfInterest = runner.runners?.slice(0, maxLeg)
+  if (!runnersOfInterest) {
+    throw new Error(`The relay team runner has no team members. (maxLeg=${maxLeg})`)
+  }
+
+  const statuses = runnersOfInterest.map((runner) => runner.stage.status_code)
+  if (statuses.includes(null)) {
+    return null
+  }
+
+  // @ts-expect-error statuses becomes string[], this code is unreachable if null in statuses
+  return maxBy(statuses, statusKey)
+}
+
+function statusKey(status: string) {
+  switch (status) {
+    case RESULT_STATUS.ok:
+      return 0
+    case RESULT_STATUS.ot:
+      return 1
+    case RESULT_STATUS.mp:
+      return 2
+    case RESULT_STATUS.dnf:
+      return 3
+    case RESULT_STATUS.dsq:
+      return 4
+    case RESULT_STATUS.dns:
+      return 5
+    case RESULT_STATUS.nc:
+      return 6
+    default:
+      throw new Error(`Unknown status: ${status}`)
+  }
 }

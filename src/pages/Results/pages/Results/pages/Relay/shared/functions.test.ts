@@ -1,8 +1,12 @@
 import { describe, it, expect } from "vitest"
-import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { liveRelayTime } from "./functions.ts"
+import {
+  ProcessedRunnerModel,
+  ProcessedTeamRunnerModel,
+} from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { computeTeamStatus, liveRelayTime } from "./functions.ts"
 import { DateTime } from "luxon"
-import { baseLegFixture, baseRelayRunnerFixture } from "./relayFixtures.test.ts"
+import { baseLegFixture, baseRelayRunnerFixture } from "./relayFixtures.ts"
+import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 
 describe("liveRelayTime", () => {
   const defaultNow: DateTime<true> = DateTime.fromISO(
@@ -218,5 +222,67 @@ describe("liveRelayTime", () => {
     // maxLeg=2 means (maxLeg - 1) = 1 → only first leg counted
     const result = liveRelayTime(teamThreeLegs, defaultNow, 2)
     expect(result).toBe(60 + 90)
+  })
+})
+
+describe("computeTeamStatus", () => {
+  const makeRunner = (statusList: (string | null)[]): ProcessedRunnerModel => {
+    const legs = statusList.map(
+      (status): ProcessedTeamRunnerModel => ({
+        ...baseLegFixture,
+        stage: { ...baseLegFixture.stage, status_code: status },
+      }),
+    )
+
+    return {
+      ...baseRelayRunnerFixture,
+      runners: legs,
+    }
+  }
+
+  it("should return the worst status", () => {
+    const runner = makeRunner([RESULT_STATUS.mp, RESULT_STATUS.ok, RESULT_STATUS.dsq])
+
+    const result = computeTeamStatus(runner)
+
+    expect(result).toBe(RESULT_STATUS.dsq)
+  })
+
+  it("should handle maxLeg appropriately", () => {
+    const runner = makeRunner([
+      RESULT_STATUS.ok,
+      RESULT_STATUS.mp,
+      RESULT_STATUS.ok,
+      RESULT_STATUS.dns,
+    ])
+
+    const result1 = computeTeamStatus(runner, 1)
+    const result2 = computeTeamStatus(runner, 2)
+    const result3 = computeTeamStatus(runner, 3)
+    const result4 = computeTeamStatus(runner, 4)
+
+    expect(result1).toBe(RESULT_STATUS.ok)
+    expect(result2).toBe(RESULT_STATUS.mp)
+    expect(result3).toBe(RESULT_STATUS.mp)
+    expect(result4).toBe(RESULT_STATUS.dns)
+  })
+
+  it("should return null if any status is null", () => {
+    const runner = makeRunner([RESULT_STATUS.ok, null])
+
+    const result = computeTeamStatus(runner)
+    expect(result).toBeNull()
+  })
+
+  it("should throw error if runners is undefined", () => {
+    const runner = makeRunner([])
+
+    expect(() => computeTeamStatus(runner)).toThrow()
+  })
+
+  it("should throw error on unknown status", () => {
+    const runner = makeRunner(["weird_status"])
+
+    expect(() => computeTeamStatus(runner)).toThrow(/Unknown status/)
   })
 })

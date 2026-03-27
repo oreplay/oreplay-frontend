@@ -5,6 +5,7 @@ import {
   ProcessedRunnerModel,
   ProcessedTeamRunnerModel,
 } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import RelayRaceTime from "./RelayRaceTime"
 
 type RelayResultLegItemProps = {
   legParticipant: ProcessedTeamRunnerModel
@@ -46,6 +47,15 @@ export default function RelayResultLegItem({
           time_seconds={legParticipant.stage.time_seconds}
           start_time={legParticipant.stage.start_time}
           style={{ fontSize: "small" }}
+        />
+      </Box>
+      <Box sx={{ display: "table-cell", textAlign: "right" }}>
+        <RelayRaceTime
+          displayStatus
+          isFinalTime={hasChipDownload}
+          runner={runner}
+          style={{ fontSize: "small" }}
+          overallLeg={legParticipant.leg_number}
         />
       </Box>
     </Box>
