@@ -53,7 +53,10 @@ export default function RelayRaceTime({
     finish_time = thisLeg.stage.finish_time
     time_seconds = liveRelayTime(runner, undefined, overallLeg) ?? 0 // TODO: This does not handle when the third leg has not started
   }
-  status = parseResultStatus(status!)
+  if (!status) {
+    throw new Error("Team status is `null` but it should have a valid value")
+  }
+  status = parseResultStatus(status)
 
   if (status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc) {
     if (finish_time != null && time_seconds !== null) {
