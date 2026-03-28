@@ -28,6 +28,7 @@
   "EmailAddress": "Адреса Електронної Пошти",
   "Event": "Подія",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "Щоб завершити конфігурацію події потрібна щонайменше одна стадія.",
     "Country": "Країна",
     "Create security keys": "Створіть ключ безпеки",
     "DangerArea": "Небезпечна зона",
@@ -38,6 +39,7 @@
     "DeleteEvent": "Видалити Подію",
     "Do you want to delete this event?": "Чи ви хочете видалити цю подію?",
     "Do you want to renew the security key?": "Чи ви бажаєте поновити ключ безпеки?",
+    "EndMustBeBeforeEnd": "Кінцева дата не може йти перед датою початку.",
     "EventData": "Інформація про подію",
     "EventDataDescription": "Відобразити та відредагувати основні подробиці вашої події",
     "EventId": "ID Події",
@@ -126,6 +128,7 @@
       "description": "Створіть стільки етапів, скільки вашій події потрібно. Кожна подія повинна мати хоча б один етап."
     },
     "StartDate": "Дата початку",
+    "StartMustBeAfterEnd": "Початкова дата не може йти після дати завершення.",
     "TooLongDescriptionMsg_few": "Надане ім'я перевищує максимальну кількість з {{count}} символів.",
     "TooLongDescriptionMsg_many": "Надане ім'я перевищує максимальну кількість з {{count}} символів.",
     "TooLongDescriptionMsg_one": "Надане ім'я перевищує максимальну кількість з {{count}} символу.",
