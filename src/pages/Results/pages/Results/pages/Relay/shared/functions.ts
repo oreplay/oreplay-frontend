@@ -8,6 +8,21 @@ import { runnerService } from "../../../../../../../domain/services/RunnerServic
 import { maxBy } from "../../../../../../../utils/generalFunctions.ts"
 import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 
+/**
+ * Calculates the elapsed time (in seconds) for a participant in a stage.
+ *
+ * The function behaves as follows:
+ * - If the participant has no `start_time`, it returns `null`.
+ * - If the participant has a `finish_time`:
+ *   - Returns `stage.time_seconds` if available.
+ *   - Otherwise, computes the difference between `finish_time` and `start_time`.
+ * - If the participant has started but not finished:
+ *   - Computes the live elapsed time from `start_time` to `now`.
+ *   - Uses the current time if `now` is not provided.
+ * - Returns `null` if the current time is before the participant's start time.
+ * @param runner Participant we want to compute time
+ * @param now Current datetime. If not provided it is computed
+ */
 function liveParticipantTime(
   runner: ParticipantModel | ProcessedParticipantModel,
   now?: DateTime<true>,
@@ -40,6 +55,9 @@ function liveParticipantTime(
 
 /**
  * Compute the time of a Relay team considering 2nd start
+ *
+ * If the relay time cannot be computed, then it returns `null`
+ *
  * @param runner Team
  * @param now When we want to know the team's time
  * @param maxLeg Time for the first n legs (non-inclusive) maxLeg=2 mean only first leg

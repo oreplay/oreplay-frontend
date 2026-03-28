@@ -81,9 +81,9 @@ export default function RelayRaceTime({
 
               // In race
               if (startTime <= nowDateTime) {
-                const provTimeSeconds = liveRelayTime(runner, nowDateTime, overallLeg)!
+                const provTimeSeconds = liveRelayTime(runner, nowDateTime, overallLeg)
                 // Check if runner died
-                if (provTimeSeconds >= 86400) {
+                if (!provTimeSeconds || provTimeSeconds >= 86400) {
                   return ""
 
                   // Still running
