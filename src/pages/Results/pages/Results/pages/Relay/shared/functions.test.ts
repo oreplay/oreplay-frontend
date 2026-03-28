@@ -51,6 +51,41 @@ describe("liveRelayTime", () => {
     expect(liveRelayTime(finishedRunner, defaultNow)).toBe(180)
   })
 
+  it("should handle a finished team when using maxLeg", () => {
+    const finishedRunner = {
+      ...baseRelayRunnerFixture,
+      runners: [
+        {
+          ...baseLegFixture,
+          stage: {
+            ...baseLegFixture.stage,
+            time_seconds: 60,
+            start_time: "2025-10-26T09:00:00.000+00:00",
+            finish_time: "2025-10-26T09:01:00.000+00:00",
+          },
+        },
+        {
+          ...baseLegFixture,
+          stage: {
+            ...baseLegFixture.stage,
+            start_time: "2025-10-26T09:01:00.000+00:00",
+            finish_time: "2025-10-26T09:03:00.000+00:00",
+            time_seconds: 120,
+          },
+        },
+      ],
+      stage: {
+        ...baseRelayRunnerFixture.stage,
+        time_seconds: 180,
+        start_time: "2025-10-26T09:00:00.000+00:00",
+        finish_time: "2025-10-26T09:03:00.000+00:00",
+        position: 5,
+      },
+    }
+
+    expect(liveRelayTime(finishedRunner, defaultNow, 1)).toBe(60)
+  })
+
   it("should compute team time by summing finished leg times when no team time exists", () => {
     const activeTeam = {
       ...baseRelayRunnerFixture,
