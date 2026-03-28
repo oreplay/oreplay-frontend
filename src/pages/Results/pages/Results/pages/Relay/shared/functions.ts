@@ -50,7 +50,7 @@ export function liveRelayTime(
   maxLeg?: number,
 ): number | null {
   // If the team already has time, use that time
-  if (runner.stage.time_seconds) {
+  if (maxLeg == undefined && runner.stage.time_seconds) {
     return runner.stage.time_seconds
   }
 
