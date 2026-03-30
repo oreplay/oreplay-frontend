@@ -5,7 +5,6 @@ import {
   GetEventTokenResponse,
   Page,
   PostEventResponse,
-  PostEventTokenResponse,
   PostStageResponse,
   OrganizerModel,
   EventDetailModel,
@@ -220,41 +219,12 @@ export async function getEventStats(eventId: string, stageId: string): Promise<D
 }
 
 /**
- * Creates a security token to upload runners to an event.
- * The token is set to be expired in one month time from the moment of creation.
- * @param eventId of the event that the token will be created for.
- * @param token user authentication token.
- * @param expiresIn Time that the token will expire in from now. Default value is 1 month.
- */
-export async function postEventToken(eventId: string, token: string, expiresIn?: DateTime) {
-  return post<Data<PostEventTokenResponse>>(
-    baseUrl + `/${eventId}/tokens`,
-    {
-      expires: expiresIn
-        ? expiresIn.toUTC()
-        : DateTime.now().endOf("day").plus({ month: 1 }).toUTC(),
-    },
-    token,
-  )
-}
-
-/**
  * Get the security token of a given event
  * @param eventId Id of the event that we want to gather the token from.
  * @param userToken user's event owner authentication token.
  */
 export async function getEventToken(eventId: string, userToken: string | null) {
   return get<Data<[GetEventTokenResponse]>>(baseUrl + `/${eventId}/tokens/`, userToken)
-}
-
-/**
- * Invalidate and already existing security token for an event.
- * @param eventId Id of the event the token belongs to
- * @param eventToken Token to be invalidated
- * @param authToken User's authentication token to perform de action
- */
-export async function invalidateEventToken(eventId: string, eventToken: string, authToken: string) {
-  return deleteRequest(baseUrl + `/${eventId}/tokens/${eventToken}`, authToken)
 }
 
 export async function getOrganizerList(): Promise<Page<OrganizerModel>> {
