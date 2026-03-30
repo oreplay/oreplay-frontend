@@ -3,10 +3,9 @@ import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid"
 import Tooltip from "@mui/material/Tooltip"
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 import VisibilityIcon from "@mui/icons-material/Visibility"
-import { useQuery } from "react-query"
-import { EventModel, UserModel } from "../../../../../../shared/EntityTypes.ts"
-import { getEventsFromUser } from "../../../../services/EventAdminService.ts"
 import { useAuth } from "../../../../../../shared/hooks.ts"
+import { useGetListEvents } from "../../../../../../infrastructure/repositories/events/events.ts"
+import { Event } from "../../../../../../domain/types/v1api"
 import { useCallback, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import EventsDataGridToolbar from "./components/EventsDataGridToolbar"
@@ -23,23 +22,30 @@ interface EventDataGridColumns {
 
 export default function EventsDataGrid() {
   const { t } = useTranslation()
-  const { user, token } = useAuth()
+  const { user } = useAuth()
   const navigate = useNavigate()
 
   // Pagination controller
   const [page, setPage] = useState<number>(0)
 
   // Query
-  const thisUserEventsQuery = useQuery(
-    ["events", "byUser", user!.id, page],
-    () => getEventsFromUser((user as UserModel).id, token as string, page + 1, ROWS_PER_PAGE),
+  const thisUserEventsQuery = useGetListEvents(
     {
-      staleTime: 60000,
-      keepPreviousData: true,
-      placeholderData: {
-        data: [],
-        limit: ROWS_PER_PAGE,
-        total: 0,
+      user_id: user!.id,
+      show_hidden: "1",
+      page: String(page + 1),
+      limit: String(ROWS_PER_PAGE),
+    },
+    {
+      query: {
+        staleTime: 60000,
+        keepPreviousData: true,
+        placeholderData: {
+          _links: { self: { href: "" } },
+          data: [],
+          limit: ROWS_PER_PAGE,
+          total: 0,
+        },
       },
     },
   )
@@ -48,7 +54,7 @@ export default function EventsDataGrid() {
     if (!thisUserEventsQuery.isSuccess) return []
 
     return thisUserEventsQuery.data.data.map(
-      (event: EventModel): EventDataGridColumns => ({
+      (event: Event): EventDataGridColumns => ({
         id: event.id,
         startDate: event.initial_date,
         endDate: event.final_date,
