@@ -1,10 +1,11 @@
-import React, { createContext, useCallback, useState } from "react"
+import React, { createContext, useCallback, useEffect, useState } from "react"
 import { UserModel } from "./EntityTypes.ts"
 import {
   deleteToken,
   getUserData,
   validateSignIn,
 } from "../pages/Administration/services/AuthenticationService.ts"
+import { updateAxiosClientHeaders } from "../infrastructure/orval/AxiosInstance.ts"
 
 /**
  * Available information when calling useAuth() hook
@@ -33,6 +34,12 @@ export const AuthContext = createContext<AuthContextInterface | null>(null)
 export function AuthProvider(props: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null)
   const [user, setUser] = useState<UserModel | null>(null)
+
+  useEffect(() => {
+    updateAxiosClientHeaders({
+      Authorization: token ? `Bearer ${token}` : undefined,
+    })
+  }, [token])
 
   /**
    * Perform login. This function set the token and user information that
