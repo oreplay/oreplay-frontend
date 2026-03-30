@@ -4,6 +4,7 @@
  * O-replay Rest API
  */
 
+export * from "./arraySimpleLog"
 export * from "./arrayToken"
 export * from "./event"
 export * from "./federation"
@@ -19,8 +20,12 @@ export * from "./paginationLinksSelf"
 export * from "./patchEventsBody"
 export * from "./postListEventTokensBody"
 export * from "./postListEventsBody"
+export * from "./rawUpload"
+export * from "./rawUploadFileData"
 export * from "./resEvent"
+export * from "./resRawUpload"
 export * from "./resToken"
+export * from "./simpleLog"
 export * from "./stage"
 export * from "./stageLinks"
 export * from "./stageType"
