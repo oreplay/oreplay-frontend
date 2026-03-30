@@ -8,7 +8,8 @@ import { AuthProvider } from "./shared/AuthProvider.tsx"
 // In-it sentry data collection
 const sentryDSN = import.meta.env.VITE_SENTRY_DSN
 import * as Sentry from "@sentry/react"
-import { API_BASE_URL } from "./services/ApiConfig.ts"
+import { API_BASE_URL, API_DOMAIN } from "./services/ApiConfig.ts"
+import { initAxiosClientInstance } from "./infrastructure/orval/AxiosInstance.ts"
 
 Sentry.init({
   dsn: sentryDSN,
@@ -19,6 +20,9 @@ Sentry.init({
   tracesSampleRate: import.meta.env.VITE_SENTRY_TRACING_RATE,
   tracePropagationTargets: [API_BASE_URL],
 })
+
+// Initialize orval axios instance
+initAxiosClientInstance(API_DOMAIN)
 
 // Make queries though TanStack Query
 const queryClient = new QueryClient()
