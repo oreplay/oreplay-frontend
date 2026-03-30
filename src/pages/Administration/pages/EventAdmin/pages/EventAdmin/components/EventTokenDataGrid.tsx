@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
+import { getEventToken } from "../../../../../services/EventAdminService.ts"
 import {
-  getEventToken,
-  invalidateEventToken,
-  postEventToken,
-} from "../../../../../services/EventAdminService.ts"
+  deleteEventTokens,
+  postListEventTokens,
+} from "../../../../../../../infrastructure/repositories/event-tokens/event-tokens.ts"
 import { Container, FormLabel, Grid2 as Grid, TextField } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
@@ -43,16 +43,18 @@ export default function EventTokenDataGrid(props: Props) {
     setIsLoading(true)
     if (eventToken != "") {
       try {
-        await invalidateEventToken(props.event_id, eventToken, token as string)
+        await deleteEventTokens(props.event_id, eventToken)
       } catch (error) {
         console.log("Error in invalidateEventToken", error)
         setIsLoading(false)
       }
     }
     try {
-      const response = await postEventToken(props.event_id, token as string)
-      setEventToken(response.data.token)
-      setEventTokenExpireDate(DateTime.fromISO(response.data.expires))
+      const response = await postListEventTokens(props.event_id, {
+        expires: DateTime.now().endOf("day").plus({ month: 1 }).toUTC().toISO() ?? undefined,
+      })
+      setEventToken(response.data.token!)
+      setEventTokenExpireDate(DateTime.fromISO(response.data.expires!))
       setIsLoading(false)
     } catch (error) {
       console.log("error in postEventToken", error)
