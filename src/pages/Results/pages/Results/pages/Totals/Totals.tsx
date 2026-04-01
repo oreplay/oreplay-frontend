@@ -68,6 +68,7 @@ export default function Totals() {
         clubsQuery={clubsQuery}
         setActiveClassClub={setClassClubId}
         handleRefreshClick={handleRefreshClick}
+        isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
       >
         <TotalsResults
           runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}

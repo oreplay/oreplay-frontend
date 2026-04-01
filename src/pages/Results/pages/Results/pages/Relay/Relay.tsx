@@ -97,6 +97,7 @@ export default function Relay() {
         setActiveClassClub={setClassClubId}
         handleRefreshClick={handleRefreshClick}
         displayTimezoneMsg={!timezoneMatch}
+        isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
       >
         <ResultTabs
           defaultMenu={0}

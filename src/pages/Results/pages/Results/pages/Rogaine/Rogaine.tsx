@@ -96,6 +96,7 @@ export default function Rogaine() {
       clubsQuery={clubsQuery}
       setActiveClassClub={setClassClubId}
       displayTimezoneMsg={!timezoneMatch}
+      isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
     >
       <ResultTabs
         defaultMenu={0}

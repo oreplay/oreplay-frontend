@@ -20,6 +20,7 @@ type StageLayoutProps = {
   setActiveClassClub: (newActiveClassId: string, isClass: boolean) => void
   activeItem: ClassModel | ClubModel | null
   isWrongFileUploaded?: boolean
+  isFetching?: boolean
   children: React.ReactNode
   displayTimezoneMsg?: boolean
 }
@@ -56,7 +57,11 @@ export default function StageLayout(props: StageLayoutProps) {
         />
         <Tooltip title={t("ResultsStage.Refresh")}>
           <IconButton onClick={props.handleRefreshClick}>
-            <RefreshIcon />
+            <RefreshIcon
+              sx={{
+                animation: props.isFetching ? "spin .6s linear infinite" : "none",
+              }}
+            />
           </IconButton>
         </Tooltip>
       </Box>
