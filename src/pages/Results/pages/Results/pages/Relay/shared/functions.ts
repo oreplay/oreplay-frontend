@@ -13,17 +13,15 @@ import { RESULT_STATUS } from "../../../../../shared/constants.ts"
  *
  * The function behaves as follows:
  * - If the participant has no `start_time`, it returns `null`.
- * - If the participant has a `finish_time`:
- *   - Returns `stage.time_seconds` if available.
- *   - Otherwise, computes the difference between `finish_time` and `start_time`.
+ * - If the participant has a `finish_time`, returns `stage.time_seconds`
  * - If the participant has started but not finished:
  *   - Computes the live elapsed time from `start_time` to `now`.
  *   - Uses the current time if `now` is not provided.
- * - Returns `null` if the current time is before the participant's start time.
+ * - Returns `null` if has not started
  * @param runner Participant we want to compute time
- * @param now Current datetime. If not provided it is computed
+ * @param now Current datetime. If not provided it is got
  */
-function liveParticipantTime(
+export function liveParticipantTime(
   runner: ParticipantModel | ProcessedParticipantModel,
   now?: DateTime<true>,
 ): number | null {
@@ -36,12 +34,7 @@ function liveParticipantTime(
 
   // Check if it has finish time
   if (runner.stage.finish_time) {
-    if (runner.stage.time_seconds !== null) {
-      return runner.stage.time_seconds
-    }
-    const runnerFinish = DateTime.fromISO(runner.stage.finish_time)
-
-    return runnerFinish.diff(runnerStart).as("seconds")
+    return runner.stage.time_seconds
   }
 
   // It has start time but no finish time
@@ -56,11 +49,14 @@ function liveParticipantTime(
 /**
  * Compute the time of a Relay team considering 2nd start
  *
- * If the relay time cannot be computed, then it returns `null`
+ * If the relay time cannot be computed, then it returns `null`.
+ * When `maxLeg` is used, if not all leg up to maxLeg have started, it returns null. When `maxLeg`
+ * is not used, it returns the time if at least one leg has started.
  *
  * @param runner Team
  * @param now When we want to know the team's time
- * @param maxLeg Time for the first n legs (non-inclusive) maxLeg=2 mean only first leg
+ * @param maxLeg Time for the first n legs (count starts at one, inclusive). `maxLeg=2` means legs
+ * 1 and 2.
  */
 export function liveRelayTime(
   runner: ProcessedRunnerModel,
@@ -82,13 +78,21 @@ export function liveRelayTime(
   let shouldReturn: boolean = false
   let legTime: number | null
 
-  maxLeg = maxLeg !== undefined ? maxLeg : runner.runners.length
-  for (let index = 0; index < maxLeg; index++) {
-    legTime = liveParticipantTime(runner.runners[index], now)
+  const loopMaxLeg = maxLeg !== undefined ? maxLeg : runner.runners.length
+  for (let index = 0; index < loopMaxLeg; index++) {
+    const participant = runner.runners[index]
+    if (participant === undefined) {
+      throw new Error(`Leg number ${index + 1} not found. There are ${runner.runners.length} legs.`)
+    }
+    legTime = liveParticipantTime(participant, now)
 
     if (legTime !== null) {
       teamTime = teamTime + legTime
       shouldReturn = true
+    } else {
+      if (maxLeg !== undefined) {
+        return null
+      }
     }
   }
 

@@ -1,12 +1,78 @@
-import { describe, it, expect } from "vitest"
+import { describe, it, vi, beforeEach, afterEach, expect } from "vitest"
 import {
+  ProcessedParticipantModel,
   ProcessedRunnerModel,
   ProcessedTeamRunnerModel,
 } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { computeTeamStatus, liveRelayTime } from "./functions.ts"
+import { computeTeamStatus, liveRelayTime, liveParticipantTime } from "./functions.ts"
 import { DateTime } from "luxon"
-import { baseLegFixture, baseRelayRunnerFixture } from "./relayFixtures.ts"
+import { baseLegFixture, baseParticipantFixture, baseRelayRunnerFixture } from "./relayFixtures.ts"
 import { RESULT_STATUS } from "../../../../../shared/constants.ts"
+
+describe("liveParticipantTime", () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  const createParticipant = (
+    startTime: string | null,
+    finishTime: string | null,
+    timeSeconds: number,
+  ): ProcessedParticipantModel => ({
+    ...baseParticipantFixture,
+    stage: {
+      ...baseParticipantFixture.stage,
+      start_time: startTime,
+      finish_time: finishTime,
+      time_seconds: timeSeconds,
+    },
+  })
+
+  it("returns null if start_time is null", () => {
+    const participant = createParticipant(null, null, 0)
+
+    const result = liveParticipantTime(participant)
+    expect(result).toBeNull()
+  })
+
+  it("returns stage.time_seconds if finish_time exists and time_seconds is not null", () => {
+    const participant = createParticipant("2024-01-01T00:00:00Z", "2024-01-01T00:10:00Z", 600)
+
+    const result = liveParticipantTime(participant)
+    expect(result).toBe(600)
+  })
+
+  it("computes live elapsed time when runner has started but not finished (using provided now)", () => {
+    const participant = createParticipant("2024-01-01T00:00:00Z", null, 0)
+    // @ts-expect-error the introduced date is ok
+    const now: DateTime<true> = DateTime.fromISO("2024-01-01T00:05:00Z")
+    vi.setSystemTime(new Date("2024-01-01T00:06:00Z")) // not matching system now
+
+    const result = liveParticipantTime(participant, now)
+    expect(result).toBe(300)
+  })
+
+  it("computes live elapsed time using DateTime.now() when now is not provided", () => {
+    const participant = createParticipant("2024-01-01T00:00:00Z", null, 0)
+    vi.setSystemTime(new Date("2024-01-01T00:05:00Z"))
+
+    const result = liveParticipantTime(participant)
+    expect(result).toBe(300)
+  })
+
+  it("returns null if now is before start_time", () => {
+    const participant = createParticipant("2024-01-01T00:10:00Z", null, 0)
+    // @ts-expect-error the introduced date is ok
+    const now: DateTime<true> = DateTime.fromISO("2024-01-01T00:05:00Z")
+
+    const result = liveParticipantTime(participant, now)
+    expect(result).toBeNull()
+  })
+})
 
 describe("liveRelayTime", () => {
   const defaultNow: DateTime<true> = DateTime.fromISO(
@@ -257,6 +323,42 @@ describe("liveRelayTime", () => {
     // maxLeg=2 means (maxLeg - 1) = 1 → only first leg counted
     const result = liveRelayTime(teamThreeLegs, defaultNow, 2)
     expect(result).toBe(60 + 90)
+  })
+
+  it("returns null if a runner has not started", () => {
+    const teamThreeLegs = {
+      ...baseRelayRunnerFixture,
+      stage: { ...baseRelayRunnerFixture.stage, time_seconds: 0 },
+      runners: [
+        { ...baseLegFixture, stage: { ...baseLegFixture.stage, time_seconds: 60 } },
+        { ...baseLegFixture, stage: { ...baseLegFixture.stage, time_seconds: 90 } },
+        {
+          ...baseLegFixture,
+          stage: {
+            ...baseLegFixture.stage,
+            start_time: "2025-10-26T10:00:00.000+00:00",
+            finish_time: null,
+            time_seconds: 0,
+          },
+        },
+      ],
+    }
+    // @ts-expect-error the provided ISO date is ok
+    const now: DateTime<true> = DateTime.fromISO("2025-10-26T9:30:00.000+00:00")
+    const result = liveRelayTime(teamThreeLegs, now, 3)
+
+    expect(result).toBeNull()
+  })
+
+  it("throws an error when you ask for legs than the team has", () => {
+    const teamTwoLegs = {
+      ...baseRelayRunnerFixture,
+      runners: [baseLegFixture, baseLegFixture],
+    }
+
+    expect(() => {
+      liveRelayTime(teamTwoLegs, defaultNow, 3)
+    }).toThrow("Leg number 3 not found. There are 2 legs.")
   })
 })
 
