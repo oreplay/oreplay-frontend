@@ -1,16 +1,16 @@
 import {
+  ProcessedParticipantModel,
   ProcessedRunnerModel,
   ProcessedTeamRunnerModel,
 } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 
-export const baseLegFixture: ProcessedTeamRunnerModel = {
+export const baseParticipantFixture: ProcessedParticipantModel = {
   id: "legId",
   bib_number: "100-1",
   is_nc: false,
   eligibility: null,
   sicard: "123456789",
   sex: "F",
-  leg_number: 1,
   class: null,
   club: {
     id: "ClubId",
@@ -41,6 +41,11 @@ export const baseLegFixture: ProcessedTeamRunnerModel = {
     online_splits: [],
   },
   overalls: null,
+}
+
+export const baseLegFixture: ProcessedTeamRunnerModel = {
+  ...baseParticipantFixture,
+  leg_number: 1,
 }
 
 export const baseRelayRunnerFixture: ProcessedRunnerModel = {
