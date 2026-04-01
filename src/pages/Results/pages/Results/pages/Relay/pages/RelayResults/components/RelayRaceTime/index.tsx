@@ -70,7 +70,7 @@ export default function RelayRaceTime({
         )
       }
     } else {
-      if (!finish_time && time_seconds && isFinalTime) {
+      if (!finish_time && time_seconds && isFinalTime && !overallLeg) {
         // Some relay exports do not have start_time nor finish_time
         return <Typography sx={style}>{parseSecondsToMMSS(time_seconds)}</Typography>
       } else if (start_time != null) {
