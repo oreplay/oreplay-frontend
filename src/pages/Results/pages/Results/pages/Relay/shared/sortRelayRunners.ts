@@ -59,7 +59,7 @@ function compareIfSameLegIsRunning(a: ProcessedRunnerModel, b: ProcessedRunnerMo
 
 function compareIfNotSameLegIsRunning(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
   return multiLevelCompare(a, b, [
-    relayCompareFunctions.byLastCommonLegTime,
+    relayCompareFunctions.byLastLeg,
     compareFunctions.byFinishedStatus,
     (a, b) => compareFunctions.byStartTime(a, b, false),
   ])

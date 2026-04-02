@@ -67,6 +67,34 @@ function byLastCommonLegTime(a: ProcessedRunnerModel, b: ProcessedRunnerModel): 
   return 0
 }
 
+function byLastLeg(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
+  try {
+    // Sanitize
+    if (!a.runners || !b.runners) {
+      throw new Error("Relay teams must have team members in `.runners` attribute")
+    }
+
+    // Find last common leg
+    const aLastLegIndex = findLastFinishedRelayLeg(a.runners)
+    const bLastLegIndex = findLastFinishedRelayLeg(b.runners)
+
+    return aLastLegIndex - bLastLegIndex
+
+  } catch (error) {
+    console.error(error)
+
+    withScope((scope) => {
+      scope.setExtra("runnerA", a)
+      scope.setExtra("runnerB", b)
+      scope.setExtra("origin", "relayCompareFunctions.byLastCommonLegTime")
+
+      sentryCaptureException(error)
+    })
+  }
+
+  return 0
+}
+
 function isSameLegRunning(
   a: ProcessedRunnerModel,
   b: ProcessedRunnerModel,
@@ -82,4 +110,5 @@ export const relayCompareFunctions = {
   byLastCommonLegTime,
   byLiveRelayTime,
   isSameLegRunning,
+  byLastLeg,
 }
