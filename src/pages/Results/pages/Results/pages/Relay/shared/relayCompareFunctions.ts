@@ -79,7 +79,6 @@ function byLastLeg(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
     const bLastLegIndex = findLastFinishedRelayLeg(b.runners)
 
     return aLastLegIndex - bLastLegIndex
-
   } catch (error) {
     console.error(error)
 
