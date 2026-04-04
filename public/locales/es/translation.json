@@ -28,6 +28,7 @@
   "EmailAddress": "Correo electrónico",
   "Event": "Evento",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "Debes crear al menos una etapa para completar la configuración del evento.",
     "Country": "País",
     "Create security keys": "Crear una clave de seguridad",
     "DangerArea": "Zona de peligro",
@@ -38,6 +39,7 @@
     "DeleteEvent": "Borrar evento",
     "Do you want to delete this event?": "¿Desea borrar el evento?",
     "Do you want to renew the security key?": "¿Desea renovar la clave de seguridad?",
+    "EndMustBeBeforeEnd": "La fecha final no puede ser anterior a la fecha de comienzo.",
     "EventData": "Información del evento",
     "EventDataDescription": "Aquí puedes ver y actualizar la información del evento",
     "EventId": "ID del evento",
@@ -126,6 +128,7 @@
       "description": "Crea tantas etapas como tenga tu evento. Cada evento debe tener al menos una etapa."
     },
     "StartDate": "Fecha de comienzo",
+    "StartMustBeAfterEnd": "La fecha de comienzo no puede ser posterior a la fecha del final.",
     "TooLongDescriptionMsg_many": "El nombre proporcionado excede el máximo de {{count}} caracteres.",
     "TooLongDescriptionMsg_one": "El nombre proporcionado excede el máximo de {{count}} caracter.",
     "TooLongDescriptionMsg_other": "El nombre proporcionado excede el máximo de {{count}} caracteres.",
