@@ -13,7 +13,12 @@ function byLiveRelayTime(
     const bRelayTime = liveRelayTime(b, now)
 
     if (aRelayTime !== null && bRelayTime !== null) {
-      return aRelayTime - bRelayTime
+      // Time must be rounded with milliseconds precision to avoid
+      // errors on sorting due to numerical stability computing
+      // `aRelayTime` and `bRelayTime`. You may get
+      // 124.56799999999, 124.568, 124.56800000000001 seconds
+      // enough difference to break sorting.
+      return Math.round((aRelayTime - bRelayTime) * 1000)
     }
   } catch (error) {
     console.error(error)
