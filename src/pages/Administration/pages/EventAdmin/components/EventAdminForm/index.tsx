@@ -413,17 +413,28 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           </form.Field>
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
-          <form.Field name={"countryCode"}>
+          <form.Field
+            name={"countryCode"}
+            validators={{
+              onSubmit: ({ value }) =>
+                value && value !== "" ? undefined : t("ThisFieldIsRequiredMsg"),
+            }}
+          >
             {(field) => {
               const countryCodes = Object.keys(localizedCountryCodes)
+              const error = field.state.meta.errors.join(" ")
 
               return (
                 <>
-                  <FormLabel required>{t("EventAdmin.Country")}</FormLabel>
+                  <FormLabel required error={!!error}>
+                    {t("EventAdmin.Country")}
+                  </FormLabel>
                   <Autocomplete
                     id={"countryCode"}
                     fullWidth
+                    autoComplete={false}
                     options={countryCodes}
+                    disableClearable
                     value={field.state.value}
                     onChange={(_, newCountry) => field.handleChange(newCountry ?? "")}
                     loading={isLoadingCurrentCountryCode}
@@ -440,6 +451,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     renderInput={(params) => (
                       <TextField
                         {...params}
+                        error={!!error}
                         slotProps={{
                           htmlInput: {
                             ...params.inputProps,
@@ -448,6 +460,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                       />
                     )}
                   />
+                  {error ? <FormHelperText error={!!error}>{error}</FormHelperText> : null}
                 </>
               )
             }}
@@ -495,7 +508,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                       display: props.displayIsPublic ? undefined : "none",
                     }}
                   />
-                  {error ? <FormHelperText>{error}</FormHelperText> : null}
+                  {error ? <FormHelperText error={!!error}>{error}</FormHelperText> : null}
                 </FormControl>
               )
             }}
