@@ -47,6 +47,7 @@ export default function EventAdmin() {
         undefined,
         values.organizer?.id,
         values.timezone.id,
+        values.countryCode,
       ),
     {
       onMutate: async (values: EventAdminFormValues) => {
@@ -69,6 +70,7 @@ export default function EventAdmin() {
               scope: values.scope,
               is_hidden: !values.isPublic,
               timezone: values.timezone.id,
+              country_code: values.countryCode,
             }
           },
         )

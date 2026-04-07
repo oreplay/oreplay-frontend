@@ -32,7 +32,9 @@ import {
   getUserTimeZone,
   timeZoneOptionGenerator,
 } from "./components/TimeZoneAutocomplete/functions.ts"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
+import { countryCode } from "../../../../../../domain/services/userCountry/userCountryModel.ts"
+import countries from "i18n-iso-countries"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -61,6 +63,7 @@ export interface EventAdminFormValues {
   scope: string
   isPublic: boolean
   timezone: TimezoneOption
+  countryCode: countryCode
 }
 
 const WEBSITE_MAX_LENGTH = 120
@@ -90,6 +93,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
         props.eventDetail?.timezone ?? getUserTimeZone(),
         i18n.language,
       ),
+      countryCode: props.eventDetail?.country_code ?? "",
     },
     onSubmit: ({ value }) => props.handleSubmit(value),
   })
@@ -108,6 +112,14 @@ export default function EventAdminForm(props: EventAdminFormProps) {
         })
       },
     },
+  )
+
+  const localizedCountryCodes = useMemo(
+    () =>
+      countries.getNames("en", {
+        select: "official",
+      }),
+    [],
   )
 
   const style_props: TextFieldProps = {
@@ -378,6 +390,46 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                 />
               </>
             )}
+          </form.Field>
+        </Grid>
+        <Grid size={{ xs: 12, md: 4 }}>
+          <form.Field name={"countryCode"}>
+            {(field) => {
+              const countryCodes = Object.keys(localizedCountryCodes)
+
+              return (
+                <>
+                  <FormLabel required>{t("EventAdmin.Country")}</FormLabel>
+                  <Autocomplete
+                    id={"countryCode"}
+                    fullWidth
+                    options={countryCodes}
+                    value={field.state.value}
+                    onChange={(_, newCountry) => field.handleChange(newCountry ?? "")}
+                    disabled={style_props.disabled}
+                    renderOption={(props, option) => {
+                      const countryName = localizedCountryCodes[option]
+                      return (
+                        <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
+                          {countryName}
+                        </Box>
+                      )
+                    }}
+                    getOptionLabel={(option) => localizedCountryCodes[option] || option}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        slotProps={{
+                          htmlInput: {
+                            ...params.inputProps,
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </>
+              )
+            }}
           </form.Field>
         </Grid>
         <Grid
