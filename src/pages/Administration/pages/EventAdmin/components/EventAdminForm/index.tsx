@@ -441,24 +441,73 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     disabled={style_props.disabled}
                     renderOption={(props, option) => {
                       const countryName = localizedCountryCodes[option]
+                      const lowercaseCode = option.toLowerCase()
+
                       return (
-                        <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
+                        <Box
+                          component="li"
+                          sx={{ "& > picture": { mr: 2, flexShrink: 0 } }}
+                          {...props}
+                        >
+                          <picture>
+                            <source
+                              type="image/webp"
+                              srcSet={`https://flagcdn.com/w20/${lowercaseCode}.webp, https://flagcdn.com/w40/${lowercaseCode}.webp 2x`}
+                            />
+                            <source
+                              type="image/png"
+                              srcSet={`https://flagcdn.com/w20/${lowercaseCode}.png, https://flagcdn.com/w40/${lowercaseCode}.png 2x`}
+                            />
+                            <img
+                              src={`https://flagcdn.com/w20/${lowercaseCode}.png`}
+                              width={20}
+                              alt={`${countryName} flag`}
+                              loading="lazy"
+                            />
+                          </picture>
                           {countryName}
                         </Box>
                       )
                     }}
                     getOptionLabel={(option) => localizedCountryCodes[option] || option}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        error={!!error}
-                        slotProps={{
-                          htmlInput: {
-                            ...params.inputProps,
-                          },
-                        }}
-                      />
-                    )}
+                    renderInput={(params) => {
+                      const value = field.state.value
+                      const code = value?.toLowerCase()
+                      const countryName = localizedCountryCodes[value]
+
+                      return (
+                        <TextField
+                          {...params}
+                          error={!!error}
+                          slotProps={{
+                            input: {
+                              ...params.InputProps,
+                              startAdornment: value ? (
+                                <picture style={{ marginRight: 4, marginLeft: 6 }}>
+                                  <source
+                                    type="image/webp"
+                                    srcSet={`https://flagcdn.com/w20/${code}.webp, https://flagcdn.com/w40/${code}.webp 2x`}
+                                  />
+                                  <source
+                                    type="image/png"
+                                    srcSet={`https://flagcdn.com/w20/${code}.png, https://flagcdn.com/w40/${code}.png 2x`}
+                                  />
+                                  <img
+                                    src={`https://flagcdn.com/w20/${code}.png`}
+                                    width={20}
+                                    alt={`${countryName} flag`}
+                                    loading="lazy"
+                                    style={{
+                                      opacity: style_props.disabled ? 0.3 : 1, // display the image disabled
+                                    }}
+                                  />
+                                </picture>
+                              ) : null,
+                            },
+                          }}
+                        />
+                      )
+                    }}
                   />
                   {error ? <FormHelperText error={!!error}>{error}</FormHelperText> : null}
                 </>
