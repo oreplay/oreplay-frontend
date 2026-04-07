@@ -31,6 +31,7 @@ export default function CreateEvent() {
         undefined,
         event.organizer?.id,
         event.timezone.id,
+        event.countryCode,
       )
       await navigate(`/admin/${response.data.id}`)
     } catch (e) {
