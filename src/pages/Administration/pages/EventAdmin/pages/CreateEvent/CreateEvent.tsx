@@ -51,6 +51,7 @@ export default function CreateEvent() {
         <EventAdminForm
           canEdit
           displayPlaceholders
+          autoFillCountry
           handleSubmit={handleSubmit}
           handleCancel={handleCancel}
         />

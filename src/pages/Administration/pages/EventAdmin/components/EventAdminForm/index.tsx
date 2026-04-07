@@ -35,6 +35,7 @@ import {
 import { useEffect, useMemo } from "react"
 import { countryCode } from "../../../../../../domain/services/userCountry/userCountryModel.ts"
 import countries from "i18n-iso-countries"
+import { useUserCountryCode } from "../../../../../../domain/services/userCountry/userCountryCodeHook.ts"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -48,6 +49,7 @@ interface EventAdminFormProps {
   eventDetail?: EventDetailModel
   canEdit?: boolean
   displayIsPublic?: boolean
+  autoFillCountry?: boolean
   displayPlaceholders?: boolean
   handleSubmit: (values: EventAdminFormValues) => void
   handleCancel?: () => void
@@ -114,6 +116,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     },
   )
 
+  // Country
   const localizedCountryCodes = useMemo(
     () =>
       countries.getNames("en", {
@@ -122,6 +125,23 @@ export default function EventAdminForm(props: EventAdminFormProps) {
     [],
   )
 
+  /// Autofill country
+  //// Gather current country
+  const { data: currentCountryCode, isLoading: isLoadingCurrentCountryCode } = useUserCountryCode({
+    enabled: props.autoFillCountry ?? false,
+  })
+  //// Update current country
+  useEffect(() => {
+    if (
+      props.autoFillCountry &&
+      currentCountryCode &&
+      !form.getFieldValue("countryCode") // don’t overwrite user input
+    ) {
+      form.setFieldValue("countryCode", currentCountryCode)
+    }
+  }, [currentCountryCode, props.autoFillCountry, form])
+
+  // Style
   const style_props: TextFieldProps = {
     variant: "outlined",
     disabled: !props.canEdit,
@@ -406,6 +426,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     options={countryCodes}
                     value={field.state.value}
                     onChange={(_, newCountry) => field.handleChange(newCountry ?? "")}
+                    loading={isLoadingCurrentCountryCode}
                     disabled={style_props.disabled}
                     renderOption={(props, option) => {
                       const countryName = localizedCountryCodes[option]
