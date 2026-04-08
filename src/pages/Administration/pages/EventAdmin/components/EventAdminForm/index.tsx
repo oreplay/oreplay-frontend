@@ -36,6 +36,7 @@ import { useEffect, useMemo } from "react"
 import { countryCode } from "../../../../../../domain/services/userCountry/userCountryModel.ts"
 import countries from "i18n-iso-countries"
 import { useUserCountryCode } from "../../../../../../domain/services/userCountry/userCountryCodeHook.ts"
+import { i18nLanguage2isoCountryLanguage } from "../../../../../../services/countryService.ts"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -117,13 +118,16 @@ export default function EventAdminForm(props: EventAdminFormProps) {
   )
 
   // Country
-  const localizedCountryCodes = useMemo(
-    () =>
-      countries.getNames("en", {
-        select: "official",
-      }),
-    [],
-  )
+  const localizedCountryCodes = useMemo(() => {
+    const code = i18nLanguage2isoCountryLanguage(i18n.language)
+
+    return countries.getNames(code, {
+      select: "official",
+    })
+  }, [i18n.language])
+  //TODO: Properly update on language change
+  // Even thought the new lng is register that happens after the new countries are generated
+  // Thus, the list will become empty
 
   /// Autofill country
   //// Gather current country

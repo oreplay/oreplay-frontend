@@ -9,8 +9,7 @@ import Layout from "./components/layout/Layout.tsx"
 import { NotificationsProvider } from "@toolpad/core"
 import { useTranslation } from "react-i18next"
 import { Settings as LuxonSettings } from "luxon"
-import countries from "i18n-iso-countries"
-import en from "i18n-iso-countries/langs/en.json"
+import { i18nLanguage2isoCountryLanguage, registerCountryLng } from "./services/countryService.ts"
 
 const EventsList = lazy(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
 const EventDetail = lazy(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
@@ -60,7 +59,10 @@ const theme = createTheme({
 
 export default function App() {
   const { i18n } = useTranslation()
-  countries.registerLocale(en)
+  useEffect(() => {
+    const countryCode = i18nLanguage2isoCountryLanguage(i18n.language)
+    void registerCountryLng(countryCode)
+  }, [i18n])
 
   // Update luxon and MUI locales locale
   const [lng, setLng] = useState<string>(i18n.language)
@@ -71,6 +73,9 @@ export default function App() {
       console.debug("Language changed: ", newLanguage.trim())
       LuxonSettings.defaultLocale = newLanguage
       setLng(newLanguage)
+
+      const countryCode = i18nLanguage2isoCountryLanguage(newLanguage)
+      void registerCountryLng(countryCode)
     }
     i18n.on("languageChanged", handler)
     return () => {
