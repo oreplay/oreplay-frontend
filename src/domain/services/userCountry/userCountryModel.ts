@@ -1,31 +1,35 @@
 export type countryCode = string // 2 digit country code
 
-export interface userIpInfoResponse {
-  ip: string
-  network: string
-  version: string
-  city: string
-  region: string
-  region_code: string
-  country: string
-  country_name: string
-  country_code: countryCode
-  country_code_iso3: string
-  country_capital: string
-  country_tld: string
-  continent_code: string
-  in_eu: boolean
-  postal: string
-  latitude: number
-  longitude: number
-  timezone: string
-  utc_offset: string
-  country_calling_code: string
-  currency: string
-  currency_name: string
-  languages: string
-  country_area: number
-  country_population: number
+interface ispResponse {
   asn: string
   org: string
+  isp: string
+}
+
+interface locationResponse {
+  country: string
+  country_code: countryCode
+  city: string
+  state: string
+  zipcode: string
+  latitude: string
+  longitude: string
+  timezone: string
+  localtime: string
+}
+
+interface riskResponse {
+  is_mobile: boolean
+  is_vpn: boolean
+  is_tor: boolean
+  is_proxy: boolean
+  is_datacenter: boolean
+  risk_score: number
+}
+
+export interface userIpInfoResponse {
+  ip: string
+  isp: ispResponse
+  location: locationResponse
+  risk: riskResponse
 }

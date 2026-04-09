@@ -12,6 +12,6 @@ export function useUserCountryCode(
   return useQuery<userIpInfoResponse, unknown, countryCode>(["userCountry"], getUserIpInfo, {
     ...options,
     staleTime: Infinity,
-    select: (data) => data.country_code,
+    select: (data) => data.location.country_code,
   })
 }
