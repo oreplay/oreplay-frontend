@@ -15,7 +15,12 @@
     "Dashboard": "Panell de control",
     "FinishDate": "Data fi",
     "Name": "Nom de l'event",
-    "StartDate": "Data inici"
+    "StartDate": "Data inici",
+    "YourEvents": {
+      "CreateEvent": "Crear event",
+      "description": "Crea i administra tots els teus events en un sol lloc.",
+      "title": "Els teus events"
+    }
   },
   "Dates": "Dates",
   "Delete": "Esborrar",
@@ -23,22 +28,31 @@
   "EmailAddress": "Correu electrònic",
   "Event": "Event",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "Has de crear com a mínim una etapa per a completar la configuració de l'event.",
     "Country": "País",
     "Create security keys": "Crear una clau de seguretat",
     "DangerArea": "Zona de perill",
+    "DataUpload": {
+      "description": "Aquesta informació de seguretat permet pujar dades a aquest event. Comparteix-la només amb el teu equip. Es pot revocar en qualsevol moment.",
+      "title": "Pujada de dades"
+    },
     "DeleteEvent": "Eliminar event",
     "Do you want to delete this event?": "Vols eliminar l'event?",
     "Do you want to renew the security key?": "Vols renovar la clau de seguretat?",
+    "EndMustBeBeforeEnd": "La data de fi no pot ser anterior a la data d'inici.",
     "EventData": "Informació de l'event",
+    "EventDataDescription": "Visualitza i edita la informació de l'event",
     "EventId": "ID de l'event",
     "EventName": "Nom de l'event",
+    "EventNamePlaceholder": "Un event espectacular",
     "EventSecurityTokens": "Clau de seguretat per al client d'escriptori",
-    "EventSecurityTokensExpireDate": "Expira el",
+    "EventSecurityTokensExpireDate": "Data d'expiració",
     "FinishDate": "Data de fi",
     "Hidden": "Privat",
     "InvalidURLMsg": "URL invàlida",
     "Location": "Ubicació",
     "Organizer": "Organitzador",
+    "OrganizerPlaceholder": "El millor club",
     "Public": "Públic",
     "QRCode": {
       "CopyUrl": "Copiar URL de l'event",
@@ -61,6 +75,7 @@
       "International": "Internacional",
       "Local": "Local",
       "National": "Nacional",
+      "Placeholder": "Àmbit",
       "RegionalHigh": "Autonòmic",
       "RegionalLow": "Provincial",
       "Scope": "Àmbit"
@@ -71,6 +86,7 @@
         "DialogTitle": "Vols eliminar aquesta etapa?",
         "MenuText": "Eliminar"
       },
+      "FailedToLoadOrganizers": "No s'han pogut carregar els organitzadors",
       "GoToStage": "Veure l'etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
@@ -96,6 +112,7 @@
           "title": "Totals"
         }
       },
+      "Start": "Hora zero (hora local)",
       "Stats": {
         "DialogBody": "Es mostraran estadístiques de l'etapa.",
         "DialogConfirm": "OK",
@@ -107,11 +124,17 @@
         "DialogConfirm": "Restablir",
         "DialogTitle": "Vols restablir aquesta etapa?",
         "MenuText": "Restablir"
-      }
+      },
+      "description": "Crea tantes etapes com tingui el teu event. Cada event ha de tenir mínim una etapa."
     },
     "StartDate": "Data d'inici",
+    "StartMustBeAfterEnd": "La data d'inici no pot ser posterior a la data de fi.",
+    "TooLongDescriptionMsg_many": "El nom proporcionat excedeix el màxim de {{count}} caràcterers.",
+    "TooLongDescriptionMsg_one": "El nom proporcionat excedeix el màxim de {{count}} caràcterers.",
+    "TooLongDescriptionMsg_other": "El nom proporcionat excedeix el màxim de {{count}} caràcterers.",
     "TooLongMsg": "La URL pot tenir una longitud màxima de {{count}} caràcters",
-    "Website": "Web de l'event"
+    "Website": "Web de l'event",
+    "WebsitePlaceholder": "https://elteuclub.cat/elteuevent"
   },
   "EventList": {
     "FutureEvents": "Events futurs",
@@ -121,6 +144,7 @@
   },
   "Events": "Events",
   "ExperimentalFeatureMsg": "Funcionalitat experimental",
+  "FieldTooLongMsg": "Màxim {{count}} caràcters permesos.",
   "ForbiddenAccess": "Accés denegat",
   "GeneralErrorFallback": {
     "msg": "Intenta refrescar la pàgina. Si l'error persisteix, intenti-ho de nou més tard.",
@@ -151,7 +175,15 @@
   "Loading": "Carregant",
   "Location": "Ubicació",
   "Menu": "Menú",
+  "MyAccount": {
+    "description": "Administra la teva informació personal.",
+    "personalInformation": {
+      "title": "Informació personal"
+    },
+    "title": "El meu perfil"
+  },
   "Name": "Nom",
+  "NotApplicable": "No aplica",
   "Organizer": "Organitzador",
   "Organizers": "Organitzadors",
   "Overall": {
@@ -184,7 +216,7 @@
     "FinishTime": "Final",
     "Name": "Nom",
     "NoClubMsg": "Sense club",
-    "NoData": "Ho sentim, no hi ha dades",
+    "NoData": "No hi ha dades disponibles",
     "NoStartTime": "-",
     "NonContributory": "No puntua",
     "NotStarted": "-",
@@ -244,9 +276,50 @@
   "Sign in": {
     "ForgotPassword": "Has oblidat la contrassenya?",
     "Logout": "Tancar sessió",
-    "NoAccount": "No tens compte? Registra't",
+    "NoAccount": "No tens compte? <1>Registra't</1>",
     "RememberMe": "Recordar-me",
     "Sign in": "Iniciar sessió"
+  },
+  "SignUp": {
+    "AlreadyHaveAccount": "Ja tens un compte? <1>Inicia sessió</1>",
+    "Email": {
+      "Validation": {
+        "EnterValidEmailAddress": "Si us plau, introdueix una direcció de correu electrònic vàlida."
+      }
+    },
+    "EmailMe": "Vull rebre actualitzacions per correu.",
+    "EmailVerification": {
+      "msg": "S'ha enviat un enllaç de verificació a {{email}}. Si us plau, revisa la teva safata d'entrada y prem sobre el link per a verificar el teu compte. Pots tancar aquesta finestra.",
+      "title": "Si us plau, verifica la teva direcció de correu electrònic"
+    },
+    "FirstName": "Nom",
+    "LastName": "Cognoms",
+    "Password": {
+      "InvalidPassword": "Contrassenya no vàlida",
+      "Validation": {
+        "AtLeastCharacter_many": "Mínim {{count}} caràcters",
+        "AtLeastCharacter_one": "Mínim un caràcter",
+        "AtLeastCharacter_other": "Mínim {{count}} caràcters",
+        "AtLeastLowercase_many": "Mínim {{count}} caràcters",
+        "AtLeastLowercase_one": "Mínim una lletra minúscula",
+        "AtLeastLowercase_other": "",
+        "AtLeastNumber_many": "Mínim {{count}} números",
+        "AtLeastNumber_one": "Mínim un número",
+        "AtLeastNumber_other": "Mínim {{count}} números",
+        "AtLeastSymbol_many": "Mínim {{count}} caràcters especials",
+        "AtLeastSymbol_one": "Mínim un caràcter especial",
+        "AtLeastSymbol_other": "Mínim {{count}} caràcters especials",
+        "AtLeastUppercase_many": "Mínim {{count}} lletres majúscules",
+        "AtLeastUppercase_one": "Mínim una lletra majúscula",
+        "AtLeastUppercase_other": "Mínim {{count}} lletres majúscules",
+        "DoesntMeetCriteria": "La contrassenya no compleix els requisits"
+      }
+    },
+    "SignUp": "Registrar-se",
+    "TermsConditions": {
+      "label": "He llegit i acceptat els <1>termes i condicions</1>.*",
+      "notChecked": "Has d'acceptar els termes i condicions."
+    }
   },
   "StageHeader": {
     "Graphs": "Gràfics",
@@ -259,8 +332,18 @@
   "Stages": "Etapes",
   "Success": "Èxit",
   "This action cannot be undone": "Aquesta acció no es pot desfer.",
+  "ThisFieldIsRequiredMsg": "Aquest camp és obligatori.",
   "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible.",
+  "TimeZone": "Zona horària",
+  "TimezoneMismatchRunnerMsg": "Estàs en una zona horària diferent a la de l'event. Totes les hores mostrades, incloses les de sortida, es mostren en la teva hora local i no en la de l'event.",
   "UnderDevelopment": "En desenvolupament",
+  "WorldContinents": {
+    "America": "Amèrica",
+    "Asia": "Àsia",
+    "Australia": "Austràlia",
+    "Europe": "Europa",
+    "Other": "Altres"
+  },
   "authenticationError": "S'ha produït un error",
   "chart": {
     "legend": {
@@ -270,6 +353,8 @@
     "selectRunnersMessage": "Selecciona corredors per a veure el gràfic",
     "timeAxisLabel": "Temps (segons)"
   },
+  "firstName": "Nom",
+  "lastName": "Cognoms",
   "lineChart": {
     "noData": "Selecciona corredors per a veure el gràfic de línies",
     "tooltip": {
