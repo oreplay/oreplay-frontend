@@ -9,7 +9,10 @@ import Layout from "./components/layout/Layout.tsx"
 import { NotificationsProvider } from "@toolpad/core"
 import { useTranslation } from "react-i18next"
 import { Settings as LuxonSettings } from "luxon"
-import { i18nLanguage2isoCountryLanguage, registerCountryLng } from "./services/countryService.ts"
+import {
+  i18nLanguage2isoCountryLanguage,
+  registerCountryLng,
+} from "./services/countryService/countryService.ts"
 
 const EventsList = lazy(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
 const EventDetail = lazy(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))

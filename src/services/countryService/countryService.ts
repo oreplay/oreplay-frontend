@@ -1,4 +1,4 @@
-import { countryCode } from "../domain/services/userCountry/userCountryModel.ts"
+import { countryCode } from "../../domain/services/userCountry/userCountryModel.ts"
 import countries, { LocaleData } from "i18n-iso-countries"
 import { captureException as sentryCaptureException } from "@sentry/react"
 
