@@ -70,23 +70,28 @@ export function i18nLanguage2isoCountryLanguage(lng: string): countryCode {
  * ```
  *
  * @param {string} languageCode - The i18n language code, e.g., `"en-US"` or `"fr"`.
- * @returns {Promise<void>} Resolves when the locale is registered, or rejects if all attempts fail.
+ * @returns {Promise<string>} Resolves when the locale is registered, or rejects if all attempts fail.
+ * Returns the resolved locale code
  */
-export async function registerCountryLng(languageCode: string): Promise<void> {
+export async function registerCountryLng(languageCode: string): Promise<string> {
   const code = languageCode.toLowerCase()
   console.debug("registerCountryLng", languageCode)
 
   try {
     const localeData = await langMap[code]()
     countries.registerLocale(localeData)
+    return code
   } catch (error) {
     console.error(`Could not register country language ${code}: `, error)
     try {
       const localeData = await langMap["en"]()
       countries.registerLocale(localeData)
       sentryCaptureException(error)
-    } catch (error) {
-      console.error(`Could not register fallback language en: `, error)
+      return "en"
+    } catch (error2) {
+      console.error(`Could not register fallback language en: `, error2)
+      sentryCaptureException(error2)
+      return ""
     }
   }
 }

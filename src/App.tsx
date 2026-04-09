@@ -9,10 +9,7 @@ import Layout from "./components/layout/Layout.tsx"
 import { NotificationsProvider } from "@toolpad/core"
 import { useTranslation } from "react-i18next"
 import { Settings as LuxonSettings } from "luxon"
-import {
-  i18nLanguage2isoCountryLanguage,
-  registerCountryLng,
-} from "./services/countryService/countryService.ts"
+import CountriesLocalizationProvider from "./services/countryService/countriesProvider.tsx"
 
 const EventsList = lazy(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
 const EventDetail = lazy(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
@@ -62,10 +59,6 @@ const theme = createTheme({
 
 export default function App() {
   const { i18n } = useTranslation()
-  useEffect(() => {
-    const countryCode = i18nLanguage2isoCountryLanguage(i18n.language)
-    void registerCountryLng(countryCode)
-  }, [i18n])
 
   // Update luxon and MUI locales locale
   const [lng, setLng] = useState<string>(i18n.language)
@@ -76,9 +69,6 @@ export default function App() {
       console.debug("Language changed: ", newLanguage.trim())
       LuxonSettings.defaultLocale = newLanguage
       setLng(newLanguage)
-
-      const countryCode = i18nLanguage2isoCountryLanguage(newLanguage)
-      void registerCountryLng(countryCode)
     }
     i18n.on("languageChanged", handler)
     return () => {
@@ -97,36 +87,38 @@ export default function App() {
             },
           }}
         >
-          <Suspense fallback={<GeneralSuspenseFallback useViewPort />}>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route index element={<EventsList />} />
-                  <Route path="competitions" element={<Navigate to={"/"} />} />
-                  <Route path="About-us" element={<AboutUs />} />
-                  <Route path="organizers" element={<Organizers />} />
-                  <Route path="privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="cookies-policy" element={<CookiesPolicy />} />
-                  <Route path="legal-notice" element={<LegalNotice />} />
-                  <Route path="competitions/:id" element={<EventDetail />} />
-                  <Route path="competitions/:eventId/:stageId" element={<Results />} />
-                  <Route element={<PrivateRoute />}>
-                    <Route path={"/dashboard"} element={<Dashboard />} />
-                    <Route path={"/admin/create-event"} element={<CreateEvent />} />
-                    <Route path={"/admin/:eventId"} element={<EventAdmin />} />
-                    <Route path={"/my-account"} element={<MyAccount />} />
+          <CountriesLocalizationProvider>
+            <Suspense fallback={<GeneralSuspenseFallback useViewPort />}>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Layout />}>
+                    <Route index element={<EventsList />} />
+                    <Route path="competitions" element={<Navigate to={"/"} />} />
+                    <Route path="About-us" element={<AboutUs />} />
+                    <Route path="organizers" element={<Organizers />} />
+                    <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="cookies-policy" element={<CookiesPolicy />} />
+                    <Route path="legal-notice" element={<LegalNotice />} />
+                    <Route path="competitions/:id" element={<EventDetail />} />
+                    <Route path="competitions/:eventId/:stageId" element={<Results />} />
+                    <Route element={<PrivateRoute />}>
+                      <Route path={"/dashboard"} element={<Dashboard />} />
+                      <Route path={"/admin/create-event"} element={<CreateEvent />} />
+                      <Route path={"/admin/:eventId"} element={<EventAdmin />} />
+                      <Route path={"/my-account"} element={<MyAccount />} />
+                    </Route>
+                    <Route path={"/*"} element={<NotFoundPage />} />
                   </Route>
-                  <Route path={"/*"} element={<NotFoundPage />} />
-                </Route>
-                <Route path={"/signin"}>
-                  <Route index element={<InItSignIn />} />
-                  <Route path={"form"} element={<SignIn />} />
-                  <Route path={"auth"} element={<Authentication />} />
-                </Route>
-                <Route path={"/sign-up"} element={<SignUp />} />
-              </Routes>
-            </BrowserRouter>
-          </Suspense>
+                  <Route path={"/signin"}>
+                    <Route index element={<InItSignIn />} />
+                    <Route path={"form"} element={<SignIn />} />
+                    <Route path={"auth"} element={<Authentication />} />
+                  </Route>
+                  <Route path={"/sign-up"} element={<SignUp />} />
+                </Routes>
+              </BrowserRouter>
+            </Suspense>
+          </CountriesLocalizationProvider>
         </NotificationsProvider>
       </LocalizationProvider>
     </ThemeProvider>
