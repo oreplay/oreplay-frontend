@@ -32,11 +32,13 @@ import {
   getUserTimeZone,
   timeZoneOptionGenerator,
 } from "./components/TimeZoneAutocomplete/functions.ts"
-import { useEffect, useMemo } from "react"
+import { useEffect } from "react"
 import { countryCode } from "../../../../../../domain/services/userCountry/userCountryModel.ts"
-import countries from "i18n-iso-countries"
 import { useUserCountryCode } from "../../../../../../domain/services/userCountry/userCountryCodeHook.ts"
-import { i18nLanguage2isoCountryLanguage } from "../../../../../../services/countryService/countryService.ts"
+import {
+  useAllCountries,
+  useCountry,
+} from "../../../../../../services/countryService/countryHooks.ts"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -118,16 +120,8 @@ export default function EventAdminForm(props: EventAdminFormProps) {
   )
 
   // Country
-  const localizedCountryCodes = useMemo(() => {
-    const code = i18nLanguage2isoCountryLanguage(i18n.language)
-
-    return countries.getNames(code, {
-      select: "official",
-    })
-  }, [i18n.language])
-  //TODO: Properly update on language change
-  // Even thought the new lng is register that happens after the new countries are generated
-  // Thus, the list will become empty
+  const localizedCountries = useAllCountries()
+  const countryT = useCountry()
 
   /// Autofill country
   //// Gather current country
@@ -425,7 +419,6 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             }}
           >
             {(field) => {
-              const countryCodes = Object.keys(localizedCountryCodes)
               const error = field.state.meta.errors.join(" ")
 
               return (
@@ -437,14 +430,14 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     id={"countryCode"}
                     fullWidth
                     autoComplete={false}
-                    options={countryCodes}
+                    options={localizedCountries.map((country) => country.code)}
                     disableClearable
                     value={field.state.value}
                     onChange={(_, newCountry) => field.handleChange(newCountry ?? "")}
                     loading={isLoadingCurrentCountryCode}
                     disabled={style_props.disabled}
                     renderOption={(props, option) => {
-                      const countryName = localizedCountryCodes[option]
+                      const countryName = countryT(option) || option
                       const lowercaseCode = option.toLowerCase()
 
                       return (
@@ -473,11 +466,11 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                         </Box>
                       )
                     }}
-                    getOptionLabel={(option) => localizedCountryCodes[option] || option}
+                    getOptionLabel={(option) => countryT(option) || option}
                     renderInput={(params) => {
                       const value = field.state.value
                       const code = value?.toLowerCase()
-                      const countryName = localizedCountryCodes[value]
+                      const countryName = countryT(value) || value
 
                       return (
                         <TextField
