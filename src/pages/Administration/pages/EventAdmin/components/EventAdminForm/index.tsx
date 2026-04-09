@@ -36,7 +36,7 @@ import { useEffect, useMemo } from "react"
 import { countryCode } from "../../../../../../domain/services/userCountry/userCountryModel.ts"
 import countries from "i18n-iso-countries"
 import { useUserCountryCode } from "../../../../../../domain/services/userCountry/userCountryCodeHook.ts"
-import { i18nLanguage2isoCountryLanguage } from "../../../../../../services/countryService.ts"
+import { i18nLanguage2isoCountryLanguage } from "../../../../../../services/countryService/countryService.ts"
 
 /**
  * @property eventDetail an event to be displayed in the form
