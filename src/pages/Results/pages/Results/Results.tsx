@@ -43,49 +43,52 @@ export default function Results() {
   // Loading states
   if (isLoading || classesQuery.isLoading) {
     return <GeneralSuspenseFallback />
+  }
 
-    // Error states
-  } else if (isError) {
+  // Error states
+  if (isError) {
     if (error.response?.status === 404) {
       return <NotFoundPage />
-    } else if (error.response?.status === 401 || error.response?.status === 403) {
+    }
+    if (error.response?.status === 401 || error.response?.status === 403) {
       return <PrivateEventPage />
     }
     return <GeneralErrorFallback displayMsg />
-  } else if (classesQuery.isError) {
-    return <GeneralErrorFallback displayMsg />
-
-    // Component
-  } else {
-    if (!eventDetail || !stageDetail) {
-      throw new Error("Event or stage info is missing")
-    }
-
-    return (
-      <Suspense fallback={<GeneralSuspenseFallback />}>
-        <ErrorBoundary fallback={<GeneralErrorFallback />}>
-          <EventStageBanner
-            key={`StageBanner${eventDetail.id}`}
-            eventName={eventDetail.description}
-            organizerName={eventDetail.organizer?.name}
-            stageName={
-              stageDetail.stage_type.id !== STAGE_TYPE_DATABASE_ID.Totals
-                ? stageDetail.description
-                : t("EventAdmin.Stages.StagesTypes.Totals.title")
-            }
-            singleStage={singleStage}
-          />
-          {classesQuery.isSuccess && classesQuery.data.data.length > 0 ? (
-            <StageTypeSelector // display stage data
-              key={`StageTypeSelector${eventDetail?.id}`}
-              stageType={stageDetail?.stage_type.id}
-            />
-          ) : (
-            // No classes created: no data available
-            <NoDataInStageMsg />
-          )}
-        </ErrorBoundary>
-      </Suspense>
-    )
   }
+  if (classesQuery.isError) {
+    return <GeneralErrorFallback displayMsg />
+  }
+
+  // Non-existing stage
+  if (!eventDetail || !stageDetail) {
+    return <NotFoundPage />
+  }
+
+  // Component
+  return (
+    <Suspense fallback={<GeneralSuspenseFallback />}>
+      <ErrorBoundary fallback={<GeneralErrorFallback />}>
+        <EventStageBanner
+          key={`StageBanner${eventDetail.id}`}
+          eventName={eventDetail.description}
+          organizerName={eventDetail.organizer?.name}
+          stageName={
+            stageDetail.stage_type.id !== STAGE_TYPE_DATABASE_ID.Totals
+              ? stageDetail.description
+              : t("EventAdmin.Stages.StagesTypes.Totals.title")
+          }
+          singleStage={singleStage}
+        />
+        {classesQuery.isSuccess && classesQuery.data.data.length > 0 ? (
+          <StageTypeSelector // display stage data
+            key={`StageTypeSelector${eventDetail?.id}`}
+            stageType={stageDetail?.stage_type.id}
+          />
+        ) : (
+          // No classes created: no data available
+          <NoDataInStageMsg />
+        )}
+      </ErrorBoundary>
+    </Suspense>
+  )
 }
