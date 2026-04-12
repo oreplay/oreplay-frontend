@@ -9,6 +9,8 @@ import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallb
 import { useFetchEventDetail } from "../../services/FetchHooks.ts"
 import { STAGE_TYPE_DATABASE_ID } from "../Results/shared/constants.ts"
 import { DateTime } from "luxon"
+import CountryFlag from "../../../../components/CountryFlag"
+import { useCountry } from "../../../../services/countryService/countryHooks.ts"
 
 const styles = {
   titleEvent: {
@@ -35,6 +37,7 @@ const styles = {
 export default function EventDetail() {
   const { id } = useParams()
   const { t } = useTranslation()
+  const countryT = useCountry()
   const navigate = useNavigate()
 
   const { data, isLoading, error, isError } = useFetchEventDetail(id as string)
@@ -90,6 +93,28 @@ export default function EventDetail() {
             flexShrink: 0,
           }}
         >
+          {detail?.country_code ? (
+            <Box
+              sx={{
+                ...styles.aligns,
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                gap: "6px",
+                marginBottom: "4px",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <CountryFlag
+                code={detail?.country_code.toLowerCase()}
+                slotProps={{ image: { width: "12px" } }}
+              />
+              <Typography sx={{ fontSize: 10, color: "text.secondary" }}>
+                {countryT(detail.country_code)}
+              </Typography>
+            </Box>
+          ) : null}
           <Typography style={styles.aligns} sx={{ color: "text.secondary", fontSize: "small" }}>
             {detail?.organizer?.name}
           </Typography>
