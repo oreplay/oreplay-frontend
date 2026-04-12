@@ -39,6 +39,7 @@ import {
   useAllCountries,
   useCountry,
 } from "../../../../../../services/countryService/countryHooks.ts"
+import CountryFlag from "../../../../../../components/CountryFlag"
 
 /**
  * @property eventDetail an event to be displayed in the form
@@ -470,7 +471,6 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     renderInput={(params) => {
                       const value = field.state.value
                       const code = value?.toLowerCase()
-                      const countryName = countryT(value) || value
 
                       return (
                         <TextField
@@ -480,25 +480,11 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                             input: {
                               ...params.InputProps,
                               startAdornment: value ? (
-                                <picture style={{ marginRight: 4, marginLeft: 6 }}>
-                                  <source
-                                    type="image/webp"
-                                    srcSet={`https://flagcdn.com/w20/${code}.webp, https://flagcdn.com/w40/${code}.webp 2x`}
-                                  />
-                                  <source
-                                    type="image/png"
-                                    srcSet={`https://flagcdn.com/w20/${code}.png, https://flagcdn.com/w40/${code}.png 2x`}
-                                  />
-                                  <img
-                                    src={`https://flagcdn.com/w20/${code}.png`}
-                                    width={20}
-                                    alt={`${countryName} flag`}
-                                    loading="lazy"
-                                    style={{
-                                      opacity: style_props.disabled ? 0.3 : 1, // display the image disabled
-                                    }}
-                                  />
-                                </picture>
+                                <CountryFlag
+                                  code={code}
+                                  disabled={style_props.disabled}
+                                  slotProps={{ picture: { marginRight: 4, marginLeft: 6 } }}
+                                />
                               ) : null,
                             },
                           }}
