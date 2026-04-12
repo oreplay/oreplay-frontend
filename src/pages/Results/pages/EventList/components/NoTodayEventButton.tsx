@@ -17,13 +17,18 @@ export default function NoTodayEventButton(props: Props) {
       color: "black",
       textAlign: "left",
       textTransform: "none",
-      overflow: "hidden", //,          // Clip overflowing text
-      //whiteSpace: 'nowrap',        // Prevent line wrapping
-      textOverflow: "ellipsis", // Add ellipsis for overflow
+      display: "-webkit-box",
+      WebkitLineClamp: 2,
+      WebkitBoxOrient: "vertical",
+      overflow: "hidden",
     },
     clubNames: {
       color: "text.secondary",
       fontSize: "small",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      textAlign: "left",
+      whiteSpace: "nowrap",
     },
   }
 
@@ -58,6 +63,7 @@ export default function NoTodayEventButton(props: Props) {
           gap: "4px",
           alignItems: "center",
           justifyContent: "flex-start",
+          overflow: "hidden",
         }}
       >
         {props.event.country_code ? (
