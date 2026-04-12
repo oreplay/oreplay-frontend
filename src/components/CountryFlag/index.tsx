@@ -9,6 +9,7 @@ interface CountryFlagProps {
 
 interface slotProps {
   picture?: CSSProperties
+  image?: CSSProperties
 }
 
 /**
@@ -16,12 +17,15 @@ interface slotProps {
  *
  * @example
  * ```tsx
- * <CountryFlag code="ES" />
- * <CountryFlag code="US" disabled />
- * <CountryFlag code="FR" slotProps={{ picture: { borderRadius: 4 } }} />
+ * <CountryFlag code="es" />
+ * <CountryFlag code="us" disabled />
+ * <CountryFlag code="fr" slotProps={{ picture: { borderRadius: 4 } }} />
  * ```
  */
 export default function CountryFlag({ code, slotProps, disabled }: CountryFlagProps) {
+  const opacity = slotProps?.image?.opacity ?? (disabled ? 0.3 : 1)
+  const width = slotProps?.image?.width ?? 20
+
   return (
     <picture style={slotProps?.picture}>
       <source
@@ -34,11 +38,11 @@ export default function CountryFlag({ code, slotProps, disabled }: CountryFlagPr
       />
       <img
         src={`https://flagcdn.com/w20/${code}.png`}
-        width={20}
+        width={width}
         alt={`${code} flag`}
         loading="lazy"
         style={{
-          opacity: disabled ? 0.3 : 1, // display the image disabled
+          opacity: opacity, // display the image disabled
         }}
       />
     </picture>

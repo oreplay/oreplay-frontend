@@ -32,6 +32,7 @@ export interface EventModel {
   picture: string | null
   website: string | null
   scope: null
+  country_code: string | null
   location: string | null
   initial_date: string
   final_date: string
