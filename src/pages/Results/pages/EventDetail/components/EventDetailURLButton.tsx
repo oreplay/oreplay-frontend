@@ -29,7 +29,7 @@ const EditeDetailURLButton: React.FC<MyComponentProps> = ({ url, marginLeft, mar
           }}
           sx={{
             width: "min-content",
-            marginTop: "12px",
+            marginTop: "16px",
             textTransform: "lowercase",
             paddingX: 0,
             color: "text.secondary",
