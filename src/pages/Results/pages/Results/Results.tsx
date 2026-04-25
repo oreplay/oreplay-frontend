@@ -3,13 +3,13 @@ import { useFetchEventDetail } from "../../services/FetchHooks.ts"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import NotFoundPage from "../../../NotFoundError/NotFoundPage.tsx"
 import GeneralErrorFallback from "../../../../components/GeneralErrorFallback.tsx"
-import { ErrorBoundary } from "@sentry/react"
 import EventStageBanner from "./components/EventStageBanner.tsx"
 import StageTypeSelector from "./components/StageTypeSelector.tsx"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
 import { STAGE_TYPE_DATABASE_ID } from "./shared/constants.ts"
 import PrivateEventPage from "../../../PrivateEventError"
+import ErrorBoundary from "../../../../components/ErrorBoundary/ErrorBoundary.tsx"
 import { useQuery } from "react-query"
 import { getClassesInStage } from "../../services/EventService.ts"
 import NoDataInStageMsg from "./components/NoDataInStageMsg.tsx"
@@ -67,7 +67,7 @@ export default function Results() {
   // Component
   return (
     <Suspense fallback={<GeneralSuspenseFallback />}>
-      <ErrorBoundary fallback={<GeneralErrorFallback />}>
+      <ErrorBoundary>
         <EventStageBanner
           key={`StageBanner${eventDetail.id}`}
           eventName={eventDetail.description}

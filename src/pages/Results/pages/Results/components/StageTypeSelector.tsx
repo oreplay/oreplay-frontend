@@ -1,11 +1,11 @@
 import { STAGE_TYPE_DATABASE_ID } from "../shared/constants.ts"
-import { lazy } from "react"
-const Ranking = lazy(() => import("../pages/Ranking"))
-const OneManRelay = lazy(() => import("../pages/OneManRelay"))
-const FootO = lazy(() => import("../pages/FootO/FootO.tsx"))
-const Relay = lazy(() => import("../pages/Relay/Relay.tsx"))
-const Rogaine = lazy(() => import("../pages/Rogaine/Rogaine.tsx"))
-const Totals = lazy(() => import("../pages/Totals/Totals.tsx"))
+import { lazyWithRetry } from "../../../../../services/lazyLoad.ts"
+const Ranking = lazyWithRetry(() => import("../pages/Ranking"))
+const OneManRelay = lazyWithRetry(() => import("../pages/OneManRelay"))
+const FootO = lazyWithRetry(() => import("../pages/FootO/FootO.tsx"))
+const Relay = lazyWithRetry(() => import("../pages/Relay/Relay.tsx"))
+const Rogaine = lazyWithRetry(() => import("../pages/Rogaine/Rogaine.tsx"))
+const Totals = lazyWithRetry(() => import("../pages/Totals/Totals.tsx"))
 
 type StageTypeSelectorProps = {
   stageType: string
