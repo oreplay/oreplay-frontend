@@ -34,8 +34,8 @@ const LanguageDropdown = () => {
 
   const languages = [
     { code: "es", flag: <SpainFlag fontSize={"inherit"} />, name: "Español" },
-    { code: "en-UK", flag: <UKFlag fontSize={"inherit"} />, name: "English" },
-    { code: "en-US", flag: <USFlag fontSize={"inherit"} />, name: "English" },
+    { code: "en-UK", flag: <UKFlag fontSize={"inherit"} />, name: "English (UK)" },
+    { code: "en-US", flag: <USFlag fontSize={"inherit"} />, name: "English (US)" },
     { code: "ca", flag: <CataloniaFlag fontSize={"inherit"} />, name: "Català" },
     { code: "cs", flag: <CzechRepublicFlag fontSize={"inherit"} />, name: "Čeština" },
     { code: "eu", flag: <BasqueCountryFlag fontSize={"inherit"} />, name: "Euskara" },
