@@ -143,6 +143,10 @@
   },
   "Events": "Events",
   "ExperimentalFeatureMsg": "Experimental feature",
+  "FailedToLoad": {
+    "msg": "Please check your internet connection. If the error persists, try again later.",
+    "title": "Page loading failed"
+  },
   "FieldTooLongMsg": "Maximum {{count}} characters allowed.",
   "ForbiddenAccess": "Forbidden access",
   "GeneralErrorFallback": {
