@@ -5,11 +5,9 @@ import RefreshIcon from "@mui/icons-material/Refresh"
 import { useTranslation } from "react-i18next"
 import { ClassModel, ClubModel, Page } from "../../../../../../shared/EntityTypes.ts"
 import React from "react"
-import { ErrorBoundary } from "@sentry/react"
-import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
-//import NoDataInStageMsg from "../NoDataInStageMsg.tsx"
 import WrongResultsFileUploadedMsg from "../WrongResultsFileUploadedMsg.tsx"
 import { UseQueryResult } from "react-query"
+import ErrorBoundary from "../../../../../../components/ErrorBoundary/ErrorBoundary.tsx"
 import TimezoneMsg from "./components/TimezoneMsg.tsx"
 
 type StageLayoutProps = {
@@ -67,9 +65,7 @@ export default function StageLayout(props: StageLayoutProps) {
       </Box>
       {props.displayTimezoneMsg ? <TimezoneMsg /> : null}
       <Box sx={{ marginTop: "12px", flex: 1, paddingBottom: "56px" }}>
-        <ErrorBoundary fallback={<GeneralErrorFallback displayMsg />}>
-          {props.children}
-        </ErrorBoundary>
+        <ErrorBoundary displayMsg>{props.children}</ErrorBoundary>
       </Box>
     </Box>
   )

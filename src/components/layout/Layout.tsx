@@ -5,9 +5,8 @@ import { Suspense, useEffect, useState } from "react"
 import Sidebar from "./Sidebar/Sidebar.tsx"
 import { useTranslation } from "react-i18next"
 import GeneralSuspenseFallback from "../GeneralSuspenseFallback.tsx"
-import { ErrorBoundary } from "@sentry/react"
-import GeneralErrorFallback from "../GeneralErrorFallback.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary.tsx"
 const VERSION_NUMBER = import.meta.env.VITE_VERSION_NUMBER
 const VERSION_TYPE = import.meta.env.VITE_VERSION_TYPE
 
@@ -31,7 +30,7 @@ export default function Layout() {
       <Sidebar key={"AppSidebar"} openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
 
       <Suspense fallback={<GeneralSuspenseFallback />} key={location.pathname}>
-        <ErrorBoundary key={"MainErrorBoundary"} fallback={<GeneralErrorFallback displayMsg />}>
+        <ErrorBoundary key={"MainErrorBoundary"} displayMsg>
           <Outlet />
         </ErrorBoundary>
       </Suspense>

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { ThemeProvider, createTheme } from "@mui/material"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon"
@@ -7,38 +7,45 @@ import { LocalizationProvider } from "@mui/x-date-pickers"
 import GeneralSuspenseFallback from "./components/GeneralSuspenseFallback.tsx"
 import Layout from "./components/layout/Layout.tsx"
 import { NotificationsProvider } from "@toolpad/core"
+import { lazyWithRetry } from "./services/lazyLoad.ts"
 import { useTranslation } from "react-i18next"
 import { Settings as LuxonSettings } from "luxon"
 import CountriesLocalizationProvider from "./services/countryService/countriesProvider.tsx"
 
-const EventsList = lazy(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
-const EventDetail = lazy(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
-const Dashboard = lazy(() => import("./pages/Administration/pages/Dashboard/Dashboard.tsx"))
-const CreateEvent = lazy(
+const EventsList = lazyWithRetry(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
+const EventDetail = lazyWithRetry(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
+const Dashboard = lazyWithRetry(
+  () => import("./pages/Administration/pages/Dashboard/Dashboard.tsx"),
+)
+const CreateEvent = lazyWithRetry(
   () => import("./pages/Administration/pages/EventAdmin/pages/CreateEvent/CreateEvent.tsx"),
 )
-const InItSignIn = lazy(
+const InItSignIn = lazyWithRetry(
   () => import("./pages/Administration/pages/Authentication/pages/InItSignIn.tsx"),
 )
-const SignIn = lazy(() => import("./pages/Administration/pages/Authentication/pages/SignIn.tsx"))
-const SignUp = lazy(() => import("./pages/Administration/pages/Authentication/pages/SignUp"))
-const Authentication = lazy(
+const SignIn = lazyWithRetry(
+  () => import("./pages/Administration/pages/Authentication/pages/SignIn.tsx"),
+)
+const SignUp = lazyWithRetry(
+  () => import("./pages/Administration/pages/Authentication/pages/SignUp"),
+)
+const Authentication = lazyWithRetry(
   () => import("./pages/Administration/pages/Authentication/pages/Authentication.tsx"),
 )
-const PrivateRoute = lazy(
+const PrivateRoute = lazyWithRetry(
   () => import("./pages/Administration/pages/Authentication/components/PrivateRoute.tsx"),
 )
-const EventAdmin = lazy(
+const EventAdmin = lazyWithRetry(
   () => import("./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx"),
 )
-const Results = lazy(() => import("./pages/Results/pages/Results/Results.tsx"))
-const AboutUs = lazy(() => import("./pages/AboutUs/AboutUs.tsx"))
-const NotFoundPage = lazy(() => import("./pages/NotFoundError/NotFoundPage.tsx"))
-const Organizers = lazy(() => import("./pages/Organizers/organizers.tsx"))
-const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy/PrivacyPolicy.tsx"))
-const CookiesPolicy = lazy(() => import("./pages/CookiesPolicy/CookiesPolicy.tsx"))
-const LegalNotice = lazy(() => import("./pages/LegalNotice/LegalNotice.tsx"))
-const MyAccount = lazy(() => import("./pages/Administration/pages/MyAccount/index.tsx"))
+const Results = lazyWithRetry(() => import("./pages/Results/pages/Results/Results.tsx"))
+const AboutUs = lazyWithRetry(() => import("./pages/AboutUs/AboutUs.tsx"))
+const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundError/NotFoundPage.tsx"))
+const Organizers = lazyWithRetry(() => import("./pages/Organizers/organizers.tsx"))
+const PrivacyPolicy = lazyWithRetry(() => import("./pages/PrivacyPolicy/PrivacyPolicy.tsx"))
+const CookiesPolicy = lazyWithRetry(() => import("./pages/CookiesPolicy/CookiesPolicy.tsx"))
+const LegalNotice = lazyWithRetry(() => import("./pages/LegalNotice/LegalNotice.tsx"))
+const MyAccount = lazyWithRetry(() => import("./pages/Administration/pages/MyAccount/index.tsx"))
 
 // Customize style of app
 const theme = createTheme({
