@@ -3,6 +3,7 @@ import * as Sentry from "@sentry/react"
 import type { ErrorBoundaryProps, FallbackRender } from "@sentry/react"
 import GeneralErrorFallback from "../GeneralErrorFallback.tsx"
 import { ChunkLoadError } from "../../services/lazyLoad.ts"
+import FailedToLoadAlert from "./components/FailToLoadAlert/FaildToLoadAlert.tsx"
 
 interface Props extends ErrorBoundaryProps {
   displayMsg?: boolean
@@ -101,10 +102,13 @@ class ErrorBoundary extends Sentry.ErrorBoundary {
   }
 
   render(): ReactNode {
-    const { hasError } = this.state
+    const { hasError, error } = this.state
     const { displayMsg, children } = this.props
 
     if (hasError) {
+      if (error instanceof ChunkLoadError) {
+        return <FailedToLoadAlert />
+      }
       return <GeneralErrorFallback displayMsg={displayMsg} />
     }
 
