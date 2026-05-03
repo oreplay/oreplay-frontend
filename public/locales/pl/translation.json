@@ -1,1 +1,144 @@
-{}
+{
+  "404Page": {
+    "Message": "Nie mogliśmy znaleźć strony, której szukasz."
+  },
+  "AboutUs": {
+    "AboutUs": "O nas",
+    "VersionMessage": "Jesteśmy w trakcie aktywnego rozwoju. Korzystasz z wersji "
+  },
+  "Cancel": "Anuluj",
+  "Copied to the clipboard": "Skopiowano do schowka.",
+  "Copy": "Kopiuj",
+  "Dashboard": {
+    "FinishDate": "Data zakończenia",
+    "Name": "Nazwa wydarzenia",
+    "StartDate": "Data rozpoczęcia",
+    "YourEvents": {
+      "CreateEvent": "Stwórz wydarzenie",
+      "title": "Twoje wydarzenia"
+    }
+  },
+  "Delete": "Usuń",
+  "Edit": "Edytuj",
+  "EmailAddress": "Adres email",
+  "Event": "Wydarzenie",
+  "EventAdmin": {
+    "Create security keys": "Stwórz klucz zabezpieczający",
+    "DeleteEvent": "Usuń wydarzenie",
+    "Do you want to renew the security key?": "Czy chcesz odnowić klucz zabezpieczający?",
+    "EndMustBeBeforeEnd": "Data zakończenia nie może być przed datą rozpoczęcia.",
+    "EventData": "Informacje o wydarzeniu",
+    "EventId": "ID Wydarzenia",
+    "EventName": "Nazwa Wydarzenia",
+    "EventSecurityTokensExpireDate": "Data wygaśnięcia",
+    "FinishDate": "Data zakończenia",
+    "Hidden": "Ukryte",
+    "InvalidURLMsg": "Nieprawidłowy URL",
+    "Location": "Lokalizacja",
+    "Public": "Publiczne",
+    "QRCode": {
+      "CopyUrl": "Skopiuj URL Wydarzenia",
+      "Description": "Wygeneruj i pobierz kod QR dzięki któremu od razu połączysz się z tym wydarzeniem na O-Replay.",
+      "Download": "Pobierz Kod QR (PNG)",
+      "DownloadSuccessful": "Kod QR pobrany pomyślnie",
+      "EventName": "Nazwa Wydarzenia",
+      "EventUrl": "URL Wydarzenia",
+      "Generating": "Generowanie kodu QR...",
+      "Instructions": "Ten kod QR można uwzględnić na wydrukowanych mapach, aby ułatwić dostęp do wydarzenia na O-Replay.",
+      "ShareEvent": "Udostępnij",
+      "Title": "Kod QR Wydarzenia"
+    },
+    "Renew security keys": "Wygeneruj nowy klucz zabezpieczający",
+    "Save": "Zapisz",
+    "Scopes": {
+      "Club": "Klub",
+      "International": "Międzynarodowy",
+      "Local": "Lokalny",
+      "National": "Narodowy",
+      "Placeholder": "Zakres",
+      "RegionalLow": "Regionalny",
+      "Scope": "Zakres"
+    },
+    "Stages": {
+      "DeleteStage": {
+        "MenuText": "Usuń"
+      },
+      "FailedToLoadOrganizers": "Nie udało się załadować organizatorów",
+      "StagesTypes": {
+        "FootO": {
+          "title": "Klasyczny"
+        },
+        "Rogaine": {
+          "title": "Wynik"
+        },
+        "StageType": "Rodzaj"
+      },
+      "Stats": {
+        "DialogBody": "Statystki etapów będą wyświetlone.",
+        "DialogConfirm": "OK",
+        "DialogTitle": "Zobacz statystyki etapów",
+        "MenuText": "Statystyki"
+      },
+      "WipeOutRunners": {
+        "DialogConfirm": "Reset",
+        "DialogTitle": "Czy chcesz zresetować ten etap?",
+        "MenuText": "Reset"
+      },
+      "description": "Stwórz tyle etapów dla swojego wydarzenia ile potrzebujesz. Każde wydarzenie musi mieć przynajmniej jeden etap."
+    },
+    "StartDate": "Data rozpoczęcia",
+    "StartMustBeAfterEnd": "Data rozpoczęcia nie może być po dacie zakończenia.",
+    "TooLongDescriptionMsg_few": "Podana nazwa przekracza maksymalną liczbę znaków o {{count}} znaki.",
+    "TooLongDescriptionMsg_many": "Podana nazwa przekracza maksymalną liczbę znaków o {{count}} znaków.",
+    "TooLongDescriptionMsg_one": "Podana nazwa przekracza maksymalną liczbę znaków o jeden znak.",
+    "Website": "Strona wydarzenia",
+    "WebsitePlaceholder": "https://twojklub.com/twojewydarzenie"
+  },
+  "EventList": {
+    "FutureEvents": "Przyszłe wydarzenia",
+    "LiveToday": "Na żywo dzisiaj",
+    "NoLiveEventsToday": "Nie ma dzisiaj żadnych wydarzeń",
+    "PastEvents": "Poprzednie wydarzenia"
+  },
+  "Events": "Wydarzenia",
+  "GeneralErrorFallback": {
+    "msg": "Odśwież stronę. Jeśli błąd dalej występuje, spróbuj ponownie później."
+  },
+  "GoBack": "Wróć",
+  "MyAccount": {
+    "description": "Zarządzaj swoimi personalnymi danymi.",
+    "personalInformation": {
+      "title": "Dane personalne"
+    },
+    "title": "Mój profil"
+  },
+  "Name": "Imię",
+  "Overall": {
+    "pointsAbbreviation": "pkt"
+  },
+  "Password": "Hasło",
+  "PrivateEventPage": {
+    "Header": "Prywatne wydarzenie",
+    "Message": "To wydarzenie zostało ustawione na prywatne przez organizatora. Jeśli uważasz, że to błąd, skontaktuj się z organizatorem wydarzenia."
+  },
+  "WorldContinents": {
+    "America": "Ameryka",
+    "Asia": "Azja",
+    "Australia": "Australia",
+    "Europe": "Europa",
+    "Other": "Inne"
+  },
+  "authenticationError": "Wystąpił błąd",
+  "chart": {
+    "timeAxisLabel": "Czas (sekundy)"
+  },
+  "firstName": "Imię",
+  "lastName": "Nazwisko",
+  "positionChart": {
+    "yAxisLabel": "Pozycja"
+  },
+  "sidebar": {
+    "backendVersion": "Backend",
+    "frontendVersion": "Frontend"
+  }
+}

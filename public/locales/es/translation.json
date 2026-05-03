@@ -144,6 +144,10 @@
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Funcionalidad experimental",
+  "FailedToLoad": {
+    "msg": "Compruebe su conexión a internet. Si el error continua, inténtelo de nuevo más tarde.",
+    "title": "La carga de la página ha fallado"
+  },
   "FieldTooLongMsg": "Máximo de {{count}} caracteres permitidos.",
   "ForbiddenAccess": "Acceso denegado",
   "GeneralErrorFallback": {
