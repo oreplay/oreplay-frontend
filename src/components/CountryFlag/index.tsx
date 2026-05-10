@@ -5,6 +5,7 @@ interface CountryFlagProps {
   code: countryCode
   disabled?: boolean
   slotProps?: slotProps
+  host?: string
 }
 
 interface slotProps {
@@ -22,20 +23,19 @@ interface slotProps {
  * <CountryFlag code="fr" slotProps={{ picture: { borderRadius: 4 } }} />
  * ```
  */
-export default function CountryFlag({ code, slotProps, disabled }: CountryFlagProps) {
+export default function CountryFlag({
+  code,
+  slotProps,
+  disabled,
+  host = "https://flagcdn.com",
+}: CountryFlagProps) {
   const opacity = slotProps?.image?.opacity ?? (disabled ? 0.3 : 1)
   const width = slotProps?.image?.width ?? 20
 
   return (
     <picture style={slotProps?.picture}>
-      <source
-        type="image/webp"
-        srcSet={`https://flagcdn.com/w20/${code}.webp, https://flagcdn.com/w40/${code}.webp 2x`}
-      />
-      <source
-        type="image/png"
-        srcSet={`https://flagcdn.com/w20/${code}.png, https://flagcdn.com/w40/${code}.png 2x`}
-      />
+      <source type="image/webp" srcSet={`${host}/w20/${code}.webp, ${host}/w40/${code}.webp 2x`} />
+      <source type="image/png" srcSet={`${host}/w20/${code}.png, ${host}/w40/${code}.png 2x`} />
       <img
         src={`https://flagcdn.com/w20/${code}.png`}
         width={width}
@@ -43,6 +43,7 @@ export default function CountryFlag({ code, slotProps, disabled }: CountryFlagPr
         loading="lazy"
         style={{
           opacity: opacity, // display the image disabled
+          ...slotProps?.image,
         }}
       />
     </picture>
