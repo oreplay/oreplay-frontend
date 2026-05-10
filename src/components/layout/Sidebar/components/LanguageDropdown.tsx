@@ -13,6 +13,23 @@ import BasqueCountryFlag from "../../../../assets/flags/BasqueCountry.tsx"
 import CzechRepublicFlag from "../../../../assets/flags/CzechRepublic.tsx"
 import RussiaFlag from "../../../../assets/flags/Russia.tsx"
 import USFlag from "../../../../assets/flags/US.tsx"
+import CountryFlag from "../../../CountryFlag"
+
+const languages = [
+  { code: "en-UK", flag: <UKFlag fontSize={"inherit"} />, name: "English (UK)" },
+  { code: "en-US", flag: <USFlag fontSize={"inherit"} />, name: "English (US)" },
+  { code: "ca", flag: <CataloniaFlag fontSize={"inherit"} />, name: "Català" },
+  { code: "cs", flag: <CzechRepublicFlag fontSize={"inherit"} />, name: "Čeština" },
+  { code: "eu", flag: <BasqueCountryFlag fontSize={"inherit"} />, name: "Euskara" },
+  { code: "es", flag: <SpainFlag fontSize={"inherit"} />, name: "Español" },
+  { code: "fr", flag: <FranceFlag fontSize={"inherit"} />, name: "Français" },
+  { code: "gl", flag: <GaliciaFlag fontSize={"inherit"} />, name: "Galego" },
+  { code: "pl", flag: <CountryFlag code={"pl"} />, name: "Polski" },
+  { code: "pt", flag: <PortugalFlag fontSize={"inherit"} />, name: "Português" },
+  { code: "bg", flag: <CountryFlag code={"bg"} />, name: "български" },
+  { code: "ru", flag: <RussiaFlag fontSize={"inherit"} />, name: "Русский" },
+  { code: "uk", flag: <UkraineFlag fontSize={"inherit"} />, name: "українська" },
+]
 
 const LanguageDropdown = () => {
   const { t, i18n } = useTranslation()
@@ -31,20 +48,6 @@ const LanguageDropdown = () => {
     void i18n.changeLanguage(lang)
     handleClose()
   }
-
-  const languages = [
-    { code: "es", flag: <SpainFlag fontSize={"inherit"} />, name: "Español" },
-    { code: "en-UK", flag: <UKFlag fontSize={"inherit"} />, name: "English (UK)" },
-    { code: "en-US", flag: <USFlag fontSize={"inherit"} />, name: "English (US)" },
-    { code: "ca", flag: <CataloniaFlag fontSize={"inherit"} />, name: "Català" },
-    { code: "cs", flag: <CzechRepublicFlag fontSize={"inherit"} />, name: "Čeština" },
-    { code: "eu", flag: <BasqueCountryFlag fontSize={"inherit"} />, name: "Euskara" },
-    { code: "fr", flag: <FranceFlag fontSize={"inherit"} />, name: "Français" },
-    { code: "gl", flag: <GaliciaFlag fontSize={"inherit"} />, name: "Galego" },
-    { code: "pt", flag: <PortugalFlag fontSize={"inherit"} />, name: "Português" },
-    { code: "ru", flag: <RussiaFlag fontSize={"inherit"} />, name: "Русский" },
-    { code: "uk", flag: <UkraineFlag fontSize={"inherit"} />, name: "українська" },
-  ]
 
   return (
     <Box>
