@@ -5,8 +5,7 @@
     "Message": "No hemos podido encontrar la página que estabas buscando."
   },
   "AboutUs": {
-    "AboutUs": "Sobre nosotros",
-    "VersionMessage": "Estamos en construcción. Estás usando la versión "
+    "AboutUs": "Sobre nosotros"
   },
   "Cancel": "Cancelar",
   "Copied to the clipboard": "Copiado al portapapeles.",
@@ -144,6 +143,10 @@
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Funcionalidad experimental",
+  "FailedToLoad": {
+    "msg": "Compruebe su conexión a internet. Si el error continua, inténtelo de nuevo más tarde.",
+    "title": "La carga de la página ha fallado"
+  },
   "FieldTooLongMsg": "Máximo de {{count}} caracteres permitidos.",
   "ForbiddenAccess": "Acceso denegado",
   "GeneralErrorFallback": {
