@@ -30,3 +30,12 @@ export const supportedLanguages: Language[] = [
   { code: "ru", flag: <CountryFlag code="ru" {...border} />, name: "Русский" },
   { code: "uk", flag: <CountryFlag code="ua" />, name: "українська" },
 ]
+
+export const usedNamespaces: string[] = [
+  "translation",
+  "organizers",
+  "about-us",
+  "PrivacyPolicy",
+  "LegalNotice",
+  "CookiesPolicy",
+]
