@@ -4,6 +4,8 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import Backend from "i18next-http-backend"
 import { supportedLanguages } from "./supportedLanguages.tsx"
 
+const locales = [...new Set(supportedLanguages.map(({ code }) => code.split("-")[0]))]
+
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 i18n
   .use(Backend)
@@ -17,7 +19,7 @@ i18n
       gl: ["es"], // galician
       default: ["en"],
     },
-    supportedLngs: supportedLanguages.map((item) => item.code), // Explicitly list supported languages
+    supportedLngs: locales, // Explicitly list supported languages
     load: "languageOnly", // Ignore region-specific codes like es-ES
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
