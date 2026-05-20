@@ -27,7 +27,7 @@ export default defineConfig({
   },
 
   build: {
-    sourcemap: false,
+    sourcemap: true,
     rollupOptions: {
       onwarn(warning, warn) {
         // Suppress "use client" directive warnings from dependencies
