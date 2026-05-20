@@ -8,6 +8,7 @@ import {
 import { RunnerModel, StageClassModel } from "../../../../../../../shared/EntityTypes.ts"
 import { getCourseFromRunner } from "../pages/Splits/components/FootOSplitsTable/shared/footOSplitsTablefunctions.ts"
 import { captureException as sentryCaptureException } from "@sentry/react"
+import { uuid } from "@tanstack/react-form"
 
 /**
  * Query and process (compute splits) of runners by classes
@@ -75,6 +76,8 @@ function wrongOnlineSplitsOrderWorkaround(
       if (thisClass && thisClass.splits.length > 0) {
         // Get course to update runner list
         const course = getCourseFromRunner(runnersList)
+        course.sort((a, b) => (a.order_number ?? 0) - (b.order_number ?? 0))
+
         if (course.length > 0) {
           const onlineControlNumbers = thisClass.splits.map((control) => control.station)
 
@@ -96,16 +99,15 @@ function wrongOnlineSplitsOrderWorkaround(
             return match
           })
 
-          // Final check
-          if (sortedOnlineControls.length != thisClass.splits.length) {
-            throw new Error(
-              "Algorithm to update online splits based on chip reading failed to produce the same number of splits",
-            )
-          }
-
           // Update online controls
-          console.debug("Online controls order updated through chip readings")
-          thisClass.splits = sortedOnlineControls
+          thisClass.splits = filteredCourse.map((control) => ({
+            id: uuid(),
+            station: control.control?.station as string,
+          }))
+          console.debug(
+            "Online controls order updated through chip readings: ",
+            sortedOnlineControls,
+          )
         } else {
           console.debug("Online controls order not updated because no chip readings were founds")
         }
