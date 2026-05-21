@@ -14,9 +14,9 @@ i18n
   .init({
     debug: false,
     fallbackLng: {
-      ca: ["es"], // catalan
-      eu: ["es"], // basque
-      gl: ["es"], // galician
+      ca: ["es", "en"], // catalan
+      eu: ["es", "en"], // basque
+      gl: ["es", "en"], // galician
       default: ["en"],
     },
     supportedLngs: locales, // Explicitly list supported languages
