@@ -265,7 +265,7 @@
       "tabs1": {
         "OE2010": {
           "title": "OE2010",
-          "p1": "Sube los resultados usando únicamente el formato \".csv\". Si se utiliza el formato \".xml\" los eventos basados en puntos no se representarán correctamente."
+          "p1": "Sube los resultados usando únicamente el formato \".csv\". Si se utiliza el formato \".xml\" los eventos basados en puntos no se representarán correctamente. ¡Asegurate de usar el punto y coma (;) como separador y las comillas (\") como separador de cadenas de texto!"
         },
         "OE12": {
           "title": "OE12",
@@ -286,7 +286,7 @@
           "img4": {
             "alt": "Captura de pantalla de OE12: Formulario de informe automático."
           },
-          "p6": "Exporte el archivo a la carpeta en la que el cliente está escuchando. Debe usar necesariamente el formato \".csv\"",
+          "p6": "Exporte el archivo a la carpeta en la que el cliente está escuchando. Debe usar necesariamente el formato \".csv\".  ¡Asegurate de usar el punto y coma (;) como separador y las comillas (\") como separador de cadenas de texto!",
           "img5": {
             "alt": "Captura de pantalla de OE12: Opciones del formulario de exportación."
           }

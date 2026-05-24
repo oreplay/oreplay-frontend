@@ -265,7 +265,7 @@
       "tabs1": {
         "OE2010": {
           "title": "OE2010",
-          "p1": "You must upload the results using the '.csv' format. If you choose the '.xml' format, point-based events will not be uploaded correctly."
+          "p1": "You must upload the results using the '.csv' format. If you choose the '.xml' format, point-based events will not be uploaded correctly. Make sure you use semicolon (;) as delimiter and double quotes (\") as string delimiter!"
         },
         "OE12": {
           "title": "OE12",
@@ -290,7 +290,7 @@
             "url": "/organizers/en/OE12/ExportTotals_AutomaticExport.png",
             "alt": "Automatic export dialog"
           },
-          "p6": "Export the file to the folder O-Replay is listening to using '.csv' format.",
+          "p6": "Export the file to the folder O-Replay is listening to using '.csv' format. Make sure you use semicolon (;) as delimiter and \" as string delimiter!",
           "img5": {
             "url": "/organizers/en/OE12/ExportTotals_ExportDialog.png",
             "alt": "Export dialog options. Pick '.csv' format."
