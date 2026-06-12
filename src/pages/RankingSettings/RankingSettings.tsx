@@ -1,4 +1,11 @@
-import { Box, Button, CircularProgress, Container, Stack, Typography } from "@mui/material"
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
@@ -15,7 +22,14 @@ export default function RankingSettings() {
   const ranking = data?.data.find((item) => item.id === rankingId)
 
   return (
-    <Box sx={{ minHeight: "100vh", flexGrow: 1, backgroundColor: "#f6f6f6", py: 6 }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        flexGrow: 1,
+        backgroundColor: "#f6f6f6",
+        py: 6,
+      }}
+    >
       <Container maxWidth="sm">
         <Button
           startIcon={<ArrowBackIcon />}
@@ -35,7 +49,9 @@ export default function RankingSettings() {
         ) : ranking ? (
           <RankingSettingsForm ranking={ranking} />
         ) : (
-          <Typography color="text.secondary">{t("Ranking.Settings.notFound")}</Typography>
+          <Typography color="text.secondary">
+            {t("Ranking.Settings.notFound")}
+          </Typography>
         )}
       </Container>
     </Box>
