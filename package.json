@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "O-Replay ranking module — routes subtree mounted by the host app at /ranking/*",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/oreplay-ranking.js",
   "module": "./dist/oreplay-ranking.js",
   "types": "./dist/index.d.ts",
@@ -21,6 +23,7 @@
     "test:watch": "vitest",
     "lint": "eslint . --ext ts,tsx --max-warnings 0",
     "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "before-commit": "npm run format && npm run lint && npm run build && npm run test"
   },
   "peerDependencies": {
@@ -53,10 +56,12 @@
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-i18next": "^6.1.3",
+    "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "i18next": "^23.10.0",
     "jsdom": "^25.0.1",
+    "jsonc-eslint-parser": "^2.4.0",
     "postcss": "^8.4.49",
     "prettier": "3.4.2",
     "react": "^18.3.1",

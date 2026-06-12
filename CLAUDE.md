@@ -4,178 +4,159 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-O-Replay Frontend — a React SPA for live orienteering results. It is one of three repos in the
-O-Replay project (this frontend, a CakePHP backend, and a Java desktop client). The app serves two
-audiences: public results viewers (event/stage/results pages) and authenticated organizers
-(event administration, uploads, ranking computation).
+`@oreplay/ranking` — the O-Replay **ranking module**. It is developed in its own repo but ships as
+an npm package that the host results app (`oreplay-frontend`) mounts at `/ranking/*`. At runtime it
+is **not** a separate app: the host imports it and renders it inside its own `<BrowserRouter>`, so
+there is a single React / react-query / router / session runtime (one SPA). The point of the split
+is dev-time independence — own review, CI, tests and styling — not independent deploy.
+
+The full architecture rationale (why npm package over module federation / iframe / multi-SPA, the
+auth/session model, the shared `@oreplay/api-client` and `@oreplay/tokens` plan) lives in
+`claude-ranking-module-plan.md` in this repo. Read it before making structural changes.
 
 ## Commands
 
-- `npm run dev` — start Vite dev server (host 0.0.0.0, port 8080)
-- `npm run build` — type-check (`tsc`) then `vite build`. The build fails on type errors.
-- `npm test` — run the full Vitest suite once (`vitest run`)
-- Run a single test file: `npx vitest run src/domain/services/RunnerService.test.ts`
-- Watch a test: `npx vitest src/path/to/file.test.ts`
+> Run `nvm use` first (`.nvmrc` → Node 22). The default shell Node may be too old and make
+> `tsc`/`eslint` fail with confusing `Unexpected token` errors.
+
+- `npm run dev` — standalone Vite dev server (the dev shell in `src/dev/`) → **http://localhost:5173**
+- `npm run build` — `tsc` type-check, then Vite **library** build to `dist/` (ESM bundle + `index.d.ts`)
+- `npm test` — run the Vitest suite once; `npm run test:watch` to watch
 - `npm run lint` — ESLint, **fails on any warning** (`--max-warnings 0`)
 - `npm run format` — Prettier write; `npm run format:check` to verify
-- `npm run before-commit` — runs format + lint + build; run this before committing
-- `npm run orval-build` — regenerate the API client/types from the OpenAPI spec (see below)
+- `npm run before-commit` — format + lint + build + test (run before committing)
 
-Node >= 20 required (`.nvmrc` pins the version).
-
-## Environment
-
-Config comes from `VITE_*` vars in `.env`. The key switch for local development is
-`VITE_API_DOMAIN` — point it at `http://localhost/` to use a local backend or
-`https://www.oreplay.es/` for the production API. `API_BASE_URL` is derived as
-`${VITE_API_DOMAIN}api/v1/` (see `src/services/ApiConfig.ts`).
+CI (`.github/workflows/ci.yml`) runs format:check + lint + test + build on every push and PR.
 
 ## Architecture
 
-### Layered structure
-The codebase mixes a feature-based layout (`src/pages/<Feature>/{pages,components,services,shared}`)
-with a domain-driven layer (`src/domain`, `src/infrastructure`). Shared cross-cutting code lives in
-`src/shared`, `src/components`, `src/services`, and `src/utils`.
+### What this package is
 
-- `src/domain` — framework-agnostic models (`domain/models`) and business logic (`domain/services`,
-  e.g. `RunnerService`, `StageStatsService`). This is where pure logic and its unit tests live.
-- `src/infrastructure` — HTTP/data access. Contains the orval-generated client and the axios setup.
-- `src/pages` — route-level features, each with its own `services` (data fetching/transforms),
-  `components`, and `shared` (context/types) subfolders.
+The package entry (`src/index.ts`) exports a single component, **`RankingRoutes`** — a
+`react-router` routes subtree. The host mounts it once:
 
-### Two coexisting API layers — know which one to use
-There are **two distinct ways** the app talks to the backend. New code generally uses the orval
-layer, but much of the existing code uses the hand-written layer.
+```tsx
+<Route path="/ranking/*" element={<RankingRoutes />} />
+```
 
-1. **Orval-generated layer (preferred for new endpoints).** `orval.config.ts` generates
-   react-query hooks into `src/infrastructure/repositories/*` and types into
-   `src/domain/types/v1api` from the live OpenAPI spec at
-   `https://www.oreplay.es/api/v1/openapi/json`. Do **not** edit generated files — they are
-   overwritten by `npm run orval-build`. All generated requests go through
-   `src/infrastructure/orval/orval-axios-instance.ts`, which uses the singleton axios client in
-   `src/infrastructure/orval/AxiosInstance.ts`.
+inside its own router, behind its own `PrivateRoute`. `RankingRoutes` owns everything under
+`/ranking/*` (the list at the index, `:rankingId/settings`, etc.).
 
-2. **Hand-written layer (legacy, still widely used).** `src/services/ApiConfig.ts` exposes
-   `get/post/patch/deleteRequest` helpers over a separate axios instance. Feature service files
-   (e.g. `src/pages/Results/services/EventService.ts`) call these and are wrapped in
-   custom react-query hooks (e.g. `src/pages/Results/services/FetchHooks.ts`). These hooks take a
-   `token` argument explicitly from `useAuth()`.
+### Shared singletons (peer dependencies)
 
-Note these are **two separate axios instances** with separate header/auth handling. The orval
-singleton's auth header is updated centrally; the legacy helpers receive the token per-call.
+`react`, `react-dom`, `react-router-dom`, `react-query`, `@mui/material`, `@mui/icons-material`,
+`@emotion/*`, `react-i18next` and `i18next` are **peerDependencies** and are marked `external` in
+the Vite library build (`vite.config.ts`). The host provides exactly one copy of each at runtime —
+that single-copy guarantee is what makes the shared router/session/query-cache work. **Never** add
+`@tanstack/react-query` v5; the host is on the v3 `react-query` package, and a second query client
+would break the shared cache.
 
-**Direction of travel:** the orval-generated layer is where we're heading; the hand-written layer
-is legacy we're gradually retiring. New endpoints and new code should use the orval hooks/types.
-When you touch existing legacy code for another reason, prefer migrating that piece to the orval
-equivalent as you go. This is an opportunistic, incremental migration — don't launch sweeping
-rewrites or mass find-and-replace just to convert untouched code; let it happen naturally as the
-surrounding code evolves.
+### API client — the `@oreplay/api-client` alias
 
-### Auth
-OAuth PKCE flow. `src/shared/AuthProvider.tsx` provides `AuthContext`; consume it via the
-`useAuth()` hook (`src/shared/hooks.ts`) to get `{ user, token, loginAction, logoutAction }`.
-On token change, `AuthProvider` calls `updateAxiosClientHeaders` to inject the `Authorization`
-bearer into the orval axios singleton. Authenticated routes are wrapped by `PrivateRoute` in
-`App.tsx`.
+Components import the ranking API by name:
 
-### Routing & app shell
-All routing is defined centrally in `src/App.tsx` using `react-router-dom`. Page components are
-lazy-loaded via `lazyWithRetry` (`src/services/lazyLoad.ts`). Providers are nested in `main.tsx`
-(QueryClient → AuthProvider) and `App.tsx` (Theme → Localization → Notifications → Countries).
+```ts
+import { useGetListRankingList, RankingsNsRanking } from "@oreplay/api-client"
+```
 
-### State / data fetching
-TanStack Query (imported as `react-query` v3) is the data/cache layer. There is no separate global
-state store — server state lives in react-query, auth/UI state in React context.
+That backend-owned, orval-generated package does **not exist yet**, so a local stand-in lives in
+`src/api/` and is wired through a Vite + tsconfig **alias** (`@oreplay/api-client` →
+`src/api/index.ts`). It returns typed mock data. When the real package ships:
+
+1. Remove the alias from `vite.config.ts` and `tsconfig.json`.
+2. Add `@oreplay/api-client` as a dependency (and mark it `external` in the lib build).
+3. Delete `src/api/`.
+
+Import statements in components stay identical. Treat `src/api/` as throwaway scaffolding — do not
+build real logic on top of it; the generated types are the contract.
+
+### Two development modes
+
+- **Standalone (the daily loop).** `npm run dev` serves the dev shell in `src/dev/`, which fakes
+  what the host provides — a single QueryClient, the MUI theme, a minimal i18n instance, and the
+  **mock** `@oreplay/api-client`. Mounts `RankingRoutes` at `/ranking/*` so links behave exactly as
+  in the host. No host, no backend needed. ~90% of work happens here.
+- **Integrated.** The host consumes the built package (`file:`/`npm link` locally, or the published
+  version). It shows **real** data only once `@oreplay/api-client` is the real shared package; until
+  then an integrated mount still shows mock data.
+
+The dev shell (`src/dev/`) and `src/test/` are **not** part of the published package (excluded from
+the dts build; `dist` only contains the library entry).
+
+### Folder layout
+
+- `src/index.ts` — package entry (exports `RankingRoutes`).
+- `src/RankingRoutes.tsx` — the routes subtree.
+- `src/pages/<Feature>/` — one folder per route screen, each with a `components/` subfolder.
+- `src/api/` — temporary local stand-in for `@oreplay/api-client` (alias target).
+- `src/dev/` — standalone dev shell + dev-only i18n (not shipped).
+- `src/styles/` — `tokens.css` (shared palette) + `tailwind.css`.
+- `src/test/` — Vitest setup.
+
+### Styling
+
+MUI today (matching the host), with a **Tailwind setup ready** for new components: preflight is
+disabled and utilities are prefixed `tw-` so Tailwind and MUI coexist in one DOM. The shared palette
+lives in `src/styles/tokens.css` as **channel-format** CSS variables (`--color-primary: 255 113 10`)
+consumed by `tailwind.config.js`, so opacity utilities (`tw-bg-primary/50`) work. These are **our
+own** semantic vars — never bind Tailwind to MUI's internal `--mui-palette-*` names. The long-term
+direction is to drop MUI for Tailwind, so keep MUI a thin, replaceable consumer of the same tokens.
 
 ### i18n
-Translations are in `public/locales/<lang>/` and managed via Weblate (do not hand-edit translation
-JSON for non-English without coordinating). ESLint enforces `i18next/no-literal-string` in JSX
-markup — **user-facing strings in markup must go through `t()`**, not be hardcoded. Luxon and MUI
-date locales are synced to the active i18n language in `App.tsx`.
+
+User-facing strings in markup go through `react-i18next` `t()` (ESLint `i18next/no-literal-string`
+is enforced). In production the host provides the `i18next` instance with Weblate-managed keys; for
+standalone dev/test, `src/dev/i18n.ts` initialises a minimal English instance (not shipped).
 
 ## Conventions
 
 - Prettier: **no semicolons**, LF line endings (`.prettierrc`). Let `npm run format` handle style.
-- TypeScript is strict, with `noUnusedLocals`/`noUnusedParameters` on — unused vars fail the build.
-- ESLint runs with type-checking and treats `@typescript-eslint/no-unsafe-*` as errors; avoid `any`
-  and untyped data flowing from API responses.
-- UI is Material UI v6 (`@mui/material`, `@mui/x-data-grid`, `@mui/x-date-pickers`) with a custom
-  theme (orange `#ff710a` primary) defined in `App.tsx`. Charts use `@nivo/*`.
-- Sentry is initialized in `main.tsx`; source maps are uploaded at build time.
+- TypeScript strict, with `noUnusedLocals`/`noUnusedParameters` — unused vars fail the build.
+- ESLint runs with type-checking and treats `@typescript-eslint/no-unsafe-*` as errors; avoid `any`.
+  Non-source TS like `vite.config.ts` is in `.eslintignore` (it is not in the `tsconfig` project).
+- `react-router` v7: `navigate()` returns a promise, so in event handlers use `void navigate(...)`
+  (otherwise `no-misused-promises` / `no-floating-promises` fire).
 
 ## Development Principles
 
-Write code following SOLID principles and the guidelines below. These are the target for new and
-refactored code; not all existing code conforms yet, so prefer these patterns over copying older
-code that violates them.
+Write code following SOLID principles and the guidelines below.
 
 ### Component design
 
 - **Single Responsibility**: each component does one thing.
 - **Aggressively small components**: extract every visually or logically distinct section into its
-  own component, even small ones. A parent should read as a list of child components, not large
-  blocks of markup. Prefer many small, composable components over a few large ones.
-- **One component per file**: each `.tsx` exports exactly one component. When a component splits
-  into parts, group them in a subfolder named after the public component (this repo already does
-  this, e.g. `components/ListSkeleton/`, `pages/.../StagesDataGrid/components/`) rather than
-  multiple components in one file or flat prefixed siblings.
-- **Stateless first**: prefer presentational/stateless components; add state only when essential,
-  and keep internal logic and state encapsulated (don't leak it to parents).
-- **Clear interfaces**: define an explicit props interface for each component. If a component
-  accepts `className`, it is the **last** prop in both the type and the destructuring.
+  own component. A parent should read as a list of child components, not large blocks of markup.
+- **One component per file**: each `.tsx` exports exactly one component. When a component splits into
+  parts, group them in a `components/` subfolder named after the public component.
+- **Stateless first**: prefer presentational components; add state only when essential and keep it
+  encapsulated (don't leak it to parents).
+- **Clear interfaces**: define an explicit props interface per component. If a component accepts
+  `className`, it is the **last** prop in both the type and the destructuring.
 - **Composition over inheritance**: favor `children`, render props, and composition.
-- **Predictable & testable**: components should be declarative, self-contained, and easy to reason
-  about and test.
 
-### Domain layer
+### Domain & data
 
-- **Domain-first logic**: business logic belongs in `src/domain` (`domain/models`,
-  `domain/services`), not in components. Components render UI and delegate to domain functions,
-  keeping them thin and the logic unit-testable (tests live next to the source, e.g.
-  `domain/services/RunnerService.test.ts`).
-- **Isolate third-party deps**: domain code should avoid importing third-party libraries directly.
-  Prefer the shared wrappers (e.g. date/timezone helpers in `src/shared/timezoneFunctions.ts`) so
-  logic stays portable and testable. (Some existing domain code imports `luxon` directly — new code
-  should not add to that.)
-- **Types in `domain/types/`**: shared/API types live in `src/domain/types` (the orval-generated
-  ones under `domain/types/v1api`). When a model file would carry several type definitions
-  alongside its logic, extract the types to `domain/types/` and import them back; 1–2 inline types
-  are fine.
-- **Alphabetical ordering**: add new constants, types, and functions to domain files in
-  alphabetical order to reduce merge conflicts.
-- **No magic strings — use constants**: any finite set of string values (gender codes, statuses,
-  modes, types) is defined once as a `const` with `as const`, and the union type is derived from
-  it — never written out separately or repeated as raw literals. Follow the existing pattern in
-  `src/domain/models/Gender.ts`
-  (`export const GENDERS = ["M", "F"] as const; export type Gender = (typeof GENDERS)[number]`).
-  Reference by name everywhere (including test fixtures) so usages stay greppable and value/type
-  stay in sync.
+- **Domain-first logic**: keep business logic out of components — put pure, unit-testable logic in a
+  domain layer (`src/domain` when introduced) and have components delegate to it. Tests live next to
+  the source.
+- **The generated types are the contract**: build on `@oreplay/api-client` types, never hand-edit
+  generated output. Don't grow logic on the temporary `src/api/` mock.
+- **No magic strings — use constants**: any finite set of string values (statuses, modes, types) is
+  defined once as a `const … as const` with the union type derived from it
+  (`export const FOO = ["a","b"] as const; export type Foo = (typeof FOO)[number]`), referenced by
+  name everywhere (including test fixtures) so usages stay greppable and value/type stay in sync.
+- **Alphabetical ordering**: add new constants/types/functions to shared files alphabetically to
+  reduce merge conflicts.
 
-### Working in this codebase (for AI agents)
+### When writing code
 
-Before writing code:
-
-1. Use the Node version in `.nvmrc` (`nvm use`) before running commands.
-2. Search for similar existing implementations and follow their patterns; check `src/shared`,
-   `src/components`, `src/utils`, and `src/domain` for reusable code first.
-3. Know which API layer applies (orval-generated vs. hand-written `ApiConfig.ts` — see Architecture).
-4. **Never edit auto-generated files** — anything under `src/infrastructure/repositories/` or
-   `src/domain/types/v1api`. Change the OpenAPI spec / orval config and run `npm run orval-build`.
-
-When writing code:
-
-- **Refactor over hack**: if a change needs the surrounding code restructured to fit cleanly,
-  refactor first rather than adding a case-specific workaround.
-- **Type safety**: lean on TypeScript strict mode; avoid `any` (the `no-unsafe-*` ESLint rules are
-  errors).
-- **Readability**: don't inline long ternaries or complex conditions in JSX props — extract them
-  into named variables. Use clear names.
-- **DRY**: extract duplicated logic into reusable domain functions instead of repeating it inline.
-- **i18n**: user-facing strings in markup go through `t()` (enforced by ESLint).
+- **Refactor over hack**: restructure surrounding code to fit a change cleanly rather than adding a
+  case-specific workaround.
+- **Readability**: don't inline long ternaries/conditions in JSX props — extract named variables.
+- **DRY**: extract duplicated logic into reusable functions.
+- **i18n**: user-facing markup strings go through `t()`.
 - **Accessibility**: prefer semantic HTML and appropriate ARIA attributes.
-- **No noise comments**: rely on descriptive names. Don't add JSDoc restating the signature,
-  section-divider comments, or inline comments describing *what* the code does. Comment only
-  genuinely non-obvious *why* (a workaround, a hack, counter-intuitive API behavior).
-- **Tests**: add tests for new domain logic and features.
-- **Before considering a task done**: run `npm run before-commit` (format + lint + build) so the
-  change is Prettier-formatted, lint-clean, and type-checks.
+- **No noise comments**: rely on descriptive names; comment only genuinely non-obvious _why_
+  (a workaround, a hack, counter-intuitive API behavior).
+- **Tests**: add tests for new logic and features.
+- **Before considering a task done**: run `npm run before-commit`.

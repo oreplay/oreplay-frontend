@@ -4,7 +4,8 @@ import { defineConfig } from "vitest/config"
 import react from "@vitejs/plugin-react"
 import dts from "vite-plugin-dts"
 
-const resolvePath = (relativePath: string) => fileURLToPath(new URL(relativePath, import.meta.url))
+const resolvePath = (relativePath: string) =>
+  fileURLToPath(new URL(relativePath, import.meta.url))
 
 export default defineConfig({
   plugins: [

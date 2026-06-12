@@ -5,7 +5,9 @@ import { describe, expect, it } from "vitest"
 import RankingList from "./RankingList.tsx"
 
 const renderWithProviders = () => {
-  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } })
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  })
   return render(
     <QueryClientProvider client={queryClient}>
       <MemoryRouter>
