@@ -2,3 +2,5 @@ dist
 vite.config.ts
 tailwind.config.js
 postcss.config.js
+orval.config.ts
+src/infrastructure/repositories

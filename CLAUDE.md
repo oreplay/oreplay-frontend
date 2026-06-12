@@ -21,6 +21,7 @@ auth/session model, the shared `@oreplay/api-client` and `@oreplay/tokens` plan)
 
 - `npm run dev` — standalone Vite dev server (the dev shell in `src/dev/`) → **http://localhost:5173**
 - `npm run build` — `tsc` type-check, then Vite **library** build to `dist/` (ESM bundle + `index.d.ts`)
+- `npm run orval-build` — regenerate the API client/types from the OpenAPI spec (see API client below)
 - `npm test` — run the Vitest suite once; `npm run test:watch` to watch
 - `npm run lint` — ESLint, **fails on any warning** (`--max-warnings 0`)
 - `npm run format` — Prettier write; `npm run format:check` to verify
@@ -51,44 +52,52 @@ that single-copy guarantee is what makes the shared router/session/query-cache w
 `@tanstack/react-query` v5; the host is on the v3 `react-query` package, and a second query client
 would break the shared cache.
 
-### API client — the `@oreplay/api-client` alias
+### API client — orval-generated, per-repo (same as the host)
 
-Components import the ranking API by name:
+There is **no shared api-client package**. Like the host, this repo runs **orval** against the live
+OpenAPI spec and commits its own copy of the generated client + types (`npm run orval-build`,
+config in `orval.config.ts`). Generation is **scoped to the ranking endpoints** via
+`input.filters.tags` so only a handful of files are produced (mostly types). Components import the
+generated hooks/types with relative paths, exactly like the host:
 
 ```ts
-import { useGetListRankingList, RankingsNsRanking } from "@oreplay/api-client"
+import { useGetListRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { Ranking } from "../../domain/types/v1api"
 ```
 
-That backend-owned, orval-generated package does **not exist yet**, so a local stand-in lives in
-`src/api/` and is wired through a Vite + tsconfig **alias** (`@oreplay/api-client` →
-`src/api/index.ts`). It returns typed mock data. When the real package ships:
-
-1. Remove the alias from `vite.config.ts` and `tsconfig.json`.
-2. Add `@oreplay/api-client` as a dependency (and mark it `external` in the lib build).
-3. Delete `src/api/`.
-
-Import statements in components stay identical. Treat `src/api/` as throwaway scaffolding — do not
-build real logic on top of it; the generated types are the contract.
+- Generated requests go through `src/infrastructure/orval/orval-axios-instance.ts` → the axios
+  **singleton** in `src/infrastructure/orval/AxiosInstance.ts` (copied from the host). Whoever hosts
+  the module must `initAxiosClientInstance(baseURL)` once (the dev shell does this; in the host, the
+  host's bootstrap does). Auth: once the backend moves to the same-origin session **cookie** model,
+  `withCredentials` carries it automatically — no shared bearer header needed.
+- **Never edit generated files** — anything under `src/infrastructure/repositories/` or
+  `src/domain/types/v1api`. Change the backend OpenAPI spec and re-run `npm run orval-build`. These
+  paths are ignored by ESLint/Prettier (`repositories`) and git (`*.d.ts`).
+- The ranking CRUD endpoints currently live only on the **local** backend, so `orval.config.ts`
+  points its input at `http://localhost/api/v1/openapi/json`. Switch it to the deployed spec once
+  they ship to production.
 
 ### Two development modes
 
-- **Standalone (the daily loop).** `npm run dev` serves the dev shell in `src/dev/`, which fakes
-  what the host provides — a single QueryClient, the MUI theme, a minimal i18n instance, and the
-  **mock** `@oreplay/api-client`. Mounts `RankingRoutes` at `/ranking/*` so links behave exactly as
-  in the host. No host, no backend needed. ~90% of work happens here.
+- **Standalone (the daily loop).** `npm run dev` serves the dev shell in `src/dev/`, which provides
+  what the host would — a single QueryClient, the MUI theme, i18n, and an initialised axios instance
+  pointed at a **real backend** (`VITE_API_DOMAIN`, default `http://localhost/`). Mounts
+  `RankingRoutes` at `/ranking/*`. Authenticated endpoints need a logged-in session, so the list may
+  be empty until auth/cookies are wired.
 - **Integrated.** The host consumes the built package (`file:`/`npm link` locally, or the published
-  version). It shows **real** data only once `@oreplay/api-client` is the real shared package; until
-  then an integrated mount still shows mock data.
+  version) and provides its own configured axios singleton + session.
 
 The dev shell (`src/dev/`) and `src/test/` are **not** part of the published package (excluded from
-the dts build; `dist` only contains the library entry).
+the dts build; `dist` only contains the library entry). Tests mock the generated hook with
+`vi.mock` so they stay hermetic.
 
 ### Folder layout
 
 - `src/index.ts` — package entry (exports `RankingRoutes`).
 - `src/RankingRoutes.tsx` — the routes subtree.
 - `src/pages/<Feature>/` — one folder per route screen, each with a `components/` subfolder.
-- `src/api/` — temporary local stand-in for `@oreplay/api-client` (alias target).
+- `src/infrastructure/repositories/` + `src/domain/types/v1api/` — orval-generated client + types.
+- `src/infrastructure/orval/` — the axios singleton + mutator the generated client calls through.
 - `src/dev/` — standalone dev shell + dev-only i18n (not shipped).
 - `src/styles/` — `tokens.css` (shared palette) + `tailwind.css`.
 - `src/test/` — Vitest setup.
@@ -104,9 +113,19 @@ direction is to drop MUI for Tailwind, so keep MUI a thin, replaceable consumer 
 
 ### i18n
 
-User-facing strings in markup go through `react-i18next` `t()` (ESLint `i18next/no-literal-string`
-is enforced). In production the host provides the `i18next` instance with Weblate-managed keys; for
-standalone dev/test, `src/dev/i18n.ts` initialises a minimal English instance (not shipped).
+Same model as the host repo. User-facing strings in markup go through `react-i18next` `t()` (ESLint
+`i18next/no-literal-string` is enforced), and translation keys live in
+`public/locales/<lng>/translation.json` (default `translation` namespace, Weblate-managed) — the
+**same file structure as the host**, so keys merge cleanly. Add new ranking keys under `Ranking.*`.
+
+- **Dev / test:** `src/dev/i18n.ts` mirrors the host's `src/i18n.ts` — it loads those JSON files at
+  runtime via `i18next-http-backend` (`loadPath: /locales/{{lng}}/{{ns}}.json`) with
+  `LanguageDetector` and `en` fallback. Vite serves `public/` at the root, so they resolve in
+  `npm run dev`. This file is **not** part of the published package.
+- **Production:** the host provides the shared, already-initialised `i18next` instance, so the
+  module ships no i18n init. For the keys to resolve when mounted, they must also exist in the
+  **host's** `public/locales` (the `Ranking.*` block is already there) — keep the two in sync, or
+  source both from the shared Weblate component.
 
 ## Conventions
 
@@ -160,3 +179,4 @@ Write code following SOLID principles and the guidelines below.
   (a workaround, a hack, counter-intuitive API behavior).
 - **Tests**: add tests for new logic and features.
 - **Before considering a task done**: run `npm run before-commit`.
+- **CSS Class Naming**: The root element of every component must have a first CSS class matching the component name in kebab-case prefixed with `rk-` (e.g., `SkeletonLoaderGroup` → `rk-skeleton-loader-group`).

@@ -2,10 +2,10 @@ import { IconButton, ListItem, ListItemText, Paper } from "@mui/material"
 import SettingsIcon from "@mui/icons-material/Settings"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { RankingsNsRanking } from "@oreplay/api-client"
+import { Ranking } from "../../../domain/types/v1api"
 
 interface RankingListItemProps {
-  ranking: RankingsNsRanking
+  ranking: Ranking
 }
 
 export default function RankingListItem({ ranking }: RankingListItemProps) {
@@ -17,7 +17,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
   )}: ${ranking.max_points}`
 
   return (
-    <Paper variant="outlined" sx={{ mb: 1.5 }}>
+    <Paper className="rk-ranking-list-item" variant="outlined" sx={{ mb: 1.5 }}>
       <ListItem
         secondaryAction={
           <IconButton

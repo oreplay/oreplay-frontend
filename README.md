@@ -26,10 +26,10 @@ import { RankingRoutes } from "@oreplay/ranking"
 
 ## Status
 
-Scaffold: `/ranking` lists rankings; each row links to `/ranking/:rankingId/settings`. Settings is
-resolved from the list (no get-one endpoint yet) and **Save is a stub** (no `PATCH /rankings/{id}`
-yet) — both marked with `TODO`s. The API layer is a local mock behind the `@oreplay/api-client`
-alias until that package exists.
+`/ranking` lists rankings; each row links to `/ranking/:rankingId/settings`, which loads the ranking
+and saves `max_points` via the real `PATCH /rankings/{id}` endpoint. The API client + types are
+generated locally with orval (`npm run orval-build`) from the live OpenAPI spec, scoped to the
+ranking endpoints — see `CLAUDE.md`.
 
 ## Further reading
 

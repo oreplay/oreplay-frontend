@@ -16,14 +16,6 @@ export default defineConfig({
       rollupTypes: true,
     }),
   ],
-  resolve: {
-    alias: {
-      // Local stand-in for the future `@oreplay/api-client` package. When that
-      // package is published, delete this alias and add it as a dependency —
-      // the import paths in the module stay identical.
-      "@oreplay/api-client": resolvePath("./src/api/index.ts"),
-    },
-  },
   build: {
     lib: {
       entry: resolvePath("./src/index.ts"),
@@ -36,7 +28,7 @@ export default defineConfig({
       // Regexes so subpath imports (e.g. `@mui/icons-material/Settings`,
       // `react/jsx-runtime`) are externalised too. `/^react/` covers react,
       // react-dom, react-router-dom, react-query and react-i18next.
-      external: [/^react/, /^@mui\//, /^@emotion\//, /^i18next/],
+      external: [/^react/, /^@mui\//, /^@emotion\//, /^i18next/, /^axios/],
     },
   },
   test: {
