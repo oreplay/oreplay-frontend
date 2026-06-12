@@ -6,7 +6,14 @@ import { CssBaseline, ThemeProvider, createTheme } from "@mui/material"
 import "./i18n.ts"
 import "../styles/tokens.css"
 import "../styles/tailwind.css"
+import { initAxiosClientInstance } from "../infrastructure/orval/AxiosInstance.ts"
 import { RankingRoutes } from "../index.ts"
+
+// In the host this is configured centrally; for standalone dev we point the
+// generated client at a real backend (defaults to the local one).
+const API_DOMAIN =
+  (import.meta.env.VITE_API_DOMAIN as string) || "http://localhost/"
+initAxiosClientInstance(API_DOMAIN)
 
 /*
  * Standalone dev shell. It mimics what the host provides — a single React /
