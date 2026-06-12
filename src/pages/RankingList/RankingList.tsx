@@ -1,14 +1,15 @@
 import { Box, Container, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import { useGetListRankingList } from "@oreplay/api-client"
+import { useGetListRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import RankingListContent from "./components/RankingListContent.tsx"
 
 export default function RankingList() {
   const { t } = useTranslation()
-  const { data, isLoading, isError } = useGetListRankingList()
+  const { data, isLoading, isError } = useGetListRankingSettings()
 
   return (
     <Box
+      className="rk-ranking-list"
       sx={{
         minHeight: "100vh",
         flexGrow: 1,

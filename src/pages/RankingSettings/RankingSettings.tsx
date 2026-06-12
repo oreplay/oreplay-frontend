@@ -9,20 +9,20 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
-import { useGetListRankingList } from "@oreplay/api-client"
+import { useGetRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 
 export default function RankingSettings() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { rankingId } = useParams()
-  const { data, isLoading } = useGetListRankingList()
+  const { data, isLoading } = useGetRankingSettings(rankingId ?? "")
 
-  // No get-one endpoint exists yet, so the ranking is resolved from the list.
-  const ranking = data?.data.find((item) => item.id === rankingId)
+  const ranking = data?.data
 
   return (
     <Box
+      className="rk-ranking-settings"
       sx={{
         minHeight: "100vh",
         flexGrow: 1,

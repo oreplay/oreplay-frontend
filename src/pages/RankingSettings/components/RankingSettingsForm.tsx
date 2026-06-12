@@ -1,69 +1,44 @@
 import { useState } from "react"
-import { Button, Stack, TextField } from "@mui/material"
+import { Button, Stack, TextField, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import { RankingsNsRanking } from "@oreplay/api-client"
+import { Ranking } from "../../../domain/types/v1api"
+import { usePatchRankingSettings } from "../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 
 interface RankingSettingsFormProps {
-  ranking: RankingsNsRanking
+  ranking: Ranking
 }
 
 export default function RankingSettingsForm({
   ranking,
 }: RankingSettingsFormProps) {
   const { t } = useTranslation()
-  const [scoringAlgorithm, setScoringAlgorithm] = useState(
-    ranking.scoring_algorithm,
-  )
   const [maxPoints, setMaxPoints] = useState(ranking.max_points)
-  const [maxRacesCounted, setMaxRacesCounted] = useState(
-    ranking.overall_settings.maxRacesCounted ?? 0,
-  )
-  const [organizerScoringFraction, setOrganizerScoringFraction] = useState(
-    ranking.overall_settings.organizerScoringFraction ?? 0,
-  )
+  const { mutate, isLoading } = usePatchRankingSettings()
+
+  const scoringAlgorithm = `${t("Ranking.Settings.scoringAlgorithm")}: ${ranking.scoring_algorithm}`
 
   const handleSave = () => {
-    // TODO: wire up to the PATCH /rankings/{id} endpoint once it exists in the
-    // backend OpenAPI spec and is generated into `@oreplay/api-client`.
-    console.debug("Save ranking settings", {
-      id: ranking.id,
-      scoringAlgorithm,
-      maxPoints,
-      maxRacesCounted,
-      organizerScoringFraction,
+    mutate({
+      rankingID: ranking.id,
+      data: { id: ranking.id, max_points: maxPoints },
     })
   }
 
   return (
-    <Stack spacing={2}>
-      <TextField
-        label={t("Ranking.Settings.scoringAlgorithm")}
-        value={scoringAlgorithm}
-        onChange={(event) => setScoringAlgorithm(event.target.value)}
-      />
+    <Stack className="rk-ranking-settings-form" spacing={2}>
+      <Typography variant="body2" color="text.secondary">
+        {scoringAlgorithm}
+      </Typography>
       <TextField
         type="number"
         label={t("Ranking.Settings.maxPoints")}
         value={maxPoints}
         onChange={(event) => setMaxPoints(Number(event.target.value))}
       />
-      <TextField
-        type="number"
-        label={t("Ranking.Settings.overall.maxRacesCounted")}
-        value={maxRacesCounted}
-        onChange={(event) => setMaxRacesCounted(Number(event.target.value))}
-      />
-      <TextField
-        type="number"
-        label={t("Ranking.Settings.overall.organizerScoringFraction")}
-        value={organizerScoringFraction}
-        onChange={(event) =>
-          setOrganizerScoringFraction(Number(event.target.value))
-        }
-      />
       <Button
         variant="contained"
         onClick={handleSave}
+        disabled={isLoading}
         sx={{ alignSelf: "flex-start" }}
       >
         {t("Ranking.Settings.save")}
