@@ -51,7 +51,10 @@ const MOCK_RESPONSE: ArrayRankingsNsRanking = {
   ],
 }
 
-export function useGetListRankingList(): UseQueryResult<ArrayRankingsNsRanking, unknown> {
+export function useGetListRankingList(): UseQueryResult<
+  ArrayRankingsNsRanking,
+  unknown
+> {
   return useQuery(
     ["/api/v1/rankings/"],
     async () => {

@@ -7,9 +7,13 @@ interface RankingSettingsFormProps {
   ranking: RankingsNsRanking
 }
 
-export default function RankingSettingsForm({ ranking }: RankingSettingsFormProps) {
+export default function RankingSettingsForm({
+  ranking,
+}: RankingSettingsFormProps) {
   const { t } = useTranslation()
-  const [scoringAlgorithm, setScoringAlgorithm] = useState(ranking.scoring_algorithm)
+  const [scoringAlgorithm, setScoringAlgorithm] = useState(
+    ranking.scoring_algorithm,
+  )
   const [maxPoints, setMaxPoints] = useState(ranking.max_points)
   const [maxRacesCounted, setMaxRacesCounted] = useState(
     ranking.overall_settings.maxRacesCounted ?? 0,
@@ -53,9 +57,15 @@ export default function RankingSettingsForm({ ranking }: RankingSettingsFormProp
         type="number"
         label={t("Ranking.Settings.overall.organizerScoringFraction")}
         value={organizerScoringFraction}
-        onChange={(event) => setOrganizerScoringFraction(Number(event.target.value))}
+        onChange={(event) =>
+          setOrganizerScoringFraction(Number(event.target.value))
+        }
       />
-      <Button variant="contained" onClick={handleSave} sx={{ alignSelf: "flex-start" }}>
+      <Button
+        variant="contained"
+        onClick={handleSave}
+        sx={{ alignSelf: "flex-start" }}
+      >
         {t("Ranking.Settings.save")}
       </Button>
     </Stack>

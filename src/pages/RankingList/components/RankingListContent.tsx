@@ -29,7 +29,9 @@ export default function RankingListContent({
   }
 
   if (rankings.length === 0) {
-    return <Typography color="text.secondary">{t("Ranking.List.empty")}</Typography>
+    return (
+      <Typography color="text.secondary">{t("Ranking.List.empty")}</Typography>
+    )
   }
 
   return (
