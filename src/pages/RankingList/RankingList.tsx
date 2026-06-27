@@ -1,4 +1,3 @@
-import { Box, Container, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { useGetListRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import RankingListContent from "./components/RankingListContent.tsx"
@@ -8,33 +7,20 @@ export default function RankingList() {
   const { data, isLoading, isError } = useGetListRankingSettings()
 
   return (
-    <Box
-      className="rk-ranking-list"
-      sx={{
-        minHeight: "100vh",
-        flexGrow: 1,
-        backgroundColor: "#f6f6f6",
-        py: 6,
-      }}
-    >
-      <Container maxWidth="md">
-        <Typography component="h1" variant="h5" fontWeight={600} gutterBottom>
+    <div className="rk-ranking-list min-h-screen grow bg-surface py-12">
+      <div className="mx-auto max-w-3xl px-4">
+        <h1 className="mb-2 text-2xl font-semibold">
           {t("Ranking.List.title")}
-        </Typography>
-        <Typography
-          component="p"
-          variant="body2"
-          color="text.secondary"
-          sx={{ mb: 4 }}
-        >
+        </h1>
+        <p className="mb-8 text-sm text-neutral-500">
           {t("Ranking.List.description")}
-        </Typography>
+        </p>
         <RankingListContent
           isError={isError}
           isLoading={isLoading}
           rankings={data?.data ?? []}
         />
-      </Container>
-    </Box>
+      </div>
+    </div>
   )
 }

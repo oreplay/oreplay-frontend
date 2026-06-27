@@ -1,6 +1,6 @@
-import { CircularProgress, List, Stack, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { Ranking } from "../../../domain/types/v1api"
+import Spinner from "../../../components/Spinner/Spinner.tsx"
 import RankingListItem from "./RankingListItem.tsx"
 
 interface RankingListContentProps {
@@ -17,38 +17,30 @@ export default function RankingListContent({
   const { t } = useTranslation()
 
   if (isLoading) {
-    return (
-      <Stack
-        className="rk-ranking-list-content"
-        alignItems="center"
-        sx={{ py: 6 }}
-      >
-        <CircularProgress />
-      </Stack>
-    )
+    return <Spinner label={t("Ranking.loading")} />
   }
 
   if (isError) {
     return (
-      <Typography className="rk-ranking-list-content" color="error">
+      <p className="rk-ranking-list-content text-red-600">
         {t("Ranking.List.loadError")}
-      </Typography>
+      </p>
     )
   }
 
   if (rankings.length === 0) {
     return (
-      <Typography className="rk-ranking-list-content" color="text.secondary">
+      <p className="rk-ranking-list-content text-neutral-500">
         {t("Ranking.List.empty")}
-      </Typography>
+      </p>
     )
   }
 
   return (
-    <List className="rk-ranking-list-content" disablePadding>
+    <ul className="rk-ranking-list-content m-0 flex list-none flex-col gap-3 p-0">
       {rankings.map((ranking) => (
         <RankingListItem key={ranking.id} ranking={ranking} />
       ))}
-    </List>
+    </ul>
   )
 }

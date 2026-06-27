@@ -66,6 +66,30 @@
       "ShareEvent": "Share",
       "Title": "Event's QR Code"
     },
+    "Ranking": {
+      "loading": "Loading…",
+      "List": {
+        "title": "Rankings",
+        "description": "Manage your ranking lists and edit the settings of each one.",
+        "empty": "No rankings yet.",
+        "loadError": "We couldn't load the rankings.",
+        "editSettings": "Edit settings",
+        "scoringAlgorithm": "Scoring algorithm",
+        "maxPoints": "Max points"
+      },
+      "Settings": {
+        "title": "Ranking settings",
+        "back": "Back to rankings",
+        "notFound": "Ranking not found.",
+        "save": "Save",
+        "scoringAlgorithm": "Scoring algorithm",
+        "maxPoints": "Max points",
+        "overall": {
+          "maxRacesCounted": "Max races counted",
+          "organizerScoringFraction": "Organizer scoring fraction"
+        }
+      }
+    },
     "Renew": "Renew",
     "Renew security keys": "Generate a new security key",
     "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
@@ -79,6 +103,18 @@
       "RegionalHigh": "Federal",
       "RegionalLow": "Regional",
       "Scope": "Scope"
+    },
+    "Settings": {
+      "title": "Ranking settings",
+      "back": "Back to rankings",
+      "notFound": "Ranking not found.",
+      "save": "Save",
+      "scoringAlgorithm": "Scoring algorithm",
+      "maxPoints": "Max points",
+      "overall": {
+        "maxRacesCounted": "Max races counted",
+        "organizerScoringFraction": "Organizer scoring fraction"
+      }
     },
     "Stages": {
       "DeleteStage": {
