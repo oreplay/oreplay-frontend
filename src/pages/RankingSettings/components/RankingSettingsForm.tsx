@@ -1,11 +1,8 @@
 import { FormEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Ranking } from "../../../domain/types/v1api"
-import { usePatchRankingSettings } from "../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import {
   RankingSettingsFormState,
-  initRankingSettingsForm,
-  toRankingPatchBody,
+  isRankingSettingsFormComplete,
 } from "../../../domain/rankingSettingsForm.ts"
 import { OVERALL_SETTINGS_FIELDS } from "../../../domain/overallSettings.ts"
 import { ROUND_PRECISION_OPTIONS } from "../../../domain/roundPrecision.ts"
@@ -23,15 +20,27 @@ import SelectField from "../../../components/form/SelectField.tsx"
 import TextField from "../../../components/form/TextField.tsx"
 
 interface RankingSettingsFormProps {
-  ranking: Ranking
+  initialState: RankingSettingsFormState
+  /** Source event/stage for the competition link (not editable). */
+  eventId: string
+  stageId: string
+  submitLabel: string
+  isSubmitting: boolean
+  onSubmit: (state: RankingSettingsFormState) => void
 }
 
+// Presentational, action-agnostic form. The page wires `onSubmit` to a PATCH
+// (edit) or a POST+PATCH (duplicate) and sets the button label.
 export default function RankingSettingsForm({
-  ranking,
+  initialState,
+  eventId,
+  stageId,
+  submitLabel,
+  isSubmitting,
+  onSubmit,
 }: RankingSettingsFormProps) {
   const { t } = useTranslation()
-  const { mutate, isLoading } = usePatchRankingSettings()
-  const [state, setState] = useState(() => initRankingSettingsForm(ranking))
+  const [state, setState] = useState(initialState)
 
   const update = <K extends keyof RankingSettingsFormState>(
     key: K,
@@ -51,7 +60,7 @@ export default function RankingSettingsForm({
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    mutate({ rankingID: ranking.id, data: toRankingPatchBody(ranking, state) })
+    onSubmit(state)
   }
 
   return (
@@ -67,7 +76,7 @@ export default function RankingSettingsForm({
           onChange={(value) => update("title", value)}
         />
         <a
-          href={competitionResultsPath(ranking.event_id, ranking.stage_id)}
+          href={competitionResultsPath(eventId, stageId)}
           target="_blank"
           rel="noopener noreferrer"
           className="self-start text-sm text-primary hover:underline"
@@ -161,10 +170,10 @@ export default function RankingSettingsForm({
 
       <button
         type="submit"
-        disabled={isLoading}
-        className="self-end rounded bg-primary px-4 py-2 font-medium text-neutral-900 disabled:opacity-50"
+        disabled={isSubmitting || !isRankingSettingsFormComplete(state)}
+        className="self-end rounded bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {t("Ranking.gui.save")}
+        {submitLabel}
       </button>
     </form>
   )
