@@ -1,0 +1,26 @@
+{
+  "Ranking": {
+    "loading": "Loading…",
+    "List": {
+      "title": "Rankings",
+      "description": "Manage your ranking lists and edit the settings of each one.",
+      "empty": "No rankings yet.",
+      "loadError": "We couldn't load the rankings.",
+      "editSettings": "Edit settings",
+      "scoringAlgorithm": "Scoring algorithm",
+      "maxPoints": "Max points"
+    },
+    "Settings": {
+      "title": "Ranking settings",
+      "back": "Back to rankings",
+      "notFound": "Ranking not found.",
+      "save": "Save",
+      "scoringAlgorithm": "Scoring algorithm",
+      "maxPoints": "Max points",
+      "overall": {
+        "maxRacesCounted": "Max races counted",
+        "organizerScoringFraction": "Organizer scoring fraction"
+      }
+    }
+  }
+}

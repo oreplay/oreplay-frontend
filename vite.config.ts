@@ -25,10 +25,10 @@ export default defineConfig({
     },
     rollupOptions: {
       // Shared singletons provided by the host at runtime — never bundle them.
-      // Regexes so subpath imports (e.g. `@mui/icons-material/Settings`,
-      // `react/jsx-runtime`) are externalised too. `/^react/` covers react,
-      // react-dom, react-router-dom, react-query and react-i18next.
-      external: [/^react/, /^@mui\//, /^@emotion\//, /^i18next/, /^axios/],
+      // Regexes so subpath imports (e.g. `react/jsx-runtime`) are externalised
+      // too. `/^react/` covers react, react-dom, react-router-dom, react-query
+      // and react-i18next.
+      external: [/^react/, /^i18next/, /^axios/],
     },
   },
   test: {

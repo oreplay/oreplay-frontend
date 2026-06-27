@@ -17,7 +17,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "dev:css": "tailwindcss -i src/styles/tailwind.css -o src/styles/compiled.css --watch",
+    "build:css": "tailwindcss -i src/styles/tailwind.css -o src/styles/compiled.css --minify",
+    "build": "npm run build:css && tsc && vite build",
     "orval-build": "rm -f src/domain/types/v1api/index.ts && npx orval --config ./orval.config.ts",
     "preview": "vite preview",
     "test": "vitest run",
@@ -29,10 +31,6 @@
   },
   "peerDependencies": {
     "axios": "^1.7.9",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
-    "@mui/icons-material": "^6",
-    "@mui/material": "^6",
     "i18next": "^23",
     "react": "^18",
     "react-dom": "^18",
@@ -41,10 +39,6 @@
     "react-router-dom": "^7"
   },
   "devDependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^6.4.5",
-    "@mui/material": "^6.4.5",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",

@@ -1,47 +1,47 @@
-import React from "react"
+import React, { Suspense } from "react"
 import ReactDOM from "react-dom/client"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material"
 import "./i18n.ts"
 import "../styles/tokens.css"
 import "../styles/tailwind.css"
-import { initAxiosClientInstance } from "../infrastructure/orval/AxiosInstance.ts"
+import Spinner from "../components/Spinner/Spinner.tsx"
 import { RankingRoutes } from "../index.ts"
 
-// In the host this is configured centrally; for standalone dev we point the
-// generated client at a real backend (defaults to the local one).
+// Standalone dev points the generated client at a real backend. A bearer token
+// can be supplied via VITE_DEV_TOKEN (copied from a logged-in host session);
+// without it, authenticated endpoints simply return empty.
 const API_DOMAIN =
   (import.meta.env.VITE_API_DOMAIN as string) || "http://localhost/"
-initAxiosClientInstance(API_DOMAIN)
+const DEV_TOKEN = (import.meta.env.VITE_DEV_TOKEN as string) || null
 
 /*
  * Standalone dev shell. It mimics what the host provides — a single React /
- * react-query / router runtime and the shared MUI theme — so the module can be
- * developed in isolation with HMR. It is never shipped in the package.
+ * react-query / router runtime, the Tailwind styles, and an i18n instance whose
+ * config (`./i18n.ts`) is a verbatim copy of the host's `src/i18n.ts` — so the
+ * module can be developed in isolation with HMR. It is never shipped.
+ *
+ * The host wraps its app in <Suspense>; we mirror that here so the same i18n
+ * config (which suspends while http-backend loads) works without changes.
  */
-const theme = createTheme({
-  palette: {
-    primary: { main: "#ff710a", light: "#f5f5f5" },
-    secondary: { main: "#5e2572", light: "#efefef" },
-    text: { secondary: "#646464" },
-  },
-})
-
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <Suspense fallback={<Spinner label="Loading…" />}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigate to="/ranking" replace />} />
-            <Route path="/ranking/*" element={<RankingRoutes />} />
+            <Route
+              path="/ranking/*"
+              element={
+                <RankingRoutes apiBaseUrl={API_DOMAIN} authToken={DEV_TOKEN} />
+              }
+            />
           </Routes>
         </BrowserRouter>
-      </ThemeProvider>
+      </Suspense>
     </QueryClientProvider>
   </React.StrictMode>,
 )
