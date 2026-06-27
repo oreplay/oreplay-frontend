@@ -3,8 +3,7 @@ import { Ranking } from "./types/v1api"
 import {
   initRankingSettingsForm,
   isRankingSettingsFormComplete,
-  toRankingPatchBody,
-  toRankingPostBody,
+  toRankingBody,
 } from "./rankingSettingsForm.ts"
 
 const ranking = {
@@ -17,14 +16,9 @@ const ranking = {
   nc_true: 5,
   nc_false: null,
   status_scores: "[null,0,10,10,0,10]",
-  overall_settings: {
-    totalCircuitRaces: 9,
-    maxRacesCounted: 5,
-    organizerScoringFraction: 0.3,
-    minPointsAsOrg: 50,
-  },
+  overall_settings:
+    '{"totalCircuitRaces":9,"maxRacesCounted":5,"organizerScoringFraction":0.3,"minPointsAsOrg":50}',
   excluded_class_names: null,
-  status_scores_: undefined,
   created: "",
   modified: "",
   _links: {} as Ranking["_links"],
@@ -39,13 +33,14 @@ describe("ranking settings form", () => {
     expect(state.ncFalse).toBeNull()
   })
 
-  it("serializes edits back into the patch body", () => {
+  it("serializes edits back into the update body (with id)", () => {
     const state = initRankingSettingsForm(ranking)
-    const body = toRankingPatchBody(ranking, {
-      ...state,
-      maxPoints: 200,
-      statusScores: [null, 1, 2, 3, 4, 5],
-    })
+    const body = toRankingBody(
+      ranking,
+      { ...state, maxPoints: 200, statusScores: [null, 1, 2, 3, 4, 5] },
+      ranking.id,
+    )
+    expect(body.id).toBe("r1")
     expect(body.max_points).toBe(200)
     expect(body.status_scores).toBe("[null,1,2,3,4,5]")
     expect(body.overall_settings).toBe(
@@ -61,18 +56,23 @@ describe("ranking settings form", () => {
     expect(body.nc_false).toBeNull()
   })
 
-  it("builds the create (duplicate) body with only the POST-supported fields", () => {
+  it("builds the create (duplicate) body with the full settings minus id", () => {
     const state = initRankingSettingsForm(ranking)
-    const body = toRankingPostBody(ranking, { ...state, title: "Copy" })
+    const body = toRankingBody(ranking, { ...state, title: "Copy" })
     expect(body).toEqual({
+      title: "Copy",
       event_id: "e1",
       stage_id: "s1",
+      excluded_class_names: "",
       max_points: 100,
+      nc_true: 5,
+      nc_false: null,
       round_precision: 0,
       scoring_algorithm: "algo",
+      status_scores: "[null,0,10,10,0,10]",
+      overall_settings:
+        '{"totalCircuitRaces":9,"maxRacesCounted":5,"organizerScoringFraction":0.3,"minPointsAsOrg":50}',
     })
-    // title / id are intentionally not part of the POST body.
-    expect("title" in body).toBe(false)
     expect("id" in body).toBe(false)
   })
 
