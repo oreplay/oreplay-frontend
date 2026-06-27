@@ -10,12 +10,8 @@ vi.mock(
     useGetListRankingSettings: () => ({
       data: {
         data: [
-          { id: "regional-2025", scoring_algorithm: "top_n", max_points: 99 },
-          {
-            id: "national-2026",
-            scoring_algorithm: "cumulative",
-            max_points: 1000,
-          },
+          { id: "regional-2025", title: "Regional 2025", max_points: 99 },
+          { id: "national-2026", title: "National 2026", max_points: 1000 },
         ],
       },
       isLoading: false,
@@ -40,7 +36,7 @@ const renderWithProviders = () => {
 describe("RankingList", () => {
   it("renders the rankings returned by the api", async () => {
     renderWithProviders()
-    expect(await screen.findByText("regional-2025")).toBeInTheDocument()
-    expect(await screen.findByText("national-2026")).toBeInTheDocument()
+    expect(await screen.findByText("Regional 2025")).toBeInTheDocument()
+    expect(await screen.findByText("National 2026")).toBeInTheDocument()
   })
 })

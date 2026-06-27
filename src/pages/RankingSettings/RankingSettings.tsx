@@ -16,14 +16,14 @@ export default function RankingSettings() {
   const breadcrumbs = buildRankingSettingsBreadcrumbs(
     {
       dashboard: t("Ranking.Breadcrumbs.dashboard"),
-      ranking: t("Ranking.Breadcrumbs.ranking"),
+      ranking: t("Ranking.Breadcrumbs.rankings"),
     },
-    rankingId ?? "",
+    ranking?.title ?? rankingId ?? "",
   )
 
   return (
     <div className="rk-ranking-settings min-h-screen grow bg-surface py-12">
-      <div className="mx-auto max-w-xl px-4">
+      <div className="mx-auto max-w-3xl px-4">
         <Breadcrumbs
           items={breadcrumbs}
           label={t("Ranking.Breadcrumbs.label")}
@@ -33,13 +33,15 @@ export default function RankingSettings() {
           {t("Ranking.Settings.title")}
         </h1>
 
-        {isLoading ? (
-          <Spinner label={t("Ranking.loading")} />
-        ) : ranking ? (
-          <RankingSettingsForm ranking={ranking} />
-        ) : (
-          <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
-        )}
+        <div className="rounded-xl bg-white p-6 shadow-sm">
+          {isLoading ? (
+            <Spinner label={t("Ranking.gui.loading")} />
+          ) : ranking ? (
+            <RankingSettingsForm ranking={ranking} />
+          ) : (
+            <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
+          )}
+        </div>
       </div>
     </div>
   )

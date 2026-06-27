@@ -67,31 +67,66 @@
       "Title": "Event's QR Code"
     },
     "Ranking": {
-      "loading": "Loading…",
+      "gui": {
+        "loading": "Loading…",
+        "save": "Save"
+      },
       "Breadcrumbs": {
         "label": "Breadcrumb",
         "dashboard": "Dashboard",
-        "ranking": "Ranking"
+        "rankings": "Rankings"
       },
       "List": {
         "title": "Rankings",
         "description": "Manage your ranking lists and edit the settings of each one.",
         "empty": "No rankings yet.",
         "loadError": "We couldn't load the rankings.",
-        "editSettings": "Edit settings",
-        "scoringAlgorithm": "Scoring algorithm",
-        "maxPoints": "Max points"
+        "editSettings": "Edit settings"
       },
       "Settings": {
         "title": "Ranking settings",
-        "back": "Back to rankings",
+        "titleLabel": "Title",
         "notFound": "Ranking not found.",
-        "save": "Save",
+        "competitionLink": "View competition results",
+        "scoreOptions": {
+          "empty": "computed"
+        },
+        "generalSettings": "General settings",
         "scoringAlgorithm": "Scoring algorithm",
+        "scoringAlgorithmValues": {
+          "simpleScore": "Simple score"
+        },
         "maxPoints": "Max points",
-        "overall": {
+        "maxPointsHint": "The scoring scale: points awarded to the leader; everyone else is scored relative to this.",
+        "roundPrecision": "Round precision",
+        "roundPrecisionValues": {
+          "floor": "Round down to integer (e.g. 2,9 -> 2)",
+          "integer": "Nearest integer (e.g. 2,6 -> 3)",
+          "one": "1 decimal place (e.g. 2,68 -> 2,7)",
+          "two": "2 decimal places",
+          "three": "3 decimal places"
+        },
+        "nonCompetitive": "Non-competitive",
+        "nonCompetitiveHint": "Fixed score for non-competitive runners.",
+        "ncTrue": "Flagged NC",
+        "ncFalse": "Competitive (not flagged as NC)",
+        "statusScores": "Status scores",
+        "statusScoresHint": "Fixed score per result status. Leave empty to use the computed score.",
+        "statusScoresValues": {
+          "ok": "OK",
+          "dns": "DNS",
+          "dnf": "DNF",
+          "mp": "MP",
+          "dqf": "DQF",
+          "ot": "OT"
+        },
+        "circuitSettings": "Circuit settings",
+        "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
+        "overallValues": {
+          "totalCircuitRaces": "Total circuit races",
           "maxRacesCounted": "Max races counted",
-          "organizerScoringFraction": "Organizer scoring fraction"
+          "organizerScoringFraction": "Organizer scoring fraction",
+          "minPointsAsOrg": "Min points as organizer"
         }
       }
     },

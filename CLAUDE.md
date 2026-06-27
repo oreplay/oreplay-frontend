@@ -141,6 +141,12 @@ keys. User-facing strings go through `react-i18next` `t()` (ESLint `i18next/no-l
 enforced); keys live in `public/locales/<lng>/translation.json` under `Ranking.*` (default
 `translation` namespace, Weblate-managed — same file shape as the host).
 
+- **Reuse common UI strings from `Ranking.gui.*`** — generic, frequently-repeated labels (currently
+  `loading`, `save`) live **once** under the `gui` group; use `t("Ranking.gui.save")` rather than
+  redefining a `save` per feature. Add new common labels (`cancel`, `close`, `edit`, …) to `gui` **as
+  a component first needs them** — don't pre-add unused keys (nothing flags dead translations). Only
+  use a feature-scoped key (e.g. `List.editSettings`) when the wording is genuinely specific.
+
 - **How they reach the shared instance:** `RankingRoutes` calls `registerRankingResources(i18n)` on
   mount, which `addResourceBundle`s the **bundled** `public/locales` JSON (imported via
   `src/i18n/rankingResources.ts`) into whichever i18next instance the host — or the dev shell —
