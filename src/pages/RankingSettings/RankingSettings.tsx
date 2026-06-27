@@ -6,8 +6,10 @@ import {
 } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import {
   initRankingSettingsForm,
-  toRankingPatchBody,
+  toRankingBody,
 } from "../../domain/rankingSettingsForm.ts"
+import { notifyError } from "../../infrastructure/notifications/notifications.ts"
+import { httpErrorMessageKey } from "../../infrastructure/notifications/httpError.ts"
 import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 
@@ -34,10 +36,15 @@ export default function RankingSettings() {
           submitLabel={t("Ranking.gui.save")}
           isSubmitting={isSaving}
           onSubmit={(state) =>
-            mutate({
-              rankingID: ranking.id,
-              data: toRankingPatchBody(ranking, state),
-            })
+            mutate(
+              {
+                rankingID: ranking.id,
+                data: toRankingBody(ranking, state, ranking.id),
+              },
+              {
+                onError: (error) => notifyError(t(httpErrorMessageKey(error))),
+              },
+            )
           }
         />
       )}

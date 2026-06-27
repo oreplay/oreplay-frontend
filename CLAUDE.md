@@ -76,6 +76,9 @@ import { Ranking } from "../../domain/types/v1api"
 - **Never edit generated files** — anything under `src/infrastructure/repositories/` or
   `src/domain/types/v1api`. Change the backend OpenAPI spec and re-run `npm run orval-build`. These
   paths are ignored by ESLint/Prettier (`repositories`) and git (`*.d.ts`).
+- **Surface type/OpenAPI inconsistencies, don't work around them** — if a generated type looks wrong
+  or forces an awkward cast/extra request, flag it so it's fixed in the OpenAPI spec and regenerated,
+  rather than patched over in app code.
 - The ranking CRUD endpoints currently live only on the **local** backend, so `orval.config.ts`
   points its input at `http://localhost/api/v1/openapi/json`. Switch it to the deployed spec once
   they ship to production.
@@ -229,8 +232,8 @@ Never leave the user waiting on a silent UI — every asynchronous action shows 
 - **DRY**: extract duplicated logic into reusable functions.
 - **i18n**: user-facing markup strings go through `t()`.
 - **Accessibility**: prefer semantic HTML and appropriate ARIA attributes.
-- **No noise comments**: rely on descriptive names; comment only genuinely non-obvious _why_
-  (a workaround, a hack, counter-intuitive API behavior).
+- **No noise comments**: comment sparingly — only genuinely non-obvious _why_ (a workaround, a hack,
+  counter-intuitive API behavior). Don't add a comment for every small change; rely on clear names.
 - **Tests**: add tests for new logic and features.
 - **Before considering a task done**: run `npm run before-commit`.
 - **CSS Class Naming**: The root element of every component must have a first CSS class matching the component name in kebab-case prefixed with `rk-` (e.g., `SkeletonLoaderGroup` → `rk-skeleton-loader-group`).
