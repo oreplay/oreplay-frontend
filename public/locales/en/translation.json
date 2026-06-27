@@ -1,6 +1,11 @@
 {
   "Ranking": {
     "loading": "Loading…",
+    "Breadcrumbs": {
+      "label": "Breadcrumb",
+      "dashboard": "Dashboard",
+      "ranking": "Ranking"
+    },
     "List": {
       "title": "Rankings",
       "description": "Manage your ranking lists and edit the settings of each one.",
@@ -12,7 +17,6 @@
     },
     "Settings": {
       "title": "Ranking settings",
-      "back": "Back to rankings",
       "notFound": "Ranking not found.",
       "save": "Save",
       "scoringAlgorithm": "Scoring algorithm",

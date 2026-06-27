@@ -1,2 +1,2 @@
 import "@testing-library/jest-dom"
-import "../dev/i18n.ts"
+import "./i18n.ts"

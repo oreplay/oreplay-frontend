@@ -100,7 +100,9 @@ the dts build; `dist` only contains the library entry). Tests mock the generated
 - `src/RankingRoutes.tsx` — the routes subtree.
 - `src/pages/<Feature>/` — one folder per route screen, each with a `components/` subfolder.
 - `src/components/` — shared presentational components (e.g. `Spinner/`, `icons/`).
-- `src/infrastructure/repositories/` + `src/domain/types/v1api/` — orval-generated client + types.
+- `src/domain/` — pure, unit-tested business/presentation logic (see Domain-first logic). Its
+  `types/v1api/` subfolder holds the orval-**generated** types (never hand-edited).
+- `src/infrastructure/repositories/` — orval-generated API client (also never hand-edited).
 - `src/infrastructure/orval/` — the axios singleton + mutator the generated client calls through.
 - `src/i18n/` — bundles `public/locales` JSON and registers it into the shared i18next instance
   (`rankingResources.ts`, `registerRankingResources.ts`).
@@ -169,6 +171,11 @@ Write code following SOLID principles and the guidelines below.
 - **Single Responsibility**: each component does one thing.
 - **Aggressively small components**: extract every visually or logically distinct section into its
   own component. A parent should read as a list of child components, not large blocks of markup.
+- **Thin & logic-free**: components render UI and wire props/hooks together — nothing more. Push
+  **all** non-trivial logic (calculations, formatting, data shaping, conditional/branching rules,
+  validation) out into the domain layer (`src/domain/`) and import it. A component should be
+  understandable at a glance; if you'd need a comment to explain _what_ a piece of inline logic
+  computes, that logic belongs in `src/domain/` as a named, tested function instead.
 - **One component per file**: each `.tsx` exports exactly one component. When a component splits into
   parts, group them in a `components/` subfolder named after the public component.
 - **Stateless first**: prefer presentational components; add state only when essential and keep it
@@ -177,13 +184,30 @@ Write code following SOLID principles and the guidelines below.
   `className`, it is the **last** prop in both the type and the destructuring.
 - **Composition over inheritance**: favor `children`, render props, and composition.
 
+### Loading & async feedback
+
+Never leave the user waiting on a silent UI — every asynchronous action shows a loading affordance:
+
+- **Page / list / data loads:** render the shared `Spinner` while the query is loading (gate on
+  react-query's `isLoading`, e.g. `RankingListContent`). Note `isLoading` is true only when there is
+  no cached data, so the spinner shows on a cold load and not on background refetches — intended.
+- **Buttons that trigger a save or any HTTP request:** show the pending state **inside the button** —
+  disable it (prevents double-submit) and render an inline spinner in place of / beside the label,
+  driven by the mutation's `isLoading` (e.g. `usePatchRankingSettings().isLoading` for the
+  `RankingSettings` save button). Keep the feedback at the point of action, not a full-page overlay.
+- Reuse `Spinner` (or a small inline variant) over ad-hoc markup, so the animation and a11y
+  attributes (`role="status"`, `aria-live`, `sr-only` label) stay consistent.
+
 ### Domain & data
 
-- **Domain-first logic**: keep business logic out of components — put pure, unit-testable logic in a
-  domain layer (`src/domain` when introduced) and have components delegate to it. Tests live next to
-  the source.
-- **The generated types are the contract**: build on `@oreplay/api-client` types, never hand-edit
-  generated output. Don't grow logic on the temporary `src/api/` mock.
+- **Domain-first logic**: all business and presentation logic lives in `src/domain/` as pure,
+  unit-testable functions — **never** inline in components or hooks. Components (and the generated
+  repositories) delegate to it. This is what keeps components thin and the logic testable in
+  isolation; tests live next to the source. Create the relevant `src/domain/` file as soon as a
+  component grows any logic worth naming — don't wait for a "big enough" reason.
+- **The generated types are the contract**: build on the orval-generated types in
+  `src/domain/types/v1api`, and never hand-edit generated output (regenerate with
+  `npm run orval-build`).
 - **No magic strings — use constants**: any finite set of string values (statuses, modes, types) is
   defined once as a `const … as const` with the union type derived from it
   (`export const FOO = ["a","b"] as const; export type Foo = (typeof FOO)[number]`), referenced by
