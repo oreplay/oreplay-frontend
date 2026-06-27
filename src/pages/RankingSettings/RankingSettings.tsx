@@ -12,6 +12,7 @@ import { notifyError } from "../../infrastructure/notifications/notifications.ts
 import { httpErrorMessageKey } from "../../infrastructure/notifications/httpError.ts"
 import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
+import DeleteRankingButton from "./components/DeleteRankingButton.tsx"
 
 export default function RankingSettings() {
   const { t } = useTranslation()
@@ -46,6 +47,7 @@ export default function RankingSettings() {
               },
             )
           }
+          secondaryAction={<DeleteRankingButton rankingId={ranking.id} />}
         />
       )}
     </SettingsPageLayout>
