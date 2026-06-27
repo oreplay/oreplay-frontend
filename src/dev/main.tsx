@@ -29,7 +29,13 @@ const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<Spinner label="Loading…" />}>
+      <Suspense
+        fallback={
+          <div className="rk-root">
+            <Spinner label="Loading…" />
+          </div>
+        }
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigate to="/ranking" replace />} />

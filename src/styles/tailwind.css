@@ -9,13 +9,36 @@
    * preflight for `border-style: solid` — without it the style defaults to
    * `none` and the browser forces the computed width to 0 (invisible borders).
    * Re-add just that slice of preflight, scoped to the module root so it never
-   * touches the host. Utilities still override width/color as usual.
+   * touches the host.
+   *
+   * The scope uses `:where(.rk-root)`, which contributes ZERO specificity (the
+   * trick preflight itself uses). A plain `.rk-root button` would be (0,1,1) and
+   * outrank single-class utilities like `.bg-primary` (0,1,0) — leaving the
+   * native styling in place. With `:where()` the utilities always win.
    */
-  .rk-root *,
-  .rk-root ::before,
-  .rk-root ::after {
+  :where(.rk-root) *,
+  :where(.rk-root) ::before,
+  :where(.rk-root) ::after {
     border-width: 0;
     border-style: solid;
     border-color: currentColor;
+  }
+
+  /*
+   * Preflight also normalises form controls; without it buttons/inputs render
+   * with native chrome — most visibly the grey <button> background.
+   */
+  :where(.rk-root) button,
+  :where(.rk-root) input,
+  :where(.rk-root) select,
+  :where(.rk-root) textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  :where(.rk-root) button {
+    background-color: transparent;
+    background-image: none;
+    cursor: pointer;
   }
 }
