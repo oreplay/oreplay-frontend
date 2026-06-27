@@ -1,29 +1,34 @@
 import { useTranslation } from "react-i18next"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useGetRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
-import ArrowBackIcon from "../../components/icons/ArrowBackIcon.tsx"
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs.tsx"
 import Spinner from "../../components/Spinner/Spinner.tsx"
+import { buildRankingSettingsBreadcrumbs } from "../../domain/breadcrumbs.ts"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 
 export default function RankingSettings() {
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const { rankingId } = useParams()
   const { data, isLoading } = useGetRankingSettings(rankingId ?? "")
 
   const ranking = data?.data
 
+  const breadcrumbs = buildRankingSettingsBreadcrumbs(
+    {
+      dashboard: t("Ranking.Breadcrumbs.dashboard"),
+      ranking: t("Ranking.Breadcrumbs.ranking"),
+    },
+    rankingId ?? "",
+  )
+
   return (
     <div className="rk-ranking-settings min-h-screen grow bg-surface py-12">
       <div className="mx-auto max-w-xl px-4">
-        <button
-          type="button"
-          onClick={() => void navigate("/ranking")}
-          className="mb-4 inline-flex items-center gap-1 text-primary"
-        >
-          <ArrowBackIcon />
-          {t("Ranking.Settings.back")}
-        </button>
+        <Breadcrumbs
+          items={breadcrumbs}
+          label={t("Ranking.Breadcrumbs.label")}
+          className="mb-6"
+        />
         <h1 className="mb-4 text-2xl font-semibold">
           {t("Ranking.Settings.title")}
         </h1>
