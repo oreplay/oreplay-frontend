@@ -17,7 +17,7 @@ export default function RankingListContent({
   const { t } = useTranslation()
 
   if (isLoading) {
-    return <Spinner label={t("Ranking.loading")} />
+    return <Spinner label={t("Ranking.gui.loading")} />
   }
 
   if (isError) {

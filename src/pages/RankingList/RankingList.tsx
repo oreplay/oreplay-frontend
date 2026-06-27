@@ -10,7 +10,7 @@ export default function RankingList() {
 
   const breadcrumbs = buildRankingListBreadcrumbs({
     dashboard: t("Ranking.Breadcrumbs.dashboard"),
-    ranking: t("Ranking.Breadcrumbs.ranking"),
+    ranking: t("Ranking.Breadcrumbs.rankings"),
   })
 
   return (
