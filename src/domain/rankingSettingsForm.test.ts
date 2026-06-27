@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest"
 import { Ranking } from "./types/v1api"
 import {
   initRankingSettingsForm,
+  isRankingSettingsFormComplete,
   toRankingPatchBody,
+  toRankingPostBody,
 } from "./rankingSettingsForm.ts"
 
 const ranking = {
@@ -57,5 +59,33 @@ describe("ranking settings form", () => {
     expect(body.nc_true).toBe(5)
     // Empty nc is sent through as null (clears the nullable column), not 0.
     expect(body.nc_false).toBeNull()
+  })
+
+  it("builds the create (duplicate) body with only the POST-supported fields", () => {
+    const state = initRankingSettingsForm(ranking)
+    const body = toRankingPostBody(ranking, { ...state, title: "Copy" })
+    expect(body).toEqual({
+      event_id: "e1",
+      stage_id: "s1",
+      max_points: 100,
+      round_precision: 0,
+      scoring_algorithm: "algo",
+    })
+    // title / id are intentionally not part of the POST body.
+    expect("title" in body).toBe(false)
+    expect("id" in body).toBe(false)
+  })
+
+  it("is complete only when title and max points are set", () => {
+    const base = initRankingSettingsForm(ranking)
+    expect(isRankingSettingsFormComplete({ ...base, title: "" })).toBe(false)
+    expect(
+      isRankingSettingsFormComplete({
+        ...base,
+        title: "Copy",
+        maxPoints: null,
+      }),
+    ).toBe(false)
+    expect(isRankingSettingsFormComplete({ ...base, title: "Copy" })).toBe(true)
   })
 })
