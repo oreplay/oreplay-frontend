@@ -20,7 +20,10 @@ auth/session model, the shared `@oreplay/api-client` and `@oreplay/tokens` plan)
 > `tsc`/`eslint` fail with confusing `Unexpected token` errors.
 
 - `npm run dev` — standalone Vite dev server (the dev shell in `src/dev/`) → **http://localhost:5173**
-- `npm run build` — `tsc` type-check, then Vite **library** build to `dist/` (ESM bundle + `index.d.ts`)
+- `npm run dev:css` — watch + recompile Tailwind to `src/styles/compiled.css` (needed only for the
+  host-integrated mode below; standalone `dev` compiles Tailwind live and doesn't need it)
+- `npm run build:css` — one-shot minified compile of `src/styles/compiled.css` (runs inside `build`)
+- `npm run build` — `build:css`, then `tsc` type-check, then Vite **library** build to `dist/`
 - `npm run orval-build` — regenerate the API client/types from the OpenAPI spec (see API client below)
 - `npm test` — run the Vitest suite once; `npm run test:watch` to watch
 - `npm run lint` — ESLint, **fails on any warning** (`--max-warnings 0`)
@@ -45,12 +48,12 @@ inside its own router, behind its own `PrivateRoute`. `RankingRoutes` owns every
 
 ### Shared singletons (peer dependencies)
 
-`react`, `react-dom`, `react-router-dom`, `react-query`, `@mui/material`, `@mui/icons-material`,
-`@emotion/*`, `react-i18next` and `i18next` are **peerDependencies** and are marked `external` in
-the Vite library build (`vite.config.ts`). The host provides exactly one copy of each at runtime —
-that single-copy guarantee is what makes the shared router/session/query-cache work. **Never** add
-`@tanstack/react-query` v5; the host is on the v3 `react-query` package, and a second query client
-would break the shared cache.
+`react`, `react-dom`, `react-router-dom`, `react-query`, `react-i18next`, `i18next` and `axios` are
+**peerDependencies** and are marked `external` in the Vite library build (`vite.config.ts`). The
+host provides exactly one copy of each at runtime — that single-copy guarantee is what makes the
+shared router/session/query-cache work. **Never** add `@tanstack/react-query` v5; the host is on the
+v3 `react-query` package, and a second query client would break the shared cache. **Do not add MUI
+or Emotion** — this module is styled with Tailwind only (see Styling).
 
 ### API client — orval-generated, per-repo (same as the host)
 
@@ -80,7 +83,7 @@ import { Ranking } from "../../domain/types/v1api"
 ### Two development modes
 
 - **Standalone (the daily loop).** `npm run dev` serves the dev shell in `src/dev/`, which provides
-  what the host would — a single QueryClient, the MUI theme, i18n, and an initialised axios instance
+  what the host would — a single QueryClient, the Tailwind styles, i18n, and an initialised axios instance
   pointed at a **real backend** (`VITE_API_DOMAIN`, default `http://localhost/`). Mounts
   `RankingRoutes` at `/ranking/*`. Authenticated endpoints need a logged-in session, so the list may
   be empty until auth/cookies are wired.
@@ -96,36 +99,57 @@ the dts build; `dist` only contains the library entry). Tests mock the generated
 - `src/index.ts` — package entry (exports `RankingRoutes`).
 - `src/RankingRoutes.tsx` — the routes subtree.
 - `src/pages/<Feature>/` — one folder per route screen, each with a `components/` subfolder.
+- `src/components/` — shared presentational components (e.g. `Spinner/`, `icons/`).
 - `src/infrastructure/repositories/` + `src/domain/types/v1api/` — orval-generated client + types.
 - `src/infrastructure/orval/` — the axios singleton + mutator the generated client calls through.
-- `src/dev/` — standalone dev shell + dev-only i18n (not shipped).
-- `src/styles/` — `tokens.css` (shared palette) + `tailwind.css`.
+- `src/i18n/` — bundles `public/locales` JSON and registers it into the shared i18next instance
+  (`rankingResources.ts`, `registerRankingResources.ts`).
+- `src/dev/` — standalone dev shell + dev-only i18n (verbatim copy of the host's, not shipped).
+- `src/styles/` — `tokens.css` (shared palette) + `tailwind.css`; `compiled.css` is generated.
 - `src/test/` — Vitest setup.
 
-### Styling
+### Styling — Tailwind only (no MUI)
 
-MUI today (matching the host), with a **Tailwind setup ready** for new components: preflight is
-disabled and utilities are prefixed `tw-` so Tailwind and MUI coexist in one DOM. The shared palette
-lives in `src/styles/tokens.css` as **channel-format** CSS variables (`--color-primary: 255 113 10`)
-consumed by `tailwind.config.js`, so opacity utilities (`tw-bg-primary/50`) work. These are **our
-own** semantic vars — never bind Tailwind to MUI's internal `--mui-palette-*` names. The long-term
-direction is to drop MUI for Tailwind, so keep MUI a thin, replaceable consumer of the same tokens.
+**This module uses Tailwind exclusively. Do not import `@mui/*` or `@emotion/*` anywhere** (no
+`Box`/`Stack`/`Typography`/`Button`/`TextField`, no `@mui/icons-material`). Build UI from semantic
+HTML + Tailwind utility classes; for icons use small inline-SVG components (see
+`src/components/icons/`), and for shared widgets like the loading spinner reuse
+`src/components/Spinner/`.
+
+- **No `tw-` prefix.** Utilities are written plain (`bg-primary`, `flex`, `text-sm`) — the prefix was
+  removed once MUI was dropped, so there are no class collisions to guard against.
+- **Preflight is disabled** (`tailwind.config.js`): the module mounts inside the host SPA's DOM, and
+  Tailwind's global reset would restyle the host's own elements. Reset only what a component needs
+  (e.g. `list-none p-0 m-0` on a `<ul>`).
+- The shared palette lives in `src/styles/tokens.css` as **channel-format** CSS variables
+  (`--color-primary: 255 113 10`) consumed by `tailwind.config.js`, so opacity utilities
+  (`bg-primary/50`) work. These are **our own** semantic vars (`primary`, `secondary`, `surface`).
+  When `@oreplay/tokens` exists, generate `tokens.css` from it so host and module share values.
+- **Styles travel with the module.** The host has no Tailwind pipeline, so the entry
+  (`RankingRoutes.tsx`) imports `tokens.css` + `compiled.css` — the latter is the **precompiled**
+  Tailwind output produced by `build:css`/`dev:css` (raw `@tailwind` directives can't be shipped:
+  consumers without Tailwind would get literal directives, not CSS). `compiled.css` is a generated
+  artifact (gitignored); the standalone dev shell imports raw `tailwind.css` instead and compiles it
+  live. **When developing inside the host, run `npm run dev:css` so newly-added classes appear.**
 
 ### i18n
 
-Same model as the host repo. User-facing strings in markup go through `react-i18next` `t()` (ESLint
-`i18next/no-literal-string` is enforced), and translation keys live in
-`public/locales/<lng>/translation.json` (default `translation` namespace, Weblate-managed) — the
-**same file structure as the host**, so keys merge cleanly. Add new ranking keys under `Ranking.*`.
+The module **owns its translations** and is self-contained — the host carries **no** `Ranking.*`
+keys. User-facing strings go through `react-i18next` `t()` (ESLint `i18next/no-literal-string` is
+enforced); keys live in `public/locales/<lng>/translation.json` under `Ranking.*` (default
+`translation` namespace, Weblate-managed — same file shape as the host).
 
-- **Dev / test:** `src/dev/i18n.ts` mirrors the host's `src/i18n.ts` — it loads those JSON files at
-  runtime via `i18next-http-backend` (`loadPath: /locales/{{lng}}/{{ns}}.json`) with
-  `LanguageDetector` and `en` fallback. Vite serves `public/` at the root, so they resolve in
-  `npm run dev`. This file is **not** part of the published package.
-- **Production:** the host provides the shared, already-initialised `i18next` instance, so the
-  module ships no i18n init. For the keys to resolve when mounted, they must also exist in the
-  **host's** `public/locales` (the `Ranking.*` block is already there) — keep the two in sync, or
-  source both from the shared Weblate component.
+- **How they reach the shared instance:** `RankingRoutes` calls `registerRankingResources(i18n)` on
+  mount, which `addResourceBundle`s the **bundled** `public/locales` JSON (imported via
+  `src/i18n/rankingResources.ts`) into whichever i18next instance the host — or the dev shell —
+  provides. So the keys resolve in production **without** the host defining them: change a ranking
+  string in this repo only, no host edit. Add a language by dropping a
+  `public/locales/<lng>/translation.json` and a line in `src/i18n/rankingResources.ts`.
+- **Dev / test:** `src/dev/i18n.ts` is a **verbatim copy** of the host's `src/i18n.ts` (http-backend,
+  `LanguageDetector`, same fallback map) so the module is exercised exactly as in the host. It imports
+  a trimmed `src/dev/supportedLanguages.tsx` (codes/names only — no `CountryFlag` JSX, which would
+  pull host UI into the shell). The dev shell wraps routes in `<Suspense>` to match the host, since
+  that shared config suspends while http-backend loads. Nothing under `src/dev/` ships.
 
 ## Conventions
 

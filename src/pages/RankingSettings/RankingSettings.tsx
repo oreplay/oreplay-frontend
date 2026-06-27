@@ -1,15 +1,8 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Stack,
-  Typography,
-} from "@mui/material"
-import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGetRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import ArrowBackIcon from "../../components/icons/ArrowBackIcon.tsx"
+import Spinner from "../../components/Spinner/Spinner.tsx"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 
 export default function RankingSettings() {
@@ -21,39 +14,28 @@ export default function RankingSettings() {
   const ranking = data?.data
 
   return (
-    <Box
-      className="rk-ranking-settings"
-      sx={{
-        minHeight: "100vh",
-        flexGrow: 1,
-        backgroundColor: "#f6f6f6",
-        py: 6,
-      }}
-    >
-      <Container maxWidth="sm">
-        <Button
-          startIcon={<ArrowBackIcon />}
+    <div className="rk-ranking-settings min-h-screen grow bg-surface py-12">
+      <div className="mx-auto max-w-xl px-4">
+        <button
+          type="button"
           onClick={() => void navigate("/ranking")}
-          sx={{ mb: 2 }}
+          className="mb-4 inline-flex items-center gap-1 text-primary"
         >
+          <ArrowBackIcon />
           {t("Ranking.Settings.back")}
-        </Button>
-        <Typography component="h1" variant="h5" fontWeight={600} gutterBottom>
+        </button>
+        <h1 className="mb-4 text-2xl font-semibold">
           {t("Ranking.Settings.title")}
-        </Typography>
+        </h1>
 
         {isLoading ? (
-          <Stack alignItems="center" sx={{ py: 6 }}>
-            <CircularProgress />
-          </Stack>
+          <Spinner label={t("Ranking.loading")} />
         ) : ranking ? (
           <RankingSettingsForm ranking={ranking} />
         ) : (
-          <Typography color="text.secondary">
-            {t("Ranking.Settings.notFound")}
-          </Typography>
+          <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
         )}
-      </Container>
-    </Box>
+      </div>
+    </div>
   )
 }
