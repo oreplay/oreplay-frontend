@@ -72,6 +72,10 @@
         "save": "Save",
         "edit": "Edit",
         "duplicate": "Duplicate",
+        "delete": "Delete",
+        "ok": "OK",
+        "close": "Close",
+        "deleteConfirm": "Are you sure you want to proceed?",
         "error": {
           "badRequest": "There was an error with your request.",
           "forbidden": "You don't have permission to do this.",
