@@ -3,15 +3,15 @@ import { useNavigate, useParams } from "react-router-dom"
 import { Ranking } from "../../domain/types/v1api"
 import {
   useGetRankingSettings,
-  usePatchRankingSettings,
   usePostListRankingSettings,
 } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import {
   RankingSettingsFormState,
   initRankingSettingsForm,
-  toRankingPatchBody,
-  toRankingPostBody,
+  toRankingBody,
 } from "../../domain/rankingSettingsForm.ts"
+import { notifyError } from "../../infrastructure/notifications/notifications.ts"
+import { httpErrorMessageKey } from "../../infrastructure/notifications/httpError.ts"
 import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 
@@ -21,30 +21,20 @@ export default function RankingDuplicate() {
   const { rankingId } = useParams()
   const { data, isLoading } = useGetRankingSettings(rankingId ?? "")
   const createRanking = usePostListRankingSettings()
-  const patchRanking = usePatchRankingSettings()
 
   const ranking = data?.data
-  const isSubmitting = createRanking.isLoading || patchRanking.isLoading
 
-  // The POST schema can't carry the title/nc/status/overall, so duplicate is a
-  // two-step: create the ranking, then PATCH the full settings onto it.
   const duplicate = async (
     source: Ranking,
     state: RankingSettingsFormState,
   ) => {
     try {
       const created = await createRanking.mutateAsync({
-        data: toRankingPostBody(source, state),
+        data: toRankingBody(source, state),
       })
-      const newId = created.data.id
-      await patchRanking.mutateAsync({
-        rankingID: newId,
-        data: toRankingPatchBody({ ...source, id: newId }, state),
-      })
-      void navigate(`/ranking/${newId}/settings`)
-    } catch {
-      // The failure is tracked by react-query's mutation error state; we just
-      // avoid navigating. (Surface it with a toast when we add save feedback.)
+      void navigate(`/ranking/${created.data.id}/settings`)
+    } catch (error) {
+      notifyError(t(httpErrorMessageKey(error)))
     }
   }
 
@@ -61,7 +51,7 @@ export default function RankingDuplicate() {
           eventId={ranking.event_id}
           stageId={ranking.stage_id}
           submitLabel={t("Ranking.gui.duplicate")}
-          isSubmitting={isSubmitting}
+          isSubmitting={createRanking.isLoading}
           onSubmit={(state) => void duplicate(ranking, state)}
         />
       )}

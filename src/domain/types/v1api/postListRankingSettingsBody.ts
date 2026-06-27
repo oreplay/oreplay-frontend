@@ -9,9 +9,15 @@
  */
 export type PostListRankingSettingsBody = {
   event_id?: string
+  excluded_class_names?: string
   id?: string
   max_points?: number
+  nc_false?: number
+  nc_true?: number
+  overall_settings?: string
   round_precision?: number
   scoring_algorithm?: string
   stage_id?: string
+  status_scores?: string
+  title?: string
 }

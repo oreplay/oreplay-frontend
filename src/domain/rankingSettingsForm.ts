@@ -39,12 +39,22 @@ export function initRankingSettingsForm(
   }
 }
 
-export function toRankingPatchBody(
+export function toRankingBody(
   ranking: Ranking,
   state: RankingSettingsFormState,
-): PatchRankingSettingsBody {
+  id: string,
+): PatchRankingSettingsBody
+export function toRankingBody(
+  ranking: Ranking,
+  state: RankingSettingsFormState,
+): PostListRankingSettingsBody
+export function toRankingBody(
+  ranking: Ranking,
+  state: RankingSettingsFormState,
+  id?: string,
+): PatchRankingSettingsBody | PostListRankingSettingsBody {
   return {
-    id: ranking.id,
+    ...(id === undefined ? {} : { id }),
     title: state.title,
     event_id: ranking.event_id,
     stage_id: ranking.stage_id,
@@ -56,19 +66,6 @@ export function toRankingPatchBody(
     scoring_algorithm: state.scoringAlgorithm,
     status_scores: serializeStatusScores(state.statusScores),
     overall_settings: serializeOverallSettings(state.overallSettings),
-  }
-}
-
-export function toRankingPostBody(
-  ranking: Ranking,
-  state: RankingSettingsFormState,
-): PostListRankingSettingsBody {
-  return {
-    event_id: ranking.event_id,
-    stage_id: ranking.stage_id,
-    max_points: state.maxPoints ?? 0,
-    round_precision: state.roundPrecision,
-    scoring_algorithm: state.scoringAlgorithm,
   }
 }
 

@@ -71,7 +71,12 @@
         "loading": "Loading…",
         "save": "Save",
         "edit": "Edit",
-        "duplicate": "Duplicate"
+        "duplicate": "Duplicate",
+        "error": {
+          "badRequest": "There was an error with your request.",
+          "forbidden": "You don't have permission to do this.",
+          "serverError": "There was an error providing a response."
+        }
       },
       "Breadcrumbs": {
         "label": "Breadcrumb",
