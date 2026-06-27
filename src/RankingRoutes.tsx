@@ -14,6 +14,7 @@ import {
 } from "./infrastructure/orval/AxiosInstance.ts"
 import { registerRankingResources } from "./i18n/registerRankingResources.ts"
 import RankingList from "./pages/RankingList/RankingList.tsx"
+import RankingDuplicate from "./pages/RankingSettings/RankingDuplicate.tsx"
 import RankingSettings from "./pages/RankingSettings/RankingSettings.tsx"
 
 interface RankingRoutesProps {
@@ -62,6 +63,7 @@ export default function RankingRoutes({
       <Routes>
         <Route index element={<RankingList />} />
         <Route path=":rankingId/settings" element={<RankingSettings />} />
+        <Route path=":rankingId/duplicate" element={<RankingDuplicate />} />
       </Routes>
     </div>
   )

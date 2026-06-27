@@ -1,25 +1,18 @@
-import { PatchRankingSettingsBody, Ranking } from "./types/v1api"
+import {
+  PatchRankingSettingsBody,
+  PostListRankingSettingsBody,
+  Ranking,
+} from "./types/v1api"
 import {
   parseOverallSettings,
   serializeOverallSettings,
 } from "./overallSettings.ts"
 import { parseStatusScores, serializeStatusScores } from "./statusScores.ts"
 
-/**
- * Normalize a nullable numeric column to `number | null`, keeping `0` and `null`
- * distinct. Coerces with `Number` so a decimal-string `"0.0000"` (how the
- * backend may serialize the column) becomes `0`, not a string that fails to
- * match the select's `0` option.
- */
 function toNullableNumber(value: number | null | undefined): number | null {
   return value === null || value === undefined ? null : Number(value)
 }
 
-/**
- * Editable state of the ranking settings form. `statusScores` and
- * `overallSettings` are kept as positional arrays matching `STATUS_SCORE_FIELDS`
- * / `OVERALL_SETTINGS_FIELDS`; `null` means "empty / no override".
- */
 export interface RankingSettingsFormState {
   title: string
   scoringAlgorithm: string
@@ -46,13 +39,6 @@ export function initRankingSettingsForm(
   }
 }
 
-/**
- * The PATCH endpoint expects the full entity; resend it with the edited fields
- * overlaid. `overall_settings`/`status_scores` are strings on the body, so they
- * are serialized. The generated body types `nc_*` as non-nullable numbers, but
- * the columns are nullable and the "empty" choice must clear them — so we pass
- * `null` through (cast to satisfy the generated type).
- */
 export function toRankingPatchBody(
   ranking: Ranking,
   state: RankingSettingsFormState,
@@ -71,4 +57,27 @@ export function toRankingPatchBody(
     status_scores: serializeStatusScores(state.statusScores),
     overall_settings: serializeOverallSettings(state.overallSettings),
   }
+}
+
+export function toRankingPostBody(
+  ranking: Ranking,
+  state: RankingSettingsFormState,
+): PostListRankingSettingsBody {
+  return {
+    event_id: ranking.event_id,
+    stage_id: ranking.stage_id,
+    max_points: state.maxPoints ?? 0,
+    round_precision: state.roundPrecision,
+    scoring_algorithm: state.scoringAlgorithm,
+  }
+}
+
+export function isRankingSettingsFormComplete(
+  state: RankingSettingsFormState,
+): boolean {
+  return (
+    state.title.trim().length > 0 &&
+    state.scoringAlgorithm.length > 0 &&
+    state.maxPoints !== null
+  )
 }
