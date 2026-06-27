@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /*
+   * Preflight is disabled (it would reset the host's elements), but Tailwind's
+   * border-WIDTH utilities (`border`, `border-[6px]`) only set width and rely on
+   * preflight for `border-style: solid` — without it the style defaults to
+   * `none` and the browser forces the computed width to 0 (invisible borders).
+   * Re-add just that slice of preflight, scoped to the module root so it never
+   * touches the host. Utilities still override width/color as usual.
+   */
+  .rk-root *,
+  .rk-root ::before,
+  .rk-root ::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: currentColor;
+  }
+}
