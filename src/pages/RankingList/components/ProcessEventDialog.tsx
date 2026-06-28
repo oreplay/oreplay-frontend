@@ -5,6 +5,9 @@ import { getListEvents } from "../../../infrastructure/repositories/events/event
 import { getListStages } from "../../../infrastructure/repositories/stages/stages.ts"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
+import { calculateRankingBatches } from "../../../infrastructure/ranking/calculateRankingBatches.ts"
+import { notifyError } from "../../../infrastructure/notifications/notifications.ts"
+import { httpErrorMessageKey } from "../../../infrastructure/notifications/httpError.ts"
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = useState(value)
@@ -18,16 +21,19 @@ function useDebouncedValue<T>(value: T, delayMs: number): T {
 interface ProcessEventDialogProps {
   open: boolean
   onClose: () => void
+  rankingId: string
 }
 
 export default function ProcessEventDialog({
   open,
   onClose,
+  rankingId,
 }: ProcessEventDialogProps) {
   const { t } = useTranslation()
   const [eventId, setEventId] = useState<string | null>(null)
   const [stageId, setStageId] = useState<string | null>(null)
   const [eventSearch, setEventSearch] = useState("")
+  const [processing, setProcessing] = useState(false)
   const description = useDebouncedValue(eventSearch, 300)
 
   const events = useQuery(
@@ -54,12 +60,20 @@ export default function ProcessEventDialog({
     setEventId(null)
     setStageId(null)
     setEventSearch("")
+    setProcessing(false)
     onClose()
   }
 
-  const confirm = () => {
-    console.log("Process event — eventId:", eventId, "stageId:", stageId)
-    close()
+  const confirm = async () => {
+    if (eventId === null || stageId === null) return
+    setProcessing(true)
+    try {
+      await calculateRankingBatches(rankingId, eventId, stageId)
+      close()
+    } catch (error) {
+      setProcessing(false)
+      notifyError(t(httpErrorMessageKey(error)))
+    }
   }
 
   return (
@@ -68,7 +82,8 @@ export default function ProcessEventDialog({
       title={t("Ranking.ProcessEvent.title")}
       confirmLabel={t("Ranking.gui.confirm")}
       closeLabel={t("Ranking.gui.close")}
-      onConfirm={confirm}
+      onConfirm={() => void confirm()}
+      isConfirming={processing}
       onClose={close}
     >
       <div className="flex flex-col gap-4">
