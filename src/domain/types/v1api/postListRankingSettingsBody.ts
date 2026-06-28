@@ -5,12 +5,11 @@
  */
 
 /**
- * Generic object when: Add new creates ranking
+ * Generic object when: Add new generates uuid server side
  */
 export type PostListRankingSettingsBody = {
   event_id?: string
   excluded_class_names?: string
-  id?: string
   max_points?: number
   nc_false?: number
   nc_true?: number
