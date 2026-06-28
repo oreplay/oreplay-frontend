@@ -8,6 +8,9 @@
       "delete": "Delete",
       "ok": "OK",
       "close": "Close",
+      "confirm": "Confirm",
+      "search": "Search…",
+      "noResults": "No matches",
       "deleteConfirm": "Are you sure you want to proceed?",
       "error": {
         "badRequest": "There was an error with your request.",
@@ -26,6 +29,11 @@
       "empty": "No rankings yet.",
       "loadError": "We couldn't load the rankings.",
       "menuLabel": "Ranking options"
+    },
+    "ProcessEvent": {
+      "title": "Process event",
+      "event": "Event",
+      "stage": "Stage"
     },
     "Duplicate": {
       "title": "Duplicate ranking",
