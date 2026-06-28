@@ -11,6 +11,8 @@ interface SettingsPageLayoutProps {
   isLoading: boolean
   isMissing: boolean
   children: ReactNode
+  /** Additional card(s) rendered after the main card, only once loaded. */
+  extraContent?: ReactNode
 }
 
 // Shared shell for the ranking settings + duplicate pages: breadcrumbs, heading,
@@ -21,6 +23,7 @@ export default function SettingsPageLayout({
   isLoading,
   isMissing,
   children,
+  extraContent,
 }: SettingsPageLayoutProps) {
   const { t } = useTranslation()
 
@@ -42,14 +45,19 @@ export default function SettingsPageLayout({
         />
         <h1 className="mb-4 text-2xl font-semibold">{heading}</h1>
 
-        <div className="rounded-xl bg-white p-6 shadow-sm">
-          {isLoading ? (
-            <Spinner label={t("Ranking.gui.loading")} />
-          ) : isMissing ? (
-            <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
-          ) : (
-            children
-          )}
+        <div className="flex flex-col gap-6">
+          <div className="rounded-xl bg-white p-6 shadow-sm">
+            {isLoading ? (
+              <Spinner label={t("Ranking.gui.loading")} />
+            ) : isMissing ? (
+              <p className="text-neutral-500">
+                {t("Ranking.Settings.notFound")}
+              </p>
+            ) : (
+              children
+            )}
+          </div>
+          {!isLoading && !isMissing && extraContent}
         </div>
       </div>
     </div>
