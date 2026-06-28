@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url"
 import { defineConfig } from "vitest/config"
 import react from "@vitejs/plugin-react"
 import dts from "vite-plugin-dts"
+import { libInjectCss } from "vite-plugin-lib-inject-css"
 
 const resolvePath = (relativePath: string) =>
   fileURLToPath(new URL(relativePath, import.meta.url))
@@ -10,6 +11,10 @@ const resolvePath = (relativePath: string) =>
 export default defineConfig({
   plugins: [
     react(),
+    // Re-attach the extracted CSS as a JS side-effect import in the built
+    // entry, so consumers (the host) get the module's styles just by importing
+    // it — no separate CSS import on their side.
+    libInjectCss(),
     dts({
       include: ["src"],
       exclude: ["src/dev", "src/test", "**/*.test.*"],

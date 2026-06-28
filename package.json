@@ -1,6 +1,6 @@
 {
   "name": "@oreplay/ranking",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "O-Replay ranking module — routes subtree mounted by the host app at /ranking/*",
   "type": "module",
   "repository": {
@@ -81,6 +81,7 @@
     "typescript": "5.5",
     "vite": "^6.1.1",
     "vite-plugin-dts": "^4.5.0",
+    "vite-plugin-lib-inject-css": "^2.2.2",
     "vitest": "^3.2.4"
   },
   "engines": {
