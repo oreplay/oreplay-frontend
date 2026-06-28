@@ -47,7 +47,12 @@ export default function RankingSettings() {
               },
             )
           }
-          secondaryAction={<DeleteRankingButton rankingId={ranking.id} />}
+          secondaryAction={
+            <DeleteRankingButton
+              rankingId={ranking.id}
+              eventId={ranking.event_id}
+            />
+          }
         />
       )}
     </SettingsPageLayout>

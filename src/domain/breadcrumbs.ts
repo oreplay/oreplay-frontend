@@ -6,7 +6,7 @@ export interface BreadcrumbItem {
 
 // Absolute host routes used in the ranking breadcrumb trail.
 export const DASHBOARD_PATH = "/dashboard"
-export const RANKING_LIST_PATH = "/ranking"
+export const RANKING_LIST_PATH = "/rankings"
 
 interface TrailLabels {
   dashboard: string

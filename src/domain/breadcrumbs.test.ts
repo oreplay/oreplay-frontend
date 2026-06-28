@@ -17,7 +17,7 @@ describe("ranking breadcrumbs", () => {
   it("builds the settings trail ending in the selected ranking label", () => {
     expect(buildRankingSettingsBreadcrumbs(labels, "Regional 2025")).toEqual([
       { label: "Dashboard", to: "/dashboard" },
-      { label: "Ranking", to: "/ranking" },
+      { label: "Ranking", to: "/rankings" },
       { label: "Regional 2025" },
     ])
   })

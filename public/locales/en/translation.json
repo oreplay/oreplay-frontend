@@ -35,6 +35,7 @@
       "title": "Ranking settings",
       "titleLabel": "Title",
       "notFound": "Ranking not found.",
+      "deleteEventToo": "Do you also want to delete the associated event?",
       "competitionLink": "View competition results",
       "scoreOptions": {
         "empty": "computed"

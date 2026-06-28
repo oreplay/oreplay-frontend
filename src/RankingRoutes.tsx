@@ -27,7 +27,7 @@ const bearer = (authToken: string | null) => ({
 })
 
 /**
- * Routes subtree for the ranking module, mounted at `/ranking/*` by the host
+ * Routes subtree for the ranking module, mounted at `/rankings/*` by the host
  * (or the standalone dev shell).
  *
  * Auth is injected, not owned: whoever mounts this passes the API base URL and
