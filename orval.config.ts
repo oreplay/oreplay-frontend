@@ -37,7 +37,7 @@ export default defineConfig({
       target: "http://localhost/api/v1/openapi/json",
       filters: {
         mode: "include",
-        tags: [/Ranking/, /Events/, /Stages/],
+        tags: [/Ranking/, /Events/, /Stages/, /StageOrders/],
       },
     },
   },
