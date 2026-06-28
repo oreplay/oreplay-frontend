@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { ReactNode, useEffect } from "react"
 import CloseIcon from "../icons/CloseIcon.tsx"
 
 interface ConfirmDialogProps {
@@ -10,6 +10,8 @@ interface ConfirmDialogProps {
   destructive?: boolean
   onConfirm: () => void
   onClose: () => void
+  /** Optional content between the title and the buttons (e.g. extra options). */
+  children?: ReactNode
 }
 
 export default function ConfirmDialog({
@@ -21,6 +23,7 @@ export default function ConfirmDialog({
   destructive,
   onConfirm,
   onClose,
+  children,
 }: ConfirmDialogProps) {
   useEffect(() => {
     if (!open) return
@@ -61,6 +64,8 @@ export default function ConfirmDialog({
             <CloseIcon />
           </button>
         </div>
+
+        {children && <div className="mt-4">{children}</div>}
         <div className="mt-6 flex justify-end">
           <button
             type="button"

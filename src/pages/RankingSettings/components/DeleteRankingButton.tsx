@@ -2,28 +2,41 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useDeleteRankingSettings } from "../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { useDeleteEvents } from "../../../infrastructure/repositories/events/events.ts"
 import { notifyError } from "../../../infrastructure/notifications/notifications.ts"
 import { httpErrorMessageKey } from "../../../infrastructure/notifications/httpError.ts"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 
 interface DeleteRankingButtonProps {
   rankingId: string
+  eventId: string
 }
 
 export default function DeleteRankingButton({
   rankingId,
+  eventId,
 }: DeleteRankingButtonProps) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [alsoDeleteEvent, setAlsoDeleteEvent] = useState(false)
   const deleteRanking = useDeleteRankingSettings()
+  const deleteEvent = useDeleteEvents()
+
+  const close = () => {
+    setOpen(false)
+    setAlsoDeleteEvent(false)
+  }
 
   const confirmDelete = async () => {
     try {
       await deleteRanking.mutateAsync({ rankingID: rankingId })
-      void navigate("/ranking")
+      if (alsoDeleteEvent) {
+        await deleteEvent.mutateAsync({ eventID: eventId })
+      }
+      void navigate("/rankings")
     } catch (error) {
-      setOpen(false)
+      close()
       notifyError(t(httpErrorMessageKey(error)))
     }
   }
@@ -42,11 +55,20 @@ export default function DeleteRankingButton({
         title={t("Ranking.gui.deleteConfirm")}
         confirmLabel={t("Ranking.gui.ok")}
         closeLabel={t("Ranking.gui.close")}
-        isConfirming={deleteRanking.isLoading}
+        isConfirming={deleteRanking.isLoading || deleteEvent.isLoading}
         destructive
         onConfirm={() => void confirmDelete()}
-        onClose={() => setOpen(false)}
-      />
+        onClose={close}
+      >
+        <label className="flex items-center gap-2 text-sm text-neutral-700">
+          <input
+            type="checkbox"
+            checked={alsoDeleteEvent}
+            onChange={(event) => setAlsoDeleteEvent(event.target.checked)}
+          />
+          {t("Ranking.Settings.deleteEventToo")}
+        </label>
+      </ConfirmDialog>
     </div>
   )
 }
