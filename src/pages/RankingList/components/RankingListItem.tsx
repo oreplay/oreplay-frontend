@@ -60,6 +60,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
       <ProcessEventDialog
         open={processOpen}
         onClose={() => setProcessOpen(false)}
+        rankingId={ranking.id}
       />
     </li>
   )
