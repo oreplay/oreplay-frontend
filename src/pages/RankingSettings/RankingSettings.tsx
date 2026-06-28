@@ -13,6 +13,7 @@ import { httpErrorMessageKey } from "../../infrastructure/notifications/httpErro
 import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 import DeleteRankingButton from "./components/DeleteRankingButton.tsx"
+import RunnerInteractionCard from "./components/RunnerInteractionCard.tsx"
 
 export default function RankingSettings() {
   const { t } = useTranslation()
@@ -28,6 +29,9 @@ export default function RankingSettings() {
       currentCrumb={ranking?.title ?? rankingId ?? ""}
       isLoading={isLoading}
       isMissing={!ranking}
+      extraContent={
+        ranking ? <RunnerInteractionCard rankingId={ranking.id} /> : undefined
+      }
     >
       {ranking && (
         <RankingSettingsForm

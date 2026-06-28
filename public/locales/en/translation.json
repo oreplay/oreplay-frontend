@@ -102,6 +102,12 @@
         "event": "Event",
         "stage": "Stage"
       },
+      "RunnerInteraction": {
+        "title": "Organizer runner",
+        "empty": "Expand a runner in the results page on another tab to load it here.",
+        "stageOrder": "Add to stage",
+        "sendOrganizer": "Send organizer"
+      },
       "Duplicate": {
         "title": "Duplicate ranking",
         "crumb": "Duplicate"
