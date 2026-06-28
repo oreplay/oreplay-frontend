@@ -111,7 +111,7 @@ export const prefetchGetListRankingSettingsQuery = async <TData = Awaited<Return
 
 
 /**
- * Add new creates ranking
+ * Add new generates uuid server side
  */
 export const postListRankingSettings = (
     postListRankingSettingsBody: PostListRankingSettingsBody,
