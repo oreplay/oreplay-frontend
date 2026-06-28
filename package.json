@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "description": "O-Replay ranking module — routes subtree mounted by the host app at /ranking/*",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oreplay/oreplay-ranking.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "files": [
     "dist"
   ],
@@ -27,7 +34,8 @@
     "lint": "eslint . --ext ts,tsx --max-warnings 0",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "before-commit": "npm run format && npm run lint && npm run build && npm run test"
+    "before-commit": "npm run format && npm run lint && npm run build && npm run test",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "axios": "^1.7.9",
