@@ -27,7 +27,7 @@ export default function RankingDuplicate() {
   ) => {
     try {
       const newId = await duplicate(source, state)
-      void navigate(`/ranking/${newId}/settings`)
+      void navigate(`/rankings/${newId}/settings`)
     } catch (error) {
       notifyError(t(httpErrorMessageKey(error)))
     }

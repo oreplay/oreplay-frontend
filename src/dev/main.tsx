@@ -38,9 +38,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       >
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/ranking" replace />} />
+            <Route path="/" element={<Navigate to="/rankings" replace />} />
             <Route
-              path="/ranking/*"
+              path="/rankings/*"
               element={
                 <RankingRoutes apiBaseUrl={API_DOMAIN} authToken={DEV_TOKEN} />
               }
