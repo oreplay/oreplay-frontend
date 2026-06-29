@@ -16,5 +16,8 @@ services:
       - "4173:4173"
     volumes:
       - .:/var/www
+      # DEV ONLY: mount the sibling ranking module for the vite.config.ts dev
+      # alias. Absent elsewhere → falls back to the published @oreplay/ranking.
+      - ../oreplay-ranking:/var/www/oreplay-ranking
     extra_hosts:
       - "host.docker.internal:host-gateway"

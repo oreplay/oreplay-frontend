@@ -46,6 +46,7 @@ const PrivacyPolicy = lazyWithRetry(() => import("./pages/PrivacyPolicy/PrivacyP
 const CookiesPolicy = lazyWithRetry(() => import("./pages/CookiesPolicy/CookiesPolicy.tsx"))
 const LegalNotice = lazyWithRetry(() => import("./pages/LegalNotice/LegalNotice.tsx"))
 const MyAccount = lazyWithRetry(() => import("./pages/Administration/pages/MyAccount/index.tsx"))
+const RankingModule = lazyWithRetry(() => import("./pages/RankingModule/RankingModule.tsx"))
 
 // Customize style of app
 const theme = createTheme({
@@ -113,6 +114,7 @@ export default function App() {
                       <Route path={"/admin/create-event"} element={<CreateEvent />} />
                       <Route path={"/admin/:eventId"} element={<EventAdmin />} />
                       <Route path={"/my-account"} element={<MyAccount />} />
+                      <Route path={"/rankings/*"} element={<RankingModule />} />
                     </Route>
                     <Route path={"/*"} element={<NotFoundPage />} />
                   </Route>
