@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
-      packages: write
+      id-token: write # OIDC for npm Trusted Publishing — no stored token
 
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -22,15 +22,14 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
-          registry-url: "https://npm.pkg.github.com"
-          # Scope the GitHub registry to @oreplay only, so `npm ci` still pulls
-          # public deps from npmjs and just @oreplay/* from GitHub Packages.
-          scope: "@oreplay"
+          registry-url: "https://registry.npmjs.org"
+
+      # Trusted Publishing (OIDC) needs npm >= 11.5.1; Node 22 still ships npm 10.
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Publish to GitHub Packages
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to npm (public, via Trusted Publishing)
+        run: npm publish --access public

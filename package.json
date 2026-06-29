@@ -1,6 +1,6 @@
 {
   "name": "@oreplay/ranking",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "O-Replay ranking module — routes subtree mounted by the host app at /ranking/*",
   "type": "module",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git+https://github.com/oreplay/oreplay-ranking.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "files": [
     "dist"
