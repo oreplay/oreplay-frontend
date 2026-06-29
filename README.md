@@ -18,6 +18,14 @@ npm test         # Vitest
 npm run build    # library build → dist/ (ESM + index.d.ts)
 ```
 
+- The **API client + types** are
+  generated locally with orval (`npm run orval-build`) from the live OpenAPI spec, scoped to the
+  ranking endpoints — see `CLAUDE.md` → API client.
+
+- **Tailwind only** — no MUI/Emotion. Build UI from semantic HTML + Tailwind utilities (written
+  plain, with **no `tw-` prefix**). Icons are small inline-SVG components under `src/components/icons/`.
+  Preflight is disabled because the module mounts inside the host's DOM. See `CLAUDE.md` → Styling.
+
 ## Usage (in the host)
 
 ```tsx
@@ -30,19 +38,6 @@ import { RankingRoutes } from "@oreplay/ranking"
   element={<RankingRoutes apiBaseUrl={API_DOMAIN} authToken={token} />}
 />
 ```
-
-## Status
-
-`/ranking` lists rankings; each row links to `/ranking/:rankingId/settings`, which loads the ranking
-and saves `max_points` via the real `PATCH /rankings/{id}` endpoint. The API client + types are
-generated locally with orval (`npm run orval-build`) from the live OpenAPI spec, scoped to the
-ranking endpoints — see `CLAUDE.md`.
-
-## Styling
-
-Tailwind only — **no MUI/Emotion**. Build UI from semantic HTML + Tailwind utilities (written
-plain, with **no `tw-` prefix**). Icons are small inline-SVG components under `src/components/icons/`.
-Preflight is disabled because the module mounts inside the host's DOM. See `CLAUDE.md` → Styling.
 
 ## Further reading
 
