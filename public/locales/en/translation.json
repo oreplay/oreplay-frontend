@@ -191,6 +191,7 @@
     "pointsAbbreviation": "pts"
   },
   "Password": "Password",
+  "Rankings": "Rankings",
   "PrivateEventPage": {
     "Header": "Private Event",
     "Message": "This event has been set to private by the organizer. If you believe this is an error, please contact the event organizer."
