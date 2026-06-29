@@ -1,6 +1,6 @@
 # @oreplay/ranking
 
-The O-Replay **ranking module** for managing ranking settings and generation based on o-replay 
+The O-Replay **ranking module** for managing ranking settings and generation based on o-replay
 published results.
 
 It works as a `react-router` routes subtree the host results app
