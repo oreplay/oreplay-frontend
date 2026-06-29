@@ -1,6 +1,9 @@
 # @oreplay/ranking
 
-The O-Replay **ranking module** — a `react-router` routes subtree the host results app
+The O-Replay **ranking module** for managing ranking settings and generation based on o-replay 
+published results.
+
+It works as a `react-router` routes subtree the host results app
 (`oreplay-frontend`) mounts at `/ranking/*`. It ships as an npm package so it can be developed,
 reviewed, tested and styled in its own repo, while at runtime it is part of the host's single SPA
 (one shared React / react-query / router / session runtime).
