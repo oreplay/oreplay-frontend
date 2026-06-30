@@ -23,6 +23,7 @@ import React from "react"
 import LanguageDropdown from "./components/LanguageDropdown.tsx"
 import AuthenticationSidebarItem from "./components/AuthenticationSidebarItem.tsx"
 import { useAuth } from "../../../shared/hooks.ts"
+import { isAdmin } from "../../../shared/permissions.ts"
 import { useQuery } from "react-query"
 import { getBackendVersion } from "../../../services/VersionService.ts"
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts"
@@ -136,19 +137,21 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
                   <ListItemText primary={t("Dashboard.Dashboard")} />
                 </ListItemButton>
               </ListItem>
-              <ListItem>
-                <ListItemButton
-                  onClick={() => {
-                    void navigate("/rankings")
-                    setOpenSidebar((prev) => !prev)
-                  }}
-                >
-                  <ListItemIcon>
-                    <LeaderboardIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={t("Rankings")} />
-                </ListItemButton>
-              </ListItem>
+              {isAdmin(user) && (
+                <ListItem>
+                  <ListItemButton
+                    onClick={() => {
+                      void navigate("/rankings")
+                      setOpenSidebar((prev) => !prev)
+                    }}
+                  >
+                    <ListItemIcon>
+                      <LeaderboardIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t("Rankings")} />
+                  </ListItemButton>
+                </ListItem>
+              )}
               <ListItem>
                 <ListItemButton
                   onClick={() => {
