@@ -29,4 +29,3 @@ dist-ssr
 
 # orval auto generated
 src/infrastructure/**/*.d.ts
-
