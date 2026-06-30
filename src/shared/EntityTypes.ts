@@ -227,6 +227,7 @@ export interface UserModel {
   email: string
   first_name: string
   last_name: string
+  scope?: string
   created: string
   modified: string
   token: {
