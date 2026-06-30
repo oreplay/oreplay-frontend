@@ -19,14 +19,11 @@ export default function RankingModule() {
 
   useEffect(() => {
     const handleNotification = (event: Event) => {
-      const { message, severity } = (
-        event as CustomEvent<RankingNotificationDetail>
-      ).detail
+      const { message, severity } = (event as CustomEvent<RankingNotificationDetail>).detail
       notifications.show(message, { severity, autoHideDuration: 5000 })
     }
     window.addEventListener(RANKING_NOTIFICATION_EVENT, handleNotification)
-    return () =>
-      window.removeEventListener(RANKING_NOTIFICATION_EVENT, handleNotification)
+    return () => window.removeEventListener(RANKING_NOTIFICATION_EVENT, handleNotification)
   }, [notifications])
 
   return <RankingRoutes apiBaseUrl={API_DOMAIN} authToken={token} />

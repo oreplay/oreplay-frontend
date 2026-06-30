@@ -20,14 +20,7 @@ export default defineConfig({
   // mirrors the module's peerDependencies (Tailwind-only, so no MUI/emotion).
   resolve: {
     alias: rankingAlias,
-    dedupe: [
-      "react",
-      "react-dom",
-      "react-router-dom",
-      "react-query",
-      "react-i18next",
-      "i18next",
-    ],
+    dedupe: ["react", "react-dom", "react-router-dom", "react-query", "react-i18next", "i18next"],
   },
 
   base: "https://purple-coast-02f129503.2.azurestaticapps.net/",
