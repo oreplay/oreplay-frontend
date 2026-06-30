@@ -2,3 +2,4 @@
 build
 coverage
 oreplay-ranking
+src/infrastructure/repositories

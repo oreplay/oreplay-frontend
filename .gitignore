@@ -27,5 +27,8 @@ dist-ssr
 # Sentry Config File
 .env.sentry-build-plugin
 
+# orval auto generated
+src/infrastructure/**/*.d.ts
+
 # Standalone ranking module (its own repo — see claude-ranking-module-plan.md)
 oreplay-ranking

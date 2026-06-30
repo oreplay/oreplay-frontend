@@ -2,3 +2,6 @@ vite.config.ts
 tsconfig.json
 tsconfig.node.json
 oreplay-ranking
+src/infrastructure/repositories
+src/infrastructure/orval/orval-axios-instance.d.ts
+orval.config.ts
