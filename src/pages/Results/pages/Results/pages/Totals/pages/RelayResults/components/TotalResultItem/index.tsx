@@ -29,6 +29,7 @@ export default function TotalsResultItem({
       payload: runner,
       path: window.location.pathname,
     })
+    channel.close()
   }, [runner])
 
   const isPointBased = runner.overalls?.overall.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
