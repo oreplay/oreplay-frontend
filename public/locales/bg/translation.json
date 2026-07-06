@@ -16,6 +16,8 @@
     "Name": "Име на събитието",
     "StartDate": "Дата на старт",
     "YourEvents": {
+      "CreateEvent": "Създаване на събитие",
+      "description": "Управлявайте всички събития на едно място.",
       "title": "Вашите събития"
     }
   },
@@ -23,17 +25,24 @@
   "EmailAddress": "Имейл адрес",
   "Event": "Събитие",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "Добавете поне един етап, за да завършите настройките на събитието.",
     "Country": "Държава",
     "Create security keys": "Създайте ключ за сигурност",
     "DangerArea": "Зона на риск",
+    "DataUpload": {
+      "description": "Тези данни позволяват качване на данни към събитието. Споделяйте ги само с екипа си. Достъпът може да бъде отнет по всяко време.",
+      "title": "Зареждане на данни"
+    },
     "DeleteEvent": "Изтрий събитието",
     "Do you want to delete this event?": "Искате ли да изтриете това събитие?",
     "Do you want to renew the security key?": "Искате ли да подновите ключа за сигурност?",
     "EventData": "Информация за събитието",
+    "EventDataDescription": "Преглед и редакция на основните данни за вашето събитие",
     "EventId": "ID на събитието",
     "EventName": "Име на събитието",
+    "EventNamePlaceholder": "Чудесно събитие за участие",
     "EventSecurityTokens": "Секретен ключ за десктоп клиента",
-    "EventSecurityTokensExpireDate": "Изтича на",
+    "EventSecurityTokensExpireDate": "Дата на изтичане",
     "FinishDate": "Дата на завършване",
     "Hidden": "Скрито",
     "InvalidURLMsg": "Невалиден URL адрес",
@@ -120,6 +129,11 @@
   },
   "Events": "Събития",
   "ExperimentalFeatureMsg": "Експериментална функция",
+  "FailedToLoad": {
+    "msg": "Проверете интернет връзката си. Ако проблемът продължи, опитайте отново по-късно.",
+    "title": "Зареждането на страницата е неуспешно"
+  },
+  "FieldTooLongMsg": "Позволени са максимум {{count}} знака.",
   "ForbiddenAccess": "Достъп забранен",
   "GeneralErrorFallback": {
     "msg": "Опитайте да обновите страницата. Ако грешката продължава, моля опитайте по-късно.",
@@ -133,6 +147,8 @@
     "PositionChart": "Диаграма на позициите",
     "RunnerSelection": "Избор на състезател",
     "SelectRunnersMessage": "Изберете състезатели, за да видите диаграмите",
+    "SelectedCount_one": "{{count}} от {{total}} избран",
+    "SelectedCount_other": "{{count}} от {{total}} избрани",
     "Start": "Старт",
     "Threshold": "Праг",
     "ThresholdWithPercent": "Праг ({{percent}}%)",
@@ -146,7 +162,15 @@
   },
   "Location": "Местоположение",
   "Menu": "Меню",
+  "MyAccount": {
+    "description": "Управление на личната информация.",
+    "personalInformation": {
+      "title": "Лична информация"
+    },
+    "title": "Моят профил"
+  },
   "Name": "Име",
+  "NotApplicable": "Неприложимо",
   "Organizer": "Организатор",
   "Organizers": "Информация за организатора",
   "Overall": {
@@ -157,5 +181,159 @@
     "Header": "Частно събитие",
     "Message": "Това събитие е зададено като частно от организатора. Ако смятате, че това е грешка, моля свържете се с организатора на събитието."
   },
-  "RadiosExperimentalMsg": "При използване на онлайн контролни точки, функциите, свързани с разпределението на времето, са експериментални."
+  "RadiosExperimentalMsg": "При използване на онлайн контролни точки, функциите, свързани с разпределението на времето, са експериментални.",
+  "Results": {
+    "Class": "Група",
+    "Classes": "Групи",
+    "Finish": "Финал",
+    "Name": "Име",
+    "Position": "Място",
+    "SiCard": "SI карта",
+    "Start": "Старт",
+    "Time": "Време",
+    "shortClass": "Група"
+  },
+  "ResultsStage": {
+    "BonusPoints": "Бонус",
+    "ChooseClass": "Изберете група",
+    "Class": "Група",
+    "Classes": "Групи",
+    "Club": "Клуб",
+    "Clubs": "Клубове",
+    "FinishTime": "Финал",
+    "Name": "Име",
+    "NoClubMsg": "Без клуб",
+    "NoData": "Няма данни",
+    "NonContributory": "Незачетен",
+    "statusCodes": {
+      "ok": "ок"
+    }
+  },
+  "Save": "Запази",
+  "Search": {
+    "ClearSearch": "Изчистване на търсенето",
+    "Search": "Търсене"
+  },
+  "Settings": "Настройки",
+  "Sign in": {
+    "ForgotPassword": "Забравена парола?",
+    "Logout": "Излез",
+    "NoAccount": "Нямате профил? <1>Регистрирайте се</1>",
+    "RememberMe": "Запомни ме",
+    "Sign in": "Влез"
+  },
+  "SignUp": {
+    "AlreadyHaveAccount": "Имате профил? <1>Вход</1>",
+    "Email": {
+      "Validation": {
+        "EnterValidEmailAddress": "Въведете валиден имейл адрес."
+      }
+    },
+    "EmailMe": "Искам да получавам актуализации по имейл.",
+    "EmailVerification": {
+      "msg": "Изпратихме връзка за потвърждение на {{email}}. Проверете пощата си и отворете връзката, за да потвърдите профила си.",
+      "title": "Потвърдете имейл адреса си"
+    },
+    "FirstName": "Име",
+    "LastName": "Фамилия",
+    "Password": {
+      "InvalidPassword": "Невалидна парола",
+      "Validation": {
+        "AtLeastCharacter_one": "Поне {{count}} знак",
+        "AtLeastCharacter_other": "Поне {{count}} знака",
+        "AtLeastLowercase_one": "Поне {{count}} малка буква",
+        "AtLeastLowercase_other": "Поне {{count}} малки букви",
+        "AtLeastNumber_one": "Поне {{count}} цифра",
+        "AtLeastNumber_other": "Поне {{count}} цифри",
+        "AtLeastSymbol_one": "Поне {{count}} специален знак",
+        "AtLeastSymbol_other": "Поне {{count}} специалени знака",
+        "AtLeastUppercase_one": "Поне {{count}} главна буква",
+        "AtLeastUppercase_other": "Поне {{count}} главни букви",
+        "DoesntMeetCriteria": "Паролата не отговаря на изискванията"
+      }
+    },
+    "SignUp": "Регистрирай се",
+    "TermsConditions": {
+      "label": "Прочетох и приемам <1>общите условия</1>.*",
+      "notChecked": "Необходимо е да приемете общите условия."
+    }
+  },
+  "StageHeader": {
+    "Graphs": "Графики",
+    "RelayLegs": "Отсечки",
+    "Results": "Резултати",
+    "ScorePoints": "Точки",
+    "Splits": "Сплитове",
+    "StartTime": "Стартово време"
+  },
+  "Stages": "Етапи",
+  "Success": "Успешно",
+  "This action cannot be undone": "Действието е необратимо.",
+  "ThisFieldIsRequiredMsg": "Това поле е задължително.",
+  "ThisFunctionalityNotImplementedMsg": "Тази функция все още не е реализирана.",
+  "TimeZone": "Часова зона",
+  "TimezoneMismatchRunnerMsg": "Преглеждате това събитие в различна часова зона. Всички показани времена, включително стартовите времена, са във вашата местна часова зона, а не в часовата зона на събитието.",
+  "UnderDevelopment": "В процес на разработка",
+  "WorldContinents": {
+    "America": "Америка",
+    "Asia": "Азия",
+    "Australia": "Австралия",
+    "Europe": "Европа",
+    "Other": "Друго"
+  },
+  "authenticationError": "Възникна грешка",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Време без допуснати грешки",
+      "errorTime": "Загубено време (грешка)"
+    },
+    "selectRunnersMessage": "Изберете състезатели, за да видите графиката",
+    "timeAxisLabel": "Време (секунди)"
+  },
+  "firstName": "Малко име",
+  "lastName": "Фамилия",
+  "lineChart": {
+    "noData": "Изберете състезатели, за да видите линейната графика",
+    "tooltip": {
+      "behindBestPartial": "Време след най-добрия сплит",
+      "behindLeader": "Изоставане от лидера"
+    },
+    "xAxisLabel": "Контроли"
+  },
+  "positionChart": {
+    "caption": "* Място 1 е най-горе (най-добро), по-големите номера са по-надолу (по-слабо)",
+    "noData": "Изберете състезатели, за да видите развитието на класирането",
+    "tooltip": {
+      "control": "Контролна точка",
+      "position": "Място",
+      "splitTime": "Междинно време",
+      "timeLost": "Изоставане от най-доброто междинно време: {{timeLost}}"
+    },
+    "xAxisLabel": "Контролни точки",
+    "yAxisLabel": "Място"
+  },
+  "sidebar": {
+    "backendVersion": "Сървърна част",
+    "cookiePolicy": "Политика за бисквитките",
+    "frontendVersion": "Потребителска част",
+    "frontendVersionWithVersion": "Потребителска част v{{version}}",
+    "legalNotice": "Правна информация",
+    "loading": "Зареждане...",
+    "privacyPolicy": "Политика за поверителност"
+  },
+  "tooltip": {
+    "efficiency": "Ефективност",
+    "errorFreeTime": "Време без грешки",
+    "errorTime": "Загубено време (грешка)",
+    "totalDisplayedTime": "Общо показано време"
+  },
+  "view": {
+    "accumulated": "С натрупване",
+    "barChart": "Загубено време",
+    "lineChart": "Изоставане от лидера",
+    "positionChart": "Място",
+    "radios": "Радио контроли",
+    "splits": "Сплитове",
+    "timeLoss": "Таблица със загубено време"
+  }
 }
