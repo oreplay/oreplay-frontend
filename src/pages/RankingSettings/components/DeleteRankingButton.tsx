@@ -11,10 +11,7 @@ interface DeleteRankingButtonProps {
   eventId: string
 }
 
-export default function DeleteRankingButton({
-  rankingId,
-  eventId,
-}: DeleteRankingButtonProps) {
+export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankingButtonProps) {
   const { t } = useTranslation()
   const notifyError = useNotifyError()
   const navigate = useNavigate()

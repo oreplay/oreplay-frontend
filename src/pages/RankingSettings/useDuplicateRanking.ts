@@ -1,8 +1,5 @@
 import { Ranking } from "../../domain/types/v1api"
-import {
-  RankingSettingsFormState,
-  toRankingBody,
-} from "../../domain/rankingSettingsForm.ts"
+import { RankingSettingsFormState, toRankingBody } from "../../domain/rankingSettingsForm.ts"
 import {
   EVENT_NOT_PUBLIC,
   RANKING_STAGE_DESCRIPTION,
@@ -36,10 +33,7 @@ export function useDuplicateRanking() {
     patchEvent.isLoading ||
     createStage.isLoading
 
-  const duplicate = async (
-    source: Ranking,
-    state: RankingSettingsFormState,
-  ): Promise<string> => {
+  const duplicate = async (source: Ranking, state: RankingSettingsFormState): Promise<string> => {
     const ranking = await createRanking.mutateAsync({
       data: toRankingBody(source, state),
     })
@@ -65,11 +59,7 @@ export function useDuplicateRanking() {
 
     await patchRanking.mutateAsync({
       rankingID: rankingId,
-      data: toRankingBody(
-        { ...source, event_id: eventId, stage_id: stageId },
-        state,
-        rankingId,
-      ),
+      data: toRankingBody({ ...source, event_id: eventId, stage_id: stageId }, state, rankingId),
     })
 
     return rankingId

@@ -26,15 +26,9 @@ export default function SelectField({
   className,
 }: SelectFieldProps) {
   return (
-    <label
-      className={["rk-select-field flex flex-col gap-1", className]
-        .filter(Boolean)
-        .join(" ")}
-    >
+    <label className={["rk-select-field flex flex-col gap-1", className].filter(Boolean).join(" ")}>
       <FieldLabel label={label} />
-      {description && (
-        <span className="text-xs text-neutral-500">{description}</span>
-      )}
+      {description && <span className="text-xs text-neutral-500">{description}</span>}
       <select
         required={required}
         value={value}

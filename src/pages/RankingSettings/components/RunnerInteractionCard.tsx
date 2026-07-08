@@ -22,9 +22,7 @@ interface RunnerInteractionCardProps {
   rankingId: string
 }
 
-export default function RunnerInteractionCard({
-  rankingId,
-}: RunnerInteractionCardProps) {
+export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCardProps) {
   const { t } = useTranslation()
   const notifyError = useNotifyError()
   const [eventId, setEventId] = useState("")
@@ -45,8 +43,7 @@ export default function RunnerInteractionCard({
     const handler = (event: MessageEvent) => {
       const data = event.data as UserInteraction | null
       if (data?.type !== "RUNNER_EXPANDED" || !data.path) return
-      const [pathEventId, pathStageId] =
-        data.path.split("/competitions/")[1]?.split("/") ?? []
+      const [pathEventId, pathStageId] = data.path.split("/competitions/")[1]?.split("/") ?? []
       if (pathEventId) setEventId(pathEventId)
       if (pathStageId) setStageId(pathStageId)
       if (data.payload?.full_name) {
@@ -121,9 +118,7 @@ export default function RunnerInteractionCard({
           </button>
         </div>
       ) : (
-        <p className="m-0 text-sm text-neutral-500">
-          {t("Ranking.RunnerInteraction.empty")}
-        </p>
+        <p className="m-0 text-sm text-neutral-500">{t("Ranking.RunnerInteraction.empty")}</p>
       )}
     </div>
   )

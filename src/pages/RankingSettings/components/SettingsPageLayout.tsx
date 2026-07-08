@@ -38,11 +38,7 @@ export default function SettingsPageLayout({
   return (
     <div className="rk-settings-page-layout min-h-screen grow bg-surface py-12">
       <div className="mx-auto max-w-3xl px-4">
-        <Breadcrumbs
-          items={breadcrumbs}
-          label={t("Ranking.Breadcrumbs.label")}
-          className="mb-6"
-        />
+        <Breadcrumbs items={breadcrumbs} label={t("Ranking.Breadcrumbs.label")} className="mb-6" />
         <h1 className="mb-4 text-2xl font-semibold">{heading}</h1>
 
         <div className="flex flex-col gap-6">
@@ -50,9 +46,7 @@ export default function SettingsPageLayout({
             {isLoading ? (
               <Spinner label={t("Ranking.gui.loading")} />
             ) : isMissing ? (
-              <p className="text-neutral-500">
-                {t("Ranking.Settings.notFound")}
-              </p>
+              <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
             ) : (
               children
             )}

@@ -21,10 +21,7 @@ export default function RankingDuplicate() {
 
   const ranking = data?.data
 
-  const onDuplicate = async (
-    source: Ranking,
-    state: RankingSettingsFormState,
-  ) => {
+  const onDuplicate = async (source: Ranking, state: RankingSettingsFormState) => {
     try {
       const newId = await duplicate(source, state)
       void navigate(`/rankings/${newId}/settings`)

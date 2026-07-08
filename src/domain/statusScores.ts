@@ -11,12 +11,9 @@ export const STATUS_SCORE_FIELDS = [
   { index: 5, labelKey: "Ranking.Settings.statusScoresValues.ot" },
 ] as const
 
-const emptyStatusScores = (): (number | null)[] =>
-  STATUS_SCORE_FIELDS.map(() => null)
+const emptyStatusScores = (): (number | null)[] => STATUS_SCORE_FIELDS.map(() => null)
 
-export function parseStatusScores(
-  raw: string | null | undefined,
-): (number | null)[] {
+export function parseStatusScores(raw: string | null | undefined): (number | null)[] {
   if (!raw) return emptyStatusScores()
   try {
     const parsed: unknown = JSON.parse(raw)

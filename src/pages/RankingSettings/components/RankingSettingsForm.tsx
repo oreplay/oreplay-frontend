@@ -8,10 +8,7 @@ import { OVERALL_SETTINGS_FIELDS } from "../../../domain/overallSettings.ts"
 import { ROUND_PRECISION_OPTIONS } from "../../../domain/roundPrecision.ts"
 import { SCORING_ALGORITHM_OPTIONS } from "../../../domain/scoringAlgorithm.ts"
 import { STATUS_SCORE_FIELDS } from "../../../domain/statusScores.ts"
-import {
-  NC_SCORE_VALUES,
-  STATUS_SCORE_VALUES,
-} from "../../../domain/scoreOptions.ts"
+import { NC_SCORE_VALUES, STATUS_SCORE_VALUES } from "../../../domain/scoreOptions.ts"
 import { competitionResultsPath } from "../../../domain/competitionLink.ts"
 import FormSection from "../../../components/form/FormSection.tsx"
 import NumberField from "../../../components/form/NumberField.tsx"
@@ -66,10 +63,7 @@ export default function RankingSettingsForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="rk-ranking-settings-form flex flex-col gap-10"
-    >
+    <form onSubmit={handleSubmit} className="rk-ranking-settings-form flex flex-col gap-10">
       <div className="flex flex-col gap-1">
         <TextField
           label={t("Ranking.Settings.titleLabel")}

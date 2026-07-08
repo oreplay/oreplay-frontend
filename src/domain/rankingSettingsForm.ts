@@ -1,12 +1,5 @@
-import {
-  PatchRankingSettingsBody,
-  PostListRankingSettingsBody,
-  Ranking,
-} from "./types/v1api"
-import {
-  parseOverallSettings,
-  serializeOverallSettings,
-} from "./overallSettings.ts"
+import { PatchRankingSettingsBody, PostListRankingSettingsBody, Ranking } from "./types/v1api"
+import { parseOverallSettings, serializeOverallSettings } from "./overallSettings.ts"
 import { parseStatusScores, serializeStatusScores } from "./statusScores.ts"
 
 function toNullableNumber(value: number | null | undefined): number | null {
@@ -24,9 +17,7 @@ export interface RankingSettingsFormState {
   overallSettings: (number | null)[]
 }
 
-export function initRankingSettingsForm(
-  ranking: Ranking,
-): RankingSettingsFormState {
+export function initRankingSettingsForm(ranking: Ranking): RankingSettingsFormState {
   return {
     title: ranking.title ?? "",
     scoringAlgorithm: ranking.scoring_algorithm,
@@ -69,12 +60,8 @@ export function toRankingBody(
   }
 }
 
-export function isRankingSettingsFormComplete(
-  state: RankingSettingsFormState,
-): boolean {
+export function isRankingSettingsFormComplete(state: RankingSettingsFormState): boolean {
   return (
-    state.title.trim().length > 0 &&
-    state.scoringAlgorithm.length > 0 &&
-    state.maxPoints !== null
+    state.title.trim().length > 0 && state.scoringAlgorithm.length > 0 && state.maxPoints !== null
   )
 }

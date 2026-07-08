@@ -23,11 +23,7 @@ interface ProcessEventDialogProps {
   rankingId: string
 }
 
-export default function ProcessEventDialog({
-  open,
-  onClose,
-  rankingId,
-}: ProcessEventDialogProps) {
+export default function ProcessEventDialog({ open, onClose, rankingId }: ProcessEventDialogProps) {
   const { t } = useTranslation()
   const notifyError = useNotifyError()
   const [eventId, setEventId] = useState<string | null>(null)
@@ -41,11 +37,9 @@ export default function ProcessEventDialog({
     () => getListEvents({ limit: "50", show_hidden: "false", description }),
     { enabled: open },
   )
-  const stages = useQuery(
-    ["stages", eventId],
-    () => getListStages(eventId ?? ""),
-    { enabled: open && eventId !== null },
-  )
+  const stages = useQuery(["stages", eventId], () => getListStages(eventId ?? ""), {
+    enabled: open && eventId !== null,
+  })
 
   const eventOptions = (events.data?.data ?? []).map((e) => ({
     value: e.id,

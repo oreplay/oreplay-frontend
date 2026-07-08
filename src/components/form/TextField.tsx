@@ -19,15 +19,9 @@ export default function TextField({
   className,
 }: TextFieldProps) {
   return (
-    <label
-      className={["rk-text-field flex flex-col gap-1", className]
-        .filter(Boolean)
-        .join(" ")}
-    >
+    <label className={["rk-text-field flex flex-col gap-1", className].filter(Boolean).join(" ")}>
       <FieldLabel label={label} required={required} />
-      {description && (
-        <span className="text-xs text-neutral-500">{description}</span>
-      )}
+      {description && <span className="text-xs text-neutral-500">{description}</span>}
       <input
         type="text"
         required={required}

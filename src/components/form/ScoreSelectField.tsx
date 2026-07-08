@@ -25,20 +25,14 @@ export default function ScoreSelectField({
 }: ScoreSelectFieldProps) {
   return (
     <label
-      className={["rk-score-select-field flex flex-col gap-1", className]
-        .filter(Boolean)
-        .join(" ")}
+      className={["rk-score-select-field flex flex-col gap-1", className].filter(Boolean).join(" ")}
     >
       <FieldLabel label={label} />
-      {description && (
-        <span className="text-xs text-neutral-500">{description}</span>
-      )}
+      {description && <span className="text-xs text-neutral-500">{description}</span>}
       <select
         value={toOption(value)}
         onChange={(event) =>
-          onChange(
-            event.target.value === "" ? null : Number(event.target.value),
-          )
+          onChange(event.target.value === "" ? null : Number(event.target.value))
         }
         className={FIELD_CLASS}
       >

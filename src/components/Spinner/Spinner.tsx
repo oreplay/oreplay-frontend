@@ -9,9 +9,7 @@ export default function Spinner({ label, className }: SpinnerProps) {
       role="status"
       aria-live="polite"
       aria-busy="true"
-      className={["rk-spinner flex justify-center py-12", className]
-        .filter(Boolean)
-        .join(" ")}
+      className={["rk-spinner flex justify-center py-12", className].filter(Boolean).join(" ")}
     >
       <span
         aria-hidden="true"

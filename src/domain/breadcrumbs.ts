@@ -14,13 +14,8 @@ interface TrailLabels {
 }
 
 /** `Dashboard > Ranking` — the list view; `Ranking` is the current page. */
-export function buildRankingListBreadcrumbs(
-  labels: TrailLabels,
-): BreadcrumbItem[] {
-  return [
-    { label: labels.dashboard, to: DASHBOARD_PATH },
-    { label: labels.ranking },
-  ]
+export function buildRankingListBreadcrumbs(labels: TrailLabels): BreadcrumbItem[] {
+  return [{ label: labels.dashboard, to: DASHBOARD_PATH }, { label: labels.ranking }]
 }
 
 /** `Dashboard > Ranking > <selected ranking>` — the settings view. */
