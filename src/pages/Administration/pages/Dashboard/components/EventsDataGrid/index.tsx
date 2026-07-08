@@ -59,7 +59,7 @@ export default function EventsDataGrid() {
         startDate: event.initial_date,
         endDate: event.final_date,
         name: event.description,
-        isHidden: event.is_hidden,
+        isHidden: event.is_hidden ?? false,
       }),
     )
   }, [thisUserEventsQuery.isSuccess, thisUserEventsQuery.data])

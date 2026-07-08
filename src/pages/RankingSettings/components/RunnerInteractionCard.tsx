@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next"
 import { useQuery } from "react-query"
 import { usePostListRankingRunnerManagement } from "../../../infrastructure/repositories/ranking-runner-management/ranking-runner-management.ts"
 import { getListStageOrders } from "../../../infrastructure/repositories/stage-orders/stage-orders.ts"
-import { notifyError } from "../../../infrastructure/notifications/notifications.ts"
-import { httpErrorMessageKey } from "../../../infrastructure/notifications/httpError.ts"
+import { useNotifyError } from "../../../infrastructure/notifications/useNotifyError.ts"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
 
 interface Runner {
@@ -27,6 +26,7 @@ export default function RunnerInteractionCard({
   rankingId,
 }: RunnerInteractionCardProps) {
   const { t } = useTranslation()
+  const notifyError = useNotifyError()
   const [eventId, setEventId] = useState("")
   const [stageId, setStageId] = useState("")
   const [runner, setRunner] = useState<Runner | null>(null)
@@ -77,7 +77,7 @@ export default function RunnerInteractionCard({
       })
       setRunner(null)
     } catch (error) {
-      notifyError(t(httpErrorMessageKey(error)))
+      notifyError(error)
     }
   }
 

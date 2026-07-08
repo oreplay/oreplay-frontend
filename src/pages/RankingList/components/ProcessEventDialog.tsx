@@ -6,8 +6,7 @@ import { getListStages } from "../../../infrastructure/repositories/stages/stage
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
 import { calculateRankingBatches } from "../../../infrastructure/ranking/calculateRankingBatches.ts"
-import { notifyError } from "../../../infrastructure/notifications/notifications.ts"
-import { httpErrorMessageKey } from "../../../infrastructure/notifications/httpError.ts"
+import { useNotifyError } from "../../../infrastructure/notifications/useNotifyError.ts"
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = useState(value)
@@ -30,6 +29,7 @@ export default function ProcessEventDialog({
   rankingId,
 }: ProcessEventDialogProps) {
   const { t } = useTranslation()
+  const notifyError = useNotifyError()
   const [eventId, setEventId] = useState<string | null>(null)
   const [stageId, setStageId] = useState<string | null>(null)
   const [eventSearch, setEventSearch] = useState("")
@@ -72,7 +72,7 @@ export default function ProcessEventDialog({
       close()
     } catch (error) {
       setProcessing(false)
-      notifyError(t(httpErrorMessageKey(error)))
+      notifyError(error)
     }
   }
 

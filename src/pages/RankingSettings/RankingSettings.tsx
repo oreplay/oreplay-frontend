@@ -8,8 +8,7 @@ import {
   initRankingSettingsForm,
   toRankingBody,
 } from "../../domain/rankingSettingsForm.ts"
-import { notifyError } from "../../infrastructure/notifications/notifications.ts"
-import { httpErrorMessageKey } from "../../infrastructure/notifications/httpError.ts"
+import { useNotifyError } from "../../infrastructure/notifications/useNotifyError.ts"
 import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 import DeleteRankingButton from "./components/DeleteRankingButton.tsx"
@@ -17,6 +16,7 @@ import RunnerInteractionCard from "./components/RunnerInteractionCard.tsx"
 
 export default function RankingSettings() {
   const { t } = useTranslation()
+  const notifyError = useNotifyError()
   const { rankingId } = useParams()
   const { data, isLoading } = useGetRankingSettings(rankingId ?? "")
   const { mutate, isLoading: isSaving } = usePatchRankingSettings()
@@ -47,7 +47,7 @@ export default function RankingSettings() {
                 data: toRankingBody(ranking, state, ranking.id),
               },
               {
-                onError: (error) => notifyError(t(httpErrorMessageKey(error))),
+                onError: (error) => notifyError(error),
               },
             )
           }

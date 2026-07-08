@@ -4,4 +4,3 @@ build
 coverage
 src/infrastructure/repositories
 package-lock.json
-src/infrastructure/repositories
