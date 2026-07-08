@@ -21,19 +21,11 @@ export default function RankingListContent({
   }
 
   if (isError) {
-    return (
-      <p className="rk-ranking-list-content text-red-600">
-        {t("Ranking.List.loadError")}
-      </p>
-    )
+    return <p className="rk-ranking-list-content text-red-600">{t("Ranking.List.loadError")}</p>
   }
 
   if (rankings.length === 0) {
-    return (
-      <p className="rk-ranking-list-content text-neutral-500">
-        {t("Ranking.List.empty")}
-      </p>
-    )
+    return <p className="rk-ranking-list-content text-neutral-500">{t("Ranking.List.empty")}</p>
   }
 
   return (

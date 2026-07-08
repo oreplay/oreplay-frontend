@@ -4,21 +4,18 @@ import { MemoryRouter } from "react-router-dom"
 import { describe, expect, it, vi } from "vitest"
 import RankingList from "./RankingList.tsx"
 
-vi.mock(
-  "../../infrastructure/repositories/ranking-settings/ranking-settings.ts",
-  () => ({
-    useGetListRankingSettings: () => ({
-      data: {
-        data: [
-          { id: "regional-2025", title: "Regional 2025", max_points: 99 },
-          { id: "national-2026", title: "National 2026", max_points: 1000 },
-        ],
-      },
-      isLoading: false,
-      isError: false,
-    }),
+vi.mock("../../infrastructure/repositories/ranking-settings/ranking-settings.ts", () => ({
+  useGetListRankingSettings: () => ({
+    data: {
+      data: [
+        { id: "regional-2025", title: "Regional 2025", max_points: 99 },
+        { id: "national-2026", title: "National 2026", max_points: 1000 },
+      ],
+    },
+    isLoading: false,
+    isError: false,
   }),
-)
+}))
 
 const renderWithProviders = () => {
   const queryClient = new QueryClient({

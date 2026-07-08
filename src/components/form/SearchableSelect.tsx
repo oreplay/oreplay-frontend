@@ -76,9 +76,7 @@ export default function SearchableSelect({
 
   return (
     <div
-      className={["rk-searchable-select flex flex-col gap-1", className]
-        .filter(Boolean)
-        .join(" ")}
+      className={["rk-searchable-select flex flex-col gap-1", className].filter(Boolean).join(" ")}
     >
       <FieldLabel label={label} />
       <div ref={containerRef} className="relative">
@@ -103,9 +101,7 @@ export default function SearchableSelect({
             ].join(" ")}
           >
             {filtered.length === 0 ? (
-              <li className="px-3 py-2 text-sm text-neutral-500">
-                {noResultsLabel}
-              </li>
+              <li className="px-3 py-2 text-sm text-neutral-500">{noResultsLabel}</li>
             ) : (
               filtered.map((option) => (
                 <li key={option.value}>

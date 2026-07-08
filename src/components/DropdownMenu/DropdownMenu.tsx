@@ -43,9 +43,7 @@ export default function DropdownMenu({
     <div
       ref={containerRef}
       onClick={(event) => event.stopPropagation()}
-      className={["rk-dropdown-menu relative", className]
-        .filter(Boolean)
-        .join(" ")}
+      className={["rk-dropdown-menu relative", className].filter(Boolean).join(" ")}
     >
       <button
         type="button"

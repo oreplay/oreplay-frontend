@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest"
-import {
-  buildRankingListBreadcrumbs,
-  buildRankingSettingsBreadcrumbs,
-} from "./breadcrumbs.ts"
+import { buildRankingListBreadcrumbs, buildRankingSettingsBreadcrumbs } from "./breadcrumbs.ts"
 
 const labels = { dashboard: "Dashboard", ranking: "Ranking" }
 

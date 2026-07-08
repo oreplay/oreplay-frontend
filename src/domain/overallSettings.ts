@@ -19,9 +19,7 @@ export const OVERALL_SETTINGS_FIELDS = [
   },
 ] as const
 
-export function parseOverallSettings(
-  raw: string | null | undefined,
-): (number | null)[] {
+export function parseOverallSettings(raw: string | null | undefined): (number | null)[] {
   let parsed: Record<string, unknown> = {}
   if (raw) {
     try {

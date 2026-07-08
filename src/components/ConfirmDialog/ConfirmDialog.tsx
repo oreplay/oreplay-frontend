@@ -36,9 +36,7 @@ export default function ConfirmDialog({
 
   if (!open) return null
 
-  const confirmClass = destructive
-    ? "bg-red-600 text-white"
-    : "bg-primary text-neutral-900"
+  const confirmClass = destructive ? "bg-red-600 text-white" : "bg-primary text-neutral-900"
 
   return (
     <div

@@ -7,5 +7,4 @@ export const SCORING_ALGORITHM_OPTIONS = [
   },
 ] as const
 
-export type ScoringAlgorithm =
-  (typeof SCORING_ALGORITHM_OPTIONS)[number]["value"]
+export type ScoringAlgorithm = (typeof SCORING_ALGORITHM_OPTIONS)[number]["value"]

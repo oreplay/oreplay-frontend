@@ -4,10 +4,7 @@
  * Intl API with the active i18n locale. Falls back to the raw input when it
  * can't be parsed, and to "" for empty input.
  */
-export function formatDate(
-  iso: string | null | undefined,
-  locale: string,
-): string {
+export function formatDate(iso: string | null | undefined, locale: string): string {
   if (!iso) return ""
   const date = new Date(iso)
   if (Number.isNaN(date.getTime())) return iso

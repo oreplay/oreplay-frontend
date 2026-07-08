@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { Ranking } from "../../../domain/types/v1api"
 import { competitionResultsPath } from "../../../domain/competitionLink.ts"
 import { formatDate } from "../../../domain/formatDate.ts"
-import DropdownMenu, {
-  DropdownMenuItem,
-} from "../../../components/DropdownMenu/DropdownMenu.tsx"
+import DropdownMenu, { DropdownMenuItem } from "../../../components/DropdownMenu/DropdownMenu.tsx"
 import SettingsIcon from "../../../components/icons/SettingsIcon.tsx"
 import ProcessEventDialog from "./ProcessEventDialog.tsx"
 
