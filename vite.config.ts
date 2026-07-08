@@ -1,5 +1,6 @@
+/// <reference types="vitest/config" />
 import { sentryVitePlugin } from "@sentry/vite-plugin"
-import { defineConfig } from "vite"
+import { defineConfig } from "vitest/config"
 import react from "@vitejs/plugin-react"
 
 // https://vitejs.dev/config/
@@ -35,6 +36,19 @@ export default defineConfig({
           return
         }
         warn(warning)
+      },
+    },
+  },
+
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+    // @toolpad/core ships ESM that does a directory import of @mui/material/styles,
+    // which Node's resolver rejects; inline it so Vite transforms/resolves it.
+    server: {
+      deps: {
+        inline: ["@toolpad/core"],
       },
     },
   },

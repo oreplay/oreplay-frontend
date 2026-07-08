@@ -6,14 +6,14 @@ import {
   RankingSettingsFormState,
   initRankingSettingsForm,
 } from "../../domain/rankingSettingsForm.ts"
-import { notifyError } from "../../infrastructure/notifications/notifications.ts"
-import { httpErrorMessageKey } from "../../infrastructure/notifications/httpError.ts"
+import { useNotifyError } from "../../infrastructure/notifications/useNotifyError.ts"
 import { useDuplicateRanking } from "./useDuplicateRanking.ts"
 import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
 
 export default function RankingDuplicate() {
   const { t } = useTranslation()
+  const notifyError = useNotifyError()
   const navigate = useNavigate()
   const { rankingId } = useParams()
   const { data, isLoading } = useGetRankingSettings(rankingId ?? "")
@@ -29,7 +29,7 @@ export default function RankingDuplicate() {
       const newId = await duplicate(source, state)
       void navigate(`/rankings/${newId}/settings`)
     } catch (error) {
-      notifyError(t(httpErrorMessageKey(error)))
+      notifyError(error)
     }
   }
 

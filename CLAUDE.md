@@ -1,81 +1,79 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file guides Claude Code (claude.ai/code) when working in this repository. It focuses on the
+**ranking area** (`/rankings/*`) — a Tailwind-styled feature that lives natively inside the host
+results app (`oreplay-frontend`).
 
-## Project
+## The ranking area
 
-`@oreplay/ranking` — the O-Replay **ranking module**. It is developed in its own repo but ships as
-an npm package that the host results app (`oreplay-frontend`) mounts at `/ranking/*`. At runtime it
-is **not** a separate app: the host imports it and renders it inside its own `<BrowserRouter>`, so
-there is a single React / react-query / router / session runtime (one SPA). The point of the split
-is dev-time independence — own review, CI, tests and styling — not independent deploy.
+The ranking screens (list, settings, duplicate) are ordinary host pages under
+`src/pages/RankingList/` and `src/pages/RankingSettings/`, mounted by the host router:
 
-The full architecture rationale (why npm package over module federation / iframe / multi-SPA, the
-auth/session model, the shared `@oreplay/api-client` and `@oreplay/tokens` plan) lives in
-`claude-ranking-module-plan.md` in this repo. Read it before making structural changes.
+```tsx
+// src/App.tsx, inside <PrivateRoute>
+<Route path="/rankings/*" element={<RankingRoutes />} />
+```
+
+`RankingRoutes` (`src/RankingRoutes.tsx`) is a small routes subtree wrapped in a `.rk-root` element
+that scopes the Tailwind styling. It was previously shipped as a separate `@oreplay/ranking` npm
+package; it is now first-class host source — one build, one React / react-query / router / i18n /
+axios runtime, no package boundary, no auth injection, no cross-boundary bridges.
 
 ## Commands
 
 > Run `nvm use` first (`.nvmrc` → Node 22). The default shell Node may be too old and make
 > `tsc`/`eslint` fail with confusing `Unexpected token` errors.
 
-- `npm run dev` — standalone Vite dev server (the dev shell in `src/dev/`) → **http://localhost:5173**
-- `npm run dev:css` — watch + recompile Tailwind to `src/styles/compiled.css` (needed only for the
-  host-integrated mode below; standalone `dev` compiles Tailwind live and doesn't need it)
-- `npm run build:css` — one-shot minified compile of `src/styles/compiled.css` (runs inside `build`)
-- `npm run build` — `build:css`, then `tsc` type-check, then Vite **library** build to `dist/`
-- `npm run orval-build` — regenerate the API client/types from the OpenAPI spec (see API client below)
-- `npm test` — run the Vitest suite once; `npm run test:watch` to watch
+- `npm run dev` — Vite dev server
+- `npm run build` — `tsc` type-check, then Vite build
+- `npm run orval-build` — regenerate the API client/types from the OpenAPI spec (see API client)
+- `npm test` — Vitest suite once
 - `npm run lint` — ESLint, **fails on any warning** (`--max-warnings 0`)
 - `npm run format` — Prettier write; `npm run format:check` to verify
-- `npm run before-commit` — format + lint + build + test (run before committing)
 
-CI (`.github/workflows/ci.yml`) runs format:check + lint + test + build on every push and PR.
+## Styling — Tailwind (scoped), coexisting with MUI
 
-## Architecture
+The host is MUI; the ranking area is **Tailwind only**. They coexist because the styling is scoped:
 
-### What this package is
+- **Preflight is off** globally (`tailwind.config.js` → `corePlugins.preflight: false`), so Tailwind
+  adds no global reset that would restyle the host's MUI tree.
+- The base resets that Tailwind's border/button/box-sizing utilities rely on are re-added **scoped to
+  `.rk-root`** via `:where(.rk-root)` in `src/styles/tailwind.css`. `:where()` contributes zero
+  specificity, so single-class utilities (`.bg-primary`) still win over the resets. Every ranking
+  screen renders inside the `.rk-root` wrapper (`RankingRoutes`), so the resets never leak out.
+- `RankingRoutes` imports `src/styles/tokens.css` (palette CSS vars) and `src/styles/tailwind.css`
+  (the `@tailwind` directives). Vite's PostCSS (`postcss.config.js` → `tailwindcss` + `autoprefixer`)
+  compiles them at build time — there is **no** precompiled `compiled.css` and **no** `build:css`
+  step; the compiled utilities land in a code-split CSS chunk loaded with the lazy `RankingRoutes`.
+- In ranking code: **do not import `@mui/*` or `@emotion/*`.** Build UI from semantic HTML + Tailwind
+  utilities written plain (`bg-primary`, `flex`, `text-sm` — **no `tw-` prefix**), inline-SVG icons
+  under `src/components/icons/`, and the shared `src/components/Spinner/`.
+- The palette lives in `src/styles/tokens.css` as **channel-format** CSS vars
+  (`--color-primary: 255 113 10`) consumed by `tailwind.config.js`, so opacity utilities
+  (`bg-primary/50`) work. `primary`, `secondary`, `surface` mirror the host's MUI palette.
+- Tailwind's `content` glob is broad (`./src/**/*.{ts,tsx}`); with preflight off this is safe — it
+  only emits utilities that are actually used, and the host's MUI code uses `sx`/emotion, not bare
+  utility class names.
 
-The package entry (`src/index.ts`) exports a single component, **`RankingRoutes`** — a
-`react-router` routes subtree. The host mounts it once:
+## API client — orval-generated (shared with the host)
 
-```tsx
-<Route path="/ranking/*" element={<RankingRoutes />} />
-```
-
-inside its own router, behind its own `PrivateRoute`. `RankingRoutes` owns everything under
-`/ranking/*` (the list at the index, `:rankingId/settings`, etc.).
-
-### Shared singletons (peer dependencies)
-
-`react`, `react-dom`, `react-router-dom`, `react-query`, `react-i18next`, `i18next` and `axios` are
-**peerDependencies** and are marked `external` in the Vite library build (`vite.config.ts`). The
-host provides exactly one copy of each at runtime — that single-copy guarantee is what makes the
-shared router/session/query-cache work. **Never** add `@tanstack/react-query` v5; the host is on the
-v3 `react-query` package, and a second query client would break the shared cache. **Do not add MUI
-or Emotion** — this module is styled with Tailwind only (see Styling).
-
-### API client — orval-generated, per-repo (same as the host)
-
-There is **no shared api-client package**. Like the host, this repo runs **orval** against the live
-OpenAPI spec and commits its own copy of the generated client + types (`npm run orval-build`,
-config in `orval.config.ts`). Generation is **scoped to the ranking endpoints** via
-`input.filters.tags` so only a handful of files are produced (mostly types). Components import the
-generated hooks/types with relative paths, exactly like the host:
+One orval config (`orval.config.ts`) runs against the OpenAPI spec and generates a **single** client
+into `src/infrastructure/repositories/` plus types into `src/domain/types/v1api`. Ranking endpoints
+are included via `input.filters.tags` (`/Ranking/`, `/Events/`, `/Stages/`, `/StageOrders/`). Ranking
+pages import the generated hooks/types with relative paths, like any host page:
 
 ```ts
 import { useGetListRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import { Ranking } from "../../domain/types/v1api"
 ```
 
-- Generated requests go through `src/infrastructure/orval/orval-axios-instance.ts` → the axios
-  **singleton** in `src/infrastructure/orval/AxiosInstance.ts` (copied from the host). Whoever hosts
-  the module must `initAxiosClientInstance(baseURL)` once (the dev shell does this; in the host, the
-  host's bootstrap does). Auth: once the backend moves to the same-origin session **cookie** model,
-  `withCredentials` carries it automatically — no shared bearer header needed.
-- **Never edit generated files** — anything under `src/infrastructure/repositories/` or
-  `src/domain/types/v1api`. Change the backend OpenAPI spec and re-run `npm run orval-build`. These
-  paths are ignored by ESLint/Prettier (`repositories`) and git (`*.d.ts`).
+- Requests go through `src/infrastructure/orval/orval-axios-instance.ts` → the shared axios
+  **singleton** in `src/infrastructure/orval/AxiosInstance.ts`, initialised once in `src/main.tsx`
+  with the API base URL; the bearer token is attached automatically. Ranking authenticates exactly
+  like every other host page — nothing ranking-specific to configure.
+- **Never edit generated files** under `src/infrastructure/repositories/` or `src/domain/types/v1api`
+  — change the backend OpenAPI spec and re-run `npm run orval-build`. These paths are ignored by
+  ESLint/Prettier.
 - **Surface type/OpenAPI inconsistencies, don't work around them** — if a generated type looks wrong
   or forces an awkward cast/extra request, flag it so it's fixed in the OpenAPI spec and regenerated,
   rather than patched over in app code.
@@ -83,84 +81,30 @@ import { Ranking } from "../../domain/types/v1api"
   points its input at `http://localhost/api/v1/openapi/json`. Switch it to the deployed spec once
   they ship to production.
 
-### Two development modes
+## i18n
 
-- **Standalone (the daily loop).** `npm run dev` serves the dev shell in `src/dev/`, which provides
-  what the host would — a single QueryClient, the Tailwind styles, i18n, and an initialised axios instance
-  pointed at a **real backend** (`VITE_API_DOMAIN`, default `http://localhost/`). Mounts
-  `RankingRoutes` at `/ranking/*`. Authenticated endpoints need a logged-in session, so the list may
-  be empty until auth/cookies are wired.
-- **Integrated.** The host consumes the built package (`file:`/`npm link` locally, or the published
-  version) and provides its own configured axios singleton + session.
+Ranking strings live in the host's `public/locales/<lng>/translation.json` under `Ranking.*` and are
+served by the host's i18next http-backend like every other key — there is no separate registration
+step. Strings go through `react-i18next` `t()` (ESLint `i18next/no-literal-string` is enforced).
 
-The dev shell (`src/dev/`) and `src/test/` are **not** part of the published package (excluded from
-the dts build; `dist` only contains the library entry). Tests mock the generated hook with
-`vi.mock` so they stay hermetic.
+- **Reuse common labels from `Ranking.gui.*`** rather than redefining `save`/`cancel`/… per feature;
+  add a new common label to `gui` as a component first needs it. Only use a feature-scoped key when
+  the wording is genuinely specific.
+- Only `en` currently has ranking keys; other locales fall back to English until translated.
 
-### Folder layout
+## Notifications
 
-- `src/index.ts` — package entry (exports `RankingRoutes`).
-- `src/RankingRoutes.tsx` — the routes subtree.
-- `src/pages/<Feature>/` — one folder per route screen, each with a `components/` subfolder.
-- `src/components/` — shared presentational components (e.g. `Spinner/`, `icons/`).
-- `src/domain/` — pure, unit-tested business/presentation logic (see Domain-first logic). Its
-  `types/v1api/` subfolder holds the orval-**generated** types (never hand-edited).
-- `src/infrastructure/repositories/` — orval-generated API client (also never hand-edited).
-- `src/infrastructure/orval/` — the axios singleton + mutator the generated client calls through.
-- `src/i18n/` — bundles `public/locales` JSON and registers it into the shared i18next instance
-  (`rankingResources.ts`, `registerRankingResources.ts`).
-- `src/dev/` — standalone dev shell + dev-only i18n (verbatim copy of the host's, not shipped).
-- `src/styles/` — `tokens.css` (shared palette) + `tailwind.css`; `compiled.css` is generated.
-- `src/test/` — Vitest setup.
+Ranking request failures are shown through the host's snackbar: call `useNotifyError()`
+(`src/infrastructure/notifications/useNotifyError.ts`) and pass the error — it maps the HTTP status to
+a translated `Ranking.gui.error.*` message via the pure, tested `httpErrorMessageKey` and shows it
+with `@toolpad/core`'s `useNotifications`. There is no `window`-event bridge.
 
-### Styling — Tailwind only (no MUI)
+## Tests
 
-**This module uses Tailwind exclusively. Do not import `@mui/*` or `@emotion/*` anywhere** (no
-`Box`/`Stack`/`Typography`/`Button`/`TextField`, no `@mui/icons-material`). Build UI from semantic
-HTML + Tailwind utility classes; for icons use small inline-SVG components (see
-`src/components/icons/`), and for shared widgets like the loading spinner reuse
-`src/components/Spinner/`.
-
-- **No `tw-` prefix.** Utilities are written plain (`bg-primary`, `flex`, `text-sm`) — the prefix was
-  removed once MUI was dropped, so there are no class collisions to guard against.
-- **Preflight is disabled** (`tailwind.config.js`): the module mounts inside the host SPA's DOM, and
-  Tailwind's global reset would restyle the host's own elements. Reset only what a component needs
-  (e.g. `list-none p-0 m-0` on a `<ul>`).
-- The shared palette lives in `src/styles/tokens.css` as **channel-format** CSS variables
-  (`--color-primary: 255 113 10`) consumed by `tailwind.config.js`, so opacity utilities
-  (`bg-primary/50`) work. These are **our own** semantic vars (`primary`, `secondary`, `surface`).
-  When `@oreplay/tokens` exists, generate `tokens.css` from it so host and module share values.
-- **Styles travel with the module.** The host has no Tailwind pipeline, so the entry
-  (`RankingRoutes.tsx`) imports `tokens.css` + `compiled.css` — the latter is the **precompiled**
-  Tailwind output produced by `build:css`/`dev:css` (raw `@tailwind` directives can't be shipped:
-  consumers without Tailwind would get literal directives, not CSS). `compiled.css` is a generated
-  artifact (gitignored); the standalone dev shell imports raw `tailwind.css` instead and compiles it
-  live. **When developing inside the host, run `npm run dev:css` so newly-added classes appear.**
-
-### i18n
-
-The module **owns its translations** and is self-contained — the host carries **no** `Ranking.*`
-keys. User-facing strings go through `react-i18next` `t()` (ESLint `i18next/no-literal-string` is
-enforced); keys live in `public/locales/<lng>/translation.json` under `Ranking.*` (default
-`translation` namespace, Weblate-managed — same file shape as the host).
-
-- **Reuse common UI strings from `Ranking.gui.*`** — generic, frequently-repeated labels (currently
-  `loading`, `save`) live **once** under the `gui` group; use `t("Ranking.gui.save")` rather than
-  redefining a `save` per feature. Add new common labels (`cancel`, `close`, `edit`, …) to `gui` **as
-  a component first needs them** — don't pre-add unused keys (nothing flags dead translations). Only
-  use a feature-scoped key (e.g. `List.editSettings`) when the wording is genuinely specific.
-
-- **How they reach the shared instance:** `RankingRoutes` calls `registerRankingResources(i18n)` on
-  mount, which `addResourceBundle`s the **bundled** `public/locales` JSON (imported via
-  `src/i18n/rankingResources.ts`) into whichever i18next instance the host — or the dev shell —
-  provides. So the keys resolve in production **without** the host defining them: change a ranking
-  string in this repo only, no host edit. Add a language by dropping a
-  `public/locales/<lng>/translation.json` and a line in `src/i18n/rankingResources.ts`.
-- **Dev / test:** `src/dev/i18n.ts` is a **verbatim copy** of the host's `src/i18n.ts` (http-backend,
-  `LanguageDetector`, same fallback map) so the module is exercised exactly as in the host. It imports
-  a trimmed `src/dev/supportedLanguages.tsx` (codes/names only — no `CountryFlag` JSX, which would
-  pull host UI into the shell). The dev shell wraps routes in `<Suspense>` to match the host, since
-  that shared config suspends while http-backend loads. Nothing under `src/dev/` ships.
+Vitest is configured in `vite.config.ts` (`test` block: `globals`, `environment: "jsdom"`,
+`setupFiles: "./src/test/setup.ts"`; `@toolpad/core` is inlined so Vite resolves its ESM directory
+import). Domain logic has pure unit tests next to the source; component smoke tests mock the generated
+hook with `vi.mock` to stay hermetic (`src/test/i18n.ts` loads the English locale synchronously).
 
 ## Conventions
 
@@ -232,8 +176,11 @@ Never leave the user waiting on a silent UI — every asynchronous action shows 
 - **DRY**: extract duplicated logic into reusable functions.
 - **i18n**: user-facing markup strings go through `t()`.
 - **Accessibility**: prefer semantic HTML and appropriate ARIA attributes.
-- **No noise comments**: comment sparingly — only genuinely non-obvious _why_ (a workaround, a hack,
-  counter-intuitive API behavior). Don't add a comment for every small change; rely on clear names.
+- **No noise comments**: comment sparingly — only genuinely non-obvious _why_ (a workaround, a
+  constraint, counter-intuitive API behavior). Don't add a comment for every small change; rely on
+  clear names.
 - **Tests**: add tests for new logic and features.
-- **Before considering a task done**: run `npm run before-commit`.
-- **CSS Class Naming**: The root element of every component must have a first CSS class matching the component name in kebab-case prefixed with `rk-` (e.g., `SkeletonLoaderGroup` → `rk-skeleton-loader-group`).
+- **Before considering a task done**: run `npm run format`, `npm run lint`, `npm test`, `npm run build`.
+- **CSS class naming (ranking area)**: the root element of every ranking component has a first CSS
+  class matching the component name in kebab-case prefixed with `rk-` (e.g. `SkeletonLoaderGroup` →
+  `rk-skeleton-loader-group`).

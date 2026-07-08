@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useDeleteRankingSettings } from "../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import { useDeleteEvents } from "../../../infrastructure/repositories/events/events.ts"
-import { notifyError } from "../../../infrastructure/notifications/notifications.ts"
-import { httpErrorMessageKey } from "../../../infrastructure/notifications/httpError.ts"
+import { useNotifyError } from "../../../infrastructure/notifications/useNotifyError.ts"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 
 interface DeleteRankingButtonProps {
@@ -17,6 +16,7 @@ export default function DeleteRankingButton({
   eventId,
 }: DeleteRankingButtonProps) {
   const { t } = useTranslation()
+  const notifyError = useNotifyError()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [alsoDeleteEvent, setAlsoDeleteEvent] = useState(false)
@@ -37,7 +37,7 @@ export default function DeleteRankingButton({
       void navigate("/rankings")
     } catch (error) {
       close()
-      notifyError(t(httpErrorMessageKey(error)))
+      notifyError(error)
     }
   }
 
