@@ -3,12 +3,12 @@
 // order). A `null` at a position means "no override — use the computed score".
 // (NC is handled separately by nc_true/nc_false, not here.)
 export const STATUS_SCORE_FIELDS = [
-  { index: 0, labelKey: "Ranking.Settings.statusScoresValues.ok" },
-  { index: 1, labelKey: "Ranking.Settings.statusScoresValues.dns" },
-  { index: 2, labelKey: "Ranking.Settings.statusScoresValues.dnf" },
-  { index: 3, labelKey: "Ranking.Settings.statusScoresValues.mp" },
-  { index: 4, labelKey: "Ranking.Settings.statusScoresValues.dqf" },
-  { index: 5, labelKey: "Ranking.Settings.statusScoresValues.ot" },
+  { index: 0, labelKey: "ResultsStage.statusCodes.ok" },
+  { index: 1, labelKey: "ResultsStage.statusCodes.dns" },
+  { index: 2, labelKey: "ResultsStage.statusCodes.dnf" },
+  { index: 3, labelKey: "ResultsStage.statusCodes.mp" },
+  { index: 4, labelKey: "ResultsStage.statusCodes.dsq" },
+  { index: 5, labelKey: "ResultsStage.statusCodes.ot" },
 ] as const
 
 const emptyStatusScores = (): (number | null)[] => STATUS_SCORE_FIELDS.map(() => null)

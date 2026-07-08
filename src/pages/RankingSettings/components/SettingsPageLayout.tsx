@@ -29,7 +29,7 @@ export default function SettingsPageLayout({
 
   const breadcrumbs = buildRankingSettingsBreadcrumbs(
     {
-      dashboard: t("Ranking.Breadcrumbs.dashboard"),
+      dashboard: t("Dashboard.Dashboard"),
       ranking: t("Ranking.Breadcrumbs.rankings"),
     },
     currentCrumb,
@@ -44,7 +44,7 @@ export default function SettingsPageLayout({
         <div className="flex flex-col gap-6">
           <div className="rounded-xl bg-white p-6 shadow-sm">
             {isLoading ? (
-              <Spinner label={t("Ranking.gui.loading")} />
+              <Spinner label={t("Loading")} />
             ) : isMissing ? (
               <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
             ) : (

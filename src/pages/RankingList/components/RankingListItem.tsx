@@ -24,7 +24,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
 
   const menuItems: DropdownMenuItem[] = [
     {
-      label: t("Ranking.gui.edit"),
+      label: t("Edit"),
       onSelect: () => void navigate(settingsPath),
     },
     {
