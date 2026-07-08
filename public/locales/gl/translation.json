@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Datas",
-  "Delete": "Borrar",
-  "Edit": "Editar",
   "EmailAddress": "Enderezo electrónico",
   "Event": "Evento",
   "EventAdmin": {
@@ -66,7 +64,6 @@
     "Renew": "Renovar",
     "Renew security keys": "Xerar unha nova chave de seguridade",
     "RenewEventTokenMsg": "Se renovas a chave de seguridade, a antiga será invalidada. Polo tanto, ninguén coa chave antiga poderá subir resultados neste evento.",
-    "Save": "Gravar",
     "Scopes": {
       "Club": "Club",
       "International": "Internacional",
@@ -158,13 +155,31 @@
     "ThresholdWithPercent": "Limiar ({{percent}}%)",
     "TimeLossAnalysis": "Análise de tempo perdido"
   },
+  "Gui": {
+    "clearSearch": "Limpar busca",
+    "close": "Pechar",
+    "confirm": "Confirmar",
+    "delete": "Borrar",
+    "deleteConfirm": "Seguro que queres continuar?",
+    "duplicate": "Duplicar",
+    "edit": "Editar",
+    "error": {
+      "badRequest": "Produciuse un erro coa túa solicitude.",
+      "forbidden": "Non tes permiso para facer isto.",
+      "serverError": "Produciuse un erro ao proporcionar a resposta."
+    },
+    "loading": "Cargando",
+    "noResults": "Sen resultados",
+    "ok": "Aceptar",
+    "save": "Gravar",
+    "search": "Buscar"
+  },
   "Language": {
     "English": "Inglés",
     "French": "Francés",
     "Language": "Idioma",
     "Spanish": "Español"
   },
-  "Loading": "Cargando",
   "Location": "Localización",
   "Menu": "Menú",
   "MyAccount": {
@@ -257,11 +272,6 @@
       "ok": "ok",
       "ot": "FC"
     }
-  },
-  "Save": "Gravar",
-  "Search": {
-    "ClearSearch": "Limpar busca",
-    "Search": "Buscar"
   },
   "Settings": "Configuración",
   "Sign in": {

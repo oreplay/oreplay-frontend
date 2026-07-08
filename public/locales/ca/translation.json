@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Dates",
-  "Delete": "Esborrar",
-  "Edit": "Editar",
   "EmailAddress": "Correu electrònic",
   "Event": "Event",
   "EventAdmin": {
@@ -68,7 +66,6 @@
     "Renew": "Renovar",
     "Renew security keys": "Generar una clau de seguretat nova",
     "RenewEventTokenMsg": "Si renoves la clau de seguretat, l'antiga serà invàlida. Ningú amb la clau de seguretat antiga podrà pujar resultats a aquest event.",
-    "Save": "Guardar",
     "Scopes": {
       "Club": "Club",
       "International": "Internacional",
@@ -165,13 +162,31 @@
     "ThresholdWithPercent": "Llindar ({{percent}}%)",
     "TimeLossAnalysis": "Anàlisi de pèrdua de Temps"
   },
+  "Gui": {
+    "clearSearch": "Esborrar cerca",
+    "close": "Tanca",
+    "confirm": "Confirma",
+    "delete": "Esborrar",
+    "deleteConfirm": "Segur que vols continuar?",
+    "duplicate": "Duplica",
+    "edit": "Editar",
+    "error": {
+      "badRequest": "Hi ha hagut un error amb la teva sol·licitud.",
+      "forbidden": "No tens permís per fer això.",
+      "serverError": "Hi ha hagut un error en proporcionar la resposta."
+    },
+    "loading": "Carregant",
+    "noResults": "Sense resultats",
+    "ok": "D'acord",
+    "save": "Guardar",
+    "search": "Cerca"
+  },
   "Language": {
     "English": "English",
     "French": "Français",
     "Language": "Idioma",
     "Spanish": "Español"
   },
-  "Loading": "Carregant",
   "Location": "Ubicació",
   "Menu": "Menú",
   "MyAccount": {
@@ -265,11 +280,6 @@
       "ok": "ok",
       "ot": "FT"
     }
-  },
-  "Save": "Guardar",
-  "Search": {
-    "ClearSearch": "Esborrar cerca",
-    "Search": "Cerca"
   },
   "Settings": "Configuració",
   "Sign in": {

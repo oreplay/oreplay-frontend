@@ -1,1 +1,21 @@
-{}
+{
+  "Gui": {
+    "clearSearch": "Cancella ricerca",
+    "close": "Chiudi",
+    "confirm": "Conferma",
+    "delete": "Elimina",
+    "deleteConfirm": "Vuoi davvero continuare?",
+    "duplicate": "Duplica",
+    "edit": "Modifica",
+    "error": {
+      "badRequest": "Si è verificato un errore con la tua richiesta.",
+      "forbidden": "Non hai il permesso di farlo.",
+      "serverError": "Si è verificato un errore durante la risposta."
+    },
+    "loading": "Caricamento",
+    "noResults": "Nessun risultato",
+    "ok": "OK",
+    "save": "Salva",
+    "search": "Cerca"
+  }
+}

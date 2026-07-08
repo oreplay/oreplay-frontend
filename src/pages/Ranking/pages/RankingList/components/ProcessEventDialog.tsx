@@ -74,8 +74,8 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
     <ConfirmDialog
       open={open}
       title={t("Ranking.ProcessEvent.title")}
-      confirmLabel={t("Ranking.gui.confirm")}
-      closeLabel={t("Ranking.gui.close")}
+      confirmLabel={t("Gui.confirm")}
+      closeLabel={t("Gui.close")}
       onConfirm={() => void confirm()}
       isConfirming={processing}
       onClose={close}
@@ -90,16 +90,16 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
           }}
           onSearch={setEventSearch}
           options={eventOptions}
-          noResultsLabel={t("Ranking.gui.noResults")}
-          placeholder={t("Search.Search")}
+          noResultsLabel={t("Gui.noResults")}
+          placeholder={t("Gui.search")}
         />
         <SearchableSelect
           label={t("Ranking.ProcessEvent.stage")}
           value={stageId}
           onChange={setStageId}
           options={stageOptions}
-          noResultsLabel={t("Ranking.gui.noResults")}
-          placeholder={t("Search.Search")}
+          noResultsLabel={t("Gui.noResults")}
+          placeholder={t("Gui.search")}
           disabled={eventId === null}
         />
       </div>

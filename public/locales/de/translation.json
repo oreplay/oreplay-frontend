@@ -1,1 +1,21 @@
-{}
+{
+  "Gui": {
+    "clearSearch": "Suche löschen",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "delete": "Löschen",
+    "deleteConfirm": "Möchten Sie wirklich fortfahren?",
+    "duplicate": "Duplizieren",
+    "edit": "Bearbeiten",
+    "error": {
+      "badRequest": "Bei Ihrer Anfrage ist ein Fehler aufgetreten.",
+      "forbidden": "Sie haben keine Berechtigung, dies zu tun.",
+      "serverError": "Bei der Antwort ist ein Fehler aufgetreten."
+    },
+    "loading": "Wird geladen",
+    "noResults": "Keine Treffer",
+    "ok": "OK",
+    "save": "Speichern",
+    "search": "Suchen"
+  }
+}

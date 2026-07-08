@@ -33,7 +33,7 @@ export default function RankingSettings() {
           initialState={initRankingSettingsForm(ranking)}
           eventId={ranking.event_id}
           stageId={ranking.stage_id}
-          submitLabel={t("Save")}
+          submitLabel={t("Gui.save")}
           isSubmitting={isSaving}
           onSubmit={(state) =>
             mutate(

@@ -19,7 +19,7 @@ export default function GeneralSuspenseFallback(props: GeneralSuspenseFallbackPr
         alignItems: "center",
       }}
     >
-      <img alt={t("Loading")} height={50} width={50} src={loadingIcon}></img>
+      <img alt={t("Gui.loading")} height={50} width={50} src={loadingIcon}></img>
     </Box>
   )
 }

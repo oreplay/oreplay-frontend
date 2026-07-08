@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Dates",
-  "Delete": "Delete",
-  "Edit": "Edit",
   "EmailAddress": "Email Address",
   "Event": "Event",
   "EventAdmin": {
@@ -69,7 +67,6 @@
     "Renew": "Renew",
     "Renew security keys": "Generate a new security key",
     "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
-    "Save": "Save",
     "Scopes": {
       "Placeholder": "Scope",
       "Club": "Club",
@@ -167,13 +164,31 @@
     "ThresholdWithPercent": "Threshold ({{percent}}%)",
     "TimeLossAnalysis": "Time Loss Analysis"
   },
+  "Gui": {
+    "clearSearch": "Clear search",
+    "close": "Close",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to proceed?",
+    "duplicate": "Duplicate",
+    "edit": "Edit",
+    "error": {
+      "badRequest": "There was an error with your request.",
+      "forbidden": "You don't have permission to do this.",
+      "serverError": "There was an error providing a response."
+    },
+    "loading": "Loading",
+    "noResults": "No matches",
+    "ok": "OK",
+    "save": "Save",
+    "search": "Search"
+  },
   "Language": {
     "English": "English",
     "French": "Français",
     "Language": "Language",
     "Spanish": "Spanish"
   },
-  "Loading": "Loading",
   "Location": "Location",
   "Menu": "Menu",
   "MyAccount": {
@@ -197,19 +212,6 @@
   },
   "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Ranking": {
-    "gui": {
-      "duplicate": "Duplicate",
-      "ok": "OK",
-      "close": "Close",
-      "confirm": "Confirm",
-      "noResults": "No matches",
-      "deleteConfirm": "Are you sure you want to proceed?",
-      "error": {
-        "badRequest": "There was an error with your request.",
-        "forbidden": "You don't have permission to do this.",
-        "serverError": "There was an error providing a response."
-      }
-    },
     "Breadcrumbs": {
       "label": "Breadcrumb",
       "rankings": "Rankings"
@@ -347,11 +349,6 @@
       "ok": "ok",
       "ot": "OT"
     }
-  },
-  "Save": "Save",
-  "Search": {
-    "ClearSearch": "Clear search",
-    "Search": "Search"
   },
   "Settings": "Settings",
   "Sign in": {

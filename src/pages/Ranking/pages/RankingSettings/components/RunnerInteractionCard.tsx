@@ -99,8 +99,8 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
               value: o.id,
               label: o.description,
             }))}
-            noResultsLabel={t("Ranking.gui.noResults")}
-            placeholder={t("Search.Search")}
+            noResultsLabel={t("Gui.noResults")}
+            placeholder={t("Gui.search")}
           />
           <button
             type="button"

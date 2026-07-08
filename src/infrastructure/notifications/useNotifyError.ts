@@ -4,7 +4,7 @@ import { httpErrorMessageKey } from "./httpError.ts"
 
 /**
  * Shows an error snackbar for a failed request, mapping its HTTP status to a
- * translated `Ranking.gui.error.*` message via the host's notification system.
+ * translated `Gui.error.*` message via the host's notification system.
  */
 export function useNotifyError(): (error: unknown) => void {
   const notifications = useNotifications()

@@ -1,1 +1,21 @@
-{}
+{
+  "Gui": {
+    "clearSearch": "Rensa sökning",
+    "close": "Stäng",
+    "confirm": "Bekräfta",
+    "delete": "Ta bort",
+    "deleteConfirm": "Är du säker på att du vill fortsätta?",
+    "duplicate": "Duplicera",
+    "edit": "Redigera",
+    "error": {
+      "badRequest": "Ett fel uppstod med din begäran.",
+      "forbidden": "Du har inte behörighet att göra detta.",
+      "serverError": "Ett fel uppstod när svaret skulle ges."
+    },
+    "loading": "Laddar",
+    "noResults": "Inga träffar",
+    "ok": "OK",
+    "save": "Spara",
+    "search": "Sök"
+  }
+}

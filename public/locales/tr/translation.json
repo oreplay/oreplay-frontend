@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Tarihler",
-  "Delete": "Sil",
-  "Edit": "Düzenle",
   "EmailAddress": "E-posta adresi",
   "Event": "Etkinlik",
   "EventAdmin": {
@@ -66,7 +64,6 @@
     "Renew": "Yenile",
     "Renew security keys": "Yeni bir güvenlik anahtarı oluştur",
     "RenewEventTokenMsg": "Yeni bir anahtar oluşturursanız eski anahtar geçersiz kalır. Eski anahtara sahip olanlar ise sonuçlarını etkinliğe yükleyemez.",
-    "Save": "Kaydet",
     "Scopes": {
       "Club": "Kulüp",
       "International": "Uluslararası",
@@ -88,5 +85,24 @@
       "NewStage": "Yeni bölüm",
       "description": "Etkinliğiniz için birkaç tane gereklilik ekleyin, en az bir tane ekleyeblirsiniz."
     }
+  },
+  "Gui": {
+    "clearSearch": "Aramayı temizle",
+    "close": "Kapat",
+    "confirm": "Onayla",
+    "delete": "Sil",
+    "deleteConfirm": "Devam etmek istediğinizden emin misiniz?",
+    "duplicate": "Çoğalt",
+    "edit": "Düzenle",
+    "error": {
+      "badRequest": "İsteğinizle ilgili bir hata oluştu.",
+      "forbidden": "Bunu yapma izniniz yok.",
+      "serverError": "Yanıt verilirken bir hata oluştu."
+    },
+    "loading": "Yükleniyor",
+    "noResults": "Sonuç yok",
+    "ok": "Tamam",
+    "save": "Kaydet",
+    "search": "Ara"
   }
 }

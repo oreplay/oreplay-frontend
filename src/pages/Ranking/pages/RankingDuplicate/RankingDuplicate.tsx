@@ -42,7 +42,7 @@ export default function RankingDuplicate() {
           initialState={{ ...initRankingSettingsForm(ranking), title: "" }}
           eventId={ranking.event_id}
           stageId={ranking.stage_id}
-          submitLabel={t("Ranking.gui.duplicate")}
+          submitLabel={t("Gui.duplicate")}
           isSubmitting={isDuplicating}
           onSubmit={(state) => void onDuplicate(ranking, state)}
         />

@@ -77,7 +77,9 @@ export default function EventTokenDataGrid(props: Props) {
             fullWidth
             id="securityToken"
             name="securityToken"
-            value={isLoading ? t("Loading") : eventToken ? `${props.event_id}${eventToken}` : ""}
+            value={
+              isLoading ? t("Gui.loading") : eventToken ? `${props.event_id}${eventToken}` : ""
+            }
             disabled
             slotProps={{
               input: {
@@ -102,7 +104,7 @@ export default function EventTokenDataGrid(props: Props) {
             disabled
             value={
               isLoading
-                ? t("Loading")
+                ? t("Gui.loading")
                 : eventTokenExpireDate
                   ? eventTokenExpireDate.toLocaleString(DateTime.DATE_SHORT)
                   : ""
