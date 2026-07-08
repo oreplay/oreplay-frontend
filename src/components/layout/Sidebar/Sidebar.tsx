@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import CloseIcon from "@mui/icons-material/Close"
 import DashboardIcon from "@mui/icons-material/Dashboard"
+import LeaderboardIcon from "@mui/icons-material/Leaderboard"
 import React from "react"
 import LanguageDropdown from "./components/LanguageDropdown.tsx"
 import AuthenticationSidebarItem from "./components/AuthenticationSidebarItem.tsx"
@@ -133,6 +134,19 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
                     <DashboardIcon />
                   </ListItemIcon>
                   <ListItemText primary={t("Dashboard.Dashboard")} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton
+                  onClick={() => {
+                    void navigate("/rankings")
+                    setOpenSidebar((prev) => !prev)
+                  }}
+                >
+                  <ListItemIcon>
+                    <LeaderboardIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={t("Ranking.Menu")} />
                 </ListItemButton>
               </ListItem>
               <ListItem>

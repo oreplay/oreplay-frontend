@@ -227,6 +227,7 @@
       "loadError": "We couldn't load the rankings.",
       "menuLabel": "Ranking options"
     },
+    "Menu": "Rankings",
     "ProcessEvent": {
       "title": "Process event",
       "event": "Event",
