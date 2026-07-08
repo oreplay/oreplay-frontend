@@ -82,7 +82,7 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
     >
       <div className="flex flex-col gap-4">
         <SearchableSelect
-          label={t("Ranking.ProcessEvent.event")}
+          label={t("Event")}
           value={eventId}
           onChange={(value) => {
             setEventId(value)
@@ -91,7 +91,7 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
           onSearch={setEventSearch}
           options={eventOptions}
           noResultsLabel={t("Ranking.gui.noResults")}
-          placeholder={t("Ranking.gui.search")}
+          placeholder={t("Search.Search")}
         />
         <SearchableSelect
           label={t("Ranking.ProcessEvent.stage")}
@@ -99,7 +99,7 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
           onChange={setStageId}
           options={stageOptions}
           noResultsLabel={t("Ranking.gui.noResults")}
-          placeholder={t("Ranking.gui.search")}
+          placeholder={t("Search.Search")}
           disabled={eventId === null}
         />
       </div>

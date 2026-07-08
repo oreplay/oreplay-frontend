@@ -198,15 +198,10 @@
   "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
   "Ranking": {
     "gui": {
-      "loading": "Loading…",
-      "save": "Save",
-      "edit": "Edit",
       "duplicate": "Duplicate",
-      "delete": "Delete",
       "ok": "OK",
       "close": "Close",
       "confirm": "Confirm",
-      "search": "Search…",
       "noResults": "No matches",
       "deleteConfirm": "Are you sure you want to proceed?",
       "error": {
@@ -217,7 +212,6 @@
     },
     "Breadcrumbs": {
       "label": "Breadcrumb",
-      "dashboard": "Dashboard",
       "rankings": "Rankings"
     },
     "List": {
@@ -230,7 +224,6 @@
     "Menu": "Rankings",
     "ProcessEvent": {
       "title": "Process event",
-      "event": "Event",
       "stage": "Stage"
     },
     "RunnerInteraction": {
@@ -273,14 +266,6 @@
       "ncFalse": "Competitive (not flagged as NC)",
       "statusScores": "Status scores",
       "statusScoresHint": "Fixed score per result status. Leave empty to use the computed score.",
-      "statusScoresValues": {
-        "ok": "OK",
-        "dns": "DNS",
-        "dnf": "DNF",
-        "mp": "MP",
-        "dqf": "DQF",
-        "ot": "OT"
-      },
       "circuitSettings": "Circuit settings",
       "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
       "overallValues": {

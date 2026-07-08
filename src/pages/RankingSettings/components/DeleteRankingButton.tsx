@@ -45,7 +45,7 @@ export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankin
         onClick={() => setOpen(true)}
         className="rounded border border-red-600 px-4 py-2 font-medium text-red-600 transition-colors hover:bg-red-50"
       >
-        {t("Ranking.gui.delete")}
+        {t("Delete")}
       </button>
       <ConfirmDialog
         open={open}
