@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useQuery } from "react-query"
-import { getListEvents } from "../../../infrastructure/repositories/events/events.ts"
-import { getListStages } from "../../../infrastructure/repositories/stages/stages.ts"
+import { getListEvents } from "../../../../../infrastructure/repositories/events/events.ts"
+import { getListStages } from "../../../../../infrastructure/repositories/stages/stages.ts"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
-import { calculateRankingBatches } from "../../../infrastructure/ranking/calculateRankingBatches.ts"
-import { useNotifyError } from "../../../infrastructure/notifications/useNotifyError.ts"
+import { calculateRankingBatches } from "../shared/calculateRankingBatches.ts"
+import { useNotifyError } from "../../../../../infrastructure/notifications/useNotifyError.ts"
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = useState(value)

@@ -3,18 +3,18 @@ import { useTranslation } from "react-i18next"
 import {
   RankingSettingsFormState,
   isRankingSettingsFormComplete,
-} from "../../../domain/rankingSettingsForm.ts"
-import { OVERALL_SETTINGS_FIELDS } from "../../../domain/overallSettings.ts"
-import { ROUND_PRECISION_OPTIONS } from "../../../domain/roundPrecision.ts"
-import { SCORING_ALGORITHM_OPTIONS } from "../../../domain/scoringAlgorithm.ts"
-import { STATUS_SCORE_FIELDS } from "../../../domain/statusScores.ts"
-import { NC_SCORE_VALUES, STATUS_SCORE_VALUES } from "../../../domain/scoreOptions.ts"
-import { competitionResultsPath } from "../../../domain/competitionLink.ts"
-import FormSection from "../../../components/form/FormSection.tsx"
-import NumberField from "../../../components/form/NumberField.tsx"
-import ScoreSelectField from "../../../components/form/ScoreSelectField.tsx"
-import SelectField from "../../../components/form/SelectField.tsx"
-import TextField from "../../../components/form/TextField.tsx"
+} from "../shared/rankingSettingsForm.ts"
+import { OVERALL_SETTINGS_FIELDS } from "../shared/overallSettings.ts"
+import { ROUND_PRECISION_OPTIONS } from "../shared/roundPrecision.ts"
+import { SCORING_ALGORITHM_OPTIONS } from "../shared/scoringAlgorithm.ts"
+import { STATUS_SCORE_FIELDS } from "../shared/statusScores.ts"
+import { NC_SCORE_VALUES, STATUS_SCORE_VALUES } from "../shared/scoreOptions.ts"
+import { competitionResultsPath } from "../shared/competitionLink.ts"
+import FormSection from "./form/FormSection.tsx"
+import NumberField from "./form/NumberField.tsx"
+import ScoreSelectField from "./form/ScoreSelectField.tsx"
+import SelectField from "./form/SelectField.tsx"
+import TextField from "./form/TextField.tsx"
 
 interface RankingSettingsFormProps {
   initialState: RankingSettingsFormState

@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom"
 import {
   useGetRankingSettings,
   usePatchRankingSettings,
-} from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
-import { initRankingSettingsForm, toRankingBody } from "../../domain/rankingSettingsForm.ts"
-import { useNotifyError } from "../../infrastructure/notifications/useNotifyError.ts"
-import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
-import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
+} from "../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { initRankingSettingsForm, toRankingBody } from "../../shared/rankingSettingsForm.ts"
+import { useNotifyError } from "../../../../infrastructure/notifications/useNotifyError.ts"
+import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
+import RankingSettingsForm from "../../components/RankingSettingsForm.tsx"
 import DeleteRankingButton from "./components/DeleteRankingButton.tsx"
 import RunnerInteractionCard from "./components/RunnerInteractionCard.tsx"
 

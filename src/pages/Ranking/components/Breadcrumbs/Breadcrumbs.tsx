@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { BreadcrumbItem } from "../../domain/breadcrumbs.ts"
+import { BreadcrumbItem } from "../../shared/breadcrumbs.ts"
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[]

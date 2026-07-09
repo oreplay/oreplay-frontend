@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { Ranking } from "./types/v1api"
+import { Ranking } from "../../../domain/types/v1api"
 import {
   initRankingSettingsForm,
   isRankingSettingsFormComplete,

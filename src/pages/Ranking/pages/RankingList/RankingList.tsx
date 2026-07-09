@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
-import { useGetListRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { useGetListRankingSettings } from "../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs.tsx"
-import { buildRankingListBreadcrumbs } from "../../domain/breadcrumbs.ts"
+import { buildRankingListBreadcrumbs } from "../../shared/breadcrumbs.ts"
 import RankingListContent from "./components/RankingListContent.tsx"
 
 export default function RankingList() {

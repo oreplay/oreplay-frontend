@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { Ranking } from "../../../domain/types/v1api"
+import { Ranking } from "../../../../../domain/types/v1api"
 import Spinner from "../../../components/Spinner/Spinner.tsx"
 import RankingListItem from "./RankingListItem.tsx"
 

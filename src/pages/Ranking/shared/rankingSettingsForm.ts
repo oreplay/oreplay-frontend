@@ -1,4 +1,8 @@
-import { PatchRankingSettingsBody, PostListRankingSettingsBody, Ranking } from "./types/v1api"
+import {
+  PatchRankingSettingsBody,
+  PostListRankingSettingsBody,
+  Ranking,
+} from "../../../domain/types/v1api"
 import { parseOverallSettings, serializeOverallSettings } from "./overallSettings.ts"
 import { parseStatusScores, serializeStatusScores } from "./statusScores.ts"
 

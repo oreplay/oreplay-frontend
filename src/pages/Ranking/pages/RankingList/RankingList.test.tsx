@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom"
 import { describe, expect, it, vi } from "vitest"
 import RankingList from "./RankingList.tsx"
 
-vi.mock("../../infrastructure/repositories/ranking-settings/ranking-settings.ts", () => ({
+vi.mock("../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts", () => ({
   useGetListRankingSettings: () => ({
     data: {
       data: [
