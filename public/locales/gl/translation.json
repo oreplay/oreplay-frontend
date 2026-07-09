@@ -201,6 +201,73 @@
     "Message": "O organizador configurou este evento como privado. Se cres que se trata dun erro, ponte en contacto co organizador do evento."
   },
   "RadiosExperimentalMsg": "Cando se usan radiocontrois, as funcións relacionadas cos parciais son experimentais.",
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Ruta de navegación",
+      "rankings": "Rankings"
+    },
+    "Duplicate": {
+      "crumb": "Duplicar",
+      "title": "Duplicar o ranking"
+    },
+    "List": {
+      "description": "Xestiona os teus rankings e edita a configuración de cada un.",
+      "empty": "Aínda non hai rankings.",
+      "loadError": "Non puidemos cargar os rankings.",
+      "menuLabel": "Opcións do ranking",
+      "title": "Rankings"
+    },
+    "Menu": "Rankings",
+    "ProcessEvent": {
+      "stage": "Etapa",
+      "title": "Procesar o evento"
+    },
+    "RunnerInteraction": {
+      "empty": "Desprega un corredor na páxina de resultados noutra lapela para cargalo aquí.",
+      "sendOrganizer": "Enviar organizador",
+      "stageOrder": "Engadir á etapa",
+      "title": "Corredor organizador"
+    },
+    "Settings": {
+      "circuitSettings": "Configuración do circuíto",
+      "circuitSettingsHint": "Agregación de toda a temporada ao longo das carreiras do circuíto.",
+      "competitionLink": "Ver os resultados da competición",
+      "deleteEventToo": "Queres borrar tamén o evento asociado?",
+      "generalSettings": "Configuración xeral",
+      "maxPoints": "Puntos máximos",
+      "maxPointsHint": "A escala de puntuación: puntos outorgados ao líder; o resto puntúa en relación con este valor.",
+      "ncFalse": "Competitivo (non marcado como NC)",
+      "ncTrue": "Marcado como NC",
+      "nonCompetitive": "Non competitivo",
+      "nonCompetitiveHint": "Puntuación fixa para os corredores non competitivos.",
+      "notFound": "Non se atopou o ranking.",
+      "overallValues": {
+        "maxRacesCounted": "Máximo de carreiras contadas",
+        "minPointsAsOrg": "Puntos mínimos como organizador",
+        "organizerScoringFraction": "Fracción de puntuación do organizador",
+        "totalCircuitRaces": "Total de carreiras do circuíto"
+      },
+      "roundPrecision": "Precisión do redondeo",
+      "roundPrecisionValues": {
+        "floor": "Redondear cara abaixo a enteiro (p. ex. 2,9 -> 2)",
+        "integer": "Enteiro máis próximo (p. ex. 2,6 -> 3)",
+        "one": "1 decimal (p. ex. 2,68 -> 2,7)",
+        "three": "3 decimais",
+        "two": "2 decimais"
+      },
+      "scoreOptions": {
+        "empty": "calculado"
+      },
+      "scoringAlgorithm": "Algoritmo de puntuación",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Puntuación simple"
+      },
+      "statusScores": "Puntuacións por estado",
+      "statusScoresHint": "Puntuación fixa por estado do resultado. Déixao baleiro para usar a puntuación calculada.",
+      "title": "Configuración do ranking",
+      "titleLabel": "Título"
+    }
+  },
   "Results": {
     "Class": "Categoría",
     "Classes": "Categorías",

@@ -201,6 +201,73 @@
     "Message": "Ekitaldi hau antolatzaileak pribatu gisa ezarri du. Akats bat dela uste baduzu, jarri harremanetan ekitaldiaren antolatzailearekin."
   },
   "RadiosExperimentalMsg": "Irrati-kontrolak erabiltzean, zatitzearekin lotutako funtzioak esperimentalak dira.",
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Nabigazio-bidea",
+      "rankings": "Rankingak"
+    },
+    "Duplicate": {
+      "crumb": "Bikoiztu",
+      "title": "Rankinga bikoiztu"
+    },
+    "List": {
+      "description": "Kudeatu zure rankingak eta editatu bakoitzaren ezarpenak.",
+      "empty": "Oraindik ez dago rankingik.",
+      "loadError": "Ezin izan ditugu rankingak kargatu.",
+      "menuLabel": "Rankingaren aukerak",
+      "title": "Rankingak"
+    },
+    "Menu": "Rankingak",
+    "ProcessEvent": {
+      "stage": "Etapa",
+      "title": "Ekitaldia prozesatu"
+    },
+    "RunnerInteraction": {
+      "empty": "Zabaldu korrikalari bat emaitzen orrian beste fitxa batean hemen kargatzeko.",
+      "sendOrganizer": "Antolatzailea bidali",
+      "stageOrder": "Etapara gehitu",
+      "title": "Antolatzaile korrikalaria"
+    },
+    "Settings": {
+      "circuitSettings": "Zirkuituaren ezarpenak",
+      "circuitSettingsHint": "Denboraldi osoko batuketa zirkuituko lasterketetan.",
+      "competitionLink": "Ikusi lehiaketaren emaitzak",
+      "deleteEventToo": "Lotutako ekitaldia ere ezabatu nahi duzu?",
+      "generalSettings": "Ezarpen orokorrak",
+      "maxPoints": "Gehienezko puntuak",
+      "maxPointsHint": "Puntuazio-eskala: liderrari emandako puntuak; gainerakoak balio horren arabera puntuatzen dira.",
+      "ncFalse": "Lehiakorra (ez dago NC markatuta)",
+      "ncTrue": "NC markatuta",
+      "nonCompetitive": "Lehiakortasunik gabe",
+      "nonCompetitiveHint": "Puntuazio finkoa lehiakortasunik gabeko korrikalarientzat.",
+      "notFound": "Ez da rankinga aurkitu.",
+      "overallValues": {
+        "maxRacesCounted": "Gehienez zenbatutako lasterketak",
+        "minPointsAsOrg": "Gutxieneko puntuak antolatzaile gisa",
+        "organizerScoringFraction": "Antolatzailearen puntuazio-frakzioa",
+        "totalCircuitRaces": "Zirkuituko lasterketak guztira"
+      },
+      "roundPrecision": "Biribiltze-doitasuna",
+      "roundPrecisionValues": {
+        "floor": "Behera biribildu osora (adib. 2,9 -> 2)",
+        "integer": "Hurbilen dagoen osoa (adib. 2,6 -> 3)",
+        "one": "Dezimal 1 (adib. 2,68 -> 2,7)",
+        "three": "3 dezimal",
+        "two": "2 dezimal"
+      },
+      "scoreOptions": {
+        "empty": "kalkulatua"
+      },
+      "scoringAlgorithm": "Puntuazio-algoritmoa",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Puntuazio sinplea"
+      },
+      "statusScores": "Egoeraren araberako puntuazioak",
+      "statusScoresHint": "Puntuazio finkoa emaitzaren egoera bakoitzeko. Utzi hutsik kalkulatutako puntuazioa erabiltzeko.",
+      "title": "Rankingaren ezarpenak",
+      "titleLabel": "Izenburua"
+    }
+  },
   "Results": {
     "Class": "Kategoria",
     "Classes": "Kategoriak",

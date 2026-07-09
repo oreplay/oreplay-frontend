@@ -17,5 +17,72 @@
     "ok": "OK",
     "save": "Salva",
     "search": "Cerca"
+  },
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Percorso di navigazione",
+      "rankings": "Classifiche"
+    },
+    "Duplicate": {
+      "crumb": "Duplica",
+      "title": "Duplica classifica"
+    },
+    "List": {
+      "description": "Gestisci le tue classifiche e modifica le impostazioni di ciascuna.",
+      "empty": "Nessuna classifica per ora.",
+      "loadError": "Non è stato possibile caricare le classifiche.",
+      "menuLabel": "Opzioni della classifica",
+      "title": "Classifiche"
+    },
+    "Menu": "Classifiche",
+    "ProcessEvent": {
+      "stage": "Tappa",
+      "title": "Elabora evento"
+    },
+    "RunnerInteraction": {
+      "empty": "Espandi un atleta nella pagina dei risultati in un'altra scheda per caricarlo qui.",
+      "sendOrganizer": "Invia organizzatore",
+      "stageOrder": "Aggiungi alla tappa",
+      "title": "Atleta organizzatore"
+    },
+    "Settings": {
+      "circuitSettings": "Impostazioni del circuito",
+      "circuitSettingsHint": "Aggregazione dell'intera stagione sulle gare del circuito.",
+      "competitionLink": "Vedi i risultati della competizione",
+      "deleteEventToo": "Vuoi eliminare anche l'evento associato?",
+      "generalSettings": "Impostazioni generali",
+      "maxPoints": "Punti massimi",
+      "maxPointsHint": "La scala dei punti: punti assegnati al leader; tutti gli altri ottengono un punteggio relativo a questo valore.",
+      "ncFalse": "Competitivo (non contrassegnato NC)",
+      "ncTrue": "Contrassegnato NC",
+      "nonCompetitive": "Non competitivo",
+      "nonCompetitiveHint": "Punteggio fisso per gli atleti non competitivi.",
+      "notFound": "Classifica non trovata.",
+      "overallValues": {
+        "maxRacesCounted": "Numero massimo di gare conteggiate",
+        "minPointsAsOrg": "Punti minimi come organizzatore",
+        "organizerScoringFraction": "Frazione di punteggio dell'organizzatore",
+        "totalCircuitRaces": "Totale gare del circuito"
+      },
+      "roundPrecision": "Precisione dell'arrotondamento",
+      "roundPrecisionValues": {
+        "floor": "Arrotonda per difetto all'intero (es. 2,9 -> 2)",
+        "integer": "Intero più vicino (es. 2,6 -> 3)",
+        "one": "1 decimale (es. 2,68 -> 2,7)",
+        "three": "3 decimali",
+        "two": "2 decimali"
+      },
+      "scoreOptions": {
+        "empty": "calcolato"
+      },
+      "scoringAlgorithm": "Algoritmo di punteggio",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Punteggio semplice"
+      },
+      "statusScores": "Punteggi per stato",
+      "statusScoresHint": "Punteggio fisso per ogni stato del risultato. Lascia vuoto per usare il punteggio calcolato.",
+      "title": "Impostazioni della classifica",
+      "titleLabel": "Titolo"
+    }
   }
 }

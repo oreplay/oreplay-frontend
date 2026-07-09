@@ -104,5 +104,72 @@
     "ok": "Tamam",
     "save": "Kaydet",
     "search": "Ara"
+  },
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Gezinme yolu",
+      "rankings": "Sıralamalar"
+    },
+    "Duplicate": {
+      "crumb": "Çoğalt",
+      "title": "Sıralamayı çoğalt"
+    },
+    "List": {
+      "description": "Sıralama listelerinizi yönetin ve her birinin ayarlarını düzenleyin.",
+      "empty": "Henüz sıralama yok.",
+      "loadError": "Sıralamalar yüklenemedi.",
+      "menuLabel": "Sıralama seçenekleri",
+      "title": "Sıralamalar"
+    },
+    "Menu": "Sıralamalar",
+    "ProcessEvent": {
+      "stage": "Etap",
+      "title": "Etkinliği işle"
+    },
+    "RunnerInteraction": {
+      "empty": "Burada yüklemek için başka bir sekmedeki sonuçlar sayfasında bir koşucuyu genişletin.",
+      "sendOrganizer": "Organizatörü gönder",
+      "stageOrder": "Etaba ekle",
+      "title": "Organizatör koşucu"
+    },
+    "Settings": {
+      "circuitSettings": "Seri ayarları",
+      "circuitSettingsHint": "Serideki yarışlar üzerinden sezon geneli toplama.",
+      "competitionLink": "Yarış sonuçlarını görüntüle",
+      "deleteEventToo": "İlişkili etkinliği de silmek istiyor musunuz?",
+      "generalSettings": "Genel ayarlar",
+      "maxPoints": "Maksimum puan",
+      "maxPointsHint": "Puanlama ölçeği: lidere verilen puan; diğer herkes buna göre puanlanır.",
+      "ncFalse": "Yarışmada (NC olarak işaretli değil)",
+      "ncTrue": "NC olarak işaretli",
+      "nonCompetitive": "Yarışma dışı",
+      "nonCompetitiveHint": "Yarışma dışı koşucular için sabit puan.",
+      "notFound": "Sıralama bulunamadı.",
+      "overallValues": {
+        "maxRacesCounted": "Sayılan maksimum yarış",
+        "minPointsAsOrg": "Organizatör olarak minimum puan",
+        "organizerScoringFraction": "Organizatör puan oranı",
+        "totalCircuitRaces": "Serideki toplam yarış"
+      },
+      "roundPrecision": "Yuvarlama hassasiyeti",
+      "roundPrecisionValues": {
+        "floor": "Tam sayıya aşağı yuvarla (örn. 2,9 -> 2)",
+        "integer": "En yakın tam sayı (örn. 2,6 -> 3)",
+        "one": "1 ondalık basamak (örn. 2,68 -> 2,7)",
+        "three": "3 ondalık basamak",
+        "two": "2 ondalık basamak"
+      },
+      "scoreOptions": {
+        "empty": "hesaplanan"
+      },
+      "scoringAlgorithm": "Puanlama algoritması",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Basit puanlama"
+      },
+      "statusScores": "Duruma göre puanlar",
+      "statusScoresHint": "Her sonuç durumu için sabit puan. Hesaplanan puanı kullanmak için boş bırakın.",
+      "title": "Sıralama ayarları",
+      "titleLabel": "Başlık"
+    }
   }
 }

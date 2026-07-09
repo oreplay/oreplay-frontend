@@ -17,5 +17,72 @@
     "ok": "OK",
     "save": "Speichern",
     "search": "Suchen"
+  },
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Brotkrümelnavigation",
+      "rankings": "Ranglisten"
+    },
+    "Duplicate": {
+      "crumb": "Duplizieren",
+      "title": "Rangliste duplizieren"
+    },
+    "List": {
+      "description": "Verwalten Sie Ihre Ranglisten und bearbeiten Sie die Einstellungen jeder einzelnen.",
+      "empty": "Noch keine Ranglisten.",
+      "loadError": "Die Ranglisten konnten nicht geladen werden.",
+      "menuLabel": "Ranglisten-Optionen",
+      "title": "Ranglisten"
+    },
+    "Menu": "Ranglisten",
+    "ProcessEvent": {
+      "stage": "Etappe",
+      "title": "Veranstaltung verarbeiten"
+    },
+    "RunnerInteraction": {
+      "empty": "Klappen Sie einen Läufer auf der Ergebnisseite in einem anderen Tab auf, um ihn hier zu laden.",
+      "sendOrganizer": "Organisator senden",
+      "stageOrder": "Zur Etappe hinzufügen",
+      "title": "Organisator-Läufer"
+    },
+    "Settings": {
+      "circuitSettings": "Serien-Einstellungen",
+      "circuitSettingsHint": "Zusammenfassung der gesamten Saison über alle Läufe der Serie.",
+      "competitionLink": "Wettkampfergebnisse ansehen",
+      "deleteEventToo": "Möchten Sie auch die zugehörige Veranstaltung löschen?",
+      "generalSettings": "Allgemeine Einstellungen",
+      "maxPoints": "Maximale Punkte",
+      "maxPointsHint": "Die Punkteskala: Punkte für die führende Person; alle anderen werden relativ dazu bewertet.",
+      "ncFalse": "Im Wettkampf (nicht als NC markiert)",
+      "ncTrue": "Als NC markiert",
+      "nonCompetitive": "Außer Konkurrenz",
+      "nonCompetitiveHint": "Feste Punktzahl für Läufer außer Konkurrenz.",
+      "notFound": "Rangliste nicht gefunden.",
+      "overallValues": {
+        "maxRacesCounted": "Maximal gewertete Läufe",
+        "minPointsAsOrg": "Mindestpunkte als Organisator",
+        "organizerScoringFraction": "Punkteanteil für Organisatoren",
+        "totalCircuitRaces": "Läufe der Serie insgesamt"
+      },
+      "roundPrecision": "Rundungsgenauigkeit",
+      "roundPrecisionValues": {
+        "floor": "Auf ganze Zahl abrunden (z. B. 2,9 -> 2)",
+        "integer": "Nächste ganze Zahl (z. B. 2,6 -> 3)",
+        "one": "1 Nachkommastelle (z. B. 2,68 -> 2,7)",
+        "three": "3 Nachkommastellen",
+        "two": "2 Nachkommastellen"
+      },
+      "scoreOptions": {
+        "empty": "berechnet"
+      },
+      "scoringAlgorithm": "Punktealgorithmus",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Einfache Punktewertung"
+      },
+      "statusScores": "Punkte nach Status",
+      "statusScoresHint": "Feste Punktzahl pro Ergebnisstatus. Leer lassen, um die berechnete Punktzahl zu verwenden.",
+      "title": "Ranglisten-Einstellungen",
+      "titleLabel": "Titel"
+    }
   }
 }

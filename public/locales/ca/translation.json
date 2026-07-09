@@ -209,6 +209,73 @@
     "Message": "Aquest event s'ha configurat com a privat per l'organitzador. Si creu que és un error, si us plau, contacta amb l'organitzador de l'event."
   },
   "RadiosExperimentalMsg": "Quan s'utilitzen radiocontrols, les funcionalitats relacionades amb els parcials són experimentals.",
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Fil d'Ariadna",
+      "rankings": "Rànquings"
+    },
+    "Duplicate": {
+      "crumb": "Duplica",
+      "title": "Duplica el rànquing"
+    },
+    "List": {
+      "description": "Gestiona els teus rànquings i edita la configuració de cadascun.",
+      "empty": "Encara no hi ha rànquings.",
+      "loadError": "No hem pogut carregar els rànquings.",
+      "menuLabel": "Opcions del rànquing",
+      "title": "Rànquings"
+    },
+    "Menu": "Rànquings",
+    "ProcessEvent": {
+      "stage": "Etapa",
+      "title": "Processar l'event"
+    },
+    "RunnerInteraction": {
+      "empty": "Desplega un corredor a la pàgina de resultats en una altra pestanya per carregar-lo aquí.",
+      "sendOrganizer": "Enviar organitzador",
+      "stageOrder": "Afegir a l'etapa",
+      "title": "Corredor organitzador"
+    },
+    "Settings": {
+      "circuitSettings": "Configuració del circuit",
+      "circuitSettingsHint": "Agregació de tota la temporada al llarg de les curses del circuit.",
+      "competitionLink": "Veure els resultats de la competició",
+      "deleteEventToo": "Vols esborrar també l'event associat?",
+      "generalSettings": "Configuració general",
+      "maxPoints": "Punts màxims",
+      "maxPointsHint": "L'escala de puntuació: punts atorgats al líder; la resta puntua en relació amb aquest valor.",
+      "ncFalse": "Competitiu (no marcat com a NC)",
+      "ncTrue": "Marcat com a NC",
+      "nonCompetitive": "No competitiu",
+      "nonCompetitiveHint": "Puntuació fixa per als corredors no competitius.",
+      "notFound": "No s'ha trobat el rànquing.",
+      "overallValues": {
+        "maxRacesCounted": "Màxim de curses comptades",
+        "minPointsAsOrg": "Punts mínims com a organitzador",
+        "organizerScoringFraction": "Fracció de puntuació de l'organitzador",
+        "totalCircuitRaces": "Total de curses del circuit"
+      },
+      "roundPrecision": "Precisió de l'arrodoniment",
+      "roundPrecisionValues": {
+        "floor": "Arrodonir cap avall a enter (p. ex. 2,9 -> 2)",
+        "integer": "Enter més proper (p. ex. 2,6 -> 3)",
+        "one": "1 decimal (p. ex. 2,68 -> 2,7)",
+        "three": "3 decimals",
+        "two": "2 decimals"
+      },
+      "scoreOptions": {
+        "empty": "calculat"
+      },
+      "scoringAlgorithm": "Algoritme de puntuació",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Puntuació simple"
+      },
+      "statusScores": "Puntuacions per estat",
+      "statusScoresHint": "Puntuació fixa per estat del resultat. Deixa-ho buit per fer servir la puntuació calculada.",
+      "title": "Configuració del rànquing",
+      "titleLabel": "Títol"
+    }
+  },
   "Results": {
     "Class": "Categoria",
     "Classes": "Categories",

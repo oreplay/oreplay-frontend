@@ -17,5 +17,72 @@
     "ok": "OK",
     "save": "Spara",
     "search": "Sök"
+  },
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Brödsmulor",
+      "rankings": "Rankinglistor"
+    },
+    "Duplicate": {
+      "crumb": "Duplicera",
+      "title": "Duplicera rankinglista"
+    },
+    "List": {
+      "description": "Hantera dina rankinglistor och redigera inställningarna för varje.",
+      "empty": "Inga rankinglistor ännu.",
+      "loadError": "Vi kunde inte ladda rankinglistorna.",
+      "menuLabel": "Alternativ för rankinglistan",
+      "title": "Rankinglistor"
+    },
+    "Menu": "Rankinglistor",
+    "ProcessEvent": {
+      "stage": "Etapp",
+      "title": "Bearbeta tävling"
+    },
+    "RunnerInteraction": {
+      "empty": "Expandera en löpare på resultatsidan i en annan flik för att ladda in den här.",
+      "sendOrganizer": "Skicka arrangör",
+      "stageOrder": "Lägg till i etappen",
+      "title": "Arrangörslöpare"
+    },
+    "Settings": {
+      "circuitSettings": "Cupinställningar",
+      "circuitSettingsHint": "Sammanräkning över hela säsongens tävlingar i cupen.",
+      "competitionLink": "Visa tävlingens resultat",
+      "deleteEventToo": "Vill du även ta bort den tillhörande tävlingen?",
+      "generalSettings": "Allmänna inställningar",
+      "maxPoints": "Maxpoäng",
+      "maxPointsHint": "Poängskalan: poäng som ges till ledaren; alla andra poängsätts i förhållande till detta.",
+      "ncFalse": "I tävlan (ej markerad som NC)",
+      "ncTrue": "Markerad som NC",
+      "nonCompetitive": "Utom tävlan",
+      "nonCompetitiveHint": "Fast poäng för löpare utom tävlan.",
+      "notFound": "Rankinglistan hittades inte.",
+      "overallValues": {
+        "maxRacesCounted": "Max antal räknade tävlingar",
+        "minPointsAsOrg": "Minsta poäng som arrangör",
+        "organizerScoringFraction": "Arrangörens poängandel",
+        "totalCircuitRaces": "Totalt antal tävlingar i cupen"
+      },
+      "roundPrecision": "Avrundningsprecision",
+      "roundPrecisionValues": {
+        "floor": "Avrunda nedåt till heltal (t.ex. 2,9 -> 2)",
+        "integer": "Närmaste heltal (t.ex. 2,6 -> 3)",
+        "one": "1 decimal (t.ex. 2,68 -> 2,7)",
+        "three": "3 decimaler",
+        "two": "2 decimaler"
+      },
+      "scoreOptions": {
+        "empty": "beräknad"
+      },
+      "scoringAlgorithm": "Poängalgoritm",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Enkel poängberäkning"
+      },
+      "statusScores": "Poäng per status",
+      "statusScoresHint": "Fast poäng per resultatstatus. Lämna tomt för att använda den beräknade poängen.",
+      "title": "Inställningar för rankinglistan",
+      "titleLabel": "Titel"
+    }
   }
 }

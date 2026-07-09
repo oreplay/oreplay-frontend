@@ -57,6 +57,73 @@
   "Organizer": "组织者",
   "Organizers": "组织者信息",
   "Password": "密码",
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "面包屑导航",
+      "rankings": "排行榜"
+    },
+    "Duplicate": {
+      "crumb": "复制",
+      "title": "复制排行榜"
+    },
+    "List": {
+      "description": "管理您的排行榜并编辑每个排行榜的设置。",
+      "empty": "暂无排行榜。",
+      "loadError": "无法加载排行榜。",
+      "menuLabel": "排行榜选项",
+      "title": "排行榜"
+    },
+    "Menu": "排行榜",
+    "ProcessEvent": {
+      "stage": "阶段",
+      "title": "处理赛事"
+    },
+    "RunnerInteraction": {
+      "empty": "在另一个标签页的成绩页面中展开一名选手，即可在此加载。",
+      "sendOrganizer": "发送组织者",
+      "stageOrder": "添加到阶段",
+      "title": "组织者选手"
+    },
+    "Settings": {
+      "circuitSettings": "系列赛设置",
+      "circuitSettingsHint": "对系列赛各场比赛进行整个赛季的汇总。",
+      "competitionLink": "查看比赛成绩",
+      "deleteEventToo": "是否同时删除关联的赛事？",
+      "generalSettings": "常规设置",
+      "maxPoints": "最高分",
+      "maxPointsHint": "计分标准：授予领先者的分数；其他人按此比例计分。",
+      "ncFalse": "正式参赛（未标记为 NC）",
+      "ncTrue": "标记为 NC",
+      "nonCompetitive": "非正式参赛",
+      "nonCompetitiveHint": "非正式参赛选手的固定分数。",
+      "notFound": "未找到排行榜。",
+      "overallValues": {
+        "maxRacesCounted": "最多计入的比赛场次",
+        "minPointsAsOrg": "作为组织者的最低分",
+        "organizerScoringFraction": "组织者计分比例",
+        "totalCircuitRaces": "系列赛比赛总数"
+      },
+      "roundPrecision": "舍入精度",
+      "roundPrecisionValues": {
+        "floor": "向下取整（例如 2.9 -> 2）",
+        "integer": "四舍五入取整（例如 2.6 -> 3）",
+        "one": "保留 1 位小数（例如 2.68 -> 2.7）",
+        "three": "保留 3 位小数",
+        "two": "保留 2 位小数"
+      },
+      "scoreOptions": {
+        "empty": "自动计算"
+      },
+      "scoringAlgorithm": "计分算法",
+      "scoringAlgorithmValues": {
+        "simpleScore": "简单计分"
+      },
+      "statusScores": "按状态计分",
+      "statusScoresHint": "每种成绩状态的固定分数。留空则使用自动计算的分数。",
+      "title": "排行榜设置",
+      "titleLabel": "标题"
+    }
+  },
   "Results": {
     "Finish": "完成",
     "SiCard": "SI 卡",

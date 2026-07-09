@@ -117,6 +117,73 @@
     "Header": "Prywatne wydarzenie",
     "Message": "To wydarzenie zostało ustawione na prywatne przez organizatora. Jeśli uważasz, że to błąd, skontaktuj się z organizatorem wydarzenia."
   },
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Ścieżka nawigacji",
+      "rankings": "Rankingi"
+    },
+    "Duplicate": {
+      "crumb": "Duplikuj",
+      "title": "Duplikuj ranking"
+    },
+    "List": {
+      "description": "Zarządzaj swoimi rankingami i edytuj ustawienia każdego z nich.",
+      "empty": "Brak rankingów.",
+      "loadError": "Nie udało się załadować rankingów.",
+      "menuLabel": "Opcje rankingu",
+      "title": "Rankingi"
+    },
+    "Menu": "Rankingi",
+    "ProcessEvent": {
+      "stage": "Etap",
+      "title": "Przetwórz wydarzenie"
+    },
+    "RunnerInteraction": {
+      "empty": "Rozwiń zawodnika na stronie wyników w innej karcie, aby wczytać go tutaj.",
+      "sendOrganizer": "Wyślij organizatora",
+      "stageOrder": "Dodaj do etapu",
+      "title": "Zawodnik organizator"
+    },
+    "Settings": {
+      "circuitSettings": "Ustawienia cyklu",
+      "circuitSettingsHint": "Zbiorcze podsumowanie sezonu ze wszystkich biegów cyklu.",
+      "competitionLink": "Zobacz wyniki zawodów",
+      "deleteEventToo": "Czy chcesz również usunąć powiązane wydarzenie?",
+      "generalSettings": "Ustawienia ogólne",
+      "maxPoints": "Maksymalna liczba punktów",
+      "maxPointsHint": "Skala punktacji: punkty przyznane liderowi; pozostali są punktowani względem tej wartości.",
+      "ncFalse": "W konkurencji (nieoznaczony jako NC)",
+      "ncTrue": "Oznaczony jako NC",
+      "nonCompetitive": "Poza konkurencją",
+      "nonCompetitiveHint": "Stała liczba punktów dla zawodników poza konkurencją.",
+      "notFound": "Nie znaleziono rankingu.",
+      "overallValues": {
+        "maxRacesCounted": "Maksymalna liczba liczonych biegów",
+        "minPointsAsOrg": "Minimalna liczba punktów jako organizator",
+        "organizerScoringFraction": "Ułamek punktów organizatora",
+        "totalCircuitRaces": "Łączna liczba biegów w cyklu"
+      },
+      "roundPrecision": "Dokładność zaokrąglenia",
+      "roundPrecisionValues": {
+        "floor": "Zaokrąglij w dół do liczby całkowitej (np. 2,9 -> 2)",
+        "integer": "Najbliższa liczba całkowita (np. 2,6 -> 3)",
+        "one": "1 miejsce po przecinku (np. 2,68 -> 2,7)",
+        "three": "3 miejsca po przecinku",
+        "two": "2 miejsca po przecinku"
+      },
+      "scoreOptions": {
+        "empty": "obliczone"
+      },
+      "scoringAlgorithm": "Algorytm punktacji",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Prosta punktacja"
+      },
+      "statusScores": "Punkty według statusu",
+      "statusScoresHint": "Stała liczba punktów dla każdego statusu wyniku. Pozostaw puste, aby użyć obliczonej punktacji.",
+      "title": "Ustawienia rankingu",
+      "titleLabel": "Tytuł"
+    }
+  },
   "WorldContinents": {
     "America": "Ameryka",
     "Asia": "Azja",

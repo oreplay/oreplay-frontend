@@ -174,6 +174,73 @@
     "Message": "Tato událost byla nastavena jako soukromá. Pokud ti to přijde jako chyba, tak se obrať na pořadatele."
   },
   "RadiosExperimentalMsg": "Když používáš radiokontroly, tak funkce s mezičasy jsou experimentální.",
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Drobečková navigace",
+      "rankings": "Žebříčky"
+    },
+    "Duplicate": {
+      "crumb": "Duplikovat",
+      "title": "Duplikovat žebříček"
+    },
+    "List": {
+      "description": "Spravujte své žebříčky a upravte nastavení každého z nich.",
+      "empty": "Zatím žádné žebříčky.",
+      "loadError": "Žebříčky se nepodařilo načíst.",
+      "menuLabel": "Možnosti žebříčku",
+      "title": "Žebříčky"
+    },
+    "Menu": "Žebříčky",
+    "ProcessEvent": {
+      "stage": "Etapa",
+      "title": "Zpracovat akci"
+    },
+    "RunnerInteraction": {
+      "empty": "Rozbalte závodníka na stránce s výsledky v jiné záložce, aby se zde načetl.",
+      "sendOrganizer": "Odeslat pořadatele",
+      "stageOrder": "Přidat do etapy",
+      "title": "Závodník pořadatel"
+    },
+    "Settings": {
+      "circuitSettings": "Nastavení seriálu",
+      "circuitSettingsHint": "Sezónní součet napříč závody seriálu.",
+      "competitionLink": "Zobrazit výsledky závodu",
+      "deleteEventToo": "Chcete smazat i související akci?",
+      "generalSettings": "Obecné nastavení",
+      "maxPoints": "Maximum bodů",
+      "maxPointsHint": "Bodová škála: body udělené vítězi; všichni ostatní jsou bodováni vůči této hodnotě.",
+      "ncFalse": "V soutěži (neoznačen jako NC)",
+      "ncTrue": "Označen jako NC",
+      "nonCompetitive": "Mimo soutěž",
+      "nonCompetitiveHint": "Pevný počet bodů pro závodníky mimo soutěž.",
+      "notFound": "Žebříček nenalezen.",
+      "overallValues": {
+        "maxRacesCounted": "Maximum započítaných závodů",
+        "minPointsAsOrg": "Minimum bodů jako pořadatel",
+        "organizerScoringFraction": "Podíl bodů pro pořadatele",
+        "totalCircuitRaces": "Celkem závodů seriálu"
+      },
+      "roundPrecision": "Přesnost zaokrouhlení",
+      "roundPrecisionValues": {
+        "floor": "Zaokrouhlit dolů na celé číslo (např. 2,9 -> 2)",
+        "integer": "Nejbližší celé číslo (např. 2,6 -> 3)",
+        "one": "1 desetinné místo (např. 2,68 -> 2,7)",
+        "three": "3 desetinná místa",
+        "two": "2 desetinná místa"
+      },
+      "scoreOptions": {
+        "empty": "vypočteno"
+      },
+      "scoringAlgorithm": "Bodovací algoritmus",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Jednoduché bodování"
+      },
+      "statusScores": "Body podle stavu",
+      "statusScoresHint": "Pevný počet bodů pro každý stav výsledku. Ponechte prázdné pro použití vypočteného bodování.",
+      "title": "Nastavení žebříčku",
+      "titleLabel": "Název"
+    }
+  },
   "Results": {
     "Class": "Kategorie",
     "Classes": "Kategorie",

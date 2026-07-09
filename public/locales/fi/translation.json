@@ -17,5 +17,72 @@
     "ok": "OK",
     "save": "Tallenna",
     "search": "Hae"
+  },
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Murupolku",
+      "rankings": "Rankinglistat"
+    },
+    "Duplicate": {
+      "crumb": "Monista",
+      "title": "Monista rankinglista"
+    },
+    "List": {
+      "description": "Hallitse rankinglistojasi ja muokkaa kunkin asetuksia.",
+      "empty": "Ei vielä rankinglistoja.",
+      "loadError": "Rankinglistojen lataaminen epäonnistui.",
+      "menuLabel": "Rankinglistan valinnat",
+      "title": "Rankinglistat"
+    },
+    "Menu": "Rankinglistat",
+    "ProcessEvent": {
+      "stage": "Osakilpailu",
+      "title": "Käsittele tapahtuma"
+    },
+    "RunnerInteraction": {
+      "empty": "Avaa kilpailija tulossivulla toisessa välilehdessä ladataksesi hänet tähän.",
+      "sendOrganizer": "Lähetä järjestäjä",
+      "stageOrder": "Lisää osakilpailuun",
+      "title": "Järjestäjä kilpailijana"
+    },
+    "Settings": {
+      "circuitSettings": "Cupin asetukset",
+      "circuitSettingsHint": "Koko kauden yhteenlaskenta cupin osakilpailuista.",
+      "competitionLink": "Näytä kilpailun tulokset",
+      "deleteEventToo": "Haluatko poistaa myös siihen liittyvän tapahtuman?",
+      "generalSettings": "Yleiset asetukset",
+      "maxPoints": "Enimmäispisteet",
+      "maxPointsHint": "Pisteytysasteikko: johtajalle annettavat pisteet; muut pisteytetään suhteessa tähän.",
+      "ncFalse": "Kilpailussa (ei merkitty NC:ksi)",
+      "ncTrue": "Merkitty NC:ksi",
+      "nonCompetitive": "Kilpailun ulkopuolella",
+      "nonCompetitiveHint": "Kiinteät pisteet kilpailun ulkopuolisille kilpailijoille.",
+      "notFound": "Rankinglistaa ei löytynyt.",
+      "overallValues": {
+        "maxRacesCounted": "Enintään laskettavat osakilpailut",
+        "minPointsAsOrg": "Vähimmäispisteet järjestäjänä",
+        "organizerScoringFraction": "Järjestäjän pisteosuus",
+        "totalCircuitRaces": "Cupin osakilpailujen määrä"
+      },
+      "roundPrecision": "Pyöristystarkkuus",
+      "roundPrecisionValues": {
+        "floor": "Pyöristä alaspäin kokonaisluvuksi (esim. 2,9 -> 2)",
+        "integer": "Lähin kokonaisluku (esim. 2,6 -> 3)",
+        "one": "1 desimaali (esim. 2,68 -> 2,7)",
+        "three": "3 desimaalia",
+        "two": "2 desimaalia"
+      },
+      "scoreOptions": {
+        "empty": "laskettu"
+      },
+      "scoringAlgorithm": "Pisteytysalgoritmi",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Yksinkertainen pisteytys"
+      },
+      "statusScores": "Pisteet tilan mukaan",
+      "statusScoresHint": "Kiinteät pisteet kullekin tulostilalle. Jätä tyhjäksi käyttääksesi laskettua pistemäärää.",
+      "title": "Rankinglistan asetukset",
+      "titleLabel": "Otsikko"
+    }
   }
 }

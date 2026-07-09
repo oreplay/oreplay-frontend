@@ -213,6 +213,73 @@
     "Message": "El organizador ha configurado este evento como privado. Si crees que es un error, por favor contacta con el organizador del evento."
   },
   "RadiosExperimentalMsg": "Cuando se usan radiocontroles, las funciones relacionadas con los splits son experimentales.",
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Migas de pan",
+      "rankings": "Rankings"
+    },
+    "Duplicate": {
+      "crumb": "Duplicar",
+      "title": "Duplicar ranking"
+    },
+    "List": {
+      "description": "Gestiona tus rankings y edita los ajustes de cada uno.",
+      "empty": "Todavía no hay rankings.",
+      "loadError": "No hemos podido cargar los rankings.",
+      "menuLabel": "Opciones del ranking",
+      "title": "Rankings"
+    },
+    "Menu": "Rankings",
+    "ProcessEvent": {
+      "stage": "Etapa",
+      "title": "Procesar evento"
+    },
+    "RunnerInteraction": {
+      "empty": "Despliega un corredor en la página de resultados en otra pestaña para cargarlo aquí.",
+      "sendOrganizer": "Enviar organizador",
+      "stageOrder": "Añadir a la etapa",
+      "title": "Corredor organizador"
+    },
+    "Settings": {
+      "circuitSettings": "Ajustes del circuito",
+      "circuitSettingsHint": "Agregación de toda la temporada a lo largo de las carreras del circuito.",
+      "competitionLink": "Ver resultados de la competición",
+      "deleteEventToo": "¿Quieres borrar también el evento asociado?",
+      "generalSettings": "Ajustes generales",
+      "maxPoints": "Puntos máximos",
+      "maxPointsHint": "La escala de puntuación: puntos otorgados al líder; el resto puntúa en relación con este valor.",
+      "ncFalse": "Competitivo (no marcado como NC)",
+      "ncTrue": "Marcado como NC",
+      "nonCompetitive": "No competitivo",
+      "nonCompetitiveHint": "Puntuación fija para corredores no competitivos.",
+      "notFound": "Ranking no encontrado.",
+      "overallValues": {
+        "maxRacesCounted": "Máximo de carreras contadas",
+        "minPointsAsOrg": "Puntos mínimos como organizador",
+        "organizerScoringFraction": "Fracción de puntuación del organizador",
+        "totalCircuitRaces": "Total de carreras del circuito"
+      },
+      "roundPrecision": "Precisión del redondeo",
+      "roundPrecisionValues": {
+        "floor": "Redondear hacia abajo a entero (p. ej. 2,9 -> 2)",
+        "integer": "Entero más cercano (p. ej. 2,6 -> 3)",
+        "one": "1 decimal (p. ej. 2,68 -> 2,7)",
+        "three": "3 decimales",
+        "two": "2 decimales"
+      },
+      "scoreOptions": {
+        "empty": "calculado"
+      },
+      "scoringAlgorithm": "Algoritmo de puntuación",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Puntuación simple"
+      },
+      "statusScores": "Puntuaciones por estado",
+      "statusScoresHint": "Puntuación fija por estado del resultado. Déjalo vacío para usar la puntuación calculada.",
+      "title": "Ajustes del ranking",
+      "titleLabel": "Título"
+    }
+  },
   "Results": {
     "Class": "Categoría",
     "Classes": "Categorías",

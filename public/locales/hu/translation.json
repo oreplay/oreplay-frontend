@@ -17,5 +17,72 @@
     "ok": "OK",
     "save": "Mentés",
     "search": "Keresés"
+  },
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Morzsamenü",
+      "rankings": "Ranglisták"
+    },
+    "Duplicate": {
+      "crumb": "Másolás",
+      "title": "Ranglista másolása"
+    },
+    "List": {
+      "description": "Kezelje ranglistáit, és szerkessze mindegyik beállításait.",
+      "empty": "Még nincsenek ranglisták.",
+      "loadError": "Nem sikerült betölteni a ranglistákat.",
+      "menuLabel": "Ranglista lehetőségei",
+      "title": "Ranglisták"
+    },
+    "Menu": "Ranglisták",
+    "ProcessEvent": {
+      "stage": "Futam",
+      "title": "Esemény feldolgozása"
+    },
+    "RunnerInteraction": {
+      "empty": "Nyisson ki egy versenyzőt az eredmények oldalon egy másik lapon, hogy itt betöltődjön.",
+      "sendOrganizer": "Szervező küldése",
+      "stageOrder": "Hozzáadás a futamhoz",
+      "title": "Szervező versenyző"
+    },
+    "Settings": {
+      "circuitSettings": "Sorozat beállításai",
+      "circuitSettingsHint": "Szezonszintű összesítés a sorozat versenyei alapján.",
+      "competitionLink": "Verseny eredményeinek megtekintése",
+      "deleteEventToo": "Szeretné törölni a hozzá tartozó eseményt is?",
+      "generalSettings": "Általános beállítások",
+      "maxPoints": "Maximális pontszám",
+      "maxPointsHint": "A pontozási skála: a vezetőnek járó pontszám; mindenki mást ehhez viszonyítva pontozunk.",
+      "ncFalse": "Versenyben (nincs NC-vel jelölve)",
+      "ncTrue": "NC-vel jelölve",
+      "nonCompetitive": "Versenyen kívüli",
+      "nonCompetitiveHint": "Rögzített pontszám a versenyen kívüli versenyzőknek.",
+      "notFound": "A ranglista nem található.",
+      "overallValues": {
+        "maxRacesCounted": "Beszámított versenyek maximuma",
+        "minPointsAsOrg": "Minimális pontszám szervezőként",
+        "organizerScoringFraction": "Szervezői pontarány",
+        "totalCircuitRaces": "A sorozat versenyeinek száma"
+      },
+      "roundPrecision": "Kerekítés pontossága",
+      "roundPrecisionValues": {
+        "floor": "Lefelé kerekítés egészre (pl. 2,9 -> 2)",
+        "integer": "Legközelebbi egész (pl. 2,6 -> 3)",
+        "one": "1 tizedesjegy (pl. 2,68 -> 2,7)",
+        "three": "3 tizedesjegy",
+        "two": "2 tizedesjegy"
+      },
+      "scoreOptions": {
+        "empty": "számított"
+      },
+      "scoringAlgorithm": "Pontozási algoritmus",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Egyszerű pontozás"
+      },
+      "statusScores": "Pontszámok állapot szerint",
+      "statusScoresHint": "Rögzített pontszám eredményállapotonként. Hagyja üresen a számított pontszám használatához.",
+      "title": "Ranglista beállításai",
+      "titleLabel": "Cím"
+    }
   }
 }

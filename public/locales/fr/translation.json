@@ -202,6 +202,73 @@
     "Message": "Cet événement a été défini comme privé par l’organisateur. Si vous pensez qu’il s’agit d’une erreur, veuillez contacter l’organisateur de l’événement."
   },
   "RadiosExperimentalMsg": "Lors de l'utilisation de radiocontrôles, les fonctionnalités liées aux intermédiaires sont expérimentales.",
+  "Ranking": {
+    "Breadcrumbs": {
+      "label": "Fil d'Ariane",
+      "rankings": "Classements"
+    },
+    "Duplicate": {
+      "crumb": "Dupliquer",
+      "title": "Dupliquer le classement"
+    },
+    "List": {
+      "description": "Gérez vos classements et modifiez la configuration de chacun.",
+      "empty": "Aucun classement pour l'instant.",
+      "loadError": "Nous n'avons pas pu charger les classements.",
+      "menuLabel": "Options du classement",
+      "title": "Classements"
+    },
+    "Menu": "Classements",
+    "ProcessEvent": {
+      "stage": "Étape",
+      "title": "Traiter l'événement"
+    },
+    "RunnerInteraction": {
+      "empty": "Développez un coureur sur la page des résultats dans un autre onglet pour le charger ici.",
+      "sendOrganizer": "Envoyer l'organisateur",
+      "stageOrder": "Ajouter à l'étape",
+      "title": "Coureur organisateur"
+    },
+    "Settings": {
+      "circuitSettings": "Configuration du circuit",
+      "circuitSettingsHint": "Agrégation sur toute la saison des courses du circuit.",
+      "competitionLink": "Voir les résultats de la compétition",
+      "deleteEventToo": "Voulez-vous aussi supprimer l'événement associé ?",
+      "generalSettings": "Configuration générale",
+      "maxPoints": "Points maximum",
+      "maxPointsHint": "L'échelle de points : points attribués au leader ; tous les autres sont notés par rapport à cette valeur.",
+      "ncFalse": "Compétitif (non marqué NC)",
+      "ncTrue": "Marqué NC",
+      "nonCompetitive": "Non-compétitif",
+      "nonCompetitiveHint": "Score fixe pour les coureurs non-compétitifs.",
+      "notFound": "Classement introuvable.",
+      "overallValues": {
+        "maxRacesCounted": "Nombre max de courses comptées",
+        "minPointsAsOrg": "Points minimum en tant qu'organisateur",
+        "organizerScoringFraction": "Fraction de points de l'organisateur",
+        "totalCircuitRaces": "Total des courses du circuit"
+      },
+      "roundPrecision": "Précision de l'arrondi",
+      "roundPrecisionValues": {
+        "floor": "Arrondir à l'entier inférieur (p. ex. 2,9 -> 2)",
+        "integer": "Entier le plus proche (p. ex. 2,6 -> 3)",
+        "one": "1 décimale (p. ex. 2,68 -> 2,7)",
+        "three": "3 décimales",
+        "two": "2 décimales"
+      },
+      "scoreOptions": {
+        "empty": "calculé"
+      },
+      "scoringAlgorithm": "Algorithme de notation",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Score simple"
+      },
+      "statusScores": "Scores par statut",
+      "statusScoresHint": "Score fixe par statut de résultat. Laissez vide pour utiliser le score calculé.",
+      "title": "Configuration du classement",
+      "titleLabel": "Titre"
+    }
+  },
   "Results": {
     "Class": "Catégorie",
     "Classes": "Catégories",
