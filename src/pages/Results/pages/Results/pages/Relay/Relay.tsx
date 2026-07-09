@@ -1,4 +1,4 @@
-import RelayResults from "./pages/RelayResults/RelayResults"
+import RelayResults from "./pages/RelayResults/RelayResults/RelayResults.tsx"
 import StageLayout from "../../components/Layout/StageLayout.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { BottomNavigationAction, Box } from "@mui/material"

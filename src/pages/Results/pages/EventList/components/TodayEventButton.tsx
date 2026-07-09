@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { EventModel } from "../../../../../shared/EntityTypes.ts"
 import Button from "@mui/material/Button"
 import { Launch } from "@mui/icons-material"
-import CountryFlag from "../../../../../components/CountryFlag"
+import CountryFlag from "../../../../../components/CountryFlag/CountryFlag.tsx"
 
 interface TodayEventButtonProps {
   event: EventModel

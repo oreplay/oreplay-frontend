@@ -1,6 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import IndividualResult from "../../../../../components/ResultsList/IndividualResult/individualResult.tsx"
-import IndividualResultColumnResultTimeAndDiff from "../../../../../components/ResultsList/IndividualResultColumnResultTimeAndDiff"
+import IndividualResult from "../../../../../components/ResultsList/IndividualResult/IndividualResult.tsx"
+import IndividualResultColumnResultTimeAndDiff from "../../../../../components/ResultsList/IndividualResultColumnResultTimeAndDiff/IndividualResultColumnResultTimeAndDiff.tsx"
 
 interface OneManRelayResultItemProps {
   runner: ProcessedRunnerModel

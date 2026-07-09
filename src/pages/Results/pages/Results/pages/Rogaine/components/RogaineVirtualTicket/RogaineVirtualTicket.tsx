@@ -12,9 +12,9 @@ import { Grid2 as Grid, Tab, Tabs } from "@mui/material"
 import { useState } from "react"
 import TimelineIcon from "@mui/icons-material/Timeline"
 import TimerIcon from "@mui/icons-material/Timer"
-import TabPanel from "../../../../../../../../components/TabPanel"
-import RogaineVirtualTicketSplitsTab from "./components/RogaineVirtualTicketSplitsTab"
-import RogaineVirtualTicketPointsTab from "./components/RogaineVirtualTicketPointsTab"
+import TabPanel from "../../../../../../../../components/TabPanel/TabPanel.tsx"
+import RogaineVirtualTicketSplitsTab from "./components/RogaineVirtualTicketSplitsTab/RogaineVirtualTicketSplitsTab.tsx"
+import RogaineVirtualTicketPointsTab from "./components/RogaineVirtualTicketPointsTab/RogaineVirtualTicketPointsTab.tsx"
 
 interface RogaineVirtualTicketProps extends VirtualTicketProps {
   controls: bigint[] | null

@@ -6,7 +6,7 @@ import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
-import TotalsResultItem from "./components/TotalResultItem"
+import TotalsResultItem from "./components/TotalResultItem/TotalResultItem.tsx"
 
 export default function TotalsResults(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,

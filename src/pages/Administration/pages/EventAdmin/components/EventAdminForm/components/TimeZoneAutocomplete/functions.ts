@@ -1,4 +1,4 @@
-import { TimeZoneId, TimezoneOption } from "./index.tsx"
+import { TimeZoneId, TimezoneOption } from "./TimeZoneAutocomplete.tsx"
 
 /**
  * Helper function to get the user's timezone from the browser

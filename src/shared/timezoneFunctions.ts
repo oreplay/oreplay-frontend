@@ -1,5 +1,5 @@
 import { DateTime } from "luxon"
-import { TimeZoneId } from "../pages/Administration/pages/EventAdmin/components/EventAdminForm/components/TimeZoneAutocomplete"
+import { TimeZoneId } from "../pages/Administration/pages/EventAdmin/components/EventAdminForm/components/TimeZoneAutocomplete/TimeZoneAutocomplete.tsx"
 import { getUserTimeZone } from "../pages/Administration/pages/EventAdmin/components/EventAdminForm/components/TimeZoneAutocomplete/functions.ts"
 
 /**

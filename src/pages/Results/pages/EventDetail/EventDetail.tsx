@@ -9,7 +9,7 @@ import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallb
 import { useFetchEventDetail } from "../../services/FetchHooks.ts"
 import { STAGE_TYPE_DATABASE_ID } from "../Results/shared/constants.ts"
 import { DateTime } from "luxon"
-import CountryFlag from "../../../../components/CountryFlag"
+import CountryFlag from "../../../../components/CountryFlag/CountryFlag.tsx"
 import { useCountry } from "../../../../services/countryService/countryHooks.ts"
 
 const styles = {

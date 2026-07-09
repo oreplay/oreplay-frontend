@@ -1,7 +1,7 @@
 import { STAGE_TYPE_DATABASE_ID } from "../shared/constants.ts"
 import { lazyWithRetry } from "../../../../../services/lazyLoad.ts"
-const Ranking = lazyWithRetry(() => import("../pages/Ranking"))
-const OneManRelay = lazyWithRetry(() => import("../pages/OneManRelay"))
+const Ranking = lazyWithRetry(() => import("../pages/Ranking/Ranking.tsx"))
+const OneManRelay = lazyWithRetry(() => import("../pages/OneManRelay/OneManRelay.tsx"))
 const FootO = lazyWithRetry(() => import("../pages/FootO/FootO.tsx"))
 const Relay = lazyWithRetry(() => import("../pages/Relay/Relay.tsx"))
 const Rogaine = lazyWithRetry(() => import("../pages/Rogaine/Rogaine.tsx"))

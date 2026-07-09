@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import EventsDataGrid from "./components/EventsDataGrid"
+import EventsDataGrid from "./components/EventsDataGrid/EventsDataGrid.tsx"
 
 export default function Dashboard() {
   const { t } = useTranslation()

@@ -17,7 +17,7 @@ import { ReactNode, useEffect, useRef, useState } from "react"
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined"
 import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined"
 import { UseQueryResult } from "react-query"
-import AutocompleteList from "./components/autocompleteList/AutocompleteList.tsx"
+import AutocompleteList from "./components/AutocompleteList/AutocompleteList.tsx"
 import { useClassClubSearchParams } from "../../../../../../shared/hooks.ts"
 import CloseIcon from "@mui/icons-material/Close"
 

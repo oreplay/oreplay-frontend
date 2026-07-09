@@ -1,4 +1,6 @@
-import EventAdminForm, { EventAdminFormValues } from "../../components/EventAdminForm"
+import EventAdminForm, {
+  EventAdminFormValues,
+} from "../../components/EventAdminForm/EventAdminForm.tsx"
 import { postEvent } from "../../../../services/EventAdminService.ts"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../../../../shared/hooks.ts"

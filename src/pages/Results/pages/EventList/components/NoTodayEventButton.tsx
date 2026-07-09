@@ -3,7 +3,7 @@ import { parseDate } from "../../../../../shared/Functions.tsx"
 import { EventModel } from "../../../../../shared/EntityTypes.ts"
 import Button from "@mui/material/Button"
 import { useNavigate } from "react-router-dom"
-import CountryFlag from "../../../../../components/CountryFlag"
+import CountryFlag from "../../../../../components/CountryFlag/CountryFlag.tsx"
 
 interface Props {
   event: EventModel

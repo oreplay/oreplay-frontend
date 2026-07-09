@@ -1,7 +1,9 @@
-import EventAdminForm, { EventAdminFormValues } from "../../components/EventAdminForm"
+import EventAdminForm, {
+  EventAdminFormValues,
+} from "../../components/EventAdminForm/EventAdminForm.tsx"
 import { Alert, AlertTitle, Box, Container, Divider, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import StagesDataGrid from "./components/StagesDataGrid"
+import StagesDataGrid from "./components/StagesDataGrid/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
 import DeleteEventButton from "./components/DeleteEventButton.tsx"
 import { useState } from "react"
