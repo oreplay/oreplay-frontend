@@ -214,66 +214,66 @@
       "label": "Breadcrumb",
       "rankings": "Rankings"
     },
+    "Duplicate": {
+      "crumb": "Duplicate",
+      "title": "Duplicate ranking"
+    },
     "List": {
-      "title": "Rankings",
       "description": "Manage your ranking lists and edit the settings of each one.",
       "empty": "No rankings yet.",
       "loadError": "We couldn't load the rankings.",
-      "menuLabel": "Ranking options"
+      "menuLabel": "Ranking options",
+      "title": "Rankings"
     },
     "Menu": "Rankings",
     "ProcessEvent": {
-      "title": "Process event",
-      "stage": "Stage"
+      "stage": "Stage",
+      "title": "Process event"
     },
     "RunnerInteraction": {
-      "title": "Organizer runner",
       "empty": "Expand a runner in the results page on another tab to load it here.",
+      "sendOrganizer": "Send organizer",
       "stageOrder": "Add to stage",
-      "sendOrganizer": "Send organizer"
-    },
-    "Duplicate": {
-      "title": "Duplicate ranking",
-      "crumb": "Duplicate"
+      "title": "Organizer runner"
     },
     "Settings": {
-      "title": "Ranking settings",
-      "titleLabel": "Title",
-      "notFound": "Ranking not found.",
-      "deleteEventToo": "Do you also want to delete the associated event?",
+      "circuitSettings": "Circuit settings",
+      "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
       "competitionLink": "View competition results",
-      "scoreOptions": {
-        "empty": "computed"
-      },
+      "deleteEventToo": "Do you also want to delete the associated event?",
       "generalSettings": "General settings",
-      "scoringAlgorithm": "Scoring algorithm",
-      "scoringAlgorithmValues": {
-        "simpleScore": "Simple score"
-      },
       "maxPoints": "Max points",
       "maxPointsHint": "The scoring scale: points awarded to the leader; everyone else is scored relative to this.",
+      "ncFalse": "Competitive (not flagged as NC)",
+      "ncTrue": "Flagged NC",
+      "nonCompetitive": "Non-competitive",
+      "nonCompetitiveHint": "Fixed score for non-competitive runners.",
+      "notFound": "Ranking not found.",
+      "overallValues": {
+        "maxRacesCounted": "Max races counted",
+        "minPointsAsOrg": "Min points as organizer",
+        "organizerScoringFraction": "Organizer scoring fraction",
+        "totalCircuitRaces": "Total circuit races"
+      },
       "roundPrecision": "Round precision",
       "roundPrecisionValues": {
         "floor": "Round down to integer (e.g. 2,9 -> 2)",
         "integer": "Nearest integer (e.g. 2,6 -> 3)",
         "one": "1 decimal place (e.g. 2,68 -> 2,7)",
-        "two": "2 decimal places",
-        "three": "3 decimal places"
+        "three": "3 decimal places",
+        "two": "2 decimal places"
       },
-      "nonCompetitive": "Non-competitive",
-      "nonCompetitiveHint": "Fixed score for non-competitive runners.",
-      "ncTrue": "Flagged NC",
-      "ncFalse": "Competitive (not flagged as NC)",
+      "scoreOptions": {
+        "empty": "computed"
+      },
+      "scoringAlgorithm": "Scoring algorithm",
+      "scoringAlgorithmValues": {
+        "simpleScore": "Simple score"
+      },
       "statusScores": "Status scores",
       "statusScoresHint": "Fixed score per result status. Leave empty to use the computed score.",
-      "circuitSettings": "Circuit settings",
-      "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
-      "overallValues": {
-        "totalCircuitRaces": "Total circuit races",
-        "maxRacesCounted": "Max races counted",
-        "organizerScoringFraction": "Organizer scoring fraction",
-        "minPointsAsOrg": "Min points as organizer"
-      }
+      "title": "Ranking settings",
+      "titleLabel": "Title"
     }
   },
   "Results": {
