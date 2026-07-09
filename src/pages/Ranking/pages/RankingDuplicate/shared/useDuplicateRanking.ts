@@ -1,20 +1,20 @@
-import { Ranking } from "../../domain/types/v1api"
-import { RankingSettingsFormState, toRankingBody } from "../../domain/rankingSettingsForm.ts"
+import { Ranking } from "../../../../../domain/types/v1api"
+import { RankingSettingsFormState, toRankingBody } from "../../../shared/rankingSettingsForm.ts"
 import {
   EVENT_NOT_PUBLIC,
   RANKING_STAGE_DESCRIPTION,
   RANKING_TOTALS_STAGE_TYPE_ID,
   buildDuplicateEventBody,
-} from "../../domain/duplicateRanking.ts"
+} from "./duplicateRanking.ts"
 import {
   usePatchRankingSettings,
   usePostListRankingSettings,
-} from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+} from "../../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import {
   usePatchEvents,
   usePostListEvents,
-} from "../../infrastructure/repositories/events/events.ts"
-import { usePostListStages } from "../../infrastructure/repositories/stages/stages.ts"
+} from "../../../../../infrastructure/repositories/events/events.ts"
+import { usePostListStages } from "../../../../../infrastructure/repositories/stages/stages.ts"
 
 // Duplicating a ranking also provisions its own non-public event and a "Ranking"
 // stage, then points the new ranking at them. Steps run in sequence; a failure

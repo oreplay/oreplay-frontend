@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useQuery } from "react-query"
-import { usePostListRankingRunnerManagement } from "../../../infrastructure/repositories/ranking-runner-management/ranking-runner-management.ts"
-import { getListStageOrders } from "../../../infrastructure/repositories/stage-orders/stage-orders.ts"
-import { useNotifyError } from "../../../infrastructure/notifications/useNotifyError.ts"
+import { usePostListRankingRunnerManagement } from "../../../../../infrastructure/repositories/ranking-runner-management/ranking-runner-management.ts"
+import { getListStageOrders } from "../../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
+import { useNotifyError } from "../../../../../infrastructure/notifications/useNotifyError.ts"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
 
 interface Runner {

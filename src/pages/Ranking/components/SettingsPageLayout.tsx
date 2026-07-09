@@ -1,8 +1,8 @@
 import { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
-import Breadcrumbs from "../../../components/Breadcrumbs/Breadcrumbs.tsx"
-import Spinner from "../../../components/Spinner/Spinner.tsx"
-import { buildRankingSettingsBreadcrumbs } from "../../../domain/breadcrumbs.ts"
+import Breadcrumbs from "./Breadcrumbs/Breadcrumbs.tsx"
+import Spinner from "./Spinner/Spinner.tsx"
+import { buildRankingSettingsBreadcrumbs } from "../shared/breadcrumbs.ts"
 
 interface SettingsPageLayoutProps {
   heading: string

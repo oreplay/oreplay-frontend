@@ -1,15 +1,15 @@
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
-import { Ranking } from "../../domain/types/v1api"
-import { useGetRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { Ranking } from "../../../../domain/types/v1api"
+import { useGetRankingSettings } from "../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import {
   RankingSettingsFormState,
   initRankingSettingsForm,
-} from "../../domain/rankingSettingsForm.ts"
-import { useNotifyError } from "../../infrastructure/notifications/useNotifyError.ts"
-import { useDuplicateRanking } from "./useDuplicateRanking.ts"
-import SettingsPageLayout from "./components/SettingsPageLayout.tsx"
-import RankingSettingsForm from "./components/RankingSettingsForm.tsx"
+} from "../../shared/rankingSettingsForm.ts"
+import { useNotifyError } from "../../../../infrastructure/notifications/useNotifyError.ts"
+import { useDuplicateRanking } from "./shared/useDuplicateRanking.ts"
+import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
+import RankingSettingsForm from "../../components/RankingSettingsForm.tsx"
 
 export default function RankingDuplicate() {
   const { t } = useTranslation()

@@ -1,5 +1,5 @@
-import { orvalAxiosInstance } from "../orval/orval-axios-instance.ts"
-import { postListRankingComputeStage } from "../repositories/ranking-compute-stage/ranking-compute-stage.ts"
+import { orvalAxiosInstance } from "../../../../../infrastructure/orval/orval-axios-instance.ts"
+import { postListRankingComputeStage } from "../../../../../infrastructure/repositories/ranking-compute-stage/ranking-compute-stage.ts"
 
 const postInBatches = async (urls: string[], batchSize: number) => {
   for (let i = 0; i < urls.length; i += batchSize) {

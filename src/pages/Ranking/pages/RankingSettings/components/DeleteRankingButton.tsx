@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
-import { useDeleteRankingSettings } from "../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
-import { useDeleteEvents } from "../../../infrastructure/repositories/events/events.ts"
-import { useNotifyError } from "../../../infrastructure/notifications/useNotifyError.ts"
+import { useDeleteRankingSettings } from "../../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { useDeleteEvents } from "../../../../../infrastructure/repositories/events/events.ts"
+import { useNotifyError } from "../../../../../infrastructure/notifications/useNotifyError.ts"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 
 interface DeleteRankingButtonProps {

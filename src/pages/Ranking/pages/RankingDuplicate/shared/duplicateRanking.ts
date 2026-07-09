@@ -1,4 +1,4 @@
-import { PostListEventsBody } from "./types/v1api"
+import { PostListEventsBody } from "../../../../../domain/types/v1api"
 
 // A duplicated ranking gets its own non-public event and a "Ranking" stage.
 
