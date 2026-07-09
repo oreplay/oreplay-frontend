@@ -1,23 +1,31 @@
 # CLAUDE.md
 
-This file guides Claude Code (claude.ai/code) when working in this repository. It focuses on the
-**ranking area** (`/rankings/*`) — a Tailwind-styled feature that lives natively inside the host
-results app (`oreplay-frontend`).
+This file guides AI agents (especially Claude Code) working in this repository. Most sections —
+directory structure, i18n, notifications, tests, conventions, principles — describe the **whole
+project**. A few focus on the **ranking area** (`/rankings/*`), a Tailwind-styled feature that lives
+natively inside this results app (`oreplay-frontend`); the practices established there are meant to be
+applied across the whole project over time.
 
-## The ranking area
+## Directory & file structure
 
-The ranking screens (list, settings, duplicate) are ordinary host pages under
-`src/pages/RankingList/` and `src/pages/RankingSettings/`, mounted by the host router:
+One preferred layout applies to the **whole codebase**:
 
-```tsx
-// src/App.tsx, inside <PrivateRoute>
-<Route path="/rankings/*" element={<RankingRoutes />} />
-```
-
-`RankingRoutes` (`src/RankingRoutes.tsx`) is a small routes subtree wrapped in a `.rk-root` element
-that scopes the Tailwind styling. It was previously shipped as a separate `@oreplay/ranking` npm
-package; it is now first-class host source — one build, one React / react-query / router / i18n /
-axios runtime, no package boundary, no auth injection, no cross-boundary bridges.
+- **Pages** live in a dir named after them: `Foo/Foo.tsx`. **Never** a bare `Foo.tsx` under `pages/`,
+  and **never** `Foo/index.tsx`. (Much of the older host code still uses `Foo/index.tsx` — that's the
+  legacy style, don't copy it into new code.)
+- **Components** go in a `components/` dir at the **tightest directory that contains every user** of
+  the component. Used by one page → that page's `components/`; shared by several → their nearest
+  common ancestor's `components/`. A simple component is just `components/Foo.tsx`; one that has its
+  own sub-parts gets its own dir `components/Foo/Foo.tsx`.
+- **Reusable non-component code** (functions, hooks, constants, types) goes in a `shared/` dir at the
+  same tightest-common-ancestor rule, with the **`.test.ts` next to the source**.
+- A **multi-page feature** therefore looks like:
+  `Feature/{Feature.tsx (entry), pages/<SubPage>/…, components/…, shared/…}`.
+- Top-level globals (`src/components`, `src/domain`, `src/shared`, `src/utils`, `src/services`,
+  `src/styles`, `src/types`, `src/infrastructure`) are reserved for genuinely **app-wide** code. Prefer
+  colocation over adding to a global. **Orval-generated dirs** (`src/infrastructure/repositories`,
+  `src/domain/types/v1api`) are left exactly as generated.
+- When relocating files, use **`git mv`** so history is preserved, and update every relative import.
 
 ## Commands
 
@@ -33,21 +41,23 @@ axios runtime, no package boundary, no auth injection, no cross-boundary bridges
 
 ## Styling — Tailwind (scoped), coexisting with MUI
 
-The host is MUI; the ranking area is **Tailwind only**. They coexist because the styling is scoped:
+**Tailwind** is preferred for new code (especially in the ranking area). It coexists with the app's
+MUI because the styling is scoped:
 
 - **Preflight is off** globally (`tailwind.config.js` → `corePlugins.preflight: false`), so Tailwind
   adds no global reset that would restyle the host's MUI tree.
 - The base resets that Tailwind's border/button/box-sizing utilities rely on are re-added **scoped to
   `.rk-root`** via `:where(.rk-root)` in `src/styles/tailwind.css`. `:where()` contributes zero
   specificity, so single-class utilities (`.bg-primary`) still win over the resets. Every ranking
-  screen renders inside the `.rk-root` wrapper (`RankingRoutes`), so the resets never leak out.
-- `RankingRoutes` imports `src/styles/tokens.css` (palette CSS vars) and `src/styles/tailwind.css`
+  screen renders inside the `.rk-root` wrapper set by the ranking entry
+  (`src/pages/Ranking/Ranking.tsx`), so the resets never leak out.
+- That same entry imports `src/styles/tokens.css` (palette CSS vars) and `src/styles/tailwind.css`
   (the `@tailwind` directives). Vite's PostCSS (`postcss.config.js` → `tailwindcss` + `autoprefixer`)
   compiles them at build time — there is **no** precompiled `compiled.css` and **no** `build:css`
-  step; the compiled utilities land in a code-split CSS chunk loaded with the lazy `RankingRoutes`.
+  step; the compiled utilities land in a code-split CSS chunk loaded with the lazily-imported entry.
 - In ranking code: **do not import `@mui/*` or `@emotion/*`.** Build UI from semantic HTML + Tailwind
   utilities written plain (`bg-primary`, `flex`, `text-sm` — **no `tw-` prefix**), inline-SVG icons
-  under `src/components/icons/`, and the shared `src/components/Spinner/`.
+  (`src/pages/Ranking/components/icons/`), and the shared `src/pages/Ranking/components/Spinner/`.
 - The palette lives in `src/styles/tokens.css` as **channel-format** CSS vars
   (`--color-primary: 255 113 10`) consumed by `tailwind.config.js`, so opacity utilities
   (`bg-primary/50`) work. `primary`, `secondary`, `surface` mirror the host's MUI palette.
@@ -55,12 +65,12 @@ The host is MUI; the ranking area is **Tailwind only**. They coexist because the
   only emits utilities that are actually used, and the host's MUI code uses `sx`/emotion, not bare
   utility class names.
 
-## API client — orval-generated (shared with the host)
+## API client — orval-generated
 
 One orval config (`orval.config.ts`) runs against the OpenAPI spec and generates a **single** client
 into `src/infrastructure/repositories/` plus types into `src/domain/types/v1api`. Ranking endpoints
-are included via `input.filters.tags` (`/Ranking/`, `/Events/`, `/Stages/`, `/StageOrders/`). Ranking
-pages import the generated hooks/types with relative paths, like any host page:
+are included via `input.filters.tags` (`/Ranking/`, `/Events/`, `/Stages/`, `/StageOrders/`). Anywhere
+in the project, import the generated hooks/types with relative paths:
 
 ```ts
 import { useGetListRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
@@ -83,28 +93,47 @@ import { Ranking } from "../../domain/types/v1api"
 
 ## i18n
 
-Ranking strings live in the host's `public/locales/<lng>/translation.json` under `Ranking.*` and are
-served by the host's i18next http-backend like every other key — there is no separate registration
-step. Strings go through `react-i18next` `t()` (ESLint `i18next/no-literal-string` is enforced).
+Every user-facing string goes through `react-i18next`'s `t()` — ESLint's `i18next/no-literal-string`
+enforces it. Translations live in `public/locales/<lng>/translation.json` (**19 locales**,
+Weblate-managed) and are fetched at runtime by `i18next-http-backend`
+(`loadPath: "/locales/{{lng}}/{{ns}}.json"`, single `translation` namespace), together with
+`LanguageDetector` and a per-language `fallbackLng` map — see `src/i18n.ts`.
 
-- **Reuse common labels from `Ranking.gui.*`** rather than redefining `save`/`cancel`/… per feature;
-  add a new common label to `gui` as a component first needs it. Only use a feature-scoped key when
-  the wording is genuinely specific.
-- Only `en` currently has ranking keys; other locales fall back to English until translated.
+- **Generic UI labels live exactly once, in the root `Gui` group** (`Gui.save`, `Gui.delete`,
+  `Gui.edit`, `Gui.loading`, `Gui.search`, `Gui.clearSearch`, `Gui.close`, `Gui.confirm`, `Gui.ok`,
+  `Gui.noResults`, `Gui.deleteConfirm`, `Gui.error.*`). Reuse them **across the whole app** instead of
+  redefining `save`/`delete`/… per feature; add a new common label to `Gui` as soon as a second place
+  needs it. `Gui` keys are ordered alphabetically and are translated in **all 19 locales**.
+- **Feature-scoped keys** go under their own top-level group (`Ranking.*`, `EventAdmin.*`,
+  `ResultsStage.*`, `Dashboard.*`, …). Only introduce one when the wording is genuinely specific to
+  that feature — otherwise reach for `Gui.*`.
 
 ## Notifications
 
-Ranking request failures are shown through the host's snackbar: call `useNotifyError()`
-(`src/infrastructure/notifications/useNotifyError.ts`) and pass the error — it maps the HTTP status to
-a translated `Ranking.gui.error.*` message via the pure, tested `httpErrorMessageKey` and shows it
-with `@toolpad/core`'s `useNotifications`. There is no `window`-event bridge.
+Snackbars come from `@toolpad/core`'s `useNotifications()`; its `NotificationsProvider` is mounted
+once in `src/App.tsx`. Features call it directly for success/info messages (event admin, sign-up, QR
+code, …).
+
+For **failed HTTP requests**, use the shared `useNotifyError()` hook
+(`src/infrastructure/notifications/useNotifyError.ts`) — pass it the error and it maps the HTTP status
+to a translated `Gui.error.*` message via the pure, tested `httpErrorMessageKey`, then shows it with
+`severity: "error"`. This is app-wide infrastructure available to any feature (today the ranking pages
+use it).
 
 ## Tests
 
-Vitest is configured in `vite.config.ts` (`test` block: `globals`, `environment: "jsdom"`,
-`setupFiles: "./src/test/setup.ts"`; `@toolpad/core` is inlined so Vite resolves its ESM directory
-import). Domain logic has pure unit tests next to the source; component smoke tests mock the generated
-hook with `vi.mock` to stay hermetic (`src/test/i18n.ts` loads the English locale synchronously).
+Vitest is configured in `vite.config.ts` (`test` block: `globals: true`, `environment: "jsdom"`,
+`setupFiles: "./src/test/setup.ts"`, and `server.deps.inline: ["@toolpad/core"]` so Vite resolves its
+ESM directory import). `src/test/setup.ts` pulls in `@testing-library/jest-dom` plus `src/test/i18n.ts`,
+which initialises i18next synchronously from the English locale (no http-backend, `useSuspense: false`)
+so components render real strings.
+
+- **Tests live next to the source they cover** (`foo.ts` → `foo.test.ts`). A legacy `__tests__/` folder
+  still exists under `src/domain/services/` — don't copy that pattern into new code.
+- Pure logic (domain / `shared/` functions) is unit-tested directly; component smoke tests mock the
+  orval-generated hook with `vi.mock` to stay hermetic.
+- `vi.mock()` takes a path **relative to the test file** and is _not_ an import statement — remember to
+  update it by hand when moving files.
 
 ## Conventions
 
@@ -117,7 +146,7 @@ hook with `vi.mock` to stay hermetic (`src/test/i18n.ts` loads the English local
 
 ## Development Principles
 
-Write code following SOLID principles and the guidelines below.
+Write code following clean-code and SOLID principles, plus the guidelines below.
 
 ### Component design
 
@@ -126,11 +155,12 @@ Write code following SOLID principles and the guidelines below.
   own component. A parent should read as a list of child components, not large blocks of markup.
 - **Thin & logic-free**: components render UI and wire props/hooks together — nothing more. Push
   **all** non-trivial logic (calculations, formatting, data shaping, conditional/branching rules,
-  validation) out into the domain layer (`src/domain/`) and import it. A component should be
-  understandable at a glance; if you'd need a comment to explain _what_ a piece of inline logic
-  computes, that logic belongs in `src/domain/` as a named, tested function instead.
-- **One component per file**: each `.tsx` exports exactly one component. When a component splits into
-  parts, group them in a `components/` subfolder named after the public component.
+  validation) out into a `shared/` module and import it. A component should be understandable at a
+  glance; if you'd need a comment to explain _what_ a piece of inline logic computes, that logic
+  belongs in `shared/` as a named, tested function instead.
+- **One component per file**: each `.tsx` exports exactly one component. When a component grows its own
+  sub-parts, give it a dir (`components/Foo/Foo.tsx`) and put those parts in
+  `components/Foo/components/` — see Directory & file structure.
 - **Stateless first**: prefer presentational components; add state only when essential and keep it
   encapsulated (don't leak it to parents).
 - **Clear interfaces**: define an explicit props interface per component. If a component accepts
@@ -141,9 +171,10 @@ Write code following SOLID principles and the guidelines below.
 
 Never leave the user waiting on a silent UI — every asynchronous action shows a loading affordance:
 
-- **Page / list / data loads:** render the shared `Spinner` while the query is loading (gate on
-  react-query's `isLoading`, e.g. `RankingListContent`). Note `isLoading` is true only when there is
-  no cached data, so the spinner shows on a cold load and not on background refetches — intended.
+- **Page / list / data loads:** render a spinner while the query is loading — in the ranking area, the
+  shared `src/pages/Ranking/components/Spinner/` (gate on react-query's `isLoading`, e.g.
+  `RankingListContent`). Note `isLoading` is true only when there is no cached data, so the spinner
+  shows on a cold load and not on background refetches — intended.
 - **Buttons that trigger a save or any HTTP request:** show the pending state **inside the button** —
   disable it (prevents double-submit) and render an inline spinner in place of / beside the label,
   driven by the mutation's `isLoading` (e.g. `usePatchRankingSettings().isLoading` for the
@@ -153,11 +184,12 @@ Never leave the user waiting on a silent UI — every asynchronous action shows 
 
 ### Domain & data
 
-- **Domain-first logic**: all business and presentation logic lives in `src/domain/` as pure,
-  unit-testable functions — **never** inline in components or hooks. Components (and the generated
-  repositories) delegate to it. This is what keeps components thin and the logic testable in
-  isolation; tests live next to the source. Create the relevant `src/domain/` file as soon as a
-  component grows any logic worth naming — don't wait for a "big enough" reason.
+- **Domain-first logic**: all business and presentation logic lives in pure, unit-testable functions —
+  **never** inline in components or hooks. They belong in the feature's `shared/` dir (placed by the
+  tightest-common-ancestor rule); `src/domain/` is reserved for genuinely app-wide domain code.
+  Components (and the generated repositories) delegate to them. This is what keeps components thin and
+  the logic testable in isolation; tests live next to the source. Create the `shared/` file as soon as
+  a component grows any logic worth naming — don't wait for a "big enough" reason.
 - **The generated types are the contract**: build on the orval-generated types in
   `src/domain/types/v1api`, and never hand-edit generated output (regenerate with
   `npm run orval-build`).
