@@ -1,20 +1,47 @@
-import { describe, it, expect } from "vitest"
+import { beforeAll, describe, it, expect } from "vitest"
+import { createInstance, type Resource } from "i18next"
 import { readdirSync, readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { dirname, join, relative, resolve } from "node:path"
-import i18n from "../../../test/i18n.ts"
 import { usedNamespaces } from "../../../supportedLanguages.tsx"
 import { RANKING_NAMESPACE } from "./useTranslationRanking.ts"
 
-const RANKING_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..")
+const HERE = dirname(fileURLToPath(import.meta.url))
+const RANKING_DIR = resolve(HERE, "..")
+const ENGLISH_LOCALE_DIR = resolve(HERE, "../../../../public/locales/en")
 
-const t = i18n.getFixedT(null, RANKING_NAMESPACE)
+// Every registered namespace is loaded from disk, so a new namespace needs no
+// change here — and its keys are checked the moment ranking code uses them.
+const englishResources = (): Resource => ({
+  en: Object.fromEntries(
+    usedNamespaces.map((namespace) => [
+      namespace,
+      JSON.parse(readFileSync(join(ENGLISH_LOCALE_DIR, `${namespace}.json`), "utf8")) as Record<
+        string,
+        unknown
+      >,
+    ]),
+  ),
+})
+
+const i18n = createInstance()
+
+beforeAll(async () => {
+  await i18n.init({
+    lng: "en",
+    fallbackLng: "en",
+    ns: usedNamespaces,
+    defaultNS: "translation",
+    resources: englishResources(),
+  })
+})
 
 // `exists` resolves against `ns` unless the key carries its own `<ns>:` prefix,
 // which wins — so this covers bare ranking keys and prefixed foreign ones alike.
 const expectResolves = (key: string) => {
   expect(i18n.exists(key, { ns: RANKING_NAMESPACE }), `key does not exist: ${key}`).toBe(true)
-  expect(t(key), `key resolves to itself: ${key}`).not.toBe(key)
+  const translated = i18n.getFixedT(null, RANKING_NAMESPACE)(key)
+  expect(translated, `key resolves to itself: ${key}`).not.toBe(key)
 }
 
 const sourceFiles = (dir: string): string[] =>
@@ -42,7 +69,7 @@ describe("ranking namespace", () => {
   })
 
   it("resolves common: keys from a ranking-bound t", () => {
-    expect(t("common:save")).toBe("Save")
+    expect(i18n.getFixedT(null, RANKING_NAMESPACE)("common:save")).toBe("Save")
   })
 
   it("resolves translation: keys from a ranking-bound t", () => {
