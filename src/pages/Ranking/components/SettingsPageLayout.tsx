@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../shared/useTranslationRanking.ts"
 import Breadcrumbs from "./Breadcrumbs/Breadcrumbs.tsx"
 import Spinner from "./Spinner/Spinner.tsx"
 import { buildRankingSettingsBreadcrumbs } from "../shared/breadcrumbs.ts"
@@ -25,12 +25,12 @@ export default function SettingsPageLayout({
   children,
   extraContent,
 }: SettingsPageLayoutProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
 
   const breadcrumbs = buildRankingSettingsBreadcrumbs(
     {
-      dashboard: t("Dashboard.Dashboard"),
-      ranking: t("Ranking.Breadcrumbs.rankings"),
+      dashboard: t("translation:Dashboard.Dashboard"),
+      ranking: t("Breadcrumbs.rankings"),
     },
     currentCrumb,
   )
@@ -38,15 +38,15 @@ export default function SettingsPageLayout({
   return (
     <div className="rk-settings-page-layout min-h-screen grow bg-surface py-12">
       <div className="mx-auto max-w-3xl px-4">
-        <Breadcrumbs items={breadcrumbs} label={t("Ranking.Breadcrumbs.label")} className="mb-6" />
+        <Breadcrumbs items={breadcrumbs} label={t("Breadcrumbs.label")} className="mb-6" />
         <h1 className="mb-4 text-2xl font-semibold">{heading}</h1>
 
         <div className="flex flex-col gap-6">
           <div className="rounded-xl bg-white p-6 shadow-sm">
             {isLoading ? (
-              <Spinner label={t("Loading")} />
+              <Spinner label={t("common:loading")} />
             ) : isMissing ? (
-              <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
+              <p className="text-neutral-500">{t("Settings.notFound")}</p>
             ) : (
               children
             )}

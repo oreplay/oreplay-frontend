@@ -1,0 +1,67 @@
+{
+  "Breadcrumbs": {
+    "label": "Breadcrumb",
+    "rankings": "Rankings"
+  },
+  "Duplicate": {
+    "crumb": "Duplicate",
+    "title": "Duplicate ranking"
+  },
+  "List": {
+    "description": "Manage your ranking lists and edit the settings of each one.",
+    "empty": "No rankings yet.",
+    "loadError": "We couldn't load the rankings.",
+    "menuLabel": "Ranking options",
+    "title": "Rankings"
+  },
+  "ProcessEvent": {
+    "stage": "Stage",
+    "title": "Process event"
+  },
+  "RunnerInteraction": {
+    "empty": "Expand a runner in the results page on another tab to load it here.",
+    "sendOrganizer": "Send organizer",
+    "stageOrder": "Add to stage",
+    "title": "Organizer runner"
+  },
+  "Settings": {
+    "circuitSettings": "Circuit settings",
+    "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
+    "competitionLink": "View competition results",
+    "deleteEventToo": "Do you also want to delete the associated event?",
+    "generalSettings": "General settings",
+    "maxPoints": "Max points",
+    "maxPointsHint": "The scoring scale: points awarded to the leader; everyone else is scored relative to this.",
+    "maxPointsPositive": "Max points must be greater than zero.",
+    "ncFalse": "Competitive (not flagged as NC)",
+    "ncTrue": "Flagged NC",
+    "nonCompetitive": "Non-competitive",
+    "nonCompetitiveHint": "Fixed score for non-competitive runners.",
+    "notFound": "Ranking not found.",
+    "overallValues": {
+      "maxRacesCounted": "Max races counted",
+      "minPointsAsOrg": "Min points as organizer",
+      "organizerScoringFraction": "Organizer scoring fraction",
+      "totalCircuitRaces": "Total circuit races"
+    },
+    "roundPrecision": "Round precision",
+    "roundPrecisionValues": {
+      "floor": "Round down to integer (e.g. 2,9 -> 2)",
+      "integer": "Nearest integer (e.g. 2,6 -> 3)",
+      "one": "1 decimal place (e.g. 2,68 -> 2,7)",
+      "three": "3 decimal places",
+      "two": "2 decimal places"
+    },
+    "scoreOptions": {
+      "empty": "computed"
+    },
+    "scoringAlgorithm": "Scoring algorithm",
+    "scoringAlgorithmValues": {
+      "simpleScore": "Simple score"
+    },
+    "statusScores": "Status scores",
+    "statusScoresHint": "Fixed score per result status. Leave empty to use the computed score.",
+    "title": "Ranking settings",
+    "titleLabel": "Title"
+  }
+}

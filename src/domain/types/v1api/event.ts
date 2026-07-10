@@ -22,7 +22,7 @@ export interface Event {
   final_date: string
   id: string
   initial_date: string
-  is_hidden?: boolean
+  is_hidden: boolean
   /** @nullable */
   location?: string | null
   modified: string

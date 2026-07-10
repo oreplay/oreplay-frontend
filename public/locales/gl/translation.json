@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Datas",
-  "Delete": "Borrar",
-  "Edit": "Editar",
   "EmailAddress": "Enderezo electrónico",
   "Event": "Evento",
   "EventAdmin": {
@@ -66,7 +64,6 @@
     "Renew": "Renovar",
     "Renew security keys": "Xerar unha nova chave de seguridade",
     "RenewEventTokenMsg": "Se renovas a chave de seguridade, a antiga será invalidada. Polo tanto, ninguén coa chave antiga poderá subir resultados neste evento.",
-    "Save": "Gravar",
     "Scopes": {
       "Club": "Club",
       "International": "Internacional",
@@ -164,7 +161,6 @@
     "Language": "Idioma",
     "Spanish": "Español"
   },
-  "Loading": "Cargando",
   "Location": "Localización",
   "Menu": "Menú",
   "MyAccount": {
@@ -257,11 +253,6 @@
       "ok": "ok",
       "ot": "FC"
     }
-  },
-  "Save": "Gravar",
-  "Search": {
-    "ClearSearch": "Limpar busca",
-    "Search": "Buscar"
   },
   "Settings": "Configuración",
   "Sign in": {

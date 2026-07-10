@@ -16,6 +16,7 @@ import InfoIcon from "@mui/icons-material/Info"
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { DASHBOARD_PATH, RANKING_LIST_PATH } from "../../../shared/routes.ts"
 import CloseIcon from "@mui/icons-material/Close"
 import DashboardIcon from "@mui/icons-material/Dashboard"
 import LeaderboardIcon from "@mui/icons-material/Leaderboard"
@@ -127,7 +128,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
               <ListItem>
                 <ListItemButton
                   onClick={() => {
-                    void navigate("/dashboard")
+                    void navigate(DASHBOARD_PATH)
                     setOpenSidebar((prev) => !prev)
                   }}
                 >
@@ -141,14 +142,14 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
                 <ListItem>
                   <ListItemButton
                     onClick={() => {
-                      void navigate("/rankings")
+                      void navigate(RANKING_LIST_PATH)
                       setOpenSidebar((prev) => !prev)
                     }}
                   >
                     <ListItemIcon>
                       <LeaderboardIcon />
                     </ListItemIcon>
-                    <ListItemText primary={t("Ranking.Menu")} />
+                    <ListItemText primary={t("Rankings")} />
                   </ListItemButton>
                 </ListItem>
               )}

@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Dates",
-  "Delete": "Esborrar",
-  "Edit": "Editar",
   "EmailAddress": "Correu electrònic",
   "Event": "Event",
   "EventAdmin": {
@@ -68,7 +66,6 @@
     "Renew": "Renovar",
     "Renew security keys": "Generar una clau de seguretat nova",
     "RenewEventTokenMsg": "Si renoves la clau de seguretat, l'antiga serà invàlida. Ningú amb la clau de seguretat antiga podrà pujar resultats a aquest event.",
-    "Save": "Guardar",
     "Scopes": {
       "Club": "Club",
       "International": "Internacional",
@@ -171,7 +168,6 @@
     "Language": "Idioma",
     "Spanish": "Español"
   },
-  "Loading": "Carregant",
   "Location": "Ubicació",
   "Menu": "Menú",
   "MyAccount": {
@@ -265,11 +261,6 @@
       "ok": "ok",
       "ot": "FT"
     }
-  },
-  "Save": "Guardar",
-  "Search": {
-    "ClearSearch": "Esborrar cerca",
-    "Search": "Cerca"
   },
   "Settings": "Configuració",
   "Sign in": {

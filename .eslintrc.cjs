@@ -20,6 +20,13 @@ module.exports = {
   plugins: ["react-refresh", "jsonc", "i18next"],
   rules: {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+    "no-restricted-globals": [
+      "error",
+      {
+        name: "Date",
+        message: "Use Luxon (DateTime) for date/time logic instead of the native Date.",
+      },
+    ],
     "@typescript-eslint/no-unsafe-member-access": "error",
     "@typescript-eslint/no-unsafe-assignment": "error",
     "@typescript-eslint/no-unsafe-call": "error",

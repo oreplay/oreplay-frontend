@@ -1,13 +1,15 @@
 import { describe, expect, it } from "vitest"
-import { buildDuplicateEventBody } from "./duplicateRanking.ts"
+import { DateTime } from "luxon"
+import { EVENT_NOT_PUBLIC, buildDuplicateEventBody } from "./duplicateRanking.ts"
 
 describe("buildDuplicateEventBody", () => {
-  it("uses the title as description and Jan 1 of the current year for dates", () => {
-    const date = `${new Date().getFullYear()}-01-01`
+  it("uses the title as description, Jan 1 of the current year for dates, and is never public", () => {
+    const date = `${DateTime.now().year}-01-01`
     expect(buildDuplicateEventBody("Copy")).toEqual({
       description: "Copy",
       initial_date: date,
       final_date: date,
+      is_hidden: EVENT_NOT_PUBLIC,
     })
   })
 })

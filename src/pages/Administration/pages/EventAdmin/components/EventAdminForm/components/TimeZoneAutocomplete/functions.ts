@@ -1,14 +1,11 @@
+import { DateTime } from "luxon"
 import { TimeZoneId, TimezoneOption } from "./index.tsx"
 
 /**
  * Helper function to get the user's timezone from the browser
  */
 export function getUserTimeZone(): TimeZoneId {
-  try {
-    return Intl.DateTimeFormat().resolvedOptions().timeZone
-  } catch {
-    return "UTC"
-  }
+  return DateTime.local().zoneName ?? "UTC"
 }
 
 /**
@@ -22,7 +19,7 @@ export function getOffset(timeZone: TimeZoneId): string {
     minute: "2-digit",
     hour12: false,
     timeZoneName: "shortOffset",
-  }).formatToParts(new Date())
+  }).formatToParts(DateTime.now().toMillis())
 
   return parts.find((p) => p.type === "timeZoneName")?.value ?? "GMT"
 }
@@ -33,10 +30,11 @@ export function getOffset(timeZone: TimeZoneId): string {
  * @param locale locale string. For example "es"
  */
 export function getLocalizedName(timeZone: TimeZoneId, locale: string): string {
+  // Luxon resolves "UTC" rather than "Coordinated Universal Time".
   const parts = new Intl.DateTimeFormat(locale, {
     timeZone,
     timeZoneName: "long",
-  }).formatToParts(new Date())
+  }).formatToParts(DateTime.now().toMillis())
 
   return parts.find((p) => p.type === "timeZoneName")?.value ?? timeZone
 }

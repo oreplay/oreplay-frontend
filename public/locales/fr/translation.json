@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Dates",
-  "Delete": "Supprimer",
-  "Edit": "Modifier",
   "EmailAddress": "Adresse e-mail",
   "Event": "Événement",
   "EventAdmin": {
@@ -66,7 +64,6 @@
     "Renew": "Renouveler",
     "Renew security keys": "Créer une nouvelle clé de sécurité",
     "RenewEventTokenMsg": "Si vous renouvelez la clé de sécurité, l'ancienne sera invalidée. Par conséquent, personne avec l'ancienne clé ne pourra télécharger les résultats de cet événement.",
-    "Save": "Sauvegarder",
     "Scopes": {
       "Club": "Club",
       "International": "Internationale",
@@ -165,7 +162,6 @@
     "Language": "Langue",
     "Spanish": "Español"
   },
-  "Loading": "Chargement",
   "Location": "Emplacement",
   "Menu": "Menu",
   "MyAccount": {
@@ -258,11 +254,6 @@
       "ok": "ok",
       "ot": "Hors délai"
     }
-  },
-  "Save": "Sauvegarder",
-  "Search": {
-    "ClearSearch": "Effacer la recherche",
-    "Search": "Recherche"
   },
   "Settings": "Configuration",
   "Sign in": {

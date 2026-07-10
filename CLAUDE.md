@@ -2,8 +2,8 @@
 
 This file guides AI agents (especially Claude Code) working in this repository. Most sections —
 directory structure, i18n, notifications, tests, conventions, principles — describe the **whole
-project**. A few focus on the **ranking area** (`/rankings/*`), a Tailwind-styled feature that lives
-natively inside this results app (`oreplay-frontend`); the practices established there are meant to be
+project**. A few focus on the **ranking area**, a Tailwind-styled feature that lives
+natively inside this results app; the practices established there are meant to be
 applied across the whole project over time.
 
 ## Directory & file structure
@@ -29,7 +29,7 @@ One preferred layout applies to the **whole codebase**:
 
 ## Commands
 
-> Run `nvm use` first (`.nvmrc` → Node 22). The default shell Node may be too old and make
+> **Node version is defined in `.nvmrc`** Run `nvm use` first. The default shell Node may be too old and make
 > `tsc`/`eslint` fail with confusing `Unexpected token` errors.
 
 - `npm run dev` — Vite dev server
@@ -94,19 +94,46 @@ import { Ranking } from "../../domain/types/v1api"
 ## i18n
 
 Every user-facing string goes through `react-i18next`'s `t()` — ESLint's `i18next/no-literal-string`
-enforces it. Translations live in `public/locales/<lng>/translation.json` (**19 locales**,
+enforces it. Translations live in `public/locales/<lng>/<namespace>.json` (**19 locales**,
 Weblate-managed) and are fetched at runtime by `i18next-http-backend`
-(`loadPath: "/locales/{{lng}}/{{ns}}.json"`, single `translation` namespace), together with
-`LanguageDetector` and a per-language `fallbackLng` map — see `src/i18n.ts`.
+(`loadPath: "/locales/{{lng}}/{{ns}}.json"`), together with `LanguageDetector` and a per-language
+`fallbackLng` map — see `src/i18n.ts`.
 
-- **Generic UI labels live exactly once, in the root `Gui` group** (`Gui.save`, `Gui.delete`,
-  `Gui.edit`, `Gui.loading`, `Gui.search`, `Gui.clearSearch`, `Gui.close`, `Gui.confirm`, `Gui.ok`,
-  `Gui.noResults`, `Gui.deleteConfirm`, `Gui.error.*`). Reuse them **across the whole app** instead of
-  redefining `save`/`delete`/… per feature; add a new common label to `Gui` as soon as a second place
-  needs it. `Gui` keys are ordered alphabetically and are translated in **all 19 locales**.
-- **Feature-scoped keys** go under their own top-level group (`Ranking.*`, `EventAdmin.*`,
-  `ResultsStage.*`, `Dashboard.*`, …). Only introduce one when the wording is genuinely specific to
-  that feature — otherwise reach for `Gui.*`.
+### Namespaces
+
+A namespace is one JSON file per locale, loaded independently. Today: `translation` (the default —
+core results/event functionality), `common`, `ranking`, `organizers`, `about-us`, etc.
+
+- **New functionality that isn't deeply tied to the core results feature gets its own namespace**,
+  rather than growing `translation.json`. A namespace keeps a feature's wording self-contained,
+  keeps it out of the bundle for users who never open it, and lets Weblate track it separately.
+- **Declare the namespace, then use bare keys**: `const { t } = useTranslation("organizers")` →
+  `t("title")`. This is how every feature namespace is consumed — never `t("organizers:title")`.
+- **Wrap the namespace in a hook rather than repeating the string**: the ranking area calls
+  `useTranslationRanking()` (`src/pages/Ranking/shared/useTranslationRanking.ts` instead of using `useTranslation("ranking")`), which owns the one
+  `RANKING_NAMESPACE` constant. Follow this for every new namespace — no magic strings at call sites.
+- **`common` is the exception that is always available**: it is preloaded next to `translation`
+  (`ns` in `src/i18n.ts`), so `t("common:save")` works from any `t`, including a plain
+  `useTranslation()`. That way a component mixes its own feature keys with generic labels without
+  declaring two namespaces, and a Suspense fallback like `GeneralSuspenseFallback` never suspends
+  waiting for a namespace. Every other namespace loads lazily, on first `useTranslation("<ns>")`.
+- **Register every new namespace in `usedNamespaces`** (`src/supportedLanguages.tsx`).
+  `src/supportedLanguages.test.ts` then asserts `public/locales/<lng>/<ns>.json` exists for **every**
+  locale, so create the file in all 19 — an empty `{}` is acceptable for a locale that is not
+  translated yet (see `public/locales/bg/organizers.json`). Nothing else to register: tests that need
+  the strings build their own i18next instance from `usedNamespaces`.
+
+### Key placement
+
+- **Generic UI labels live exactly once, in the `common` namespace** (`common:save`, `common:delete`,
+  `common:edit`, `common:loading`, `common:search`, `common:clearSearch`, `common:close`,
+  `common:confirm`, `common:ok`, `common:noResults`, `common:deleteConfirm`, `common:duplicate`,
+  `common:error.*`). Reuse them **across the whole app** instead of redefining `save`/`delete`/… per
+  feature; add a new common label as soon as a second place needs it.
+- **Feature-scoped keys** go under their own top-level group inside their namespace (`Ranking.*`,
+  `EventAdmin.*`, `ResultsStage.*`, `Dashboard.*`, …). Only introduce one when the wording is
+  genuinely specific to that feature — otherwise reach for `common:`.
+- **Keys are ordered alphabetically** within every group, and every locale carries the same key set.
 
 ## Notifications
 
@@ -116,20 +143,51 @@ code, …).
 
 For **failed HTTP requests**, use the shared `useNotifyError()` hook
 (`src/infrastructure/notifications/useNotifyError.ts`) — pass it the error and it maps the HTTP status
-to a translated `Gui.error.*` message via the pure, tested `httpErrorMessageKey`, then shows it with
+to a translated `common:error.*` message via the pure, tested `httpErrorMessageKey`, then shows it with
 `severity: "error"`. This is app-wide infrastructure available to any feature (today the ranking pages
 use it).
+
+## Forms
+
+**Every form is built with TanStack Form** (`@tanstack/react-form`). Never hand-roll per-field
+`useState` + manual error flags — a bespoke `WebsiteField` doing exactly that was deleted when
+`EventAdminForm` moved to TanStack Form. Reference implementations:
+`src/pages/Administration/pages/EventAdmin/components/EventAdminForm/` (MUI) and
+`src/pages/Ranking/components/RankingSettingsForm.tsx` (Tailwind).
+
+- **Shape**: `const form = useForm({ defaultValues, onSubmit: ({ value }) => props.onSubmit(value) })`,
+  then one `<form.Field name="…" validators={{ … }}>{(field) => …}</form.Field>` per input.
+- **Submit**: put `noValidate` on the `<form>` so the browser's native bubbles don't pre-empt our
+  translated messages, and submit with
+  `onSubmit={(e) => { e.preventDefault(); e.stopPropagation(); void form.handleSubmit() }}`.
+- **Validation** goes in `validators` — `onChange` for as-you-type rules, `onBlur` for
+  required/format, `onSubmit` for cross-field rules, and `onChangeListenTo: ["otherField"]` when a
+  field depends on another (e.g. start/end dates). Every message is produced with `t()`; reuse the
+  existing `ThisFieldIsRequiredMsg` key for "required".
+- **Non-trivial predicates are pure functions** in the feature's `shared/` dir, unit-tested next to
+  the source (e.g. `validateURL`). Keep the `t()` call in the component, the predicate pure.
+- **Errors render through reusable field components**, never ad-hoc markup: pass
+  `field.state.meta.errors` into the component's `error` prop. The component then turns the control
+  and label red, sets `aria-invalid`, and renders the message (`FieldError`, `role="alert"`). Ranking
+  fields live in `src/pages/Ranking/components/form/`; MUI forms use `error` + `helperText`.
+- **Extend, don't fork**: if a field can't show an error, add an `error` prop to the existing shared
+  component rather than creating a one-off field that owns its own error state.
+- **Gate the submit button** with `<form.Subscribe>` (`canSubmit`) and show the pending state from the
+  mutation's `isLoading` — see Loading & async feedback.
 
 ## Tests
 
 Vitest is configured in `vite.config.ts` (`test` block: `globals: true`, `environment: "jsdom"`,
-`setupFiles: "./src/test/setup.ts"`, and `server.deps.inline: ["@toolpad/core"]` so Vite resolves its
-ESM directory import). `src/test/setup.ts` pulls in `@testing-library/jest-dom` plus `src/test/i18n.ts`,
-which initialises i18next synchronously from the English locale (no http-backend, `useSuspense: false`)
-so components render real strings.
+`setupFiles: "./src/test/setup.ts"`, `env: { TZ: "UTC" }`, and `server.deps.inline: ["@toolpad/core"]`
+so Vite resolves its ESM directory import). `src/test/setup.ts` only pulls in
+`@testing-library/jest-dom`.
 
 - **Tests live next to the source they cover** (`foo.ts` → `foo.test.ts`). A legacy `__tests__/` folder
   still exists under `src/domain/services/` — don't copy that pattern into new code.
+- **No global i18next instance is initialised for tests.** A test that needs real strings builds its own
+  with `createInstance()`, loading `public/locales/en/<ns>.json` for each entry of `usedNamespaces` —
+  see `src/pages/Ranking/shared/useTranslationRanking.test.ts`. Components rendered without one fall
+  back to showing key names, so assert on data, not labels, unless you set an instance up.
 - Pure logic (domain / `shared/` functions) is unit-tested directly; component smoke tests mock the
   orval-generated hook with `vi.mock` to stay hermetic.
 - `vi.mock()` takes a path **relative to the test file** and is _not_ an import statement — remember to
@@ -143,10 +201,12 @@ so components render real strings.
   Non-source TS like `vite.config.ts` is in `.eslintignore` (it is not in the `tsconfig` project).
 - `react-router` v7: `navigate()` returns a promise, so in event handlers use `void navigate(...)`
   (otherwise `no-misused-promises` / `no-floating-promises` fire).
-
-## Development Principles
-
-Write code following clean-code and SOLID principles, plus the guidelines below.
+- **Dates & times go through Luxon** (`DateTime`, `Duration`) — parsing, formatting, arithmetic,
+  timezones, and "now". The native `Date` is banned by ESLint's `no-restricted-globals`, in source
+  and tests alike (`vi.setSystemTime(DateTime.fromISO(…).toMillis())`). `TimeZoneAutocomplete`'s
+  `getOffset`/`getLocalizedName` still format through `Intl` because Luxon can't reproduce them
+  (`shortOffset` has no equivalent, and `"UTC"` resolves to a `FixedOffsetZone`), but they format a
+  Luxon instant, not a `Date` — `functions.test.ts` pins that behavior.
 
 ### Component design
 
@@ -202,15 +262,14 @@ Never leave the user waiting on a silent UI — every asynchronous action shows 
 
 ### When writing code
 
+- **Clean code**: always consider SOLID and clean code principles (Robert C. Martin).
 - **Refactor over hack**: restructure surrounding code to fit a change cleanly rather than adding a
   case-specific workaround.
 - **Readability**: don't inline long ternaries/conditions in JSX props — extract named variables.
 - **DRY**: extract duplicated logic into reusable functions.
 - **i18n**: user-facing markup strings go through `t()`.
 - **Accessibility**: prefer semantic HTML and appropriate ARIA attributes.
-- **No noise comments**: comment sparingly — only genuinely non-obvious _why_ (a workaround, a
-  constraint, counter-intuitive API behavior). Don't add a comment for every small change; rely on
-  clear names.
+- **Do not write any comments at all**: If you feel the need to write a comment explaining something, extract a variable or a function with a meaningful name, following SOLID and Clean Code (Robert C. Martin). A magic number becomes a named constant; a condition becomes a named predicate; a block becomes a named function. This includes JSDoc, section dividers (`// ─── Section ───`), inline notes, and per-section UI comments. Compiler and tooling directives (`eslint-disable`, `@ts-expect-error`, `#!/usr/bin/env`) are not comments and are exempt.
 - **Tests**: add tests for new logic and features.
 - **Before considering a task done**: run `npm run format`, `npm run lint`, `npm test`, `npm run build`.
 - **CSS class naming (ranking area)**: the root element of every ranking component has a first CSS

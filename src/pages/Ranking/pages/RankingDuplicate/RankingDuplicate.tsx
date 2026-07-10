@@ -1,4 +1,5 @@
-import { useTranslation } from "react-i18next"
+import { rankingSettingsPath } from "../../../../shared/routes.ts"
+import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
 import { useNavigate, useParams } from "react-router-dom"
 import { Ranking } from "../../../../domain/types/v1api"
 import { useGetRankingSettings } from "../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
@@ -12,7 +13,7 @@ import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "../../components/RankingSettingsForm.tsx"
 
 export default function RankingDuplicate() {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
   const notifyError = useNotifyError()
   const navigate = useNavigate()
   const { rankingId } = useParams()
@@ -24,7 +25,7 @@ export default function RankingDuplicate() {
   const onDuplicate = async (source: Ranking, state: RankingSettingsFormState) => {
     try {
       const newId = await duplicate(source, state)
-      void navigate(`/rankings/${newId}/settings`)
+      void navigate(rankingSettingsPath(newId))
     } catch (error) {
       notifyError(error)
     }
@@ -32,8 +33,8 @@ export default function RankingDuplicate() {
 
   return (
     <SettingsPageLayout
-      heading={t("Ranking.Duplicate.title")}
-      currentCrumb={t("Ranking.Duplicate.crumb")}
+      heading={t("Duplicate.title")}
+      currentCrumb={t("Duplicate.crumb")}
       isLoading={isLoading}
       isMissing={!ranking}
     >
@@ -42,7 +43,7 @@ export default function RankingDuplicate() {
           initialState={{ ...initRankingSettingsForm(ranking), title: "" }}
           eventId={ranking.event_id}
           stageId={ranking.stage_id}
-          submitLabel={t("Ranking.gui.duplicate")}
+          submitLabel={t("common:duplicate")}
           isSubmitting={isDuplicating}
           onSubmit={(state) => void onDuplicate(ranking, state)}
         />

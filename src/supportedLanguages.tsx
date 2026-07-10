@@ -33,6 +33,8 @@ export const supportedLanguages: Language[] = [
 
 export const usedNamespaces: string[] = [
   "translation",
+  "common",
+  "ranking",
   "organizers",
   "about-us",
   "PrivacyPolicy",

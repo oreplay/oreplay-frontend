@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
 import { useQuery } from "react-query"
 import { getListEvents } from "../../../../../infrastructure/repositories/events/events.ts"
 import { getListStages } from "../../../../../infrastructure/repositories/stages/stages.ts"
@@ -24,7 +24,7 @@ interface ProcessEventDialogProps {
 }
 
 export default function ProcessEventDialog({ open, onClose, rankingId }: ProcessEventDialogProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
   const notifyError = useNotifyError()
   const [eventId, setEventId] = useState<string | null>(null)
   const [stageId, setStageId] = useState<string | null>(null)
@@ -73,16 +73,16 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
   return (
     <ConfirmDialog
       open={open}
-      title={t("Ranking.ProcessEvent.title")}
-      confirmLabel={t("Ranking.gui.confirm")}
-      closeLabel={t("Ranking.gui.close")}
+      title={t("ProcessEvent.title")}
+      confirmLabel={t("common:confirm")}
+      closeLabel={t("common:close")}
       onConfirm={() => void confirm()}
       isConfirming={processing}
       onClose={close}
     >
       <div className="flex flex-col gap-4">
         <SearchableSelect
-          label={t("Event")}
+          label={t("translation:Event")}
           value={eventId}
           onChange={(value) => {
             setEventId(value)
@@ -90,16 +90,16 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
           }}
           onSearch={setEventSearch}
           options={eventOptions}
-          noResultsLabel={t("Ranking.gui.noResults")}
-          placeholder={t("Search.Search")}
+          noResultsLabel={t("common:noResults")}
+          placeholder={t("common:search")}
         />
         <SearchableSelect
-          label={t("Ranking.ProcessEvent.stage")}
+          label={t("ProcessEvent.stage")}
           value={stageId}
           onChange={setStageId}
           options={stageOptions}
-          noResultsLabel={t("Ranking.gui.noResults")}
-          placeholder={t("Search.Search")}
+          noResultsLabel={t("common:noResults")}
+          placeholder={t("common:search")}
           disabled={eventId === null}
         />
       </div>

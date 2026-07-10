@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Keresés törlése",
+  "close": "Bezárás",
+  "confirm": "Megerősítés",
+  "delete": "Törlés",
+  "deleteConfirm": "Biztosan folytatja?",
+  "duplicate": "Másolat",
+  "edit": "Szerkesztés",
+  "error": {
+    "badRequest": "Hiba történt a kérésével.",
+    "forbidden": "Nincs jogosultsága ehhez.",
+    "serverError": "Hiba történt a válasz megadásakor."
+  },
+  "loading": "Betöltés",
+  "noResults": "Nincs találat",
+  "ok": "OK",
+  "save": "Mentés",
+  "search": "Keresés"
+}
