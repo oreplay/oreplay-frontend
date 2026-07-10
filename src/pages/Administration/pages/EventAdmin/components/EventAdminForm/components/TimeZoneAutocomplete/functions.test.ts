@@ -23,8 +23,8 @@ describe("getUserTimeZone", () => {
     expect(getUserTimeZone()).toBe(Intl.DateTimeFormat().resolvedOptions().timeZone)
   })
 
-  it("returns a timezone the platform recognises", () => {
-    expect(Intl.supportedValuesOf("timeZone")).toContain(getUserTimeZone())
+  it("returns a timezone that resolves", () => {
+    expect(DateTime.now().setZone(getUserTimeZone()).isValid).toBe(true)
   })
 })
 
