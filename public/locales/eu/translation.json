@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Data",
-  "Delete": "Ezabatu",
-  "Edit": "Editatu",
   "EmailAddress": "Posta elektronikoa",
   "Event": "Ekitaldia",
   "EventAdmin": {
@@ -66,7 +64,6 @@
     "Renew": "Berritu",
     "Renew security keys": "Segurtasun-giltza berri bat sortu",
     "RenewEventTokenMsg": "Segurtasun-giltza berritzen baduzu, zaharra baliogabetuko da. Beraz, giltza zaharra duen inork ezingo ditu emaitzak ekitaldi honetara igo.",
-    "Save": "Gorde",
     "Scopes": {
       "Club": "Kluba",
       "International": "Nazioartekoa",
@@ -164,7 +161,6 @@
     "Language": "Hizkuntza",
     "Spanish": "Gaztelania"
   },
-  "Loading": "Kargatzen",
   "Location": "Kokapena",
   "Menu": "Menua",
   "MyAccount": {
@@ -257,11 +253,6 @@
       "ok": "ok",
       "ot": "KK"
     }
-  },
-  "Save": "Gorde",
-  "Search": {
-    "ClearSearch": "Bilaketa garbitu",
-    "Search": "Bilatu"
   },
   "Settings": "Ezarpenak",
   "Sign in": {

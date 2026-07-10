@@ -44,7 +44,7 @@ export default function SettingsPageLayout({
         <div className="flex flex-col gap-6">
           <div className="rounded-xl bg-white p-6 shadow-sm">
             {isLoading ? (
-              <Spinner label={t("Loading")} />
+              <Spinner label={t("common:loading")} />
             ) : isMissing ? (
               <p className="text-neutral-500">{t("Ranking.Settings.notFound")}</p>
             ) : (

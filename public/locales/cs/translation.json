@@ -17,8 +17,6 @@
     "StartDate": "Datum startu"
   },
   "Dates": "Datumy",
-  "Delete": "Smazat",
-  "Edit": "Upravit",
   "EmailAddress": "Emailové adresy",
   "Event": "Akce",
   "EventAdmin": {
@@ -54,7 +52,6 @@
     "Renew": "Obnovit",
     "Renew security keys": "Generovat nový bezpečnostní klíč",
     "RenewEventTokenMsg": "Pokud obnovíš bezpečnostní klíč, tak starý bude zneplatněn. Takže nikdo se starým klíčem nebude schopen nahrát výsledky k této akci.",
-    "Save": "Uložit",
     "Scopes": {
       "Club": "Klub",
       "International": "Mezinárodní",
@@ -147,7 +144,6 @@
     "Language": "Jazyk",
     "Spanish": "Španělština"
   },
-  "Loading": "Načítání",
   "Location": "Lokalita",
   "Menu": "Menu",
   "Name": "Název",
@@ -223,11 +219,6 @@
       "ok": "ok",
       "ot": "OT"
     }
-  },
-  "Save": "Uložit",
-  "Search": {
-    "ClearSearch": "Smazat filtr",
-    "Search": "Hledat"
   },
   "Settings": "Nastavení",
   "Sign in": {

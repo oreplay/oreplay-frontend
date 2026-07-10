@@ -1,5 +1,6 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
+import common from "../../public/locales/en/common.json"
 import en from "../../public/locales/en/translation.json"
 
 // Hermetic i18n for tests: jsdom has no server, so the English strings are
@@ -9,7 +10,9 @@ import en from "../../public/locales/en/translation.json"
 i18n.use(initReactI18next).init({
   lng: "en",
   fallbackLng: "en",
-  resources: { en: { translation: en } },
+  ns: ["translation", "common"],
+  defaultNS: "translation",
+  resources: { en: { translation: en, common } },
   interpolation: { escapeValue: false },
   react: { useSuspense: false },
 })

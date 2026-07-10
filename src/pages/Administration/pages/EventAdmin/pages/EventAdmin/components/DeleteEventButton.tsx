@@ -77,7 +77,7 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
             color="error"
             autoFocus
           >
-            {t("Delete")}
+            {t("common:delete")}
           </Button>
         </DialogActions>
       </Dialog>

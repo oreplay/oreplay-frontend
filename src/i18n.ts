@@ -21,6 +21,8 @@ i18n
     },
     supportedLngs: locales, // Explicitly list supported languages
     load: "languageOnly", // Ignore region-specific codes like es-ES
+    ns: ["translation", "common"],
+    defaultNS: "translation",
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
     },

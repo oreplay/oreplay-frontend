@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Wyczyść wyszukiwanie",
+  "close": "Zamknij",
+  "confirm": "Potwierdź",
+  "delete": "Usuń",
+  "deleteConfirm": "Czy na pewno chcesz kontynuować?",
+  "duplicate": "Duplikuj",
+  "edit": "Edytuj",
+  "error": {
+    "badRequest": "Wystąpił błąd w Twoim żądaniu.",
+    "forbidden": "Nie masz uprawnień, aby to zrobić.",
+    "serverError": "Wystąpił błąd podczas udzielania odpowiedzi."
+  },
+  "loading": "Ładowanie",
+  "noResults": "Brak wyników",
+  "ok": "OK",
+  "save": "Zapisz",
+  "search": "Szukaj"
+}

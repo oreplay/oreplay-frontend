@@ -24,7 +24,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
 
   const menuItems: DropdownMenuItem[] = [
     {
-      label: t("Edit"),
+      label: t("common:edit"),
       onSelect: () => void navigate(settingsPath),
     },
     {
@@ -32,7 +32,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
       href: competitionResultsPath(ranking.event_id, ranking.stage_id),
     },
     {
-      label: t("Ranking.gui.duplicate"),
+      label: t("common:duplicate"),
       onSelect: () => void navigate(`${ranking.id}/duplicate`),
     },
     {
