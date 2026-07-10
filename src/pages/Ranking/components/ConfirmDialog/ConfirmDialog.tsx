@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useEffect } from "react"
 import CloseIcon from "../icons/CloseIcon.tsx"
+import SpinnerRing from "../SpinnerRing.tsx"
 
 interface ConfirmDialogProps {
   open: boolean
@@ -83,12 +84,7 @@ export default function ConfirmDialog({
               confirmClass,
             ].join(" ")}
           >
-            {isConfirming && (
-              <span
-                aria-hidden="true"
-                className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-              />
-            )}
+            {isConfirming && <SpinnerRing className="h-4 w-4 border-2 border-current" />}
             {confirmLabel}
           </button>
         </div>
