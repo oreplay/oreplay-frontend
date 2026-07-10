@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Limpar busca",
+  "close": "Pechar",
+  "confirm": "Confirmar",
+  "delete": "Borrar",
+  "deleteConfirm": "Seguro que queres continuar?",
+  "duplicate": "Duplicar",
+  "edit": "Editar",
+  "error": {
+    "badRequest": "Produciuse un erro coa túa solicitude.",
+    "forbidden": "Non tes permiso para facer isto.",
+    "serverError": "Produciuse un erro ao proporcionar a resposta."
+  },
+  "loading": "Cargando",
+  "noResults": "Sen resultados",
+  "ok": "Aceptar",
+  "save": "Gravar",
+  "search": "Buscar"
+}

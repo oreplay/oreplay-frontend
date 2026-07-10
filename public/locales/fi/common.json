@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Tyhjennä haku",
+  "close": "Sulje",
+  "confirm": "Vahvista",
+  "delete": "Poista",
+  "deleteConfirm": "Haluatko varmasti jatkaa?",
+  "duplicate": "Monista",
+  "edit": "Muokkaa",
+  "error": {
+    "badRequest": "Pyynnössäsi tapahtui virhe.",
+    "forbidden": "Sinulla ei ole oikeutta tehdä tätä.",
+    "serverError": "Vastausta annettaessa tapahtui virhe."
+  },
+  "loading": "Ladataan",
+  "noResults": "Ei tuloksia",
+  "ok": "OK",
+  "save": "Tallenna",
+  "search": "Hae"
+}

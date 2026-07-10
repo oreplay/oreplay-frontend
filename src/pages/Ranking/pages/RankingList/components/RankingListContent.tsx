@@ -17,7 +17,7 @@ export default function RankingListContent({
   const { t } = useTranslation()
 
   if (isLoading) {
-    return <Spinner label={t("Loading")} />
+    return <Spinner label={t("common:loading")} />
   }
 
   if (isError) {

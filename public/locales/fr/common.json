@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Effacer la recherche",
+  "close": "Fermer",
+  "confirm": "Confirmer",
+  "delete": "Supprimer",
+  "deleteConfirm": "Voulez-vous vraiment continuer ?",
+  "duplicate": "Dupliquer",
+  "edit": "Modifier",
+  "error": {
+    "badRequest": "Une erreur s'est produite avec votre demande.",
+    "forbidden": "Vous n'avez pas la permission de faire cela.",
+    "serverError": "Une erreur s'est produite lors de la réponse."
+  },
+  "loading": "Chargement",
+  "noResults": "Aucun résultat",
+  "ok": "OK",
+  "save": "Sauvegarder",
+  "search": "Recherche"
+}

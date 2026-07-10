@@ -17,8 +17,6 @@
     "StartDate": "Data de início"
   },
   "Dates": "Datas",
-  "Delete": "Apagar",
-  "Edit": "Editar",
   "EmailAddress": "Endereço de email",
   "Event": "Evento",
   "EventAdmin": {
@@ -42,7 +40,6 @@
     "Renew": "Renovar",
     "Renew security keys": "Gerar uma nova palavra passe",
     "RenewEventTokenMsg": "Se renovar a palavra passe, a antiga será invalidada. Assim, ninguém com a passe antiga poderá enviar resultados para este evento.",
-    "Save": "Guardar",
     "Scopes": {
       "Club": "Clube",
       "International": "Internacional",
@@ -115,7 +112,6 @@
     "Language": "Língua",
     "Spanish": "Espanhol"
   },
-  "Loading": "Carregando",
   "Location": "Localização",
   "Menu": "Menu",
   "Name": "Nome",
@@ -187,11 +183,6 @@
       "ok": "OK",
       "ot": "Fora de tempo"
     }
-  },
-  "Save": "Guardar",
-  "Search": {
-    "ClearSearch": "Limpar procura",
-    "Search": "Procurar"
   },
   "Settings": "Definições",
   "Sign in": {

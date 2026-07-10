@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Fecha",
-  "Delete": "Borrar",
-  "Edit": "Editar",
   "EmailAddress": "Correo electrónico",
   "Event": "Evento",
   "EventAdmin": {
@@ -68,7 +66,6 @@
     "Renew": "Renovar",
     "Renew security keys": "Generar una nueva clave de seguridad",
     "RenewEventTokenMsg": "Si renueva la clave de seguridad la antigua será invalidada. Nadie con la clave de seguridad antigua podrá subir resultados a este evento.",
-    "Save": "Guardar",
     "Scopes": {
       "Club": "Club",
       "International": "Internacional",
@@ -175,7 +172,6 @@
     "Language": "Idioma",
     "Spanish": "Español"
   },
-  "Loading": "Cargando",
   "Location": "Ubicación",
   "Menu": "Menu",
   "MyAccount": {
@@ -269,11 +265,6 @@
       "ok": "ok",
       "ot": "FC"
     }
-  },
-  "Save": "Guardar",
-  "Search": {
-    "ClearSearch": "Limpiar búsqueda",
-    "Search": "Buscar"
   },
   "Settings": "Ajustes",
   "Sign in": {

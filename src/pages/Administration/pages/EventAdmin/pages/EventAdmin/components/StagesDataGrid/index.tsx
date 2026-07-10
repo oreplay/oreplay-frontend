@@ -204,7 +204,7 @@ export default function StagesDataGrid(props: Props) {
 
   const handleWipeOutRunnersClick = async (row: GridRowParams<StageRow>) => {
     try {
-      const resetNotification = notifications.show(t("Loading"), {
+      const resetNotification = notifications.show(t("common:loading"), {
         autoHideDuration: 30000,
         severity: "info", // Could be 'success', 'error', 'warning', 'info'.
       })
@@ -460,7 +460,7 @@ export default function StagesDataGrid(props: Props) {
 
         if (isInEditMode) {
           return [
-            <Tooltip title={t("Save")}>
+            <Tooltip title={t("common:save")}>
               <GridActionsCellItem
                 icon={<SaveIcon />}
                 label="Save"

@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Bilaketa garbitu",
+  "close": "Itxi",
+  "confirm": "Berretsi",
+  "delete": "Ezabatu",
+  "deleteConfirm": "Ziur zaude jarraitu nahi duzula?",
+  "duplicate": "Bikoiztu",
+  "edit": "Editatu",
+  "error": {
+    "badRequest": "Errore bat gertatu da zure eskaerarekin.",
+    "forbidden": "Ez duzu hau egiteko baimenik.",
+    "serverError": "Errore bat gertatu da erantzuna ematean."
+  },
+  "loading": "Kargatzen",
+  "noResults": "Emaitzarik ez",
+  "ok": "Ados",
+  "save": "Gorde",
+  "search": "Bilatu"
+}

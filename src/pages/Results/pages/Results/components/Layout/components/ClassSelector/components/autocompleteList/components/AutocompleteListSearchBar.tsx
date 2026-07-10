@@ -17,7 +17,7 @@ export default function AutocompleteListSearchBar({
 
   return (
     <TextField
-      placeholder={t("Search.Search")}
+      placeholder={t("common:search")}
       variant="standard"
       value={value}
       onChange={(e) => setValue(e.target.value)}
@@ -27,7 +27,7 @@ export default function AutocompleteListSearchBar({
           sx: { mx: "10px", mt: "5px" },
           endAdornment: value ? (
             <InputAdornment position="end">
-              <Tooltip title={t("Search.ClearSearch")}>
+              <Tooltip title={t("common:clearSearch")}>
                 <IconButton
                   size="small"
                   onClick={() => setValue("")}

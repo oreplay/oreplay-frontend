@@ -94,19 +94,43 @@ import { Ranking } from "../../domain/types/v1api"
 ## i18n
 
 Every user-facing string goes through `react-i18next`'s `t()` — ESLint's `i18next/no-literal-string`
-enforces it. Translations live in `public/locales/<lng>/translation.json` (**19 locales**,
+enforces it. Translations live in `public/locales/<lng>/<namespace>.json` (**19 locales**,
 Weblate-managed) and are fetched at runtime by `i18next-http-backend`
-(`loadPath: "/locales/{{lng}}/{{ns}}.json"`, single `translation` namespace), together with
-`LanguageDetector` and a per-language `fallbackLng` map — see `src/i18n.ts`.
+(`loadPath: "/locales/{{lng}}/{{ns}}.json"`), together with `LanguageDetector` and a per-language
+`fallbackLng` map — see `src/i18n.ts`.
 
-- **Generic UI labels live exactly once, in the root `Gui` group** (`Gui.save`, `Gui.delete`,
-  `Gui.edit`, `Gui.loading`, `Gui.search`, `Gui.clearSearch`, `Gui.close`, `Gui.confirm`, `Gui.ok`,
-  `Gui.noResults`, `Gui.deleteConfirm`, `Gui.error.*`). Reuse them **across the whole app** instead of
-  redefining `save`/`delete`/… per feature; add a new common label to `Gui` as soon as a second place
-  needs it. `Gui` keys are ordered alphabetically and are translated in **all 19 locales**.
-- **Feature-scoped keys** go under their own top-level group (`Ranking.*`, `EventAdmin.*`,
-  `ResultsStage.*`, `Dashboard.*`, …). Only introduce one when the wording is genuinely specific to
-  that feature — otherwise reach for `Gui.*`.
+### Namespaces
+
+A namespace is one JSON file per locale, loaded independently. Today: `translation` (the default —
+core results/event functionality), `common`, `organizers`, `about-us`, `PrivacyPolicy`,
+`LegalNotice`, `CookiesPolicy`.
+
+- **New functionality that isn't deeply tied to the core results feature gets its own namespace**,
+  rather than growing `translation.json`. A namespace keeps a feature's wording self-contained,
+  keeps it out of the bundle for users who never open it, and lets Weblate track it separately.
+- **Declare the namespace, then use bare keys**: `const { t } = useTranslation("organizers")` →
+  `t("title")`. This is how every feature namespace is consumed — never `t("organizers:title")`.
+- **`common` is the exception**: it is preloaded next to `translation` (`ns` in `src/i18n.ts`) and
+  reached through the `common:` prefix — `t("common:save")` — from a plain `useTranslation()`. That
+  way a component can mix its own feature keys with generic labels without declaring two namespaces,
+  and a Suspense fallback like `GeneralSuspenseFallback` never suspends waiting for a namespace.
+- **Register every new namespace in `usedNamespaces`** (`src/supportedLanguages.tsx`).
+  `src/supportedLanguages.test.ts` then asserts `public/locales/<lng>/<ns>.json` exists for **every**
+  locale, so create the file in all 19 — an empty `{}` is acceptable for a locale that is not
+  translated yet (see `public/locales/bg/organizers.json`). Tests that render the namespace's strings
+  also need it registered in `src/test/i18n.ts`.
+
+### Key placement
+
+- **Generic UI labels live exactly once, in the `common` namespace** (`common:save`, `common:delete`,
+  `common:edit`, `common:loading`, `common:search`, `common:clearSearch`, `common:close`,
+  `common:confirm`, `common:ok`, `common:noResults`, `common:deleteConfirm`, `common:duplicate`,
+  `common:error.*`). Reuse them **across the whole app** instead of redefining `save`/`delete`/… per
+  feature; add a new common label as soon as a second place needs it.
+- **Feature-scoped keys** go under their own top-level group inside their namespace (`Ranking.*`,
+  `EventAdmin.*`, `ResultsStage.*`, `Dashboard.*`, …). Only introduce one when the wording is
+  genuinely specific to that feature — otherwise reach for `common:`.
+- **Keys are ordered alphabetically** within every group, and every locale carries the same key set.
 
 ## Notifications
 
@@ -116,7 +140,7 @@ code, …).
 
 For **failed HTTP requests**, use the shared `useNotifyError()` hook
 (`src/infrastructure/notifications/useNotifyError.ts`) — pass it the error and it maps the HTTP status
-to a translated `Gui.error.*` message via the pure, tested `httpErrorMessageKey`, then shows it with
+to a translated `common:error.*` message via the pure, tested `httpErrorMessageKey`, then shows it with
 `severity: "error"`. This is app-wide infrastructure available to any feature (today the ranking pages
 use it).
 

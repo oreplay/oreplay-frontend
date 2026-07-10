@@ -17,8 +17,6 @@
       "title": "Twoje wydarzenia"
     }
   },
-  "Delete": "Usuń",
-  "Edit": "Edytuj",
   "EmailAddress": "Adres email",
   "Event": "Wydarzenie",
   "EventAdmin": {
@@ -48,7 +46,6 @@
       "Title": "Kod QR Wydarzenia"
     },
     "Renew security keys": "Wygeneruj nowy klucz zabezpieczający",
-    "Save": "Zapisz",
     "Scopes": {
       "Club": "Klub",
       "International": "Międzynarodowy",

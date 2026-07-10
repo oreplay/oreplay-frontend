@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Esborrar cerca",
+  "close": "Tanca",
+  "confirm": "Confirma",
+  "delete": "Esborrar",
+  "deleteConfirm": "Segur que vols continuar?",
+  "duplicate": "Duplica",
+  "edit": "Editar",
+  "error": {
+    "badRequest": "Hi ha hagut un error amb la teva sol·licitud.",
+    "forbidden": "No tens permís per fer això.",
+    "serverError": "Hi ha hagut un error en proporcionar la resposta."
+  },
+  "loading": "Carregant",
+  "noResults": "Sense resultats",
+  "ok": "D'acord",
+  "save": "Guardar",
+  "search": "Cerca"
+}

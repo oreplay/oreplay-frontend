@@ -45,13 +45,13 @@ export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankin
         onClick={() => setOpen(true)}
         className="rounded border border-red-600 px-4 py-2 font-medium text-red-600 transition-colors hover:bg-red-50"
       >
-        {t("Delete")}
+        {t("common:delete")}
       </button>
       <ConfirmDialog
         open={open}
-        title={t("Ranking.gui.deleteConfirm")}
-        confirmLabel={t("Ranking.gui.ok")}
-        closeLabel={t("Ranking.gui.close")}
+        title={t("common:deleteConfirm")}
+        confirmLabel={t("common:ok")}
+        closeLabel={t("common:close")}
         isConfirming={deleteRanking.isLoading || deleteEvent.isLoading}
         destructive
         onConfirm={() => void confirmDelete()}

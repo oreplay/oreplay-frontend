@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Smazat filtr",
+  "close": "Zavřít",
+  "confirm": "Potvrdit",
+  "delete": "Smazat",
+  "deleteConfirm": "Opravdu chcete pokračovat?",
+  "duplicate": "Duplikovat",
+  "edit": "Upravit",
+  "error": {
+    "badRequest": "Při vašem požadavku došlo k chybě.",
+    "forbidden": "Nemáte oprávnění to provést.",
+    "serverError": "Při poskytování odpovědi došlo k chybě."
+  },
+  "loading": "Načítání",
+  "noResults": "Žádné výsledky",
+  "ok": "OK",
+  "save": "Uložit",
+  "search": "Hledat"
+}

@@ -50,7 +50,7 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           <ListItemIcon>
             <EditIcon />
           </ListItemIcon>
-          <ListItemText>{t("Edit")}</ListItemText>
+          <ListItemText>{t("common:edit")}</ListItemText>
         </MenuItem>
         <Divider />
         <GridActionsSettingsMenuDialogItem
@@ -77,7 +77,7 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           dialogTitle={t("EventAdmin.Stages.DeleteStage.DialogTitle")}
           dialogBody={t("EventAdmin.Stages.DeleteStage.DialogBody")}
           dialogCancelButtonText={t("Cancel")}
-          dialogConfirmButtonText={t("Delete")}
+          dialogConfirmButtonText={t("common:delete")}
         />
       </Menu>
     </>

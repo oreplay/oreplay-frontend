@@ -6,8 +6,6 @@
   "Copied to the clipboard": "复制到剪贴板。",
   "Copy": "复制",
   "Dates": "日期",
-  "Delete": "删除",
-  "Edit": "编辑",
   "EmailAddress": "电子邮件地址",
   "Event": "事件",
   "EventAdmin": {
@@ -20,7 +18,6 @@
     "Location": "位置",
     "Organizer": "组织者",
     "Public": "公共",
-    "Save": "保存",
     "Scopes": {
       "Club": "俱乐部",
       "International": "国际的",
@@ -54,7 +51,6 @@
     "title": "发生了意外错误"
   },
   "GoBack": "返回",
-  "Loading": "加载中",
   "Location": "位置",
   "Menu": "菜单",
   "Name": "名称",
@@ -65,11 +61,6 @@
     "Finish": "完成",
     "SiCard": "SI 卡",
     "Start": "开始"
-  },
-  "Save": "保存",
-  "Search": {
-    "ClearSearch": "清除搜索",
-    "Search": "搜索"
   },
   "Settings": "设置",
   "Sign in": {
