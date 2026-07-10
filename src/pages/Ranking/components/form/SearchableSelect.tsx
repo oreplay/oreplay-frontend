@@ -17,6 +17,7 @@ interface SearchableSelectProps {
   noResultsLabel: string
   placeholder?: string
   disabled?: boolean
+  loading?: boolean
   className?: string
   /** When set, search is server-side: the query is reported here and `options`
    * are shown as-is (no local filtering). */
@@ -31,6 +32,7 @@ export default function SearchableSelect({
   noResultsLabel,
   placeholder,
   disabled,
+  loading,
   className,
   onSearch,
 }: SearchableSelectProps) {
@@ -82,7 +84,8 @@ export default function SearchableSelect({
       <div ref={containerRef} className="relative">
         <input
           type="text"
-          disabled={disabled}
+          disabled={disabled || loading}
+          aria-busy={loading}
           value={open ? query : selectedLabel}
           placeholder={placeholder}
           onFocus={() => setOpen(true)}
@@ -91,8 +94,16 @@ export default function SearchableSelect({
             setOpen(true)
             onSearch?.(event.target.value)
           }}
-          className={[FIELD_CLASS, "w-full disabled:bg-neutral-100"].join(" ")}
+          className={[FIELD_CLASS, "w-full disabled:bg-neutral-100", loading ? "pr-10" : ""].join(
+            " ",
+          )}
         />
+        {loading && (
+          <span
+            aria-hidden="true"
+            className="absolute right-3 top-1/2 inline-block h-4 w-4 -translate-y-1/2 animate-spin rounded-full border-2 border-primary border-t-transparent"
+          />
+        )}
         {open && (
           <ul
             className={[

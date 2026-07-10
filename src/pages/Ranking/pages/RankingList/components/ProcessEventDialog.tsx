@@ -101,6 +101,7 @@ export default function ProcessEventDialog({ open, onClose, rankingId }: Process
           noResultsLabel={t("common:noResults")}
           placeholder={t("common:search")}
           disabled={eventId === null}
+          loading={stages.isLoading}
         />
       </div>
     </ConfirmDialog>
