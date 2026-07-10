@@ -29,7 +29,7 @@ One preferred layout applies to the **whole codebase**:
 
 ## Commands
 
-> Run `nvm use` first (`.nvmrc` → Node 22). The default shell Node may be too old and make
+> **Node version is defined in `.nvmrc`** Run `nvm use` first. The default shell Node may be too old and make
 > `tsc`/`eslint` fail with confusing `Unexpected token` errors.
 
 - `npm run dev` — Vite dev server
