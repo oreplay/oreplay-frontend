@@ -1,8 +1,6 @@
 import { DateTime } from "luxon"
 import { PostListEventsBody } from "../../../../../domain/types/v1api"
 
-// A duplicated ranking gets its own non-public event and a "Ranking" stage.
-
 // The "Totals" / "overall" stage type (its host-side constant). There's no
 // listing endpoint to resolve it by name, so the UUID is fixed here.
 export const RANKING_TOTALS_STAGE_TYPE_ID = "3d4cf037-64d6-442c-969d-35452048daf9"
@@ -14,10 +12,12 @@ function firstOfCurrentYear(): string {
   return DateTime.now().startOf("year").toISODate()
 }
 
-// Events have no title/visibility fields: the name is `description`, non-public
-// is set afterwards via PATCH (`is_hidden`), and federation/organizer are
-// omitted. Dates default to the first of the current year.
 export function buildDuplicateEventBody(title: string): PostListEventsBody {
   const date = firstOfCurrentYear()
-  return { description: title, initial_date: date, final_date: date }
+  return {
+    description: title,
+    initial_date: date,
+    final_date: date,
+    is_hidden: EVENT_NOT_PUBLIC,
+  }
 }
