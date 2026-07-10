@@ -3,19 +3,19 @@
 export const OVERALL_SETTINGS_FIELDS = [
   {
     key: "totalCircuitRaces",
-    labelKey: "Ranking.Settings.overallValues.totalCircuitRaces",
+    labelKey: "Settings.overallValues.totalCircuitRaces",
   },
   {
     key: "maxRacesCounted",
-    labelKey: "Ranking.Settings.overallValues.maxRacesCounted",
+    labelKey: "Settings.overallValues.maxRacesCounted",
   },
   {
     key: "organizerScoringFraction",
-    labelKey: "Ranking.Settings.overallValues.organizerScoringFraction",
+    labelKey: "Settings.overallValues.organizerScoringFraction",
   },
   {
     key: "minPointsAsOrg",
-    labelKey: "Ranking.Settings.overallValues.minPointsAsOrg",
+    labelKey: "Settings.overallValues.minPointsAsOrg",
   },
 ] as const
 

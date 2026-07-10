@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../shared/useTranslationRanking.ts"
 import { useForm } from "@tanstack/react-form"
 import {
   RankingSettingsFormState,
@@ -45,7 +45,7 @@ export default function RankingSettingsForm({
   onSubmit,
   secondaryAction,
 }: RankingSettingsFormProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
 
   const form = useForm({
     defaultValues: initialState,
@@ -66,12 +66,13 @@ export default function RankingSettingsForm({
         <form.Field
           name="title"
           validators={{
-            onBlur: ({ value }) => (value.trim() ? undefined : t("ThisFieldIsRequiredMsg")),
+            onBlur: ({ value }) =>
+              value.trim() ? undefined : t("translation:ThisFieldIsRequiredMsg"),
           }}
         >
           {(field) => (
             <TextField
-              label={t("Ranking.Settings.titleLabel")}
+              label={t("Settings.titleLabel")}
               required
               value={field.state.value}
               onChange={field.handleChange}
@@ -86,23 +87,24 @@ export default function RankingSettingsForm({
           rel="noopener noreferrer"
           className="self-start text-sm text-primary hover:underline"
         >
-          {t("Ranking.Settings.competitionLink")}
+          {t("Settings.competitionLink")}
         </a>
       </div>
 
-      <FormSection title={t("Ranking.Settings.generalSettings")}>
+      <FormSection title={t("Settings.generalSettings")}>
         <form.Field
           name="maxPoints"
           validators={{
-            onBlur: ({ value }) => (value === null ? t("ThisFieldIsRequiredMsg") : undefined),
+            onBlur: ({ value }) =>
+              value === null ? t("translation:ThisFieldIsRequiredMsg") : undefined,
             onChange: ({ value }) =>
-              value !== null && value <= 0 ? t("Ranking.Settings.maxPointsPositive") : undefined,
+              value !== null && value <= 0 ? t("Settings.maxPointsPositive") : undefined,
           }}
         >
           {(field) => (
             <NumberField
-              label={t("Ranking.Settings.maxPoints")}
-              description={t("Ranking.Settings.maxPointsHint")}
+              label={t("Settings.maxPoints")}
+              description={t("Settings.maxPointsHint")}
               required
               value={field.state.value}
               onChange={field.handleChange}
@@ -116,12 +118,12 @@ export default function RankingSettingsForm({
         <form.Field
           name="scoringAlgorithm"
           validators={{
-            onBlur: ({ value }) => (value ? undefined : t("ThisFieldIsRequiredMsg")),
+            onBlur: ({ value }) => (value ? undefined : t("translation:ThisFieldIsRequiredMsg")),
           }}
         >
           {(field) => (
             <SelectField
-              label={t("Ranking.Settings.scoringAlgorithm")}
+              label={t("Settings.scoringAlgorithm")}
               required
               value={field.state.value}
               onChange={field.handleChange}
@@ -139,7 +141,7 @@ export default function RankingSettingsForm({
         <form.Field name="roundPrecision">
           {(field) => (
             <SelectField
-              label={t("Ranking.Settings.roundPrecision")}
+              label={t("Settings.roundPrecision")}
               required
               value={String(field.state.value)}
               onChange={(value) => field.handleChange(Number(value))}
@@ -156,8 +158,8 @@ export default function RankingSettingsForm({
       </FormSection>
 
       <FormSection
-        title={t("Ranking.Settings.circuitSettings")}
-        description={t("Ranking.Settings.circuitSettingsHint")}
+        title={t("Settings.circuitSettings")}
+        description={t("Settings.circuitSettingsHint")}
       >
         {OVERALL_SETTINGS_FIELDS.map((settingsField, index) => (
           <form.Field key={settingsField.key} name={`overallSettings[${index}]`}>
@@ -175,41 +177,38 @@ export default function RankingSettingsForm({
       </FormSection>
 
       <FormSection
-        title={t("Ranking.Settings.nonCompetitive")}
-        description={t("Ranking.Settings.nonCompetitiveHint")}
+        title={t("Settings.nonCompetitive")}
+        description={t("Settings.nonCompetitiveHint")}
       >
         <form.Field name="ncTrue">
           {(field) => (
             <ScoreSelectField
-              label={t("Ranking.Settings.ncTrue")}
+              label={t("Settings.ncTrue")}
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
               error={errorMessage(field.state.meta.errors)}
               values={NC_SCORE_VALUES}
-              emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
+              emptyLabel={t("Settings.scoreOptions.empty")}
             />
           )}
         </form.Field>
         <form.Field name="ncFalse">
           {(field) => (
             <ScoreSelectField
-              label={t("Ranking.Settings.ncFalse")}
+              label={t("Settings.ncFalse")}
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
               error={errorMessage(field.state.meta.errors)}
               values={NC_SCORE_VALUES}
-              emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
+              emptyLabel={t("Settings.scoreOptions.empty")}
             />
           )}
         </form.Field>
       </FormSection>
 
-      <FormSection
-        title={t("Ranking.Settings.statusScores")}
-        description={t("Ranking.Settings.statusScoresHint")}
-      >
+      <FormSection title={t("Settings.statusScores")} description={t("Settings.statusScoresHint")}>
         {STATUS_SCORE_FIELDS.map((statusField, index) => (
           <form.Field key={statusField.index} name={`statusScores[${index}]`}>
             {(field) => (
@@ -220,7 +219,7 @@ export default function RankingSettingsForm({
                 onBlur={field.handleBlur}
                 error={errorMessage(field.state.meta.errors)}
                 values={STATUS_SCORE_VALUES}
-                emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
+                emptyLabel={t("Settings.scoreOptions.empty")}
               />
             )}
           </form.Field>

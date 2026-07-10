@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
 import { useQuery } from "react-query"
 import { usePostListRankingRunnerManagement } from "../../../../../infrastructure/repositories/ranking-runner-management/ranking-runner-management.ts"
 import { getListStageOrders } from "../../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
@@ -23,7 +23,7 @@ interface RunnerInteractionCardProps {
 }
 
 export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCardProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
   const notifyError = useNotifyError()
   const [eventId, setEventId] = useState("")
   const [stageId, setStageId] = useState("")
@@ -83,7 +83,7 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
   return (
     <div className="rk-runner-interaction-card rounded-xl bg-white p-6 shadow-sm">
       <h2 className="m-0 mb-4 text-lg font-semibold text-neutral-900">
-        {t("Ranking.RunnerInteraction.title")}
+        {t("RunnerInteraction.title")}
       </h2>
       {runner ? (
         <div className="flex flex-col gap-3">
@@ -92,7 +92,7 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
             <p className="m-0 text-sm text-neutral-500">{runner.id}</p>
           </div>
           <SearchableSelect
-            label={t("Ranking.RunnerInteraction.stageOrder")}
+            label={t("RunnerInteraction.stageOrder")}
             value={stageOrderId}
             onChange={setStageOrderId}
             options={stageOrders.map((o) => ({
@@ -114,11 +114,11 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
                 className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
               />
             )}
-            {t("Ranking.RunnerInteraction.sendOrganizer")}
+            {t("RunnerInteraction.sendOrganizer")}
           </button>
         </div>
       ) : (
-        <p className="m-0 text-sm text-neutral-500">{t("Ranking.RunnerInteraction.empty")}</p>
+        <p className="m-0 text-sm text-neutral-500">{t("RunnerInteraction.empty")}</p>
       )}
     </div>
   )
