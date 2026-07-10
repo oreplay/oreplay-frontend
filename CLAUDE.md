@@ -198,6 +198,12 @@ so components render real strings.
   Non-source TS like `vite.config.ts` is in `.eslintignore` (it is not in the `tsconfig` project).
 - `react-router` v7: `navigate()` returns a promise, so in event handlers use `void navigate(...)`
   (otherwise `no-misused-promises` / `no-floating-promises` fire).
+- **Dates & times go through Luxon** (`DateTime`, `Duration`) — parsing, formatting, arithmetic,
+  timezones, and "now". The native `Date` is banned by ESLint's `no-restricted-globals`, in source
+  and tests alike (`vi.setSystemTime(DateTime.fromISO(…).toMillis())`). `TimeZoneAutocomplete`'s
+  `getOffset`/`getLocalizedName` still format through `Intl` because Luxon can't reproduce them
+  (`shortOffset` has no equivalent, and `"UTC"` resolves to a `FixedOffsetZone`), but they format a
+  Luxon instant, not a `Date` — `functions.test.ts` pins that behavior.
 
 ### Component design
 
