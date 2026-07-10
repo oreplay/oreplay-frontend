@@ -196,10 +196,6 @@ so components render real strings.
 - `react-router` v7: `navigate()` returns a promise, so in event handlers use `void navigate(...)`
   (otherwise `no-misused-promises` / `no-floating-promises` fire).
 
-## Development Principles
-
-Write code following clean-code and SOLID principles, plus the guidelines below.
-
 ### Component design
 
 - **Single Responsibility**: each component does one thing.
@@ -254,15 +250,14 @@ Never leave the user waiting on a silent UI — every asynchronous action shows 
 
 ### When writing code
 
+- **Clean code**: always consider SOLID and clean code principles (Robert C. Martin).
 - **Refactor over hack**: restructure surrounding code to fit a change cleanly rather than adding a
   case-specific workaround.
 - **Readability**: don't inline long ternaries/conditions in JSX props — extract named variables.
 - **DRY**: extract duplicated logic into reusable functions.
 - **i18n**: user-facing markup strings go through `t()`.
 - **Accessibility**: prefer semantic HTML and appropriate ARIA attributes.
-- **No noise comments**: comment sparingly — only genuinely non-obvious _why_ (a workaround, a
-  constraint, counter-intuitive API behavior). Don't add a comment for every small change; rely on
-  clear names.
+- **Do not write any comments at all**: If you feel the need to write a comment explaining something, extract a variable or a function with a meaningful name, following SOLID and Clean Code (Robert C. Martin). A magic number becomes a named constant; a condition becomes a named predicate; a block becomes a named function. This includes JSDoc, section dividers (`// ─── Section ───`), inline notes, and per-section UI comments. Compiler and tooling directives (`eslint-disable`, `@ts-expect-error`, `#!/usr/bin/env`) are not comments and are exempt.
 - **Tests**: add tests for new logic and features.
 - **Before considering a task done**: run `npm run format`, `npm run lint`, `npm test`, `npm run build`.
 - **CSS class naming (ranking area)**: the root element of every ranking component has a first CSS
