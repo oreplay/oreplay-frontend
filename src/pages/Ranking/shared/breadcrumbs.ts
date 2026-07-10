@@ -1,12 +1,10 @@
+import { DASHBOARD_PATH, RANKING_LIST_PATH } from "../../../shared/routes.ts"
+
 export interface BreadcrumbItem {
   label: string
   /** Absolute route to link to. Omitted for the current (last) page. */
   to?: string
 }
-
-// Absolute host routes used in the ranking breadcrumb trail.
-export const DASHBOARD_PATH = "/dashboard"
-export const RANKING_LIST_PATH = "/rankings"
 
 interface TrailLabels {
   dashboard: string

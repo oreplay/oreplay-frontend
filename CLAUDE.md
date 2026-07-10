@@ -2,8 +2,8 @@
 
 This file guides AI agents (especially Claude Code) working in this repository. Most sections —
 directory structure, i18n, notifications, tests, conventions, principles — describe the **whole
-project**. A few focus on the **ranking area** (`/rankings/*`), a Tailwind-styled feature that lives
-natively inside this results app (`oreplay-frontend`); the practices established there are meant to be
+project**. A few focus on the **ranking area**, a Tailwind-styled feature that lives
+natively inside this results app; the practices established there are meant to be
 applied across the whole project over time.
 
 ## Directory & file structure
