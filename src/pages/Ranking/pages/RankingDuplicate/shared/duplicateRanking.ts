@@ -1,3 +1,4 @@
+import { DateTime } from "luxon"
 import { PostListEventsBody } from "../../../../../domain/types/v1api"
 
 // A duplicated ranking gets its own non-public event and a "Ranking" stage.
@@ -10,7 +11,7 @@ export const RANKING_STAGE_DESCRIPTION = "Ranking"
 export const EVENT_NOT_PUBLIC = 1
 
 function firstOfCurrentYear(): string {
-  return `${new Date().getFullYear()}-01-01`
+  return DateTime.now().startOf("year").toISODate()
 }
 
 // Events have no title/visibility fields: the name is `description`, non-public
