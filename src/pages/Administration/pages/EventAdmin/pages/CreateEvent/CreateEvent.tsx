@@ -2,6 +2,7 @@ import EventAdminForm, { EventAdminFormValues } from "../../components/EventAdmi
 import { postEvent } from "../../../../services/EventAdminService.ts"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../../../../shared/hooks.ts"
+import { DASHBOARD_PATH } from "../../../../../../shared/routes.ts"
 import { Box, Container, Typography } from "@mui/material"
 import { apiErrorService } from "../../../../../../domain/services/ApiErrorService.ts"
 import { useNotifications } from "@toolpad/core/useNotifications"
@@ -13,7 +14,7 @@ export default function CreateEvent() {
   const notifications = useNotifications()
   const { t } = useTranslation()
 
-  const handleCancel = () => void navigate("/dashboard")
+  const handleCancel = () => void navigate(DASHBOARD_PATH)
   const handleSubmit = (event: EventAdminFormValues) => {
     void createEvent(event)
   }

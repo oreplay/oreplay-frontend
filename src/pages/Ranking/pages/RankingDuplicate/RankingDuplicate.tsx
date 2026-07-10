@@ -1,3 +1,4 @@
+import { rankingSettingsPath } from "../../../../shared/routes.ts"
 import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
 import { useNavigate, useParams } from "react-router-dom"
 import { Ranking } from "../../../../domain/types/v1api"
@@ -24,7 +25,7 @@ export default function RankingDuplicate() {
   const onDuplicate = async (source: Ranking, state: RankingSettingsFormState) => {
     try {
       const newId = await duplicate(source, state)
-      void navigate(`/rankings/${newId}/settings`)
+      void navigate(rankingSettingsPath(newId))
     } catch (error) {
       notifyError(error)
     }

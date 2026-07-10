@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { RANKING_LIST_PATH } from "../../../../../shared/routes.ts"
 import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
 import { useNavigate } from "react-router-dom"
 import { useDeleteRankingSettings } from "../../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
@@ -31,7 +32,7 @@ export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankin
       if (alsoDeleteEvent) {
         await deleteEvent.mutateAsync({ eventID: eventId })
       }
-      void navigate("/rankings")
+      void navigate(RANKING_LIST_PATH)
     } catch (error) {
       close()
       notifyError(error)
