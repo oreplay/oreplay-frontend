@@ -120,8 +120,8 @@ core results/event functionality), `common`, `ranking`, `organizers`, `about-us`
 - **Register every new namespace in `usedNamespaces`** (`src/supportedLanguages.tsx`).
   `src/supportedLanguages.test.ts` then asserts `public/locales/<lng>/<ns>.json` exists for **every**
   locale, so create the file in all 19 — an empty `{}` is acceptable for a locale that is not
-  translated yet (see `public/locales/bg/organizers.json`). Tests that render the namespace's strings
-  also need it registered in `src/test/i18n.ts`.
+  translated yet (see `public/locales/bg/organizers.json`). Nothing else to register: tests that need
+  the strings build their own i18next instance from `usedNamespaces`.
 
 ### Key placement
 
@@ -179,13 +179,15 @@ use it).
 
 Vitest is configured in `vite.config.ts` (`test` block: `globals: true`, `environment: "jsdom"`,
 `setupFiles: "./src/test/setup.ts"`, `env: { TZ: "UTC" }`, and `server.deps.inline: ["@toolpad/core"]`
-so Vite resolves its ESM directory import). `src/test/setup.ts` pulls in
-`@testing-library/jest-dom` plus `src/test/i18n.ts`,
-which initialises i18next synchronously from the English locale (no http-backend, `useSuspense: false`)
-so components render real strings.
+so Vite resolves its ESM directory import). `src/test/setup.ts` only pulls in
+`@testing-library/jest-dom`.
 
 - **Tests live next to the source they cover** (`foo.ts` → `foo.test.ts`). A legacy `__tests__/` folder
   still exists under `src/domain/services/` — don't copy that pattern into new code.
+- **No global i18next instance is initialised for tests.** A test that needs real strings builds its own
+  with `createInstance()`, loading `public/locales/en/<ns>.json` for each entry of `usedNamespaces` —
+  see `src/pages/Ranking/shared/useTranslationRanking.test.ts`. Components rendered without one fall
+  back to showing key names, so assert on data, not labels, unless you set an instance up.
 - Pure logic (domain / `shared/` functions) is unit-tested directly; component smoke tests mock the
   orval-generated hook with `vi.mock` to stay hermetic.
 - `vi.mock()` takes a path **relative to the test file** and is _not_ an import statement — remember to
