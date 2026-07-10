@@ -120,6 +120,34 @@ to a translated `Gui.error.*` message via the pure, tested `httpErrorMessageKey`
 `severity: "error"`. This is app-wide infrastructure available to any feature (today the ranking pages
 use it).
 
+## Forms
+
+**Every form is built with TanStack Form** (`@tanstack/react-form`). Never hand-roll per-field
+`useState` + manual error flags — a bespoke `WebsiteField` doing exactly that was deleted when
+`EventAdminForm` moved to TanStack Form. Reference implementations:
+`src/pages/Administration/pages/EventAdmin/components/EventAdminForm/` (MUI) and
+`src/pages/Ranking/components/RankingSettingsForm.tsx` (Tailwind).
+
+- **Shape**: `const form = useForm({ defaultValues, onSubmit: ({ value }) => props.onSubmit(value) })`,
+  then one `<form.Field name="…" validators={{ … }}>{(field) => …}</form.Field>` per input.
+- **Submit**: put `noValidate` on the `<form>` so the browser's native bubbles don't pre-empt our
+  translated messages, and submit with
+  `onSubmit={(e) => { e.preventDefault(); e.stopPropagation(); void form.handleSubmit() }}`.
+- **Validation** goes in `validators` — `onChange` for as-you-type rules, `onBlur` for
+  required/format, `onSubmit` for cross-field rules, and `onChangeListenTo: ["otherField"]` when a
+  field depends on another (e.g. start/end dates). Every message is produced with `t()`; reuse the
+  existing `ThisFieldIsRequiredMsg` key for "required".
+- **Non-trivial predicates are pure functions** in the feature's `shared/` dir, unit-tested next to
+  the source (e.g. `validateURL`). Keep the `t()` call in the component, the predicate pure.
+- **Errors render through reusable field components**, never ad-hoc markup: pass
+  `field.state.meta.errors` into the component's `error` prop. The component then turns the control
+  and label red, sets `aria-invalid`, and renders the message (`FieldError`, `role="alert"`). Ranking
+  fields live in `src/pages/Ranking/components/form/`; MUI forms use `error` + `helperText`.
+- **Extend, don't fork**: if a field can't show an error, add an `error` prop to the existing shared
+  component rather than creating a one-off field that owns its own error state.
+- **Gate the submit button** with `<form.Subscribe>` (`canSubmit`) and show the pending state from the
+  mutation's `isLoading` — see Loading & async feedback.
+
 ## Tests
 
 Vitest is configured in `vite.config.ts` (`test` block: `globals: true`, `environment: "jsdom"`,

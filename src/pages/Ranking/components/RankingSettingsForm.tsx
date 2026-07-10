@@ -1,5 +1,6 @@
-import { FormEvent, ReactNode, useState } from "react"
+import { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
+import { useForm } from "@tanstack/react-form"
 import {
   RankingSettingsFormState,
   isRankingSettingsFormComplete,
@@ -28,7 +29,13 @@ interface RankingSettingsFormProps {
   secondaryAction?: ReactNode
 }
 
+/** TanStack Form exposes one message per failed validator; join them for display. */
+const errorMessage = (errors: (string | undefined)[]): string | undefined =>
+  errors.filter(Boolean).join(" ") || undefined
+
 // Presentational, action-agnostic form; the page wires `onSubmit` and labels.
+// Validation lives in `<form.Field validators>`; `noValidate` keeps the browser
+// from pre-empting our translated messages with its native bubbles.
 export default function RankingSettingsForm({
   initialState,
   eventId,
@@ -39,38 +46,40 @@ export default function RankingSettingsForm({
   secondaryAction,
 }: RankingSettingsFormProps) {
   const { t } = useTranslation()
-  const [state, setState] = useState(initialState)
 
-  const update = <K extends keyof RankingSettingsFormState>(
-    key: K,
-    value: RankingSettingsFormState[K],
-  ) => setState((prev) => ({ ...prev, [key]: value }))
-
-  const updateArray = (
-    key: "statusScores" | "overallSettings",
-    index: number,
-    value: number | null,
-  ) =>
-    setState((prev) => {
-      const next = [...prev[key]]
-      next[index] = value
-      return { ...prev, [key]: next }
-    })
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    onSubmit(state)
-  }
+  const form = useForm({
+    defaultValues: initialState,
+    onSubmit: ({ value }) => onSubmit(value),
+  })
 
   return (
-    <form onSubmit={handleSubmit} className="rk-ranking-settings-form flex flex-col gap-10">
+    <form
+      noValidate
+      onSubmit={(event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        void form.handleSubmit()
+      }}
+      className="rk-ranking-settings-form flex flex-col gap-10"
+    >
       <div className="flex flex-col gap-1">
-        <TextField
-          label={t("Ranking.Settings.titleLabel")}
-          required
-          value={state.title}
-          onChange={(value) => update("title", value)}
-        />
+        <form.Field
+          name="title"
+          validators={{
+            onBlur: ({ value }) => (value.trim() ? undefined : t("ThisFieldIsRequiredMsg")),
+          }}
+        >
+          {(field) => (
+            <TextField
+              label={t("Ranking.Settings.titleLabel")}
+              required
+              value={field.state.value}
+              onChange={field.handleChange}
+              onBlur={field.handleBlur}
+              error={errorMessage(field.state.meta.errors)}
+            />
+          )}
+        </form.Field>
         <a
           href={competitionResultsPath(eventId, stageId)}
           target="_blank"
@@ -82,49 +91,86 @@ export default function RankingSettingsForm({
       </div>
 
       <FormSection title={t("Ranking.Settings.generalSettings")}>
-        <NumberField
-          label={t("Ranking.Settings.maxPoints")}
-          description={t("Ranking.Settings.maxPointsHint")}
-          required
-          value={state.maxPoints}
-          onChange={(value) => update("maxPoints", value)}
-          className="col-span-2"
-        />
-        <SelectField
-          label={t("Ranking.Settings.scoringAlgorithm")}
-          required
-          className="col-span-2"
-          value={state.scoringAlgorithm}
-          onChange={(value) => update("scoringAlgorithm", value)}
-          options={SCORING_ALGORITHM_OPTIONS.map((option) => ({
-            value: option.value,
-            label: t(option.labelKey),
-          }))}
-        />
-        <SelectField
-          label={t("Ranking.Settings.roundPrecision")}
-          required
-          className="col-span-2"
-          value={String(state.roundPrecision)}
-          onChange={(value) => update("roundPrecision", Number(value))}
-          options={ROUND_PRECISION_OPTIONS.map((option) => ({
-            value: String(option.value),
-            label: t(option.labelKey),
-          }))}
-        />
+        <form.Field
+          name="maxPoints"
+          validators={{
+            onBlur: ({ value }) => (value === null ? t("ThisFieldIsRequiredMsg") : undefined),
+            onChange: ({ value }) =>
+              value !== null && value <= 0 ? t("Ranking.Settings.maxPointsPositive") : undefined,
+          }}
+        >
+          {(field) => (
+            <NumberField
+              label={t("Ranking.Settings.maxPoints")}
+              description={t("Ranking.Settings.maxPointsHint")}
+              required
+              value={field.state.value}
+              onChange={field.handleChange}
+              onBlur={field.handleBlur}
+              error={errorMessage(field.state.meta.errors)}
+              className="col-span-2"
+            />
+          )}
+        </form.Field>
+
+        <form.Field
+          name="scoringAlgorithm"
+          validators={{
+            onBlur: ({ value }) => (value ? undefined : t("ThisFieldIsRequiredMsg")),
+          }}
+        >
+          {(field) => (
+            <SelectField
+              label={t("Ranking.Settings.scoringAlgorithm")}
+              required
+              value={field.state.value}
+              onChange={field.handleChange}
+              onBlur={field.handleBlur}
+              error={errorMessage(field.state.meta.errors)}
+              options={SCORING_ALGORITHM_OPTIONS.map((option) => ({
+                value: option.value,
+                label: t(option.labelKey),
+              }))}
+              className="col-span-2"
+            />
+          )}
+        </form.Field>
+
+        <form.Field name="roundPrecision">
+          {(field) => (
+            <SelectField
+              label={t("Ranking.Settings.roundPrecision")}
+              required
+              value={String(field.state.value)}
+              onChange={(value) => field.handleChange(Number(value))}
+              onBlur={field.handleBlur}
+              error={errorMessage(field.state.meta.errors)}
+              options={ROUND_PRECISION_OPTIONS.map((option) => ({
+                value: String(option.value),
+                label: t(option.labelKey),
+              }))}
+              className="col-span-2"
+            />
+          )}
+        </form.Field>
       </FormSection>
 
       <FormSection
         title={t("Ranking.Settings.circuitSettings")}
         description={t("Ranking.Settings.circuitSettingsHint")}
       >
-        {OVERALL_SETTINGS_FIELDS.map((field, index) => (
-          <NumberField
-            key={field.key}
-            label={t(field.labelKey)}
-            value={state.overallSettings[index]}
-            onChange={(value) => updateArray("overallSettings", index, value)}
-          />
+        {OVERALL_SETTINGS_FIELDS.map((settingsField, index) => (
+          <form.Field key={settingsField.key} name={`overallSettings[${index}]`}>
+            {(field) => (
+              <NumberField
+                label={t(settingsField.labelKey)}
+                value={field.state.value}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                error={errorMessage(field.state.meta.errors)}
+              />
+            )}
+          </form.Field>
         ))}
       </FormSection>
 
@@ -132,35 +178,52 @@ export default function RankingSettingsForm({
         title={t("Ranking.Settings.nonCompetitive")}
         description={t("Ranking.Settings.nonCompetitiveHint")}
       >
-        <ScoreSelectField
-          label={t("Ranking.Settings.ncTrue")}
-          value={state.ncTrue}
-          onChange={(value) => update("ncTrue", value)}
-          values={NC_SCORE_VALUES}
-          emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
-        />
-        <ScoreSelectField
-          label={t("Ranking.Settings.ncFalse")}
-          value={state.ncFalse}
-          onChange={(value) => update("ncFalse", value)}
-          values={NC_SCORE_VALUES}
-          emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
-        />
+        <form.Field name="ncTrue">
+          {(field) => (
+            <ScoreSelectField
+              label={t("Ranking.Settings.ncTrue")}
+              value={field.state.value}
+              onChange={field.handleChange}
+              onBlur={field.handleBlur}
+              error={errorMessage(field.state.meta.errors)}
+              values={NC_SCORE_VALUES}
+              emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
+            />
+          )}
+        </form.Field>
+        <form.Field name="ncFalse">
+          {(field) => (
+            <ScoreSelectField
+              label={t("Ranking.Settings.ncFalse")}
+              value={field.state.value}
+              onChange={field.handleChange}
+              onBlur={field.handleBlur}
+              error={errorMessage(field.state.meta.errors)}
+              values={NC_SCORE_VALUES}
+              emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
+            />
+          )}
+        </form.Field>
       </FormSection>
 
       <FormSection
         title={t("Ranking.Settings.statusScores")}
         description={t("Ranking.Settings.statusScoresHint")}
       >
-        {STATUS_SCORE_FIELDS.map((field, index) => (
-          <ScoreSelectField
-            key={field.index}
-            label={t(field.labelKey)}
-            value={state.statusScores[index]}
-            onChange={(value) => updateArray("statusScores", index, value)}
-            values={STATUS_SCORE_VALUES}
-            emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
-          />
+        {STATUS_SCORE_FIELDS.map((statusField, index) => (
+          <form.Field key={statusField.index} name={`statusScores[${index}]`}>
+            {(field) => (
+              <ScoreSelectField
+                label={t(statusField.labelKey)}
+                value={field.state.value}
+                onChange={field.handleChange}
+                onBlur={field.handleBlur}
+                error={errorMessage(field.state.meta.errors)}
+                values={STATUS_SCORE_VALUES}
+                emptyLabel={t("Ranking.Settings.scoreOptions.empty")}
+              />
+            )}
+          </form.Field>
         ))}
       </FormSection>
 
@@ -171,19 +234,25 @@ export default function RankingSettingsForm({
         ].join(" ")}
       >
         {secondaryAction}
-        <button
-          type="submit"
-          disabled={isSubmitting || !isRankingSettingsFormComplete(state)}
-          className="inline-flex items-center justify-center gap-2 rounded bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+        <form.Subscribe
+          selector={(state) => ({ canSubmit: state.canSubmit, values: state.values })}
         >
-          {isSubmitting && (
-            <span
-              aria-hidden="true"
-              className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-            />
+          {({ canSubmit, values }) => (
+            <button
+              type="submit"
+              disabled={isSubmitting || !canSubmit || !isRankingSettingsFormComplete(values)}
+              className="inline-flex items-center justify-center gap-2 rounded bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isSubmitting && (
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+                />
+              )}
+              {submitLabel}
+            </button>
           )}
-          {submitLabel}
-        </button>
+        </form.Subscribe>
       </div>
     </form>
   )

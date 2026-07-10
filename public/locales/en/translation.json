@@ -244,6 +244,7 @@
       "generalSettings": "General settings",
       "maxPoints": "Max points",
       "maxPointsHint": "The scoring scale: points awarded to the leader; everyone else is scored relative to this.",
+      "maxPointsPositive": "Max points must be greater than zero.",
       "ncFalse": "Competitive (not flagged as NC)",
       "ncTrue": "Flagged NC",
       "nonCompetitive": "Non-competitive",
