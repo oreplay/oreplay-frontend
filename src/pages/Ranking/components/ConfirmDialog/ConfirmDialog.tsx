@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react"
+import { ReactNode, useCallback, useEffect } from "react"
 import CloseIcon from "../icons/CloseIcon.tsx"
 
 interface ConfirmDialogProps {
@@ -25,14 +25,19 @@ export default function ConfirmDialog({
   onClose,
   children,
 }: ConfirmDialogProps) {
+  const requestClose = useCallback(() => {
+    if (isConfirming) return
+    onClose()
+  }, [isConfirming, onClose])
+
   useEffect(() => {
     if (!open) return
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose()
+      if (event.key === "Escape") requestClose()
     }
     document.addEventListener("keydown", onKeyDown)
     return () => document.removeEventListener("keydown", onKeyDown)
-  }, [open, onClose])
+  }, [open, requestClose])
 
   if (!open) return null
 
@@ -43,7 +48,7 @@ export default function ConfirmDialog({
       role="presentation"
       onClick={(event) => {
         event.stopPropagation()
-        onClose()
+        requestClose()
       }}
       className="rk-confirm-dialog fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
     >
@@ -59,8 +64,9 @@ export default function ConfirmDialog({
           <button
             type="button"
             aria-label={closeLabel}
-            onClick={onClose}
-            className="text-neutral-500 transition-colors hover:text-neutral-900"
+            disabled={isConfirming}
+            onClick={requestClose}
+            className="text-neutral-500 transition-colors hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <CloseIcon />
           </button>
