@@ -13,5 +13,6 @@ export type PostListEventsBody = {
   final_date?: string
   id?: string
   initial_date?: string
+  is_hidden?: number
   organizer_id?: string
 }
