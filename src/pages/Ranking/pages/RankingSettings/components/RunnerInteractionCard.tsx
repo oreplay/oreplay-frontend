@@ -5,18 +5,13 @@ import { usePostListRankingRunnerManagement } from "../../../../../infrastructur
 import { getListStageOrders } from "../../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
 import { useNotifyError } from "../../../../../infrastructure/notifications/useNotifyError.ts"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
-
-interface Runner {
-  id: string
-  full_name?: string
-  bib_number?: string | number
-}
-
-interface UserInteraction {
-  type?: string
-  path?: string
-  payload?: Runner
-}
+import {
+  RunnerInteraction,
+  runnerLabel,
+  toRunnerInteraction,
+  USER_INTERACTION_CHANNEL,
+  UserInteraction,
+} from "../shared/runnerInteraction.ts"
 
 interface RunnerInteractionCardProps {
   rankingId: string
@@ -25,31 +20,27 @@ interface RunnerInteractionCardProps {
 export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCardProps) {
   const { t } = useTranslationRanking()
   const notifyError = useNotifyError()
-  const [eventId, setEventId] = useState("")
-  const [stageId, setStageId] = useState("")
-  const [runner, setRunner] = useState<Runner | null>(null)
+  const [interaction, setInteraction] = useState<RunnerInteraction | null>(null)
   const [stageOrderId, setStageOrderId] = useState<string | null>(null)
   const sendOrganizer = usePostListRankingRunnerManagement()
 
+  const eventId = interaction?.eventId ?? ""
+  const stageId = interaction?.stageId ?? ""
   const { data: stageOrdersData } = useQuery(
     ["stageOrders", eventId, stageId],
     () => getListStageOrders(eventId, stageId),
     { enabled: Boolean(eventId && stageId) },
   )
   const stageOrders = stageOrdersData?.data ?? []
+  const selectedOrder = stageOrders.find((o) => o.id === stageOrderId)
 
   useEffect(() => {
-    const channel = new BroadcastChannel("user_interaction")
+    const channel = new BroadcastChannel(USER_INTERACTION_CHANNEL)
     const handler = (event: MessageEvent) => {
-      const data = event.data as UserInteraction | null
-      if (data?.type !== "RUNNER_EXPANDED" || !data.path) return
-      const [pathEventId, pathStageId] = data.path.split("/competitions/")[1]?.split("/") ?? []
-      if (pathEventId) setEventId(pathEventId)
-      if (pathStageId) setStageId(pathStageId)
-      if (data.payload?.full_name) {
-        setRunner(data.payload)
-        setStageOrderId(null)
-      }
+      const next = toRunnerInteraction(event.data as UserInteraction | null)
+      if (!next) return
+      setInteraction(next)
+      setStageOrderId(null)
     }
     channel.addEventListener("message", handler)
     return () => {
@@ -58,27 +49,27 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
     }
   }, [])
 
+  const runner = interaction?.runner
+
   const send = async () => {
-    if (!runner) return
-    const selectedOrder = stageOrders.find((o) => o.id === stageOrderId)
+    if (!interaction || !runner || !selectedOrder) return
     try {
       await sendOrganizer.mutateAsync({
         rankingID: rankingId,
-        eventID: eventId,
-        stageID: stageId,
+        eventID: interaction.eventId,
+        stageID: interaction.stageId,
         data: {
           upload_type: "computable_org",
           runner_id: runner.id,
-          stage_order: selectedOrder?.stage_order,
+          stage_order: selectedOrder.stage_order,
         },
       })
-      setRunner(null)
+      setInteraction({ ...interaction, runner: null })
+      setStageOrderId(null)
     } catch (error) {
       notifyError(error)
     }
   }
-
-  const runnerLabel = runner ? `${runner.bib_number}: ${runner.full_name}` : ""
 
   return (
     <div className="rk-runner-interaction-card rounded-xl bg-white p-6 shadow-sm">
@@ -88,7 +79,7 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
       {runner ? (
         <div className="flex flex-col gap-3">
           <div>
-            <p className="m-0 font-medium">{runnerLabel}</p>
+            <p className="m-0 font-medium">{runnerLabel(runner)}</p>
             <p className="m-0 text-sm text-neutral-500">{runner.id}</p>
           </div>
           <SearchableSelect
@@ -104,7 +95,7 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
           />
           <button
             type="button"
-            disabled={sendOrganizer.isLoading || !stageOrderId}
+            disabled={sendOrganizer.isLoading || !selectedOrder}
             onClick={() => void send()}
             className="mt-2 inline-flex items-center justify-center gap-2 self-end rounded bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
           >
