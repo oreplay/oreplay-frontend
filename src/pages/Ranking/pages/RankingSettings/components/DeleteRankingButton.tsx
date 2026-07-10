@@ -29,14 +29,19 @@ export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankin
   const confirmDelete = async () => {
     try {
       await deleteRanking.mutateAsync({ rankingID: rankingId })
-      if (alsoDeleteEvent) {
-        await deleteEvent.mutateAsync({ eventID: eventId })
-      }
-      void navigate(RANKING_LIST_PATH)
     } catch (error) {
       close()
       notifyError(error)
+      return
     }
+    if (alsoDeleteEvent) {
+      try {
+        await deleteEvent.mutateAsync({ eventID: eventId })
+      } catch (error) {
+        notifyError(error)
+      }
+    }
+    void navigate(RANKING_LIST_PATH)
   }
 
   return (
