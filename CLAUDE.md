@@ -178,8 +178,9 @@ use it).
 ## Tests
 
 Vitest is configured in `vite.config.ts` (`test` block: `globals: true`, `environment: "jsdom"`,
-`setupFiles: "./src/test/setup.ts"`, and `server.deps.inline: ["@toolpad/core"]` so Vite resolves its
-ESM directory import). `src/test/setup.ts` pulls in `@testing-library/jest-dom` plus `src/test/i18n.ts`,
+`setupFiles: "./src/test/setup.ts"`, `env: { TZ: "UTC" }`, and `server.deps.inline: ["@toolpad/core"]`
+so Vite resolves its ESM directory import). `src/test/setup.ts` pulls in
+`@testing-library/jest-dom` plus `src/test/i18n.ts`,
 which initialises i18next synchronously from the English locale (no http-backend, `useSuspense: false`)
 so components render real strings.
 

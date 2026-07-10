@@ -44,6 +44,9 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./src/test/setup.ts",
+    env: {
+      TZ: "UTC",
+    },
     // @toolpad/core ships ESM that does a directory import of @mui/material/styles,
     // which Node's resolver rejects; inline it so Vite transforms/resolves it.
     server: {
