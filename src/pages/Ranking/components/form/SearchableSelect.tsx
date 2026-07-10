@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import FieldLabel from "./FieldLabel.tsx"
+import SpinnerRing from "../SpinnerRing.tsx"
 import { FIELD_CLASS } from "./fieldStyles.ts"
 
 const DROPDOWN_MAX_HEIGHT = 224 // matches max-h-56 (14rem)
@@ -99,10 +100,7 @@ export default function SearchableSelect({
           )}
         />
         {loading && (
-          <span
-            aria-hidden="true"
-            className="absolute right-3 top-1/2 inline-block h-4 w-4 -translate-y-1/2 animate-spin rounded-full border-2 border-primary border-t-transparent"
-          />
+          <SpinnerRing className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 border-2 border-primary" />
         )}
         {open && (
           <ul
