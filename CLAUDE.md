@@ -102,18 +102,21 @@ Weblate-managed) and are fetched at runtime by `i18next-http-backend`
 ### Namespaces
 
 A namespace is one JSON file per locale, loaded independently. Today: `translation` (the default —
-core results/event functionality), `common`, `organizers`, `about-us`, `PrivacyPolicy`,
-`LegalNotice`, `CookiesPolicy`.
+core results/event functionality), `common`, `ranking`, `organizers`, `about-us`, etc.
 
 - **New functionality that isn't deeply tied to the core results feature gets its own namespace**,
   rather than growing `translation.json`. A namespace keeps a feature's wording self-contained,
   keeps it out of the bundle for users who never open it, and lets Weblate track it separately.
 - **Declare the namespace, then use bare keys**: `const { t } = useTranslation("organizers")` →
   `t("title")`. This is how every feature namespace is consumed — never `t("organizers:title")`.
-- **`common` is the exception**: it is preloaded next to `translation` (`ns` in `src/i18n.ts`) and
-  reached through the `common:` prefix — `t("common:save")` — from a plain `useTranslation()`. That
-  way a component can mix its own feature keys with generic labels without declaring two namespaces,
-  and a Suspense fallback like `GeneralSuspenseFallback` never suspends waiting for a namespace.
+- **Wrap the namespace in a hook rather than repeating the string**: the ranking area calls
+  `useTranslationRanking()` (`src/pages/Ranking/shared/useTranslationRanking.ts` instead of using `useTranslation("ranking")`), which owns the one
+  `RANKING_NAMESPACE` constant. Follow this for every new namespace — no magic strings at call sites.
+- **`common` is the exception that is always available**: it is preloaded next to `translation`
+  (`ns` in `src/i18n.ts`), so `t("common:save")` works from any `t`, including a plain
+  `useTranslation()`. That way a component mixes its own feature keys with generic labels without
+  declaring two namespaces, and a Suspense fallback like `GeneralSuspenseFallback` never suspends
+  waiting for a namespace. Every other namespace loads lazily, on first `useTranslation("<ns>")`.
 - **Register every new namespace in `usedNamespaces`** (`src/supportedLanguages.tsx`).
   `src/supportedLanguages.test.ts` then asserts `public/locales/<lng>/<ns>.json` exists for **every**
   locale, so create the file in all 19 — an empty `{}` is acceptable for a locale that is not

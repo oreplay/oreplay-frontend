@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
 import { useNavigate } from "react-router-dom"
 import { Ranking } from "../../../../../domain/types/v1api"
 import { competitionResultsPath } from "../../../shared/competitionLink.ts"
@@ -13,13 +13,13 @@ interface RankingListItemProps {
 }
 
 export default function RankingListItem({ ranking }: RankingListItemProps) {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslationRanking()
   const navigate = useNavigate()
   const [processOpen, setProcessOpen] = useState(false)
 
   const settingsPath = `${ranking.id}/settings`
   const details = `${formatDate(ranking.created, i18n.language)} · ${t(
-    "Ranking.Settings.maxPoints",
+    "Settings.maxPoints",
   )}: ${ranking.max_points} · ${ranking.id}`
 
   const menuItems: DropdownMenuItem[] = [
@@ -28,7 +28,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
       onSelect: () => void navigate(settingsPath),
     },
     {
-      label: t("Ranking.Settings.competitionLink"),
+      label: t("Settings.competitionLink"),
       href: competitionResultsPath(ranking.event_id, ranking.stage_id),
     },
     {
@@ -36,7 +36,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
       onSelect: () => void navigate(`${ranking.id}/duplicate`),
     },
     {
-      label: t("Ranking.ProcessEvent.title"),
+      label: t("ProcessEvent.title"),
       onSelect: () => setProcessOpen(true),
     },
   ]
@@ -51,7 +51,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
         <p className="text-sm text-neutral-500">{details}</p>
       </div>
       <DropdownMenu
-        triggerLabel={t("Ranking.List.menuLabel")}
+        triggerLabel={t("List.menuLabel")}
         trigger={<SettingsIcon />}
         items={menuItems}
       />

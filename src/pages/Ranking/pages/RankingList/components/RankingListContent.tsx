@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
 import { Ranking } from "../../../../../domain/types/v1api"
 import Spinner from "../../../components/Spinner/Spinner.tsx"
 import RankingListItem from "./RankingListItem.tsx"
@@ -14,18 +14,18 @@ export default function RankingListContent({
   isLoading,
   rankings,
 }: RankingListContentProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
 
   if (isLoading) {
     return <Spinner label={t("common:loading")} />
   }
 
   if (isError) {
-    return <p className="rk-ranking-list-content text-red-600">{t("Ranking.List.loadError")}</p>
+    return <p className="rk-ranking-list-content text-red-600">{t("List.loadError")}</p>
   }
 
   if (rankings.length === 0) {
-    return <p className="rk-ranking-list-content text-neutral-500">{t("Ranking.List.empty")}</p>
+    return <p className="rk-ranking-list-content text-neutral-500">{t("List.empty")}</p>
   }
 
   return (

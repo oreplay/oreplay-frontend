@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
 import { useParams } from "react-router-dom"
 import {
   useGetRankingSettings,
@@ -12,7 +12,7 @@ import DeleteRankingButton from "./components/DeleteRankingButton.tsx"
 import RunnerInteractionCard from "./components/RunnerInteractionCard.tsx"
 
 export default function RankingSettings() {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
   const notifyError = useNotifyError()
   const { rankingId } = useParams()
   const { data, isLoading } = useGetRankingSettings(rankingId ?? "")
@@ -22,7 +22,7 @@ export default function RankingSettings() {
 
   return (
     <SettingsPageLayout
-      heading={t("Ranking.Settings.title")}
+      heading={t("Settings.title")}
       currentCrumb={ranking?.title ?? rankingId ?? ""}
       isLoading={isLoading}
       isMissing={!ranking}

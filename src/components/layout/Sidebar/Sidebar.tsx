@@ -148,7 +148,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
                     <ListItemIcon>
                       <LeaderboardIcon />
                     </ListItemIcon>
-                    <ListItemText primary={t("Ranking.Menu")} />
+                    <ListItemText primary={t("Rankings")} />
                   </ListItemButton>
                 </ListItem>
               )}

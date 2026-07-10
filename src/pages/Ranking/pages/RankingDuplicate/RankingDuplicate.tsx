@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
 import { useNavigate, useParams } from "react-router-dom"
 import { Ranking } from "../../../../domain/types/v1api"
 import { useGetRankingSettings } from "../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
@@ -12,7 +12,7 @@ import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "../../components/RankingSettingsForm.tsx"
 
 export default function RankingDuplicate() {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
   const notifyError = useNotifyError()
   const navigate = useNavigate()
   const { rankingId } = useParams()
@@ -32,8 +32,8 @@ export default function RankingDuplicate() {
 
   return (
     <SettingsPageLayout
-      heading={t("Ranking.Duplicate.title")}
-      currentCrumb={t("Ranking.Duplicate.crumb")}
+      heading={t("Duplicate.title")}
+      currentCrumb={t("Duplicate.crumb")}
       isLoading={isLoading}
       isMissing={!ranking}
     >

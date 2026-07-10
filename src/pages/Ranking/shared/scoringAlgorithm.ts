@@ -3,7 +3,7 @@
 export const SCORING_ALGORITHM_OPTIONS = [
   {
     value: "Rankings\\Lib\\ScoringAlgorithms\\SimpleScoreCalculator",
-    labelKey: "Ranking.Settings.scoringAlgorithmValues.simpleScore",
+    labelKey: "Settings.scoringAlgorithmValues.simpleScore",
   },
 ] as const
 

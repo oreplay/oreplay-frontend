@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useTranslation } from "react-i18next"
+import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
 import { useNavigate } from "react-router-dom"
 import { useDeleteRankingSettings } from "../../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
 import { useDeleteEvents } from "../../../../../infrastructure/repositories/events/events.ts"
@@ -12,7 +12,7 @@ interface DeleteRankingButtonProps {
 }
 
 export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankingButtonProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslationRanking()
   const notifyError = useNotifyError()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
@@ -63,7 +63,7 @@ export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankin
             checked={alsoDeleteEvent}
             onChange={(event) => setAlsoDeleteEvent(event.target.checked)}
           />
-          {t("Ranking.Settings.deleteEventToo")}
+          {t("Settings.deleteEventToo")}
         </label>
       </ConfirmDialog>
     </div>
