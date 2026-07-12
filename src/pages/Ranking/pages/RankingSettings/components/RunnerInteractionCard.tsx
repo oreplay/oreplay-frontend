@@ -5,6 +5,7 @@ import { usePostListRankingRunnerManagement } from "../../../../../infrastructur
 import { getListStageOrders } from "../../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
 import { useNotifyError } from "../../../../../infrastructure/notifications/useNotifyError.ts"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
+import PrimaryButton from "../../../components/PrimaryButton.tsx"
 import {
   RunnerInteraction,
   runnerLabel,
@@ -93,20 +94,14 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
             noResultsLabel={t("common:noResults")}
             placeholder={t("common:search")}
           />
-          <button
-            type="button"
-            disabled={sendOrganizer.isLoading || !selectedOrder}
+          <PrimaryButton
+            isLoading={sendOrganizer.isLoading}
+            disabled={!selectedOrder}
             onClick={() => void send()}
-            className="mt-2 inline-flex items-center justify-center gap-2 self-end rounded-sm bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-2 self-end"
           >
-            {sendOrganizer.isLoading && (
-              <span
-                aria-hidden="true"
-                className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-              />
-            )}
             {t("RunnerInteraction.sendOrganizer")}
-          </button>
+          </PrimaryButton>
         </div>
       ) : (
         <p className="m-0 text-sm text-neutral-500">{t("RunnerInteraction.empty")}</p>
