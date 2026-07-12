@@ -12,6 +12,7 @@ import { STATUS_SCORE_FIELDS } from "../shared/statusScores.ts"
 import { NC_SCORE_VALUES, STATUS_SCORE_VALUES } from "../shared/scoreOptions.ts"
 import { competitionResultsPath } from "../shared/competitionLink.ts"
 import FormSection from "./form/FormSection.tsx"
+import PrimaryButton from "./PrimaryButton.tsx"
 import NumberField from "./form/NumberField.tsx"
 import ScoreSelectField from "./form/ScoreSelectField.tsx"
 import SelectField from "./form/SelectField.tsx"
@@ -235,19 +236,13 @@ export default function RankingSettingsForm({
           selector={(state) => ({ canSubmit: state.canSubmit, values: state.values })}
         >
           {({ canSubmit, values }) => (
-            <button
+            <PrimaryButton
               type="submit"
-              disabled={isSubmitting || !canSubmit || !isRankingSettingsFormComplete(values)}
-              className="inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+              isLoading={isSubmitting}
+              disabled={!canSubmit || !isRankingSettingsFormComplete(values)}
             >
-              {isSubmitting && (
-                <span
-                  aria-hidden="true"
-                  className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-                />
-              )}
               {submitLabel}
-            </button>
+            </PrimaryButton>
           )}
         </form.Subscribe>
       </div>
