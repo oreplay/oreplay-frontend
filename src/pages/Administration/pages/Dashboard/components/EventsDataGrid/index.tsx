@@ -5,9 +5,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 import VisibilityIcon from "@mui/icons-material/Visibility"
 import { useAuth } from "../../../../../../shared/hooks.ts"
 import { useGetListEvents } from "../../../../../../infrastructure/repositories/events/events.ts"
-import { deleteRawUploads } from "../../../../../../infrastructure/repositories/raw-uploads/raw-uploads.ts"
 import { Event } from "../../../../../../domain/types/v1api"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import EventsDataGridToolbar from "./components/EventsDataGridToolbar"
 
@@ -50,11 +49,6 @@ export default function EventsDataGrid() {
       },
     },
   )
-
-  // Maintenance: fire-and-forget cleanup of old raw uploads
-  useEffect(() => {
-    void deleteRawUploads("any", "old")
-  }, [])
 
   const rowArray = useMemo(() => {
     if (!thisUserEventsQuery.isSuccess) return []
