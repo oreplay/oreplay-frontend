@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { DASHBOARD_PATH } from "../../../../../../../shared/routes.ts"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import {
   Button,
@@ -33,7 +34,7 @@ export default function DeleteEventButton(props: DeleteEventButtonProps) {
   const handleDeleteEvent = async () => {
     try {
       await deleteEvent(props.event.id, token)
-      await navigate("/dashboard")
+      await navigate(DASHBOARD_PATH)
     } catch (error) {
       notifications.show("An error occurred deleting the event.", {
         autoHideDuration: 3000,

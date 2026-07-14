@@ -11,6 +11,7 @@ import { lazyWithRetry } from "./services/lazyLoad.ts"
 import { useTranslation } from "react-i18next"
 import { Settings as LuxonSettings } from "luxon"
 import CountriesLocalizationProvider from "./services/countryService/countriesProvider.tsx"
+import { DASHBOARD_PATH } from "./shared/routes.ts"
 
 const EventsList = lazyWithRetry(() => import("./pages/Results/pages/EventList/EventsList.tsx"))
 const EventDetail = lazyWithRetry(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
@@ -109,7 +110,7 @@ export default function App() {
                     <Route path="competitions/:id" element={<EventDetail />} />
                     <Route path="competitions/:eventId/:stageId" element={<Results />} />
                     <Route element={<PrivateRoute />}>
-                      <Route path={"/dashboard"} element={<Dashboard />} />
+                      <Route path={DASHBOARD_PATH} element={<Dashboard />} />
                       <Route path={"/admin/create-event"} element={<CreateEvent />} />
                       <Route path={"/admin/:eventId"} element={<EventAdmin />} />
                       <Route path={"/my-account"} element={<MyAccount />} />
