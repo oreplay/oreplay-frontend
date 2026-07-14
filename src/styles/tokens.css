@@ -1,0 +1,14 @@
+/*
+ * Design tokens — the single source of truth for the shared O-Replay palette.
+ *
+ * Values are channel triplets (not hex) so Tailwind opacity utilities work:
+ *   rgb(var(--color-primary) / <alpha-value>)  ->  bg-primary/50
+ *
+ * When the `@oreplay/tokens` package exists, generate this file from it so the
+ * host and this module read identical values.
+ */
+:root {
+  --color-primary: 255 113 10; /* #ff710a */
+  --color-secondary: 94 37 114; /* #5e2572 */
+  --color-surface: 246 246 246; /* #f6f6f6 */
+}
