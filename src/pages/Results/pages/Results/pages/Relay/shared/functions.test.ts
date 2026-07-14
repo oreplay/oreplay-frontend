@@ -50,7 +50,7 @@ describe("liveParticipantTime", () => {
     const participant = createParticipant("2024-01-01T00:00:00Z", null, 0)
     // @ts-expect-error the introduced date is ok
     const now: DateTime<true> = DateTime.fromISO("2024-01-01T00:05:00Z")
-    vi.setSystemTime(new Date("2024-01-01T00:06:00Z")) // not matching system now
+    vi.setSystemTime(DateTime.fromISO("2024-01-01T00:06:00Z").toMillis()) // not matching system now
 
     const result = liveParticipantTime(participant, now)
     expect(result).toBe(300)
@@ -58,7 +58,7 @@ describe("liveParticipantTime", () => {
 
   it("computes live elapsed time using DateTime.now() when now is not provided", () => {
     const participant = createParticipant("2024-01-01T00:00:00Z", null, 0)
-    vi.setSystemTime(new Date("2024-01-01T00:05:00Z"))
+    vi.setSystemTime(DateTime.fromISO("2024-01-01T00:05:00Z").toMillis())
 
     const result = liveParticipantTime(participant)
     expect(result).toBe(300)

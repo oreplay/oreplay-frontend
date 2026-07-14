@@ -1,3 +1,4 @@
+import { DateTime } from "luxon"
 import { TimeZoneId, TimezoneOption } from "./index.tsx"
 
 /**
@@ -22,7 +23,7 @@ export function getOffset(timeZone: TimeZoneId): string {
     minute: "2-digit",
     hour12: false,
     timeZoneName: "shortOffset",
-  }).formatToParts(new Date())
+  }).formatToParts(DateTime.now().toMillis())
 
   return parts.find((p) => p.type === "timeZoneName")?.value ?? "GMT"
 }
@@ -36,7 +37,7 @@ export function getLocalizedName(timeZone: TimeZoneId, locale: string): string {
   const parts = new Intl.DateTimeFormat(locale, {
     timeZone,
     timeZoneName: "long",
-  }).formatToParts(new Date())
+  }).formatToParts(DateTime.now().toMillis())
 
   return parts.find((p) => p.type === "timeZoneName")?.value ?? timeZone
 }

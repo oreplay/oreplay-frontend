@@ -130,7 +130,7 @@ describe("RunnerService.hasStarted", () => {
     expect(runnerService.hasStarted(runner, now), "Providing time").toBeTruthy()
 
     // Use system time
-    vi.setSystemTime(new Date("2025-06-27T09:10:00.000+00:00"))
+    vi.setSystemTime(DateTime.fromISO("2025-06-27T09:10:00.000+00:00").toMillis())
     expect(runnerService.hasStarted(runner, now), "Usings system time").toBeTruthy()
   })
 
@@ -140,7 +140,7 @@ describe("RunnerService.hasStarted", () => {
     expect(runnerService.hasStarted(runner, now), "Providing time").toBeFalsy()
 
     // Use system time
-    vi.setSystemTime(new Date("2025-06-27T08:50:00.000+00:00"))
+    vi.setSystemTime(DateTime.fromISO("2025-06-27T08:50:00.000+00:00").toMillis())
     expect(runnerService.hasStarted(runner, now), "Usings system time").toBeFalsy()
   })
 
@@ -158,7 +158,7 @@ describe("RunnerService.hasStarted", () => {
     expect(runnerService.hasStarted(thisRunner, now), "Providing time").toBeFalsy()
 
     // Use system time
-    vi.setSystemTime(new Date("2025-06-27T09:10:00.000+00:00"))
+    vi.setSystemTime(DateTime.fromISO("2025-06-27T09:10:00.000+00:00").toMillis())
     expect(runnerService.hasStarted(thisRunner, now), "Using system time").toBeFalsy()
   })
 
@@ -180,7 +180,7 @@ describe("RunnerService.hasStarted", () => {
     expect(runnerService.hasStarted(thisRunner, now), "Providing time").toBeTruthy()
 
     // Use system time
-    vi.setSystemTime(new Date("2025-06-27T09:10:00.000+00:00"))
+    vi.setSystemTime(DateTime.fromISO("2025-06-27T09:10:00.000+00:00").toMillis())
     expect(runnerService.hasStarted(thisRunner, now), "Usings system time").toBeTruthy()
   })
 })
