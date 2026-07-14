@@ -1,3 +1,6 @@
-# Ignore artifacts:
+node_modules
+dist
 build
 coverage
+src/infrastructure/repositories
+package-lock.json

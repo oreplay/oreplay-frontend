@@ -1,3 +1,9 @@
+dist
 vite.config.ts
 tsconfig.json
 tsconfig.node.json
+src/infrastructure/repositories
+src/infrastructure/orval/orval-axios-instance.d.ts
+orval.config.ts
+tailwind.config.js
+postcss.config.js
