@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Limpiar búsqueda",
+  "close": "Cerrar",
+  "confirm": "Confirmar",
+  "delete": "Borrar",
+  "deleteConfirm": "¿Seguro que quieres continuar?",
+  "duplicate": "Duplicar",
+  "edit": "Editar",
+  "error": {
+    "badRequest": "Se produjo un error con tu solicitud.",
+    "forbidden": "No tienes permiso para hacer esto.",
+    "serverError": "Se produjo un error al obtener la respuesta."
+  },
+  "loading": "Cargando",
+  "noResults": "Sin resultados",
+  "ok": "OK",
+  "save": "Guardar",
+  "search": "Buscar"
+}

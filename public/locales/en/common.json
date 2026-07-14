@@ -1,0 +1,19 @@
+{
+  "clearSearch": "Clear search",
+  "close": "Close",
+  "confirm": "Confirm",
+  "delete": "Delete",
+  "deleteConfirm": "Are you sure you want to proceed?",
+  "duplicate": "Duplicate",
+  "edit": "Edit",
+  "error": {
+    "badRequest": "There was an error with your request.",
+    "forbidden": "You don't have permission to do this.",
+    "serverError": "There was an error providing a response."
+  },
+  "loading": "Loading",
+  "noResults": "No matches",
+  "ok": "OK",
+  "save": "Save",
+  "search": "Search"
+}

@@ -32,6 +32,7 @@ export const supportedLanguages: Language[] = [
 ]
 
 export const usedNamespaces: string[] = [
+  "common",
   "translation",
   "organizers",
   "about-us",

@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Tarihler",
-  "Delete": "Sil",
-  "Edit": "Düzenle",
   "EmailAddress": "E-posta adresi",
   "Event": "Etkinlik",
   "EventAdmin": {
@@ -66,7 +64,6 @@
     "Renew": "Yenile",
     "Renew security keys": "Yeni bir güvenlik anahtarı oluştur",
     "RenewEventTokenMsg": "Yeni bir anahtar oluşturursanız eski anahtar geçersiz kalır. Eski anahtara sahip olanlar ise sonuçlarını etkinliğe yükleyemez.",
-    "Save": "Kaydet",
     "Scopes": {
       "Club": "Kulüp",
       "International": "Uluslararası",

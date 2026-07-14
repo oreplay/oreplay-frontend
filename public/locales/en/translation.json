@@ -22,8 +22,6 @@
     }
   },
   "Dates": "Dates",
-  "Delete": "Delete",
-  "Edit": "Edit",
   "EmailAddress": "Email Address",
   "Event": "Event",
   "EventAdmin": {
@@ -69,7 +67,6 @@
     "Renew": "Renew",
     "Renew security keys": "Generate a new security key",
     "RenewEventTokenMsg": "If you renew the security key, the old one will be invalidated. Therefore, no one with the old key will be able to upload results to this event.",
-    "Save": "Save",
     "Scopes": {
       "Placeholder": "Scope",
       "Club": "Club",
@@ -173,7 +170,6 @@
     "Language": "Language",
     "Spanish": "Spanish"
   },
-  "Loading": "Loading",
   "Location": "Location",
   "Menu": "Menu",
   "MyAccount": {
@@ -196,6 +192,7 @@
     "Message": "This event has been set to private by the organizer. If you believe this is an error, please contact the event organizer."
   },
   "RadiosExperimentalMsg": "When using online controls, split-related features are experimental.",
+  "Rankings": "Rankings",
   "Results": {
     "Class": "Class",
     "Classes": "Classes",
@@ -267,11 +264,6 @@
       "ok": "ok",
       "ot": "OT"
     }
-  },
-  "Save": "Save",
-  "Search": {
-    "ClearSearch": "Clear search",
-    "Search": "Search"
   },
   "Settings": "Settings",
   "Sign in": {

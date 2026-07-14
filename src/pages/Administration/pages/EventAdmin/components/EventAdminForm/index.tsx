@@ -582,12 +582,12 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                   {t("Cancel")}
                 </Button>
                 <Button type="submit" variant="contained" startIcon={<SaveIcon />}>
-                  {t("EventAdmin.Save")}
+                  {t("common:save")}
                 </Button>
               </>
             ) : (
               <Button variant="contained" startIcon={<EditIcon />} onClick={props.handleEdit}>
-                {t("Edit")}
+                {t("common:edit")}
               </Button>
             )}
           </>
