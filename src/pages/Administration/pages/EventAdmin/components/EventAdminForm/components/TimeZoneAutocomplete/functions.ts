@@ -30,7 +30,6 @@ export function getOffset(timeZone: TimeZoneId): string {
  * @param locale locale string. For example "es"
  */
 export function getLocalizedName(timeZone: TimeZoneId, locale: string): string {
-  // Luxon resolves "UTC" rather than "Coordinated Universal Time".
   const parts = new Intl.DateTimeFormat(locale, {
     timeZone,
     timeZoneName: "long",
