@@ -5,7 +5,11 @@ import { TimeZoneId, TimezoneOption } from "./index.tsx"
  * Helper function to get the user's timezone from the browser
  */
 export function getUserTimeZone(): TimeZoneId {
-  return DateTime.local().zoneName ?? "UTC"
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone
+  } catch {
+    return "UTC"
+  }
 }
 
 /**
