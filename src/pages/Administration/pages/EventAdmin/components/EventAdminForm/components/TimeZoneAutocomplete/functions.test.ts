@@ -18,6 +18,19 @@ const freezeAt = (iso: string) => vi.setSystemTime(DateTime.fromISO(iso).toMilli
 beforeEach(() => vi.useFakeTimers())
 afterEach(() => vi.useRealTimers())
 
+const offsetToMinutes = (offset: string): number => {
+  const match = offset.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?/)
+  if (!match) return 0
+  const sign = match[1] === "-" ? -1 : 1
+  return sign * (Number(match[2]) * 60 + Number(match[3] ?? 0))
+}
+
+const expectOffset = (timeZone: string, minutes: number) => {
+  const offset = getOffset(timeZone)
+  expect(offset, `offset for ${timeZone}: ${offset}`).toMatch(/^(GMT|UTC)/)
+  expect(offsetToMinutes(offset), `offset for ${timeZone}: ${offset}`).toBe(minutes)
+}
+
 describe("getUserTimeZone", () => {
   it("returns the browser's IANA timezone", () => {
     expect(getUserTimeZone()).toBe(Intl.DateTimeFormat().resolvedOptions().timeZone)
@@ -29,28 +42,28 @@ describe("getUserTimeZone", () => {
 })
 
 describe("getOffset", () => {
-  it("formats the offset as GMT±h during summer time", () => {
+  it("reflects the summer-time offset", () => {
     freezeAt(SUMMER)
-    expect(getOffset("Europe/Madrid")).toBe("GMT+2")
-    expect(getOffset("America/Anchorage")).toBe("GMT-8")
+    expectOffset("Europe/Madrid", 2 * 60)
+    expectOffset("America/Anchorage", -8 * 60)
   })
 
-  it("formats the offset as GMT±h during standard time", () => {
+  it("reflects the standard-time offset", () => {
     freezeAt(WINTER)
-    expect(getOffset("Europe/Madrid")).toBe("GMT+1")
-    expect(getOffset("America/Anchorage")).toBe("GMT-9")
+    expectOffset("Europe/Madrid", 1 * 60)
+    expectOffset("America/Anchorage", -9 * 60)
   })
 
-  it("keeps a plain GMT for UTC and handles fractional and +14 offsets", () => {
+  it("keeps a zero offset for UTC and handles fractional and +14 offsets", () => {
     freezeAt(SUMMER)
-    expect(getOffset("UTC")).toBe("GMT")
-    expect(getOffset("Asia/Kolkata")).toBe("GMT+5:30")
-    expect(getOffset("Pacific/Kiritimati")).toBe("GMT+14")
+    expectOffset("UTC", 0)
+    expectOffset("Asia/Kolkata", 5 * 60 + 30)
+    expectOffset("Pacific/Kiritimati", 14 * 60)
   })
 
   it("never abbreviates the zone, even where an abbreviation exists", () => {
     freezeAt(SUMMER)
-    expect(getOffset("America/Anchorage")).not.toBe("AKDT")
+    expect(getOffset("America/Anchorage")).toMatch(/^GMT/)
   })
 })
 
@@ -95,23 +108,25 @@ describe("formatCity", () => {
 describe("timeZoneOptionGenerator", () => {
   it("builds the option for a region/city zone", () => {
     freezeAt(SUMMER)
-    expect(timeZoneOptionGenerator("Europe/Madrid", "en")).toEqual({
+    const { offset, ...rest } = timeZoneOptionGenerator("Europe/Madrid", "en")
+    expect(rest).toEqual({
       id: "Europe/Madrid",
       city: "Madrid",
       region: "Europe",
-      offset: "GMT+2",
       label: "Central European Summer Time",
     })
+    expect(offsetToMinutes(offset)).toBe(2 * 60)
   })
 
   it("files a region-less zone under Other", () => {
     freezeAt(WINTER)
-    expect(timeZoneOptionGenerator("UTC", "es")).toEqual({
+    const { offset, ...rest } = timeZoneOptionGenerator("UTC", "es")
+    expect(rest).toEqual({
       id: "UTC",
       city: "UTC",
       region: "Other",
-      offset: "GMT",
       label: "tiempo universal coordinado",
     })
+    expect(offsetToMinutes(offset)).toBe(0)
   })
 })
