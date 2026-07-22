@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
-import { Grid2 as Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import React, { useState } from "react"
 import { Trans, useTranslation } from "react-i18next"
 import { Navigate, useSearchParams } from "react-router-dom"

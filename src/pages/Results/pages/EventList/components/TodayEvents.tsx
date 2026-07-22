@@ -14,9 +14,9 @@ export default function TodayEvents(props: TodayEventsProps) {
     return (
       <>
         {/** Live today message **/}
-        <Box width={"100%"} display={"flex"} alignItems={"center"}>
-          <Box height={"16px"} width={"16px"} borderRadius={"50%"} bgcolor={"orange"}></Box>
-          <Box marginLeft={"12px"}>
+        <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
+          <Box sx={{ height: "16px", width: "16px", borderRadius: "50%", bgcolor: "orange" }}></Box>
+          <Box sx={{ marginLeft: "12px" }}>
             <Typography>{t("EventList.LiveToday")}</Typography>
           </Box>
         </Box>
@@ -26,12 +26,12 @@ export default function TodayEvents(props: TodayEventsProps) {
           sx={{
             overflowX: "auto",
             padding: "12px",
+            width: "100%",
+            minHeight: "160px",
+            marginTop: "24px",
+            marginBottom: "24px",
+            display: "flex",
           }}
-          width={"100%"}
-          minHeight={"160px"}
-          marginTop={"24px"}
-          marginBottom={"24px"}
-          display={"flex"}
         >
           {props.eventList.map((event, index) => (
             <TodayEventButton key={event.id} event={event} index={index} />
@@ -41,9 +41,9 @@ export default function TodayEvents(props: TodayEventsProps) {
     )
   } else {
     return (
-      <Box width={"100%"} display={"flex"} alignItems={"center"}>
-        <Box height={"16px"} width={"16px"} borderRadius={"50%"} bgcolor={"gray"}></Box>
-        <Box marginLeft={"12px"}>
+      <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
+        <Box sx={{ height: "16px", width: "16px", borderRadius: "50%", bgcolor: "gray" }}></Box>
+        <Box sx={{ marginLeft: "12px" }}>
           <Typography sx={{ color: "text.secondary" }}>
             {t("EventList.NoLiveEventsToday")}
           </Typography>

@@ -57,7 +57,7 @@ export default function ListSkeleton({
       style={{ height: "100%", width: "100%", overflow: "hidden", ...style }}
       className={className}
       direction="column"
-      gap={gap}
+      sx={{ gap }}
     >
       {/* Render one item offscreen just to measure height */}
       {!skeletonHeight && (

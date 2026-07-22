@@ -31,7 +31,7 @@ const VirtualTicketSplitTime: React.FC<VirtualTicketSplitTimeProp> = ({
   }
 
   return (
-    <Grid item xs={5}>
+    <Grid size={5}>
       <Box
         sx={{
           display: "flex",

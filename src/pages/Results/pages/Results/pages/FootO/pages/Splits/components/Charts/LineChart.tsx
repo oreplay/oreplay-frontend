@@ -29,12 +29,14 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
   if (!data || data.length === 0) {
     return (
       <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height={height}
-        bgcolor="grey.50"
-        borderRadius={1}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height,
+          bgcolor: "grey.50",
+          borderRadius: 1,
+        }}
       >
         <Typography variant="h6" color="text.secondary">
           {t("lineChart.noData")}
@@ -44,8 +46,8 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
   }
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <Box height={height} width="100%">
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box sx={{ height, width: "100%" }}>
         <ResponsiveLine
           data={dataWithColors}
           margin={{
@@ -102,10 +104,10 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
                   minWidth: 250,
                 }}
               >
-                <Typography variant="subtitle2" fontWeight="bold" mb={1}>
+                <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
                   {data.runnerName}
                 </Typography>
-                <Typography variant="body2" mb={0.5}>
+                <Typography variant="body2" sx={{ mb: 0.5 }}>
                   {t("lineChart.tooltip.behindLeader")}:{" "}
                   {formatTimeDifference(data.timeBehindLeader)}
                 </Typography>
@@ -159,16 +161,18 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
 
       {/* Leyenda personalizada debajo del eje X */}
       <Box
-        mt={2}
-        mb={3} // <-- Aquí agregamos el margen inferior para crear espacio
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="center"
-        rowGap={1}
-        columnGap={2}
+        sx={{
+          mt: 2,
+          mb: 3,
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          rowGap: 1,
+          columnGap: 2,
+        }}
       >
         {dataWithColors.map((series) => (
-          <Box key={series.id} display="flex" alignItems="center" sx={{ minWidth: 100 }}>
+          <Box key={series.id} sx={{ display: "flex", alignItems: "center", minWidth: 100 }}>
             <Box
               sx={{
                 width: 12,

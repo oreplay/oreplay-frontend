@@ -129,7 +129,7 @@ export default function CompactRunnerTable({
                     />
                   </TableCell>
                   <TableCell>
-                    <Typography variant="body2" fontWeight="bold">
+                    <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                       {runner.stage.position || "-"}
                     </Typography>
                   </TableCell>
@@ -138,7 +138,11 @@ export default function CompactRunnerTable({
                       {runner.full_name}
                     </Typography>
                     {runner.club && (
-                      <Typography variant="caption" color="text.secondary" display="block">
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ display: "block" }}
+                      >
                         {runner.club.short_name}
                       </Typography>
                     )}

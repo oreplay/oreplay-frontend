@@ -54,17 +54,17 @@ export default function RelayVirtualTicket(props: RelayVirtualTicketProps) {
         <FootOVirtualTicketTimesBanner runnerResult={legRunner.stage} />
       </VirtualTicketHeader>
       <VirtualTicketSplits download={true} isDNS={false}>
-        <Grid item xs={3}>
+        <Grid size={3}>
           <Typography variant="subtitle2" sx={headersStyles}>
             {t("ResultsStage.VirtualTicket.Control")}
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid size={4}>
           <Typography variant="subtitle2" sx={headersStyles}>
             {t("ResultsStage.VirtualTicket.Partial")}
           </Typography>
         </Grid>
-        <Grid item xs={5}>
+        <Grid size={5}>
           <Typography variant="subtitle2" sx={headersStyles}>
             {t("ResultsStage.VirtualTicket.Cumulative")}
           </Typography>

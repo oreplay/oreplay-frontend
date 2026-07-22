@@ -50,9 +50,13 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
   return (
     <Box>
       <Drawer
-        ModalProps={{
-          BackdropProps: {
-            invisible: true,
+        slotProps={{
+          root: {
+            slotProps: {
+              backdrop: {
+                invisible: true,
+              },
+            },
           },
         }}
         anchor="right"

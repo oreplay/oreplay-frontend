@@ -157,7 +157,7 @@ export default function FootOGraphs(
       {/* Time loss threshold control - always visible on bar chart */}
       {selectedGraphType === "bar" && (
         <Paper sx={{ p: 2, mb: 2 }}>
-          <Box display="flex" alignItems="center" gap={1}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Typography sx={{ minWidth: 80, whiteSpace: "nowrap" }}>
               {t("Graphs.Threshold")} {timeLossThreshold}%:
             </Typography>
@@ -167,7 +167,7 @@ export default function FootOGraphs(
                 min={5}
                 max={100}
                 step={5}
-                onChange={(_, value) => setTimeLossThreshold(value as number)}
+                onChange={(_, value) => setTimeLossThreshold(value)}
                 size="small"
                 marks
               />

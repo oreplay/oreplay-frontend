@@ -10,9 +10,14 @@ interface PasswordChecklistProps {
 
 export default function PasswordChecklist({ checks }: PasswordChecklistProps) {
   return (
-    <Stack spacing={0.5} mt={1} width={"100%"} ml={3}>
+    <Stack sx={{ width: "100%", mt: 1, ml: 3 }} spacing={0.5}>
       {checks.map((check) => (
-        <Stack key={check.label} direction="row" alignItems="center" spacing={1} width={"100%"}>
+        <Stack
+          key={check.label}
+          direction="row"
+          spacing={1}
+          sx={{ width: "100%", alignItems: "center" }}
+        >
           {check.valid ? (
             <CheckCircleIcon fontSize="small" color="success" />
           ) : (

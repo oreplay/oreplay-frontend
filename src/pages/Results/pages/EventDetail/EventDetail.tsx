@@ -57,7 +57,7 @@ export default function EventDetail() {
         )
       } else {
         return (
-          <Typography style={styles.aligns} sx={{ color: "text.secondary" }} marginTop={"6px"}>
+          <Typography style={styles.aligns} sx={{ color: "text.secondary", marginTop: "6px" }}>
             {initDateParse} - {finalDateParse}
           </Typography>
         )
@@ -79,14 +79,21 @@ export default function EventDetail() {
     return <Navigate to={`/competitions/${id}/${detail.stages[0].id}`} replace={true} />
   } else
     return (
-      <Box width={"100%"} height={"100%"} display={"flex"} flexDirection={"column"}>
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <Box
-          width={"100%"}
-          minHeight={"35%"}
-          display={"flex"}
-          flexDirection={"column"}
-          justifyContent={"center"}
           sx={{
+            width: "100%",
+            minHeight: "35%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
             bgcolor: "primary.light",
             paddingY: 3,
             flexGrow: 1,
@@ -129,16 +136,14 @@ export default function EventDetail() {
           />
         </Box>
         <Box
-          height={"100%"}
           sx={{
+            height: "100%",
             bgcolor: "white",
           }}
         >
-          <Box paddingTop={"48px"} paddingBottom={5}>
+          <Box sx={{ paddingTop: "48px", paddingBottom: 5 }}>
             <Typography
-              fontWeight={"bold"}
-              paddingBottom={"12px"}
-              sx={{ fontSize: "large" }}
+              sx={{ fontSize: "large", fontWeight: "bold", paddingBottom: "12px" }}
               style={styles.aligns}
             >
               {t("Stages")}
@@ -157,10 +162,10 @@ export default function EventDetail() {
                     "&:hover": {
                       backgroundColor: "#fffbf0",
                     },
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
-                  display={"flex"}
-                  justifyContent={"space-between"}
-                  alignItems="center"
                   key={stage.id}
                   onClick={() =>
                     void navigate(`/competitions/${id}/${stage.id}`, {

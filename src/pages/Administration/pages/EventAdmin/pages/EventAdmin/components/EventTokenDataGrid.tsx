@@ -4,7 +4,7 @@ import {
   deleteEventTokens,
   postListEventTokens,
 } from "../../../../../../../infrastructure/repositories/event-tokens/event-tokens.ts"
-import { Container, FormLabel, Grid2 as Grid, TextField } from "@mui/material"
+import { Container, FormLabel, Grid, TextField } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
 import { DateTime } from "luxon"

@@ -28,12 +28,14 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
   if (!data || data.length === 0) {
     return (
       <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height={300}
-        bgcolor="grey.50"
-        borderRadius={1}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 300,
+          bgcolor: "grey.50",
+          borderRadius: 1,
+        }}
       >
         <Typography variant="h6" color="text.secondary">
           {t("chart.selectRunnersMessage")}
@@ -68,8 +70,8 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
   })
 
   return (
-    <Box width="100%">
-      <Box height={chartHeight} width="100%">
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ height: chartHeight, width: "100%" }}>
         <ResponsiveBar
           data={validatedData as BarDatum[]}
           keys={["errorFreeTime", "errorTime"]}
@@ -132,16 +134,16 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
                   minWidth: 250,
                 }}
               >
-                <Typography variant="subtitle2" fontWeight="bold" mb={1}>
+                <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
                   {indexValue}
                 </Typography>
-                <Typography variant="body2" mb={0.5}>
+                <Typography variant="body2" sx={{ mb: 0.5 }}>
                   {t("tooltip.totalDisplayedTime")}: {formatTime(total)}
                 </Typography>
-                <Typography variant="body2" mb={0.5} color="#44aa44">
+                <Typography variant="body2" sx={{ mb: 0.5 }} color="#44aa44">
                   {t("tooltip.errorFreeTime")}: {formatTime(errorFreeTime)}
                 </Typography>
-                <Typography variant="body2" mb={1} color="#ff4444">
+                <Typography variant="body2" sx={{ mb: 1 }} color="#ff4444">
                   {t("tooltip.errorTime")}: {formatTime(errorTime)}
                 </Typography>
                 {total > 0 && (
@@ -189,14 +191,16 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
 
       {/* Leyenda personalizada traducible */}
       <Box
-        mt={2}
-        display="flex"
-        flexDirection="row"
-        gap={3}
-        flexWrap="wrap"
-        justifyContent="center"
+        sx={{
+          mt: 2,
+          display: "flex",
+          flexDirection: "row",
+          gap: 3,
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
       >
-        <Box display="flex" alignItems="center">
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
             sx={{
               width: 16,
@@ -209,7 +213,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
           <Typography variant="body2">{t("chart.legend.errorFreeTime")}</Typography>
         </Box>
 
-        <Box display="flex" alignItems="center">
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
             sx={{
               width: 16,

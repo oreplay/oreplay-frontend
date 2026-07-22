@@ -39,7 +39,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
   const status = parseResultStatus(runnerResult.status_code as string)
   return (
     <>
-      <Grid style={gridStyles} item xs={4}>
+      <Grid style={gridStyles} size={4}>
         <Typography style={titleStyles}>{t("ResultsStage.BonusPoints")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
@@ -47,7 +47,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
             : ""}
         </Typography>
       </Grid>
-      <Grid style={gridStyles} item xs={4}>
+      <Grid style={gridStyles} size={4}>
         <Typography style={titleStyles}>{t("ResultsStage.PenaltyPoints")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
@@ -55,7 +55,7 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
             : ""}
         </Typography>
       </Grid>
-      <Grid sx={{ justifyContent: "flex-end" }} style={gridStyles} item xs={4}>
+      <Grid sx={{ justifyContent: "flex-end" }} style={gridStyles} size={4}>
         <Typography style={titleStyles}>{t("ResultsStage.Points")}</Typography>
         <Typography style={textStyles}>
           {runnerResult.points_final || runnerResult.finish_time
@@ -63,11 +63,11 @@ const RogaineVirtualTicketPointsBanner: React.FC<RogaineVirtualTicketPointsBanne
             : ""}
         </Typography>
       </Grid>
-      <Grid style={gridStyles} item xs={6}>
+      <Grid style={gridStyles} size={6}>
         <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
         <StartTime style={textStyles} startTime={runnerResult.start_time} />
       </Grid>
-      <Grid style={gridStyles} sx={{ justifyContent: "flex-end" }} item xs={6}>
+      <Grid style={gridStyles} sx={{ justifyContent: "flex-end" }} size={6}>
         <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
         <RaceTime
           style={textStyles}

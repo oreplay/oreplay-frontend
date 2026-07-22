@@ -12,6 +12,7 @@ type RogaineVirtualTicketProps = {
 /**
  * Display a rogaine splits line within a virtual ticket.
  * @param split Split to be displayed
+ * @param index Split index in the list
  */
 const RogaineVirtualTicketSplit: React.FC<RogaineVirtualTicketProps> = ({ split, index }) => {
   return (
@@ -24,12 +25,12 @@ const RogaineVirtualTicketSplit: React.FC<RogaineVirtualTicketProps> = ({ split,
         points={split.points}
         gridWidth={3}
       />
-      <Grid item xs={4}>
+      <Grid size={4}>
         <Typography sx={{ textAlign: "center" }}>
           {split.time !== null ? parseSecondsToMMSS(split.time) : "--"}
         </Typography>
       </Grid>
-      <Grid item xs={5}>
+      <Grid size={5}>
         <Typography sx={{ textAlign: "center" }}>
           {split.cumulative_time !== null ? parseSecondsToMMSS(split.cumulative_time) : "--"}
         </Typography>
