@@ -1,5 +1,5 @@
 import { UserModel } from "../../../../../../shared/EntityTypes.ts"
-import { Container, FormLabel, Grid2 as Grid, TextField } from "@mui/material"
+import { Container, FormLabel, Grid, TextField } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 interface UserDetailsGridProps {

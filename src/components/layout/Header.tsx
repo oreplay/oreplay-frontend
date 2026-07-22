@@ -44,7 +44,7 @@ const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
               }}
             />
           </Box>
-          <Box display={"flex"} sx={{ justifyContent: "right" }}>
+          <Box sx={{ display: "flex", justifyContent: "right" }}>
             <Tooltip title={t("Menu")}>
               <IconButton
                 size="large"

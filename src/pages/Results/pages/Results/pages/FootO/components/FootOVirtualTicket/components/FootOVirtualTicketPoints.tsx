@@ -6,7 +6,7 @@ export default function FootOVirtualTicketPoints({ points }: { points: number })
   const { t } = useTranslation()
 
   return (
-    <Grid item xs={12}>
+    <Grid size={12}>
       <Typography
         sx={{
           display: "flex",

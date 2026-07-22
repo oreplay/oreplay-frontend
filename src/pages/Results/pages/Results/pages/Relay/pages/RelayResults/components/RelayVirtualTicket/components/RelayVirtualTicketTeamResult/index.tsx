@@ -25,7 +25,7 @@ export default function RelayVirtualTicketTeamResult({
   const { t } = useTranslation()
 
   return (
-    <Grid item xs={12}>
+    <Grid size={12}>
       <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
       <RaceTime
         style={timesStyles}

@@ -89,8 +89,10 @@ const LanguageDropdown = () => {
               primary={language.name}
               slotProps={{
                 primary: {
-                  fontSize: "0.875rem",
-                  fontWeight: i18n.language === language.code ? 500 : 400,
+                  sx: {
+                    fontSize: "0.875rem",
+                    fontWeight: i18n.language === language.code ? 500 : 400,
+                  },
                 },
               }}
             />

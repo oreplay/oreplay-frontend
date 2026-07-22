@@ -1,4 +1,4 @@
-import Typography from "@mui/material/Typography/Typography"
+import { Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 export default function NoRunnerWithSplitsMsg() {

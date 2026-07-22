@@ -13,7 +13,6 @@ import {
   GridRowModel,
   GridRowEditStopReasons,
   GridRowParams,
-  GridToolbarProps,
   GridRenderEditCellParams,
 } from "@mui/x-data-grid"
 import { useTranslation } from "react-i18next"
@@ -32,7 +31,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "../GridActionsSettingsMenu.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { IconButton, MenuItem, Select, Toolbar, Typography } from "@mui/material"
 import { STAGE_TYPE_DATABASE_ID } from "../../../../../../../Results/pages/Results/shared/constants.ts"
 import ConstructionIcon from "@mui/icons-material/Construction"
@@ -43,14 +42,21 @@ import { useQueryClient } from "react-query"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
+ *
+ * NOTE (MUI X v9): DataGrid no longer auto-renders a `slots.toolbar` just
+ * because it was provided. The grid now requires the `showToolbar` prop to
+ * be set on <DataGrid /> for the toolbar slot to render at all. Also,
+ * `GridToolbarProps` from '@mui/x-data-grid' no longer matches the props
+ * the grid injects into custom toolbars, so we define our own local props
+ * type instead of extending it.
  */
-interface EditToolbarProps extends GridToolbarProps {
-  setRows: React.Dispatch<React.SetStateAction<GridRowsProp>>
-  setRowModesModel: React.Dispatch<React.SetStateAction<GridRowModesModel>>
+interface EditToolbarProps {
+  setRows?: React.Dispatch<React.SetStateAction<GridRowsProp>>
+  setRowModesModel?: React.Dispatch<React.SetStateAction<GridRowModesModel>>
 }
 function EditToolbar(props: EditToolbarProps) {
   const { t } = useTranslation()
-  const { setRows, setRowModesModel } = props
+  const { setRows, setRowModesModel } = props as Required<EditToolbarProps>
 
   const handleClick = () => {
     const id = `new-${Math.random().toString(36).substring(2, 9)}`
@@ -108,6 +114,7 @@ export default function StagesDataGrid(props: Props) {
   const { token } = useAuth()
   const notifications = useNotifications()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const stageTypeOptions = [
     {
@@ -329,8 +336,10 @@ export default function StagesDataGrid(props: Props) {
               )
             }}
             MenuProps={{
-              PaperProps: {
-                style: { maxWidth: 300 },
+              slotProps: {
+                paper: {
+                  style: { maxWidth: 300 },
+                },
               },
             }}
           >
@@ -437,7 +446,7 @@ export default function StagesDataGrid(props: Props) {
 
         if (!isStartApplicable(thisStageType)) {
           return (
-            <Typography component="span" color="text.disabled" fontWeight={"small"}>
+            <Typography component="span" color="text.disabled" sx={{ fontWeight: "small" }}>
               {t("NotApplicable")}
             </Typography>
           )
@@ -460,17 +469,15 @@ export default function StagesDataGrid(props: Props) {
 
         if (isInEditMode) {
           return [
-            <Tooltip title={t("common:save")}>
+            <Tooltip title={t("common:save")} key="save">
               <GridActionsCellItem
                 icon={<SaveIcon />}
                 label="Save"
-                sx={{
-                  color: "primary.main",
-                }}
+                color="primary"
                 onClick={handleSaveClick(row)}
               />
             </Tooltip>,
-            <Tooltip title={t("Cancel")}>
+            <Tooltip title={t("Cancel")} key="cancel">
               <GridActionsCellItem
                 icon={<CancelIcon />}
                 label="Cancel"
@@ -484,20 +491,25 @@ export default function StagesDataGrid(props: Props) {
 
         return [
           <GridActionsSettingsMenu
+            key="settings-menu"
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
             handleStatsClick={() => void handleStatsClick(row)}
             handleWipeOutRunnersClick={() => void handleWipeOutRunnersClick(row)}
           />,
-          <Tooltip title={t("EventAdmin.Stages.GoToStage")}>
-            <Link
-              className="textPrimary"
-              to={`/competitions/${props.eventDetail.id}/${row.row.stageId}`}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <ArrowForwardIcon />
-            </Link>
-          </Tooltip>,
+          <GridActionsCellItem
+            key="go-to-stage"
+            icon={
+              <Tooltip title={t("EventAdmin.Stages.GoToStage")}>
+                <ArrowForwardIcon />
+              </Tooltip>
+            }
+            label={t("EventAdmin.Stages.GoToStage")}
+            className="textPrimary"
+            onClick={() =>
+              void navigate(`/competitions/${props.eventDetail.id}/${row.row.stageId}`)
+            }
+          />,
         ]
       },
     },
@@ -521,16 +533,21 @@ export default function StagesDataGrid(props: Props) {
         rows={rows}
         columns={columns}
         editMode="row"
+        showToolbar
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         slots={{
-          // @ts-expect-error TS2322 This is a custom component with extra props
-          toolbar: EditToolbar,
+          // Cast: EditToolbar requires setRows/setRowModesModel props which
+          // aren't part of the grid's built-in toolbar slot prop type, but
+          // we supply them via slotProps.toolbar below.
+          toolbar: EditToolbar as React.ComponentType,
         }}
         slotProps={{
-          // @ts-expect-error TS2353 the custom component contains extra props
+          // @ts-expect-error TS2353 the custom toolbar component takes extra props
+          // (setRows/setRowModesModel) that aren't part of the grid's built-in
+          // toolbar slot props type in v9.
           toolbar: { setRows, setRowModesModel },
         }}
         sx={{

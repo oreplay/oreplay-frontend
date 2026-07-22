@@ -44,11 +44,11 @@ const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps
 
   return (
     <>
-      <Grid style={gridStylesStartTime} item xs={6}>
+      <Grid style={gridStylesStartTime} size={6}>
         <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
         <StartTime style={timesStyles} startTime={runnerResult.start_time} />
       </Grid>
-      <Grid style={gridStylesTotalTime} item xs={6}>
+      <Grid style={gridStylesTotalTime} size={6}>
         <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
         <RaceTime
           style={timesStyles}

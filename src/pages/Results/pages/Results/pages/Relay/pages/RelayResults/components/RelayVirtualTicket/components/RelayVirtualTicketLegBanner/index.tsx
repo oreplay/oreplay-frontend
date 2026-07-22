@@ -18,7 +18,7 @@ export default function RelayVirtualTicketLegBanner({
   }
 
   return (
-    <Grid item xs={12} sx={{ mb: 1 }}>
+    <Grid size={12} sx={{ mb: 1 }}>
       <Typography sx={{ fontWeight: "bold" }}>{legRunner.full_name}</Typography>
     </Grid>
   )

@@ -8,7 +8,7 @@ import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/
 import RogaineVirtualTicketPointsBanner from "./components/RogaineVirtualTicketPointsBanner.tsx"
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
-import { Grid2 as Grid, Tab, Tabs } from "@mui/material"
+import { Grid, Tab, Tabs } from "@mui/material"
 import { useState } from "react"
 import TimelineIcon from "@mui/icons-material/Timeline"
 import TimerIcon from "@mui/icons-material/Timer"

@@ -33,12 +33,14 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
   if (!data || data.length === 0) {
     return (
       <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height={height}
-        bgcolor="grey.50"
-        borderRadius={1}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height,
+          bgcolor: "grey.50",
+          borderRadius: 1,
+        }}
       >
         <Typography variant="h6" color="text.secondary">
           {t("positionChart.noData")}
@@ -87,8 +89,8 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
   }
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <Box height={height} width="100%">
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box sx={{ height, width: "100%" }}>
         <ResponsiveLine
           data={dataWithCustomX}
           margin={{
@@ -159,30 +161,29 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
                   minWidth: 250,
                 }}
               >
-                <Typography variant="subtitle2" fontWeight="bold" mb={1}>
+                <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
                   {data.runnerName}
                 </Typography>
 
-                <Typography variant="body2" mb={0.5}>
+                <Typography variant="body2" sx={{ mb: 0.5 }}>
                   {t("positionChart.tooltip.control")}: {data.controlName}
                 </Typography>
 
-                <Typography variant="body2" mb={0.5}>
+                <Typography variant="body2" sx={{ mb: 0.5 }}>
                   {t("positionChart.tooltip.position")}: {Math.round(data.y)}°
                 </Typography>
 
                 {data.splitTime > 0 && (
                   <Typography
                     variant="body2"
-                    mb={0.5}
-                    fontWeight={data.timeLost <= 0 ? "bold" : "normal"}
+                    sx={{ mb: 0.5, fontWeight: data.timeLost <= 0 ? "bold" : "normal" }}
                   >
                     {t("positionChart.tooltip.splitTime")}: {formatTime(data.splitTime)}
                   </Typography>
                 )}
 
                 {data.timeLost > 0 && (
-                  <Typography variant="body2" mb={0.5}>
+                  <Typography variant="body2" sx={{ mb: 0.5 }}>
                     {t("positionChart.tooltip.timeLost", {
                       timeLost: `+${formatTime(data.timeLost)}`,
                     })}
@@ -232,9 +233,18 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         />
       </Box>
 
-      <Box mt={2} display="flex" flexWrap="wrap" justifyContent="center" rowGap={1} columnGap={2}>
+      <Box
+        sx={{
+          mt: 2,
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          rowGap: 1,
+          columnGap: 2,
+        }}
+      >
         {dataWithColors.map((series) => (
-          <Box key={series.id} display="flex" alignItems="center" sx={{ minWidth: 100 }}>
+          <Box key={series.id} sx={{ display: "flex", alignItems: "center", minWidth: 100 }}>
             <Box
               sx={{
                 width: 12,
@@ -249,12 +259,12 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         ))}
       </Box>
 
-      <Box mt={1}>
-        <Typography variant="caption" color="text.secondary" textAlign="center">
+      <Box sx={{ mt: 1 }}>
+        <Typography variant="caption" color="text.secondary" sx={{ textAlign: "center" }}>
           {t("positionChart.caption")}
         </Typography>
       </Box>
-      <Box height={40} />
+      <Box sx={{ height: 40 }} />
     </Box>
   )
 }

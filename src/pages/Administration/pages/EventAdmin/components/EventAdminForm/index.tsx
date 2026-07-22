@@ -7,7 +7,7 @@ import {
   TextField,
   Autocomplete,
   TextFieldProps,
-  Grid2 as Grid,
+  Grid,
   FormLabel,
   FormHelperText,
 } from "@mui/material"
@@ -301,7 +301,14 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                   <DatePicker
                     name={"startDate"}
                     disabled={style_props.disabled}
-                    slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
+                    slotProps={{
+                      textField: {
+                        variant: "outlined",
+                        disabled: style_props.disabled,
+                        fullWidth: true,
+                        required: true,
+                      },
+                    }}
                     value={field.state.value}
                     onChange={(date) => field.handleChange(date)}
                   />
@@ -335,7 +342,14 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                   <DatePicker
                     name={"endDate"}
                     disabled={style_props.disabled}
-                    slotProps={{ textField: { ...style_props, fullWidth: true, required: true } }}
+                    slotProps={{
+                      textField: {
+                        variant: "outlined",
+                        disabled: style_props.disabled,
+                        fullWidth: true,
+                        required: true,
+                      },
+                    }}
                     value={field.state.value}
                     onChange={(date) => {
                       field.handleChange(date)
@@ -471,14 +485,23 @@ export default function EventAdminForm(props: EventAdminFormProps) {
                     renderInput={(params) => {
                       const value = field.state.value
                       const code = value?.toLowerCase()
+                      // MUI v9 dropped the legacy `InputProps` field from
+                      // AutocompleteRenderInputParams — only `slotProps.input`
+                      // exists now. Destructure `slotProps` out of `params` so
+                      // we don't spread a stale slotProps object onto TextField
+                      // and then immediately clobber it below; merge our
+                      // startAdornment into the one Autocomplete gave us so we
+                      // keep whatever ref/endAdornment/etc. it needs internally.
+                      const { slotProps, ...restParams } = params
 
                       return (
                         <TextField
-                          {...params}
+                          {...restParams}
                           error={!!error}
                           slotProps={{
+                            ...slotProps,
                             input: {
-                              ...params.InputProps,
+                              ...slotProps?.input,
                               startAdornment: value ? (
                                 <CountryFlag
                                   code={code}

@@ -120,7 +120,7 @@ export default function EventAdmin() {
       <Box sx={{ height: "100%", backgroundColor: "#f6f6f6", py: 6 }}>
         <Container maxWidth={"md"}>
           {/* Header information */}
-          <Typography component="h1" variant="h5" fontWeight={600} gutterBottom>
+          <Typography component="h1" variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
             {detail?.description}
           </Typography>
           <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 4 }}>
@@ -130,7 +130,7 @@ export default function EventAdmin() {
 
           {}
           {/* Event's information */}
-          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mb: 1 }}>
+          <Typography component="h2" variant="h6" sx={{ mb: 1, fontWeight: 500 }}>
             {t("EventAdmin.EventData")}
           </Typography>
           <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -146,7 +146,7 @@ export default function EventAdmin() {
           />
 
           {/* Stages  */}
-          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mt: 4, mb: 1 }}>
+          <Typography component="h2" variant="h6" sx={{ mt: 4, mb: 1, fontWeight: 500 }}>
             {t("Stages")}
           </Typography>
           <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -155,7 +155,7 @@ export default function EventAdmin() {
           {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
 
           {/* Upload data */}
-          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mt: 4, mb: 1 }}>
+          <Typography component="h2" variant="h6" sx={{ mt: 4, mb: 1, fontWeight: 500 }}>
             {t("EventAdmin.DataUpload.title")}
           </Typography>
           <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -166,7 +166,7 @@ export default function EventAdmin() {
           </Box>
 
           {/* Danger zone */}
-          <Typography component="h2" variant="h6" fontWeight={500} sx={{ mt: 4, mb: 2 }}>
+          <Typography component="h2" variant="h6" sx={{ mt: 4, mb: 2, fontWeight: 500 }}>
             {t("EventAdmin.DangerArea")}
           </Typography>
           <Box sx={{ p: 4, borderRadius: 3, backgroundColor: "white" }}>

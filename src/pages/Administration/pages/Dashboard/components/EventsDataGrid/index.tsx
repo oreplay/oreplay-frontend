@@ -110,6 +110,7 @@ export default function EventsDataGrid() {
         setPage(model.page)
       }}
       onRowClick={handleClick}
+      showToolbar
       slots={{
         toolbar: EventsDataGridToolbar,
       }}

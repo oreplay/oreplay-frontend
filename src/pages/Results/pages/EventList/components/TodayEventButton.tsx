@@ -56,7 +56,10 @@ export default function TodayEventButton(props: TodayEventButtonProps) {
       }
       onClick={() => void navigate(`/competitions/${props.event.id}`)}
     >
-      <Typography component={"span"} sx={styles.typographyBoxEventName} fontWeight={"bolder"}>
+      <Typography
+        component={"span"}
+        sx={{ ...styles.typographyBoxEventName, fontWeight: "bolder" }}
+      >
         {props.event.description}
       </Typography>
       {props.event.organizer ? (

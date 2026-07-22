@@ -64,13 +64,13 @@ export default function FootOVirtualTicket({
           download={hasChipDownload(displayedRunner)}
           isDNS={runnerService.isDNS(displayedRunner)}
         >
-          <Grid item xs={2}>
+          <Grid size={2}>
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Control")}</Typography>
           </Grid>
-          <Grid item xs={5}>
+          <Grid size={5}>
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Partial")}</Typography>
           </Grid>
-          <Grid item xs={5}>
+          <Grid size={5}>
             <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Cumulative")}</Typography>
           </Grid>
           {!isLoading ? (

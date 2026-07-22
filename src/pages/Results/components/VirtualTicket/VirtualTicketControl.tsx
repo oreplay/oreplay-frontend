@@ -28,7 +28,7 @@ export default function VirtualTicketControl({
   // Finish control
   if (order_number === Infinity) {
     return (
-      <Grid sx={{ display: "flex", justifyContent: "center" }} item xs={gridWidth}>
+      <Grid sx={{ display: "flex", justifyContent: "center" }} size={gridWidth}>
         <Typography sx={{ fontSize: "small" }}>
           {t("ResultsStage.VirtualTicket.FinishControl")}
         </Typography>
@@ -38,7 +38,7 @@ export default function VirtualTicketControl({
   // Regular control
   else {
     return (
-      <Grid item xs={gridWidth}>
+      <Grid size={gridWidth}>
         <Box
           sx={{
             display: "flex",
