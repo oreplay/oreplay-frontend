@@ -8,7 +8,7 @@ import {
   createMissingRadioFinish,
   createMissingRadioSplit,
   getOnlineSplits,
-} from "./footOSplitsTablefunctions.ts"
+} from "./footOSplitsTableFunctions.ts"
 import { DateTime } from "luxon"
 
 describe("getOnlineSplits", () => {

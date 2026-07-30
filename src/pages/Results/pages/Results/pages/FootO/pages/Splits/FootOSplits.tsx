@@ -10,7 +10,7 @@ import GeneralSuspenseFallback from "../../../../../../../../components/GeneralS
 import { Box, useTheme, useMediaQuery, Slider, Typography } from "@mui/material"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
-import { analyzeTimeLoss, TimeLossResults } from "./components/utils/timeLossAnalysis.ts"
+import { analyzeTimeLoss, TimeLossResults } from "../../shared/timeLossAnalysis.ts"
 import ViewSelector, { ViewType } from "./components/ViewSelector.tsx"
 import LineChart from "./components/Charts/LineChart.tsx"
 import BarChart from "./components/Charts/BarChart.tsx"
@@ -20,7 +20,7 @@ import {
   transformRunnersForLineChart,
   transformRunnersForBarChart,
   transformRunnersForPositionChart,
-} from "./components/utils/chartDataTransform.ts"
+} from "../../shared/chartDataTransform.ts"
 import { useTranslation } from "react-i18next"
 import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
 import { hasChipDownload } from "../../../../shared/functions.ts"

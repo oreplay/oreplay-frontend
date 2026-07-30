@@ -1,5 +1,5 @@
-import TotalsResults from "./pages/RelayResults/TotalsResults.tsx"
-import StageLayout from "../../components/Layout/StageLayout.tsx"
+import TotalsResults from "./pages/TotalsResults/TotalsResults.tsx"
+import StageLayout from "../../components/StageLayout/StageLayout.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"

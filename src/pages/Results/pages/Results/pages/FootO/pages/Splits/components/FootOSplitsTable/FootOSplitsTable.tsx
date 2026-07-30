@@ -14,14 +14,14 @@ import {
   CourseControlModel,
   getCourseFromRunner,
   getOnlineControlsCourseFromClassSplits,
-} from "./shared/footOSplitsTablefunctions.ts"
+} from "./shared/footOSplitsTableFunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
 import NowProvider from "../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "./components/NoRunnerWithSplitsMsg.tsx"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { analyzeTimeLoss, TimeLossResults } from "../utils/timeLossAnalysis.ts"
+import { analyzeTimeLoss, TimeLossResults } from "../../../../shared/timeLossAnalysis.ts"
 import { runnerService } from "../../../../../../../../../../domain/services/RunnerService.ts"
 
 type FootOSplitsTableProps = {

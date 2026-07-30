@@ -4,7 +4,7 @@ import {
   parseTimeBehind,
 } from "../../../../../../../../../../../shared/Functions.tsx"
 import { ProcessedSplitModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { RunnerTimeLossInfo, TimeLossResults } from "../../utils/timeLossAnalysis.ts"
+import { RunnerTimeLossInfo, TimeLossResults } from "../../../../../shared/timeLossAnalysis.ts"
 
 type RunnerSplitProps = {
   split: ProcessedSplitModel

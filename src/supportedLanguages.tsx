@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import CountryFlag from "./components/CountryFlag/index.tsx"
+import CountryFlag from "./components/CountryFlag/CountryFlag.tsx"
 
 interface Language {
   code: string

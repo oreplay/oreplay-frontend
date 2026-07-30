@@ -15,7 +15,7 @@ import {
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { formatTime } from "../../Splits/components/utils/chartDataTransform.ts"
+import { formatTime } from "../../../shared/chartDataTransform.ts"
 import { hasChipDownload } from "../../../../../shared/functions.ts"
 
 interface CompactRunnerTableProps {

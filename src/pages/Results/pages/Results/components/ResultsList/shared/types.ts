@@ -1,6 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { FunctionComponent } from "react"
-import { ResultColumnProps } from "../IndividualResult/individualResult.tsx"
+import { ResultColumnProps } from "../IndividualResult/IndividualResult.tsx"
 
 /**
  *

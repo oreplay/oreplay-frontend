@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material"
-import { getUniqueStationNumbers } from "../../shared/Functions.ts"
+import { getUniqueStationNumbers } from "../../shared/functions.ts"
 import { parseResultStatus } from "../../../../../../shared/sortingFunctions/sortRunners.ts"
 import {
   parseSecondsToMMSS,
@@ -25,7 +25,7 @@ import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
-import RacePosition from "../../../../components/RacePosition..tsx"
+import RacePosition from "../../../../components/RacePosition.tsx"
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
 
