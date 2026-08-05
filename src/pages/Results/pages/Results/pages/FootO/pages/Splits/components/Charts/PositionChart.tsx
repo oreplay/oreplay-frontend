@@ -2,7 +2,7 @@ import React from "react"
 import { ResponsiveLine } from "@nivo/line"
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import { formatTime } from "../utils/chartDataTransform"
+import { formatTime } from "../../../../shared/chartDataTransform.ts"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 
 export interface PositionDataPoint {

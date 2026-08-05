@@ -5,7 +5,7 @@ import {
   ProcessedRunnerModel,
   ProcessedTeamRunnerModel,
 } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import RelayRaceTime from "./RelayRaceTime"
+import RelayRaceTime from "./RelayRaceTime/RelayRaceTime.tsx"
 
 type RelayResultLegItemProps = {
   legParticipant: ProcessedTeamRunnerModel

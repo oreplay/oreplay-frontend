@@ -1,6 +1,6 @@
 import { DateTime } from "luxon"
-import { TimeZoneId } from "../pages/Administration/pages/EventAdmin/components/EventAdminForm/components/TimeZoneAutocomplete"
-import { getUserTimeZone } from "../pages/Administration/pages/EventAdmin/components/EventAdminForm/components/TimeZoneAutocomplete/functions.ts"
+import { TimeZoneId } from "../pages/Administration/pages/EventAdmin/components/EventAdminForm/components/TimeZoneAutocomplete/TimeZoneAutocomplete.tsx"
+import { getUserTimeZone } from "../pages/Administration/pages/EventAdmin/components/EventAdminForm/components/TimeZoneAutocomplete/shared/functions.ts"
 
 /**
  * Helper function to check if two timezones will give the same time offset on a given datetime

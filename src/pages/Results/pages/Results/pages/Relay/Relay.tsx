@@ -1,5 +1,5 @@
-import RelayResults from "./pages/RelayResults/RelayResults"
-import StageLayout from "../../components/Layout/StageLayout.tsx"
+import RelayResults from "./pages/RelayResults/RelayResults.tsx"
+import StageLayout from "../../components/StageLayout/StageLayout.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { BottomNavigationAction, Box } from "@mui/material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"

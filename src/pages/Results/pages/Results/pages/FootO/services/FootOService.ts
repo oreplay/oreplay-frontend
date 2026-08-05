@@ -6,7 +6,7 @@ import {
   processRunnerData,
 } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
 import { RunnerModel, StageClassModel } from "../../../../../../../shared/EntityTypes.ts"
-import { getCourseFromRunner } from "../pages/Splits/components/FootOSplitsTable/shared/footOSplitsTablefunctions.ts"
+import { getCourseFromRunner } from "../pages/Splits/components/FootOSplitsTable/shared/footOSplitsTableFunctions.ts"
 import { captureException as sentryCaptureException } from "@sentry/react"
 import { uuid } from "@tanstack/react-form"
 

@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/react"
 import type { ErrorBoundaryProps, FallbackRender } from "@sentry/react"
 import GeneralErrorFallback from "../GeneralErrorFallback.tsx"
 import { ChunkLoadError } from "../../services/lazyLoad.ts"
-import FailedToLoadAlert from "./components/FailToLoadAlert/FaildToLoadAlert.tsx"
+import FailedToLoadAlert from "./components/FailedToLoadAlert/FailedToLoadAlert.tsx"
 
 interface Props extends ErrorBoundaryProps {
   displayMsg?: boolean

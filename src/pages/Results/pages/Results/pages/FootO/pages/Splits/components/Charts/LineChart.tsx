@@ -7,7 +7,7 @@ import {
   ChartDataPoint,
   formatTime,
   formatTimeDifference,
-} from "../utils/chartDataTransform"
+} from "../../../../shared/chartDataTransform.ts"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 
 interface LineChartProps {

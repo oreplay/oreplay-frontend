@@ -1,4 +1,4 @@
-import { ResultColumnProps } from "../../../../../../../components/ResultsList/IndividualResult/individualResult.tsx"
+import { ResultColumnProps } from "../../../../../../../components/ResultsList/IndividualResult/IndividualResult.tsx"
 import { formatScoreAsInteger } from "../../../../../../../../../../../shared/Functions.tsx"
 import { Box, Typography } from "@mui/material"
 import RaceTime from "../../../../../../../components/RaceTime.tsx"

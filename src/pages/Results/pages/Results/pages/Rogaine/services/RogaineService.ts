@@ -2,7 +2,7 @@ import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/sh
 import { getRunnersInStage } from "../../../../../services/EventService.ts"
 import { sortRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { processRunnerData } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
-import { getUniqueStationNumbers } from "../shared/Functions.ts"
+import { getUniqueStationNumbers } from "../shared/functions.ts"
 
 /**
  * Query and process (compute splits) of runners by classes

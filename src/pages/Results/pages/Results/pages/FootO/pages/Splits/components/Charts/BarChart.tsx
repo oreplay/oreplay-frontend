@@ -1,7 +1,7 @@
 import React from "react"
 import { BarDatum, ResponsiveBar } from "@nivo/bar"
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
-import { formatTime } from "../utils/chartDataTransform"
+import { formatTime } from "../../../../shared/chartDataTransform.ts"
 import { CHART_COLOR_CONFIGS } from "../../../../../../../../../../utils/accessibleColors.ts"
 import { useTranslation } from "react-i18next"
 

@@ -8,7 +8,7 @@ import {
   ProcessedSplitModel,
 } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { DateTime } from "luxon"
-import { getOnlineSplits } from "../../pages/FootO/pages/Splits/components/FootOSplitsTable/shared/footOSplitsTablefunctions.ts"
+import { getOnlineSplits } from "../../pages/FootO/pages/Splits/components/FootOSplitsTable/shared/footOSplitsTableFunctions.ts"
 
 /**
  * This in an auxiliary function add the required attributes to be ProcessedSplitModel

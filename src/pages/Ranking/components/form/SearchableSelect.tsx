@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import FieldLabel from "./FieldLabel.tsx"
 import SpinnerRing from "../SpinnerRing.tsx"
-import { FIELD_CLASS } from "./fieldStyles.ts"
+import { FIELD_CLASS } from "./shared/fieldStyles.ts"
 
 const DROPDOWN_MAX_HEIGHT = 224 // matches max-h-56 (14rem)
 

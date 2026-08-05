@@ -16,8 +16,8 @@ import {
   transformRunnersForLineChart,
   transformRunnersForBarChart,
   transformRunnersForPositionChart,
-} from "../Splits/components/utils/chartDataTransform.ts"
-import { analyzeTimeLoss, TimeLossResults } from "../Splits/components/utils/timeLossAnalysis.ts"
+} from "../../shared/chartDataTransform.ts"
+import { analyzeTimeLoss, TimeLossResults } from "../../shared/timeLossAnalysis.ts"
 import CompactRunnerTable from "./components/CompactRunnerTable.tsx"
 import { ShowChart, BarChart as BarChartIcon, Timeline } from "@mui/icons-material"
 
