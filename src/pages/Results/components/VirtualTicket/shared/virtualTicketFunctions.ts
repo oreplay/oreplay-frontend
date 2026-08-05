@@ -2,7 +2,7 @@ import { RunnerModel, StageClassModel } from "../../../../../shared/EntityTypes.
 
 import { ProcessedRunnerModel } from "./EntityTypes.ts"
 import { hasChipDownload, isRunnerNC } from "../../../pages/Results/shared/functions.ts"
-import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Splits/components/FootOSplitsTable/shared/footOSplitsTablefunctions.ts"
+import { getCourseFromRunner } from "../../../pages/Results/pages/FootO/pages/Splits/components/FootOSplitsTable/shared/footOSplitsTableFunctions.ts"
 import { processParticipant } from "../../../pages/Results/shared/functions/runnerProccesing.ts"
 
 import { captureException as sentryCaptureException, withScope } from "@sentry/react"

@@ -12,8 +12,8 @@ import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.ts
 import { sortFootORunners } from "../../shared/functions.ts"
 
 import { memo, useMemo } from "react"
-import RunnerSorter from "../../../../components/RunnerSorter"
-import FootOResultRow from "./components/FootOResultRow"
+import RunnerSorter from "../../../../components/RunnerSorter/RunnerSorter.tsx"
+import FootOResultRow from "./components/FootOResultRow/FootOResultRow.tsx"
 
 interface FootOResultProps
   extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {

@@ -1,4 +1,4 @@
-import StageLayout from "../../components/Layout/StageLayout.tsx"
+import StageLayout from "../../components/StageLayout/StageLayout.tsx"
 import ResultTabs from "../../components/ResultTabs.tsx"
 import { BottomNavigationAction, Box } from "@mui/material"
 import { AccessTime } from "@mui/icons-material"
