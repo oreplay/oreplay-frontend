@@ -11,8 +11,8 @@ applied across the whole project over time.
 One preferred layout applies to the **whole codebase**:
 
 - **Pages and components** live in a dir named after them, and the file matches the dir: `Foo/Foo.tsx`.
-  **Never** a bare `Foo.tsx` under `pages/`, and **never** `Foo/index.tsx` — the codebase no longer has
-  a single `index.tsx` component, so don't reintroduce one.
+  **Never** a bare `Foo.tsx` under `pages/`, and **never** `Foo/index.tsx` — the codebase has not
+  a single `index.tsx` component.
 - **Components** go in a `components/` dir at the **tightest directory that contains every user** of
   the component. Used by one page → that page's `components/`; shared by several → their nearest
   common ancestor's `components/`. A simple component is just `components/Foo.tsx`; one that has its
@@ -182,8 +182,8 @@ Vitest is configured in `vite.config.ts` (`test` block: `globals: true`, `enviro
 so Vite resolves its ESM directory import). `src/test/setup.ts` only pulls in
 `@testing-library/jest-dom`.
 
-- **Tests live next to the source they cover** (`foo.ts` → `foo.test.ts`). There is no `__tests__/`
-  folder left in the codebase — don't reintroduce one.
+- **Tests live next to the source they cover** (`foo.ts` → `foo.test.ts`). No `__tests__/`
+  folder are allowed in the codebase.
 - **No global i18next instance is initialised for tests.** A test that needs real strings builds its own
   with `createInstance()`, loading `public/locales/en/<ns>.json` for each entry of `usedNamespaces` —
   see `src/pages/Ranking/shared/useTranslationRanking.test.ts`. Components rendered without one fall
