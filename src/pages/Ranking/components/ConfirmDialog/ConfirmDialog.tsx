@@ -8,6 +8,7 @@ interface ConfirmDialogProps {
   confirmLabel: string
   closeLabel: string
   isConfirming?: boolean
+  confirmDisabled?: boolean
   destructive?: boolean
   onConfirm: () => void
   onClose: () => void
@@ -21,6 +22,7 @@ export default function ConfirmDialog({
   confirmLabel,
   closeLabel,
   isConfirming,
+  confirmDisabled,
   destructive,
   onConfirm,
   onClose,
@@ -77,7 +79,7 @@ export default function ConfirmDialog({
         <div className="mt-6 flex justify-end">
           <button
             type="button"
-            disabled={isConfirming}
+            disabled={isConfirming || confirmDisabled}
             onClick={onConfirm}
             className={[
               "inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2 font-medium disabled:cursor-not-allowed disabled:opacity-50",

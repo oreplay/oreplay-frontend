@@ -10,6 +10,7 @@ import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "../../components/RankingSettingsForm.tsx"
 import DeleteRankingButton from "./components/DeleteRankingButton.tsx"
 import RunnerInteractionCard from "./components/RunnerInteractionCard.tsx"
+import StageOrdersCard from "./components/StageOrders/StageOrdersCard.tsx"
 
 export default function RankingSettings() {
   const { t } = useTranslationRanking()
@@ -26,7 +27,14 @@ export default function RankingSettings() {
       currentCrumb={ranking?.title ?? rankingId ?? ""}
       isLoading={isLoading}
       isMissing={!ranking}
-      extraContent={ranking ? <RunnerInteractionCard rankingId={ranking.id} /> : undefined}
+      extraContent={
+        ranking ? (
+          <>
+            <StageOrdersCard eventId={ranking.event_id} stageId={ranking.stage_id} />
+            <RunnerInteractionCard rankingId={ranking.id} />
+          </>
+        ) : undefined
+      }
     >
       {ranking && (
         <RankingSettingsForm
