@@ -81,14 +81,16 @@ export default function RankingSettingsForm({
             />
           )}
         </form.Field>
-        <a
-          href={competitionResultsPath(eventId, stageId)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="self-start text-sm text-primary hover:underline"
-        >
-          {t("Settings.competitionLink")}
-        </a>
+        {eventId && (
+          <a
+            href={competitionResultsPath(eventId, stageId)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="self-start text-sm text-primary hover:underline"
+          >
+            {t("Settings.competitionLink")}
+          </a>
+        )}
       </div>
 
       <FormSection title={t("Settings.generalSettings")}>

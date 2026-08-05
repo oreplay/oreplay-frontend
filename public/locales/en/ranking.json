@@ -3,13 +3,11 @@
     "label": "Breadcrumb",
     "rankings": "Rankings"
   },
-  "Duplicate": {
-    "crumb": "Duplicate",
-    "title": "Duplicate ranking"
+  "Create": {
+    "title": "New ranking"
   },
   "List": {
     "description": "Manage your ranking lists and edit the settings of each one.",
-    "empty": "No rankings yet.",
     "loadError": "We couldn't load the rankings.",
     "menuLabel": "Ranking options",
     "title": "Rankings"

@@ -8,3 +8,5 @@ export const SCORING_ALGORITHM_OPTIONS = [
 ] as const
 
 export type ScoringAlgorithm = (typeof SCORING_ALGORITHM_OPTIONS)[number]["value"]
+
+export const DEFAULT_SCORING_ALGORITHM: ScoringAlgorithm = SCORING_ALGORITHM_OPTIONS[0].value

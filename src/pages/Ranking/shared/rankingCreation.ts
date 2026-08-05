@@ -1,5 +1,5 @@
 import { DateTime } from "luxon"
-import { PostListEventsBody } from "../../../../../domain/types/v1api"
+import { PostListEventsBody } from "../../../domain/types/v1api"
 
 // The "Totals" / "overall" stage type (its host-side constant). There's no
 // listing endpoint to resolve it by name, so the UUID is fixed here.
@@ -11,7 +11,7 @@ function firstOfCurrentYear(): string {
   return DateTime.now().startOf("year").toISODate()
 }
 
-export function buildDuplicateEventBody(title: string): PostListEventsBody {
+export function buildRankingEventBody(title: string): PostListEventsBody {
   const date = firstOfCurrentYear()
   return {
     description: title,

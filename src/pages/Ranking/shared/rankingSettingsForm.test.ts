@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest"
 import { Ranking } from "../../../domain/types/v1api"
 import {
+  defaultRankingSettingsForm,
   initRankingSettingsForm,
   isRankingSettingsFormComplete,
   toRankingBody,
 } from "./rankingSettingsForm.ts"
+import { DEFAULT_SCORING_ALGORITHM } from "./scoringAlgorithm.ts"
 
 const ranking = {
   id: "r1",
@@ -74,6 +76,19 @@ describe("ranking settings form", () => {
         '{"totalCircuitRaces":9,"maxRacesCounted":5,"organizerScoringFraction":0.3,"minPointsAsOrg":50}',
     })
     expect("id" in body).toBe(false)
+  })
+
+  it("provides the new-ranking defaults", () => {
+    expect(defaultRankingSettingsForm()).toEqual({
+      title: "",
+      scoringAlgorithm: DEFAULT_SCORING_ALGORITHM,
+      maxPoints: 100,
+      roundPrecision: -1,
+      ncTrue: 0,
+      ncFalse: null,
+      statusScores: [null, 0, 10, 10, 0, 10],
+      overallSettings: [4, 3, 0.3, 50],
+    })
   })
 
   it("is complete only when title and max points are set", () => {

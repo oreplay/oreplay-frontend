@@ -5,6 +5,7 @@ import "../../styles/tokens.css"
 import "../../styles/tailwind.css"
 import { Route, Routes } from "react-router-dom"
 import RankingList from "./pages/RankingList/RankingList.tsx"
+import RankingCreate from "./pages/RankingCreate/RankingCreate.tsx"
 import RankingDuplicate from "./pages/RankingDuplicate/RankingDuplicate.tsx"
 import RankingSettings from "./pages/RankingSettings/RankingSettings.tsx"
 
@@ -13,6 +14,7 @@ export default function Ranking() {
     <div className="tw-root font-sans">
       <Routes>
         <Route index element={<RankingList />} />
+        <Route path="new" element={<RankingCreate />} />
         <Route path=":rankingId/settings" element={<RankingSettings />} />
         <Route path=":rankingId/duplicate" element={<RankingDuplicate />} />
       </Routes>
