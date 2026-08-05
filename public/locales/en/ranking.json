@@ -61,5 +61,19 @@
     "statusScoresHint": "Fixed score per result status. Leave empty to use the computed score.",
     "title": "Ranking settings",
     "titleLabel": "Title"
+  },
+  "StageOrders": {
+    "createTitle": "New stage order",
+    "descriptionLabel": "Description",
+    "editTitle": "Edit stage order",
+    "empty": "No stage orders yet.",
+    "isOfficial": "Validated by the manager",
+    "loadError": "We couldn't load the stage orders.",
+    "menuLabel": "Stage order options",
+    "notOfficial": "No",
+    "official": "Yes",
+    "stageOrder": "Stage order",
+    "start": "Start",
+    "title": "Stage orders"
   }
 }
