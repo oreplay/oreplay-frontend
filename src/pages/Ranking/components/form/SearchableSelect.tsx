@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import FieldLabel from "./FieldLabel.tsx"
 import SpinnerRing from "../SpinnerRing.tsx"
 import { FIELD_CLASS } from "./shared/fieldStyles.ts"
+import { useDropdown } from "./useDropdown.ts"
 
 const DROPDOWN_MAX_HEIGHT = 224 // matches max-h-56 (14rem)
 
@@ -38,22 +39,15 @@ export default function SearchableSelect({
   onSearch,
 }: SearchableSelectProps) {
   const [query, setQuery] = useState("")
-  const [open, setOpen] = useState(false)
   const [dropUp, setDropUp] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const { open, setOpen, containerRef } = useDropdown()
 
   const selectedLabel = options.find((o) => o.value === value)?.label ?? ""
 
+  // Reset the query whenever the list closes (via select or click-outside) so
+  // it reopens fresh; while closed the input shows the selected label anyway.
   useEffect(() => {
-    if (!open) return
-    const onPointerDown = (event: MouseEvent) => {
-      if (!containerRef.current?.contains(event.target as Node)) {
-        setOpen(false)
-        setQuery("")
-      }
-    }
-    document.addEventListener("mousedown", onPointerDown)
-    return () => document.removeEventListener("mousedown", onPointerDown)
+    if (!open) setQuery("")
   }, [open])
 
   // Server-search mode: the parent already filtered, so show options as-is.
@@ -69,11 +63,10 @@ export default function SearchableSelect({
     const estimated = Math.min(filtered.length * 40 + 8, DROPDOWN_MAX_HEIGHT)
     const spaceBelow = window.innerHeight - rect.bottom
     setDropUp(spaceBelow < estimated && rect.top > spaceBelow)
-  }, [open, filtered.length])
+  }, [open, filtered.length, containerRef])
 
   const select = (option: SearchableSelectOption) => {
     onChange(option.value)
-    setQuery("")
     setOpen(false)
   }
 

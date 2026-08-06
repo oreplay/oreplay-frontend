@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react"
 import FieldError from "./FieldError.tsx"
 import FieldLabel from "./FieldLabel.tsx"
 import SpinnerRing from "../SpinnerRing.tsx"
 import { fieldClass } from "./fieldStyles.ts"
+import { useDropdown } from "./useDropdown.ts"
 
 export interface AutocompleteOption {
   id: string
@@ -35,17 +35,7 @@ export default function AutocompleteTextField({
   loading,
   className,
 }: AutocompleteTextFieldProps) {
-  const [open, setOpen] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-    const onPointerDown = (event: MouseEvent) => {
-      if (!containerRef.current?.contains(event.target as Node)) setOpen(false)
-    }
-    document.addEventListener("mousedown", onPointerDown)
-    return () => document.removeEventListener("mousedown", onPointerDown)
-  }, [open])
+  const { open, setOpen, containerRef } = useDropdown()
 
   const select = (id: string) => {
     onSelect(id)
