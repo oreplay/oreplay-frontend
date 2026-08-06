@@ -29,7 +29,7 @@ export default function RankingOrganizerForm({
   })
 
   const requiredValidator = ({ value }: { value: string }) =>
-    value.trim() ? undefined : t("translation:ThisFieldIsRequiredMsg")
+    value.trim() ? undefined : t("common:fieldRequired")
 
   return (
     <form

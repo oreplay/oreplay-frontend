@@ -99,8 +99,7 @@ export default function StageOrderFormDialog({
             <form.Field
               name="description"
               validators={{
-                onBlur: ({ value }) =>
-                  value.trim() ? undefined : t("translation:ThisFieldIsRequiredMsg"),
+                onBlur: ({ value }) => (value.trim() ? undefined : t("common:fieldRequired")),
               }}
             >
               {(field) => (
