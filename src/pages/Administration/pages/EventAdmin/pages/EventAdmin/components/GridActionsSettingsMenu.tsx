@@ -9,17 +9,22 @@ import EditIcon from "@mui/icons-material/Edit"
 import GridActionsSettingsMenuDialogItem from "./GridActionsSettingsMenuDialogItem.tsx"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import PersonOffIcon from "@mui/icons-material/PersonOff"
+import { FINISH_STAGE_ITEM, REOPEN_STAGE_ITEM } from "./shared/finishStageMenuItems.ts"
 
 type GridActionsSettingsMenuProps = {
+  isStageEnded: boolean
   handleDeleteClick: () => void
   handleEditClick: () => void
+  handleSetStageEndedClick: (shouldBeEnded: boolean) => void
   handleWipeOutRunnersClick: () => void
   handleStatsClick: () => void
 }
 
 const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
+  isStageEnded,
   handleDeleteClick,
   handleEditClick,
+  handleSetStageEndedClick,
   handleWipeOutRunnersClick,
 }) => {
   const { t } = useTranslation()
@@ -33,6 +38,8 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const finishStageItem = isStageEnded ? REOPEN_STAGE_ITEM : FINISH_STAGE_ITEM
 
   return (
     <>
@@ -52,6 +59,19 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           </ListItemIcon>
           <ListItemText>{t("common:edit")}</ListItemText>
         </MenuItem>
+        <GridActionsSettingsMenuDialogItem
+          icon={<finishStageItem.Icon />}
+          menuText={t(finishStageItem.menuTextKey)}
+          action={() => {
+            handleSetStageEndedClick(finishStageItem.shouldBeEnded)
+            handleClose()
+          }}
+          menuCloseAction={handleClose}
+          dialogTitle={t(finishStageItem.dialogTitleKey)}
+          dialogBody={t(finishStageItem.dialogBodyKey)}
+          dialogCancelButtonText={t("Cancel")}
+          dialogConfirmButtonText={t(finishStageItem.dialogConfirmKey)}
+        />
         <Divider />
         <GridActionsSettingsMenuDialogItem
           icon={<PersonOffIcon />}

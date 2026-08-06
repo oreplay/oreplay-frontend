@@ -39,6 +39,8 @@ import { DateTime } from "luxon"
 import { GridLuxonDateTimeEditCell } from "./components/GridDateTimeEditCell"
 import { isStartApplicable } from "./functions.ts"
 import { useQueryClient } from "react-query"
+import { isStageEnded } from "./shared/isStageEnded.ts"
+import { useSetStageEnded } from "./shared/useSetStageEnded.ts"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -164,6 +166,8 @@ export default function StagesDataGrid(props: Props) {
 
   const [rows, setRows] = useState(initialRows)
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
+
+  const setStageEnded = useSetStageEnded(props.eventDetail.id)
 
   const handleRowEditStop: GridEventListener<"rowEditStop"> = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -492,6 +496,10 @@ export default function StagesDataGrid(props: Props) {
         return [
           <GridActionsSettingsMenu
             key="settings-menu"
+            isStageEnded={isStageEnded(props.eventDetail.stages, row.row.stageId)}
+            handleSetStageEndedClick={(shouldBeEnded) =>
+              setStageEnded(row.row.stageId, shouldBeEnded)
+            }
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
             handleStatsClick={() => void handleStatsClick(row)}
