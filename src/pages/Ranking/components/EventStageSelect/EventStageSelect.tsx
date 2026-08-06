@@ -4,7 +4,7 @@ import { getListEvents } from "../../../../infrastructure/repositories/events/ev
 import { getListStages } from "../../../../infrastructure/repositories/stages/stages.ts"
 import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
 import SearchableSelect from "../form/SearchableSelect.tsx"
-import { useDebouncedValue } from "./shared/useDebouncedValue.ts"
+import { useDebouncedValue } from "../../shared/useDebouncedValue.ts"
 
 interface EventStageSelectProps {
   eventLabel: string

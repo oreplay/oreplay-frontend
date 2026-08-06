@@ -69,7 +69,6 @@ export function useRankingOrganizers(params: RankingOrganizersParams) {
   }
 
   return {
-    rankingId: ids.rankingID,
     organizers: list.data?.data ?? [],
     isLoading: list.isLoading,
     isError: list.isError,
