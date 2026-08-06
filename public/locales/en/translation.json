@@ -84,6 +84,18 @@
         "MenuText": "Delete"
       },
       "FailedToLoadOrganizers": "Failed to load organizers",
+      "FinishStage": {
+        "DialogBody": "The results of this stage will be marked as final and official. You can reopen the stage later if you need to upload data again.",
+        "DialogConfirm": "Make official",
+        "DialogTitle": "Do you want to finish this stage?",
+        "MenuText": "Set as finished",
+        "Undo": {
+          "DialogBody": "The results of this stage will no longer be official.",
+          "DialogConfirm": "Reopen",
+          "DialogTitle": "Do you want to reopen this stage?",
+          "MenuText": "Set as not finished"
+        }
+      },
       "GoToStage": "Go to the stage",
       "NewStage": "New stage",
       "StagesTypes": {
