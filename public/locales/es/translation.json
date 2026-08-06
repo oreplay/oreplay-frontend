@@ -144,7 +144,6 @@
     "msg": "Compruebe su conexión a internet. Si el error continua, inténtelo de nuevo más tarde.",
     "title": "La carga de la página ha fallado"
   },
-  "FieldTooLongMsg": "Máximo de {{count}} caracteres permitidos.",
   "ForbiddenAccess": "Acceso denegado",
   "GeneralErrorFallback": {
     "msg": "Pruebe a refrescar la página. Si el error persiste inténtelo de nuevo más tarde.",
@@ -326,7 +325,6 @@
   "Stages": "Etapas",
   "Success": "Éxito",
   "This action cannot be undone": "Esta acción no puede deshacerse.",
-  "ThisFieldIsRequiredMsg": "Este campo es obligatorio.",
   "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
   "TimeZone": "Zona horaria",
   "TimezoneMismatchRunnerMsg": "Estas en una zona horaria diferente a la del evento. Todas las horas mostradas, incluyendo las de salida, se muestran en tu hora local y no en la del evento.",

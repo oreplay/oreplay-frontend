@@ -130,6 +130,9 @@ core results/event functionality), `common`, `ranking`, `organizers`, `about-us`
   `common:confirm`, `common:ok`, `common:noResults`, `common:deleteConfirm`, `common:duplicate`,
   `common:error.*`). Reuse them **across the whole app** instead of redefining `save`/`delete`/… per
   feature; add a new common label as soon as a second place needs it.
+- **Generic validation messages live in `common` too** (`common:fieldRequired`,
+  `common:fieldTooLong`) — a form in any namespace reaches for them instead of a `translation:`
+  prefixed key.
 - **Feature-scoped keys** go under their own top-level group inside their namespace (`Ranking.*`,
   `EventAdmin.*`, `ResultsStage.*`, `Dashboard.*`, …). Only introduce one when the wording is
   genuinely specific to that feature — otherwise reach for `common:`.
@@ -163,7 +166,7 @@ use it).
 - **Validation** goes in `validators` — `onChange` for as-you-type rules, `onBlur` for
   required/format, `onSubmit` for cross-field rules, and `onChangeListenTo: ["otherField"]` when a
   field depends on another (e.g. start/end dates). Every message is produced with `t()`; reuse the
-  existing `ThisFieldIsRequiredMsg` key for "required".
+  existing `common:fieldRequired` key for "required" and `common:fieldTooLong` for max length.
 - **Non-trivial predicates are pure functions** in the feature's `shared/` dir, unit-tested next to
   the source (e.g. `validateURL`). Keep the `t()` call in the component, the predicate pure.
 - **Errors render through reusable field components**, never ad-hoc markup: pass

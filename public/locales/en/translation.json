@@ -143,7 +143,6 @@
     "msg": "Please check your internet connection. If the error persists, try again later.",
     "title": "Page loading failed"
   },
-  "FieldTooLongMsg": "Maximum {{count}} characters allowed.",
   "ForbiddenAccess": "Forbidden access",
   "GeneralErrorFallback": {
     "msg": "Try refreshing the page. If the error persist, please try again later.",
@@ -320,7 +319,6 @@
   "Stages": "Stages",
   "Success": "Success",
   "This action cannot be undone": "This action cannot be undone.",
-  "ThisFieldIsRequiredMsg": "This field is required.",
   "ThisFunctionalityNotImplementedMsg": "This feature has not been implemented yet.",
   "TimeZone": "Time zone",
   "TimezoneMismatchRunnerMsg": "You’re viewing this event in a different timezone. All displayed times (including start times) are in your local timezone, not the event’s.",

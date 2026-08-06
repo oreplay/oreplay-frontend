@@ -140,7 +140,6 @@
   },
   "Events": "Events",
   "ExperimentalFeatureMsg": "Funcionalitat experimental",
-  "FieldTooLongMsg": "Màxim {{count}} caràcters permesos.",
   "ForbiddenAccess": "Accés denegat",
   "GeneralErrorFallback": {
     "msg": "Intenta refrescar la pàgina. Si l'error persisteix, intenti-ho de nou més tard.",
@@ -322,7 +321,6 @@
   "Stages": "Etapes",
   "Success": "Èxit",
   "This action cannot be undone": "Aquesta acció no es pot desfer.",
-  "ThisFieldIsRequiredMsg": "Aquest camp és obligatori.",
   "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible.",
   "TimeZone": "Zona horària",
   "TimezoneMismatchRunnerMsg": "Estàs en una zona horària diferent a la de l'event. Totes les hores mostrades, incloses les de sortida, es mostren en la teva hora local i no en la de l'event.",

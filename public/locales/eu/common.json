@@ -11,6 +11,8 @@
     "forbidden": "Ez duzu hau egiteko baimenik.",
     "serverError": "Errore bat gertatu da erantzuna ematean."
   },
+  "fieldRequired": "Eremu hau derrigorrezkoa da.",
+  "fieldTooLong": "Gehienez {{count}} karaktere onartzen dira.",
   "loading": "Kargatzen",
   "noResults": "Emaitzarik ez",
   "ok": "Ados",

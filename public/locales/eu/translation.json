@@ -134,7 +134,6 @@
   },
   "Events": "Ekitaldiak",
   "ExperimentalFeatureMsg": "Ezaugarri esperimentala",
-  "FieldTooLongMsg": "Gehienez {{count}} karaktere onartzen dira.",
   "ForbiddenAccess": "Sarbide debekatua",
   "GeneralErrorFallback": {
     "msg": "Saiatu orria freskatzen. Akatsa jarraitzen badu, saiatu berriro geroago.",
@@ -309,7 +308,6 @@
   "Stages": "Etapak",
   "Success": "Arrakasta",
   "This action cannot be undone": "Ekintza hau ezin da desegin.",
-  "ThisFieldIsRequiredMsg": "Eremu hau derrigorrezkoa da.",
   "ThisFunctionalityNotImplementedMsg": "Ezaugarri hau oraindik ez da inplementatu.",
   "UnderDevelopment": "Garapenean",
   "authenticationError": "Akats bat gertatu da",

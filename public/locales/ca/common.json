@@ -11,6 +11,8 @@
     "forbidden": "No tens permís per fer això.",
     "serverError": "Hi ha hagut un error en proporcionar la resposta."
   },
+  "fieldRequired": "Aquest camp és obligatori.",
+  "fieldTooLong": "Màxim {{count}} caràcters permesos.",
   "loading": "Carregant",
   "noResults": "Sense resultats",
   "ok": "D'acord",

@@ -96,7 +96,7 @@ export function maxLengthValidator(
   t: TFunction,
 ): string | undefined {
   if (value.length > maxLength) {
-    return t("FieldTooLongMsg", { count: maxLength })
+    return t("common:fieldTooLong", { count: maxLength })
   } else {
     return undefined
   }
