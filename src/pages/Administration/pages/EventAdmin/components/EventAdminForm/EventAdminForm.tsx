@@ -170,7 +170,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
           <form.Field
             name={"description"}
             validators={{
-              onBlur: ({ value }) => (!value ? t("ThisFieldIsRequiredMsg") : undefined),
+              onBlur: ({ value }) => (!value ? t("common:fieldRequired") : undefined),
               onChange: ({ value }) =>
                 !value
                   ? undefined
@@ -432,7 +432,7 @@ export default function EventAdminForm(props: EventAdminFormProps) {
             name={"countryCode"}
             validators={{
               onSubmit: ({ value }) =>
-                value && value !== "" ? undefined : t("ThisFieldIsRequiredMsg"),
+                value && value !== "" ? undefined : t("common:fieldRequired"),
             }}
           >
             {(field) => {

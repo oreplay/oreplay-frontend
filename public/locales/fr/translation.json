@@ -134,7 +134,6 @@
   },
   "Events": "Événements",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
-  "FieldTooLongMsg": "Nombre maximal de caractères autorisé : {{count}}.",
   "ForbiddenAccess": "Accès interdit",
   "GeneralErrorFallback": {
     "msg": "Essayez d'actualiser la page. Si l'erreur persiste, veuillez réessayer ultérieurement.",
@@ -315,7 +314,6 @@
   "Stages": "Etages",
   "Success": "Succès",
   "This action cannot be undone": "Cette action ne peut pas être annulée.",
-  "ThisFieldIsRequiredMsg": "Ce champ est obligatoire.",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
   "UnderDevelopment": "En cours de développement",
   "authenticationError": "Une erreur s'est produite",

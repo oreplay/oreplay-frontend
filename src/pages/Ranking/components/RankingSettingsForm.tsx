@@ -66,8 +66,7 @@ export default function RankingSettingsForm({
         <form.Field
           name="title"
           validators={{
-            onBlur: ({ value }) =>
-              value.trim() ? undefined : t("translation:ThisFieldIsRequiredMsg"),
+            onBlur: ({ value }) => (value.trim() ? undefined : t("common:fieldRequired")),
           }}
         >
           {(field) => (
@@ -95,8 +94,7 @@ export default function RankingSettingsForm({
         <form.Field
           name="maxPoints"
           validators={{
-            onBlur: ({ value }) =>
-              value === null ? t("translation:ThisFieldIsRequiredMsg") : undefined,
+            onBlur: ({ value }) => (value === null ? t("common:fieldRequired") : undefined),
             onChange: ({ value }) =>
               value !== null && value <= 0 ? t("Settings.maxPointsPositive") : undefined,
           }}
@@ -118,7 +116,7 @@ export default function RankingSettingsForm({
         <form.Field
           name="scoringAlgorithm"
           validators={{
-            onBlur: ({ value }) => (value ? undefined : t("translation:ThisFieldIsRequiredMsg")),
+            onBlur: ({ value }) => (value ? undefined : t("common:fieldRequired")),
           }}
         >
           {(field) => (
