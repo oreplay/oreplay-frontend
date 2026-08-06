@@ -11,6 +11,8 @@
     "forbidden": "Du har inte behörighet att göra detta.",
     "serverError": "Ett fel uppstod när svaret skulle ges."
   },
+  "fieldRequired": "Det här fältet är obligatoriskt.",
+  "fieldTooLong": "Högst {{count}} tecken tillåtna.",
   "loading": "Laddar",
   "noResults": "Inga träffar",
   "ok": "OK",

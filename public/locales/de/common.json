@@ -11,6 +11,8 @@
     "forbidden": "Sie haben keine Berechtigung, dies zu tun.",
     "serverError": "Bei der Antwort ist ein Fehler aufgetreten."
   },
+  "fieldRequired": "Dieses Feld ist erforderlich.",
+  "fieldTooLong": "Maximal {{count}} Zeichen erlaubt.",
   "loading": "Wird geladen",
   "noResults": "Keine Treffer",
   "ok": "OK",

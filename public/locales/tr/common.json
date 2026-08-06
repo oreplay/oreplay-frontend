@@ -11,6 +11,8 @@
     "forbidden": "Bunu yapma izniniz yok.",
     "serverError": "Yanıt verilirken bir hata oluştu."
   },
+  "fieldRequired": "Bu alan zorunludur.",
+  "fieldTooLong": "En fazla {{count}} karaktere izin verilir.",
   "loading": "Yükleniyor",
   "noResults": "Sonuç yok",
   "ok": "Tamam",

@@ -11,6 +11,8 @@
     "forbidden": "Nincs jogosultsága ehhez.",
     "serverError": "Hiba történt a válasz megadásakor."
   },
+  "fieldRequired": "Ez a mező kötelező.",
+  "fieldTooLong": "Legfeljebb {{count}} karakter engedélyezett.",
   "loading": "Betöltés",
   "noResults": "Nincs találat",
   "ok": "OK",
