@@ -5,6 +5,7 @@ export interface DropdownMenuItem {
   /** Action items run `onSelect`; link items navigate via `href` (new tab). */
   onSelect?: () => void
   href?: string
+  disabled?: boolean
 }
 
 interface DropdownMenuProps {
@@ -80,11 +81,14 @@ export default function DropdownMenu({
                 <button
                   type="button"
                   role="menuitem"
+                  disabled={item.disabled}
                   onClick={() => {
                     item.onSelect?.()
                     setOpen(false)
                   }}
-                  className={ITEM_CLASS}
+                  className={[ITEM_CLASS, "disabled:cursor-not-allowed disabled:opacity-50"].join(
+                    " ",
+                  )}
                 >
                   {item.label}
                 </button>

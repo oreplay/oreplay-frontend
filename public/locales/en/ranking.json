@@ -13,8 +13,7 @@
     "title": "Rankings"
   },
   "ProcessEvent": {
-    "stage": "Stage",
-    "title": "Process event"
+    "stage": "Stage"
   },
   "RankingOrganizers": {
     "add": "Add organizer",
@@ -85,6 +84,9 @@
     "menuLabel": "Stage order options",
     "notOfficial": "No",
     "official": "Yes",
+    "processResults": "Process results",
+    "processResultsConfirm": "Process the results for this stage? This generates the ranking.",
+    "processResultsSuccess": "Results processed.",
     "stageOrder": "Stage order",
     "start": "Start",
     "title": "Stage orders"

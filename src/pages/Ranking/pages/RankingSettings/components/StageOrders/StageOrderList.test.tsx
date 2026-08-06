@@ -23,6 +23,7 @@ describe("StageOrderList", () => {
         stageOrders={[makeStageOrder("a", 1), makeStageOrder("b", 2)]}
         onEdit={vi.fn()}
         onManageOrganizers={vi.fn()}
+        onProcessResults={vi.fn()}
       />,
     )
     expect(screen.getAllByRole("listitem")).toHaveLength(2)
@@ -37,6 +38,7 @@ describe("StageOrderList", () => {
         stageOrders={[]}
         onEdit={vi.fn()}
         onManageOrganizers={vi.fn()}
+        onProcessResults={vi.fn()}
       />,
     )
     expect(screen.queryByRole("listitem")).not.toBeInTheDocument()
@@ -51,6 +53,7 @@ describe("StageOrderList", () => {
         stageOrders={[makeStageOrder("a", 1)]}
         onEdit={vi.fn()}
         onManageOrganizers={onManageOrganizers}
+        onProcessResults={vi.fn()}
       />,
     )
     screen.getByRole("listitem").click()
