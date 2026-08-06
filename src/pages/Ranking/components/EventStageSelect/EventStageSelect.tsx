@@ -35,7 +35,7 @@ export default function EventStageSelect({
   const description = useDebouncedValue(eventSearch, EVENT_SEARCH_DEBOUNCE_MS)
 
   const events = useQuery(["events", description], () =>
-    getListEvents({ limit: EVENT_LIST_LIMIT, show_hidden: "false", description }),
+    getListEvents({ limit: EVENT_LIST_LIMIT, show_hidden: "1", description }),
   )
   const stages = useQuery(["stages", eventId], () => getListStages(eventId ?? ""), {
     enabled: eventId !== null,
