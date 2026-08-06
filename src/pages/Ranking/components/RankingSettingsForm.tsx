@@ -17,6 +17,7 @@ import NumberField from "./form/NumberField.tsx"
 import ScoreSelectField from "./form/ScoreSelectField.tsx"
 import SelectField from "./form/SelectField.tsx"
 import TextField from "./form/TextField.tsx"
+import { joinFieldErrors } from "./form/fieldErrors.ts"
 
 interface RankingSettingsFormProps {
   initialState: RankingSettingsFormState
@@ -29,10 +30,6 @@ interface RankingSettingsFormProps {
   /** Extra action shown next to the submit button (e.g. delete). */
   secondaryAction?: ReactNode
 }
-
-/** TanStack Form exposes one message per failed validator; join them for display. */
-const errorMessage = (errors: (string | undefined)[]): string | undefined =>
-  errors.filter(Boolean).join(" ") || undefined
 
 // Presentational, action-agnostic form; the page wires `onSubmit` and labels.
 // Validation lives in `<form.Field validators>`; `noValidate` keeps the browser
@@ -77,7 +74,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
             />
           )}
         </form.Field>
@@ -110,7 +107,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               className="col-span-2"
             />
           )}
@@ -129,7 +126,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               options={SCORING_ALGORITHM_OPTIONS.map((option) => ({
                 value: option.value,
                 label: t(option.labelKey),
@@ -147,7 +144,7 @@ export default function RankingSettingsForm({
               value={String(field.state.value)}
               onChange={(value) => field.handleChange(Number(value))}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               options={ROUND_PRECISION_OPTIONS.map((option) => ({
                 value: String(option.value),
                 label: t(option.labelKey),
@@ -170,7 +167,7 @@ export default function RankingSettingsForm({
                 value={field.state.value}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
-                error={errorMessage(field.state.meta.errors)}
+                error={joinFieldErrors(field.state.meta.errors)}
               />
             )}
           </form.Field>
@@ -188,7 +185,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               values={NC_SCORE_VALUES}
               emptyLabel={t("Settings.scoreOptions.empty")}
             />
@@ -201,7 +198,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               values={NC_SCORE_VALUES}
               emptyLabel={t("Settings.scoreOptions.empty")}
             />
@@ -218,7 +215,7 @@ export default function RankingSettingsForm({
                 value={field.state.value}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
-                error={errorMessage(field.state.meta.errors)}
+                error={joinFieldErrors(field.state.meta.errors)}
                 values={STATUS_SCORE_VALUES}
                 emptyLabel={t("Settings.scoreOptions.empty")}
               />

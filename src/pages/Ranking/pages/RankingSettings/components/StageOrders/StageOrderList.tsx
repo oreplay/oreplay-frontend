@@ -8,6 +8,7 @@ interface StageOrderListProps {
   isError: boolean
   stageOrders: StageOrderManagement[]
   onEdit: (stageOrder: StageOrderManagement) => void
+  onManageOrganizers: (stageOrder: StageOrderManagement) => void
 }
 
 export default function StageOrderList({
@@ -15,6 +16,7 @@ export default function StageOrderList({
   isError,
   stageOrders,
   onEdit,
+  onManageOrganizers,
 }: StageOrderListProps) {
   const { t } = useTranslationRanking()
 
@@ -33,7 +35,12 @@ export default function StageOrderList({
   return (
     <ul className="rk-stage-order-list m-0 flex list-none flex-col gap-3 p-0">
       {stageOrders.map((stageOrder) => (
-        <StageOrderListItem key={stageOrder.id} stageOrder={stageOrder} onEdit={onEdit} />
+        <StageOrderListItem
+          key={stageOrder.id}
+          stageOrder={stageOrder}
+          onEdit={onEdit}
+          onManageOrganizers={onManageOrganizers}
+        />
       ))}
     </ul>
   )

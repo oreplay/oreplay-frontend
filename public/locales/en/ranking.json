@@ -16,6 +16,17 @@
     "stage": "Stage",
     "title": "Process event"
   },
+  "RankingOrganizers": {
+    "add": "Add organizer",
+    "backToSettings": "Back to settings",
+    "description": "Description",
+    "empty": "No organizers yet.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "loadError": "We couldn't load the organizers.",
+    "removeTitle": "Remove organizer",
+    "title": "Organizers"
+  },
   "RunnerInteraction": {
     "empty": "Expand a runner in the results page on another tab to load it here.",
     "sendOrganizer": "Send organizer",
@@ -69,6 +80,7 @@
     "empty": "No stage orders yet.",
     "isOfficial": "Validated by the manager",
     "loadError": "We couldn't load the stage orders.",
+    "manageOrganizers": "Manage organizers",
     "menuLabel": "Stage order options",
     "notOfficial": "No",
     "official": "Yes",

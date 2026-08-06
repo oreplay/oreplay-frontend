@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import { useQueryClient } from "react-query"
 import { useTranslationRanking } from "../../../../shared/useTranslationRanking.ts"
+import { rankingOrganizersPath } from "../../../../../../shared/routes.ts"
 import AddButton from "../../../../components/AddButton.tsx"
 import {
   getGetListStageOrdersQueryKey,
@@ -23,11 +25,16 @@ interface DialogState {
 
 export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardProps) {
   const { t } = useTranslationRanking()
+  const navigate = useNavigate()
+  const { rankingId } = useParams()
   const queryClient = useQueryClient()
   const [dialog, setDialog] = useState<DialogState | null>(null)
   const { data, isLoading, isError } = useGetListStageOrders(eventId, stageId)
 
   const stageOrders = data?.data ?? []
+
+  const manageOrganizers = (stageOrder: StageOrderManagement) =>
+    void navigate(rankingOrganizersPath(rankingId ?? "", eventId, stageId, stageOrder.id))
 
   const closeDialog = () => setDialog(null)
   const handleSaved = () => {
@@ -46,6 +53,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
         isError={isError}
         stageOrders={stageOrders}
         onEdit={(stageOrder) => setDialog({ mode: "edit", stageOrder })}
+        onManageOrganizers={manageOrganizers}
       />
       {dialog && (
         <StageOrderFormDialog

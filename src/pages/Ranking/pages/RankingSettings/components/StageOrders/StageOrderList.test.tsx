@@ -22,6 +22,7 @@ describe("StageOrderList", () => {
         isError={false}
         stageOrders={[makeStageOrder("a", 1), makeStageOrder("b", 2)]}
         onEdit={vi.fn()}
+        onManageOrganizers={vi.fn()}
       />,
     )
     expect(screen.getAllByRole("listitem")).toHaveLength(2)
@@ -29,21 +30,30 @@ describe("StageOrderList", () => {
   })
 
   it("shows the empty state when there are no stage orders", () => {
-    render(<StageOrderList isLoading={false} isError={false} stageOrders={[]} onEdit={vi.fn()} />)
+    render(
+      <StageOrderList
+        isLoading={false}
+        isError={false}
+        stageOrders={[]}
+        onEdit={vi.fn()}
+        onManageOrganizers={vi.fn()}
+      />,
+    )
     expect(screen.queryByRole("listitem")).not.toBeInTheDocument()
   })
 
-  it("invokes onEdit when a row is clicked", () => {
-    const onEdit = vi.fn()
+  it("invokes onManageOrganizers when a row is clicked", () => {
+    const onManageOrganizers = vi.fn()
     render(
       <StageOrderList
         isLoading={false}
         isError={false}
         stageOrders={[makeStageOrder("a", 1)]}
-        onEdit={onEdit}
+        onEdit={vi.fn()}
+        onManageOrganizers={onManageOrganizers}
       />,
     )
     screen.getByRole("listitem").click()
-    expect(onEdit).toHaveBeenCalledWith(makeStageOrder("a", 1))
+    expect(onManageOrganizers).toHaveBeenCalledWith(makeStageOrder("a", 1))
   })
 })
