@@ -12,6 +12,7 @@ import CheckboxField from "../../../../components/form/CheckboxField.tsx"
 import DateTimeField from "../../../../components/form/DateTimeField.tsx"
 import NumberField from "../../../../components/form/NumberField.tsx"
 import TextField from "../../../../components/form/TextField.tsx"
+import { joinFieldErrors } from "../../../../components/form/fieldErrors.ts"
 import {
   STAGE_ORDER_DEFAULT_START_TIME,
   StageOrderDialogMode,
@@ -32,9 +33,6 @@ interface StageOrderFormDialogProps {
   onClose: () => void
   onSaved: () => void
 }
-
-const errorMessage = (errors: (string | undefined)[]): string | undefined =>
-  errors.filter(Boolean).join(" ") || undefined
 
 export default function StageOrderFormDialog({
   open,
@@ -112,7 +110,7 @@ export default function StageOrderFormDialog({
                   value={field.state.value}
                   onChange={field.handleChange}
                   onBlur={field.handleBlur}
-                  error={errorMessage(field.state.meta.errors)}
+                  error={joinFieldErrors(field.state.meta.errors)}
                 />
               )}
             </form.Field>
@@ -125,7 +123,7 @@ export default function StageOrderFormDialog({
                   value={field.state.value}
                   onChange={field.handleChange}
                   onBlur={field.handleBlur}
-                  error={errorMessage(field.state.meta.errors)}
+                  error={joinFieldErrors(field.state.meta.errors)}
                   defaultTime={STAGE_ORDER_DEFAULT_START_TIME}
                 />
               )}
@@ -140,7 +138,7 @@ export default function StageOrderFormDialog({
                     value={field.state.value}
                     onChange={field.handleChange}
                     onBlur={field.handleBlur}
-                    error={errorMessage(field.state.meta.errors)}
+                    error={joinFieldErrors(field.state.meta.errors)}
                   />
                 )}
               </form.Field>

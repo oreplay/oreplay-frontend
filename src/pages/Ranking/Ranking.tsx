@@ -8,6 +8,7 @@ import RankingList from "./pages/RankingList/RankingList.tsx"
 import RankingCreate from "./pages/RankingCreate/RankingCreate.tsx"
 import RankingDuplicate from "./pages/RankingDuplicate/RankingDuplicate.tsx"
 import RankingSettings from "./pages/RankingSettings/RankingSettings.tsx"
+import RankingOrganizers from "./pages/RankingOrganizers/RankingOrganizers.tsx"
 
 export default function Ranking() {
   return (
@@ -17,6 +18,10 @@ export default function Ranking() {
         <Route path="new" element={<RankingCreate />} />
         <Route path=":rankingId/settings" element={<RankingSettings />} />
         <Route path=":rankingId/duplicate" element={<RankingDuplicate />} />
+        <Route
+          path=":rankingId/events/:eventId/stages/:stageId/stage-orders/:stageOrderId/organizers"
+          element={<RankingOrganizers />}
+        />
       </Routes>
     </div>
   )

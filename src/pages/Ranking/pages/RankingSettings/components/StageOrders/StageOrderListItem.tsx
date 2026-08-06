@@ -10,9 +10,14 @@ import { formatStartDateTime } from "./shared/formatStartDateTime.ts"
 interface StageOrderListItemProps {
   stageOrder: StageOrderManagement
   onEdit: (stageOrder: StageOrderManagement) => void
+  onManageOrganizers: (stageOrder: StageOrderManagement) => void
 }
 
-export default function StageOrderListItem({ stageOrder, onEdit }: StageOrderListItemProps) {
+export default function StageOrderListItem({
+  stageOrder,
+  onEdit,
+  onManageOrganizers,
+}: StageOrderListItemProps) {
   const { t, i18n } = useTranslationRanking()
 
   const officialLabel = stageOrder.is_official
@@ -28,11 +33,15 @@ export default function StageOrderListItem({ stageOrder, onEdit }: StageOrderLis
       label: t("common:edit"),
       onSelect: () => onEdit(stageOrder),
     },
+    {
+      label: t("StageOrders.manageOrganizers"),
+      onSelect: () => onManageOrganizers(stageOrder),
+    },
   ]
 
   return (
     <li
-      onClick={() => onEdit(stageOrder)}
+      onClick={() => onManageOrganizers(stageOrder)}
       className="rk-stage-order-list-item flex cursor-pointer items-center justify-between rounded-xl bg-white px-4 py-3 shadow-sm transition-colors hover:bg-neutral-50"
     >
       <div>
