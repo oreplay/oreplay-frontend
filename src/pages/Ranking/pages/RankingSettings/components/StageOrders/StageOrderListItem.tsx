@@ -11,14 +11,18 @@ interface StageOrderListItemProps {
   stageOrder: StageOrderManagement
   onEdit: (stageOrder: StageOrderManagement) => void
   onManageOrganizers: (stageOrder: StageOrderManagement) => void
+  onProcessResults: (stageOrder: StageOrderManagement) => void
 }
 
 export default function StageOrderListItem({
   stageOrder,
   onEdit,
   onManageOrganizers,
+  onProcessResults,
 }: StageOrderListItemProps) {
   const { t, i18n } = useTranslationRanking()
+
+  const hasSourceStage = Boolean(stageOrder.original_event_id && stageOrder.original_stage_id)
 
   const officialLabel = stageOrder.is_official
     ? t("StageOrders.official")
@@ -36,6 +40,11 @@ export default function StageOrderListItem({
     {
       label: t("StageOrders.manageOrganizers"),
       onSelect: () => onManageOrganizers(stageOrder),
+    },
+    {
+      label: t("StageOrders.processResults"),
+      onSelect: () => onProcessResults(stageOrder),
+      disabled: !hasSourceStage,
     },
   ]
 

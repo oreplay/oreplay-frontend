@@ -11,6 +11,7 @@ import {
 import { StageOrderManagement } from "../../../../../../domain/types/v1api"
 import StageOrderFormDialog from "./StageOrderFormDialog.tsx"
 import StageOrderList from "./StageOrderList.tsx"
+import ProcessResultsDialog from "./ProcessResultsDialog.tsx"
 import { StageOrderDialogMode } from "./shared/stageOrderForm.ts"
 
 interface StageOrdersCardProps {
@@ -29,6 +30,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
   const { rankingId } = useParams()
   const queryClient = useQueryClient()
   const [dialog, setDialog] = useState<DialogState | null>(null)
+  const [processStageOrder, setProcessStageOrder] = useState<StageOrderManagement | null>(null)
   const { data, isLoading, isError } = useGetListStageOrders(eventId, stageId)
 
   const stageOrders = data?.data ?? []
@@ -54,6 +56,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
         stageOrders={stageOrders}
         onEdit={(stageOrder) => setDialog({ mode: "edit", stageOrder })}
         onManageOrganizers={manageOrganizers}
+        onProcessResults={setProcessStageOrder}
       />
       {dialog && (
         <StageOrderFormDialog
@@ -65,6 +68,15 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
           stageId={stageId}
           onClose={closeDialog}
           onSaved={handleSaved}
+        />
+      )}
+      {processStageOrder && (
+        <ProcessResultsDialog
+          open
+          rankingId={rankingId ?? ""}
+          eventId={processStageOrder.original_event_id}
+          stageId={processStageOrder.original_stage_id}
+          onClose={() => setProcessStageOrder(null)}
         />
       )}
     </div>
