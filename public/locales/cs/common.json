@@ -11,6 +11,8 @@
     "forbidden": "Nemáte oprávnění to provést.",
     "serverError": "Při poskytování odpovědi došlo k chybě."
   },
+  "fieldRequired": "Toto pole je povinné.",
+  "fieldTooLong": "Maximálně {{count}} znaků.",
   "loading": "Načítání",
   "noResults": "Žádné výsledky",
   "ok": "OK",

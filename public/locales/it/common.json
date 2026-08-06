@@ -11,6 +11,8 @@
     "forbidden": "Non hai il permesso di farlo.",
     "serverError": "Si è verificato un errore durante la risposta."
   },
+  "fieldRequired": "Questo campo è obbligatorio.",
+  "fieldTooLong": "Massimo {{count}} caratteri consentiti.",
   "loading": "Caricamento",
   "noResults": "Nessun risultato",
   "ok": "OK",

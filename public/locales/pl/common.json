@@ -11,6 +11,8 @@
     "forbidden": "Nie masz uprawnień, aby to zrobić.",
     "serverError": "Wystąpił błąd podczas udzielania odpowiedzi."
   },
+  "fieldRequired": "To pole jest wymagane.",
+  "fieldTooLong": "Maksymalnie {{count}} znaków.",
   "loading": "Ładowanie",
   "noResults": "Brak wyników",
   "ok": "OK",

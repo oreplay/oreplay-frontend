@@ -11,6 +11,8 @@
     "forbidden": "您没有权限执行此操作。",
     "serverError": "提供响应时发生错误。"
   },
+  "fieldRequired": "此字段为必填项。",
+  "fieldTooLong": "最多允许 {{count}} 个字符。",
   "loading": "加载中",
   "noResults": "没有匹配结果",
   "ok": "确定",

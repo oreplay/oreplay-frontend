@@ -11,6 +11,8 @@
     "forbidden": "Sinulla ei ole oikeutta tehdä tätä.",
     "serverError": "Vastausta annettaessa tapahtui virhe."
   },
+  "fieldRequired": "Tämä kenttä on pakollinen.",
+  "fieldTooLong": "Enintään {{count}} merkkiä sallittu.",
   "loading": "Ladataan",
   "noResults": "Ei tuloksia",
   "ok": "OK",
