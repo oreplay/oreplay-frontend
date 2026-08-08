@@ -1,18 +1,32 @@
+import { CategoryBucket } from "../shared/categorySelection.ts"
+import CategoryChip from "./CategoryChip.tsx"
+
+interface BucketOption {
+  value: CategoryBucket
+  label: string
+}
+
 interface CategoryColumnProps {
+  bucket: CategoryBucket
   label: string
   classNames: string[]
+  bucketOptions: BucketOption[]
   isOver: boolean
   onDragStartClass: (className: string) => void
+  onMoveClass: (className: string, toBucket: CategoryBucket) => void
   onDropClass: () => void
   onDragEnter: () => void
   onDragLeave: () => void
 }
 
 export default function CategoryColumn({
+  bucket,
   label,
   classNames,
+  bucketOptions,
   isOver,
   onDragStartClass,
+  onMoveClass,
   onDropClass,
   onDragEnter,
   onDragLeave,
@@ -35,16 +49,13 @@ export default function CategoryColumn({
       <ul className="m-0 flex list-none flex-col gap-1 p-0">
         {classNames.map((name) => (
           <li key={name}>
-            <div
-              draggable
-              onDragStart={(event) => {
-                event.dataTransfer.effectAllowed = "move"
-                onDragStartClass(name)
-              }}
-              className="cursor-grab rounded border border-neutral-200 bg-white px-2 py-1 text-sm text-neutral-800 hover:border-primary active:cursor-grabbing"
-            >
-              {name}
-            </div>
+            <CategoryChip
+              name={name}
+              currentBucket={bucket}
+              buckets={bucketOptions}
+              onMove={(toBucket) => onMoveClass(name, toBucket)}
+              onDragStart={() => onDragStartClass(name)}
+            />
           </li>
         ))}
       </ul>
