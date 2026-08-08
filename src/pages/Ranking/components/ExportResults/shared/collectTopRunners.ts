@@ -1,4 +1,5 @@
 import { getListResults } from "../../../../../infrastructure/repositories/results/results.ts"
+import { ProgressReporter } from "../../../shared/progress.ts"
 import { buildExportRunners, ClassResults, ExportRunner } from "./exportRunners.ts"
 
 export interface ExportClass {
@@ -6,14 +7,12 @@ export interface ExportClass {
   name: string
 }
 
-export type ExportProgress = (completed: number, total: number) => void
-
 export async function collectTopRunners(
   eventId: string,
   stageId: string,
   classes: ExportClass[],
   topCount: number,
-  onProgress?: ExportProgress,
+  onProgress?: ProgressReporter,
 ): Promise<ExportRunner[]> {
   const total = classes.length
   let completed = 0

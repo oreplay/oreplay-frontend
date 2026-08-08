@@ -1,14 +1,8 @@
 import { orvalAxiosInstance } from "../../../infrastructure/orval/orval-axios-instance.ts"
 import { postListRankingComputeStage } from "../../../infrastructure/repositories/ranking-compute-stage/ranking-compute-stage.ts"
+import { ProgressReporter } from "./progress.ts"
 
-/** Reports how many per-class compute requests have completed out of the total. */
-export type RankingComputeProgress = (completed: number, total: number) => void
-
-const postInBatches = async (
-  urls: string[],
-  batchSize: number,
-  onProgress?: RankingComputeProgress,
-) => {
+const postInBatches = async (urls: string[], batchSize: number, onProgress?: ProgressReporter) => {
   for (let i = 0; i < urls.length; i += batchSize) {
     const batch = urls.slice(i, i + batchSize)
     await Promise.all(
@@ -30,7 +24,7 @@ export async function calculateRankingBatches(
   rankingId: string,
   eventId: string,
   stageId: string,
-  onProgress?: RankingComputeProgress,
+  onProgress?: ProgressReporter,
 ): Promise<unknown> {
   const classes = await postListRankingComputeStage(
     rankingId,
