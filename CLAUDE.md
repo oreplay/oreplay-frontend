@@ -26,6 +26,10 @@ One preferred layout applies to the **whole codebase**:
   colocation over adding to a global. **Orval-generated dirs** (`src/infrastructure/repositories`,
   `src/domain/types/v1api`) are left exactly as generated.
 - When relocating files, use **`git mv`** so history is preserved, and update every relative import.
+- **Imports are relative (`../…`), not path-aliased.** The codebase uses relative specifiers
+  everywhere (`from "../../infrastructure/…"`); there is **no** `@/` (or other) TS path alias
+  configured, and none should be added. Deep `../../../` chains from a correctly-placed file are
+  accepted as the cost of colocation — don't introduce an alias to shorten them.
 
 ## Commands
 
