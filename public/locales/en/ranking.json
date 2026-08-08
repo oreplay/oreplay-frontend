@@ -36,6 +36,7 @@
     "female": "F",
     "loadError": "We couldn't load the stats.",
     "male": "M",
+    "moveTo": "Move {{name}} to a category",
     "mp": "Card error",
     "officialTitle": "Official (FEDO)",
     "ot": "Over time",
