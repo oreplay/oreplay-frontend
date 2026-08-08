@@ -2,20 +2,32 @@ import { StatTable } from "./fedoStatsTables.ts"
 
 type Translate = (key: string) => string
 
+const HTML_ENTITIES: Record<string, string> = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+}
+
+const escapeHtml = (value: string): string =>
+  value.replace(/[&<>"']/g, (char) => HTML_ENTITIES[char])
+
 function headerCells(t: Translate): string[] {
   return ["", t("FedoStats.male"), t("FedoStats.female"), t("FedoStats.total")]
 }
 
 function tableToHtml(table: StatTable, t: Translate): string {
   const head = headerCells(t)
-    .map((cell) => `<th>${cell}</th>`)
+    .map((cell) => `<th>${escapeHtml(cell)}</th>`)
     .join("")
   const body = table.rows
     .map(
-      (r) => `<tr><td>${t(r.labelKey)}</td><td>${r.M}</td><td>${r.F}</td><td>${r.total}</td></tr>`,
+      (r) =>
+        `<tr><td>${escapeHtml(t(r.labelKey))}</td><td>${r.M}</td><td>${r.F}</td><td>${r.total}</td></tr>`,
     )
     .join("")
-  return `<table border="1"><caption>${t(table.titleKey)}</caption><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`
+  return `<table border="1"><caption>${escapeHtml(t(table.titleKey))}</caption><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`
 }
 
 function tableToText(table: StatTable, t: Translate): string {
