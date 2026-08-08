@@ -92,6 +92,7 @@
     "descriptionLabel": "Description",
     "editTitle": "Edit stage order",
     "empty": "No stage orders yet.",
+    "export": "Export results",
     "isOfficial": "Validated by the manager",
     "loadError": "We couldn't load the stage orders.",
     "manageOrganizers": "Manage organizers",

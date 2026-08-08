@@ -10,6 +10,7 @@ interface StageOrderListProps {
   onEdit: (stageOrder: StageOrderManagement) => void
   onManageOrganizers: (stageOrder: StageOrderManagement) => void
   onProcessResults: (stageOrder: StageOrderManagement) => void
+  onExport: (stageOrder: StageOrderManagement) => void
 }
 
 export default function StageOrderList({
@@ -19,6 +20,7 @@ export default function StageOrderList({
   onEdit,
   onManageOrganizers,
   onProcessResults,
+  onExport,
 }: StageOrderListProps) {
   const { t } = useTranslationRanking()
 
@@ -43,6 +45,7 @@ export default function StageOrderList({
           onEdit={onEdit}
           onManageOrganizers={onManageOrganizers}
           onProcessResults={onProcessResults}
+          onExport={onExport}
         />
       ))}
     </ul>
