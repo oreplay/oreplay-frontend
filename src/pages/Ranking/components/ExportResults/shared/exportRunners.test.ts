@@ -27,13 +27,14 @@ describe("participantPosition", () => {
 })
 
 describe("topParticipantsInClass", () => {
-  it("excludes nc, keeps position <= topCount (including ties), sorted", () => {
+  it("excludes nc and position 0/null, keeps 1..topCount (including ties), sorted", () => {
     const participants = [
       makeParticipant({ id: "a", stage: { position: 1 } }),
       makeParticipant({ id: "nc", is_nc: true, stage: { position: 2 } }),
       makeParticipant({ id: "b", stage: { position: 3 } }),
       makeParticipant({ id: "c", stage: { position: 3 } }),
       makeParticipant({ id: "d", stage: { position: 4 } }),
+      makeParticipant({ id: "zero", stage: { position: 0 } }),
       makeParticipant({ id: "none", stage: {} }),
     ]
     const result = topParticipantsInClass(participants, 3)
