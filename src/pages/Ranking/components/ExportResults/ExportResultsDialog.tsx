@@ -5,8 +5,7 @@ import { useNotifyError } from "../../../../infrastructure/notifications/useNoti
 import { useGetListStageClasses } from "../../../../infrastructure/repositories/stage-classes/stage-classes.ts"
 import ConfirmDialog from "../ConfirmDialog/ConfirmDialog.tsx"
 import Spinner from "../Spinner/Spinner.tsx"
-import SpinnerRing from "../SpinnerRing.tsx"
-import ProgressBar from "../ProgressBar.tsx"
+import ComputeProgress from "../ComputeProgress.tsx"
 import NumberField from "../form/NumberField.tsx"
 import SelectField from "../form/SelectField.tsx"
 import TextField from "../form/TextField.tsx"
@@ -14,6 +13,7 @@ import ClassMultiSelect from "../form/ClassMultiSelect.tsx"
 import { collectTopRunners } from "./shared/collectTopRunners.ts"
 import { downloadRankingPdf } from "./shared/downloadRankingPdf.ts"
 import { DEFAULT_PDF_TEMPLATE, findPdfTemplate, PDF_TEMPLATES } from "./shared/templates/index.ts"
+import { Progress } from "../../shared/progress.ts"
 
 interface ExportResultsDialogProps {
   open: boolean
@@ -41,7 +41,7 @@ export default function ExportResultsDialog({
   const [topCount, setTopCount] = useState<number | null>(DEFAULT_TOP_COUNT)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [downloading, setDownloading] = useState(false)
-  const [progress, setProgress] = useState<{ completed: number; total: number } | null>(null)
+  const [progress, setProgress] = useState<Progress | null>(null)
 
   const options = (classesQuery.data?.data ?? []).map((entity) => ({
     id: entity.id,
@@ -103,15 +103,7 @@ export default function ExportResultsDialog({
       {classesQuery.isLoading ? (
         <Spinner label={t("common:loading")} />
       ) : downloading ? (
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <SpinnerRing className="h-4 w-4 border-2 border-primary" />
-            <span className="text-sm text-neutral-600">
-              {progress ? `${progress.completed} / ${progress.total}` : t("common:loading")}
-            </span>
-          </div>
-          {progress && <ProgressBar value={progress.completed} max={progress.total} />}
-        </div>
+        <ComputeProgress progress={progress} />
       ) : (
         <div className="flex flex-col gap-4">
           <SelectField
