@@ -6,24 +6,18 @@ import DropdownMenu, {
 import SettingsIcon from "../../../../pages/RankingList/components/icons/SettingsIcon.tsx"
 import { formatStageOrderTitle } from "./shared/formatStageOrderTitle.ts"
 import { formatStartDateTime } from "./shared/formatStartDateTime.ts"
+import {
+  isSourceStageAction,
+  STAGE_ORDER_ACTIONS,
+  StageOrderAction,
+} from "./shared/stageOrderActions.ts"
 
 interface StageOrderListItemProps {
   stageOrder: StageOrderManagement
-  onEdit: (stageOrder: StageOrderManagement) => void
-  onManageOrganizers: (stageOrder: StageOrderManagement) => void
-  onProcessResults: (stageOrder: StageOrderManagement) => void
-  onExport: (stageOrder: StageOrderManagement) => void
-  onStats: (stageOrder: StageOrderManagement) => void
+  onAction: (action: StageOrderAction, stageOrder: StageOrderManagement) => void
 }
 
-export default function StageOrderListItem({
-  stageOrder,
-  onEdit,
-  onManageOrganizers,
-  onProcessResults,
-  onExport,
-  onStats,
-}: StageOrderListItemProps) {
+export default function StageOrderListItem({ stageOrder, onAction }: StageOrderListItemProps) {
   const { t, i18n } = useTranslationRanking()
 
   const hasSourceStage = Boolean(stageOrder.original_event_id && stageOrder.original_stage_id)
@@ -36,35 +30,15 @@ export default function StageOrderListItem({
     "StageOrders.isOfficial",
   )}: ${officialLabel}`
 
-  const menuItems: DropdownMenuItem[] = [
-    {
-      label: t("common:edit"),
-      onSelect: () => onEdit(stageOrder),
-    },
-    {
-      label: t("StageOrders.manageOrganizers"),
-      onSelect: () => onManageOrganizers(stageOrder),
-    },
-    {
-      label: t("StageOrders.processResults"),
-      onSelect: () => onProcessResults(stageOrder),
-      disabled: !hasSourceStage,
-    },
-    {
-      label: t("StageOrders.export"),
-      onSelect: () => onExport(stageOrder),
-      disabled: !hasSourceStage,
-    },
-    {
-      label: t("StageOrders.stats"),
-      onSelect: () => onStats(stageOrder),
-      disabled: !hasSourceStage,
-    },
-  ]
+  const menuItems: DropdownMenuItem[] = STAGE_ORDER_ACTIONS.map(({ key, labelKey }) => ({
+    label: t(labelKey),
+    onSelect: () => onAction(key, stageOrder),
+    disabled: isSourceStageAction(key) && !hasSourceStage,
+  }))
 
   return (
     <li
-      onClick={() => onManageOrganizers(stageOrder)}
+      onClick={() => onAction("organizers", stageOrder)}
       className="rk-stage-order-list-item flex cursor-pointer items-center justify-between rounded-xl bg-white px-4 py-3 shadow-sm transition-colors hover:bg-neutral-50"
     >
       <div>

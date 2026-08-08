@@ -9,12 +9,15 @@ import {
   useGetListStageOrders,
 } from "../../../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
 import { StageOrderManagement } from "../../../../../../domain/types/v1api"
-import ExportResultsDialog from "../../../../components/ExportResults/ExportResultsDialog.tsx"
 import StageOrderFormDialog from "./StageOrderFormDialog.tsx"
 import StageOrderList from "./StageOrderList.tsx"
-import ProcessResultsDialog from "./ProcessResultsDialog.tsx"
-import StatsDialog from "./StageStats/StatsDialog.tsx"
+import SourceStageActionDialog from "./SourceStageActionDialog.tsx"
 import { StageOrderDialogMode } from "./shared/stageOrderForm.ts"
+import {
+  isSourceStageAction,
+  SourceStageAction,
+  StageOrderAction,
+} from "./shared/stageOrderActions.ts"
 
 interface StageOrdersCardProps {
   eventId: string
@@ -26,21 +29,31 @@ interface DialogState {
   stageOrder?: StageOrderManagement
 }
 
+interface SourceStageActionTarget {
+  action: SourceStageAction
+  stageOrder: StageOrderManagement
+}
+
 export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardProps) {
   const { t } = useTranslationRanking()
   const navigate = useNavigate()
   const { rankingId } = useParams()
   const queryClient = useQueryClient()
   const [dialog, setDialog] = useState<DialogState | null>(null)
-  const [processStageOrder, setProcessStageOrder] = useState<StageOrderManagement | null>(null)
-  const [exportStageOrder, setExportStageOrder] = useState<StageOrderManagement | null>(null)
-  const [statsStageOrder, setStatsStageOrder] = useState<StageOrderManagement | null>(null)
+  const [actionTarget, setActionTarget] = useState<SourceStageActionTarget | null>(null)
   const { data, isLoading, isError } = useGetListStageOrders(eventId, stageId)
 
   const stageOrders = data?.data ?? []
 
-  const manageOrganizers = (stageOrder: StageOrderManagement) =>
-    void navigate(rankingOrganizersPath(rankingId ?? "", eventId, stageId, stageOrder.id))
+  const handleAction = (action: StageOrderAction, stageOrder: StageOrderManagement) => {
+    if (action === "edit") {
+      setDialog({ mode: "edit", stageOrder })
+    } else if (action === "organizers") {
+      void navigate(rankingOrganizersPath(rankingId ?? "", eventId, stageId, stageOrder.id))
+    } else if (isSourceStageAction(action)) {
+      setActionTarget({ action, stageOrder })
+    }
+  }
 
   const closeDialog = () => setDialog(null)
   const handleSaved = () => {
@@ -58,11 +71,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
         isLoading={isLoading}
         isError={isError}
         stageOrders={stageOrders}
-        onEdit={(stageOrder) => setDialog({ mode: "edit", stageOrder })}
-        onManageOrganizers={manageOrganizers}
-        onProcessResults={setProcessStageOrder}
-        onExport={setExportStageOrder}
-        onStats={setStatsStageOrder}
+        onAction={handleAction}
       />
       {dialog && (
         <StageOrderFormDialog
@@ -76,29 +85,13 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
           onSaved={handleSaved}
         />
       )}
-      {processStageOrder && (
-        <ProcessResultsDialog
-          open
+      {actionTarget && (
+        <SourceStageActionDialog
+          action={actionTarget.action}
           rankingId={rankingId ?? ""}
-          eventId={processStageOrder.original_event_id}
-          stageId={processStageOrder.original_stage_id}
-          onClose={() => setProcessStageOrder(null)}
-        />
-      )}
-      {exportStageOrder && (
-        <ExportResultsDialog
-          open
-          eventId={exportStageOrder.original_event_id}
-          stageId={exportStageOrder.original_stage_id}
-          onClose={() => setExportStageOrder(null)}
-        />
-      )}
-      {statsStageOrder && (
-        <StatsDialog
-          open
-          eventId={statsStageOrder.original_event_id}
-          stageId={statsStageOrder.original_stage_id}
-          onClose={() => setStatsStageOrder(null)}
+          eventId={actionTarget.stageOrder.original_event_id}
+          stageId={actionTarget.stageOrder.original_stage_id}
+          onClose={() => setActionTarget(null)}
         />
       )}
     </div>
