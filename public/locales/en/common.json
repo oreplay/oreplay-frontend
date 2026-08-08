@@ -1,8 +1,11 @@
 {
   "addNew": "Add new",
+  "clearAll": "Clear all",
   "clearSearch": "Clear search",
   "close": "Close",
   "confirm": "Confirm",
+  "copied": "Copied to clipboard",
+  "copy": "Copy",
   "delete": "Delete",
   "deleteConfirm": "Are you sure you want to proceed?",
   "duplicate": "Duplicate",
@@ -20,6 +23,7 @@
   "ok": "OK",
   "save": "Save",
   "search": "Search",
+  "selectAll": "Select all",
   "timeFilter": {
     "Anytime": "Anytime",
     "CustomRange": "Custom range",

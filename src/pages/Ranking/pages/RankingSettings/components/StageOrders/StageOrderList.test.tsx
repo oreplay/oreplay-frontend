@@ -25,6 +25,7 @@ describe("StageOrderList", () => {
         onManageOrganizers={vi.fn()}
         onProcessResults={vi.fn()}
         onExport={vi.fn()}
+        onStats={vi.fn()}
       />,
     )
     expect(screen.getAllByRole("listitem")).toHaveLength(2)
@@ -41,6 +42,7 @@ describe("StageOrderList", () => {
         onManageOrganizers={vi.fn()}
         onProcessResults={vi.fn()}
         onExport={vi.fn()}
+        onStats={vi.fn()}
       />,
     )
     expect(screen.queryByRole("listitem")).not.toBeInTheDocument()
@@ -57,6 +59,7 @@ describe("StageOrderList", () => {
         onManageOrganizers={onManageOrganizers}
         onProcessResults={vi.fn()}
         onExport={vi.fn()}
+        onStats={vi.fn()}
       />,
     )
     screen.getByRole("listitem").click()

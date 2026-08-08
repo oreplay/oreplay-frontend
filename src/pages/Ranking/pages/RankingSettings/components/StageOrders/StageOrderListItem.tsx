@@ -13,6 +13,7 @@ interface StageOrderListItemProps {
   onManageOrganizers: (stageOrder: StageOrderManagement) => void
   onProcessResults: (stageOrder: StageOrderManagement) => void
   onExport: (stageOrder: StageOrderManagement) => void
+  onStats: (stageOrder: StageOrderManagement) => void
 }
 
 export default function StageOrderListItem({
@@ -21,6 +22,7 @@ export default function StageOrderListItem({
   onManageOrganizers,
   onProcessResults,
   onExport,
+  onStats,
 }: StageOrderListItemProps) {
   const { t, i18n } = useTranslationRanking()
 
@@ -51,6 +53,11 @@ export default function StageOrderListItem({
     {
       label: t("StageOrders.export"),
       onSelect: () => onExport(stageOrder),
+      disabled: !hasSourceStage,
+    },
+    {
+      label: t("StageOrders.stats"),
+      onSelect: () => onStats(stageOrder),
       disabled: !hasSourceStage,
     },
   ]

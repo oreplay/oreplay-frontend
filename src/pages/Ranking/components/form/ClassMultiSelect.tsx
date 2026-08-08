@@ -1,5 +1,5 @@
-import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
-import CheckboxField from "../../form/CheckboxField.tsx"
+import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
+import CheckboxField from "./CheckboxField.tsx"
 
 export interface ClassOption {
   id: string
@@ -31,10 +31,10 @@ export default function ClassMultiSelect({
         <span className="text-sm font-medium text-neutral-700">{label}</span>
         <div className="flex gap-3 text-sm">
           <button type="button" onClick={onSelectAll} className="text-primary hover:underline">
-            {t("ExportResults.selectAll")}
+            {t("common:selectAll")}
           </button>
           <button type="button" onClick={onClearAll} className="text-primary hover:underline">
-            {t("ExportResults.clearAll")}
+            {t("common:clearAll")}
           </button>
         </div>
       </div>
