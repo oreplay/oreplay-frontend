@@ -10,7 +10,7 @@ import { ROUND_PRECISION_OPTIONS } from "../shared/roundPrecision.ts"
 import { SCORING_ALGORITHM_OPTIONS } from "../shared/scoringAlgorithm.ts"
 import { STATUS_SCORE_FIELDS } from "../shared/statusScores.ts"
 import { NC_SCORE_VALUES, STATUS_SCORE_VALUES } from "../shared/scoreOptions.ts"
-import { competitionResultsPath } from "../shared/competitionLink.ts"
+import CompetitionResultsLink from "./CompetitionResultsLink/CompetitionResultsLink.tsx"
 import FormSection from "./form/FormSection.tsx"
 import PrimaryButton from "./PrimaryButton.tsx"
 import NumberField from "./form/NumberField.tsx"
@@ -78,16 +78,7 @@ export default function RankingSettingsForm({
             />
           )}
         </form.Field>
-        {eventId && (
-          <a
-            href={competitionResultsPath(eventId, stageId)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="self-start text-sm text-primary hover:underline"
-          >
-            {t("Settings.competitionLink")}
-          </a>
-        )}
+        {eventId && <CompetitionResultsLink eventId={eventId} stageId={stageId} />}
       </div>
 
       <FormSection title={t("Settings.generalSettings")}>
