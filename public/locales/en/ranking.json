@@ -10,9 +10,7 @@
     "backgroundPdf": "Background PDF URL",
     "backgroundPdfHint": "Optional. Overrides the template background.",
     "classes": "Categories",
-    "clearAll": "Clear all",
     "download": "Download",
-    "selectAll": "Select all",
     "success": "Export ready.",
     "template": "Template",
     "templates": {
@@ -22,6 +20,32 @@
     },
     "title": "Export results",
     "topCount": "Top runners per class"
+  },
+  "FedoStats": {
+    "buckets": {
+      "excluded": "Excluded",
+      "others": "Others",
+      "seniorF": "Senior F",
+      "seniorM": "Senior M",
+      "sub20F": "Sub-20 F",
+      "sub20M": "Sub-20 M"
+    },
+    "compute": "Compute",
+    "dnf": "Retired",
+    "dns": "Did not start",
+    "dqf": "Disqualified",
+    "female": "F",
+    "loadError": "We couldn't load the stats.",
+    "male": "M",
+    "mp": "Card error",
+    "officialTitle": "Official (FEDO)",
+    "ot": "Over time",
+    "othersTitle": "Others",
+    "title": "Stage stats",
+    "total": "Total",
+    "totalRegistered": "Total registered",
+    "totalSenior": "Total ≥ Sub-20",
+    "totalSub20": "Total < Sub-20"
   },
   "List": {
     "description": "Manage your ranking lists and edit the settings of each one.",
@@ -107,6 +131,7 @@
     "processResultsSuccess": "Results processed.",
     "stageOrder": "Stage order",
     "start": "Start",
+    "stats": "Stats",
     "title": "Stage orders"
   }
 }
