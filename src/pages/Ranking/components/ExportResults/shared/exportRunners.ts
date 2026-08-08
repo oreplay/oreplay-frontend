@@ -32,7 +32,7 @@ export function topParticipantsInClass(
     .map((participant) => ({ participant, position: participantPosition(participant) }))
     .filter(
       (ranked): ranked is RankedParticipant =>
-        ranked.position !== null && ranked.position <= topCount,
+        ranked.position !== null && ranked.position >= 1 && ranked.position <= topCount,
     )
     .sort((a, b) => a.position - b.position)
 }
