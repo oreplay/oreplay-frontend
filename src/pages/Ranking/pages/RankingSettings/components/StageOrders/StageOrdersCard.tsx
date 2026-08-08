@@ -9,6 +9,7 @@ import {
   useGetListStageOrders,
 } from "../../../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
 import { StageOrderManagement } from "../../../../../../domain/types/v1api"
+import ExportResultsDialog from "../../../../components/ExportResults/ExportResultsDialog.tsx"
 import StageOrderFormDialog from "./StageOrderFormDialog.tsx"
 import StageOrderList from "./StageOrderList.tsx"
 import ProcessResultsDialog from "./ProcessResultsDialog.tsx"
@@ -31,6 +32,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
   const queryClient = useQueryClient()
   const [dialog, setDialog] = useState<DialogState | null>(null)
   const [processStageOrder, setProcessStageOrder] = useState<StageOrderManagement | null>(null)
+  const [exportStageOrder, setExportStageOrder] = useState<StageOrderManagement | null>(null)
   const { data, isLoading, isError } = useGetListStageOrders(eventId, stageId)
 
   const stageOrders = data?.data ?? []
@@ -57,6 +59,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
         onEdit={(stageOrder) => setDialog({ mode: "edit", stageOrder })}
         onManageOrganizers={manageOrganizers}
         onProcessResults={setProcessStageOrder}
+        onExport={setExportStageOrder}
       />
       {dialog && (
         <StageOrderFormDialog
@@ -77,6 +80,14 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
           eventId={processStageOrder.original_event_id}
           stageId={processStageOrder.original_stage_id}
           onClose={() => setProcessStageOrder(null)}
+        />
+      )}
+      {exportStageOrder && (
+        <ExportResultsDialog
+          open
+          eventId={exportStageOrder.original_event_id}
+          stageId={exportStageOrder.original_stage_id}
+          onClose={() => setExportStageOrder(null)}
         />
       )}
     </div>

@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
-import { competitionResultsPath } from "../../shared/competitionLink.ts"
-import SettingsIcon from "../../pages/RankingList/components/icons/SettingsIcon.tsx"
-import ExportResultsDialog from "./components/ExportResultsDialog.tsx"
+import { useTranslationRanking } from "../shared/useTranslationRanking.ts"
+import { competitionResultsPath } from "../shared/competitionLink.ts"
+import SettingsIcon from "../pages/RankingList/components/icons/SettingsIcon.tsx"
+import ExportResultsDialog from "./ExportResults/ExportResultsDialog.tsx"
 
 interface CompetitionResultsLinkProps {
   eventId: string
