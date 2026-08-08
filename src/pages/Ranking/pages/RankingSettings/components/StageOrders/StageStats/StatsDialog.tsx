@@ -19,7 +19,7 @@ import {
   toFedoStatsParams,
 } from "./shared/categorySelection.ts"
 import { buildFedoStatsTables } from "./shared/fedoStatsTables.ts"
-import { tablesToHtml, tablesToText, writeToClipboard } from "./shared/fedoStatsClipboard.ts"
+import { tablesToHtml, tablesToText, writeToClipboard } from "./shared/statsClipboard.ts"
 
 interface StatsDialogProps {
   open: boolean
