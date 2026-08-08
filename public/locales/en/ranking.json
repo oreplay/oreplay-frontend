@@ -6,6 +6,20 @@
   "Create": {
     "title": "New ranking"
   },
+  "ExportResults": {
+    "classes": "Categories",
+    "clearAll": "Clear all",
+    "download": "Download",
+    "selectAll": "Select all",
+    "success": "Export ready.",
+    "template": "Template",
+    "templates": {
+      "diplomaA": "Diploma A",
+      "podiumA": "Podium A"
+    },
+    "title": "Export results",
+    "topCount": "Top runners per class"
+  },
   "List": {
     "description": "Manage your ranking lists and edit the settings of each one.",
     "loadError": "We couldn't load the rankings.",
