@@ -17,14 +17,21 @@ describe("diplomaA", () => {
     const withClub = diplomaA.buildSections([runner({})])
     expect(withClub[0].elements.map((element) => element.content)).toEqual([
       "Ada Lovelace",
-      "W21 · 1",
+      "W21",
+      "1",
       "OK Club",
     ])
 
     const withoutClub = diplomaA.buildSections([runner({ club: null })])
     expect(withoutClub[0].elements.map((element) => element.content)).toEqual([
       "Ada Lovelace",
-      "W21 · 1",
+      "W21",
+      "1",
     ])
+  })
+
+  it("colors the runner name", () => {
+    const [name] = diplomaA.buildSections([runner({})])[0].elements
+    expect(name.color).toBe("#1e3c80")
   })
 })

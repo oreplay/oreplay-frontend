@@ -46,4 +46,12 @@ describe("buildPdfBook", () => {
   it("includes the filename only when provided", () => {
     expect(buildPdfBook(fakeTemplate, [runner({})], "diplomas").filename).toBe("diplomas")
   })
+
+  it("includes the template's backgroundPdf only when set", () => {
+    expect(buildPdfBook(fakeTemplate, [runner({})]).backgroundPdf).toBeUndefined()
+    const withBackground = { ...fakeTemplate, backgroundPdf: "http://example.test/bg.pdf" }
+    expect(buildPdfBook(withBackground, [runner({})]).backgroundPdf).toBe(
+      "http://example.test/bg.pdf",
+    )
+  })
 })
