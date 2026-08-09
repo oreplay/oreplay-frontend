@@ -5,6 +5,7 @@ export interface PdfTemplate {
   id: string
   layout: string
   labelKey: string
+  backgroundPdf?: string
   buildSections: (runners: ExportRunner[]) => PdfSection[]
 }
 
@@ -27,6 +28,7 @@ export function buildPdfBook(
   return {
     layout: template.layout,
     sections: template.buildSections(runners),
+    ...(template.backgroundPdf ? { backgroundPdf: template.backgroundPdf } : {}),
     ...(filename ? { filename } : {}),
   }
 }
