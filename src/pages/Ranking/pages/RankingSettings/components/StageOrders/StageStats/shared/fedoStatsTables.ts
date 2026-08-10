@@ -67,6 +67,6 @@ export function buildFedoStatsTables(stats: FedoStats): { official: StatTable; o
 
   return {
     official: { titleKey: "FedoStats.officialTitle", rows: officialRows },
-    others: { titleKey: "FedoStats.othersTitle", rows: othersRows },
+    others: { titleKey: "FedoStats.buckets.others", rows: othersRows },
   }
 }

@@ -3,7 +3,7 @@ import { GetListFedoStatsParams } from "../../../../../../../../domain/types/v1a
 export const OFFICIAL_BUCKETS = ["sub20M", "sub20F", "seniorM", "seniorF"] as const
 export type OfficialBucket = (typeof OFFICIAL_BUCKETS)[number]
 
-export const CATEGORY_BUCKETS = ["sub20M", "sub20F", "seniorM", "seniorF", "excluded"] as const
+export const CATEGORY_BUCKETS = ["sub20M", "sub20F", "seniorM", "seniorF", "others"] as const
 export type CategoryBucket = (typeof CATEGORY_BUCKETS)[number]
 
 export type CategorySelection = Record<CategoryBucket, string[]>
@@ -13,7 +13,7 @@ export const EMPTY_SELECTION: CategorySelection = {
   sub20F: [],
   seniorM: [],
   seniorF: [],
-  excluded: [],
+  others: [],
 }
 
 const DEFAULTS: Record<OfficialBucket, string[]> = {
@@ -21,6 +21,9 @@ const DEFAULTS: Record<OfficialBucket, string[]> = {
   sub20F: ["U-10", "F-12", "F-14", "F-16", "F-16/18", "F-18E", "F-18", "F-20E", "F-20"],
   seniorM: [
     "M-E",
+    "M-S",
+    "S",
+    "M-21",
     "M-21A",
     "M-21B",
     "M-35",
@@ -41,6 +44,8 @@ const DEFAULTS: Record<OfficialBucket, string[]> = {
   ],
   seniorF: [
     "F-E",
+    "F-S",
+    "F-21",
     "F-21A",
     "F-21B",
     "F-35",
@@ -67,11 +72,11 @@ export function initialSelection(classNames: string[]): CategorySelection {
     sub20F: [],
     seniorM: [],
     seniorF: [],
-    excluded: [],
+    others: [],
   }
   classNames.forEach((name) => {
     const bucket = OFFICIAL_BUCKETS.find((candidate) => DEFAULTS[candidate].includes(name))
-    selection[bucket ?? "excluded"].push(name)
+    selection[bucket ?? "others"].push(name)
   })
   return selection
 }
@@ -82,7 +87,7 @@ export function moveClass(
   className: string,
   toBucket: CategoryBucket,
 ): CategorySelection {
-  const next: CategorySelection = { sub20M: [], sub20F: [], seniorM: [], seniorF: [], excluded: [] }
+  const next: CategorySelection = { sub20M: [], sub20F: [], seniorM: [], seniorF: [], others: [] }
   CATEGORY_BUCKETS.forEach((bucket) => {
     const without = selection[bucket].filter((name) => name !== className)
     next[bucket] = bucket === toBucket ? [...without, className] : without
