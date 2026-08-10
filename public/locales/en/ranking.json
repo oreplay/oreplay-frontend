@@ -23,7 +23,7 @@
   },
   "FedoStats": {
     "buckets": {
-      "excluded": "Excluded",
+      "others": "Others",
       "seniorF": "Senior F",
       "seniorM": "Senior M",
       "sub20F": "Sub-20 F",
@@ -38,9 +38,8 @@
     "male": "M",
     "moveTo": "Move {{name}} to a category",
     "mp": "Card error",
-    "officialTitle": "Official (FEDO)",
+    "officialTitle": "Official",
     "ot": "Over time",
-    "othersTitle": "Others",
     "title": "Stage stats",
     "total": "Total",
     "totalRegistered": "Total registered",
