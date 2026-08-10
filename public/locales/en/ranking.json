@@ -7,6 +7,8 @@
     "title": "New ranking"
   },
   "ExportResults": {
+    "backgroundPdf": "Background PDF URL",
+    "backgroundPdfHint": "Optional. Overrides the template background.",
     "classes": "Categories",
     "clearAll": "Clear all",
     "download": "Download",
@@ -15,6 +17,7 @@
     "template": "Template",
     "templates": {
       "diplomaA": "Diploma A",
+      "diplomaB": "Diploma B",
       "podiumA": "Podium A"
     },
     "title": "Export results",
