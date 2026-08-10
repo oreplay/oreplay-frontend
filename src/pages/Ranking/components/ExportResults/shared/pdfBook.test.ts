@@ -54,4 +54,15 @@ describe("buildPdfBook", () => {
       "http://example.test/bg.pdf",
     )
   })
+
+  it("lets the backgroundPdf argument override the template's", () => {
+    const withBackground = { ...fakeTemplate, backgroundPdf: "http://example.test/template.pdf" }
+    expect(
+      buildPdfBook(withBackground, [runner({})], undefined, "http://example.test/custom.pdf")
+        .backgroundPdf,
+    ).toBe("http://example.test/custom.pdf")
+    expect(
+      buildPdfBook(withBackground, [runner({})], undefined, null).backgroundPdf,
+    ).toBeUndefined()
+  })
 })

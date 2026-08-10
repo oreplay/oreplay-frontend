@@ -9,6 +9,7 @@ import SpinnerRing from "../SpinnerRing.tsx"
 import ProgressBar from "../ProgressBar.tsx"
 import NumberField from "../form/NumberField.tsx"
 import SelectField from "../form/SelectField.tsx"
+import TextField from "../form/TextField.tsx"
 import ClassMultiSelect from "./components/ClassMultiSelect.tsx"
 import { collectTopRunners } from "./shared/collectTopRunners.ts"
 import { downloadRankingPdf } from "./shared/downloadRankingPdf.ts"
@@ -36,6 +37,7 @@ export default function ExportResultsDialog({
   const notifyError = useNotifyError()
   const classesQuery = useGetListStageClasses(eventId, stageId)
   const [templateId, setTemplateId] = useState(DEFAULT_PDF_TEMPLATE.id)
+  const [backgroundPdf, setBackgroundPdf] = useState(DEFAULT_PDF_TEMPLATE.backgroundPdf ?? "")
   const [topCount, setTopCount] = useState<number | null>(DEFAULT_TOP_COUNT)
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [downloading, setDownloading] = useState(false)
@@ -49,6 +51,11 @@ export default function ExportResultsDialog({
   useEffect(() => {
     setSelectedIds((classesQuery.data?.data ?? []).map((entity) => entity.id))
   }, [classesQuery.data])
+
+  const selectTemplate = (id: string) => {
+    setTemplateId(id)
+    setBackgroundPdf(findPdfTemplate(id).backgroundPdf ?? "")
+  }
 
   const toggle = (id: string) =>
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
@@ -69,7 +76,8 @@ export default function ExportResultsDialog({
         topCount,
         (completed, total) => setProgress({ completed, total }),
       )
-      await downloadRankingPdf(findPdfTemplate(templateId), runners, PDF_FILENAME)
+      const background = backgroundPdf.trim() === "" ? null : backgroundPdf.trim()
+      await downloadRankingPdf(findPdfTemplate(templateId), runners, PDF_FILENAME, background)
       notifications.show(t("ExportResults.success"), {
         severity: "success",
         autoHideDuration: SUCCESS_NOTIFICATION_MS,
@@ -109,11 +117,17 @@ export default function ExportResultsDialog({
           <SelectField
             label={t("ExportResults.template")}
             value={templateId}
-            onChange={setTemplateId}
+            onChange={selectTemplate}
             options={PDF_TEMPLATES.map((template) => ({
               value: template.id,
               label: t(template.labelKey),
             }))}
+          />
+          <TextField
+            label={t("ExportResults.backgroundPdf")}
+            description={t("ExportResults.backgroundPdfHint")}
+            value={backgroundPdf}
+            onChange={setBackgroundPdf}
           />
           <NumberField
             label={t("ExportResults.topCount")}

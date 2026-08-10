@@ -23,7 +23,8 @@ export async function downloadRankingPdf(
   template: PdfTemplate,
   runners: ExportRunner[],
   filename: string,
+  backgroundPdf?: string | null,
 ): Promise<void> {
-  const blob = await requestPdf(buildPdfBook(template, runners, filename))
+  const blob = await requestPdf(buildPdfBook(template, runners, filename, backgroundPdf))
   saveBlob(blob, `${filename}.pdf`)
 }
