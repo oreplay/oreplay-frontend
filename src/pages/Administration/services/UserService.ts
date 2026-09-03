@@ -4,3 +4,7 @@ import { post } from "../../../services/ApiConfig.ts"
 export function signUp(user: SignUpUser) {
   return post<SignUpApiResponse>("users", user)
 }
+
+export function requestPasswordReset(email: string) {
+  return post("resetPassword", {email: email})
+}
