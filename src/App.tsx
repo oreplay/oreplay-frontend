@@ -50,6 +50,10 @@ const MyAccount = lazyWithRetry(
   () => import("./pages/Administration/pages/MyAccount/MyAccount.tsx"),
 )
 const Ranking = lazyWithRetry(() => import("./pages/Ranking/Ranking.tsx"))
+const ForgotPassword = lazyWithRetry(
+  () =>
+    import("./pages/Administration/pages/Authentication/pages/ForgotPassword/ForgotPassword.tsx"),
+)
 
 // Customize style of app
 const theme = createTheme({
@@ -126,6 +130,7 @@ export default function App() {
                     <Route path={"form"} element={<SignIn />} />
                     <Route path={"auth"} element={<Authentication />} />
                   </Route>
+                  <Route path={"/forgot-password"} element={<ForgotPassword />} />
                   <Route path={"/sign-up"} element={<SignUp />} />
                 </Routes>
               </BrowserRouter>

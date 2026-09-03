@@ -123,8 +123,8 @@ export default function SignIn() {
               {t("Sign in.Sign in")}
             </Button>
             <Grid container sx={{ width: "100%" }}>
-              <Grid size={6} sx={{ display: "none" }}>
-                <Link href="#" variant="body2">
+              <Grid size={6}>
+                <Link href="/forgot-password" variant="body2">
                   {t("Sign in.ForgotPassword")}
                 </Link>
               </Grid>

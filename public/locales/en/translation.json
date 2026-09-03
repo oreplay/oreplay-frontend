@@ -144,6 +144,15 @@
     "title": "Page loading failed"
   },
   "ForbiddenAccess": "Forbidden access",
+  "ForgotPassword": {
+    "EmailSent": {
+      "title": "Check your inbox",
+      "msg": "If an account exists for {{email}}, we've sent instructions to reset your password. Be sure to check your spam folder if it doesn't arrive within a few minutes. You can safely close this window."
+    },
+    "Instructions": "Enter the email address associated with your account, and we'll send you a link to reset your password.",
+    "Submit": "Send reset link",
+    "Title": "Forgot your password?"
+  },
   "GeneralErrorFallback": {
     "msg": "Try refreshing the page. If the error persist, please try again later.",
     "title": "An unexpected error happened"
