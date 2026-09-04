@@ -89,9 +89,15 @@ export default function ForgotPasswordResetForm({
           validators={{
             onChange: ({ value }) =>
               maxLengthValidator(value, MAX_LENGTH.code, t) ||
-              (value && !CODE_PATTERN.test(value)
-                ? t("ForgotPassword.Reset.InvalidCode")
-                : undefined),
+              (!value
+                ? t("ForgotPassword.Reset.CodeRequired")
+                : !CODE_PATTERN.test(value)
+                  ? t("ForgotPassword.Reset.InvalidCode")
+                  : undefined),
+            onSubmit: ({ value }) =>
+              !value || !CODE_PATTERN.test(value)
+                ? t("ForgotPassword.Reset.CodeRequired")
+                : undefined,
           }}
         >
           {(field) => (
@@ -117,6 +123,7 @@ export default function ForgotPasswordResetForm({
           validators={{
             onChange: ({ value }) => maxLengthValidator(value, MAX_LENGTH.password, t),
             onBlur: ({ value }) => validatePassword(value, undefined, t),
+            onSubmit: ({ value }) => validatePassword(value, undefined, t),
           }}
         >
           {(field) => <PasswordField field={field} />}

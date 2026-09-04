@@ -159,6 +159,7 @@ export default function SignUpForm({ onSubmit, isSubmitting }: SignUpFormProps) 
           validators={{
             onChange: ({ value }) => maxLengthValidator(value, MAX_LENGTH.password, t),
             onBlur: ({ value }) => validatePassword(value, undefined, t),
+            onSubmit: ({ value }) => validatePassword(value, undefined, t),
           }}
         >
           {(field) => <PasswordField field={field} />}
