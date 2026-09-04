@@ -10,6 +10,7 @@
 export type PostListRankingSettingsBody = {
   event_id?: string
   excluded_class_names?: string
+  included_class_names?: string
   max_points?: number
   nc_false?: number
   nc_true?: number
