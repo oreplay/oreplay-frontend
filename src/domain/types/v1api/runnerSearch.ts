@@ -5,14 +5,10 @@
  */
 
 /**
- * Entity User
+ * Entity RunnerSearch
  */
-export interface User {
-  created?: string
-  email: string
+export interface RunnerSearch {
   first_name: string
   id: string
   last_name: string
-  modified?: string
-  scope: string
 }

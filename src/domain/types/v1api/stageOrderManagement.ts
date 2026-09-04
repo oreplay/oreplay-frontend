@@ -11,5 +11,9 @@ export interface StageOrderManagement {
   created: string
   description: string
   id: string
+  is_official: boolean
+  original_event_id: string
+  original_stage_id: string
   stage_order: number
+  start: string
 }

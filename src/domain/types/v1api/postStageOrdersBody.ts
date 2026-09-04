@@ -5,12 +5,13 @@
  */
 
 /**
- * Entity PatchStageOrdersBody
+ * Entity PostStageOrdersBody
  */
-export interface PatchStageOrdersBody {
+export interface PostStageOrdersBody {
   description?: string
   is_official?: number
   original_event_id?: string
   original_stage_id?: string
+  stage_order?: number
   start?: string
 }
