@@ -147,7 +147,12 @@
   "ForgotPassword": {
     "EmailSent": {
       "title": "Check your inbox",
-      "msg": "If an account exists for {{email}}, we've sent instructions to reset your password. Be sure to check your spam folder if it doesn't arrive within a few minutes. You can safely close this window."
+      "msg": "If an account exists for {{email}}, we've sent you a code to reset your password. Be sure to check your spam folder if it doesn't arrive within a few minutes. Enter the code and the new password."
+    },
+    "Reset": {
+      "Code": "6-digit code",
+      "InvalidCode": "The code must be 6 digits.",
+      "Submit": "Reset password"
     },
     "Instructions": "Enter the email address associated with your account, and we'll send you a link to reset your password.",
     "Submit": "Send reset link",
