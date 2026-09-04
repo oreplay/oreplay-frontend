@@ -27,15 +27,15 @@ export default function ForgotPassword() {
           severity: "error",
         })
       },
+      onSuccess: (_data, variables) => setSubmittedEmail(variables.data.email ?? null),
     },
   })
 
   const handleRequestSubmit = useCallback(
     (email: string) => {
       requestResetMutation.mutate({ data: { email } })
-      setSubmittedEmail(email)
     },
-    [requestResetMutation, setSubmittedEmail],
+    [requestResetMutation],
   )
 
   const resetPasswordMutation = usePatchResetPassword({
