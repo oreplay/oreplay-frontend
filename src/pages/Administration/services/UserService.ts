@@ -6,5 +6,5 @@ export function signUp(user: SignUpUser) {
 }
 
 export function requestPasswordReset(email: string) {
-  return post("resetPassword", {email: email})
+  return post("resetPassword", { email: email })
 }
