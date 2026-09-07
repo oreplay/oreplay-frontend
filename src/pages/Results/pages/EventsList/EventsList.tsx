@@ -53,7 +53,7 @@ export default function EventsList() {
   // --- Today, in the user's own (client) timezone ---
   // DateTime.now() uses the browser's local zone by default, so this reflects
   // the client's "today" rather than the server's.
-  const todayISO = DateTime.fromISO("2026-09-05").toISODate() ?? undefined
+  const todayISO = DateTime.now().toISODate() ?? undefined
 
   // --- Build query params from the real GetListEventsParams shape ---
   const { after, before } = getDateBounds(timeRange)
