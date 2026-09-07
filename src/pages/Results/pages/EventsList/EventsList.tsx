@@ -1,5 +1,12 @@
 import SearchIcon from "@mui/icons-material/Search"
-import { Box, CircularProgress, InputAdornment, TextField, Typography } from "@mui/material"
+import {
+  Box,
+  CircularProgress,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
@@ -13,6 +20,8 @@ import { GetListEventsParams } from "../../../../domain/types/v1api"
 import { useGetListEvents } from "../../../../infrastructure/repositories/events/events.ts"
 import { DateTime } from "luxon"
 import TodayEvents from "./components/TodayEvents.tsx"
+import { ClearIcon } from "@mui/x-date-pickers"
+import Tooltip from "@mui/material/Tooltip"
 
 function useDebouncedValue<T>(value: T, delay = 400): T {
   const [debounced, setDebounced] = useState(value)
@@ -120,11 +129,29 @@ export default function EventsList() {
                   <SearchIcon />
                 </InputAdornment>
               ),
-              endAdornment: isSearching ? (
-                <InputAdornment position="end">
-                  <CircularProgress size={18} />
-                </InputAdornment>
-              ) : undefined,
+              endAdornment: (
+                <>
+                  {isSearching && (
+                    <InputAdornment position="end">
+                      <CircularProgress size={18} />
+                    </InputAdornment>
+                  )}
+                  {!isSearching && search && (
+                    <InputAdornment position="end">
+                      <Tooltip title={t("common:clearSearch")}>
+                        <IconButton
+                          aria-label={t("common:clearSearch")}
+                          size="small"
+                          onClick={() => setSearch("")}
+                          edge="end"
+                        >
+                          <ClearIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </InputAdornment>
+                  )}
+                </>
+              ),
             },
           }}
           sx={{
