@@ -23,6 +23,7 @@
     "Anytime": "Anytime",
     "CustomRange": "Custom range",
     "From": "From",
+    "Future": "Future",
     "InvalidRange": "End date must be on or after the start date",
     "LastMonth": "Last month",
     "LastWeek": "Last week",
