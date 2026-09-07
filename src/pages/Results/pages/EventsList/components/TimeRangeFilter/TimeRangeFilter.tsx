@@ -1,8 +1,11 @@
-import { Box, Button, FormControlLabel, Popover, Radio, RadioGroup, TextField } from "@mui/material"
+import { Box, Button, FormControlLabel, Popover, Radio, RadioGroup } from "@mui/material"
 import { DateTime } from "luxon"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { DateRangeIcon } from "@mui/x-date-pickers/icons"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
+import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon"
 
 export type TimeRangeOption = "last_week" | "last_month" | "last_year" | "anytime" | "custom"
 
@@ -83,15 +86,20 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
 
   const labelFor = (v: TimeRangeValue) => options.find((o) => o.value === v.option)?.label ?? ""
 
+  // Parse draft's ISO strings into Luxon DateTimes for the pickers
+  const fromDate = draft.from ? DateTime.fromISO(draft.from) : null
+  const toDate = draft.to ? DateTime.fromISO(draft.to) : null
+
   // Validate custom range with Luxon: `from` must not be after `to`
   const customRangeValid =
     draft.option !== "custom" ||
-    (!!draft.from && !!draft.to && DateTime.fromISO(draft.from) <= DateTime.fromISO(draft.to))
+    (!!fromDate && fromDate.isValid && !!toDate && toDate.isValid && fromDate <= toDate)
 
-  const toDateError = !!draft.from && !!draft.to && !customRangeValid
+  const toDateError =
+    !!fromDate && !!toDate && toDate.isValid && fromDate.isValid && !customRangeValid
 
   return (
-    <>
+    <LocalizationProvider dateAdapter={AdapterLuxon}>
       <Button
         variant={value.option === DEFAULT_TIME_RANGE.option ? "outlined" : "contained"}
         color={value.option === DEFAULT_TIME_RANGE.option ? "inherit" : "primary"}
@@ -103,6 +111,7 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
             color: "text.secondary",
             borderColor: "action.disabled",
           }),
+          fontSize: "small",
           flexShrink: 0,
           height: 40,
         }}
@@ -127,23 +136,41 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
 
           {draft.option === "custom" && (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
-              <TextField
-                label={t("EventList.Filter.From")}
-                type="date"
-                size="small"
-                slotProps={{ inputLabel: { shrink: true } }}
-                value={draft.from ?? ""}
-                onChange={(e) => setDraft((d) => ({ ...d, from: e.target.value }))}
+              <DatePicker
+                label={t("common:timeFilter.From")}
+                value={fromDate}
+                maxDate={toDate ?? undefined}
+                onChange={(newValue) =>
+                  setDraft((d) => ({
+                    ...d,
+                    from:
+                      newValue && newValue.isValid
+                        ? (newValue.toISODate() ?? undefined)
+                        : undefined,
+                  }))
+                }
+                slotProps={{ textField: { size: "small" } }}
               />
-              <TextField
-                label={t("EventList.Filter.To")}
-                type="date"
-                size="small"
-                slotProps={{ inputLabel: { shrink: true } }}
-                value={draft.to ?? ""}
-                onChange={(e) => setDraft((d) => ({ ...d, to: e.target.value }))}
-                error={toDateError}
-                helperText={toDateError ? t("EventList.Filter.InvalidRange") : undefined}
+              <DatePicker
+                label={t("common:timeFilter.To")}
+                value={toDate}
+                minDate={fromDate ?? undefined}
+                onChange={(newValue) =>
+                  setDraft((d) => ({
+                    ...d,
+                    to:
+                      newValue && newValue.isValid
+                        ? (newValue.toISODate() ?? undefined)
+                        : undefined,
+                  }))
+                }
+                slotProps={{
+                  textField: {
+                    size: "small",
+                    error: toDateError,
+                    helperText: toDateError ? t("common:timeFilter.InvalidRange") : undefined,
+                  },
+                }}
               />
             </Box>
           )}
@@ -156,6 +183,6 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
           </Box>
         </Box>
       </Popover>
-    </>
+    </LocalizationProvider>
   )
 }
