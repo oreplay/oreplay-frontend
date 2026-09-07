@@ -1,10 +1,10 @@
-import { EventModel } from "../../../../../shared/EntityTypes.ts"
 import { useTranslation } from "react-i18next"
 import { Box, Typography } from "@mui/material"
 import TodayEventButton from "./TodayEventButton.tsx"
+import { Event } from "../../../../../domain/types/v1api"
 
 interface TodayEventsProps {
-  eventList: EventModel[]
+  eventList: Event[]
 }
 
 export default function TodayEvents(props: TodayEventsProps) {

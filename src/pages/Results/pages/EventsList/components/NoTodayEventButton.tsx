@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material"
 import { parseDate } from "../../../../../shared/Functions.tsx"
-import { EventModel } from "../../../../../shared/EntityTypes.ts"
 import Button from "@mui/material/Button"
 import { useNavigate } from "react-router-dom"
 import CountryFlag from "../../../../../components/CountryFlag/CountryFlag.tsx"
+import { Event } from "../../../../../domain/types/v1api"
 
 interface Props {
-  event: EventModel
+  event: Event
 }
 
 export default function NoTodayEventButton(props: Props) {
