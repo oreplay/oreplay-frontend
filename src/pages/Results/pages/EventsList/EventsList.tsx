@@ -53,7 +53,7 @@ export default function EventsList() {
   // --- Today, in the user's own (client) timezone ---
   // DateTime.now() uses the browser's local zone by default, so this reflects
   // the client's "today" rather than the server's.
-  const todayISO = DateTime.now().toISODate() ?? undefined
+  const todayISO = DateTime.fromISO("2026-09-05").toISODate() ?? undefined
 
   // --- Build query params from the real GetListEventsParams shape ---
   const { after, before } = getDateBounds(timeRange)
@@ -113,7 +113,6 @@ export default function EventsList() {
           flexDirection: "row",
           gap: 2,
           alignItems: { sm: "center" },
-          marginTop: 8,
         }}
       >
         <TextField
@@ -164,7 +163,7 @@ export default function EventsList() {
       </Box>
 
       {/** Events **/}
-      <Box sx={{ marginTop: "1em" }}>
+      <Box sx={{ marginTop: "0em" }}>
         {!isLoading && eventList.length === 0 ? (
           <Box sx={{ marginTop: "32px", textAlign: "center", py: 4 }}>
             <Typography variant="body1" color="text.secondary">
@@ -172,7 +171,7 @@ export default function EventsList() {
             </Typography>
           </Box>
         ) : (
-          <Box sx={{ marginTop: "32px" }}>
+          <Box sx={{ marginTop: { xs: "0px", sm: "24px" } }}>
             <NoTodayEvents
               eventList={eventList}
               numPages={numPages}
