@@ -1,4 +1,5 @@
 {
+  "apply": "Apply",
   "clearSearch": "Clear search",
   "close": "Close",
   "confirm": "Confirm",
@@ -17,5 +18,15 @@
   "noResults": "No matches",
   "ok": "OK",
   "save": "Save",
-  "search": "Search"
+  "search": "Search",
+  "timeFilter": {
+    "Anytime": "Anytime",
+    "CustomRange": "Custom range",
+    "From": "From",
+    "InvalidRange": "End date must be on or after the start date",
+    "LastMonth": "Last month",
+    "LastWeek": "Last week",
+    "LastYear": "Last year",
+    "To": "To"
+  }
 }

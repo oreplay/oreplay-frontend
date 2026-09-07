@@ -132,10 +132,9 @@
     "WebsitePlaceholder": "https://yourclub.com/yourevent"
   },
   "EventList": {
-    "FutureEvents": "Future events",
     "LiveToday": "Live today",
     "NoLiveEventsToday": "There aren't events today",
-    "PastEvents": "Past events"
+    "NoResults": "No events match your search or filters."
   },
   "Events": "Events",
   "ExperimentalFeatureMsg": "Experimental feature",
