@@ -14,23 +14,33 @@ export default function TodayEvents(props: TodayEventsProps) {
     return (
       <>
         {/** Live today message **/}
-        <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
-          <Box sx={{ height: "16px", width: "16px", borderRadius: "50%", bgcolor: "orange" }}></Box>
-          <Box sx={{ marginLeft: "12px" }}>
-            <Typography>{t("EventList.LiveToday")}</Typography>
-          </Box>
+        <Box sx={{ width: "100%", display: "flex", alignItems: "center", paddingLeft: "16px" }}>
+          <Box
+            sx={{
+              height: "10px",
+              width: "10px",
+              borderRadius: "50%",
+              bgcolor: "orange",
+              flexShrink: 0,
+            }}
+          ></Box>
+          <Typography sx={{ marginLeft: "8px", lineHeight: 1 }}>
+            {t("EventList.LiveToday")}
+          </Typography>
         </Box>
 
         {/** Event list **/}
         <Box
           sx={{
             overflowX: "auto",
-            padding: "12px",
+            overflowY: "visible",
+            padding: "12px 12px 32px",
             width: "100%",
             minHeight: "160px",
             marginTop: "24px",
-            marginBottom: "24px",
+            marginBottom: "12px",
             display: "flex",
+            gap: "8px",
           }}
         >
           {props.eventList.map((event, index) => (
@@ -41,13 +51,27 @@ export default function TodayEvents(props: TodayEventsProps) {
     )
   } else {
     return (
-      <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
-        <Box sx={{ height: "16px", width: "16px", borderRadius: "50%", bgcolor: "gray" }}></Box>
-        <Box sx={{ marginLeft: "12px" }}>
-          <Typography sx={{ color: "text.secondary" }}>
-            {t("EventList.NoLiveEventsToday")}
-          </Typography>
-        </Box>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "16px",
+          marginBottom: "32px",
+        }}
+      >
+        <Box
+          sx={{
+            height: "10px",
+            width: "10px",
+            borderRadius: "50%",
+            bgcolor: "gray",
+            flexShrink: 0,
+          }}
+        ></Box>
+        <Typography sx={{ marginLeft: "8px", color: "text.secondary", lineHeight: 1 }}>
+          {t("EventList.NoLiveEventsToday")}
+        </Typography>
       </Box>
     )
   }
