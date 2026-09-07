@@ -7,7 +7,13 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon"
 
-export type TimeRangeOption = "last_week" | "last_month" | "last_year" | "anytime" | "custom"
+export type TimeRangeOption =
+  | "last_week"
+  | "last_month"
+  | "last_year"
+  | "future"
+  | "anytime"
+  | "custom"
 
 export interface TimeRangeValue {
   option: TimeRangeOption
@@ -33,6 +39,8 @@ export function getDateBounds(value: TimeRangeValue): { after?: string; before?:
       return { after: isoDate(now.minus({ months: 1 })), before: isoDate(now) }
     case "last_year":
       return { after: isoDate(now.minus({ years: 1 })), before: isoDate(now) }
+    case "future":
+      return { after: isoDate(now) }
     case "custom":
       return { after: value.from, before: value.to }
     case "anytime":
@@ -59,6 +67,7 @@ interface TimeRangeFilterProps {
  *   ISO date strings (`yyyy-MM-dd`) used only when `option` is `"custom"`.
  * @returns The resolved lower (`after`) and upper
  *   (`before`) ISO date bounds. Both are `undefined` when `option` is `"anytime"`.
+ *   Only `after` is set when `option` is `"future"`.
  */
 export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProps) {
   const { t } = useTranslation()
@@ -70,6 +79,7 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
     { value: "last_week", label: t("common:timeFilter.LastWeek") },
     { value: "last_month", label: t("common:timeFilter.LastMonth") },
     { value: "last_year", label: t("common:timeFilter.LastYear") },
+    { value: "future", label: t("common:timeFilter.Future") },
     { value: "anytime", label: t("common:timeFilter.Anytime") },
     { value: "custom", label: t("common:timeFilter.CustomRange") },
   ]
