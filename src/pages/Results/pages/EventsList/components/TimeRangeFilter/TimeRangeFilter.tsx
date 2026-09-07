@@ -101,7 +101,7 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
   return (
     <LocalizationProvider dateAdapter={AdapterLuxon}>
       <Button
-        variant={value.option === DEFAULT_TIME_RANGE.option ? "outlined" : "contained"}
+        variant="outlined"
         color={value.option === DEFAULT_TIME_RANGE.option ? "inherit" : "primary"}
         startIcon={<DateRangeIcon />}
         onClick={handleOpen}
@@ -111,7 +111,8 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
             color: "text.secondary",
             borderColor: "action.disabled",
           }),
-          fontSize: "small",
+          textTransform: "none",
+          fontSize: "0.75rem",
           flexShrink: 0,
           height: 40,
         }}
@@ -176,8 +177,10 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
           )}
 
           <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1, mt: 2 }}>
-            <Button onClick={handleClose}>{t("common:Cancel")}</Button>
-            <Button variant="contained" onClick={handleApply} disabled={!customRangeValid}>
+            <Button onClick={handleClose} color={"inherit"}>
+              {t("common:Cancel")}
+            </Button>
+            <Button variant="text" onClick={handleApply} disabled={!customRangeValid}>
               {t("common:apply")}
             </Button>
           </Box>
