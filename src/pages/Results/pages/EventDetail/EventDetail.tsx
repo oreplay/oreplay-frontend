@@ -14,23 +14,10 @@ import { useCountry } from "../../../../services/countryService/countryHooks.ts"
 
 const styles = {
   titleEvent: {
-    marginTop: "6px",
-    fontWeight: "bold",
+    marginTop: "8px",
+    fontWeight: 700,
     fontSize: "x-large",
-    marginLeft: "48px",
-    marginRight: "48px",
-  },
-  aligns: {
-    marginLeft: "48px",
-    marginRight: "48px",
-  },
-  listStages: {
-    borderBottom: "1px solid",
-    borderColor: "text.primary",
-    marginLeft: "48px",
-    marginRight: "48px",
-    height: "min-content",
-    padding: "24px 0px",
+    lineHeight: 1.25,
   },
 }
 
@@ -50,17 +37,9 @@ export default function EventDetail() {
       const finalDateParse = parseDate(detail.final_date)
 
       if (initDateParse == finalDateParse) {
-        return (
-          <Typography style={styles.aligns} sx={{ color: "text.secondary" }}>
-            {initDateParse}
-          </Typography>
-        )
+        return initDateParse
       } else {
-        return (
-          <Typography style={styles.aligns} sx={{ color: "text.secondary", marginTop: "6px" }}>
-            {initDateParse} - {finalDateParse}
-          </Typography>
-        )
+        return `${initDateParse} - ${finalDateParse}`
       }
     }
     return null
@@ -94,111 +73,145 @@ export default function EventDetail() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            bgcolor: "primary.light",
-            paddingY: 3,
+            background: "linear-gradient(135deg, #F5F7FA 0%, #E8ECF1 100%)",
+            paddingY: 4,
+            paddingX: { xs: "32px", sm: "56px" },
             flexGrow: 1,
             flexShrink: 0,
+            boxSizing: "border-box",
           }}
         >
           {detail?.country_code ? (
             <Box
               sx={{
-                ...styles.aligns,
                 display: "flex",
-                flexDirection: "row",
-                width: "100%",
-                gap: "6px",
-                marginBottom: "4px",
                 alignItems: "center",
-                justifyContent: "flex-start",
+                gap: "6px",
+                width: "100%",
+                marginBottom: "6px",
               }}
             >
               <CountryFlag
                 code={detail?.country_code.toLowerCase()}
-                slotProps={{ image: { width: "12px" } }}
+                slotProps={{
+                  picture: { display: "flex", alignItems: "center" },
+                  image: { width: "12px", display: "block" },
+                }}
               />
-              <Typography sx={{ fontSize: 10, color: "text.secondary" }}>
-                {countryT(detail.country_code)}
-              </Typography>
+              <Typography
+                sx={{ fontSize: 10, color: "text.secondary", fontWeight: 600, lineHeight: 1 }}
+              >
+                {countryT(detail.country_code)}{" "}
+              </Typography>{" "}
             </Box>
           ) : null}
-          <Typography style={styles.aligns} sx={{ color: "text.secondary", fontSize: "small" }}>
+          <Typography sx={{ color: "text.secondary", fontSize: "small", fontWeight: 500 }}>
             {detail?.organizer?.name}
           </Typography>
-          <Typography color={"secondary.main"} style={styles.titleEvent}>
+          <Typography sx={{ color: "text.primary" }} style={styles.titleEvent}>
             {detail?.description}
           </Typography>
-          {getDatesOfEvent()}
-          <EventDetailURLButton
-            url={detail?.website}
-            marginLeft={styles.aligns.marginLeft}
-            marginRight={styles.aligns.marginRight}
-          />
+          {getDatesOfEvent() ? (
+            <Typography sx={{ color: "text.secondary", marginTop: "6px" }}>
+              {getDatesOfEvent()}
+            </Typography>
+          ) : null}
+          <EventDetailURLButton url={detail?.website} marginLeft="0px" marginRight="0px" />
         </Box>
         <Box
           sx={{
             height: "100%",
-            bgcolor: "white",
+            bgcolor: "background.default",
           }}
         >
-          <Box sx={{ paddingTop: "48px", paddingBottom: 5 }}>
+          <Box
+            sx={{
+              paddingTop: "48px",
+              paddingBottom: 5,
+              paddingX: { xs: "20px", sm: "48px" },
+              boxSizing: "border-box",
+            }}
+          >
             <Typography
-              sx={{ fontSize: "large", fontWeight: "bold", paddingBottom: "12px" }}
-              style={styles.aligns}
+              sx={{
+                fontSize: "large",
+                color: "text.secondary",
+                paddingBottom: "16px",
+                paddingLeft: "12px",
+              }}
             >
               {t("Stages")}
             </Typography>
 
-            {detail?.stages.map((stage) => {
-              let description = stage.description
-              if (stage.stage_type.id === STAGE_TYPE_DATABASE_ID.Totals) {
-                description = t("EventAdmin.Stages.StagesTypes.Totals.title")
-              }
-              return (
-                <Box
-                  style={styles.listStages}
-                  sx={{
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: "#fffbf0",
-                    },
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                  key={stage.id}
-                  onClick={() =>
-                    void navigate(`/competitions/${id}/${stage.id}`, {
-                      state: {
-                        eventName: detail?.description,
-                        stageName: stage.description,
-                        stageTypeId: stage.stage_type.id,
-                        singleStage: false,
-                      },
-                    })
-                  }
-                >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+              }}
+            >
+              {detail?.stages.map((stage) => {
+                let description = stage.description
+                if (stage.stage_type.id === STAGE_TYPE_DATABASE_ID.Totals) {
+                  description = t("EventAdmin.Stages.StagesTypes.Totals.title")
+                }
+                return (
                   <Box
+                    key={stage.id}
                     sx={{
+                      cursor: "pointer",
+                      backgroundColor: "background.paper",
+                      border: "1px solid",
+                      borderColor: "grey.200",
+                      borderRadius: "12px",
+                      padding: "16px 20px",
+                      boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.05)",
+                      transition:
+                        "transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease",
                       display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      gap: 0.5,
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      "&:hover": {
+                        transform: "translateX(4px)",
+                        boxShadow: "0px 6px 16px rgba(0, 0, 0, 0.08)",
+                        borderColor: "primary.main",
+                      },
                     }}
+                    onClick={() =>
+                      void navigate(`/competitions/${id}/${stage.id}`, {
+                        state: {
+                          eventName: detail?.description,
+                          stageName: stage.description,
+                          stageTypeId: stage.stage_type.id,
+                          singleStage: false,
+                        },
+                      })
+                    }
                   >
-                    <Typography color={"text.primary"}>{description}</Typography>
-                    {stage.start ? (
-                      <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
-                        {DateTime.fromISO(stage.start).toLocaleString(
-                          DateTime.DATETIME_MED_WITH_WEEKDAY,
-                        )}
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                        gap: 0.5,
+                      }}
+                    >
+                      <Typography sx={{ color: "text.primary", fontWeight: 500 }}>
+                        {description}
                       </Typography>
-                    ) : null}
+                      {stage.start ? (
+                        <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
+                          {DateTime.fromISO(stage.start).toLocaleString(
+                            DateTime.DATETIME_MED_WITH_WEEKDAY,
+                          )}
+                        </Typography>
+                      ) : null}
+                    </Box>
+                    <ArrowForward sx={{ color: "primary.main", fontSize: "20px" }} />
                   </Box>
-                  <ArrowForward sx={{ color: "text.primary" }} />
-                </Box>
-              )
-            })}
+                )
+              })}
+            </Box>
           </Box>
         </Box>
       </Box>
