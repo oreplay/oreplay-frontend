@@ -142,6 +142,11 @@
     "msg": "Please check your internet connection. If the error persists, try again later.",
     "title": "Page loading failed"
   },
+  "URLButtonDialog": {
+    "title": "Open external link?",
+    "body": "You are about to leave this page and open an external website. Only open the link if you trust the site.",
+    "openLink": "Open link"
+  },
   "ForbiddenAccess": "Forbidden access",
   "ForgotPassword": {
     "EmailSent": {
