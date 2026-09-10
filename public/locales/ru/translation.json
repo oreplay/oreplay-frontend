@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "О нас"
   },
+  "authenticationError": "Произошла ошибка",
   "Cancel": "Отменить",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Время без ошибок",
+      "errorTime": "Потеря времени (ошибка)"
+    },
+    "selectRunnersMessage": "Выберите бегунов для просмотра графика",
+    "timeAxisLabel": "Время (секунды)"
+  },
   "Copied to the clipboard": "Скопировано в буфер обмена.",
   "Copy": "Копировать",
   "Dashboard": {
@@ -82,6 +91,7 @@
         "DialogTitle": "Вы хотите удалить этот этап?",
         "MenuText": "Удалить"
       },
+      "description": "Создайте столько этапов, сколько требуется вашему соревнованию. Каждое соревнование должно иметь по крайней мере один этап.",
       "FailedToLoadOrganizers": "Ошибка при загрузке организаторов",
       "GoToStage": "Перейти к этапу",
       "NewStage": "Новый этап",
@@ -120,8 +130,7 @@
         "DialogConfirm": "Перезагрузка",
         "DialogTitle": "Вы хотите перезагрузить этот этап?",
         "MenuText": "Перезагрузка"
-      },
-      "description": "Создайте столько этапов, сколько требуется вашему соревнованию. Каждое соревнование должно иметь по крайней мере один этап."
+      }
     },
     "StartDate": "Дата начала",
     "StartMustBeAfterEnd": "Дата начала не может быть после даты окончания.",
@@ -144,7 +153,13 @@
     "msg": "Пожалуйста, проверьте подключение к интернету. Если ошибка не исчезнет, повторите попытку позже.",
     "title": "Не удалось загрузить страницу"
   },
+  "firstName": "Имя",
   "ForbiddenAccess": "Доступ запрещен",
+  "ForgotPassword": {
+    "EmailSent": {
+      "title": "Проверьте папку \"Входящие\" в электронной почте"
+    }
+  },
   "GeneralErrorFallback": {
     "msg": "Попробуйте обновить страницу. Если ошибка повторится, пожалуйста, попробуйте немного позже.",
     "title": "Произошла неожиданная ошибка"
@@ -156,10 +171,10 @@
     "LineChart": "Линейная диаграмма",
     "PositionChart": "Диаграмма позиций",
     "RunnerSelection": "Выбор бегуна",
-    "SelectRunnersMessage": "Выберите бегунов чтобы увидеть диаграммы",
     "SelectedCount_few": "выбраны {{count}} из {{total}}",
     "SelectedCount_many": "выбраны {{count}} из {{total}}",
     "SelectedCount_one": "выбран {{count}} из {{total}}",
+    "SelectRunnersMessage": "Выберите бегунов чтобы увидеть диаграммы",
     "Start": "Старт",
     "Threshold": "Порог",
     "ThresholdWithPercent": "Порог ({{percent}}%)",
@@ -170,6 +185,15 @@
     "French": "Французский",
     "Language": "Язык",
     "Spanish": "Испанский"
+  },
+  "lastName": "Фамилия",
+  "lineChart": {
+    "noData": "Выберите бегунки для просмотра линейного графика",
+    "tooltip": {
+      "behindBestPartial": "Время отставания от лучшего сплита",
+      "behindLeader": "Время отставания от лидера"
+    },
+    "xAxisLabel": "Контрольные пункты"
   },
   "Location": "Местоположение",
   "Menu": "Меню",
@@ -188,6 +212,18 @@
     "pointsAbbreviation": "оч."
   },
   "Password": "Пароль",
+  "positionChart": {
+    "caption": "* Позиция 1 выше всех (лучшая), большие числа ниже (хуже)",
+    "noData": "Выберите бегунов для просмотра динамики позиции",
+    "tooltip": {
+      "control": "КП",
+      "position": "Позиция",
+      "splitTime": "Сплит-время",
+      "timeLost": "Время отставания от лучшего сплита: {{timeLost}}"
+    },
+    "xAxisLabel": "Контрольные пункты",
+    "yAxisLabel": "Позиция"
+  },
   "PrivateEventPage": {
     "Header": "Приватный Ивент",
     "Message": "Это событие было установлено организатором как приватное. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с организатором ивента."
@@ -199,10 +235,10 @@
     "Finish": "Финиш",
     "Name": "Имя",
     "Position": "Позиция",
+    "shortClass": "Категория",
     "SiCard": "Чип SI",
     "Start": "Старт",
-    "Time": "Время",
-    "shortClass": "Категория"
+    "Time": "Время"
   },
   "ResultsStage": {
     "BonusPoints": "Бонус",
@@ -215,8 +251,8 @@
     "Name": "Имя",
     "NoClubMsg": "Без клуба",
     "NoData": "Нет доступных данных",
-    "NoStartTime": "-",
     "NonContributory": "Не засчитывается",
+    "NoStartTime": "-",
     "NotStarted": "-",
     "PenaltyPoints": "Штрафные очки:",
     "Points": "Количество очков:",
@@ -235,6 +271,15 @@
     },
     "StageNumber": "Этап {{number}}",
     "StartTime": "Старт",
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "OT"
+    },
     "Times": "Время",
     "VirtualTicket": {
       "Control": "КП",
@@ -254,18 +299,18 @@
     "WrongFileUploaded": {
       "Msg": "Хронометрист загрузил общие результаты без сплитов. Эти файлы не должны быть загружены и могут привести к потере или искажению отображаемых данных. Вы можете найти больше информации про то как загружать результаты в наш сервис на странице <2>Organizers</2>.",
       "Title": "Результаты без сплитов!"
-    },
-    "statusCodes": {
-      "dnf": "DNF",
-      "dns": "DNS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "OT"
     }
   },
   "Settings": "Настройки",
+  "sidebar": {
+    "backendVersion": "Бэкенд",
+    "cookiePolicy": "Политика использования файлов cookie",
+    "frontendVersion": "Фронтенд",
+    "frontendVersionWithVersion": "Фронтенд v{{version}}",
+    "legalNotice": "Юридическая информация",
+    "loading": "Идёт загрузка...",
+    "privacyPolicy": "Политика конфиденциальности"
+  },
   "Sign in": {
     "ForgotPassword": "Забыли пароль?",
     "Logout": "Выйти из аккаунта",
@@ -328,60 +373,13 @@
   "ThisFunctionalityNotImplementedMsg": "Эта функция еще не реализована.",
   "TimeZone": "Часовой пояс",
   "TimezoneMismatchRunnerMsg": "Вы смотрите это событие в другом часовом поясе. Все временные метки (включая время старта) отображаются по вашему местному времени, а не по местному времени события.",
-  "UnderDevelopment": "В стадии разработки",
-  "WorldContinents": {
-    "America": "Америка",
-    "Asia": "Азия",
-    "Australia": "Австралия",
-    "Europe": "Европа",
-    "Other": "Другое"
-  },
-  "authenticationError": "Произошла ошибка",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Время без ошибок",
-      "errorTime": "Потеря времени (ошибка)"
-    },
-    "selectRunnersMessage": "Выберите бегунов для просмотра графика",
-    "timeAxisLabel": "Время (секунды)"
-  },
-  "firstName": "Имя",
-  "lastName": "Фамилия",
-  "lineChart": {
-    "noData": "Выберите бегунки для просмотра линейного графика",
-    "tooltip": {
-      "behindBestPartial": "Время отставания от лучшего сплита",
-      "behindLeader": "Время отставания от лидера"
-    },
-    "xAxisLabel": "Контрольные пункты"
-  },
-  "positionChart": {
-    "caption": "* Позиция 1 выше всех (лучшая), большие числа ниже (хуже)",
-    "noData": "Выберите бегунов для просмотра динамики позиции",
-    "tooltip": {
-      "control": "КП",
-      "position": "Позиция",
-      "splitTime": "Сплит-время",
-      "timeLost": "Время отставания от лучшего сплита: {{timeLost}}"
-    },
-    "xAxisLabel": "Контрольные пункты",
-    "yAxisLabel": "Позиция"
-  },
-  "sidebar": {
-    "backendVersion": "Бэкенд",
-    "cookiePolicy": "Политика использования файлов cookie",
-    "frontendVersion": "Фронтенд",
-    "frontendVersionWithVersion": "Фронтенд v{{version}}",
-    "legalNotice": "Юридическая информация",
-    "loading": "Идёт загрузка...",
-    "privacyPolicy": "Политика конфиденциальности"
-  },
   "tooltip": {
     "efficiency": "Эффективность",
     "errorFreeTime": "Время без ошибок",
     "errorTime": "Потерянное время (ошибка)",
     "totalDisplayedTime": "Общее отображаемое время"
   },
+  "UnderDevelopment": "В стадии разработки",
   "view": {
     "accumulated": "Накопленные",
     "barChart": "Потеря времени",
@@ -390,5 +388,12 @@
     "radios": "Радио-КП",
     "splits": "Сплиты",
     "timeLoss": "Таблица потери времени"
+  },
+  "WorldContinents": {
+    "America": "Америка",
+    "Asia": "Азия",
+    "Australia": "Австралия",
+    "Europe": "Европа",
+    "Other": "Другое"
   }
 }
