@@ -110,12 +110,12 @@ export default function FootOSplits(
 
   const timeLossResults: TimeLossResults | undefined = useMemo(() => {
     if (!timeLossThreshold) return undefined
-    return analyzeTimeLoss(runners, timeLossThreshold, showCumulative)
-  }, [runners, timeLossThreshold, showCumulative])
+    return analyzeTimeLoss(runners, timeLossThreshold)
+  }, [runners, timeLossThreshold])
 
   const barChartTimeLossResults: TimeLossResults | undefined = useMemo(() => {
     if (!barChartThreshold) return undefined
-    return analyzeTimeLoss(runners, barChartThreshold, false)
+    return analyzeTimeLoss(runners, barChartThreshold)
   }, [runners, barChartThreshold])
 
   const lineChartData = useMemo(() => {

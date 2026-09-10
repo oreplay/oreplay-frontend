@@ -331,21 +331,11 @@ function calculateTotalLossTime(
 
   let totalLoss = 0
 
-  // Calculate loss time for each split (exact same logic as table's RunnerRow.tsx)
   runner.stage.splits.forEach((split) => {
-    if (split.control?.id && split.time !== null) {
-      const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
-      if (timeLossInfo && timeLossInfo.hasTimeLoss) {
-        const controlAnalysis = timeLossResults.analysisPerControl.get(split.control.id)
-        if (controlAnalysis) {
-          // The timeLossInfo.splitTime should match the split.time for individual splits
-          // Calculate the loss as: actual time - estimated good time
-          const lossTime = split.time - controlAnalysis.estimatedTimeWithoutError
-          if (lossTime > 0) {
-            totalLoss += lossTime
-          }
-        }
-      }
+    if (!split.control?.id) return
+    const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
+    if (timeLossInfo) {
+      totalLoss += timeLossInfo.timeLoss
     }
   })
 

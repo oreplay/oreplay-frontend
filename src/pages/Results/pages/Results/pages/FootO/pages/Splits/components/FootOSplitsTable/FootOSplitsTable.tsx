@@ -55,14 +55,8 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     if (!props.timeLossEnabled || props.onlyRadios || !props.timeLossThreshold) {
       return null
     }
-    return analyzeTimeLoss(runnerList, props.timeLossThreshold, props.showCumulative)
-  }, [
-    props.timeLossEnabled,
-    props.onlyRadios,
-    props.timeLossThreshold,
-    runnerList,
-    props.showCumulative,
-  ])
+    return analyzeTimeLoss(runnerList, props.timeLossThreshold)
+  }, [props.timeLossEnabled, props.onlyRadios, props.timeLossThreshold, runnerList])
 
   const isSyncingRef = useRef(false)
   const headerRef = useRef<HTMLDivElement | null>(null)

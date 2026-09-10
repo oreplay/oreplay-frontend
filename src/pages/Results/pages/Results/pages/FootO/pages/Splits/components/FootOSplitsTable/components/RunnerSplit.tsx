@@ -4,14 +4,13 @@ import {
   parseTimeBehind,
 } from "../../../../../../../../../../../shared/Functions.tsx"
 import { ProcessedSplitModel } from "../../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { RunnerTimeLossInfo, TimeLossResults } from "../../../../../shared/timeLossAnalysis.ts"
+import { RunnerTimeLossInfo } from "../../../../../shared/timeLossAnalysis.ts"
 
 type RunnerSplitProps = {
   split: ProcessedSplitModel
   showCumulative?: boolean
   timeLossInfo?: RunnerTimeLossInfo | null
   timeLossEnabled?: boolean
-  timeLossResults?: TimeLossResults | null
 }
 
 type ColorFontWeightStyle = {
@@ -56,37 +55,14 @@ const getTimeLossStyles = (
   return baseStyles
 }
 
-const calculateLossTime = (
-  timeLossInfo: RunnerTimeLossInfo | null,
-  timeLossResults: TimeLossResults | null,
-  controlId: string | undefined,
-): number => {
-  if (!timeLossInfo || !timeLossResults || !controlId || !timeLossInfo.hasTimeLoss) {
-    return 0
-  }
-
-  const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
-  if (!controlAnalysis) {
-    return 0
-  }
-
-  const lossTime = timeLossInfo.splitTime - controlAnalysis.estimatedTimeWithoutError
-  return lossTime > 0 ? lossTime : 0
-}
-
 export default function RunnerSplit({
   split,
   showCumulative,
   timeLossInfo,
   timeLossEnabled = false,
-  timeLossResults,
 }: RunnerSplitProps) {
   const timeLossStyles = getTimeLossStyles(timeLossInfo, timeLossEnabled)
-  const lossTime = calculateLossTime(
-    timeLossInfo || null,
-    timeLossResults || null,
-    split.control?.id,
-  )
+  const lossTime = timeLossInfo?.timeLoss ?? 0
 
   const lossTimeElement =
     timeLossEnabled && lossTime > 0 ? (

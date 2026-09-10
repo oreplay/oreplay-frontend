@@ -42,40 +42,13 @@ const calculateTotalLossTime = (
 
   let totalLoss = 0
 
-  // Calculate loss time for each split
   runner.stage.splits.forEach((split) => {
-    if (split.control?.id && split.time !== null) {
-      const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
-      if (timeLossInfo && timeLossInfo.hasTimeLoss) {
-        const controlAnalysis = timeLossResults.analysisPerControl.get(split.control.id)
-        if (controlAnalysis) {
-          // The timeLossInfo.splitTime should match the split.time for individual splits
-          // Calculate the loss as: actual time - estimated good time
-          const lossTime = split.time - controlAnalysis.estimatedTimeWithoutError
-          if (lossTime > 0) {
-            totalLoss += lossTime
-          }
-        }
-      }
+    if (!split.control?.id) return
+    const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
+    if (timeLossInfo) {
+      totalLoss += timeLossInfo.timeLoss
     }
   })
-
-  // For finish control, only add if it represents additional loss beyond the splits
-  // But typically we don't want to double-count, so commenting this out
-  /*
-  if (runner.stage.time_seconds > 0) {
-    const finishTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, "FINISH")
-    if (finishTimeLossInfo && finishTimeLossInfo.hasTimeLoss) {
-      const finishControlAnalysis = timeLossResults.analysisPerControl.get("FINISH")
-      if (finishControlAnalysis) {
-        const finishLossTime = runner.stage.time_seconds - finishControlAnalysis.estimatedTimeWithoutError
-        if (finishLossTime > 0) {
-          totalLoss += finishLossTime
-        }
-      }
-    }
-  }
-  */
 
   return Math.max(0, totalLoss)
 }
@@ -245,7 +218,6 @@ export default function RunnerRow(props: RunnerRowProps) {
                   split={split}
                   timeLossInfo={timeLossInfo}
                   timeLossEnabled={props.timeLossEnabled && !props.showCumulative}
-                  timeLossResults={props.timeLossResults}
                 />
               )}
             </TableCell>
