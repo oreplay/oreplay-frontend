@@ -79,9 +79,12 @@ export function computeLegReference(times: number[]): number {
   if (times.length < REFERENCE_MIN_FIELD) return Math.min(...times)
 
   const sorted = [...times].sort((a, b) => a - b)
-  const quartileSize = Math.max(1, Math.round(sorted.length * REFERENCE_QUARTILE_FRACTION))
-  const trim = quartileSize > REFERENCE_TRIM_FASTEST + 1 ? REFERENCE_TRIM_FASTEST : 0
-  return mean(sorted.slice(trim, trim + quartileSize))
+  const minQuartileSizeAfterTrim = REFERENCE_TRIM_FASTEST + 2
+  const quartileSize = Math.max(
+    minQuartileSizeAfterTrim,
+    Math.round(sorted.length * REFERENCE_QUARTILE_FRACTION),
+  )
+  return mean(sorted.slice(REFERENCE_TRIM_FASTEST, REFERENCE_TRIM_FASTEST + quartileSize))
 }
 
 export function competitionRanks(ascendingLegTimes: number[]): number[] {

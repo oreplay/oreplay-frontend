@@ -152,11 +152,16 @@ describe("computeLegReference", () => {
   })
 
   it("averages the fastest quartile once the field is large enough", () => {
-    expect(computeLegReference([10, 20, 30, 40, 50, 60, 70, 80])).toBe(15)
+    expect(computeLegReference([10, 20, 30, 40, 50, 60, 70, 80])).toBe(30)
   })
 
   it("drops the single fastest split so one bad reading cannot set the reference", () => {
     expect(computeLegReference([40, 90, 92, 94, 96, 98, 100, 102, 104, 300])).toBe(92)
+  })
+
+  it("still drops the fastest split at the smallest field that skips the min fallback", () => {
+    expect(computeLegReference([5, 90, 92, 94, 96, 98, 100, 102])).toBe(92)
+    expect(computeLegReference([5, 90, 92, 94, 96, 98, 100, 102, 104])).toBe(92)
   })
 
   it("is unaffected by a lone outlier in a uniform field", () => {
