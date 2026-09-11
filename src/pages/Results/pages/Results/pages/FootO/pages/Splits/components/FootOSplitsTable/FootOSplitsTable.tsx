@@ -31,7 +31,6 @@ type FootOSplitsTableProps = {
   radiosList: OnlineControlModel[]
   timeLossEnabled?: boolean
   timeLossThreshold?: number
-  timeLossResults?: TimeLossResults | null
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {

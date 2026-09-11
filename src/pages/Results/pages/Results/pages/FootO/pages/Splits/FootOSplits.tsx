@@ -108,11 +108,6 @@ export default function FootOSplits(
     }
   }
 
-  const timeLossResults: TimeLossResults | undefined = useMemo(() => {
-    if (!timeLossThreshold) return undefined
-    return analyzeTimeLoss(runners, timeLossThreshold)
-  }, [runners, timeLossThreshold])
-
   const barChartTimeLossResults: TimeLossResults | undefined = useMemo(() => {
     if (!barChartThreshold) return undefined
     return analyzeTimeLoss(runners, barChartThreshold)
@@ -160,7 +155,6 @@ export default function FootOSplits(
           runners={runners}
           timeLossEnabled={false}
           timeLossThreshold={timeLossThreshold}
-          timeLossResults={undefined}
         />
       </Box>
     )
@@ -179,7 +173,6 @@ export default function FootOSplits(
           runners={runners}
           timeLossEnabled={false}
           timeLossThreshold={timeLossThreshold}
-          timeLossResults={undefined}
         />
       </Box>
     )
@@ -201,7 +194,6 @@ export default function FootOSplits(
           runners={runners}
           timeLossEnabled={false}
           timeLossThreshold={timeLossThreshold}
-          timeLossResults={undefined}
         />
       </Box>
     )
@@ -243,7 +235,6 @@ export default function FootOSplits(
           runners={runners}
           timeLossEnabled={true}
           timeLossThreshold={timeLossThreshold}
-          timeLossResults={timeLossResults}
         />
       </Box>
     )
