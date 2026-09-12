@@ -90,7 +90,7 @@ export default function FootOGraphs(
 
   const timeLossResults: TimeLossResults | undefined = useMemo(() => {
     if (!timeLossThreshold || runners.length === 0) return undefined
-    return analyzeTimeLoss(runners, timeLossThreshold, false)
+    return analyzeTimeLoss(runners, timeLossThreshold)
   }, [runners, timeLossThreshold])
 
   if (!activeItem) return <ChooseClassMsg />
