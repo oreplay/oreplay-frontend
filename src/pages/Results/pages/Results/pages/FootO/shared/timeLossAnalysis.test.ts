@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { RESULT_STATUS } from "../../../../../shared/constants.ts"
+import { UPLOAD_TYPES } from "../../../shared/constants.ts"
 import {
   analyzeTimeLoss,
   competitionRanks,
@@ -14,7 +15,6 @@ import {
   mean,
   median,
   MIN_RUNNER_LEVEL,
-  trimmedMean,
 } from "./timeLossAnalysis.ts"
 
 interface LegSpec {
@@ -26,6 +26,7 @@ interface RunnerOptions {
   statusCode?: string
   position?: number
   runInSeconds?: number
+  uploadType?: string
 }
 
 const buildControl = (id: string) => ({
@@ -72,7 +73,7 @@ const makeRunner = (
       result_type_id: "result-type",
       start_time: "2025-06-27T09:00:00.000+00:00",
       finish_time: "2025-06-27T09:10:00.000+00:00",
-      upload_type: "res_splits",
+      upload_type: options.uploadType ?? UPLOAD_TYPES.SPLIT_RESULT,
       time_seconds: cumulative + (options.runInSeconds ?? 0),
       position: options.position ?? 0,
       status_code: options.statusCode ?? RESULT_STATUS.ok,
@@ -137,12 +138,6 @@ describe("statistical helpers", () => {
     expect(median([7])).toBe(7)
     expect(median([])).toBe(0)
   })
-
-  it("trimmedMean drops the slowest fraction before averaging", () => {
-    expect(trimmedMean([1, 1, 1, 10], 0.25)).toBe(1)
-    expect(trimmedMean([2, 4], 0.25)).toBe(3)
-    expect(trimmedMean([], 0.25)).toBe(0)
-  })
 })
 
 describe("computeLegReference", () => {
@@ -186,15 +181,19 @@ describe("competitionRanks", () => {
 
 describe("computeRunnerLevel", () => {
   it("returns the default level when there are too few legs", () => {
-    expect(computeRunnerLevel([1.1, 1.2], 0.15)).toBe(DEFAULT_RUNNER_LEVEL)
+    expect(computeRunnerLevel([1.1, 1.2])).toBe(DEFAULT_RUNNER_LEVEL)
   })
 
   it("ignores the runner's own mistakes when estimating the level", () => {
-    expect(computeRunnerLevel([1, 1, 1, 1, 5], 0.15)).toBe(1)
+    expect(computeRunnerLevel([1, 1, 1, 1, 5])).toBe(1)
+  })
+
+  it("ignores a single exceptionally fast leg when estimating the level", () => {
+    expect(computeRunnerLevel([0.6, 1, 1, 1, 1])).toBe(1)
   })
 
   it("clamps the level so it never drops below the minimum", () => {
-    expect(computeRunnerLevel([0.2, 0.2, 0.2], 0.15)).toBe(MIN_RUNNER_LEVEL)
+    expect(computeRunnerLevel([0.2, 0.2, 0.2])).toBe(MIN_RUNNER_LEVEL)
   })
 })
 
@@ -374,6 +373,48 @@ describe("analyzeTimeLoss", () => {
     const info = getRunnerTimeLossInfo(results, "slowFinish", FINISH_LEG_ID)
     expect(info?.hasTimeLoss).toBe(true)
     expect(info?.timeLoss).toBe(90)
+  })
+
+  it("does not flag the normal legs of a runner who was exceptionally fast on one leg", () => {
+    const flyerLegs: LegSpec[] = [
+      { controlId: "c1", time: 36 },
+      { controlId: "c2", time: 90 },
+      { controlId: "c3", time: 120 },
+    ]
+    const field = [
+      ...[1, 2, 3, 4, 5, 6, 7].map((position) =>
+        makeRunner(`r${position}`, cleanLegs, { position }),
+      ),
+      makeRunner("flyer", flyerLegs, { position: 8 }),
+    ]
+
+    const results = analyzeTimeLoss(field, 5)
+    expect(getRunnerTimeLossInfo(results, "flyer", "c2")?.hasTimeLoss).toBe(false)
+    expect(getRunnerTimeLossInfo(results, "flyer", "c3")?.hasTimeLoss).toBe(false)
+  })
+
+  it("ignores runners whose result does not come from a chip download", () => {
+    const field = [
+      ...[1, 2, 3, 4].map((position) => makeRunner(`r${position}`, cleanLegs, { position })),
+      makeRunner("radioOnly", [{ controlId: "c1", time: 20 }], {
+        uploadType: UPLOAD_TYPES.ONLINE_SPLITS,
+      }),
+    ]
+
+    const results = analyzeTimeLoss(field, 15)
+    expect(getRunnerTimeLossInfo(results, "radioOnly", "c1")).toBeNull()
+    expect(results.analysisPerControl.get("c1")?.bestTime).toBe(60)
+  })
+
+  it("ignores runners who did not start", () => {
+    const field = [
+      ...[1, 2, 3, 4].map((position) => makeRunner(`r${position}`, cleanLegs, { position })),
+      makeRunner("dns", [{ controlId: "c1", time: 20 }], { statusCode: RESULT_STATUS.dns }),
+    ]
+
+    const results = analyzeTimeLoss(field, 15)
+    expect(getRunnerTimeLossInfo(results, "dns", "c1")).toBeNull()
+    expect(results.analysisPerControl.get("c1")?.bestTime).toBe(60)
   })
 
   it("returns null for unknown runners or controls", () => {
