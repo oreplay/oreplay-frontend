@@ -4,6 +4,7 @@ import {
 } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../shared/constants.ts"
 import { parseResultStatus } from "../../../../../shared/sortingFunctions/sortRunners.ts"
+import { hasChipDownload } from "../../../shared/functions.ts"
 
 export const FINISH_LEG_ID = "FINISH"
 export const FINISH_ORDER_NUMBER = Number.MAX_SAFE_INTEGER
@@ -13,8 +14,6 @@ export const REFERENCE_MIN_FIELD = 8
 export const REFERENCE_QUARTILE_FRACTION = 0.25
 export const REFERENCE_TRIM_FASTEST = 1
 export const MIN_LEGS_FOR_LEVEL = 3
-export const LEVEL_TRIM_FRACTION = 0.25
-export const LEVEL_REFINEMENT_PASSES = 2
 export const DEFAULT_RUNNER_LEVEL = 1
 export const MIN_RUNNER_LEVEL = 0.5
 export const MISTAKE_ABSOLUTE_FLOOR_SECONDS = 8
@@ -66,14 +65,6 @@ export function median(values: number[]): number {
   return sorted.length % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle]
 }
 
-export function trimmedMean(values: number[], trimFraction: number): number {
-  if (values.length === 0) return 0
-  const sorted = [...values].sort((a, b) => a - b)
-  const removeCount = Math.floor(sorted.length * trimFraction)
-  const kept = sorted.slice(0, sorted.length - removeCount)
-  return kept.length > 0 ? mean(kept) : mean(sorted)
-}
-
 export function computeLegReference(times: number[]): number {
   if (times.length === 0) return 0
   if (times.length < REFERENCE_MIN_FIELD) return Math.min(...times)
@@ -99,20 +90,10 @@ export function competitionRanks(ascendingLegTimes: number[]): number[] {
   return ranks
 }
 
-export function computeRunnerLevel(ratios: number[], tolerance: number): number {
+export function computeRunnerLevel(ratios: number[]): number {
   if (ratios.length < MIN_LEGS_FOR_LEVEL) return DEFAULT_RUNNER_LEVEL
 
-  let level = trimmedMean(ratios, LEVEL_TRIM_FRACTION)
-
-  for (let pass = 0; pass < LEVEL_REFINEMENT_PASSES; pass++) {
-    const withoutMistakes = ratios.filter((ratio) => ratio <= level * (1 + tolerance))
-    if (withoutMistakes.length === 0) break
-    const refined = mean(withoutMistakes)
-    if (!Number.isFinite(refined)) break
-    level = refined
-  }
-
-  return Math.max(MIN_RUNNER_LEVEL, level)
+  return Math.max(MIN_RUNNER_LEVEL, median(ratios))
 }
 
 export function legMistakeFloor(reference: number): number {
@@ -139,6 +120,14 @@ function runnerStatus(runner: ProcessedRunnerModel): string {
 
 function isNonCompetitive(runner: ProcessedRunnerModel): boolean {
   return runnerStatus(runner) === RESULT_STATUS_TEXT.nc
+}
+
+function isDidNotStart(runner: ProcessedRunnerModel): boolean {
+  return runnerStatus(runner) === RESULT_STATUS_TEXT.dns
+}
+
+function isAnalyzable(runner: ProcessedRunnerModel): boolean {
+  return hasChipDownload(runner) && !isDidNotStart(runner) && !isNonCompetitive(runner)
 }
 
 function isCleanFinisher(runner: ProcessedRunnerModel): boolean {
@@ -211,7 +200,6 @@ function referencePool(legEntries: LegEntry[], cleanRunnerIds: Set<string>): Leg
 function buildRunnerLevels(
   entriesByLeg: Map<string, LegEntry[]>,
   legReferences: Map<string, number>,
-  tolerance: number,
 ): Map<string, number> {
   const ratiosByRunner = new Map<string, number[]>()
 
@@ -227,7 +215,7 @@ function buildRunnerLevels(
 
   const levelByRunner = new Map<string, number>()
   ratiosByRunner.forEach((ratios, runnerId) => {
-    levelByRunner.set(runnerId, computeRunnerLevel(ratios, tolerance))
+    levelByRunner.set(runnerId, computeRunnerLevel(ratios))
   })
   return levelByRunner
 }
@@ -279,7 +267,7 @@ export function analyzeTimeLoss(
   threshold: number,
 ): TimeLossResults {
   const tolerance = Math.max(0, threshold) / 100
-  const analyzedRunners = runners.filter((runner) => !isNonCompetitive(runner))
+  const analyzedRunners = runners.filter(isAnalyzable)
   if (analyzedRunners.length === 0) return emptyResults()
 
   const cleanRunnerIds = new Set(analyzedRunners.filter(isCleanFinisher).map((runner) => runner.id))
@@ -292,7 +280,7 @@ export function analyzeTimeLoss(
     legReferences.set(legId, computeLegReference(pool.map((entry) => entry.legTime)))
   })
 
-  const levelByRunner = buildRunnerLevels(entriesByLeg, legReferences, tolerance)
+  const levelByRunner = buildRunnerLevels(entriesByLeg, legReferences)
 
   const analysisPerControl = new Map<string, TimeLossAnalysis>()
   let totalSplitsAnalyzed = 0
