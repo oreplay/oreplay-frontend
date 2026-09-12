@@ -73,7 +73,7 @@ export default function EventDetail() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            background: "linear-gradient(135deg, #F5F7FA 0%, #E8ECF1 100%)",
+            background: "linear-gradient(150deg, #F9D2FF 0%, #FFE9CB 100%)",
             paddingY: 4,
             paddingX: { xs: "32px", sm: "56px" },
             flexGrow: 1,
