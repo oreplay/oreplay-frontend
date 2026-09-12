@@ -16,7 +16,11 @@ import { OnlineControlModel } from "../../../../../../../../../../../shared/Enti
 import RaceTimeBehind from "../../../../../../../components/RaceTimeBehind.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../../shared/functions.ts"
 import RacePosition from "../../../../../../../components/RacePosition.tsx"
-import { TimeLossResults, getRunnerTimeLossInfo } from "../../../../../shared/timeLossAnalysis.ts"
+import {
+  FINISH_LEG_ID,
+  TimeLossResults,
+  getRunnerTimeLossInfo,
+} from "../../../../../shared/timeLossAnalysis.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
 import React from "react"
 
@@ -49,6 +53,11 @@ const calculateTotalLossTime = (
       totalLoss += timeLossInfo.timeLoss
     }
   })
+
+  const finishLegTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, FINISH_LEG_ID)
+  if (finishLegTimeLossInfo) {
+    totalLoss += finishLegTimeLossInfo.timeLoss
+  }
 
   return Math.max(0, totalLoss)
 }

@@ -1,6 +1,6 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { ChartDataItem } from "../pages/Splits/components/Charts/BarChart.tsx"
-import { getRunnerTimeLossInfo, TimeLossResults } from "./timeLossAnalysis.ts"
+import { FINISH_LEG_ID, getRunnerTimeLossInfo, TimeLossResults } from "./timeLossAnalysis.ts"
 import { hasChipDownload } from "../../../shared/functions.ts"
 import { TFunction } from "i18next"
 
@@ -338,6 +338,11 @@ function calculateTotalLossTime(
       totalLoss += timeLossInfo.timeLoss
     }
   })
+
+  const finishLegTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, FINISH_LEG_ID)
+  if (finishLegTimeLossInfo) {
+    totalLoss += finishLegTimeLossInfo.timeLoss
+  }
 
   return Math.max(0, totalLoss)
 }
