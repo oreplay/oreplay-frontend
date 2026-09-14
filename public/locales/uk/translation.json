@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "Про нас"
   },
+  "authenticationError": "Сталася помилка",
   "Cancel": "Скасувати",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Безпомилковий час",
+      "errorTime": "Втрачений час (помилка)"
+    },
+    "selectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграму",
+    "timeAxisLabel": "Час (секунди)"
+  },
   "Copied to the clipboard": "Скопійовано в буфер обміну.",
   "Copy": "Копіювати",
   "Dashboard": {
@@ -82,6 +91,7 @@
         "DialogTitle": "Ви хочете видалити цю стадію?",
         "MenuText": "Видалити"
       },
+      "description": "Створіть стільки етапів, скільки вашій події потрібно. Кожна подія повинна мати хоча б один етап.",
       "FailedToLoadOrganizers": "Помилка при завантажені організаторів",
       "GoToStage": "Перейти на стадію",
       "NewStage": "Нова стадія",
@@ -120,8 +130,7 @@
         "DialogConfirm": "Скинути",
         "DialogTitle": "Чи ви хочете скинути цей етап?",
         "MenuText": "Скинути"
-      },
-      "description": "Створіть стільки етапів, скільки вашій події потрібно. Кожна подія повинна мати хоча б один етап."
+      }
     },
     "StartDate": "Дата початку",
     "StartMustBeAfterEnd": "Початкова дата не може йти після дати завершення.",
@@ -144,7 +153,22 @@
     "msg": "Будь-ласка перевірте ваше інтернет з'єднання. Якщо помилка зберігається, спробуйте ще раз пізніше.",
     "title": "Помилка при завантажені сторінки"
   },
+  "firstName": "Ім'я",
   "ForbiddenAccess": "Заборонено доступ",
+  "ForgotPassword": {
+    "EmailSent": {
+      "msg": "Якщо обліковий запис існує для {{email}}, ми вислали вам код для скидання вашого паролю. Перевірте вашу теку спаму якщо воно не прийде через пару хвилин. Уведіть код та новий пароль.",
+      "title": "Перевірте ваші вхідні"
+    },
+    "Instructions": "Введіть поштовий адрес який пов'язаний з вашим обліковим записом, і ми вишлемо вам посилання щоб скинути ваш пароль.",
+    "Reset": {
+      "Code": "6-чисельний код",
+      "InvalidCode": "Код повинен складатись з 6 чисел.",
+      "Submit": "Скинути пароль"
+    },
+    "Submit": "Вислати посилання для скидання",
+    "Title": "Забули ваш пароль?"
+  },
   "GeneralErrorFallback": {
     "msg": "Спробуйте оновити сторінку. Якщо помилка не зникає, спробуйте ще раз пізніше.",
     "title": "Сталася неочікувана помилка"
@@ -156,10 +180,10 @@
     "LineChart": "Лінійна діаграма",
     "PositionChart": "Діаграма позицій",
     "RunnerSelection": "Вибір Бігунів",
-    "SelectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграми",
     "SelectedCount_few": "Обрано {{count}} з {{total}}",
     "SelectedCount_many": "Обрано {{count}} з {{total}}",
     "SelectedCount_one": "Обрано {{count}} з {{total}}",
+    "SelectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграми",
     "Start": "Початок",
     "Threshold": "Поріг",
     "ThresholdWithPercent": "Поріг ({{percent}}%)",
@@ -170,6 +194,15 @@
     "French": "Французька",
     "Language": "Мова",
     "Spanish": "Іспанська"
+  },
+  "lastName": "Фамілія",
+  "lineChart": {
+    "noData": "Виберіть бігунів, щоб переглянути лінійну діаграму",
+    "tooltip": {
+      "behindBestPartial": "Час позаду найкращого розриву",
+      "behindLeader": "Час відставання від лідера"
+    },
+    "xAxisLabel": "Елементи керування"
   },
   "Location": "Розташування",
   "Menu": "Меню",
@@ -188,21 +221,34 @@
     "pointsAbbreviation": "бали"
   },
   "Password": "Пароль",
+  "positionChart": {
+    "caption": "* Позиція 1 зверху (найкраща), вищі цифри нижче (гірша)",
+    "noData": "Виберіть бігунів, щоб переглянути еволюцію позицій",
+    "tooltip": {
+      "control": "Контроль",
+      "position": "Позиція",
+      "splitTime": "Роздільний час",
+      "timeLost": "Час позаду найкращого розриву: {{timeLost}}"
+    },
+    "xAxisLabel": "Елементи керування",
+    "yAxisLabel": "Позиція"
+  },
   "PrivateEventPage": {
     "Header": "Приватний Захід",
     "Message": "Організатор зробив цю подію приватною. Якщо ви вважаєте, що це помилка, зверніться до організатора заходу."
   },
   "RadiosExperimentalMsg": "Під час використання онлайн-елементів керування функції, пов’язані з поділом, є експериментальними.",
+  "Rankings": "Рейтинги",
   "Results": {
     "Class": "Клас",
     "Classes": "Класи",
     "Finish": "Фініш",
     "Name": "Назва",
     "Position": "Позиція",
+    "shortClass": "Клас",
     "SiCard": "SI Картка",
     "Start": "Початок",
-    "Time": "Час",
-    "shortClass": "Клас"
+    "Time": "Час"
   },
   "ResultsStage": {
     "BonusPoints": "Бонус",
@@ -215,8 +261,8 @@
     "Name": "Назва",
     "NoClubMsg": "Без клубу",
     "NoData": "Немає доступних даних",
-    "NoStartTime": "-",
     "NonContributory": "Випало",
+    "NoStartTime": "-",
     "NotStarted": "-",
     "PenaltyPoints": "Штраф:",
     "Points": "Очки:",
@@ -235,6 +281,15 @@
     },
     "StageNumber": "Етап {{number}}",
     "StartTime": "Початок",
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "OT"
+    },
     "Times": "Час",
     "VirtualTicket": {
       "Control": "Ктрл",
@@ -254,18 +309,18 @@
     "WrongFileUploaded": {
       "Msg": "Хронометрист завантажив остаточні результати без проміжків часу. Ці файли не слід завантажувати, оскільки вони можуть призвести до відображення відсутніх або неправильних даних. Більше інформації про те, як завантажити результати до нашого сервісу, можна знайти на сторінці <2>Організатори</2>.",
       "Title": "Результати Без Розривів!"
-    },
-    "statusCodes": {
-      "dnf": "DNF",
-      "dns": "DNS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "OT"
     }
   },
   "Settings": "Налаштування",
+  "sidebar": {
+    "backendVersion": "Бекенд",
+    "cookiePolicy": "Політика щодо Cookie файлів",
+    "frontendVersion": "Фронтенд",
+    "frontendVersionWithVersion": "Фронтенд v{{version}}",
+    "legalNotice": "Юридичне Повідомлення",
+    "loading": "Завантаження...",
+    "privacyPolicy": "Політика Конфіденційності"
+  },
   "Sign in": {
     "ForgotPassword": "Забули пароль?",
     "Logout": "Вийти",
@@ -328,60 +383,13 @@
   "ThisFunctionalityNotImplementedMsg": "Цю функцію ще не реалізовано.",
   "TimeZone": "Часовий пояс",
   "TimezoneMismatchRunnerMsg": "Ви бачите цю подію в іншому часовому поясі. Всі відображені часи (включаючи стартові часи) відображені у вашому часовому поясі, а не в часовому поясі події.",
-  "UnderDevelopment": "У розробці",
-  "WorldContinents": {
-    "America": "Америка",
-    "Asia": "Азія",
-    "Australia": "Австралія",
-    "Europe": "Європа",
-    "Other": "Інші"
-  },
-  "authenticationError": "Сталася помилка",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Безпомилковий час",
-      "errorTime": "Втрачений час (помилка)"
-    },
-    "selectRunnersMessage": "Виберіть бігунів, щоб переглянути діаграму",
-    "timeAxisLabel": "Час (секунди)"
-  },
-  "firstName": "Ім'я",
-  "lastName": "Фамілія",
-  "lineChart": {
-    "noData": "Виберіть бігунів, щоб переглянути лінійну діаграму",
-    "tooltip": {
-      "behindBestPartial": "Час позаду найкращого розриву",
-      "behindLeader": "Час відставання від лідера"
-    },
-    "xAxisLabel": "Елементи керування"
-  },
-  "positionChart": {
-    "caption": "* Позиція 1 зверху (найкраща), вищі цифри нижче (гірша)",
-    "noData": "Виберіть бігунів, щоб переглянути еволюцію позицій",
-    "tooltip": {
-      "control": "Контроль",
-      "position": "Позиція",
-      "splitTime": "Роздільний час",
-      "timeLost": "Час позаду найкращого розриву: {{timeLost}}"
-    },
-    "xAxisLabel": "Елементи керування",
-    "yAxisLabel": "Позиція"
-  },
-  "sidebar": {
-    "backendVersion": "Бекенд",
-    "cookiePolicy": "Політика щодо Cookie файлів",
-    "frontendVersion": "Фронтенд",
-    "frontendVersionWithVersion": "Фронтенд v{{version}}",
-    "legalNotice": "Юридичне Повідомлення",
-    "loading": "Завантаження...",
-    "privacyPolicy": "Політика Конфіденційності"
-  },
   "tooltip": {
     "efficiency": "Ефективність",
     "errorFreeTime": "Безпомилковий час",
     "errorTime": "Втрачений час (помилка)",
     "totalDisplayedTime": "Загальний відображений час"
   },
+  "UnderDevelopment": "У розробці",
   "view": {
     "accumulated": "Накопичено",
     "barChart": "Втрата Часу",
@@ -390,5 +398,12 @@
     "radios": "Radios",
     "splits": "Розриви",
     "timeLoss": "Таблиця Втрат Часу"
+  },
+  "WorldContinents": {
+    "America": "Америка",
+    "Asia": "Азія",
+    "Australia": "Австралія",
+    "Europe": "Європа",
+    "Other": "Інші"
   }
 }
