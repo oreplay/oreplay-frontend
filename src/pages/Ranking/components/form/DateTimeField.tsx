@@ -1,6 +1,6 @@
 import FieldError from "./FieldError.tsx"
 import FieldLabel from "./FieldLabel.tsx"
-import { fieldClass } from "./fieldStyles.ts"
+import { fieldClass } from "./shared/fieldStyles.ts"
 import { isoToDatePart, isoToTimePart, withDateChange, withTimeChange } from "./dateTimeField.ts"
 
 interface DateTimeFieldProps {
