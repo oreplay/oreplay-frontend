@@ -1,7 +1,7 @@
 import FieldError from "./FieldError.tsx"
 import FieldLabel from "./FieldLabel.tsx"
 import SpinnerRing from "../SpinnerRing.tsx"
-import { fieldClass } from "./fieldStyles.ts"
+import { fieldClass } from "./shared/fieldStyles.ts"
 import { useDropdown } from "./useDropdown.ts"
 
 export interface AutocompleteOption {
