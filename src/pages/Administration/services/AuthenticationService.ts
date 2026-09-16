@@ -12,6 +12,7 @@ interface UserTokenModel {
 
 const loginCodeVerifierKey = "loginCodeVerifier"
 const loginStateKey = "loginState"
+const loginRedirectPathKey = "loginRedirectPath"
 
 const getCrypto = () => {
   return window.crypto
@@ -59,6 +60,18 @@ export async function getSignInUrl(): Promise<string> {
     `${API_DOMAIN}api/v1/authorize?response_type=code&client_id=${clientId}&state=${state}` +
     `&redirect_uri=${getRedirectUri()}&code_challenge_method=S256&code_challenge=${codeChallenge}`
   )
+}
+
+export function storeLoginRedirectPath(path: string | null): void {
+  if (path) {
+    window.sessionStorage.setItem(loginRedirectPathKey, path)
+  } else {
+    window.sessionStorage.removeItem(loginRedirectPathKey)
+  }
+}
+
+export function getStoredLoginRedirectPath(): string | null {
+  return window.sessionStorage.getItem(loginRedirectPathKey)
 }
 
 export function popStoredLoginCodeVerifier(): string {

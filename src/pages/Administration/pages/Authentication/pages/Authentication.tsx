@@ -1,4 +1,5 @@
 import {
+  getStoredLoginRedirectPath,
   popStoredLoginCodeVerifier,
   popStoredLoginState,
 } from "../../../services/AuthenticationService.ts"
@@ -7,8 +8,9 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../components/GeneralSuspenseFallback.tsx"
 import GeneralErrorFallback from "../../../../../components/GeneralErrorFallback.tsx"
+import { resolveRedirectPath } from "../shared/signInRedirect.ts"
 
-function MakeRequest(props: { code: string; code_verifier: string }) {
+function MakeRequest(props: { code: string; code_verifier: string; redirectPath: string }) {
   const [loading, setLoading] = useState<boolean>(true)
   const { loginAction } = useAuth()
 
@@ -21,7 +23,7 @@ function MakeRequest(props: { code: string; code_verifier: string }) {
   if (loading) {
     return <GeneralSuspenseFallback />
   } else {
-    return <Navigate to={"/Dashboard"} /> //TODO: Sometimes the application gets crazy because user state is not set yet and an infinate redirection loop happens from here to private route to initsignin and back here.
+    return <Navigate to={props.redirectPath} /> //TODO: Sometimes the application gets crazy because user state is not set yet and an infinate redirection loop happens from here to private route to initsignin and back here.
   }
 }
 
@@ -46,7 +48,14 @@ export default function Authentication() {
     }
     // TODO this is called twice in development, we should check why and fix it, to be able to also fix the todo in the pop funcion
     const loginCodeVerifier = popStoredLoginCodeVerifier()
-    return <MakeRequest code={authenticationCode} code_verifier={loginCodeVerifier} />
+    const redirectPath = resolveRedirectPath(getStoredLoginRedirectPath())
+    return (
+      <MakeRequest
+        code={authenticationCode}
+        code_verifier={loginCodeVerifier}
+        redirectPath={redirectPath}
+      />
+    )
   } else if (error) {
     // TODO handle the error (for example invalid username and password
     console.log("__authentication_code_provided__ with error")
