@@ -24,7 +24,6 @@
   "FedoStats": {
     "buckets": {
       "excluded": "Excluded",
-      "others": "Others",
       "seniorF": "Senior F",
       "seniorM": "Senior M",
       "sub20F": "Sub-20 F",

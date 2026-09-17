@@ -1,8 +1,11 @@
 {
   "addNew": "Añadir nuevo",
+  "clearAll": "Borrar todo",
   "clearSearch": "Limpiar búsqueda",
   "close": "Cerrar",
   "confirm": "Confirmar",
+  "copied": "Copiado al portapapeles",
+  "copy": "Copiar",
   "delete": "Borrar",
   "deleteConfirm": "¿Seguro que quieres continuar?",
   "duplicate": "Duplicar",
@@ -20,6 +23,7 @@
   "ok": "OK",
   "save": "Guardar",
   "search": "Buscar",
+  "selectAll": "Seleccionar todo",
   "timeFilter": {
     "Anytime": "Cualquier fecha",
     "CustomRange": "Personalizado",

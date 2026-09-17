@@ -17,7 +17,7 @@ import {
   initialSelection,
   moveClass,
   toFedoStatsParams,
-} from "./shared/officialCategories.ts"
+} from "./shared/categorySelection.ts"
 import { buildFedoStatsTables } from "./shared/fedoStatsTables.ts"
 import { tablesToHtml, tablesToText, writeToClipboard } from "./shared/fedoStatsClipboard.ts"
 

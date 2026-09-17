@@ -211,9 +211,7 @@ export default function StagesDataGrid(props: Props) {
       const htmlTable = stageStatsService.formatAsHtmlTables(dataProcessed)
       await navigator.clipboard.writeText(txtTable)
       notifications.show(
-        <span
-          dangerouslySetInnerHTML={{ __html: t("Copied to the clipboard") + "</br>" + htmlTable }}
-        />,
+        <span dangerouslySetInnerHTML={{ __html: t("common:copied") + "</br>" + htmlTable }} />,
         {
           autoHideDuration: 15000,
           severity: "success",

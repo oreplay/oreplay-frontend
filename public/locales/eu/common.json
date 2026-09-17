@@ -1,8 +1,11 @@
 {
   "addNew": "Gehitu berria",
+  "clearAll": "Garbitu dena",
   "clearSearch": "Bilaketa garbitu",
   "close": "Itxi",
   "confirm": "Berretsi",
+  "copied": "Arbelera kopiatuta",
+  "copy": "Kopiatu",
   "delete": "Ezabatu",
   "deleteConfirm": "Ziur zaude jarraitu nahi duzula?",
   "duplicate": "Bikoiztu",
@@ -19,5 +22,6 @@
   "noResults": "Emaitzarik ez",
   "ok": "Ados",
   "save": "Gorde",
-  "search": "Bilatu"
+  "search": "Bilatu",
+  "selectAll": "Hautatu dena"
 }
