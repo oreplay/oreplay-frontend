@@ -1,5 +1,6 @@
 import { API_DOMAIN, deleteRequest, get, post } from "../../../services/ApiConfig.ts"
 import { Data, UserModel } from "../../../shared/EntityTypes.ts"
+import { DateTime } from "luxon"
 
 const clientId: number = 2658
 
@@ -14,6 +15,7 @@ const loginCodeVerifierKey = "loginCodeVerifier"
 const loginStateKey = "loginState"
 const loginRedirectPathKey = "loginRedirectPath"
 const loginErrorKey = "loginError"
+const loginRequestedAtKey = "loginRequestedAt"
 
 const getCrypto = () => {
   return window.crypto
@@ -57,6 +59,7 @@ export async function getSignInUrl(): Promise<string> {
   //console.log('xx loginCodeChallenge', codeChallenge, ' codeVerifier ', codeVerifier)// TODO
   // throw new Error();
   window.sessionStorage.setItem(loginCodeVerifierKey, codeVerifier)
+  window.sessionStorage.setItem(loginRequestedAtKey, DateTime.now().toMillis().toString())
   return (
     `${API_DOMAIN}api/v1/authorize?response_type=code&client_id=${clientId}&state=${state}` +
     `&redirect_uri=${getRedirectUri()}&code_challenge_method=S256&code_challenge=${codeChallenge}`
@@ -85,6 +88,10 @@ export function storeLoginError(error: string | null): void {
 
 export function getStoredLoginError(): string | null {
   return window.sessionStorage.getItem(loginErrorKey)
+}
+
+export function getStoredLoginRequestedAt(): DateTime {
+  return DateTime.fromMillis(Number(window.sessionStorage.getItem(loginRequestedAtKey)))
 }
 
 export function popStoredLoginCodeVerifier(): string {
