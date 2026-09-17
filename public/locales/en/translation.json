@@ -282,6 +282,7 @@
   "Sign in": {
     "ForgotPassword": "Forgot password?",
     "InvalidCredentials": "Invalid username or password",
+    "LoginChallengeExpired": "Your sign-in took too long. Please try again.",
     "Logout": "Logout",
     "NoAccount": "Don't have an account? <1>Sign Up</1>",
     "RememberMe": "Remember me",

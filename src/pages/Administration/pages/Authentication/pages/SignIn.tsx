@@ -19,6 +19,7 @@ import { API_DOMAIN } from "../../../../../services/ApiConfig.ts"
 import { Visibility, VisibilityOff } from "@mui/icons-material"
 import { getStoredLoginError } from "../../../services/AuthenticationService.ts"
 import { parseLoginError } from "../shared/loginError.ts"
+import { useLoginChallengeGuard } from "../shared/useLoginChallengeGuard.ts"
 import LoginErrorAlert from "../components/LoginErrorAlert.tsx"
 
 export default function SignIn() {
@@ -27,6 +28,7 @@ export default function SignIn() {
   const loginFormAction: string = API_DOMAIN + "api/v1/oauth/token"
   const { t } = useTranslation()
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { restartIfStale, restartIfUntouchedAndStale } = useLoginChallengeGuard()
 
   const [searchParams] = useSearchParams()
   const loginChallenge = searchParams.get("login_challenge")
@@ -38,6 +40,9 @@ export default function SignIn() {
       event.preventDefault()
       const data = new FormData(event.currentTarget)
       data.set("login_challenge", loginChallenge)
+      if (restartIfStale()) {
+        return
+      }
       event.currentTarget.submit()
     }
 
@@ -60,6 +65,8 @@ export default function SignIn() {
             component="form"
             action={loginFormAction}
             method="POST"
+            onFocus={restartIfUntouchedAndStale}
+            onKeyDown={restartIfUntouchedAndStale}
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >

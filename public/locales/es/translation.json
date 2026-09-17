@@ -284,6 +284,7 @@
   "Sign in": {
     "ForgotPassword": "¿Olvidaste tu contraseña?",
     "InvalidCredentials": "Usuario o contraseña incorrectos",
+    "LoginChallengeExpired": "El inicio de sesión ha tardado demasiado. Inténtalo de nuevo.",
     "Logout": "Cerrar sesion",
     "NoAccount": "¿No tienes cuenta? <1>Regístrate</1>",
     "RememberMe": "Recordarme",
