@@ -12,6 +12,8 @@ export default function RankingOrganizers() {
   const params = { rankingId, eventId, stageId, stageOrderId }
   const organizers = useRankingOrganizers(params)
   const { rankingCrumb, stageOrderLabel, stageOrderNumber } = useStageOrderBreadcrumb(params)
+  const totalSuffix = organizers.isLoading ? "" : ` (${organizers.organizers.length})`
+  const heading = `${t("RankingOrganizers.title")}${totalSuffix}`
   const rankingContext = {
     rankingId: rankingId ?? "",
     eventId: eventId ?? "",
@@ -21,7 +23,7 @@ export default function RankingOrganizers() {
 
   return (
     <SettingsPageLayout
-      heading={t("RankingOrganizers.title")}
+      heading={heading}
       currentCrumb={stageOrderLabel}
       parentCrumb={rankingCrumb}
       isLoading={false}
