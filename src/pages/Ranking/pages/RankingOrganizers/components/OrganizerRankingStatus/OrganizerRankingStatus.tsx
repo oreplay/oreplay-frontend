@@ -52,7 +52,7 @@ export default function OrganizerRankingStatus({
       onClick={onAdd}
       className="rk-organizer-ranking-status text-sm"
     >
-      {t("RankingOrganizers.addToRanking")}
+      {t("RankingOrganizers.addToClass", { className: runnerClassName })}
     </PrimaryButton>
   )
 }

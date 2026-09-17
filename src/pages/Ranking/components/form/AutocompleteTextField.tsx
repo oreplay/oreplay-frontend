@@ -7,6 +7,7 @@ import { useDropdown } from "./useDropdown.ts"
 export interface AutocompleteOption {
   id: string
   label: string
+  detail?: string
 }
 
 interface AutocompleteTextFieldProps {
@@ -77,6 +78,7 @@ export default function AutocompleteTextField({
                   className="block w-full rounded px-3 py-2 text-left text-sm hover:bg-neutral-100"
                 >
                   {option.label}
+                  {option.detail && <span className="ml-2 text-neutral-500">{option.detail}</span>}
                 </button>
               </li>
             ))}

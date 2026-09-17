@@ -11,7 +11,7 @@ import {
   RankingOrganizerFormState,
   isRankingOrganizerFormComplete,
 } from "../shared/rankingOrganizerForm.ts"
-import { formatOrganizerName } from "../shared/formatOrganizerName.ts"
+import { toRunnerOptions } from "../shared/runnerOptions.ts"
 import { useRunnerSearch } from "../shared/useRunnerSearch.ts"
 
 interface RankingOrganizerFormProps {
@@ -20,12 +20,6 @@ interface RankingOrganizerFormProps {
   /** Resolves `true` when the organizer was added, so the form clears itself. */
   onSubmit: (state: RankingOrganizerFormState) => Promise<boolean>
 }
-
-const toRunnerOptions = (runners: RunnerSearch[]) =>
-  runners.map((runner) => ({
-    id: runner.id,
-    label: formatOrganizerName(runner.first_name, runner.last_name),
-  }))
 
 export default function RankingOrganizerForm({
   eventId,
