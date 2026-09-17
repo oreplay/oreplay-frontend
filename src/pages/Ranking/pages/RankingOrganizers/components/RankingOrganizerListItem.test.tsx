@@ -33,7 +33,7 @@ vi.mock("../../../../../infrastructure/notifications/useNotifyError.ts", () => (
   useNotifyError: () => vi.fn(),
 }))
 
-const ADD_BUTTON_NAME = "RankingOrganizers.addToRanking"
+const ADD_BUTTON_NAME = "RankingOrganizers.addToClass"
 const DELETE_BUTTON_NAME = "common:delete"
 
 const organizer: RankingOrganizer = {

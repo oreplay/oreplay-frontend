@@ -57,7 +57,7 @@
   },
   "RankingOrganizers": {
     "add": "Add organizer",
-    "addToRanking": "Add to ranking",
+    "addToClass": "Add to {{className}}",
     "description": "Description",
     "empty": "No organizers yet.",
     "firstName": "First name",
