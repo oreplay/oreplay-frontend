@@ -6,7 +6,7 @@ import {
   useGetListResults,
 } from "../../../../../infrastructure/repositories/results/results.ts"
 import { usePostListRankingRunnerManagement } from "../../../../../infrastructure/repositories/ranking-runner-management/ranking-runner-management.ts"
-import { COMPUTABLE_ORGANIZER_UPLOAD_TYPE } from "../../../shared/rankingUploadTypes.ts"
+import { UPLOAD_TYPES } from "../../../../Results/pages/Results/shared/constants.ts"
 import {
   findRunnerParticipant,
   organizerRankingStatus,
@@ -52,7 +52,7 @@ export function useOrganizerRankingStatus(
         eventID: eventId,
         stageID: stageId,
         data: {
-          upload_type: COMPUTABLE_ORGANIZER_UPLOAD_TYPE,
+          upload_type: UPLOAD_TYPES.COMPUTABLE_ORG,
           runner_id: runnerId,
           stage_order: stageOrder,
         },

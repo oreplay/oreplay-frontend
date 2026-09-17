@@ -69,12 +69,6 @@
     "searchRunnerEvent": "Search runner (current ranking results)",
     "title": "Organizers"
   },
-  "RunnerInteraction": {
-    "empty": "Expand a runner in the results page on another tab to load it here.",
-    "sendOrganizer": "Send organizer",
-    "stageOrder": "Add to stage",
-    "title": "Organizer runner"
-  },
   "Settings": {
     "circuitSettings": "Circuit settings",
     "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
