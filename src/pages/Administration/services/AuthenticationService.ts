@@ -13,6 +13,7 @@ interface UserTokenModel {
 const loginCodeVerifierKey = "loginCodeVerifier"
 const loginStateKey = "loginState"
 const loginRedirectPathKey = "loginRedirectPath"
+const loginErrorKey = "loginError"
 
 const getCrypto = () => {
   return window.crypto
@@ -62,16 +63,28 @@ export async function getSignInUrl(): Promise<string> {
   )
 }
 
-export function storeLoginRedirectPath(path: string | null): void {
-  if (path) {
-    window.sessionStorage.setItem(loginRedirectPathKey, path)
+function storeOrClear(key: string, value: string | null): void {
+  if (value) {
+    window.sessionStorage.setItem(key, value)
   } else {
-    window.sessionStorage.removeItem(loginRedirectPathKey)
+    window.sessionStorage.removeItem(key)
   }
+}
+
+export function storeLoginRedirectPath(path: string | null): void {
+  storeOrClear(loginRedirectPathKey, path)
 }
 
 export function getStoredLoginRedirectPath(): string | null {
   return window.sessionStorage.getItem(loginRedirectPathKey)
+}
+
+export function storeLoginError(error: string | null): void {
+  storeOrClear(loginErrorKey, error)
+}
+
+export function getStoredLoginError(): string | null {
+  return window.sessionStorage.getItem(loginErrorKey)
 }
 
 export function popStoredLoginCodeVerifier(): string {

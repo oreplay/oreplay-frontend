@@ -283,6 +283,7 @@
   "Settings": "Ajustes",
   "Sign in": {
     "ForgotPassword": "¿Olvidaste tu contraseña?",
+    "InvalidCredentials": "Usuario o contraseña incorrectos",
     "Logout": "Cerrar sesion",
     "NoAccount": "¿No tienes cuenta? <1>Regístrate</1>",
     "RememberMe": "Recordarme",

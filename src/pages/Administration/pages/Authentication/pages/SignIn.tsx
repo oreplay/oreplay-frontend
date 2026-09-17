@@ -17,6 +17,9 @@ import { Trans, useTranslation } from "react-i18next"
 import { Navigate, useSearchParams } from "react-router-dom"
 import { API_DOMAIN } from "../../../../../services/ApiConfig.ts"
 import { Visibility, VisibilityOff } from "@mui/icons-material"
+import { getStoredLoginError } from "../../../services/AuthenticationService.ts"
+import { parseLoginError } from "../shared/loginError.ts"
+import LoginErrorAlert from "../components/LoginErrorAlert.tsx"
 
 export default function SignIn() {
   //const [isErrorInEmail,setIsErrorInEmail] = useState(false);
@@ -27,6 +30,7 @@ export default function SignIn() {
 
   const [searchParams] = useSearchParams()
   const loginChallenge = searchParams.get("login_challenge")
+  const loginError = parseLoginError(getStoredLoginError())
   if (!loginChallenge) {
     return <Navigate to="/signin" />
   } else {
@@ -51,6 +55,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             {t("Sign in.Sign in")}
           </Typography>
+          {loginError && <LoginErrorAlert loginError={loginError} />}
           <Box
             component="form"
             action={loginFormAction}
