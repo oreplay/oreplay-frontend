@@ -1,8 +1,11 @@
 {
   "addNew": "Ajouter",
+  "clearAll": "Tout effacer",
   "clearSearch": "Effacer la recherche",
   "close": "Fermer",
   "confirm": "Confirmer",
+  "copied": "Copié dans le presse-papiers",
+  "copy": "Copier",
   "delete": "Supprimer",
   "deleteConfirm": "Voulez-vous vraiment continuer ?",
   "duplicate": "Dupliquer",
@@ -19,5 +22,6 @@
   "noResults": "Aucun résultat",
   "ok": "OK",
   "save": "Sauvegarder",
-  "search": "Recherche"
+  "search": "Recherche",
+  "selectAll": "Tout sélectionner"
 }

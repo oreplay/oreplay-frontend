@@ -1,8 +1,11 @@
 {
   "addNew": "Lisää uusi",
+  "clearAll": "Tyhjennä kaikki",
   "clearSearch": "Tyhjennä haku",
   "close": "Sulje",
   "confirm": "Vahvista",
+  "copied": "Kopioitu leikepöydälle",
+  "copy": "Kopioi",
   "delete": "Poista",
   "deleteConfirm": "Haluatko varmasti jatkaa?",
   "duplicate": "Monista",
@@ -19,5 +22,6 @@
   "noResults": "Ei tuloksia",
   "ok": "OK",
   "save": "Tallenna",
-  "search": "Hae"
+  "search": "Hae",
+  "selectAll": "Valitse kaikki"
 }

@@ -1,8 +1,11 @@
 {
   "addNew": "Afegeix nou",
+  "clearAll": "Esborra-ho tot",
   "clearSearch": "Esborrar cerca",
   "close": "Tanca",
   "confirm": "Confirma",
+  "copied": "Copiat al porta-retalls",
+  "copy": "Copia",
   "delete": "Esborrar",
   "deleteConfirm": "Segur que vols continuar?",
   "duplicate": "Duplica",
@@ -19,5 +22,6 @@
   "noResults": "Sense resultats",
   "ok": "D'acord",
   "save": "Guardar",
-  "search": "Cerca"
+  "search": "Cerca",
+  "selectAll": "Selecciona-ho tot"
 }

@@ -1,8 +1,11 @@
 {
   "addNew": "Engadir novo",
+  "clearAll": "Borrar todo",
   "clearSearch": "Limpar busca",
   "close": "Pechar",
   "confirm": "Confirmar",
+  "copied": "Copiado no portapapeis",
+  "copy": "Copiar",
   "delete": "Borrar",
   "deleteConfirm": "Seguro que queres continuar?",
   "duplicate": "Duplicar",
@@ -21,6 +24,7 @@
   "ok": "Aceptar",
   "save": "Gravar",
   "search": "Buscar",
+  "selectAll": "Seleccionar todo",
   "timeFilter": {
     "Anytime": "En calquera momento",
     "CustomRange": "Rango personalizado",

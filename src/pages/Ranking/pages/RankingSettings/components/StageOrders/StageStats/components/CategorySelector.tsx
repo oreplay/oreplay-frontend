@@ -1,10 +1,6 @@
 import { useState } from "react"
 import { useTranslationRanking } from "../../../../../../shared/useTranslationRanking.ts"
-import {
-  CATEGORY_BUCKETS,
-  CategoryBucket,
-  CategorySelection,
-} from "../shared/officialCategories.ts"
+import { CATEGORY_BUCKETS, CategoryBucket, CategorySelection } from "../shared/categorySelection.ts"
 import CategoryColumn from "./CategoryColumn.tsx"
 
 interface CategorySelectorProps {

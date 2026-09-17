@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { initialSelection, moveClass, toFedoStatsParams } from "./officialCategories.ts"
+import { initialSelection, moveClass, toFedoStatsParams } from "./categorySelection.ts"
 
 describe("initialSelection", () => {
   it("assigns each class to its first matching bucket, others to excluded", () => {
