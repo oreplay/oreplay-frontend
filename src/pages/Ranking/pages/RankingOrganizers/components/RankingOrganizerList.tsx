@@ -4,9 +4,11 @@ import Spinner from "../../../components/Spinner/Spinner.tsx"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import RankingOrganizerListItem from "./RankingOrganizerListItem.tsx"
 import { usePendingRemoval } from "../shared/usePendingRemoval.ts"
+import { OrganizerRankingContext } from "../shared/useOrganizerRankingStatus.ts"
 
 interface RankingOrganizerListProps {
   organizers: RankingOrganizer[]
+  rankingContext: OrganizerRankingContext
   isLoading: boolean
   isError: boolean
   isRemoving: boolean
@@ -16,6 +18,7 @@ interface RankingOrganizerListProps {
 
 export default function RankingOrganizerList({
   organizers,
+  rankingContext,
   isLoading,
   isError,
   isRemoving,
@@ -47,6 +50,7 @@ export default function RankingOrganizerList({
           <RankingOrganizerListItem
             key={organizer.id}
             organizer={organizer}
+            rankingContext={rankingContext}
             onRemove={() => removal.request(organizer)}
           />
         ))}

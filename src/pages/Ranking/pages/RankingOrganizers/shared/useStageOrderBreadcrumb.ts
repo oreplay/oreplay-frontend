@@ -15,5 +15,9 @@ export function useStageOrderBreadcrumb(params: RankingOrganizersParams) {
     to: rankingSettingsPath(params.rankingId ?? ""),
   }
 
-  return { rankingCrumb, stageOrderLabel: stageOrder?.description ?? "" }
+  return {
+    rankingCrumb,
+    stageOrderLabel: stageOrder?.description ?? "",
+    stageOrderNumber: stageOrder?.stage_order,
+  }
 }

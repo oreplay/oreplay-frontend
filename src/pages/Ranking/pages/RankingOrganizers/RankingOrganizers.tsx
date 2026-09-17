@@ -11,7 +11,13 @@ export default function RankingOrganizers() {
   const { rankingId, eventId, stageId, stageOrderId } = useParams()
   const params = { rankingId, eventId, stageId, stageOrderId }
   const organizers = useRankingOrganizers(params)
-  const { rankingCrumb, stageOrderLabel } = useStageOrderBreadcrumb(params)
+  const { rankingCrumb, stageOrderLabel, stageOrderNumber } = useStageOrderBreadcrumb(params)
+  const rankingContext = {
+    rankingId: rankingId ?? "",
+    eventId: eventId ?? "",
+    stageId: stageId ?? "",
+    stageOrder: stageOrderNumber,
+  }
 
   return (
     <SettingsPageLayout
@@ -32,6 +38,7 @@ export default function RankingOrganizers() {
     >
       <RankingOrganizerList
         organizers={organizers.organizers}
+        rankingContext={rankingContext}
         isLoading={organizers.isLoading}
         isError={organizers.isError}
         isRemoving={organizers.isRemoving}

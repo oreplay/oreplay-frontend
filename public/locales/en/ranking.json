@@ -57,11 +57,13 @@
   },
   "RankingOrganizers": {
     "add": "Add organizer",
+    "addToRanking": "Add to ranking",
     "description": "Description",
     "empty": "No organizers yet.",
     "firstName": "First name",
     "lastName": "Last name",
     "loadError": "We couldn't load the organizers.",
+    "missing": "Missing",
     "removeTitle": "Remove organizer",
     "searchRunnerAll": "Search runner (all events)",
     "searchRunnerEvent": "Search runner (current ranking results)",
