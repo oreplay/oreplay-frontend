@@ -6,6 +6,7 @@ import { getListStageOrders } from "../../../../../infrastructure/repositories/s
 import { useNotifyError } from "../../../../../infrastructure/notifications/useNotifyError.ts"
 import SearchableSelect from "../../../components/form/SearchableSelect.tsx"
 import PrimaryButton from "../../../components/PrimaryButton.tsx"
+import { COMPUTABLE_ORGANIZER_UPLOAD_TYPE } from "../../../shared/rankingUploadTypes.ts"
 import {
   RunnerInteraction,
   runnerLabel,
@@ -60,7 +61,7 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
         eventID: interaction.eventId,
         stageID: interaction.stageId,
         data: {
-          upload_type: "computable_org",
+          upload_type: COMPUTABLE_ORGANIZER_UPLOAD_TYPE,
           runner_id: runner.id,
           stage_order: selectedOrder.stage_order,
         },
