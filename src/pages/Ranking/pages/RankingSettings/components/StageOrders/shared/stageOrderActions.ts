@@ -4,6 +4,7 @@ export const STAGE_ORDER_ACTIONS = [
   { key: "process", labelKey: "StageOrders.processResults" },
   { key: "export", labelKey: "StageOrders.export" },
   { key: "stats", labelKey: "StageOrders.stats" },
+  { key: "delete", labelKey: "StageOrders.deleteStage" },
 ] as const
 
 export type StageOrderAction = (typeof STAGE_ORDER_ACTIONS)[number]["key"]

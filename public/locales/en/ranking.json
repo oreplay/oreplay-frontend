@@ -115,6 +115,7 @@
   },
   "StageOrders": {
     "createTitle": "New stage order",
+    "deleteStage": "Delete stage",
     "descriptionLabel": "Description",
     "editTitle": "Edit stage order",
     "empty": "No stage orders yet.",

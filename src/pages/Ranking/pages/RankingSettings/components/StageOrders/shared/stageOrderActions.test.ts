@@ -2,13 +2,14 @@ import { describe, expect, it } from "vitest"
 import { isSourceStageAction, STAGE_ORDER_ACTIONS } from "./stageOrderActions.ts"
 
 describe("STAGE_ORDER_ACTIONS", () => {
-  it("keeps the menu order edit, organizers, process, export, stats", () => {
+  it("keeps the menu order edit, organizers, process, export, stats, delete", () => {
     expect(STAGE_ORDER_ACTIONS.map(({ key }) => key)).toEqual([
       "edit",
       "organizers",
       "process",
       "export",
       "stats",
+      "delete",
     ])
   })
 })
