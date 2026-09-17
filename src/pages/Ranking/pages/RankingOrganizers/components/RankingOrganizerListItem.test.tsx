@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { Participant, RankingOrganizer } from "../../../../../domain/types/v1api"
-import { COMPUTABLE_ORGANIZER_UPLOAD_TYPE } from "../../../shared/rankingUploadTypes.ts"
+import { UPLOAD_TYPES } from "../../../../Results/pages/Results/shared/constants.ts"
 import RankingOrganizerListItem from "./RankingOrganizerListItem.tsx"
 
 const mocks = vi.hoisted(() => ({
@@ -98,7 +98,7 @@ describe("RankingOrganizerListItem", () => {
       eventID: "evt-1",
       stageID: "stg-1",
       data: {
-        upload_type: COMPUTABLE_ORGANIZER_UPLOAD_TYPE,
+        upload_type: UPLOAD_TYPES.COMPUTABLE_ORG,
         runner_id: "runner-1",
         stage_order: 2,
       },
