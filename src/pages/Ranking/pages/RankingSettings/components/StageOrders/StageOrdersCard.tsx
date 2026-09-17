@@ -12,6 +12,7 @@ import { StageOrderManagement } from "../../../../../../domain/types/v1api"
 import StageOrderFormDialog from "./StageOrderFormDialog.tsx"
 import StageOrderList from "./StageOrderList.tsx"
 import SourceStageActionDialog from "./SourceStageActionDialog.tsx"
+import DeleteStageOrderDialog from "./DeleteStageOrderDialog.tsx"
 import { StageOrderDialogMode } from "./shared/stageOrderForm.ts"
 import {
   isSourceStageAction,
@@ -41,6 +42,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
   const queryClient = useQueryClient()
   const [dialog, setDialog] = useState<DialogState | null>(null)
   const [actionTarget, setActionTarget] = useState<SourceStageActionTarget | null>(null)
+  const [deleteTarget, setDeleteTarget] = useState<StageOrderManagement | null>(null)
   const { data, isLoading, isError } = useGetListStageOrders(eventId, stageId)
 
   const stageOrders = data?.data ?? []
@@ -50,15 +52,24 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
       setDialog({ mode: "edit", stageOrder })
     } else if (action === "organizers") {
       void navigate(rankingOrganizersPath(rankingId ?? "", eventId, stageId, stageOrder.id))
+    } else if (action === "delete") {
+      setDeleteTarget(stageOrder)
     } else if (isSourceStageAction(action)) {
       setActionTarget({ action, stageOrder })
     }
   }
 
   const closeDialog = () => setDialog(null)
-  const handleSaved = () => {
+  const refreshStageOrders = () =>
     void queryClient.invalidateQueries(getGetListStageOrdersQueryKey(eventId, stageId))
+  const handleSaved = () => {
+    refreshStageOrders()
     closeDialog()
+  }
+  const closeDeleteDialog = () => setDeleteTarget(null)
+  const handleDeleted = () => {
+    refreshStageOrders()
+    closeDeleteDialog()
   }
 
   return (
@@ -92,6 +103,15 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
           eventId={actionTarget.stageOrder.original_event_id}
           stageId={actionTarget.stageOrder.original_stage_id}
           onClose={() => setActionTarget(null)}
+        />
+      )}
+      {deleteTarget && (
+        <DeleteStageOrderDialog
+          eventId={eventId}
+          stageId={stageId}
+          stageOrderId={deleteTarget.id}
+          onClose={closeDeleteDialog}
+          onDeleted={handleDeleted}
         />
       )}
     </div>
