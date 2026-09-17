@@ -1,10 +1,24 @@
 import { describe, expect, it } from "vitest"
-import { resolveRedirectPath, signInPath } from "./signInRedirect.ts"
+import { resolveRedirectPath, retrySignInPath, signInPath } from "./signInRedirect.ts"
 
 describe("signInPath", () => {
   it("carries the current path and query to the sign-in page", () => {
     expect(signInPath({ pathname: "/admin/rankings", search: "?page=2" })).toBe(
       "/signin?redirect=%2Fadmin%2Frankings%3Fpage%3D2",
+    )
+  })
+})
+
+describe("retrySignInPath", () => {
+  it("restarts sign-in with the login error and the pending redirect", () => {
+    expect(retrySignInPath("/admin/rankings", "invalidCredentials")).toBe(
+      "/signin?loginError=invalidCredentials&redirect=%2Fadmin%2Frankings",
+    )
+  })
+
+  it("omits the redirect when none is pending", () => {
+    expect(retrySignInPath(null, "invalidCredentials")).toBe(
+      "/signin?loginError=invalidCredentials",
     )
   })
 })

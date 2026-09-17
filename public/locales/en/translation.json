@@ -281,6 +281,7 @@
   "Settings": "Settings",
   "Sign in": {
     "ForgotPassword": "Forgot password?",
+    "InvalidCredentials": "Invalid username or password",
     "Logout": "Logout",
     "NoAccount": "Don't have an account? <1>Sign Up</1>",
     "RememberMe": "Remember me",

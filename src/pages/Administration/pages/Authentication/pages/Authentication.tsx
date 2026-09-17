@@ -8,7 +8,8 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../components/GeneralSuspenseFallback.tsx"
 import GeneralErrorFallback from "../../../../../components/GeneralErrorFallback.tsx"
-import { resolveRedirectPath } from "../shared/signInRedirect.ts"
+import { resolveRedirectPath, retrySignInPath } from "../shared/signInRedirect.ts"
+import { LOGIN_ERROR_STATUS_PARAM, loginErrorFromStatus } from "../shared/loginError.ts"
 
 function MakeRequest(props: { code: string; code_verifier: string; redirectPath: string }) {
   const [loading, setLoading] = useState<boolean>(true)
@@ -31,6 +32,7 @@ export default function Authentication() {
   const [searchParams] = useSearchParams()
   const error = searchParams.get("error")
   const authenticationCode = searchParams.get("code")
+  const loginError = loginErrorFromStatus(searchParams.get(LOGIN_ERROR_STATUS_PARAM))
 
   if (authenticationCode) {
     const loginState = searchParams.get("state")
@@ -56,6 +58,8 @@ export default function Authentication() {
         redirectPath={redirectPath}
       />
     )
+  } else if (loginError) {
+    return <Navigate to={retrySignInPath(getStoredLoginRedirectPath(), loginError)} replace />
   } else if (error) {
     // TODO handle the error (for example invalid username and password
     console.log("__authentication_code_provided__ with error")

@@ -1,4 +1,5 @@
 import { DASHBOARD_PATH } from "../../../../../shared/routes.ts"
+import { LOGIN_ERROR_PARAM, LoginError } from "./loginError.ts"
 
 export const REDIRECT_PARAM = "redirect"
 
@@ -24,6 +25,14 @@ function isSignInPath(path: string): boolean {
 export function resolveRedirectPath(path: string | null): string {
   const isSafe = !!path && isInAppPath(path) && !isSignInPath(path)
   return isSafe ? path : DASHBOARD_PATH
+}
+
+export function retrySignInPath(redirectPath: string | null, loginError: LoginError): string {
+  const params = new URLSearchParams({ [LOGIN_ERROR_PARAM]: loginError })
+  if (redirectPath) {
+    params.set(REDIRECT_PARAM, redirectPath)
+  }
+  return `${SIGN_IN_PATH}?${params.toString()}`
 }
 
 export function signInPath(location: AppLocation): string {
