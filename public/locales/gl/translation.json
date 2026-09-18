@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "Sobre nós"
   },
+  "authenticationError": "Ocorreu un erro",
   "Cancel": "Cancelar",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Tempo sen erros",
+      "errorTime": "Tempo perdido (erro)"
+    },
+    "selectRunnersMessage": "Selecciona corredores para ver o gráfico",
+    "timeAxisLabel": "Tempo (segundos)"
+  },
   "Copied to the clipboard": "Copiado no portapapeis.",
   "Copy": "Copiar",
   "Dashboard": {
@@ -25,6 +34,7 @@
   "EmailAddress": "Enderezo electrónico",
   "Event": "Evento",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "Cómpre polo menos unha etapa para completar a configuración do evento.",
     "Country": "País",
     "Create security keys": "Crear unha chave de seguridade",
     "DangerArea": "Zona de perigo",
@@ -35,6 +45,7 @@
     "DeleteEvent": "Borrar evento",
     "Do you want to delete this event?": "Queres borrar este evento?",
     "Do you want to renew the security key?": "Queres renovar a chave de seguridade?",
+    "EndMustBeBeforeEnd": "A data de remate non pode ser anterior á data de comezo.",
     "EventData": "Información do evento",
     "EventDataDescription": "Ver e editar os detalles principais do teu evento",
     "EventId": "ID do evento",
@@ -80,6 +91,7 @@
         "DialogTitle": "Queres borrar esta etapa?",
         "MenuText": "Borrar"
       },
+      "description": "Crea tantas etapas como necesites para o teu evento. Cada evento debe ter polo menos unha etapa.",
       "FailedToLoadOrganizers": "Erro cargando organizadores",
       "GoToStage": "Ir á etapa",
       "NewStage": "Nova etapa",
@@ -106,6 +118,7 @@
           "title": "Xeral"
         }
       },
+      "Start": "Saída (hora local)",
       "Stats": {
         "DialogBody": "As estatísticas das etapas serán visualizadas.",
         "DialogConfirm": "OK",
@@ -117,11 +130,12 @@
         "DialogConfirm": "Reiniciar",
         "DialogTitle": "Queres reiniciar esta etapa?",
         "MenuText": "Reiniciar"
-      },
-      "description": "Crea tantas etapas como necesites para o teu evento. Cada evento debe ter polo menos unha etapa."
+      }
     },
     "StartDate": "Data de inicio",
-    "TooLongDescriptionMsg": "O nome proporcionado excede o máximo de {{count}} caracteres.",
+    "StartMustBeAfterEnd": "A data de comezo non pode ser posterior á data de remate.",
+    "TooLongDescriptionMsg_one": "O nome proporcionado excede o máximo de un caracter.",
+    "TooLongDescriptionMsg_other": "O nome proporcionado excede o máximo de {{count}} caracteres.",
     "TooLongMsg": "A URL inserida excede o máximo de {{count}} caracteres.",
     "Website": "Web do evento",
     "WebsitePlaceholder": "https://teuclub.com/teuevento"
@@ -134,7 +148,26 @@
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Característica experimental",
+  "FailedToLoad": {
+    "msg": "Por favor, revisa a túa conexión a internet. Se o erro continúa, téntao de novo máis tarde.",
+    "title": "A carga da páxina fallou"
+  },
+  "firstName": "Nome",
   "ForbiddenAccess": "Acceso prohibido",
+  "ForgotPassword": {
+    "EmailSent": {
+      "msg": "Se existe unha conta para {{email}}, teremos enviado un código para resetear o teu contrasinal. Asegúrate de comprobar a túa carpeta spam se non chega unha mensaxe nuns minutos. Insira o código e o novo contrasinal.",
+      "title": "Comproba a túa bandexa de entrada"
+    },
+    "Instructions": "Insira o enderezo de correo electrónico asociado coa túa conta, e enviaremos unha ligazón para resetear o teu contrasinal.",
+    "Reset": {
+      "Code": "Código de 6 díxitos",
+      "InvalidCode": "O código ten que ser de 6 díxitos.",
+      "Submit": "Resetear contrasinal"
+    },
+    "Submit": "Enviar ligazón para resetear",
+    "Title": "Olvidaches o teu contrasinal?"
+  },
   "GeneralErrorFallback": {
     "msg": "Intente refrescando a páxina. Se o erro persiste, por favor inténteo de novo máis tarde.",
     "title": "Ocorreu un erro inesperado"
@@ -146,9 +179,9 @@
     "LineChart": "Gráfico de liñas",
     "PositionChart": "Gráfico de postos",
     "RunnerSelection": "Selección de corredor",
-    "SelectRunnersMessage": "Selecciona corredores para ver as gráficas",
     "SelectedCount_one": "{{count}} de {{total}} selecccionado",
     "SelectedCount_other": "{{count}} de {{total}} selecccionados",
+    "SelectRunnersMessage": "Selecciona corredores para ver as gráficas",
     "Start": "Saída",
     "Threshold": "Limiar",
     "ThresholdWithPercent": "Limiar ({{percent}}%)",
@@ -160,6 +193,15 @@
     "Language": "Idioma",
     "Spanish": "Español"
   },
+  "lastName": "Apelidos",
+  "lineChart": {
+    "noData": "Selecciona corredores para ver o gráfico de liñas",
+    "tooltip": {
+      "behindBestPartial": "Tempo respecto do mellor parcial",
+      "behindLeader": "Tempo respecto do líder"
+    },
+    "xAxisLabel": "Controis"
+  },
   "Location": "Localización",
   "Menu": "Menú",
   "MyAccount": {
@@ -170,27 +212,41 @@
     "title": "Meu perfil"
   },
   "Name": "Nome",
+  "NotApplicable": "Non aplica",
   "Organizer": "Organizador",
   "Organizers": "Info de organizador",
   "Overall": {
     "pointsAbbreviation": "puntos"
   },
   "Password": "Contrasinal",
+  "positionChart": {
+    "caption": "* Posto 1 arriba (mellor), números máis altos abaixo (peor)",
+    "noData": "Selecciona corredores para ver a evolución do posto",
+    "tooltip": {
+      "control": "Control",
+      "position": "Posto",
+      "splitTime": "Tempo parcial",
+      "timeLost": "Tempo respecto ao mellor parcial: {{timeLost}}"
+    },
+    "xAxisLabel": "Controis",
+    "yAxisLabel": "Posto"
+  },
   "PrivateEventPage": {
     "Header": "Evento Privado",
     "Message": "O organizador configurou este evento como privado. Se cres que se trata dun erro, ponte en contacto co organizador do evento."
   },
   "RadiosExperimentalMsg": "Cando se usan radiocontrois, as funcións relacionadas cos parciais son experimentais.",
+  "Rankings": "Rankings",
   "Results": {
     "Class": "Categoría",
     "Classes": "Categorías",
     "Finish": "Meta",
     "Name": "Nome",
     "Position": "Posto",
+    "shortClass": "Categoría",
     "SiCard": "Tarxeta SI",
     "Start": "Saída",
-    "Time": "Tempo",
-    "shortClass": "Categoría"
+    "Time": "Tempo"
   },
   "ResultsStage": {
     "BonusPoints": "Bonificación",
@@ -203,8 +259,8 @@
     "Name": "Nome",
     "NoClubMsg": "Sen club",
     "NoData": "Non hai datos dispoñibles",
-    "NoStartTime": "-",
     "NonContributory": "Non contribúe",
+    "NoStartTime": "-",
     "NotStarted": "-",
     "PenaltyPoints": "Penalización:",
     "Points": "Puntos:",
@@ -223,6 +279,15 @@
     },
     "StageNumber": "Etapa {{number}}",
     "StartTime": "Saída",
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "FC"
+    },
     "Times": "Tempo",
     "VirtualTicket": {
       "Control": "Ctrl",
@@ -242,18 +307,18 @@
     "WrongFileUploaded": {
       "Msg": "O cronometrador subiu os resultados finais sen parciais. Estes ficheiros non se deben subir e poden provocar que falten datos ou que se mostren datos incorrectos. Podes atopar máis información sobre como subir resultados ao noso servizo na páxina de <2>Organizadores</2>.",
       "Title": "Resultados sen parciais!"
-    },
-    "statusCodes": {
-      "dnf": "DNF",
-      "dns": "DNS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "FC"
     }
   },
   "Settings": "Configuración",
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Política de Cookies",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Aviso legal",
+    "loading": "Cargando...",
+    "privacyPolicy": "Política de privacidade"
+  },
   "Sign in": {
     "ForgotPassword": "Contrasinal esquecido?",
     "Logout": "Pechar sesión",
@@ -309,53 +374,15 @@
   "Success": "Éxito",
   "This action cannot be undone": "Esta acción non se pode desfacer.",
   "ThisFunctionalityNotImplementedMsg": "Esta característica aínda non foi implementada.",
-  "UnderDevelopment": "En desenvolvemento",
-  "authenticationError": "Ocorreu un erro",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Tempo sen erros",
-      "errorTime": "Tempo perdido (erro)"
-    },
-    "selectRunnersMessage": "Selecciona corredores para ver o gráfico",
-    "timeAxisLabel": "Tempo (segundos)"
-  },
-  "firstName": "Nome",
-  "lastName": "Apelidos",
-  "lineChart": {
-    "noData": "Selecciona corredores para ver o gráfico de liñas",
-    "tooltip": {
-      "behindBestPartial": "Tempo respecto do mellor parcial",
-      "behindLeader": "Tempo respecto do líder"
-    },
-    "xAxisLabel": "Controis"
-  },
-  "positionChart": {
-    "caption": "* Posto 1 arriba (mellor), números máis altos abaixo (peor)",
-    "noData": "Selecciona corredores para ver a evolución do posto",
-    "tooltip": {
-      "control": "Control",
-      "position": "Posto",
-      "splitTime": "Tempo parcial",
-      "timeLost": "Tempo respecto ao mellor parcial: {{timeLost}}"
-    },
-    "xAxisLabel": "Controis",
-    "yAxisLabel": "Posto"
-  },
-  "sidebar": {
-    "backendVersion": "Backend",
-    "cookiePolicy": "Política de Cookies",
-    "frontendVersion": "Frontend",
-    "frontendVersionWithVersion": "Frontend v{{version}}",
-    "legalNotice": "Aviso legal",
-    "loading": "Cargando...",
-    "privacyPolicy": "Política de privacidade"
-  },
+  "TimeZone": "Zona horaria",
+  "TimezoneMismatchRunnerMsg": "Estás vendo este evento nunha zona horaria diferente. Todos os tempos visualizados (incluíndo horas de saída) están na túa zona horaria local, non na zona do evento.",
   "tooltip": {
     "efficiency": "Eficiencia",
     "errorFreeTime": "Tempo sen erros",
     "errorTime": "Tempo perdido (erro)",
     "totalDisplayedTime": "Tempo total mostrado"
   },
+  "UnderDevelopment": "En desenvolvemento",
   "view": {
     "accumulated": "Acumulados",
     "barChart": "Tempo perdido",
@@ -364,5 +391,12 @@
     "radios": "Radios",
     "splits": "Parciais",
     "timeLoss": "Táboa de tempo perdido"
+  },
+  "WorldContinents": {
+    "America": "América",
+    "Asia": "Asia",
+    "Australia": "Australia",
+    "Europe": "Europa",
+    "Other": "Outra"
   }
 }

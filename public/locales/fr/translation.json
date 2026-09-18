@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "À propos"
   },
+  "authenticationError": "Une erreur s'est produite",
   "Cancel": "Annuler",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Temps sans erreurs",
+      "errorTime": "Temps d'erreur (perte)"
+    },
+    "selectRunnersMessage": "Sélectionnez des coureurs pour voir le graphique",
+    "timeAxisLabel": "Temps (secondes)"
+  },
   "Copied to the clipboard": "Copié dans le presse-papiers.",
   "Copy": "Copier",
   "Dashboard": {
@@ -25,6 +34,7 @@
   "EmailAddress": "Adresse e-mail",
   "Event": "Événement",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "Au moins une étape est nécessaire pour finaliser la configuration de l'événement.",
     "Country": "Pays",
     "Create security keys": "Créer une clé de sécurité",
     "DangerArea": "Zone dangereuse",
@@ -35,6 +45,7 @@
     "DeleteEvent": "Supprimer l'événement",
     "Do you want to delete this event?": "Voulez-vous supprimer cet événement ?",
     "Do you want to renew the security key?": "Voulez-vous renouveler la clé de sécurité ?",
+    "EndMustBeBeforeEnd": "La date de fin ne peut pas être antérieure à la date de début.",
     "EventData": "Information sur l'événement",
     "EventDataDescription": "Consultez et modifiez les principaux détails de votre événement",
     "EventId": "ID de l'événement",
@@ -80,6 +91,7 @@
         "DialogTitle": "Voulez-vous supprimer cette étape ?",
         "MenuText": "Supprimer"
       },
+      "description": "Créez autant de étapes que votre événement l'exige. Chaque événement doit comporter au moins une étape.",
       "FailedToLoadOrganizers": "Échec du chargement des organisateurs",
       "GoToStage": "Aller sur l'étape",
       "NewStage": "Nouvelle étape",
@@ -106,6 +118,7 @@
           "title": "Général"
         }
       },
+      "Start": "Départ (heure locale)",
       "Stats": {
         "DialogBody": "Les statistiques des étapes seront affichées.",
         "DialogConfirm": "OK",
@@ -117,11 +130,13 @@
         "DialogConfirm": "Réinitialiser",
         "DialogTitle": "Voulez-vous réinitialiser cette étape ?",
         "MenuText": "Réinitialiser"
-      },
-      "description": "Créez autant de étapes que votre événement l'exige. Chaque événement doit comporter au moins une étape."
+      }
     },
     "StartDate": "Date de début",
-    "TooLongDescriptionMsg": "Le nom fourni dépasse le maximum de {{count}} caractères.",
+    "StartMustBeAfterEnd": "La date de début ne peut pas être postérieure à la date de fin.",
+    "TooLongDescriptionMsg_many": "Le nom fourni dépasse le maximum de {{count}} caractères.",
+    "TooLongDescriptionMsg_one": "Le nom fourni dépasse la limite d'un caractère.",
+    "TooLongDescriptionMsg_other": "Le nom fourni dépasse le maximum de {{count}} caractères.",
     "TooLongMsg": "L’URL saisie dépasse le maximum de {{count}} caractères.",
     "Website": "Site web",
     "WebsitePlaceholder": "https://votreclub.com/votreevenement"
@@ -134,7 +149,26 @@
   },
   "Events": "Événements",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
+  "FailedToLoad": {
+    "msg": "Veuillez vérifier votre connexion internet. Si l'erreur persiste, veuillez réessayer plus tard.",
+    "title": "Échec du chargement de la page"
+  },
+  "firstName": "Prénom",
   "ForbiddenAccess": "Accès interdit",
+  "ForgotPassword": {
+    "EmailSent": {
+      "msg": "Si un compte existe pour {{email}}, nous vous avons envoyé un code pour réinitialiser votre mot de passe. Si vous ne le recevez pas dans les minutes qui suivent, veuillez vérifier votre dossier de courriers indésirables. Saisissez le code et votre nouveau mot de passe.",
+      "title": "Consultez votre boîte de réception"
+    },
+    "Instructions": "Saisissez l'adresse e-mail associée à votre compte, et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "Reset": {
+      "Code": "Code à 6 chiffres",
+      "InvalidCode": "Le code doit comporter 6 chiffres.",
+      "Submit": "Réinitialiser le mot de passe"
+    },
+    "Submit": "Envoyer le lien de réinitialisation",
+    "Title": "Mot de passe oublié ?"
+  },
   "GeneralErrorFallback": {
     "msg": "Essayez d'actualiser la page. Si l'erreur persiste, veuillez réessayer ultérieurement.",
     "title": "Une erreur inattendue s'est produite"
@@ -146,10 +180,10 @@
     "LineChart": "Graphique Linéaire",
     "PositionChart": "Évolution des Positions",
     "RunnerSelection": "Sélection des Coureurs",
-    "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques",
     "SelectedCount_many": "{{count}} sur {{total}} sélectionnés",
     "SelectedCount_one": "{{count}} sur {{total}} sélectionné",
     "SelectedCount_other": "{{count}} sur {{total}} sélectionnés",
+    "SelectRunnersMessage": "Sélectionnez des coureurs pour voir les graphiques",
     "Start": "Départ",
     "Threshold": "Seuil",
     "ThresholdWithPercent": "Seuil ({{percent}}%)",
@@ -161,6 +195,15 @@
     "Language": "Langue",
     "Spanish": "Español"
   },
+  "lastName": "Nom de famille",
+  "lineChart": {
+    "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
+    "tooltip": {
+      "behindBestPartial": "Temps derrière le meilleur intermédiaire",
+      "behindLeader": "Temps par rapport au leader"
+    },
+    "xAxisLabel": "Contrôles"
+  },
   "Location": "Emplacement",
   "Menu": "Menu",
   "MyAccount": {
@@ -171,27 +214,41 @@
     "title": "Mon profil"
   },
   "Name": "Nom",
+  "NotApplicable": "Sans objet",
   "Organizer": "Organisateur",
   "Organizers": "Info sur l'organisateur",
   "Overall": {
     "pointsAbbreviation": "pts"
   },
   "Password": "Mot de passe",
+  "positionChart": {
+    "caption": "* Position 1 en haut (meilleur), positions plus élevées en bas (pire)",
+    "noData": "Sélectionnez des coureurs pour voir l'évolution de la position",
+    "tooltip": {
+      "control": "Contrôle",
+      "position": "Position",
+      "splitTime": "Temps intermédiaire",
+      "timeLost": "Temps derrière le meilleur intermédiaire : {{timeLost}}"
+    },
+    "xAxisLabel": "Contrôles",
+    "yAxisLabel": "Position"
+  },
   "PrivateEventPage": {
     "Header": "Événement privé",
     "Message": "Cet événement a été défini comme privé par l’organisateur. Si vous pensez qu’il s’agit d’une erreur, veuillez contacter l’organisateur de l’événement."
   },
   "RadiosExperimentalMsg": "Lors de l'utilisation de radiocontrôles, les fonctionnalités liées aux intermédiaires sont expérimentales.",
+  "Rankings": "Rankings",
   "Results": {
     "Class": "Catégorie",
     "Classes": "Catégories",
     "Finish": "Arrivée",
     "Name": "Nom",
     "Position": "Position",
+    "shortClass": "Catégorie",
     "SiCard": "SiCard",
     "Start": "Départ",
-    "Time": "Temps",
-    "shortClass": "Catégorie"
+    "Time": "Temps"
   },
   "ResultsStage": {
     "BonusPoints": "Bonus",
@@ -204,8 +261,8 @@
     "Name": "Nom",
     "NoClubMsg": "Pas de club",
     "NoData": "Aucune donnée n'est disponible",
-    "NoStartTime": "-",
     "NonContributory": "non contributif",
+    "NoStartTime": "-",
     "NotStarted": "-",
     "PenaltyPoints": "Pénalité :",
     "Points": "Points :",
@@ -224,6 +281,15 @@
     },
     "StageNumber": "Étape {{number}}",
     "StartTime": "Départ",
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "Hors délai"
+    },
     "Times": "Temps",
     "VirtualTicket": {
       "Control": "Contrôle",
@@ -243,18 +309,18 @@
     "WrongFileUploaded": {
       "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés, car ils pourraient entraîner l'affichage de données manquantes ou incorrectes. Pour plus d'informations sur la manière de télécharger les résultats sur notre service, consultez la page <2>Organisateurs</2>.",
       "Title": "Résultats sans intermédiaires !"
-    },
-    "statusCodes": {
-      "dnf": "DNF",
-      "dns": "DNS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "Hors délai"
     }
   },
   "Settings": "Configuration",
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Politique de cookies",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Mentions légales",
+    "loading": "Chargement...",
+    "privacyPolicy": "Politique de confidentialité"
+  },
   "Sign in": {
     "ForgotPassword": "Mot de passe oublié ?",
     "Logout": "Fermer session",
@@ -315,53 +381,15 @@
   "Success": "Succès",
   "This action cannot be undone": "Cette action ne peut pas être annulée.",
   "ThisFunctionalityNotImplementedMsg": "Cette fonctionnalité n'a pas encore été implémentée.",
-  "UnderDevelopment": "En cours de développement",
-  "authenticationError": "Une erreur s'est produite",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Temps sans erreurs",
-      "errorTime": "Temps d'erreur (perte)"
-    },
-    "selectRunnersMessage": "Sélectionnez des coureurs pour voir le graphique",
-    "timeAxisLabel": "Temps (secondes)"
-  },
-  "firstName": "Prénom",
-  "lastName": "Nom de famille",
-  "lineChart": {
-    "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
-    "tooltip": {
-      "behindBestPartial": "Temps derrière le meilleur intermédiaire",
-      "behindLeader": "Temps par rapport au leader"
-    },
-    "xAxisLabel": "Contrôles"
-  },
-  "positionChart": {
-    "caption": "* Position 1 en haut (meilleur), positions plus élevées en bas (pire)",
-    "noData": "Sélectionnez des coureurs pour voir l'évolution de la position",
-    "tooltip": {
-      "control": "Contrôle",
-      "position": "Position",
-      "splitTime": "Temps intermédiaire",
-      "timeLost": "Temps derrière le meilleur intermédiaire : {{timeLost}}"
-    },
-    "xAxisLabel": "Contrôles",
-    "yAxisLabel": "Position"
-  },
-  "sidebar": {
-    "backendVersion": "Backend",
-    "cookiePolicy": "Politique de cookies",
-    "frontendVersion": "Frontend",
-    "frontendVersionWithVersion": "Frontend v{{version}}",
-    "legalNotice": "Mentions légales",
-    "loading": "Chargement...",
-    "privacyPolicy": "Politique de confidentialité"
-  },
+  "TimeZone": "Fuseau horaire",
+  "TimezoneMismatchRunnerMsg": "Vous consultez cet événement dans un fuseau horaire différent. Toutes les heures affichées (y compris l'heure de départ) sont dans votre fuseau horaire local, et non dans celui de l'événement.",
   "tooltip": {
     "efficiency": "Efficacité",
     "errorFreeTime": "Temps sans erreurs",
     "errorTime": "Temps perdu (erreur)",
     "totalDisplayedTime": "Temps total affiché"
   },
+  "UnderDevelopment": "En cours de développement",
   "view": {
     "accumulated": "Cumulé",
     "barChart": "Pertes de Temps",
@@ -370,5 +398,12 @@
     "radios": "Radios",
     "splits": "Intermédiaires",
     "timeLoss": "Tableau des pertes de temps"
+  },
+  "WorldContinents": {
+    "America": "Amérique",
+    "Asia": "Asie",
+    "Australia": "Australie",
+    "Europe": "Europe",
+    "Other": "Autre"
   }
 }
