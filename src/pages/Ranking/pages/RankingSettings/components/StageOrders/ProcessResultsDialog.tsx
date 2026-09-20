@@ -4,8 +4,15 @@ import { useTranslationRanking } from "../../../../shared/useTranslationRanking.
 import { useNotifyError } from "../../../../../../infrastructure/notifications/useNotifyError.ts"
 import ConfirmDialog from "../../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import ComputeProgress from "../../../../components/ComputeProgress.tsx"
+import Spinner from "../../../../components/Spinner/Spinner.tsx"
 import { calculateRankingBatches } from "../../../../shared/calculateRankingBatches.ts"
 import { Progress } from "../../../../shared/progress.ts"
+import ProcessResultsWarningList from "./ProcessResultsWarningList.tsx"
+import {
+  areWarningsAcknowledged,
+  ProcessResultsWarningId,
+} from "./shared/processResultsWarnings.ts"
+import { useProcessResultsWarnings } from "./shared/useProcessResultsWarnings.ts"
 
 interface ProcessResultsDialogProps {
   open: boolean
@@ -29,10 +36,18 @@ export default function ProcessResultsDialog({
   const notifyError = useNotifyError()
   const [processing, setProcessing] = useState(false)
   const [progress, setProgress] = useState<Progress | null>(null)
+  const [acknowledgedIds, setAcknowledgedIds] = useState<ProcessResultsWarningId[]>([])
+  const { warnings, isLoading } = useProcessResultsWarnings(rankingId, eventId, stageId)
+
+  const toggleAcknowledged = (id: ProcessResultsWarningId) =>
+    setAcknowledgedIds((current) =>
+      current.includes(id) ? current.filter((each) => each !== id) : [...current, id],
+    )
 
   const close = () => {
     setProcessing(false)
     setProgress(null)
+    setAcknowledgedIds([])
     onClose()
   }
 
@@ -61,13 +76,25 @@ export default function ProcessResultsDialog({
       confirmLabel={t("common:confirm")}
       closeLabel={t("common:close")}
       isConfirming={processing}
+      confirmDisabled={isLoading || !areWarningsAcknowledged(warnings, acknowledgedIds)}
       onConfirm={() => void confirm()}
       onClose={close}
     >
       {processing ? (
         <ComputeProgress progress={progress} />
       ) : (
-        <p className="m-0 text-sm text-neutral-600">{t("StageOrders.processResultsConfirm")}</p>
+        <div className="flex flex-col gap-4">
+          <p className="m-0 text-sm text-neutral-600">{t("StageOrders.processResultsConfirm")}</p>
+          {isLoading ? (
+            <Spinner label={t("common:loading")} />
+          ) : (
+            <ProcessResultsWarningList
+              warnings={warnings}
+              acknowledgedIds={acknowledgedIds}
+              onToggle={toggleAcknowledged}
+            />
+          )}
+        </div>
       )}
     </ConfirmDialog>
   )
