@@ -6,6 +6,7 @@ import {
   usePostListStageOrders,
 } from "../../../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
 import { StageOrderManagement } from "../../../../../../domain/types/v1api"
+import CompetitionResultsLink from "../../../../components/CompetitionResultsLink.tsx"
 import ConfirmDialog from "../../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import EventStageSelect from "../../../../components/EventStageSelect/EventStageSelect.tsx"
 import CheckboxField from "../../../../components/form/CheckboxField.tsx"
@@ -164,6 +165,14 @@ export default function StageOrderFormDialog({
               eventDisabled={!linkEditable}
               stageDisabled={!linkEditable}
             />
+
+            {values.originalEventId && values.originalStageId && (
+              <CompetitionResultsLink
+                eventId={values.originalEventId}
+                stageId={values.originalStageId}
+                className="self-start"
+              />
+            )}
           </form>
         </ConfirmDialog>
       )}

@@ -10,7 +10,7 @@ import { ROUND_PRECISION_OPTIONS } from "../shared/roundPrecision.ts"
 import { SCORING_ALGORITHM_OPTIONS } from "../shared/scoringAlgorithm.ts"
 import { STATUS_SCORE_FIELDS } from "../shared/statusScores.ts"
 import { NC_SCORE_VALUES, STATUS_SCORE_VALUES } from "../shared/scoreOptions.ts"
-import CompetitionResultsLink from "./CompetitionResultsLink.tsx"
+import CompetitionResultsActions from "./CompetitionResultsActions.tsx"
 import FormSection from "./form/FormSection.tsx"
 import PrimaryButton from "./PrimaryButton.tsx"
 import NumberField from "./form/NumberField.tsx"
@@ -80,7 +80,7 @@ export default function RankingSettingsForm({
             />
           )}
         </form.Field>
-        {eventId && <CompetitionResultsLink eventId={eventId} stageId={stageId} />}
+        {eventId && <CompetitionResultsActions eventId={eventId} stageId={stageId} />}
       </div>
 
       <FormSection title={t("Settings.generalSettings")}>

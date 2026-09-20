@@ -3,7 +3,7 @@ import { StageOrderManagement } from "../../../../../../domain/types/v1api"
 import DropdownMenu, {
   DropdownMenuItem,
 } from "../../../../components/DropdownMenu/DropdownMenu.tsx"
-import SettingsIcon from "../../../../pages/RankingList/components/icons/SettingsIcon.tsx"
+import SettingsIcon from "../../../../components/icons/SettingsIcon.tsx"
 import { formatStageOrderTitle } from "./shared/formatStageOrderTitle.ts"
 import { formatStartDateTime } from "./shared/formatStartDateTime.ts"
 import {
