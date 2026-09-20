@@ -133,7 +133,8 @@
     "start": "Start",
     "stats": "Stats",
     "title": "Stage orders",
-    "warningClassesMissingInEvent": "These classes of the ranking do not exist in this event and will rank nobody: {{classNames}}. Process anyway.",
-    "warningClassesNotInDefinition": "These classes of the event are not in the ranking and will not be ranked: {{classNames}}. Process anyway."
+    "warningClassesMissingInEvent": "These classes of the ranking do not exist in this event and will rank nobody: {{names}}. Process anyway.",
+    "warningClassesNotInDefinition": "These classes of the event are not in the ranking and will not be ranked: {{names}}. Process anyway.",
+    "warningRunnersWithoutResult": "{{total}} runners are still in race, with no result yet: {{names}}. Process anyway."
   }
 }

@@ -8,7 +8,7 @@ import {
 describe("rankingClassWarnings", () => {
   it("warns about the ranking classes that the event does not have", () => {
     expect(rankingClassWarnings(["M-21", "W-21"], ["M-21"])).toEqual([
-      { id: "classesMissingInEvent", classNames: ["W-21"] },
+      { id: "classesMissingInEvent", names: ["W-21"] },
     ])
   })
 
@@ -18,8 +18,8 @@ describe("rankingClassWarnings", () => {
 
   it("reports the classes the ranking leaves out next to a missing one", () => {
     expect(rankingClassWarnings(["M-21", "M-E"], ["M-21", "W-21"])).toEqual([
-      { id: "classesMissingInEvent", classNames: ["M-E"] },
-      { id: "classesNotInDefinition", classNames: ["W-21"] },
+      { id: "classesMissingInEvent", names: ["M-E"] },
+      { id: "classesNotInDefinition", names: ["W-21"] },
     ])
   })
 

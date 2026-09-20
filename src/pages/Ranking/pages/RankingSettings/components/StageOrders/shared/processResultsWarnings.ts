@@ -1,3 +1,6 @@
+import { Participant } from "../../../../../../../domain/types/v1api"
+import { runnersWithoutResult } from "./runnersWithoutResult.ts"
+
 export const PROCESS_RESULTS_WARNINGS = [
   {
     id: "classesMissingInEvent",
@@ -7,20 +10,34 @@ export const PROCESS_RESULTS_WARNINGS = [
     id: "classesNotInDefinition",
     labelKey: "StageOrders.warningClassesNotInDefinition",
   },
+  {
+    id: "runnersWithoutResult",
+    labelKey: "StageOrders.warningRunnersWithoutResult",
+  },
 ] as const
 
 export type ProcessResultsWarningId = (typeof PROCESS_RESULTS_WARNINGS)[number]["id"]
 
 export interface ProcessResultsWarning {
   id: ProcessResultsWarningId
-  classNames: string[]
+  names: string[]
 }
+
+const NAMES_IN_WARNING = 5
+const NAMES_SEPARATOR = ", "
+const MORE_NAMES = "…"
 
 const missingFrom = (names: string[], others: string[]) =>
   names.filter((name) => !others.includes(name))
 
-const warningOf = (id: ProcessResultsWarningId, classNames: string[]): ProcessResultsWarning[] =>
-  classNames.length > 0 ? [{ id, classNames }] : []
+const warningOf = (id: ProcessResultsWarningId, names: string[]): ProcessResultsWarning[] =>
+  names.length > 0 ? [{ id, names }] : []
+
+/** Keeps the warning sentence short when a whole class is still in race. */
+export function summarizeWarningNames(names: string[]): string {
+  const shown = names.slice(0, NAMES_IN_WARNING).join(NAMES_SEPARATOR)
+  return names.length > NAMES_IN_WARNING ? `${shown}${NAMES_SEPARATOR}${MORE_NAMES}` : shown
+}
 
 /**
  * The compute endpoint ranks the event classes whose short name is included by
@@ -40,6 +57,10 @@ export function rankingClassWarnings(
     ...warningOf("classesMissingInEvent", missingInEvent),
     ...warningOf("classesNotInDefinition", missingFrom(eventClassNames, includedClassNames)),
   ]
+}
+
+export function runnersWithoutResultWarnings(participants: Participant[]): ProcessResultsWarning[] {
+  return warningOf("runnersWithoutResult", runnersWithoutResult(participants))
 }
 
 export function areWarningsAcknowledged(
