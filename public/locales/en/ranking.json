@@ -72,9 +72,13 @@
   "Settings": {
     "circuitSettings": "Circuit settings",
     "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
+    "classNameUnknownPattern": "This class name does not follow the usual pattern, e.g. M-21 or W-E",
     "competitionLink": "View competition results",
     "deleteEventToo": "Do you also want to delete the associated event?",
     "generalSettings": "General settings",
+    "includedClassNames": "Included classes",
+    "includedClassNamesEmpty": "All classes of the stage",
+    "includedClassNamesHint": "Comma separated class names, e.g. M-E, F-E.",
     "maxPoints": "Max points",
     "maxPointsHint": "The scoring scale: points awarded to the leader; everyone else is scored relative to this.",
     "maxPointsPositive": "Max points must be greater than zero.",

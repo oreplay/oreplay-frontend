@@ -21,6 +21,7 @@ const ranking = {
   overall_settings:
     '{"totalCircuitRaces":9,"maxRacesCounted":5,"organizerScoringFraction":0.3,"minPointsAsOrg":50}',
   excluded_class_names: null,
+  included_class_names: ["ME", "FE"],
   created: "",
   modified: "",
   _links: {},
@@ -33,6 +34,7 @@ describe("ranking settings form", () => {
     expect(state.overallSettings).toEqual([9, 5, 0.3, 50])
     expect(state.ncTrue).toBe(5)
     expect(state.ncFalse).toBeNull()
+    expect(state.includedClassNames).toBe("ME, FE")
   })
 
   it("serializes edits back into the update body (with id)", () => {
@@ -58,6 +60,12 @@ describe("ranking settings form", () => {
     expect(body.nc_false).toBeNull()
   })
 
+  it("sends the typed classes as the included list", () => {
+    const state = initRankingSettingsForm(ranking)
+    const body = toRankingBody(ranking, { ...state, includedClassNames: "H-35 , D-35" }, ranking.id)
+    expect(body.included_class_names).toEqual(["H-35", "D-35"])
+  })
+
   it("builds the create (duplicate) body with the full settings minus id", () => {
     const state = initRankingSettingsForm(ranking)
     const body = toRankingBody(ranking, { ...state, title: "Copy" })
@@ -66,6 +74,7 @@ describe("ranking settings form", () => {
       event_id: "e1",
       stage_id: "s1",
       excluded_class_names: "",
+      included_class_names: ["ME", "FE"],
       max_points: 100,
       nc_true: 5,
       nc_false: null,
@@ -81,6 +90,7 @@ describe("ranking settings form", () => {
   it("provides the new-ranking defaults", () => {
     expect(defaultRankingSettingsForm()).toEqual({
       title: "",
+      includedClassNames: "",
       scoringAlgorithm: DEFAULT_SCORING_ALGORITHM,
       maxPoints: 100,
       roundPrecision: -1,

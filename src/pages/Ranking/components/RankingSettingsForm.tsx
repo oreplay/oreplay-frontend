@@ -16,6 +16,8 @@ import PrimaryButton from "./PrimaryButton.tsx"
 import NumberField from "./form/NumberField.tsx"
 import ScoreSelectField from "./form/ScoreSelectField.tsx"
 import SelectField from "./form/SelectField.tsx"
+import ClassNamesText from "./ClassNamesText.tsx"
+import EditableTextField from "./form/EditableTextField.tsx"
 import TextField from "./form/TextField.tsx"
 import { joinFieldErrors } from "./form/fieldErrors.ts"
 
@@ -214,6 +216,27 @@ export default function RankingSettingsForm({
           </form.Field>
         ))}
       </FormSection>
+
+      <form.Field name="includedClassNames">
+        {(field) => (
+          <EditableTextField
+            label={t("Settings.includedClassNames")}
+            description={t("Settings.includedClassNamesHint")}
+            editLabel={t("common:edit")}
+            emptyLabel={t("Settings.includedClassNamesEmpty")}
+            display={
+              <ClassNamesText
+                value={field.state.value}
+                unknownPatternLabel={t("Settings.classNameUnknownPattern")}
+              />
+            }
+            value={field.state.value}
+            onChange={field.handleChange}
+            onBlur={field.handleBlur}
+            error={joinFieldErrors(field.state.meta.errors)}
+          />
+        )}
+      </form.Field>
 
       <div
         className={[
