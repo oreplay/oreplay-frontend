@@ -3,6 +3,7 @@ import CheckboxField from "../../../../components/form/CheckboxField.tsx"
 import {
   ProcessResultsWarning,
   ProcessResultsWarningId,
+  summarizeWarningNames,
   warningLabelKey,
 } from "./shared/processResultsWarnings.ts"
 
@@ -11,8 +12,6 @@ interface ProcessResultsWarningListProps {
   acknowledgedIds: ProcessResultsWarningId[]
   onToggle: (id: ProcessResultsWarningId) => void
 }
-
-const CLASS_NAMES_SEPARATOR = ", "
 
 export default function ProcessResultsWarningList({
   warnings,
@@ -27,7 +26,8 @@ export default function ProcessResultsWarningList({
         <li key={warning.id} className="rounded-md bg-amber-50 p-3">
           <CheckboxField
             label={t(warningLabelKey(warning.id), {
-              classNames: warning.classNames.join(CLASS_NAMES_SEPARATOR),
+              names: summarizeWarningNames(warning.names),
+              total: warning.names.length,
             })}
             checked={acknowledgedIds.includes(warning.id)}
             onChange={() => onToggle(warning.id)}

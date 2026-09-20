@@ -5,7 +5,12 @@ import ProcessResultsDialog from "./ProcessResultsDialog.tsx"
 const mocks = vi.hoisted(() => ({
   includedClassNames: [] as string[],
   eventClassNames: [] as string[],
+  participants: [] as { full_name: string; stage?: { status_code: number } }[],
   calculate: vi.fn(),
+}))
+
+vi.mock("../../../../../../infrastructure/repositories/results/results.ts", () => ({
+  useGetListResults: () => ({ data: { data: mocks.participants }, isLoading: false }),
 }))
 
 vi.mock(
@@ -59,6 +64,7 @@ const renderDialog = () =>
 describe("ProcessResultsDialog", () => {
   beforeEach(() => {
     mocks.calculate.mockReset()
+    mocks.participants = []
   })
 
   it("confirms right away when the ranking and the event hold the same classes", () => {
@@ -66,6 +72,17 @@ describe("ProcessResultsDialog", () => {
     mocks.eventClassNames = ["M-21"]
     renderDialog()
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole("button", { name: CONFIRM_LABEL }))
+    expect(mocks.calculate).toHaveBeenCalled()
+  })
+
+  it("waits for the runners in race to be acknowledged before confirming", () => {
+    mocks.includedClassNames = ["M-21"]
+    mocks.eventClassNames = ["M-21"]
+    mocks.participants = [{ full_name: "Ana Rey", stage: { status_code: 0 } }]
+    renderDialog()
+    expect(screen.getByRole("button", { name: CONFIRM_LABEL })).toBeDisabled()
+    fireEvent.click(screen.getByRole("checkbox"))
     fireEvent.click(screen.getByRole("button", { name: CONFIRM_LABEL }))
     expect(mocks.calculate).toHaveBeenCalled()
   })
