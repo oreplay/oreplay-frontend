@@ -1,10 +1,11 @@
 import { ReactNode, useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 
 export interface DropdownMenuItem {
   label: string
-  /** Action items run `onSelect`; link items navigate via `href` (new tab). */
+  /** Action items run `onSelect`; link items navigate to `to`. */
   onSelect?: () => void
-  href?: string
+  to?: string
   disabled?: boolean
 }
 
@@ -66,17 +67,15 @@ export default function DropdownMenu({
         >
           {items.map((item) => (
             <li key={item.label} role="none">
-              {item.href ? (
-                <a
+              {item.to ? (
+                <Link
                   role="menuitem"
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  to={item.to}
                   onClick={() => setOpen(false)}
                   className={ITEM_CLASS}
                 >
                   {item.label}
-                </a>
+                </Link>
               ) : (
                 <button
                   type="button"

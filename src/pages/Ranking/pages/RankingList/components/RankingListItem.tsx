@@ -4,7 +4,7 @@ import { Ranking } from "../../../../../domain/types/v1api"
 import { competitionResultsPath } from "../../../shared/competitionLink.ts"
 import { formatDate } from "../shared/formatDate.ts"
 import DropdownMenu, { DropdownMenuItem } from "../../../components/DropdownMenu/DropdownMenu.tsx"
-import SettingsIcon from "./icons/SettingsIcon.tsx"
+import SettingsIcon from "../../../components/icons/SettingsIcon.tsx"
 
 interface RankingListItemProps {
   ranking: Ranking
@@ -26,7 +26,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
     },
     {
       label: t("Settings.competitionLink"),
-      href: competitionResultsPath(ranking.event_id, ranking.stage_id),
+      to: competitionResultsPath(ranking.event_id, ranking.stage_id),
     },
     {
       label: t("common:duplicate"),
