@@ -11,6 +11,7 @@ import {
 import { DEFAULT_STATUS_SCORES, parseStatusScores, serializeStatusScores } from "./statusScores.ts"
 import { DEFAULT_SCORING_ALGORITHM } from "./scoringAlgorithm.ts"
 import { ROUND_DOWN_TO_INTEGER } from "./roundPrecision.ts"
+import { formatClassNames, parseClassNames } from "./classNames.ts"
 
 const DEFAULT_MAX_POINTS = 100
 const DEFAULT_FLAGGED_NC_SCORE = 0
@@ -21,6 +22,7 @@ function toNullableNumber(value: number | null | undefined): number | null {
 
 export interface RankingSettingsFormState {
   title: string
+  includedClassNames: string
   scoringAlgorithm: string
   maxPoints: number | null
   roundPrecision: number
@@ -40,6 +42,7 @@ export interface RankingBodyContext {
 export function initRankingSettingsForm(ranking: Ranking): RankingSettingsFormState {
   return {
     title: ranking.title ?? "",
+    includedClassNames: formatClassNames(ranking.included_class_names),
     scoringAlgorithm: ranking.scoring_algorithm,
     maxPoints: ranking.max_points,
     roundPrecision: ranking.round_precision,
@@ -53,6 +56,7 @@ export function initRankingSettingsForm(ranking: Ranking): RankingSettingsFormSt
 export function defaultRankingSettingsForm(): RankingSettingsFormState {
   return {
     title: "",
+    includedClassNames: "",
     scoringAlgorithm: DEFAULT_SCORING_ALGORITHM,
     maxPoints: DEFAULT_MAX_POINTS,
     roundPrecision: ROUND_DOWN_TO_INTEGER,
@@ -83,6 +87,7 @@ export function toRankingBody(
     event_id: context.event_id,
     stage_id: context.stage_id,
     excluded_class_names: context.excluded_class_names ?? "",
+    included_class_names: parseClassNames(state.includedClassNames),
     max_points: state.maxPoints ?? 0,
     nc_true: state.ncTrue as number,
     nc_false: state.ncFalse as number,
