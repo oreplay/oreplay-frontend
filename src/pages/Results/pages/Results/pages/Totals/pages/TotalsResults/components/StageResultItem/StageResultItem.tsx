@@ -1,4 +1,3 @@
-import { Typography, Box } from "@mui/material"
 import { ProcessedOverallModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { useTranslation } from "react-i18next"
 import StageResultItemPointBasedColumn from "./components/StageResultItemPointBasedColumn/StageResultItemPointBasedColumn.tsx"
@@ -20,33 +19,13 @@ export default function StageResultItem({ stage, displayContributory }: StageRes
   const isPointsBased = stage.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        px: 2,
-        py: 1.5,
-        borderBottom: "1px solid #e9ecef",
-        "&:last-child": {
-          borderBottom: "none",
-        },
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 1,
-          flexWrap: "wrap",
-        }}
-      >
-        <Typography sx={{ fontSize: "small", color: "text.secondary" }}>
+    <div className="flex items-start justify-between px-2 py-1.5">
+      <div className="flex flex-row flex-wrap items-center gap-2">
+        <span className="text-sm text-gray-600">
           {stageDescription}
-        </Typography>
+        </span>
         {displayContributory && !stage.contributory ? <NonContributoryChip /> : <></>}
-      </Box>
+      </div>
       {isPointsBased ? (
         <StageResultItemPointBasedColumn
           points={stage.points_final!}
@@ -63,6 +42,6 @@ export default function StageResultItem({ stage, displayContributory }: StageRes
           contributory={stage.contributory}
         />
       )}
-    </Box>
+    </div>
   )
 }

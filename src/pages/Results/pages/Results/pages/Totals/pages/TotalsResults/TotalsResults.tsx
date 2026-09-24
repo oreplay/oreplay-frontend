@@ -1,4 +1,4 @@
-import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
+import RunnerSorter from "../../../../components/RunnerSorter/RunnerSorter.tsx"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
@@ -35,11 +35,13 @@ export default function TotalsResults(
   } else {
     return (
       <>
-        <ResultListContainer>
-          {runnersList?.map((runner: ProcessedRunnerModel) => {
-            return <TotalsResultItem key={runner.id} runner={runner} isClass={props.isClass} />
-          })}
-        </ResultListContainer>
+        <RunnerSorter
+          runnerList={runnersList ?? []}
+          RunnerRow={TotalsResultItem}
+          runnerRowProps={{ isClass: props.isClass }}
+          sortingFunction={(runnerList) => runnerList}
+          containerClassName="result-list-grid"
+        />
       </>
     )
   }

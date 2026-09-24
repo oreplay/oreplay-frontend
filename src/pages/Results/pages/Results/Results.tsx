@@ -13,6 +13,7 @@ import ErrorBoundary from "../../../../components/ErrorBoundary/ErrorBoundary.ts
 import { useQuery } from "react-query"
 import { getClassesInStage } from "../../services/EventService.ts"
 import NoDataInStageMsg from "./components/NoDataInStageMsg.tsx"
+import "../../../../styles/tailwind.css"
 
 export default function Results() {
   const { t } = useTranslation()

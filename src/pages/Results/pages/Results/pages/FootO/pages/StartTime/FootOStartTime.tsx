@@ -53,7 +53,7 @@ export default function FootOStartTime(
             </ResultListItemColumn>
             <ResultListItemColumn
               slotProps={{
-                box: { display: "flex", flexDirection: "column", alignItems: "center" },
+                className: "flex flex-col items-center",
               }}
             >
               <StartTime
