@@ -1,5 +1,4 @@
 import { ResultColumnProps } from "../IndividualResult/IndividualResult.tsx"
-import { Box } from "@mui/material"
 import RaceTime from "../../RaceTime.tsx"
 import { parseResultStatus } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
@@ -12,7 +11,7 @@ export default function IndividualResultColumnResultTimeAndDiff(props: ResultCol
   const hasChipDownload = hasChipDownloadFunction(props.runner)
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+    <div className="flex flex-col items-end">
       <RaceTime
         displayStatus
         isFinalTime={hasChipDownload}
@@ -25,6 +24,6 @@ export default function IndividualResultColumnResultTimeAndDiff(props: ResultCol
         display={statusOkOrNc && runnerService.hasFinished(props.runner) && hasChipDownload}
         time_behind={props.runner.stage.time_behind}
       />
-    </Box>
+    </div>
   )
 }

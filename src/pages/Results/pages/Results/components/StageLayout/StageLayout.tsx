@@ -64,7 +64,15 @@ export default function StageLayout(props: StageLayoutProps) {
         </Tooltip>
       </Box>
       {props.displayTimezoneMsg ? <TimezoneMsg /> : null}
-      <Box sx={{ marginTop: "12px", flex: 1, paddingBottom: "56px" }}>
+      <Box
+        sx={{
+          marginTop: "12px",
+          flex: 1,
+          minHeight: 0,
+          height: "100%",
+          paddingBottom: "56px",
+        }}
+      >
         <ErrorBoundary displayMsg>{props.children}</ErrorBoundary>
       </Box>
     </Box>

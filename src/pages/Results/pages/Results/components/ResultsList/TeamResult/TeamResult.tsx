@@ -3,7 +3,6 @@ import ResultListItemColumn from "../ResultListItemColumn.tsx"
 import RacePosition from "../../RacePosition.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
-import { Box, Typography } from "@mui/material"
 import ParticipantName from "../../ParticipantName.tsx"
 import ResultListItem from "../ResultListItem.tsx"
 
@@ -12,13 +11,7 @@ export default function TeamResult({ runner, onClick, ResultColumn }: ResultItem
     <ResultListItem key={runner.id} onClick={onClick ? () => onClick(runner) : undefined}>
       <ResultListItemColumn
         slotProps={{
-          box: {
-            alignItems: "flex-start",
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "row",
-            height: "100%",
-          },
+          className: "flex h-full flex-grow flex-row items-start",
         }}
       >
         <RacePosition
@@ -27,14 +20,14 @@ export default function TeamResult({ runner, onClick, ResultColumn }: ResultItem
           isNC={runnerService.isNC(runner)}
           slotProps={{ text: { marginRight: 1 } }}
         />
-        <Box sx={{ flexGrow: 1 }}>
+        <div className="min-w-0 flex-grow">
           <ParticipantName name={runner.full_name} />
           {runner.runners?.map((teamMember) => (
-            <Typography key={teamMember.id} variant="body2" color="textSecondary">
+            <p key={teamMember.id} className="text-sm text-gray-600">
               {teamMember.full_name}
-            </Typography>
+            </p>
           ))}
-        </Box>
+        </div>
       </ResultListItemColumn>
       <ResultListItemColumn>
         <ResultColumn runner={runner} />
