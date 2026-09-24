@@ -1,6 +1,5 @@
 import { ResultColumnProps } from "../../../../../../../components/ResultsList/IndividualResult/IndividualResult.tsx"
 import { formatScoreAsInteger } from "../../../../../../../../../../../shared/Functions.tsx"
-import { Box, Typography } from "@mui/material"
 import RaceTime from "../../../../../../../components/RaceTime.tsx"
 import { hasChipDownload } from "../../../../../../../shared/functions.ts"
 import { parseResultStatus } from "../../../../../../../../../shared/sortingFunctions/sortRunners.ts"
@@ -11,14 +10,14 @@ export default function RogaineResultItemRowColumnResult(props: ResultColumnProp
   const statusOkOrNc = runnerService.isOK(props.runner) || runnerService.isNC(props.runner)
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-      <Typography component={"span"}>
+    <div className="flex flex-col items-end">
+      <span>
         {statusOkOrNc
           ? runnerResult.points_final || runnerResult.finish_time
             ? `${formatScoreAsInteger(runnerResult.points_final)}`
             : ""
           : ""}
-      </Typography>
+      </span>
       <RaceTime
         displayStatus
         status={parseResultStatus(props.runner.stage.status_code as string)}
@@ -27,6 +26,6 @@ export default function RogaineResultItemRowColumnResult(props: ResultColumnProp
         finish_time={runnerResult.finish_time}
         time_seconds={runnerResult.time_seconds}
       />
-    </Box>
+    </div>
   )
 }

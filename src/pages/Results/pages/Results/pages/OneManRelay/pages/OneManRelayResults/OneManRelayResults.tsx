@@ -7,7 +7,7 @@ import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import RadiosExperimentalAlert from "../../../FootO/components/RadiosExperimentalAlert.tsx"
-import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
+import RunnerSorter from "../../../../components/RunnerSorter/RunnerSorter.tsx"
 import OneManRelayVirtualTicket from "../../components/OneManRelayVirtualTicket/OneManRelayVirtualTicket.tsx"
 import OneManRelayResultItem from "./components/OneManRelayResultItem.tsx"
 
@@ -36,23 +36,19 @@ export default function OneManRelayResults(props: OneManRelayResultProps) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           props.isClass && props.activeItem.splits.length > 0 ? <RadiosExperimentalAlert /> : <></>
         }
-        <ResultListContainer>
-          {runnersList?.map((runner: ProcessedRunnerModel) => {
-            return (
-              <OneManRelayResultItem
-                runner={runner}
-                isClass={props.isClass}
-                onClick={handleRowClick}
-              />
-            )
-          })}
-          <OneManRelayVirtualTicket
-            isTicketOpen={isVirtualTicketOpen}
-            runner={selectedRunner}
-            handleCloseTicket={handleCloseVirtualTicket}
-            setClassClubId={props.setClassClubId}
-          />
-        </ResultListContainer>
+        <RunnerSorter
+          runnerList={runnersList ?? []}
+          RunnerRow={OneManRelayResultItem}
+          runnerRowProps={{ isClass: props.isClass, onClick: handleRowClick }}
+          sortingFunction={(runnerList) => runnerList}
+          containerClassName="result-list-grid"
+        />
+        <OneManRelayVirtualTicket
+          isTicketOpen={isVirtualTicketOpen}
+          runner={selectedRunner}
+          handleCloseTicket={handleCloseVirtualTicket}
+          setClassClubId={props.setClassClubId}
+        />
       </>
     )
   }

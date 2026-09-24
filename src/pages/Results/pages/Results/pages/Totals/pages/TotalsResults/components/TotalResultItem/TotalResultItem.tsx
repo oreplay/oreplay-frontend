@@ -1,6 +1,5 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import StageResultItem from "../StageResultItem/StageResultItem.tsx"
-import { Collapse } from "@mui/material"
 import { memo, useCallback, useState } from "react"
 import IndividualResult from "../../../../../../components/ResultsList/IndividualResult/IndividualResult.tsx"
 import TotalResultsItemPointBasedColumn from "./components/TotalResultItemPointBasedColumn/TotalResultItemPointBasedColumn.tsx"
@@ -29,7 +28,7 @@ export default function TotalsResultItem({
   const isPointBased = runner.overalls?.overall.upload_type !== UPLOAD_TYPES.TOTAL_TIMES
 
   return (
-    <>
+    <div className="min-w-0">
       <MemoIndividualResult
         runner={runner}
         isClass={isClass}
@@ -38,22 +37,16 @@ export default function TotalsResultItem({
         }
         onClick={handleExpandClick}
       />
-      <Collapse
-        in={expanded}
-        timeout={300}
-        sx={{
-          background:
-            "linear-gradient(0deg, #00000008 0%, #F6F6F6FF 10%), linear-gradient(90deg, #00000008 0%, #F6F6F6FF 10%)",
-          backgroundBlendMode: "darken",
-          backgroundColor: "#f8f8f8",
-          borderRadius: "0px 0px 8px 8px",
-          overflow: "hidden",
-        }}
+      <div
+        aria-hidden={!expanded}
+        className={`grid overflow-hidden bg-[#f8f8f8] transition-[grid-template-rows] duration-300 ease-in-out ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
       >
-        {runner.overalls?.parts?.map((stage) => {
-          return <StageResultItem displayContributory key={stage.id} stage={stage} />
-        })}
-      </Collapse>
-    </>
+        <div className="min-h-0 overflow-hidden">
+          {runner.overalls?.parts?.map((stage) => (
+            <StageResultItem displayContributory key={stage.id} stage={stage} />
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }

@@ -1,4 +1,4 @@
-import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
+import RunnerSorter from "../../../../components/RunnerSorter/RunnerSorter.tsx"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
 import RogaineVirtualTicket from "../../components/RogaineVirtualTicket/RogaineVirtualTicket.tsx"
 import ResultsListSkeleton from "../../../../components/ResultsList/ResultListSkeleton.tsx"
@@ -9,6 +9,7 @@ import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import RogaineResultItemRow from "./components/RogaineResultItemRow/RogaineResultItemRow.tsx"
+import { sortRunners } from "../../../../../../shared/sortingFunctions/sortRunners.ts"
 
 interface RogainePointsProps
   extends ResultsPageProps<[ProcessedRunnerModel[], bigint[]], AxiosError<RunnerModel[]>> {
@@ -31,16 +32,14 @@ export default function RogainePoints(props: RogainePointsProps) {
     return <GeneralErrorFallback />
   } else {
     return (
-      <ResultListContainer>
-        {runnersList?.map((runner) => {
-          return (
-            <RogaineResultItemRow
-              runner={runner}
-              isClass={props.isClass}
-              onClick={handleRowClick}
-            />
-          )
-        })}
+      <>
+        <RunnerSorter
+          runnerList={runnersList ?? []}
+          RunnerRow={RogaineResultItemRow}
+          runnerRowProps={{ isClass: props.isClass, onClick: handleRowClick }}
+          sortingFunction={sortRunners}
+          containerClassName="result-list-grid"
+        />
         <RogaineVirtualTicket
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
@@ -48,7 +47,7 @@ export default function RogainePoints(props: RogainePointsProps) {
           setClassClubId={props.setClassClubId}
           controls={props.runnersQuery.data ? props.runnersQuery.data[1] : null}
         />
-      </ResultListContainer>
+      </>
     )
   }
 }

@@ -1,6 +1,7 @@
 import { RESULT_STATUS, RESULT_STATUS_TEXT } from "../constants.ts"
 import { RunnerModel } from "../../../../shared/EntityTypes.ts"
 import runnerCompareFunctions from "./compareFunctions.ts"
+import { ProcessedRunnerModel } from "../../components/VirtualTicket/shared/EntityTypes.ts"
 
 export function parseResultStatus(status: string): string {
   switch (status) {
@@ -63,7 +64,9 @@ export function conditionalCompare<T>(
  * Sort a list of runners
  * @param runnersList List of runners to be ordered
  */
-export function sortRunners(runnersList: RunnerModel[]) {
+export function sortRunners(runnersList: ProcessedRunnerModel[]): ProcessedRunnerModel[]
+export function sortRunners(runnersList: RunnerModel[]): RunnerModel[]
+export function sortRunners(runnersList: RunnerModel[]|ProcessedRunnerModel[]) {
   return runnersList.sort((a, b) => {
     return multiLevelCompare(a, b, [
       runnerCompareFunctions.byStageStatus,

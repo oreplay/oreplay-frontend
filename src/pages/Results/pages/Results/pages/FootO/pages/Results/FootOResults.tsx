@@ -1,4 +1,3 @@
-import ResultListContainer from "../../../../components/ResultsList/ResultListContainer.tsx"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import FootOVirtualTicket from "../../components/FootOVirtualTicket/FootOVirtualTicket.tsx"
@@ -51,20 +50,19 @@ export default function FootOResults(props: FootOResultProps) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           props.isClass && props.activeItem.splits.length > 0 ? <RadiosExperimentalAlert /> : <></>
         }
-        <ResultListContainer>
-          <RunnerSorter
-            runnerList={runnersList ? runnersList : []}
-            RunnerRow={FootOResultRowMemo}
-            sortingFunction={sortFootORunners}
-            runnerRowProps={runnerRowProps}
-          />
-          <FootOVirtualTicket
-            isTicketOpen={isVirtualTicketOpen}
-            runner={selectedRunner}
-            handleCloseTicket={handleCloseVirtualTicket}
-            setClassClubId={props.setClassClubId}
-          />
-        </ResultListContainer>
+        <RunnerSorter
+          runnerList={runnersList ? runnersList : []}
+          RunnerRow={FootOResultRowMemo}
+          sortingFunction={sortFootORunners}
+          runnerRowProps={runnerRowProps}
+          containerClassName="result-list-grid"
+        />
+        <FootOVirtualTicket
+          isTicketOpen={isVirtualTicketOpen}
+          runner={selectedRunner}
+          handleCloseTicket={handleCloseVirtualTicket}
+          setClassClubId={props.setClassClubId}
+        />
       </>
     )
   }

@@ -3,7 +3,6 @@ import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/func
 import ResultListItem from "../ResultListItem.tsx"
 import ResultListItemColumn from "../ResultListItemColumn.tsx"
 import RacePosition from "../../RacePosition.tsx"
-import { Box } from "@mui/material"
 import ParticipantName from "../../ParticipantName.tsx"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
@@ -25,13 +24,7 @@ export default function IndividualResult({
     <ResultListItem key={runner.id} onClick={onClick ? () => onClick(runner) : undefined}>
       <ResultListItemColumn
         slotProps={{
-          box: {
-            alignItems: "flex-start",
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "row",
-            height: "100%",
-          },
+          className: "flex h-full flex-grow flex-row items-start",
         }}
       >
         <RacePosition
@@ -40,14 +33,14 @@ export default function IndividualResult({
           isNC={runnerService.isNC(runner)}
           slotProps={{ text: { marginRight: 1 } }}
         />
-        <Box sx={{ flexGrow: 1 }}>
+        <div className="min-w-0 flex-grow">
           <ParticipantName
             name={runner.full_name}
             subtitle={
               isClass ? runnerService.getClubName(runner, t) : runnerService.getClassName(runner)
             }
           />
-        </Box>
+        </div>
       </ResultListItemColumn>
       <ResultListItemColumn>
         <ResultColumn runner={runner} />
