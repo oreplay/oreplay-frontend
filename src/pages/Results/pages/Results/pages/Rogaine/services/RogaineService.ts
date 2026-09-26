@@ -2,7 +2,7 @@ import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/sh
 import { getRunnersInStage } from "../../../../../services/EventService.ts"
 import { sortRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { processRunnerData } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
-import { getUniqueStationNumbers } from "../shared/functions.ts"
+import { copySplitsFromRunnerToTeam, getUniqueStationNumbers } from "../shared/functions.ts"
 
 /**
  * Query and process (compute splits) of runners by classes
@@ -24,6 +24,11 @@ export async function getRoganineRunnersByClass(
   let runnersList = runnersPage.data
 
   // Process runners
+  runnersList.forEach((runner) => {
+    // Workaround OEScore12 exports splits only at runner level
+    copySplitsFromRunnerToTeam(runner)
+  })
+
   runnersList = sortRunners(runnersList)
   const processedRunnersList = processRunnerData(runnersList)
 
