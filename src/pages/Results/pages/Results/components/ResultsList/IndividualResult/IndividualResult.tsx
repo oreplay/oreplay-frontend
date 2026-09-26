@@ -22,7 +22,11 @@ export default function IndividualResult({
   const { t } = useTranslation()
 
   return (
-    <ResultListItem key={runner.id} onClick={onClick ? () => onClick(runner) : undefined}>
+    <ResultListItem
+      key={runner.id}
+      onClick={onClick ? () => onClick(runner) : undefined}
+      runner={runner}
+    >
       <ResultListItemColumn
         slotProps={{
           box: {

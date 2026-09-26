@@ -2,6 +2,7 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin"
 import { defineConfig } from "vitest/config"
 import react from "@vitejs/plugin-react"
+import tailwindcss from "tailwindcss"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,6 +16,7 @@ export default defineConfig({
       org: "o-replay",
       project: "o-replay",
     }),
+    tailwindcss(),
   ],
 
   server: {
