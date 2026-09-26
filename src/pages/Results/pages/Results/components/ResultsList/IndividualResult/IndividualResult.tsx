@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
-import ResultListItem from "../ResultListItem.tsx"
+import ResultListItem from "../ResultListItem/ResultListItem.tsx"
 import ResultListItemColumn from "../ResultListItemColumn.tsx"
 import RacePosition from "../../RacePosition.tsx"
 import { Box } from "@mui/material"

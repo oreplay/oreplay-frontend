@@ -5,7 +5,7 @@ import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/func
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
 import { Box, Typography } from "@mui/material"
 import ParticipantName from "../../ParticipantName.tsx"
-import ResultListItem from "../ResultListItem.tsx"
+import ResultListItem from "../ResultListItem/ResultListItem.tsx"
 
 export default function TeamResult({ runner, onClick, ResultColumn }: ResultItemProps) {
   return (
