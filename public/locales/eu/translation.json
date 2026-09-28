@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "Guri buruz"
   },
+  "authenticationError": "Akats bat gertatu da",
   "Cancel": "Utzi",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Akatsik gabeko denbora",
+      "errorTime": "Denbora galdua (akatsa)"
+    },
+    "selectRunnersMessage": "Hautatu korrikalariak taula ikusteko",
+    "timeAxisLabel": "Denbora (segundoak)"
+  },
   "Copied to the clipboard": "Arbelean kopiatu da.",
   "Copy": "Kopiatu",
   "Dashboard": {
@@ -25,6 +34,7 @@
   "EmailAddress": "Posta elektronikoa",
   "Event": "Ekitaldia",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "Gutxienez etapa bat behar da ekitaldiaren konfigurazioa osatzeko.",
     "Country": "Herrialdea",
     "Create security keys": "Sortu segurtasun-giltza bat",
     "DangerArea": "Arrisku eremua",
@@ -35,6 +45,7 @@
     "DeleteEvent": "Ekitaldia ezabatu",
     "Do you want to delete this event?": "Ekitaldi hau ezabatu nahi duzu?",
     "Do you want to renew the security key?": "Segurtasun-giltza berritu nahi duzu?",
+    "EndMustBeBeforeEnd": "Helmuga-data ezin da irteera baino lehenagokoa izan.",
     "EventData": "Ekitaldiaren informazioa",
     "EventDataDescription": "Ikusi eta editatu zure ekitaldiaren xehetasun nagusiak",
     "EventId": "Ekitaldiaren ID",
@@ -80,6 +91,7 @@
         "DialogTitle": "Etapa hau ezabatu nahi duzu?",
         "MenuText": "Ezabatu"
       },
+      "description": "Sortu zure ekitaldiak behar dituen etapa guztiak. Ekitaldi bakoitzak gutxienez etapa bat izan behar du.",
       "FailedToLoadOrganizers": "Ezin izan dira antolatzaileak kargatu",
       "GoToStage": "Etapa ikusi",
       "NewStage": "Etapa berria",
@@ -106,6 +118,7 @@
           "title": "Totalak"
         }
       },
+      "Start": "Irteera (tokiko ordua)",
       "Stats": {
         "DialogBody": "Etapa estatistikak bistaratuko dira.",
         "DialogConfirm": "OK",
@@ -117,11 +130,12 @@
         "DialogConfirm": "Berrezarri",
         "DialogTitle": "Etapa hau berrezarri nahi duzu?",
         "MenuText": "Berrezarri"
-      },
-      "description": "Sortu zure ekitaldiak behar dituen etapa guztiak. Ekitaldi bakoitzak gutxienez etapa bat izan behar du."
+      }
     },
     "StartDate": "Irteera data",
-    "TooLongDescriptionMsg": "Emandako izenak {{count}} karaktereko gehienezko muga gainditzen du.",
+    "StartMustBeAfterEnd": "Irteera-data ezin da helmuga-data baino geroagokoa izan.",
+    "TooLongDescriptionMsg_one": "Emandako izenak {{count}} karaktereko gehienezko muga gainditzen du.",
+    "TooLongDescriptionMsg_other": "Emandako izenak {{count}} karakterezko gehienezko muga gainditzen du.",
     "TooLongMsg": "Sartutako URLak {{count}} karaktereko gehienezko kopurua gainditzen du.",
     "Website": "Ekitaldiaren webgunea",
     "WebsitePlaceholder": "https://zurekluba.com/zureekitaldia"
@@ -134,7 +148,25 @@
   },
   "Events": "Ekitaldiak",
   "ExperimentalFeatureMsg": "Ezaugarri esperimentala",
+  "FailedToLoad": {
+    "msg": "Mesedez, begiratu Interneterako konexioa. Akatsak irauten badu, saiatu berriro geroago.",
+    "title": "Orrialdearen kargak huts egin du"
+  },
+  "firstName": "Izena",
   "ForbiddenAccess": "Sarbide debekatua",
+  "ForgotPassword": {
+    "EmailSent": {
+      "msg": "{{email}} rako kontu bat badago, pasahitza berrezartzeko kode bat bidali dizugu. Begiratu zure spam karpeta minutu batzuk barru iristen ez bada. Sartu kodea eta pasahitz berria."
+    },
+    "Instructions": "Sartu zure kontuari lotutako helbide elektronikoa, eta esteka bat bidaliko dizugu zure pasahitza berrezartzeko.",
+    "Reset": {
+      "Code": "6 digituko kodea",
+      "InvalidCode": "Kodeak 6 digitukoa izan behar du.",
+      "Submit": "Pasahitza berrezarri"
+    },
+    "Submit": "Bidali reset web-esteka",
+    "Title": "Pasahitza ahaztu duzu?"
+  },
   "GeneralErrorFallback": {
     "msg": "Saiatu orria freskatzen. Akatsa jarraitzen badu, saiatu berriro geroago.",
     "title": "Ustekabeko akats bat gertatu da"
@@ -146,9 +178,9 @@
     "LineChart": "Lerro-diagrama",
     "PositionChart": "Posizio-diagrama",
     "RunnerSelection": "Korrikalarien hautaketa",
-    "SelectRunnersMessage": "Hautatu korrikalariak grafikoak ikusteko",
     "SelectedCount_one": "{{total}}tik {{count}} hautatua",
     "SelectedCount_other": "{{total}}tik {{count}} hautatuak",
+    "SelectRunnersMessage": "Hautatu korrikalariak grafikoak ikusteko",
     "Start": "Irteera",
     "Threshold": "Atalasea",
     "ThresholdWithPercent": "Atalasea ({{percent}}%)",
@@ -160,6 +192,15 @@
     "Language": "Hizkuntza",
     "Spanish": "Gaztelania"
   },
+  "lastName": "Abizena",
+  "lineChart": {
+    "noData": "Hautatu korrikalariak lerro-diagrama ikusteko",
+    "tooltip": {
+      "behindBestPartial": "Denbora partzial onenarekiko erlatiboa",
+      "behindLeader": "Liderrarekiko denbora-aldea"
+    },
+    "xAxisLabel": "Kontrolak"
+  },
   "Location": "Kokapena",
   "Menu": "Menua",
   "MyAccount": {
@@ -170,27 +211,41 @@
     "title": "Nire profila"
   },
   "Name": "Izena",
+  "NotApplicable": "Ez du balio",
   "Organizer": "Antolatzailea",
   "Organizers": "Antolatzailearen informazioa",
   "Overall": {
     "pointsAbbreviation": "ptk"
   },
   "Password": "Pasahitza",
+  "positionChart": {
+    "caption": "* 1. posizioa goian (onena), zenbaki altuenak behean (okerragoak)",
+    "noData": "Hautatu korrikalariak posizioen bilakaera ikusteko",
+    "tooltip": {
+      "control": "Kontrola",
+      "position": "Posizioa",
+      "splitTime": "Denbora partziala",
+      "timeLost": "Denbora partzial onenari dagokionez: {{timeLost}}"
+    },
+    "xAxisLabel": "Kontrolak",
+    "yAxisLabel": "Posizioak"
+  },
   "PrivateEventPage": {
     "Header": "Ekitaldi Pribatua",
     "Message": "Ekitaldi hau antolatzaileak pribatu gisa ezarri du. Akats bat dela uste baduzu, jarri harremanetan ekitaldiaren antolatzailearekin."
   },
   "RadiosExperimentalMsg": "Irrati-kontrolak erabiltzean, zatitzearekin lotutako funtzioak esperimentalak dira.",
+  "Rankings": "Sailkapenak",
   "Results": {
     "Class": "Kategoria",
     "Classes": "Kategoriak",
     "Finish": "Amaiera",
     "Name": "Izena",
     "Position": "Posizioa",
+    "shortClass": "Kategoria",
     "SiCard": "SI Txartela",
     "Start": "Irteera",
-    "Time": "Denbora",
-    "shortClass": "Kategoria"
+    "Time": "Denbora"
   },
   "ResultsStage": {
     "BonusPoints": "Bonus",
@@ -203,8 +258,8 @@
     "Name": "Izena",
     "NoClubMsg": "Klubik ez",
     "NoData": "Ez dago daturik eskuragarri",
-    "NoStartTime": "-",
     "NonContributory": "baztertutako",
+    "NoStartTime": "-",
     "NotStarted": "-",
     "PenaltyPoints": "Zigorra:",
     "Points": "Puntuak:",
@@ -223,6 +278,15 @@
     },
     "StageNumber": "Etapa {{number}}",
     "StartTime": "Irteera",
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "KK"
+    },
     "Times": "Denbora",
     "VirtualTicket": {
       "Control": "Ctrl",
@@ -242,20 +306,22 @@
     "WrongFileUploaded": {
       "Msg": "Kronometratzaileak azken emaitzak partzialik gabe igo ditu. Fitxategi hauek ez dira igo behar eta datu falta edo okerrak bistaratzea eragin dezakete. Emaitzak gure zerbitzura nola igo jakiteko informazio gehiago aurki daiteke <2>Antolatzaileak</2> orrian.",
       "Title": "Emaitzak partzialik gabe!"
-    },
-    "statusCodes": {
-      "dnf": "DNF",
-      "dns": "DNS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "KK"
     }
   },
   "Settings": "Ezarpenak",
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Cookie politika",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Lege Oharra",
+    "loading": "Kargatzen...",
+    "privacyPolicy": "Pribatutasun politika"
+  },
   "Sign in": {
     "ForgotPassword": "Pasahitza ahaztu duzu?",
+    "InvalidCredentials": "Erabiltzaile izen edo pasahitz baliogabea",
+    "LoginChallengeExpired": "Denbora gehiegi behar izan duzu sartzeko. Mesedez, saiatu berriro.",
     "Logout": "Saioa amaitu",
     "NoAccount": "Ez duzu konturik? <1>Eman izena</1>",
     "RememberMe": "Gogorarazi",
@@ -309,53 +375,15 @@
   "Success": "Arrakasta",
   "This action cannot be undone": "Ekintza hau ezin da desegin.",
   "ThisFunctionalityNotImplementedMsg": "Ezaugarri hau oraindik ez da inplementatu.",
-  "UnderDevelopment": "Garapenean",
-  "authenticationError": "Akats bat gertatu da",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Akatsik gabeko denbora",
-      "errorTime": "Denbora galdua (akatsa)"
-    },
-    "selectRunnersMessage": "Hautatu korrikalariak taula ikusteko",
-    "timeAxisLabel": "Denbora (segundoak)"
-  },
-  "firstName": "Izena",
-  "lastName": "Abizena",
-  "lineChart": {
-    "noData": "Hautatu korrikalariak lerro-diagrama ikusteko",
-    "tooltip": {
-      "behindBestPartial": "Denbora partzial onenarekiko erlatiboa",
-      "behindLeader": "Liderrarekiko denbora-aldea"
-    },
-    "xAxisLabel": "Kontrolak"
-  },
-  "positionChart": {
-    "caption": "* 1. posizioa goian (onena), zenbaki altuenak behean (okerragoak)",
-    "noData": "Hautatu korrikalariak posizioen bilakaera ikusteko",
-    "tooltip": {
-      "control": "Kontrola",
-      "position": "Posizioa",
-      "splitTime": "Denbora partziala",
-      "timeLost": "Denbora partzial onenari dagokionez: {{timeLost}}"
-    },
-    "xAxisLabel": "Kontrolak",
-    "yAxisLabel": "Posizioak"
-  },
-  "sidebar": {
-    "backendVersion": "Backend",
-    "cookiePolicy": "Cookie politika",
-    "frontendVersion": "Frontend",
-    "frontendVersionWithVersion": "Frontend v{{version}}",
-    "legalNotice": "Lege Oharra",
-    "loading": "Kargatzen...",
-    "privacyPolicy": "Pribatutasun politika"
-  },
+  "TimeZone": "Ordu-eremu",
+  "TimezoneMismatchRunnerMsg": "Ekitaldi hau beste ordu-eremu batekin ikusten ari zara. Bistaratutako denbora guztiak (irteera orduak barne) zure tokiko ordu-eremuan daude, ez ekitaldiarenean.",
   "tooltip": {
     "efficiency": "Eraginkortasuna",
     "errorFreeTime": "Akatsik gabeko denbora",
     "errorTime": "Denbora galdua (akatsa)",
     "totalDisplayedTime": "Erakutsitako denbora guztira"
   },
+  "UnderDevelopment": "Garapenean",
   "view": {
     "accumulated": "Metatua",
     "barChart": "Denbora galduta",
@@ -364,5 +392,12 @@
     "radios": "Irratiak",
     "splits": "Partzialak",
     "timeLoss": "Denbora Galera Taula"
+  },
+  "WorldContinents": {
+    "America": "Amerika",
+    "Asia": "Asia",
+    "Australia": "Australia",
+    "Europe": "Europa",
+    "Other": "Beste bat"
   }
 }
