@@ -29,7 +29,7 @@ export default function SignUp() {
     <Container
       component="main"
       maxWidth="md"
-      sx={{ height: "100vh", display: "flex", alignItems: "center", flexDirection: "column" }}
+      sx={{ height: "100dvh", display: "flex", alignItems: "center", flexDirection: "column" }}
     >
       {submitted ? (
         <SignUpEmailVerification email={signUpMutation.data?.data.email || ""} />

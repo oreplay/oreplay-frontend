@@ -6,7 +6,7 @@ export default function Dashboard() {
   const { t } = useTranslation()
 
   return (
-    <Box sx={{ minHeight: "100vh", flexGrow: 1, backgroundColor: "#f6f6f6", py: 6 }}>
+    <Box sx={{ minHeight: "100dvh", flexGrow: 1, backgroundColor: "#f6f6f6", py: 6 }}>
       <Container maxWidth={"md"}>
         <Typography component="h1" variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
           {t("Dashboard.YourEvents.title")}
