@@ -13,7 +13,9 @@ export default function GeneralSuspenseFallback(props: GeneralSuspenseFallbackPr
     <Box
       sx={{
         width: props.useViewPort ? "100vw" : "100%",
-        height: props.useViewPort ? "100vh" : "100%",
+        height: props.useViewPort ? "100dvh" : undefined,
+        flex: props.useViewPort ? undefined : 1,
+        minHeight: props.useViewPort ? undefined : 0,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

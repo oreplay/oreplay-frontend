@@ -10,15 +10,30 @@ export default function Layout() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
 
   return (
-    <Box sx={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        minHeight: "100dvh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Header key={"AppHeader"} setOpenSidebar={setIsSideBarOpen} />
       <Sidebar key={"AppSidebar"} openSidebar={isSideBarOpen} setOpenSidebar={setIsSideBarOpen} />
 
-      <Suspense fallback={<GeneralSuspenseFallback />} key={location.pathname}>
-        <ErrorBoundary key={"MainErrorBoundary"} displayMsg>
-          <Outlet />
-        </ErrorBoundary>
-      </Suspense>
+      <Box
+        sx={{
+          flex: 1,
+          minHeight: 0,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Suspense fallback={<GeneralSuspenseFallback />} key={location.pathname}>
+          <ErrorBoundary key={"MainErrorBoundary"} displayMsg>
+            <Outlet />
+          </ErrorBoundary>
+        </Suspense>
+      </Box>
     </Box>
   )
 }
