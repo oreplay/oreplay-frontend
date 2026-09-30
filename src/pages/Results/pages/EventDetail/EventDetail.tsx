@@ -2,15 +2,14 @@ import { Box, Typography } from "@mui/material"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { ArrowForward } from "@mui/icons-material"
-import { parseDate } from "../../../../shared/Functions.tsx"
-import EventDetailURLButton from "./components/EventDetailURLButton.tsx"
+import EventDetailURLButton from "../../components/EventDetailURLButton.tsx"
 import NotFoundPage from "../../../NotFoundPage/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import { useFetchEventDetail } from "../../services/FetchHooks.ts"
 import { STAGE_TYPE_DATABASE_ID } from "../Results/shared/constants.ts"
-import { DateTime } from "luxon"
-import CountryFlag from "../../../../components/CountryFlag/CountryFlag.tsx"
-import { useCountry } from "../../../../services/countryService/countryHooks.ts"
+import EventCountry from "../../components/EventCountry.tsx"
+import { EVENT_GRADIENT } from "../../shared/constants.ts"
+import { formatEventDateRange, formatStageStart } from "../../shared/eventDates.ts"
 
 const styles = {
   titleEvent: {
@@ -24,26 +23,12 @@ const styles = {
 export default function EventDetail() {
   const { id } = useParams()
   const { t } = useTranslation()
-  const countryT = useCountry()
   const navigate = useNavigate()
 
   const { data, isLoading, error, isError } = useFetchEventDetail(id as string)
 
   const detail = data?.data
-
-  function getDatesOfEvent() {
-    if (detail?.initial_date && detail?.final_date) {
-      const initDateParse = parseDate(detail.initial_date)
-      const finalDateParse = parseDate(detail.final_date)
-
-      if (initDateParse == finalDateParse) {
-        return initDateParse
-      } else {
-        return `${initDateParse} - ${finalDateParse}`
-      }
-    }
-    return null
-  }
+  const eventDates = formatEventDateRange(detail?.initial_date, detail?.final_date)
 
   if (isLoading) {
     return <GeneralSuspenseFallback />
@@ -73,7 +58,7 @@ export default function EventDetail() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            background: "linear-gradient(150deg, #F9D2FF 0%, #FFE9CB 100%)",
+            background: EVENT_GRADIENT,
             paddingY: 4,
             paddingX: { xs: "32px", sm: "56px" },
             flexGrow: 1,
@@ -82,27 +67,8 @@ export default function EventDetail() {
           }}
         >
           {detail?.country_code ? (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                width: "100%",
-                marginBottom: "6px",
-              }}
-            >
-              <CountryFlag
-                code={detail?.country_code.toLowerCase()}
-                slotProps={{
-                  picture: { display: "flex", alignItems: "center" },
-                  image: { width: "12px", display: "block" },
-                }}
-              />
-              <Typography
-                sx={{ fontSize: 10, color: "text.secondary", fontWeight: 600, lineHeight: 1 }}
-              >
-                {countryT(detail.country_code)}{" "}
-              </Typography>{" "}
+            <Box sx={{ marginBottom: "6px" }}>
+              <EventCountry countryCode={detail.country_code} />
             </Box>
           ) : null}
           <Typography sx={{ color: "text.secondary", fontSize: "small", fontWeight: 500 }}>
@@ -111,12 +77,10 @@ export default function EventDetail() {
           <Typography sx={{ color: "text.primary" }} style={styles.titleEvent}>
             {detail?.description}
           </Typography>
-          {getDatesOfEvent() ? (
-            <Typography sx={{ color: "text.secondary", marginTop: "6px" }}>
-              {getDatesOfEvent()}
-            </Typography>
+          {eventDates ? (
+            <Typography sx={{ color: "text.secondary", marginTop: "6px" }}>{eventDates}</Typography>
           ) : null}
-          <EventDetailURLButton url={detail?.website} marginLeft="0px" marginRight="0px" />
+          <EventDetailURLButton url={detail?.website} sx={{ marginTop: "16px" }} />
         </Box>
         <Box
           sx={{
@@ -201,9 +165,7 @@ export default function EventDetail() {
                       </Typography>
                       {stage.start ? (
                         <Typography sx={{ color: "text.secondary", fontSize: "small" }}>
-                          {DateTime.fromISO(stage.start).toLocaleString(
-                            DateTime.DATETIME_MED_WITH_WEEKDAY,
-                          )}
+                          {formatStageStart(stage.start)}
                         </Typography>
                       ) : null}
                     </Box>
