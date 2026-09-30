@@ -12,6 +12,7 @@ import { CSSObject } from "@mui/material/styles"
 import { Launch, Close } from "@mui/icons-material"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { parseWebsiteUrl } from "../shared/websiteUrl.ts"
 
 interface EditeDetailURLButtonProps {
   url: string | undefined
@@ -22,128 +23,113 @@ export default function EditeDetailURLButton({ url, sx }: EditeDetailURLButtonPr
   const [open, setOpen] = useState(false)
   const { t } = useTranslation()
 
-  if (!url) {
+  const urlObject = parseWebsiteUrl(url)
+  if (!urlObject) {
     return <></>
   }
+  const fullUrl = urlObject.toString()
 
-  try {
-    // Add protocol if missing
-    if (!/^https?:\/\//i.test(url)) {
-      url = "https://" + url
-    }
+  return (
+    <>
+      <Button
+        sx={{
+          width: "min-content",
+          textTransform: "lowercase",
+          paddingX: 1,
+          paddingY: 0.5,
+          borderRadius: "6px",
+          color: "text.secondary",
+          fontSize: 13,
+          gap: 0.5,
+          transition: "background-color 0.15s ease, color 0.15s ease",
+          "&:hover": {
+            backgroundColor: "action.hover",
+            color: "text.primary",
+          },
+          "& .MuiButton-endIcon": {
+            marginLeft: 0.25,
+            "& svg": { fontSize: 15 },
+          },
+          ...sx,
+        }}
+        variant="text"
+        onClick={() => setOpen(true)}
+        endIcon={<Launch />}
+      >
+        {urlObject.hostname}
+      </Button>
 
-    // Validate URL
-    const urlObject = new URL(url)
-    const fullUrl = urlObject.toString()
-
-    return (
-      <>
-        <Button
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="external-link-dialog-title"
+        slotProps={{
+          paper: {
+            sx: {
+              minWidth: 360,
+            },
+          },
+        }}
+      >
+        <DialogTitle
+          id="external-link-dialog-title"
           sx={{
-            width: "min-content",
-            textTransform: "lowercase",
-            paddingX: 1,
-            paddingY: 0.5,
-            borderRadius: "6px",
-            color: "text.secondary",
-            fontSize: 13,
-            gap: 0.5,
-            transition: "background-color 0.15s ease, color 0.15s ease",
-            "&:hover": {
-              backgroundColor: "action.hover",
-              color: "text.primary",
-            },
-            "& .MuiButton-endIcon": {
-              marginLeft: 0.25,
-              "& svg": { fontSize: 15 },
-            },
-            ...sx,
-          }}
-          variant="text"
-          onClick={() => setOpen(true)}
-          endIcon={<Launch />}
-        >
-          {urlObject.hostname}
-        </Button>
-
-        <Dialog
-          open={open}
-          onClose={() => setOpen(false)}
-          aria-labelledby="external-link-dialog-title"
-          slotProps={{
-            paper: {
-              sx: {
-                minWidth: 360,
-              },
-            },
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            pb: 1,
           }}
         >
-          <DialogTitle
-            id="external-link-dialog-title"
+          {t("URLButtonDialog.title")}
+          <IconButton onClick={() => setOpen(false)} size="small" sx={{ color: "text.secondary" }}>
+            <Close sx={{ fontSize: 18 }} />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent sx={{ pt: 1 }}>
+          <Typography sx={{ mb: 1.5 }}>{t("URLButtonDialog.body")}</Typography>
+          <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              pb: 1,
+              backgroundColor: "action.hover",
+              borderRadius: "8px",
+              padding: "10px 12px",
             }}
           >
-            {t("URLButtonDialog.title")}
-            <IconButton
-              onClick={() => setOpen(false)}
-              size="small"
-              sx={{ color: "text.secondary" }}
-            >
-              <Close sx={{ fontSize: 18 }} />
-            </IconButton>
-          </DialogTitle>
-          <DialogContent sx={{ pt: 1 }}>
-            <Typography sx={{ mb: 1.5 }}>{t("URLButtonDialog.body")}</Typography>
-            <Box
+            <Typography
               sx={{
-                backgroundColor: "action.hover",
-                borderRadius: "8px",
-                padding: "10px 12px",
+                wordBreak: "break-all",
+                fontSize: 13,
+                fontFamily: "monospace",
+                color: "text.primary",
               }}
             >
-              <Typography
-                sx={{
-                  wordBreak: "break-all",
-                  fontSize: 13,
-                  fontFamily: "monospace",
-                  color: "text.primary",
-                }}
-              >
-                {fullUrl}
-              </Typography>
-            </Box>
-          </DialogContent>
-          <DialogActions sx={{ px: 3, pb: 2.5, pt: 1 }}>
-            <Button
-              onClick={() => setOpen(false)}
-              sx={{ color: "text.secondary", textTransform: "none" }}
-            >
-              {t("common:close")}
-            </Button>
-            <Button
-              variant="outlined"
-              disableElevation
-              endIcon={<Launch />}
-              onClick={() => {
-                setOpen(false)
-                window.open(fullUrl, "_blank", "noopener,noreferrer")
-              }}
-              sx={{
-                textTransform: "none",
-                paddingX: 2,
-              }}
-            >
-              {t("URLButtonDialog.openLink")}
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </>
-    )
-  } catch {
-    return <></>
-  }
+              {fullUrl}
+            </Typography>
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2.5, pt: 1 }}>
+          <Button
+            onClick={() => setOpen(false)}
+            sx={{ color: "text.secondary", textTransform: "none" }}
+          >
+            {t("common:close")}
+          </Button>
+          <Button
+            variant="outlined"
+            disableElevation
+            endIcon={<Launch />}
+            onClick={() => {
+              setOpen(false)
+              window.open(fullUrl, "_blank", "noopener,noreferrer")
+            }}
+            sx={{
+              textTransform: "none",
+              paddingX: 2,
+            }}
+          >
+            {t("URLButtonDialog.openLink")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  )
 }
