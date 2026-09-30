@@ -12,7 +12,7 @@ export default {
         // Mirror the host's MUI default font stack so the module renders in the
         // same typeface. The host sets no `<body>` font (no CssBaseline), so we
         // can't `inherit` — Nimbus Sans only appears because "Helvetica" in this
-        // stack is substituted by it on Linux. Applied on the `.rk-root` wrapper
+        // stack is substituted by it on Linux. Applied on the `.tw-root` wrapper
         // in RankingRoutes so it cascades to the whole module.
         sans: ['"Roboto"', '"Helvetica"', '"Arial"', "sans-serif"],
       },

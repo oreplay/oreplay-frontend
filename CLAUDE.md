@@ -47,9 +47,9 @@ MUI because the styling is scoped:
 - **Preflight is off** globally (`tailwind.config.js` → `corePlugins.preflight: false`), so Tailwind
   adds no global reset that would restyle the host's MUI tree.
 - The base resets that Tailwind's border/button/box-sizing utilities rely on are re-added **scoped to
-  `.rk-root`** via `:where(.rk-root)` in `src/styles/tailwind.css`. `:where()` contributes zero
+  `.tw-root`** via `:where(.tw-root)` in `src/styles/tailwind.css`. `:where()` contributes zero
   specificity, so single-class utilities (`.bg-primary`) still win over the resets. Every ranking
-  screen renders inside the `.rk-root` wrapper set by the ranking entry
+  screen renders inside the `.tw-root` wrapper set by the ranking entry
   (`src/pages/Ranking/Ranking.tsx`), so the resets never leak out.
 - That same entry imports `src/styles/tokens.css` (palette CSS vars) and `src/styles/tailwind.css`
   (the `@tailwind` directives). Vite's PostCSS (`postcss.config.js` → `tailwindcss` + `autoprefixer`)
