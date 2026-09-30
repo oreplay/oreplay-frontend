@@ -11,14 +11,14 @@
    * Re-add just that slice of preflight, scoped to the module root so it never
    * touches the host.
    *
-   * The scope uses `:where(.rk-root)`, which contributes ZERO specificity (the
-   * trick preflight itself uses). A plain `.rk-root button` would be (0,1,1) and
+   * The scope uses `:where(.tw-root)`, which contributes ZERO specificity (the
+   * trick preflight itself uses). A plain `.tw-root button` would be (0,1,1) and
    * outrank single-class utilities like `.bg-primary` (0,1,0) — leaving the
    * native styling in place. With `:where()` the utilities always win.
    */
-  :where(.rk-root) *,
-  :where(.rk-root) ::before,
-  :where(.rk-root) ::after {
+  :where(.tw-root) *,
+  :where(.tw-root) ::before,
+  :where(.tw-root) ::after {
     box-sizing: border-box;
     border-width: 0;
     border-style: solid;
@@ -29,15 +29,15 @@
    * Preflight also normalises form controls; without it buttons/inputs render
    * with native chrome — most visibly the grey <button> background.
    */
-  :where(.rk-root) button,
-  :where(.rk-root) input,
-  :where(.rk-root) select,
-  :where(.rk-root) textarea {
+  :where(.tw-root) button,
+  :where(.tw-root) input,
+  :where(.tw-root) select,
+  :where(.tw-root) textarea {
     font: inherit;
     color: inherit;
   }
 
-  :where(.rk-root) button {
+  :where(.tw-root) button {
     background-color: transparent;
     background-image: none;
     cursor: pointer;

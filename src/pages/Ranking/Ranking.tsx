@@ -10,7 +10,7 @@ import RankingSettings from "./pages/RankingSettings/RankingSettings.tsx"
 
 export default function Ranking() {
   return (
-    <div className="rk-root font-sans">
+    <div className="tw-root font-sans">
       <Routes>
         <Route index element={<RankingList />} />
         <Route path=":rankingId/settings" element={<RankingSettings />} />
