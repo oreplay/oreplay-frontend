@@ -12,13 +12,22 @@ interface AutocompleteListContainerProps {
 }
 
 const LAYOUT_CLASSES: Record<AutocompleteListLayout, string> = {
-  grid: "grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] content-start gap-1.5 px-4",
-  list: "flex flex-col gap-0.5 px-2",
+  list: "flex-col gap-0.5 px-2",
+  wrap: "flex-wrap content-start justify-between gap-1.5 px-4 after:flex-auto after:content-['']",
 }
+
+const SKELETON_MIN_ITEMS = 8
 
 export default function AutocompleteListContainer(props: AutocompleteListContainerProps) {
   if (props.isLoading) {
-    return <ListSkeleton SkeletonItem={AutocompleteListSkeletonItem} gap="4px" className="px-2" />
+    return (
+      <ListSkeleton
+        SkeletonItem={AutocompleteListSkeletonItem}
+        gap="4px"
+        minItems={SKELETON_MIN_ITEMS}
+        className="px-2"
+      />
+    )
   }
 
   if (props.isEmpty) {
@@ -27,7 +36,7 @@ export default function AutocompleteListContainer(props: AutocompleteListContain
 
   return (
     <ul
-      className={`autocomplete-list-container m-0 min-h-0 flex-1 list-none overflow-y-auto pb-3 pt-0 ${LAYOUT_CLASSES[props.layout]}`}
+      className={`autocomplete-list-container m-0 flex min-h-0 flex-auto list-none overflow-y-auto pb-3 pt-0 ${LAYOUT_CLASSES[props.layout]}`}
     >
       {props.children}
     </ul>
