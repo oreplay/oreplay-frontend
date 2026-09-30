@@ -1,5 +1,7 @@
 import { ControlTypeModel } from "../../../shared/EntityTypes.ts"
 
+export const EVENT_GRADIENT = "linear-gradient(150deg, #F9D2FF 0%, #FFE9CB 100%)"
+
 export const RESULT_STATUS = {
   ok: "0",
   dns: "1", //did not start

@@ -8,21 +8,17 @@ import {
   Box,
   IconButton,
 } from "@mui/material"
+import { CSSObject } from "@mui/material/styles"
 import { Launch, Close } from "@mui/icons-material"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
 interface EditeDetailURLButtonProps {
   url: string | undefined
-  marginLeft?: string
-  marginRight?: string
+  sx?: CSSObject
 }
 
-export default function EditeDetailURLButton({
-  url,
-  marginLeft,
-  marginRight,
-}: EditeDetailURLButtonProps) {
+export default function EditeDetailURLButton({ url, sx }: EditeDetailURLButtonProps) {
   const [open, setOpen] = useState(false)
   const { t } = useTranslation()
 
@@ -43,13 +39,8 @@ export default function EditeDetailURLButton({
     return (
       <>
         <Button
-          style={{
-            marginLeft,
-            marginRight,
-          }}
           sx={{
             width: "min-content",
-            marginTop: "16px",
             textTransform: "lowercase",
             paddingX: 1,
             paddingY: 0.5,
@@ -66,6 +57,7 @@ export default function EditeDetailURLButton({
               marginLeft: 0.25,
               "& svg": { fontSize: 15 },
             },
+            ...sx,
           }}
           variant="text"
           onClick={() => setOpen(true)}
