@@ -26,7 +26,7 @@ export default function EventStageBanner(props: EventStageBannerProps) {
   const showSeparator = Boolean(stageStart) && hasWebsite
 
   return (
-    <div className="event-stage-banner tw-root flex flex-col gap-2 bg-[#efefef] px-6 py-4 text-left font-sans text-base font-normal leading-normal tracking-[0.00938em]">
+    <div className="event-stage-banner tw-root flex flex-col gap-2 bg-[linear-gradient(30deg,#fbe1d7_0%,#ffd4fa_100%)] px-6 py-8 text-left font-sans text-base font-normal leading-normal tracking-[0.00938em]">
       {props.organizerName && (
         <EventStageBannerOrganizer
           organizerName={props.organizerName}
@@ -35,7 +35,7 @@ export default function EventStageBanner(props: EventStageBannerProps) {
       )}
       <p className="m-0 text-[x-large] font-semibold text-black/[0.87]">{title}</p>
       {subtitle && (
-        <p className="m-0 whitespace-normal font-semibold break-words text-[small] text-[#646464]">
+        <p className="m-0 whitespace-normal font-semibold break-words text-[normal] text-black/[0.87]">
           {subtitle}
         </p>
       )}
