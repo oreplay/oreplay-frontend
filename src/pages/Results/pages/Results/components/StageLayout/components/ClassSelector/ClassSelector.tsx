@@ -4,9 +4,11 @@ import { useTranslation } from "react-i18next"
 import { ClassModel, ClubModel, Page } from "../../../../../../../../shared/EntityTypes.ts"
 import { useEffect, useRef, useState } from "react"
 import { UseQueryResult } from "react-query"
+import { useParams } from "react-router-dom"
 import { useClassClubSearchParams } from "../../../../../../shared/hooks.ts"
 import ClassSelectorDialog from "./components/ClassSelectorDialog/ClassSelectorDialog.tsx"
-import { ClassSelectorTab, tabForSearchParam } from "./shared/classSelector.ts"
+import { ClassSelectorTab, tabForKind } from "./shared/classSelector.ts"
+import { useRecentClassesClubs } from "./shared/useRecentClassesClubs.ts"
 
 interface ClassSelectorProps {
   isClass: boolean
@@ -23,6 +25,13 @@ export default function ClassSelector(props: ClassSelectorProps) {
   const [currentTab, setCurrentTab] = useState<ClassSelectorTab>("classes")
 
   const { getClassClubSearchParamName } = useClassClubSearchParams()
+  const { eventId = "" } = useParams()
+  const { recentIds, rememberRecent } = useRecentClassesClubs(eventId)
+  const activeItemId = props.activeClassClub?.id
+
+  useEffect(() => {
+    if (activeItemId) rememberRecent(tabForKind(props.isClass), activeItemId)
+  }, [activeItemId, props.isClass, rememberRecent])
 
   const hasInitialized = useRef(false)
   useEffect(() => {
@@ -32,7 +41,7 @@ export default function ClassSelector(props: ClassSelectorProps) {
     hasInitialized.current = true
 
     if (item !== null && isClassInSearchParam !== null) {
-      setCurrentTab(tabForSearchParam(isClassInSearchParam))
+      setCurrentTab(tabForKind(isClassInSearchParam))
     } else {
       setIsOpen(true)
     }
@@ -83,7 +92,8 @@ export default function ClassSelector(props: ClassSelectorProps) {
         onClose={() => setIsOpen(false)}
         currentTab={currentTab}
         onTabChange={setCurrentTab}
-        activeItemId={props.activeClassClub?.id}
+        activeItemId={activeItemId}
+        recentIds={recentIds}
         classesQuery={props.classesQuery}
         clubsQuery={props.clubsQuery}
         onClassClick={handleClassClick}
