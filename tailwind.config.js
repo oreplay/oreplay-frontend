@@ -19,6 +19,23 @@ export default {
       colors: {
         // Channel-format CSS vars (see src/styles/tokens.css) so opacity
         // utilities like `bg-primary/50` work. These are our OWN semantic vars.
+        medal: {
+          bronze: {
+            DEFAULT: "rgb(var(--color-medal-bronze) / <alpha-value>)",
+            ink: "rgb(var(--color-medal-bronze-ink) / <alpha-value>)",
+            light: "rgb(var(--color-medal-bronze-light) / <alpha-value>)",
+          },
+          gold: {
+            DEFAULT: "rgb(var(--color-medal-gold) / <alpha-value>)",
+            ink: "rgb(var(--color-medal-gold-ink) / <alpha-value>)",
+            light: "rgb(var(--color-medal-gold-light) / <alpha-value>)",
+          },
+          silver: {
+            DEFAULT: "rgb(var(--color-medal-silver) / <alpha-value>)",
+            ink: "rgb(var(--color-medal-silver-ink) / <alpha-value>)",
+            light: "rgb(var(--color-medal-silver-light) / <alpha-value>)",
+          },
+        },
         primary: "rgb(var(--color-primary) / <alpha-value>)",
         secondary: "rgb(var(--color-secondary) / <alpha-value>)",
         surface: "rgb(var(--color-surface) / <alpha-value>)",

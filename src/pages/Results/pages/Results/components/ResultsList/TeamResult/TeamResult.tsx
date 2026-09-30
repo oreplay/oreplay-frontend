@@ -1,6 +1,7 @@
 import { ResultItemProps } from "../shared/types.ts"
 import ResultListItemColumn from "../ResultListItemColumn.tsx"
-import RacePosition from "../../RacePosition.tsx"
+import RacePosition from "../../RacePosition/RacePosition.tsx"
+import { canWinMedal } from "../../../shared/medals.ts"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
 import { Box, Typography } from "@mui/material"
@@ -22,6 +23,7 @@ export default function TeamResult({ runner, onClick, ResultColumn }: ResultItem
         }}
       >
         <RacePosition
+          canWinMedal={canWinMedal(runner)}
           position={runner.overalls ? runner.overalls.overall.position : runner.stage.position}
           hasDownload={runner.overalls ? true : hasChipDownloadFunction(runner)}
           isNC={runnerService.isNC(runner)}

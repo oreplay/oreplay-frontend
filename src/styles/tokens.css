@@ -11,4 +11,13 @@
   --color-primary: 255 113 10; /* #ff710a */
   --color-secondary: 94 37 114; /* #5e2572 */
   --color-surface: 246 246 246; /* #f6f6f6 */
+  --color-medal-bronze: 205 127 50;
+  --color-medal-bronze-ink: 74 40 16;
+  --color-medal-bronze-light: 240 190 140;
+  --color-medal-gold: 230 180 34;
+  --color-medal-gold-ink: 90 67 0;
+  --color-medal-gold-light: 252 227 138;
+  --color-medal-silver: 176 183 192;
+  --color-medal-silver-ink: 58 64 72;
+  --color-medal-silver-light: 238 241 244;
 }

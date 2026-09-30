@@ -1,7 +1,8 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { parseResultStatus } from "../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../../../shared/constants.ts"
-import RacePosition from "../../../../../../components/RacePosition.tsx"
+import RacePosition from "../../../../../../components/RacePosition/RacePosition.tsx"
+import { canWinMedal } from "../../../../../../shared/medals.ts"
 import RaceTimeBehind from "../../../../../../components/RaceTimeBehind.tsx"
 import {
   hasChipDownload as hasChipDownloadFunction,
@@ -30,6 +31,7 @@ export default function RelayResultItem({
     <>
       <td className="relay-result-column min-width">
         <RacePosition
+          canWinMedal={canWinMedal(runner)}
           position={runner.stage.position}
           hasDownload={hasChipDownload}
           isNC={isRunnerNC(runner)}

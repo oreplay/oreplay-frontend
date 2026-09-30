@@ -25,7 +25,8 @@ import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
-import RacePosition from "../../../../components/RacePosition.tsx"
+import RacePosition from "../../../../components/RacePosition/RacePosition.tsx"
+import { canWinMedal } from "../../../../shared/medals.ts"
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
 
@@ -82,6 +83,7 @@ export default function RogainePoints(
                 <TableRow sx={{ width: { md: "100%", sx: "200px" } }} key={`runner${runner.id}`}>
                   <TableCell key={`runner${runner.id}pos`}>
                     <RacePosition
+                      canWinMedal={canWinMedal(runner)}
                       position={runner.stage.position}
                       isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
                       hasDownload={hasChipDownload(runner)}

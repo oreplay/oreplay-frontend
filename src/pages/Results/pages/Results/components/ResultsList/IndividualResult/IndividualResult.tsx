@@ -2,7 +2,8 @@ import { useTranslation } from "react-i18next"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
 import ResultListItem from "../ResultListItem.tsx"
 import ResultListItemColumn from "../ResultListItemColumn.tsx"
-import RacePosition from "../../RacePosition.tsx"
+import RacePosition from "../../RacePosition/RacePosition.tsx"
+import { canWinMedal } from "../../../shared/medals.ts"
 import { Box } from "@mui/material"
 import ParticipantName from "../../ParticipantName.tsx"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
@@ -35,6 +36,7 @@ export default function IndividualResult({
         }}
       >
         <RacePosition
+          canWinMedal={canWinMedal(runner)}
           position={runner.overalls ? runner.overalls.overall.position : runner.stage.position}
           hasDownload={runner.overalls ? true : hasChipDownloadFunction(runner)}
           isNC={runnerService.isNC(runner)}

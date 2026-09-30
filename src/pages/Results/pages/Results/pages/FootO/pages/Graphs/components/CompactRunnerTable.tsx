@@ -17,12 +17,22 @@ import { useTranslation } from "react-i18next"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { formatTime } from "../../../shared/chartDataTransform.ts"
 import { hasChipDownload } from "../../../../../shared/functions.ts"
+import RacePosition from "../../../../../components/RacePosition/RacePosition.tsx"
+import { canWinMedal } from "../../../../../shared/medals.ts"
 
 interface CompactRunnerTableProps {
   runners: ProcessedRunnerModel[]
   selectedRunners: string[]
   onSelectionChange: (runnerIds: string[]) => void
 }
+
+const NO_POSITION = "-"
+const POSITION_TEXT_SX = {
+  color: "text.primary",
+  fontSize: "0.875rem",
+  fontWeight: "bold",
+  textAlign: "start",
+} as const
 
 export default function CompactRunnerTable({
   runners,
@@ -129,9 +139,17 @@ export default function CompactRunnerTable({
                     />
                   </TableCell>
                   <TableCell>
-                    <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                      {runner.stage.position || "-"}
-                    </Typography>
+                    {runner.stage.position ? (
+                      <RacePosition
+                        canWinMedal={canWinMedal(runner)}
+                        position={runner.stage.position}
+                        slotProps={{ text: POSITION_TEXT_SX }}
+                      />
+                    ) : (
+                      <Typography variant="body2" sx={POSITION_TEXT_SX}>
+                        {NO_POSITION}
+                      </Typography>
+                    )}
                   </TableCell>
                   <TableCell>
                     <Typography variant="body2" noWrap>

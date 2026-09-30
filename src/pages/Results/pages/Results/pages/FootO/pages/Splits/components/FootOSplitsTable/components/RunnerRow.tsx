@@ -15,7 +15,8 @@ import { getOnlineSplits } from "../shared/footOSplitsTableFunctions.ts"
 import { OnlineControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
 import RaceTimeBehind from "../../../../../../../components/RaceTimeBehind.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../../shared/functions.ts"
-import RacePosition from "../../../../../../../components/RacePosition.tsx"
+import RacePosition from "../../../../../../../components/RacePosition/RacePosition.tsx"
+import { canWinMedal } from "../../../../../../../shared/medals.ts"
 import {
   FINISH_LEG_ID,
   TimeLossResults,
@@ -116,6 +117,7 @@ export default function RunnerRow(props: RunnerRowProps) {
             sx={{ display: "inline-flex", position: "absolute", pointerEvents: "none" }}
           >
             <RacePosition
+              canWinMedal={canWinMedal(props.runner)}
               position={props.runner.stage.position}
               isNC={props.runner.is_nc || status === RESULT_STATUS_TEXT.nc}
               hasDownload={hasChipDownload}
