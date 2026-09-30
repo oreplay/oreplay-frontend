@@ -32,6 +32,6 @@ export function ignoreDashesAndUnderscores(text: string) {
   return text.replace(/[-_]/g, "")
 }
 
-export function tabForSearchParam(isClassInSearchParam: boolean): ClassSelectorTab {
-  return isClassInSearchParam ? "classes" : "clubs"
+export function tabForKind(isClass: boolean): ClassSelectorTab {
+  return isClass ? "classes" : "clubs"
 }
