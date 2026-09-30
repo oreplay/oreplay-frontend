@@ -3,7 +3,7 @@ import { useFetchEventDetail } from "../../services/FetchHooks.ts"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import NotFoundPage from "../../../NotFoundPage/NotFoundPage.tsx"
 import GeneralErrorFallback from "../../../../components/GeneralErrorFallback.tsx"
-import EventStageBanner from "./components/EventStageBanner.tsx"
+import EventStageBanner from "./components/EventStageBanner/EventStageBanner.tsx"
 import StageTypeSelector from "./components/StageTypeSelector.tsx"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
@@ -72,11 +72,14 @@ export default function Results() {
           key={`StageBanner${eventDetail.id}`}
           eventName={eventDetail.description}
           organizerName={eventDetail.organizer?.name}
+          countryCode={eventDetail.country_code}
+          website={eventDetail.website}
           stageName={
             stageDetail.stage_type.id !== STAGE_TYPE_DATABASE_ID.Totals
               ? stageDetail.description
               : t("EventAdmin.Stages.StagesTypes.Totals.title")
           }
+          stageStart={stageDetail.start}
           singleStage={singleStage}
         />
         {classesQuery.isSuccess && classesQuery.data.data.length > 0 ? (
