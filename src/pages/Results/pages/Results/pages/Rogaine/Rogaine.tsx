@@ -1,7 +1,9 @@
-import { useTranslation } from "react-i18next"
 import StageLayout from "../../components/StageLayout/StageLayout.tsx"
-import ResultTabs from "../../components/ResultTabs.tsx"
-import { BottomNavigationAction, Box } from "@mui/material"
+import ResultTabsPanel from "../../components/ResultTabsPanel.tsx"
+import ResultTabsBar from "../../components/ResultTabsBar/ResultTabsBar.tsx"
+import { ResultTabOption } from "../../shared/resultTabs.ts"
+import { useResultTabs } from "../../shared/useResultTabs.ts"
+import { Box } from "@mui/material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import TimelineIcon from "@mui/icons-material/Timeline"
 import RogaineResults from "./pages/RogaineResults/RogaineResults.tsx"
@@ -17,12 +19,14 @@ import { useCallback, useMemo } from "react"
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 import { DateTime } from "luxon"
+import { RESULT_TAB } from "../../shared/constants.ts"
 
-const menu_options_labels = ["results", "points"]
+const ROGAINE_TABS: readonly ResultTabOption[] = [
+  { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
+  { icon: <TimelineIcon />, key: RESULT_TAB.Points, labelKey: "StageHeader.ScorePoints" },
+]
 
 export default function Rogaine() {
-  const { t } = useTranslation()
-
   // Get stage's and event's ids
   const { eventId, stageId } = useParams()
   if (!eventId || !stageId) {
@@ -87,6 +91,8 @@ export default function Rogaine() {
     }
   }, [refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs, isClass])
 
+  const { selectedMenu, handleMenuChange } = useResultTabs(0, ROGAINE_TABS)
+
   return (
     <StageLayout
       handleRefreshClick={handleRefreshClick}
@@ -97,23 +103,15 @@ export default function Rogaine() {
       setActiveClassClub={setClassClubId}
       displayTimezoneMsg={!timezoneMatch}
       isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+      navigation={
+        <ResultTabsBar
+          options={ROGAINE_TABS}
+          selectedMenu={selectedMenu}
+          onChange={handleMenuChange}
+        />
+      }
     >
-      <ResultTabs
-        defaultMenu={0}
-        menuOptions={[
-          <BottomNavigationAction
-            key={"rogaineRseultsMenu"}
-            label={t("StageHeader.Results")}
-            icon={<EmojiEventsIcon />}
-          />,
-          <BottomNavigationAction
-            key={"RogaineScorePointsMenu"}
-            label={t("StageHeader.ScorePoints")}
-            icon={<TimelineIcon />}
-          />,
-        ]}
-        menuOptionsLabels={menu_options_labels}
-      >
+      <ResultTabsPanel options={ROGAINE_TABS} selectedMenu={selectedMenu}>
         <Box sx={{ px: 1, height: "100%" }}>
           <RogaineResults
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
@@ -127,7 +125,7 @@ export default function Rogaine() {
           activeItem={activeItem}
           isClass={isClass}
         />
-      </ResultTabs>
+      </ResultTabsPanel>
     </StageLayout>
   )
 }

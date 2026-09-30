@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next"
 import { useParams } from "react-router-dom"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { useQuery } from "react-query"
@@ -7,8 +6,11 @@ import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useCallback, useMemo } from "react"
 import StageLayout from "../../components/StageLayout/StageLayout.tsx"
-import ResultTabs from "../../components/ResultTabs.tsx"
-import { BottomNavigationAction, Box } from "@mui/material"
+import ResultTabsPanel from "../../components/ResultTabsPanel.tsx"
+import ResultTabsBar from "../../components/ResultTabsBar/ResultTabsBar.tsx"
+import { ResultTabOption } from "../../shared/resultTabs.ts"
+import { useResultTabs } from "../../shared/useResultTabs.ts"
+import { Box } from "@mui/material"
 import { AccessTime } from "@mui/icons-material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import FootOStartTime from "../FootO/pages/StartTime/FootOStartTime.tsx"
@@ -20,12 +22,14 @@ import {
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { DateTime } from "luxon"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
+import { RESULT_TAB } from "../../shared/constants.ts"
 
-const menu_options_labels = ["startTimes", "results"]
+const ONE_MAN_RELAY_TABS: readonly ResultTabOption[] = [
+  { icon: <AccessTime />, key: RESULT_TAB.StartTimes, labelKey: "StageHeader.StartTime" },
+  { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
+]
 
 export default function OneManRelay() {
-  const { t } = useTranslation()
-
   // Get stage's and event's ids
   const { eventId, stageId } = useParams()
   if (!eventId || !stageId) {
@@ -87,6 +91,11 @@ export default function OneManRelay() {
     }
   }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
 
+  const { selectedMenu, handleMenuChange } = useResultTabs(
+    eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1, // display start times if the race has not started
+    ONE_MAN_RELAY_TABS,
+  )
+
   return (
     <StageLayout
       key={"stageLayout"}
@@ -98,26 +107,15 @@ export default function OneManRelay() {
       handleRefreshClick={refetch}
       displayTimezoneMsg={!timezoneMatch}
       isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+      navigation={
+        <ResultTabsBar
+          options={ONE_MAN_RELAY_TABS}
+          selectedMenu={selectedMenu}
+          onChange={handleMenuChange}
+        />
+      }
     >
-      <ResultTabs
-        key={"ResultTabs"}
-        defaultMenu={
-          eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1 // display start times if the race has not started
-        }
-        menuOptions={[
-          <BottomNavigationAction
-            key={"OneManRelayStartTimeMenu"}
-            label={t("StageHeader.StartTime")}
-            icon={<AccessTime />}
-          />,
-          <BottomNavigationAction
-            key={"OneManRelayResultsMenu"}
-            label={t("StageHeader.Results")}
-            icon={<EmojiEventsIcon />}
-          />,
-        ]}
-        menuOptionsLabels={menu_options_labels}
-      >
+      <ResultTabsPanel key={"ResultTabs"} options={ONE_MAN_RELAY_TABS} selectedMenu={selectedMenu}>
         <Box sx={{ px: 1, height: "100%" }}>
           <FootOStartTime
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
@@ -133,7 +131,7 @@ export default function OneManRelay() {
             setClassClubId={setClassClubId}
           />
         </Box>
-      </ResultTabs>
+      </ResultTabsPanel>
     </StageLayout>
   )
 }

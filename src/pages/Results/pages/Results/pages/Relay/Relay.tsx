@@ -1,10 +1,12 @@
 import RelayResults from "./pages/RelayResults/RelayResults.tsx"
 import StageLayout from "../../components/StageLayout/StageLayout.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
-import { BottomNavigationAction, Box } from "@mui/material"
+import { Box } from "@mui/material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
-import ResultTabs from "../../components/ResultTabs.tsx"
-import { useTranslation } from "react-i18next"
+import ResultTabsPanel from "../../components/ResultTabsPanel.tsx"
+import ResultTabsBar from "../../components/ResultTabsBar/ResultTabsBar.tsx"
+import { ResultTabOption } from "../../shared/resultTabs.ts"
+import { useResultTabs } from "../../shared/useResultTabs.ts"
 import { Person } from "@mui/icons-material"
 import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
@@ -14,16 +16,17 @@ import { useParams } from "react-router-dom"
 import { useCallback, useMemo } from "react"
 import RelayLegs from "./pages/RelayLegs/RelayLegs.tsx"
 import { getRelayRunnersByClass, getRelayRunnersByClub } from "./services/RelayService.ts"
-import { RESULTS_QUERY } from "../../shared/constants.ts"
+import { RESULT_TAB, RESULTS_QUERY } from "../../shared/constants.ts"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 import { DateTime } from "luxon"
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 
-const menu_options_labels = ["results", "legs"]
+const RELAY_TABS: readonly ResultTabOption[] = [
+  { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
+  { icon: <Person />, key: RESULT_TAB.Legs, labelKey: "StageHeader.RelayLegs" },
+]
 
 export default function Relay() {
-  const { t } = useTranslation()
-
   // Get stage's and event's ids
   const { eventId, stageId } = useParams()
   if (!eventId || !stageId) {
@@ -86,6 +89,8 @@ export default function Relay() {
     }
   }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
 
+  const { selectedMenu, handleMenuChange } = useResultTabs(0, RELAY_TABS)
+
   return (
     <Box sx={{ px: 2, height: "100%" }}>
       <StageLayout
@@ -98,23 +103,15 @@ export default function Relay() {
         handleRefreshClick={handleRefreshClick}
         displayTimezoneMsg={!timezoneMatch}
         isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+        navigation={
+          <ResultTabsBar
+            options={RELAY_TABS}
+            selectedMenu={selectedMenu}
+            onChange={handleMenuChange}
+          />
+        }
       >
-        <ResultTabs
-          defaultMenu={0}
-          menuOptions={[
-            <BottomNavigationAction
-              key={"relayResults"}
-              label={t("StageHeader.Results")}
-              icon={<EmojiEventsIcon />}
-            />,
-            <BottomNavigationAction
-              key={"RogaineScorePointsMenu"}
-              label={t("StageHeader.RelayLegs")}
-              icon={<Person />}
-            />,
-          ]}
-          menuOptionsLabels={menu_options_labels}
-        >
+        <ResultTabsPanel options={RELAY_TABS} selectedMenu={selectedMenu}>
           <RelayResults
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
             activeItem={activeItem}
@@ -126,7 +123,7 @@ export default function Relay() {
             activeItem={activeItem}
             isClass={isClass}
           />
-        </ResultTabs>
+        </ResultTabsPanel>
       </StageLayout>
     </Box>
   )

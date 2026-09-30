@@ -1,10 +1,12 @@
 import StageLayout from "../../components/StageLayout/StageLayout.tsx"
-import ResultTabs from "../../components/ResultTabs.tsx"
-import { BottomNavigationAction, Box } from "@mui/material"
+import ResultTabsPanel from "../../components/ResultTabsPanel.tsx"
+import ResultTabsBar from "../../components/ResultTabsBar/ResultTabsBar.tsx"
+import { ResultTabOption } from "../../shared/resultTabs.ts"
+import { useResultTabs } from "../../shared/useResultTabs.ts"
+import { Box } from "@mui/material"
 import { AccessTime } from "@mui/icons-material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import TimerIcon from "@mui/icons-material/Timer"
-import { useTranslation } from "react-i18next"
 import FootOStartTime from "./pages/StartTime/FootOStartTime.tsx"
 import FootOResults from "./pages/Results/FootOResults.tsx"
 import FootOSplits from "./pages/Splits/FootOSplits.tsx"
@@ -19,12 +21,15 @@ import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { DateTime } from "luxon"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
+import { RESULT_TAB } from "../../shared/constants.ts"
 
-const menu_options_labels = ["startTimes", "results", "splits"]
+const FOOT_O_TABS: readonly ResultTabOption[] = [
+  { icon: <AccessTime />, key: RESULT_TAB.StartTimes, labelKey: "StageHeader.StartTime" },
+  { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
+  { icon: <TimerIcon />, key: RESULT_TAB.Splits, labelKey: "StageHeader.Splits" },
+]
 
 export default function FootO() {
-  const { t } = useTranslation()
-
   // Get stage's and event's ids
   const { eventId, stageId } = useParams()
   if (!eventId || !stageId) {
@@ -87,6 +92,11 @@ export default function FootO() {
     }
   }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
 
+  const { selectedMenu, handleMenuChange } = useResultTabs(
+    eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1, // display start times if the race has not started
+    FOOT_O_TABS,
+  )
+
   return (
     <StageLayout
       key={"stageLayout"}
@@ -98,31 +108,15 @@ export default function FootO() {
       handleRefreshClick={refetch}
       displayTimezoneMsg={!timezoneMatch}
       isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+      navigation={
+        <ResultTabsBar
+          options={FOOT_O_TABS}
+          selectedMenu={selectedMenu}
+          onChange={handleMenuChange}
+        />
+      }
     >
-      <ResultTabs
-        key={"ResultTabs"}
-        defaultMenu={
-          eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1 // display start times if the race has not started
-        }
-        menuOptions={[
-          <BottomNavigationAction
-            key={"FootOStartTimeMenu"}
-            label={t("StageHeader.StartTime")}
-            icon={<AccessTime />}
-          />,
-          <BottomNavigationAction
-            key={"FootOResultsMenu"}
-            label={t("StageHeader.Results")}
-            icon={<EmojiEventsIcon />}
-          />,
-          <BottomNavigationAction
-            key={"FootOSplitsMenu"}
-            label={t("StageHeader.Splits")}
-            icon={<TimerIcon />}
-          />,
-        ]}
-        menuOptionsLabels={menu_options_labels}
-      >
+      <ResultTabsPanel key={"ResultTabs"} options={FOOT_O_TABS} selectedMenu={selectedMenu}>
         <Box sx={{ px: 1, height: "100%" }}>
           <FootOStartTime
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
@@ -143,7 +137,7 @@ export default function FootO() {
           activeItem={activeItem}
           isClass={isClass}
         />
-      </ResultTabs>
+      </ResultTabsPanel>
     </StageLayout>
   )
 }
