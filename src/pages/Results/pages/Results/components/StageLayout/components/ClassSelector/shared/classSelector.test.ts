@@ -5,7 +5,7 @@ import {
   filterByName,
   ignoreDashes,
   ignoreDashesAndUnderscores,
-  tabForSearchParam,
+  tabForKind,
 } from "./classSelector.ts"
 
 const identity = (name: string) => name
@@ -43,10 +43,10 @@ describe("ignoreDashesAndUnderscores", () => {
   })
 })
 
-describe("tabForSearchParam", () => {
-  it("maps the search param kind to its tab", () => {
-    expect(tabForSearchParam(true)).toBe("classes")
-    expect(tabForSearchParam(false)).toBe("clubs")
+describe("tabForKind", () => {
+  it("maps the item kind to its tab", () => {
+    expect(tabForKind(true)).toBe("classes")
+    expect(tabForKind(false)).toBe("clubs")
   })
 })
 

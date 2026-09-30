@@ -6,6 +6,7 @@ interface AutocompleteListItemProps {
   isSelected: boolean
   layout: AutocompleteListLayout
   onClick: () => void
+  scrollIntoViewWhenSelected: boolean
 }
 
 const SCROLL_TO_CENTER: ScrollIntoViewOptions = { block: "center" }
@@ -28,9 +29,11 @@ export default function AutocompleteListItem(props: AutocompleteListItemProps) {
   const itemRef = useRef<HTMLLIElement>(null)
   const colorClass = props.isSelected ? SELECTED_CLASSES : UNSELECTED_CLASSES
 
+  const shouldScrollIntoView = props.isSelected && props.scrollIntoViewWhenSelected
+
   useEffect(() => {
-    if (props.isSelected) itemRef.current?.scrollIntoView?.(SCROLL_TO_CENTER)
-  }, [props.isSelected])
+    if (shouldScrollIntoView) itemRef.current?.scrollIntoView?.(SCROLL_TO_CENTER)
+  }, [shouldScrollIntoView])
 
   return (
     <li ref={itemRef} className={`autocomplete-list-item ${ITEM_LAYOUT_CLASSES[props.layout]}`}>
