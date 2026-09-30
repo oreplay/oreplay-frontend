@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { autocompleteListLayout, filterByName } from "../../../../shared/classSelector.ts"
+import { AutocompleteListLayout, filterByName } from "../../../../shared/classSelector.ts"
 import AutocompleteListContainer from "./components/AutocompleteListContainer.tsx"
 import AutocompleteListItem from "./components/AutocompleteListItem.tsx"
 import AutocompleteListSearchBar from "./components/AutocompleteListSearchBar.tsx"
@@ -11,6 +11,7 @@ interface AutocompleteListProps<T> {
   handleClick: (item: T) => void
   normalizeQuery?: (query: string) => string
   isLoading?: boolean
+  layout: AutocompleteListLayout
   selectedKey?: string
 }
 
@@ -21,6 +22,7 @@ export default function AutocompleteList<T>({
   handleClick,
   normalizeQuery,
   isLoading,
+  layout,
   selectedKey,
 }: AutocompleteListProps<T>) {
   const [query, setQuery] = useState<string>("")
@@ -30,13 +32,8 @@ export default function AutocompleteList<T>({
     [itemList, query, nameExtractor, normalizeQuery],
   )
 
-  const layout = useMemo(
-    () => autocompleteListLayout(itemList.map(nameExtractor)),
-    [itemList, nameExtractor],
-  )
-
   return (
-    <div className="autocomplete-list flex min-h-0 flex-1 flex-col">
+    <div className="autocomplete-list flex min-h-0 flex-auto flex-col">
       <AutocompleteListSearchBar value={query} setValue={setQuery} />
       <AutocompleteListContainer
         layout={layout}
