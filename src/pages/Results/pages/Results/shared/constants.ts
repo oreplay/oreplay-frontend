@@ -27,3 +27,13 @@ export const RESULTS_QUERY = {
   refetchInterval: 90000,
   refetchOnWindowFocus: true,
 }
+
+export const RESULT_TAB = {
+  Legs: "legs",
+  Points: "points",
+  Results: "results",
+  Splits: "splits",
+  StartTimes: "startTimes",
+} as const
+
+export type ResultTabKey = (typeof RESULT_TAB)[keyof typeof RESULT_TAB]

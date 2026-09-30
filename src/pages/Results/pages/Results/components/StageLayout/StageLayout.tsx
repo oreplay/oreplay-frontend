@@ -9,6 +9,9 @@ import WrongResultsFileUploadedMsg from "../WrongResultsFileUploadedMsg.tsx"
 import { UseQueryResult } from "react-query"
 import ErrorBoundary from "../../../../../../components/ErrorBoundary/ErrorBoundary.tsx"
 import TimezoneMsg from "./components/TimezoneMsg.tsx"
+import { useIsMobileDevice } from "../../shared/useIsMobileDevice.ts"
+
+const MOBILE_BOTTOM_NAVIGATION_HEIGHT = "56px"
 
 type StageLayoutProps = {
   handleRefreshClick: () => void
@@ -21,10 +24,13 @@ type StageLayoutProps = {
   isFetching?: boolean
   children: React.ReactNode
   displayTimezoneMsg?: boolean
+  navigation?: React.ReactNode
 }
 
 export default function StageLayout(props: StageLayoutProps) {
   const { t } = useTranslation()
+  const isMobileDevice = useIsMobileDevice()
+  const contentBottomPadding = isMobileDevice ? MOBILE_BOTTOM_NAVIGATION_HEIGHT : 0
 
   // Component
   return (
@@ -36,6 +42,7 @@ export default function StageLayout(props: StageLayoutProps) {
         minHeight: 0,
       }}
     >
+      {props.navigation}
       {props.isWrongFileUploaded ? <WrongResultsFileUploadedMsg /> : <></>}
       <Box
         sx={{
@@ -64,7 +71,7 @@ export default function StageLayout(props: StageLayoutProps) {
         </Tooltip>
       </Box>
       {props.displayTimezoneMsg ? <TimezoneMsg /> : null}
-      <Box sx={{ marginTop: "12px", flex: 1, paddingBottom: "56px" }}>
+      <Box sx={{ marginTop: "12px", flex: 1, paddingBottom: contentBottomPadding }}>
         <ErrorBoundary displayMsg>{props.children}</ErrorBoundary>
       </Box>
     </Box>
