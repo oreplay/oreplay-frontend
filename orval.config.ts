@@ -35,7 +35,15 @@ const config = (name: string, url?: string) => {
       target: url ?? `./openapi/${name}.yaml`,
       filters: {
         mode: "include",
-        tags: [/Ranking/, /Events/, /EventTokens/, /Stages/, /StageOrders/, /ResetPassword/],
+        tags: [
+          /Ranking/,
+          /Events/,
+          /EventTokens/,
+          /Stages/,
+          /StageOrders/,
+          /ResetPassword/,
+          /UploadsV2/,
+        ],
       },
     },
   }
