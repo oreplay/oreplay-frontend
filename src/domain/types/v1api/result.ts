@@ -21,7 +21,8 @@ export interface Result {
   note?: string | null
   /** @nullable */
   points_adjusted?: string | null
-  points_behind?: number
+  /** @nullable */
+  points_behind?: string | null
   /** @nullable */
   points_bonus?: string | null
   /** @nullable */
