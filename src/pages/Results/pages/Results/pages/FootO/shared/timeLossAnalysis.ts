@@ -30,7 +30,7 @@ export interface RunnerTimeLossInfo {
 }
 
 export interface TimeLossAnalysis {
-  controlId: string
+  legId: string
   orderNumber: number
   bestTime: number
   estimatedTimeWithoutError: number
@@ -38,7 +38,7 @@ export interface TimeLossAnalysis {
 }
 
 export interface TimeLossResults {
-  analysisPerControl: Map<string, TimeLossAnalysis>
+  analysisPerLeg: Map<string, TimeLossAnalysis>
   globalStats: {
     totalControls: number
     totalSplitsAnalyzed: number
@@ -51,6 +51,16 @@ interface LegEntry {
   legTime: number
   orderNumber: number
   position: number | null
+}
+
+export function buildLegId(orderNumber: number, controlId: string): string {
+  return `${orderNumber}-${controlId}`
+}
+
+export function splitLegId(split: ProcessedSplitModel): string | null {
+  const controlId = split.control?.id
+  if (!controlId) return null
+  return buildLegId(split.order_number ?? 0, controlId)
 }
 
 export function mean(values: number[]): number {
@@ -160,9 +170,9 @@ function collectLegEntries(runners: ProcessedRunnerModel[]): Map<string, LegEntr
 
   runners.forEach((runner) => {
     sortedControlSplits(runner).forEach((split) => {
-      const controlId = split.control?.id
-      if (!controlId || split.time === null || split.time <= 0) return
-      addEntry(controlId, {
+      const legId = splitLegId(split)
+      if (!legId || split.time === null || split.time <= 0) return
+      addEntry(legId, {
         runnerId: runner.id,
         legTime: split.time,
         orderNumber: split.order_number ?? 0,
@@ -247,7 +257,7 @@ function analyzeLeg(
   })
 
   return {
-    controlId: legId,
+    legId,
     orderNumber: rankedEntries[0].orderNumber,
     bestTime: rankedEntries[0].legTime,
     estimatedTimeWithoutError: reference,
@@ -257,7 +267,7 @@ function analyzeLeg(
 
 function emptyResults(): TimeLossResults {
   return {
-    analysisPerControl: new Map<string, TimeLossAnalysis>(),
+    analysisPerLeg: new Map<string, TimeLossAnalysis>(),
     globalStats: { totalControls: 0, totalSplitsAnalyzed: 0, totalTimeLossDetected: 0 },
   }
 }
@@ -282,7 +292,7 @@ export function analyzeTimeLoss(
 
   const levelByRunner = buildRunnerLevels(entriesByLeg, legReferences)
 
-  const analysisPerControl = new Map<string, TimeLossAnalysis>()
+  const analysisPerLeg = new Map<string, TimeLossAnalysis>()
   let totalSplitsAnalyzed = 0
   let totalTimeLossDetected = 0
 
@@ -291,7 +301,7 @@ export function analyzeTimeLoss(
     if (reference === undefined) return
 
     const legAnalysis = analyzeLeg(legId, entries, reference, levelByRunner, tolerance)
-    analysisPerControl.set(legId, legAnalysis)
+    analysisPerLeg.set(legId, legAnalysis)
     totalSplitsAnalyzed += legAnalysis.runnerAnalysis.size
     legAnalysis.runnerAnalysis.forEach((info) => {
       if (info.hasTimeLoss) totalTimeLossDetected++
@@ -299,9 +309,9 @@ export function analyzeTimeLoss(
   })
 
   return {
-    analysisPerControl,
+    analysisPerLeg,
     globalStats: {
-      totalControls: analysisPerControl.size,
+      totalControls: analysisPerLeg.size,
       totalSplitsAnalyzed,
       totalTimeLossDetected,
     },
@@ -311,9 +321,9 @@ export function analyzeTimeLoss(
 export function getRunnerTimeLossInfo(
   timeLossResults: TimeLossResults,
   runnerId: string,
-  controlId: string,
+  legId: string,
 ): RunnerTimeLossInfo | null {
-  const controlAnalysis = timeLossResults.analysisPerControl.get(controlId)
-  if (!controlAnalysis) return null
-  return controlAnalysis.runnerAnalysis.get(runnerId) ?? null
+  const legAnalysis = timeLossResults.analysisPerLeg.get(legId)
+  if (!legAnalysis) return null
+  return legAnalysis.runnerAnalysis.get(runnerId) ?? null
 }

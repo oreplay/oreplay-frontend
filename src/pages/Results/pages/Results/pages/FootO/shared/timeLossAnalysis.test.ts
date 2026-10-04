@@ -4,6 +4,7 @@ import { RESULT_STATUS } from "../../../../../shared/constants.ts"
 import { UPLOAD_TYPES } from "../../../shared/constants.ts"
 import {
   analyzeTimeLoss,
+  buildLegId,
   competitionRanks,
   computeLegLoss,
   computeLegReference,
@@ -15,6 +16,7 @@ import {
   mean,
   median,
   MIN_RUNNER_LEVEL,
+  splitLegId,
 } from "./timeLossAnalysis.ts"
 
 interface LegSpec {
@@ -140,6 +142,18 @@ describe("statistical helpers", () => {
   })
 })
 
+describe("splitLegId", () => {
+  it("identifies a leg by its order in the course and its control", () => {
+    const [firstSplit] = makeRunner("r1", cleanLegs).stage.splits
+    expect(splitLegId(firstSplit)).toBe(buildLegId(1, "c1"))
+  })
+
+  it("returns null for a split without a control", () => {
+    const [firstSplit] = makeRunner("r1", cleanLegs).stage.splits
+    expect(splitLegId({ ...firstSplit, control: null })).toBeNull()
+  })
+})
+
 describe("computeLegReference", () => {
   it("falls back to the fastest split when the field is small", () => {
     expect(computeLegReference([50, 60, 70])).toBe(50)
@@ -233,7 +247,7 @@ describe("computeLegLoss", () => {
 describe("analyzeTimeLoss", () => {
   it("returns empty results when there are no runners", () => {
     const results = analyzeTimeLoss([], 15)
-    expect(results.analysisPerControl.size).toBe(0)
+    expect(results.analysisPerLeg.size).toBe(0)
     expect(results.globalStats).toEqual({
       totalControls: 0,
       totalSplitsAnalyzed: 0,
@@ -246,13 +260,13 @@ describe("analyzeTimeLoss", () => {
       [makeRunner("nc", cleanLegs, { statusCode: RESULT_STATUS.nc })],
       15,
     )
-    expect(results.analysisPerControl.size).toBe(0)
+    expect(results.analysisPerLeg.size).toBe(0)
   })
 
   it("detects the leg where a runner made a real mistake", () => {
     const results = analyzeTimeLoss(buildField(), 15)
 
-    const blunder = getRunnerTimeLossInfo(results, "blunder", "c2")
+    const blunder = getRunnerTimeLossInfo(results, "blunder", buildLegId(2, "c2"))
     expect(blunder).not.toBeNull()
     expect(blunder?.hasTimeLoss).toBe(true)
     expect(blunder?.timeLoss).toBe(150)
@@ -264,8 +278,8 @@ describe("analyzeTimeLoss", () => {
   it("does not flag a consistently slower but clean runner on any leg", () => {
     const results = analyzeTimeLoss(buildField(), 15)
 
-    for (const controlId of ["c1", "c2", "c3"]) {
-      const info = getRunnerTimeLossInfo(results, "slow", controlId)
+    for (const [index, leg] of cleanLegs.entries()) {
+      const info = getRunnerTimeLossInfo(results, "slow", buildLegId(index + 1, leg.controlId))
       expect(info?.hasTimeLoss).toBe(false)
       expect(info?.timeLoss).toBe(0)
     }
@@ -273,7 +287,7 @@ describe("analyzeTimeLoss", () => {
 
   it("marks the fastest runner on a leg as the best", () => {
     const results = analyzeTimeLoss(buildField(), 15)
-    const info = getRunnerTimeLossInfo(results, "r1", "c2")
+    const info = getRunnerTimeLossInfo(results, "r1", buildLegId(2, "c2"))
     expect(info?.isBest).toBe(true)
     expect(info?.rank).toBe(1)
     expect(info?.hasTimeLoss).toBe(false)
@@ -294,12 +308,12 @@ describe("analyzeTimeLoss", () => {
     )
 
     const results = analyzeTimeLoss(field, 15)
-    expect(getRunnerTimeLossInfo(results, "t2", "tie")?.rank).toBe(3)
-    expect(getRunnerTimeLossInfo(results, "t3", "tie")?.rank).toBe(3)
-    expect(getRunnerTimeLossInfo(results, "t2", "tie")?.isTopThree).toBe(true)
-    expect(getRunnerTimeLossInfo(results, "t3", "tie")?.isTopThree).toBe(true)
-    expect(getRunnerTimeLossInfo(results, "t4", "tie")?.rank).toBe(5)
-    expect(getRunnerTimeLossInfo(results, "t4", "tie")?.isTopThree).toBe(false)
+    expect(getRunnerTimeLossInfo(results, "t2", buildLegId(1, "tie"))?.rank).toBe(3)
+    expect(getRunnerTimeLossInfo(results, "t3", buildLegId(1, "tie"))?.rank).toBe(3)
+    expect(getRunnerTimeLossInfo(results, "t2", buildLegId(1, "tie"))?.isTopThree).toBe(true)
+    expect(getRunnerTimeLossInfo(results, "t3", buildLegId(1, "tie"))?.isTopThree).toBe(true)
+    expect(getRunnerTimeLossInfo(results, "t4", buildLegId(1, "tie"))?.rank).toBe(5)
+    expect(getRunnerTimeLossInfo(results, "t4", buildLegId(1, "tie"))?.isTopThree).toBe(false)
   })
 
   it("aggregates global statistics across the field", () => {
@@ -324,8 +338,8 @@ describe("analyzeTimeLoss", () => {
     ]
 
     const results = analyzeTimeLoss(field, 15)
-    expect(results.analysisPerControl.get("c2")?.bestTime).toBe(90)
-    expect(getRunnerTimeLossInfo(results, "nc", "c2")).toBeNull()
+    expect(results.analysisPerLeg.get(buildLegId(2, "c2"))?.bestTime).toBe(90)
+    expect(getRunnerTimeLossInfo(results, "nc", buildLegId(2, "c2"))).toBeNull()
   })
 
   it("uses the fastest-quartile average as the leg reference on a full field", () => {
@@ -342,7 +356,7 @@ describe("analyzeTimeLoss", () => {
       ),
     )
 
-    const bigLeg = analyzeTimeLoss(field, 15).analysisPerControl.get("big")
+    const bigLeg = analyzeTimeLoss(field, 15).analysisPerLeg.get(buildLegId(1, "big"))
     expect(bigLeg?.bestTime).toBe(40)
     expect(bigLeg?.estimatedTimeWithoutError).toBe(98)
   })
@@ -352,12 +366,12 @@ describe("analyzeTimeLoss", () => {
       [makeRunner("a", cleanLegs, { position: 1 }), makeRunner("b", cleanLegs, { position: 2 })],
       15,
     )
-    expect(results.analysisPerControl.size).toBe(0)
+    expect(results.analysisPerLeg.size).toBe(0)
   })
 
   it("does not create a finish leg when there is no run-in time", () => {
     const results = analyzeTimeLoss(buildField(), 15)
-    expect(results.analysisPerControl.has(FINISH_LEG_ID)).toBe(false)
+    expect(results.analysisPerLeg.has(FINISH_LEG_ID)).toBe(false)
   })
 
   it("analyses the run-in to the finish as its own leg", () => {
@@ -389,8 +403,8 @@ describe("analyzeTimeLoss", () => {
     ]
 
     const results = analyzeTimeLoss(field, 5)
-    expect(getRunnerTimeLossInfo(results, "flyer", "c2")?.hasTimeLoss).toBe(false)
-    expect(getRunnerTimeLossInfo(results, "flyer", "c3")?.hasTimeLoss).toBe(false)
+    expect(getRunnerTimeLossInfo(results, "flyer", buildLegId(2, "c2"))?.hasTimeLoss).toBe(false)
+    expect(getRunnerTimeLossInfo(results, "flyer", buildLegId(3, "c3"))?.hasTimeLoss).toBe(false)
   })
 
   it("ignores runners whose result does not come from a chip download", () => {
@@ -402,8 +416,8 @@ describe("analyzeTimeLoss", () => {
     ]
 
     const results = analyzeTimeLoss(field, 15)
-    expect(getRunnerTimeLossInfo(results, "radioOnly", "c1")).toBeNull()
-    expect(results.analysisPerControl.get("c1")?.bestTime).toBe(60)
+    expect(getRunnerTimeLossInfo(results, "radioOnly", buildLegId(1, "c1"))).toBeNull()
+    expect(results.analysisPerLeg.get(buildLegId(1, "c1"))?.bestTime).toBe(60)
   })
 
   it("ignores runners who did not start", () => {
@@ -413,13 +427,34 @@ describe("analyzeTimeLoss", () => {
     ]
 
     const results = analyzeTimeLoss(field, 15)
-    expect(getRunnerTimeLossInfo(results, "dns", "c1")).toBeNull()
-    expect(results.analysisPerControl.get("c1")?.bestTime).toBe(60)
+    expect(getRunnerTimeLossInfo(results, "dns", buildLegId(1, "c1"))).toBeNull()
+    expect(results.analysisPerLeg.get(buildLegId(1, "c1"))?.bestTime).toBe(60)
+  })
+
+  it("analyses each visit to a control repeated in the course as its own leg", () => {
+    const repeatedControlLegs: LegSpec[] = [
+      { controlId: "c1", time: 60 },
+      { controlId: "shared", time: 400 },
+      { controlId: "c2", time: 90 },
+      { controlId: "shared", time: 65 },
+    ]
+    const field = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((position) =>
+      makeRunner(`r${position}`, repeatedControlLegs, { position }),
+    )
+
+    const results = analyzeTimeLoss(field, 15)
+    const longVisit = results.analysisPerLeg.get(buildLegId(2, "shared"))
+    const shortVisit = results.analysisPerLeg.get(buildLegId(4, "shared"))
+    expect(longVisit?.estimatedTimeWithoutError).toBe(400)
+    expect(shortVisit?.estimatedTimeWithoutError).toBe(65)
+    expect(results.globalStats.totalTimeLossDetected).toBe(0)
+    expect(getRunnerTimeLossInfo(results, "r1", buildLegId(2, "shared"))?.splitTime).toBe(400)
+    expect(getRunnerTimeLossInfo(results, "r1", buildLegId(4, "shared"))?.splitTime).toBe(65)
   })
 
   it("returns null for unknown runners or controls", () => {
     const results = analyzeTimeLoss(buildField(), 15)
-    expect(getRunnerTimeLossInfo(results, "ghost", "c2")).toBeNull()
+    expect(getRunnerTimeLossInfo(results, "ghost", buildLegId(2, "c2"))).toBeNull()
     expect(getRunnerTimeLossInfo(results, "r1", "c99")).toBeNull()
   })
 })

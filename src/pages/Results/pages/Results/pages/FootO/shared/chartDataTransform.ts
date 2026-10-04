@@ -1,6 +1,12 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { ChartDataItem } from "../pages/Splits/components/Charts/BarChart.tsx"
-import { FINISH_LEG_ID, getRunnerTimeLossInfo, TimeLossResults } from "./timeLossAnalysis.ts"
+import {
+  buildLegId,
+  FINISH_LEG_ID,
+  getRunnerTimeLossInfo,
+  splitLegId,
+  TimeLossResults,
+} from "./timeLossAnalysis.ts"
 import { hasChipDownload } from "../../../shared/functions.ts"
 import { TFunction } from "i18next"
 
@@ -121,15 +127,15 @@ function calculateIncrementalTimeBehindBestPartial(
   let cumulativeTimeBehindBestPartial = 0
 
   sortedSplits.forEach((split) => {
-    if (!split.control?.id || !split.time) return
+    const legId = splitLegId(split)
+    if (!legId || !split.time) return
 
-    const controlId = split.control.id
     const runnerSplitTime = split.time // Individual split time, not cumulative
 
     // Find the best split time for this control among all runners
     let bestSplitTime = Infinity
     runners.forEach((r) => {
-      const runnerSplit = r.stage.splits.find((s) => s.control?.id === controlId)
+      const runnerSplit = r.stage.splits.find((s) => splitLegId(s) === legId)
       if (runnerSplit && runnerSplit.time !== null && runnerSplit.time < bestSplitTime) {
         bestSplitTime = runnerSplit.time
       }
@@ -141,7 +147,7 @@ function calculateIncrementalTimeBehindBestPartial(
 
       // Add to an incremental sum
       cumulativeTimeBehindBestPartial += Math.max(0, gapForThisControl)
-      incrementalMap.set(controlId, cumulativeTimeBehindBestPartial)
+      incrementalMap.set(legId, cumulativeTimeBehindBestPartial)
     }
   })
 
@@ -195,7 +201,8 @@ export function transformRunnersForLineChart(
 
       const timeBehindLeader = split.cumulative_behind || 0
 
-      const timeBehindBestPartialIncremental = incrementalTimeBehindBestPartial.get(controlId) || 0
+      const timeBehindBestPartialIncremental =
+        incrementalTimeBehindBestPartial.get(buildLegId(orderNumber, controlId)) || 0
 
       data.push({
         x: orderNumber.toString(),
@@ -332,8 +339,9 @@ function calculateTotalLossTime(
   let totalLoss = 0
 
   runner.stage.splits.forEach((split) => {
-    if (!split.control?.id) return
-    const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
+    const legId = splitLegId(split)
+    if (!legId) return
+    const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, legId)
     if (timeLossInfo) {
       totalLoss += timeLossInfo.timeLoss
     }
