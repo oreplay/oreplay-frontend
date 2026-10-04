@@ -55,26 +55,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
     color: accessibleColors[index],
   }))
 
-  const dataWithCustomX: PositionChartData[] = dataWithColors.map((runner) => {
-    const n = runner.data.length
-    return {
-      ...runner,
-      data: runner.data.map((point, idx) => {
-        let xLabel: string
-        if (idx === 0) xLabel = t("Graphs.Start")
-        else if (idx === n - 1) xLabel = t("Graphs.Finish")
-        else xLabel = idx.toString()
-
-        return {
-          ...point,
-          controlName: point.x,
-          x: xLabel,
-        }
-      }),
-    }
-  })
-
-  const allYValues = dataWithCustomX.flatMap((runner) => runner.data.map((point) => point.y))
+  const allYValues = dataWithColors.flatMap((runner) => runner.data.map((point) => point.y))
   const dynamicMaxY = Math.max(...allYValues)
 
   // Tick step logic
@@ -92,7 +73,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Box sx={{ height, width: "100%" }}>
         <ResponsiveLine
-          data={dataWithCustomX}
+          data={dataWithColors}
           margin={{
             top: 50,
             right: isMobile ? 20 : 40,

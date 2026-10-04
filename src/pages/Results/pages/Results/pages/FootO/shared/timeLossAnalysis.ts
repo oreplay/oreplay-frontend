@@ -159,7 +159,17 @@ function lastCumulativeTime(runner: ProcessedRunnerModel): number | null {
   return null
 }
 
-function collectLegEntries(runners: ProcessedRunnerModel[]): Map<string, LegEntry[]> {
+export type LegKeyOf = (split: ProcessedSplitModel) => string | null
+
+export const controlLegKey: LegKeyOf = (split) => split.control?.id ?? null
+
+export const orderNumberLegKey: LegKeyOf = (split) =>
+  split.order_number === null ? null : split.order_number.toString()
+
+function collectLegEntries(
+  runners: ProcessedRunnerModel[],
+  legKeyOf: LegKeyOf,
+): Map<string, LegEntry[]> {
   const entriesByLeg = new Map<string, LegEntry[]>()
 
   const addEntry = (legId: string, entry: LegEntry) => {
@@ -170,9 +180,9 @@ function collectLegEntries(runners: ProcessedRunnerModel[]): Map<string, LegEntr
 
   runners.forEach((runner) => {
     sortedControlSplits(runner).forEach((split) => {
-      const legId = splitLegId(split)
-      if (!legId || split.time === null || split.time <= 0) return
-      addEntry(legId, {
+      const legKey = legKeyOf(split)
+      if (!legKey || split.time === null || split.time <= 0) return
+      addEntry(legKey, {
         runnerId: runner.id,
         legTime: split.time,
         orderNumber: split.order_number ?? 0,
@@ -272,6 +282,33 @@ function emptyResults(): TimeLossResults {
   }
 }
 
+function cleanFinisherIds(runners: ProcessedRunnerModel[]): Set<string> {
+  return new Set(runners.filter(isCleanFinisher).map((runner) => runner.id))
+}
+
+function buildLegReferences(
+  entriesByLeg: Map<string, LegEntry[]>,
+  cleanRunnerIds: Set<string>,
+  minPoolSize: number,
+): Map<string, number> {
+  const legReferences = new Map<string, number>()
+  entriesByLeg.forEach((entries, legId) => {
+    const pool = referencePool(entries, cleanRunnerIds)
+    if (pool.length < minPoolSize) return
+    legReferences.set(legId, computeLegReference(pool.map((entry) => entry.legTime)))
+  })
+  return legReferences
+}
+
+export function computeLegReferences(
+  runners: ProcessedRunnerModel[],
+  legKeyOf: LegKeyOf = controlLegKey,
+): Map<string, number> {
+  const analyzedRunners = runners.filter(isAnalyzable)
+  const entriesByLeg = collectLegEntries(analyzedRunners, legKeyOf)
+  return buildLegReferences(entriesByLeg, cleanFinisherIds(analyzedRunners), 1)
+}
+
 export function analyzeTimeLoss(
   runners: ProcessedRunnerModel[],
   threshold: number,
@@ -280,15 +317,12 @@ export function analyzeTimeLoss(
   const analyzedRunners = runners.filter(isAnalyzable)
   if (analyzedRunners.length === 0) return emptyResults()
 
-  const cleanRunnerIds = new Set(analyzedRunners.filter(isCleanFinisher).map((runner) => runner.id))
-  const entriesByLeg = collectLegEntries(analyzedRunners)
-
-  const legReferences = new Map<string, number>()
-  entriesByLeg.forEach((entries, legId) => {
-    const pool = referencePool(entries, cleanRunnerIds)
-    if (pool.length < MIN_RUNNERS_PER_LEG) return
-    legReferences.set(legId, computeLegReference(pool.map((entry) => entry.legTime)))
-  })
+  const entriesByLeg = collectLegEntries(analyzedRunners, splitLegId)
+  const legReferences = buildLegReferences(
+    entriesByLeg,
+    cleanFinisherIds(analyzedRunners),
+    MIN_RUNNERS_PER_LEG,
+  )
 
   const levelByRunner = buildRunnerLevels(entriesByLeg, legReferences)
 

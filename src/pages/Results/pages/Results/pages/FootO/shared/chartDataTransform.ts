@@ -1,18 +1,26 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { ChartDataItem } from "../pages/Splits/components/Charts/BarChart.tsx"
 import {
-  buildLegId,
+  computeLegReferences,
   FINISH_LEG_ID,
   getRunnerTimeLossInfo,
+  mean,
+  orderNumberLegKey,
   splitLegId,
   TimeLossResults,
 } from "./timeLossAnalysis.ts"
 import { hasChipDownload } from "../../../shared/functions.ts"
 import { TFunction } from "i18next"
 
+export const EVEN_LEG_AXIS_WIDTH = 1
+export const MIN_LEG_AXIS_WIDTH_RATIO = 0.5
+export const START_AXIS_POSITION = 0
+export const START_CONTROL_ID = "START"
+
 // Position Evolution Data Structures
 export interface PositionDataPoint {
-  x: string // Control name/number
+  x: string
+  controlName: string
   y: number // Position (inverted: 1 at top)
   control: string
   controlStation: string
@@ -28,7 +36,8 @@ export interface PositionChartData {
 }
 
 export interface ChartDataPoint {
-  x: string // Control formatted as "START", "1", "2", "3", etc.
+  x: number
+  xLabel: string
   y: number // Cumulative time in seconds
   controlId: string
   controlStation: string
@@ -44,6 +53,65 @@ export interface LineChartData {
   id: string
   color: string
   data: ChartDataPoint[]
+}
+
+export interface LineChartTick {
+  value: number
+  label: string
+}
+
+function courseControlLegKeys(runner: ProcessedRunnerModel): string[] {
+  return [...runner.stage.splits]
+    .filter((split) => split.control?.id)
+    .sort((a, b) => (a.order_number || 0) - (b.order_number || 0))
+    .flatMap((split) => {
+      const legKey = orderNumberLegKey(split)
+      return legKey ? [legKey] : []
+    })
+}
+
+function courseLegKeys(runners: ProcessedRunnerModel[]): string[] {
+  const longestCourse = runners
+    .filter(hasChipDownload)
+    .map(courseControlLegKeys)
+    .reduce<string[]>(
+      (longest, legKeys) => (legKeys.length > longest.length ? legKeys : longest),
+      [],
+    )
+  return [...longestCourse, FINISH_LEG_ID]
+}
+
+export function computeLegAxisWidths(referenceTimes: (number | undefined)[]): number[] {
+  const knownTimes = referenceTimes.filter((time): time is number => time !== undefined && time > 0)
+  if (knownTimes.length === 0) return referenceTimes.map(() => EVEN_LEG_AXIS_WIDTH)
+
+  const averageLegTime = mean(knownTimes)
+  const minLegWidth = averageLegTime * MIN_LEG_AXIS_WIDTH_RATIO
+  return referenceTimes.map((time) => Math.max(time ?? averageLegTime, minLegWidth))
+}
+
+export function computeLegAxisPositions(runners: ProcessedRunnerModel[]): Map<string, number> {
+  const legKeys = courseLegKeys(runners)
+  const legReferences = computeLegReferences(runners, orderNumberLegKey)
+  const legWidths = computeLegAxisWidths(legKeys.map((legKey) => legReferences.get(legKey)))
+
+  const positions = new Map<string, number>([[START_CONTROL_ID, START_AXIS_POSITION]])
+  let position = START_AXIS_POSITION
+  legKeys.forEach((legKey, index) => {
+    position += legWidths[index]
+    positions.set(legKey, position)
+  })
+  return positions
+}
+
+export function getLineChartTicks(series: LineChartData[]): LineChartTick[] {
+  const labelByValue = new Map<number, string>()
+  series.forEach((runnerSeries) =>
+    runnerSeries.data.forEach((point) => labelByValue.set(point.x, point.xLabel)),
+  )
+  return [...labelByValue.entries()]
+    .map(([value, label]) => ({ value, label }))
+    .sort((a, b) => a.value - b.value)
 }
 
 /**
@@ -127,15 +195,15 @@ function calculateIncrementalTimeBehindBestPartial(
   let cumulativeTimeBehindBestPartial = 0
 
   sortedSplits.forEach((split) => {
-    const legId = splitLegId(split)
-    if (!legId || !split.time) return
+    const legKey = orderNumberLegKey(split)
+    if (!split.control?.id || !split.time || !legKey) return
 
     const runnerSplitTime = split.time // Individual split time, not cumulative
 
     // Find the best split time for this control among all runners
     let bestSplitTime = Infinity
     runners.forEach((r) => {
-      const runnerSplit = r.stage.splits.find((s) => splitLegId(s) === legId)
+      const runnerSplit = r.stage.splits.find((s) => s.order_number === split.order_number)
       if (runnerSplit && runnerSplit.time !== null && runnerSplit.time < bestSplitTime) {
         bestSplitTime = runnerSplit.time
       }
@@ -147,7 +215,7 @@ function calculateIncrementalTimeBehindBestPartial(
 
       // Add to an incremental sum
       cumulativeTimeBehindBestPartial += Math.max(0, gapForThisControl)
-      incrementalMap.set(legId, cumulativeTimeBehindBestPartial)
+      incrementalMap.set(legKey, cumulativeTimeBehindBestPartial)
     }
   })
 
@@ -166,6 +234,7 @@ export function transformRunnersForLineChart(
     (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
   )
   const colors = generateRunnerColors(selectedRunners.length)
+  const axisPositions = computeLegAxisPositions(runners)
 
   return selectedRunners.map((runner, index) => {
     const sortedSplits = [...runner.stage.splits].sort(
@@ -180,10 +249,11 @@ export function transformRunnersForLineChart(
     const data: ChartDataPoint[] = []
 
     data.push({
-      x: t("Graphs.Start"),
+      x: START_AXIS_POSITION,
+      xLabel: t("Graphs.Start"),
       y: 0,
-      controlId: "START",
-      controlStation: "START",
+      controlId: START_CONTROL_ID,
+      controlStation: START_CONTROL_ID,
       orderNumber: 0,
       runnerName: runner.full_name,
       position: 1,
@@ -193,19 +263,22 @@ export function transformRunnersForLineChart(
     })
 
     sortedSplits.forEach((split) => {
-      if (!split.control?.id || !split.cumulative_time) return
+      const legKey = orderNumberLegKey(split)
+      if (!split.control?.id || !split.cumulative_time || !legKey) return
 
       const controlId = split.control.id
+      const axisPosition = axisPositions.get(legKey)
+      if (axisPosition === undefined) return
       const orderNumber = split.order_number || 0
       const cumulativeTime = split.cumulative_time
 
       const timeBehindLeader = split.cumulative_behind || 0
 
-      const timeBehindBestPartialIncremental =
-        incrementalTimeBehindBestPartial.get(buildLegId(orderNumber, controlId)) || 0
+      const timeBehindBestPartialIncremental = incrementalTimeBehindBestPartial.get(legKey) || 0
 
       data.push({
-        x: orderNumber.toString(),
+        x: axisPosition,
+        xLabel: orderNumber.toString(),
         y: timeBehindLeader,
         controlId,
         controlStation: split.control.station,
@@ -218,17 +291,19 @@ export function transformRunnersForLineChart(
       })
     })
 
-    if (runner.stage.time_seconds > 0) {
+    const finishAxisPosition = axisPositions.get(FINISH_LEG_ID)
+    if (runner.stage.time_seconds > 0 && finishAxisPosition !== undefined) {
       const finishTime = runner.stage.time_seconds
       const finishTimeBehindLeader = runner.stage.time_behind
 
       const finalIncrementalTime = Array.from(incrementalTimeBehindBestPartial.values()).pop() || 0
 
       data.push({
-        x: t("Graphs.Finish"),
+        x: finishAxisPosition,
+        xLabel: t("Graphs.Finish"),
         y: finishTimeBehindLeader,
-        controlId: "FINISH",
-        controlStation: "FINISH",
+        controlId: FINISH_LEG_ID,
+        controlStation: FINISH_LEG_ID,
         orderNumber: Infinity,
         runnerName: runner.full_name,
         position: runner.stage.position,
@@ -267,17 +342,6 @@ export function transformRunnersForPositionChart(
     .map((runner, index) => {
       const data: PositionDataPoint[] = []
 
-      // Add a start position
-      data.push({
-        x: t("Graphs.Start"),
-        y: 1, // Everyone starts at position 1
-        control: "START",
-        controlStation: "START",
-        runnerName: runner.full_name || "Unknown Runner",
-        splitTime: 0,
-        timeLost: 0,
-      })
-
       // Add positions per control if available
       if (runner.stage?.splits) {
         const sortedSplits = [...runner.stage.splits].sort(
@@ -291,7 +355,8 @@ export function transformRunnersForPositionChart(
             split.cumulative_position > 0
           ) {
             data.push({
-              x: split.control.station,
+              x: (split.order_number ?? data.length + 1).toString(),
+              controlName: split.control.station,
               y: split.cumulative_position, // Position (will be inverted in the chart)
               control: split.control.id,
               controlStation: split.control.station,
@@ -307,6 +372,7 @@ export function transformRunnersForPositionChart(
       if (runner.stage?.position && runner.stage.position > 0) {
         data.push({
           x: t("Graphs.Finish"),
+          controlName: t("Graphs.Finish"),
           y: runner.stage.position,
           control: "FINISH",
           controlStation: "FINISH",
@@ -322,7 +388,7 @@ export function transformRunnersForPositionChart(
         data,
       }
     })
-    .filter((runner) => runner.data.length > 1) // Must have at least started + one other point
+    .filter((runner) => runner.data.length > 0)
 }
 
 /**
