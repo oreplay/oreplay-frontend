@@ -7,6 +7,7 @@ import {
   ChartDataPoint,
   formatTime,
   formatTimeDifference,
+  getLineChartTicks,
 } from "../../../../shared/chartDataTransform.ts"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 
@@ -25,6 +26,9 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
     ...series,
     color: accessibleColors[index],
   }))
+  const ticks = getLineChartTicks(data)
+  const tickValues = ticks.map((tick) => tick.value)
+  const tickLabelByValue = new Map(ticks.map((tick) => [tick.value, tick.label]))
 
   if (!data || data.length === 0) {
     return (
@@ -56,7 +60,8 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
             bottom: 50,
             left: 80,
           }}
-          xScale={{ type: "point" }}
+          xScale={{ type: "linear", min: "auto", max: "auto", nice: false }}
+          gridXValues={tickValues}
           yScale={{
             type: "linear",
             min: 0,
@@ -71,6 +76,8 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: -45,
+            tickValues,
+            format: (value) => tickLabelByValue.get(Number(value)) ?? "",
             legend: t("lineChart.xAxisLabel"),
             legendOffset: 36,
             legendPosition: "middle",
