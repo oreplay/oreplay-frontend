@@ -55,7 +55,6 @@ export default function FootOResults(props: FootOResultProps) {
           RunnerRow={FootOResultRowMemo}
           sortingFunction={sortFootORunners}
           runnerRowProps={runnerRowProps}
-          containerClassName="result-list-grid"
         />
         <FootOVirtualTicket
           isTicketOpen={isVirtualTicketOpen}

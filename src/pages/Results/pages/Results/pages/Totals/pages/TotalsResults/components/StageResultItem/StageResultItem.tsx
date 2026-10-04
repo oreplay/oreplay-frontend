@@ -21,9 +21,7 @@ export default function StageResultItem({ stage, displayContributory }: StageRes
   return (
     <div className="flex items-start justify-between px-2 py-1.5">
       <div className="flex flex-row flex-wrap items-center gap-2">
-        <span className="text-sm text-gray-600">
-          {stageDescription}
-        </span>
+        <span className="text-sm text-gray-600">{stageDescription}</span>
         {displayContributory && !stage.contributory ? <NonContributoryChip /> : <></>}
       </div>
       {isPointsBased ? (

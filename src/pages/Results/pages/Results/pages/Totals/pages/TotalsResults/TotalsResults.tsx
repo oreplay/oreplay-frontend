@@ -40,7 +40,6 @@ export default function TotalsResults(
           RunnerRow={TotalsResultItem}
           runnerRowProps={{ isClass: props.isClass }}
           sortingFunction={(runnerList) => runnerList}
-          containerClassName="result-list-grid"
         />
       </>
     )

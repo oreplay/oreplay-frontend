@@ -38,7 +38,6 @@ export default function RogainePoints(props: RogainePointsProps) {
           RunnerRow={RogaineResultItemRow}
           runnerRowProps={{ isClass: props.isClass, onClick: handleRowClick }}
           sortingFunction={sortRunners}
-          containerClassName="result-list-grid"
         />
         <RogaineVirtualTicket
           isTicketOpen={isVirtualTicketOpen}

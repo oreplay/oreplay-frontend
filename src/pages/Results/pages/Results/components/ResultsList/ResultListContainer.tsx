@@ -1,51 +1,35 @@
-import { Children, ReactNode, useRef } from "react"
-import NowProvider from "../NowProvider.tsx"
-import "./result-list-grid.css"
-import useResultGridColumns from "./shared/useResultGridColumns.ts"
+import { CSSProperties, ReactNode, useRef } from "react"
+import useResultListHeight from "./shared/useResultListHeight.ts"
+
+const DESKTOP_COLUMNS_CLASS_NAME = [
+  "lg:h-[var(--result-list-height)]",
+  "lg:columns-[360px]",
+  "lg:gap-4",
+  "lg:[column-fill:auto]",
+  "lg:[column-rule:1px_solid_#e5e7eb]",
+  "lg:overflow-x-auto",
+  "lg:overflow-y-hidden",
+  "lg:[scrollbar-color:#ff710a_#f2f2f2]",
+  "lg:[scrollbar-width:auto]",
+  "lg:[&::-webkit-scrollbar]:h-3",
+  "lg:[&::-webkit-scrollbar-track]:bg-[#f2f2f2]",
+  "lg:[&::-webkit-scrollbar-thumb]:rounded-full",
+  "lg:[&::-webkit-scrollbar-thumb]:bg-[#ff710a]",
+  "lg:[&>*]:break-inside-avoid",
+].join(" ")
 
 interface ResultListContainerProps {
-  /** Items to render inside the responsive grid, typically `ResultListItem` elements. */
-  children: ReactNode
+  children?: ReactNode
 }
 
-/**
- * Responsive grid container for a list of results.
- *
- * Renders `children` in a CSS grid that shows 1 column on small screens,
- * 2 columns on medium screens, and 3 columns on large screens. Wraps
- * everything in `NowProvider` so descendants have access to the current
- * time context.
- *
- * @example
- * ```tsx
- * <ResultListContainer>
- *   <ResultListItem>Result A</ResultListItem>
- *   <ResultListItem>Result B</ResultListItem>
- * </ResultListContainer>
- * ```
- */
 export default function ResultListContainer({ children }: ResultListContainerProps) {
-  const items = Children.toArray(children)
   const containerRef = useRef<HTMLDivElement>(null)
-  const columnCount = useResultGridColumns(containerRef)
-  const itemsPerColumn = Math.max(1, Math.ceil(items.length / columnCount))
-  const columns = Array.from({ length: columnCount }, (_, columnIndex) =>
-    items.slice(columnIndex * itemsPerColumn, (columnIndex + 1) * itemsPerColumn),
-  )
+  const height = useResultListHeight(containerRef)
+  const style = { "--result-list-height": `${height}px` } as CSSProperties
 
   return (
-    <NowProvider>
-      <div
-        className="result-list-grid"
-        ref={containerRef}
-        style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}
-      >
-        {columns.map((column, columnIndex) => (
-          <div className="flex min-w-0 flex-col" key={columnIndex}>
-            {column}
-          </div>
-        ))}
-      </div>
-    </NowProvider>
+    <div className={`w-full ${DESKTOP_COLUMNS_CLASS_NAME}`} ref={containerRef} style={style}>
+      {children}
+    </div>
   )
 }
