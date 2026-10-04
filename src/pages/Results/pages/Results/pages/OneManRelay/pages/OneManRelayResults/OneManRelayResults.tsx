@@ -41,7 +41,6 @@ export default function OneManRelayResults(props: OneManRelayResultProps) {
           RunnerRow={OneManRelayResultItem}
           runnerRowProps={{ isClass: props.isClass, onClick: handleRowClick }}
           sortingFunction={(runnerList) => runnerList}
-          containerClassName="result-list-grid"
         />
         <OneManRelayVirtualTicket
           isTicketOpen={isVirtualTicketOpen}
