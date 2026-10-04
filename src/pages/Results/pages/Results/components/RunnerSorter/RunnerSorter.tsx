@@ -2,9 +2,10 @@ import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/share
 import { ElementType, FunctionComponent, ReactNode, useContext } from "react"
 import { NowContext } from "../../../../shared/context.ts"
 import { DateTime } from "luxon"
-import { AnimatePresence, AnimatePresenceProps, motion, MotionProps } from "framer-motion"
+import { AnimatePresenceProps, motion, MotionProps } from "framer-motion"
 import NowProvider from "../NowProvider.tsx"
 import ResultListContainer from "../ResultsList/ResultListContainer.tsx"
+import RunnerSorterItems from "./components/RunnerSorterItems.tsx"
 
 export interface RunnerRowBaseProps {
   runner: ProcessedRunnerModel
@@ -45,26 +46,13 @@ function RunnerSorterContent<T extends RunnerRowBaseProps>({
 
   return (
     <ContainerComponent>
-      <AnimatePresence {...animatePresenceProps}>
-        {sortedRunnerList.map((runner, index) => (
-          <ItemComponent
-            key={runner.id}
-            layout="position"
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -15, scale: 0.98 }}
-            transition={{
-              type: "spring",
-              stiffness: 120,
-              damping: 20,
-              mass: 0.8,
-              delay: index * 0.025,
-            }}
-          >
-            {/** @ts-expect-error typescript doesn't pick up that runner & omit<T,"runner"> = T **/}
-            <RunnerRow runner={runner} {...runnerRowProps} />
-          </ItemComponent>
-        ))}
-      </AnimatePresence>
+      <RunnerSorterItems
+        runners={sortedRunnerList}
+        RunnerRow={RunnerRow}
+        runnerRowProps={runnerRowProps}
+        ItemComponent={ItemComponent}
+        animatePresenceProps={animatePresenceProps}
+      />
     </ContainerComponent>
   )
 }

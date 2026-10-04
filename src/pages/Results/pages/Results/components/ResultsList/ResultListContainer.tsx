@@ -1,5 +1,6 @@
 import { CSSProperties, ReactNode, useRef } from "react"
-import useResultListHeight from "./shared/useResultListHeight.ts"
+import { ResultListLayoutContext } from "./shared/resultListLayoutContext.ts"
+import useResultListSize from "./shared/useResultListSize.ts"
 
 const DESKTOP_COLUMNS_CLASS_NAME = [
   "lg:h-[var(--result-list-height)]",
@@ -24,12 +25,14 @@ interface ResultListContainerProps {
 
 export default function ResultListContainer({ children }: ResultListContainerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const height = useResultListHeight(containerRef)
-  const style = { "--result-list-height": `${height}px` } as CSSProperties
+  const size = useResultListSize(containerRef)
+  const style = { "--result-list-height": `${size.height}px` } as CSSProperties
 
   return (
-    <div className={`w-full ${DESKTOP_COLUMNS_CLASS_NAME}`} ref={containerRef} style={style}>
-      {children}
-    </div>
+    <ResultListLayoutContext.Provider value={size}>
+      <div className={`w-full ${DESKTOP_COLUMNS_CLASS_NAME}`} ref={containerRef} style={style}>
+        {children}
+      </div>
+    </ResultListLayoutContext.Provider>
   )
 }
