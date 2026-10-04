@@ -20,6 +20,7 @@ import {
   FINISH_LEG_ID,
   TimeLossResults,
   getRunnerTimeLossInfo,
+  splitLegId,
 } from "../../../../../shared/timeLossAnalysis.ts"
 import { parseSecondsToMMSS } from "../../../../../../../../../../../shared/Functions.tsx"
 import React from "react"
@@ -47,8 +48,9 @@ const calculateTotalLossTime = (
   let totalLoss = 0
 
   runner.stage.splits.forEach((split) => {
-    if (!split.control?.id) return
-    const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
+    const legId = splitLegId(split)
+    if (!legId) return
+    const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, legId)
     if (timeLossInfo) {
       totalLoss += timeLossInfo.timeLoss
     }
@@ -188,12 +190,10 @@ export default function RunnerRow(props: RunnerRowProps) {
           </TableCell>
         )}
         {splits.map((split, index) => {
+          const legId = splitLegId(split)
           const timeLossInfo =
-            props.timeLossEnabled &&
-            !props.showCumulative &&
-            props.timeLossResults &&
-            split.control?.id
-              ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, split.control.id)
+            props.timeLossEnabled && !props.showCumulative && props.timeLossResults && legId
+              ? getRunnerTimeLossInfo(props.timeLossResults, props.runner.id, legId)
               : null
 
           return (
