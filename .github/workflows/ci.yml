@@ -9,6 +9,7 @@ on:
   pull_request:
     branches:
       - "*"
+  workflow_dispatch:
 
 # https://github.com/vitejs/vite/blob/main/.github/workflows/ci.yml
 env:
@@ -59,9 +60,9 @@ jobs:
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7
-        if: startsWith(github.ref, 'refs/tags/') # Artifacts are used only with tags
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
         with:
-          name: dist-${{ github.ref_name }}
+          name: dist-${{ github.run_id }}
           path: dist
           include-hidden-files: true
 
@@ -106,7 +107,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v8
         with:
-          name: dist-${{ github.ref_name }}
+          name: dist-${{ github.run_id }}
           path: dist
 
       - name: Deploy
@@ -157,3 +158,82 @@ jobs:
 
           echo "Production did not serve $ENTRY after $MAX_RETRIES attempts"
           exit 1
+
+  android-apk:
+    needs: [build, deploy]
+    if: ${{ !cancelled() && needs.build.result == 'success' && (needs.deploy.result == 'success' || github.event_name == 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    name: Build Android APK (throwaway key)
+
+    permissions:
+      contents: read
+
+    env:
+      BUBBLEWRAP_VERSION: 1.25.0
+      TWA_ASSETS_ORIGIN: http://localhost:4173
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-${{ github.run_id }}
+          path: dist
+
+      - name: Configure Bubblewrap
+        run: |
+          npm install --global "@bubblewrap/cli@${BUBBLEWRAP_VERSION}"
+          if [ ! -e "$ANDROID_HOME/bin" ]; then
+            sudo ln -s "$ANDROID_HOME/cmdline-tools/latest/bin" "$ANDROID_HOME/bin"
+          fi
+          mkdir -p "$HOME/.bubblewrap"
+          jq -n --arg jdk "$JAVA_HOME" --arg sdk "$ANDROID_HOME" \
+            '{jdkPath: $jdk, androidSdkPath: $sdk}' > "$HOME/.bubblewrap/config.json"
+          bubblewrap doctor
+
+      - name: Serve the built PWA so Bubblewrap can read its icons
+        run: |
+          python3 -m http.server "${TWA_ASSETS_ORIGIN##*:}" --directory dist &
+          curl --silent --fail --output /dev/null --retry 10 --retry-connrefused --retry-delay 1 \
+            "$TWA_ASSETS_ORIGIN/manifest.webmanifest"
+
+      - name: Generate the Android project
+        run: npm run twa:update
+
+      - name: Create a throwaway signing key
+        working-directory: android-twa
+        run: |
+          PASSWORD="$(openssl rand -hex 16)"
+          echo "::add-mask::$PASSWORD"
+          echo "BUBBLEWRAP_KEYSTORE_PASSWORD=$PASSWORD" >> "$GITHUB_ENV"
+          echo "BUBBLEWRAP_KEY_PASSWORD=$PASSWORD" >> "$GITHUB_ENV"
+          keytool -genkeypair -keystore android.keystore -alias android \
+            -keyalg RSA -keysize 2048 -validity 30 \
+            -storepass "$PASSWORD" -keypass "$PASSWORD" -dname "CN=O-Replay CI throwaway"
+          echo "APP_VERSION=$(grep '^VITE_VERSION_NUMBER=' ../.env | cut -d= -f2-)" >> "$GITHUB_ENV"
+
+      - name: Build the APK
+        working-directory: android-twa
+        run: bubblewrap build --skipPwaValidation
+
+      - name: Upload the APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: oreplay-${{ env.APP_VERSION }}-throwaway-signed-apk
+          path: android-twa/app-release-signed.apk
+          if-no-files-found: error

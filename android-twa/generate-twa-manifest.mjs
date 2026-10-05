@@ -26,7 +26,9 @@ const versionCodeFrom = (versionName) =>
     .reduce((code, part, index) => code + part * VERSION_PART_WEIGHTS[index], 0)
 
 const website = new URL(requireEnv("VITE_WEBSITE_DOMAIN"))
+const assetsOrigin = new URL(env.TWA_ASSETS_ORIGIN || website.origin)
 const absoluteUrl = (path) => new URL(path, website).href
+const assetUrl = (path) => new URL(path, assetsOrigin).href
 const versionName = requireEnv("VITE_VERSION_NUMBER")
 const template = JSON.parse(readFileSync(TEMPLATE_PATH, "utf8"))
 
@@ -34,9 +36,9 @@ const manifest = {
   ...template,
   packageId: requireEnv("TWA_PACKAGE_ID"),
   host: website.host,
-  iconUrl: absoluteUrl("/pwa-icons/icon-512.png"),
-  maskableIconUrl: absoluteUrl("/pwa-icons/icon-maskable-512.png"),
-  webManifestUrl: absoluteUrl("/manifest.webmanifest"),
+  iconUrl: assetUrl("/pwa-icons/icon-512.png"),
+  maskableIconUrl: assetUrl("/pwa-icons/icon-maskable-512.png"),
+  webManifestUrl: assetUrl("/manifest.webmanifest"),
   fullScopeUrl: absoluteUrl(template.startUrl),
   appVersionName: versionName,
   appVersion: versionName,
