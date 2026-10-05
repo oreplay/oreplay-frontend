@@ -1,4 +1,5 @@
 {
+  "backOnline": "Wieder online",
   "clearSearch": "Suche löschen",
   "close": "Schließen",
   "confirm": "Bestätigen",
@@ -14,6 +15,7 @@
   "fieldRequired": "Dieses Feld ist erforderlich.",
   "fieldTooLong": "Maximal {{count}} Zeichen erlaubt.",
   "loading": "Wird geladen",
+  "noConnection": "Keine Internetverbindung",
   "noResults": "Keine Treffer",
   "ok": "OK",
   "save": "Speichern",

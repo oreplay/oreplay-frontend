@@ -1,4 +1,5 @@
 {
+  "backOnline": "已恢复网络连接",
   "clearSearch": "清除搜索",
   "close": "关闭",
   "confirm": "确认",
@@ -14,6 +15,7 @@
   "fieldRequired": "此字段为必填项。",
   "fieldTooLong": "最多允许 {{count}} 个字符。",
   "loading": "加载中",
+  "noConnection": "无网络连接",
   "noResults": "没有匹配结果",
   "ok": "确定",
   "save": "保存",

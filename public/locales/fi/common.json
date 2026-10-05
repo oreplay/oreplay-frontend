@@ -1,4 +1,5 @@
 {
+  "backOnline": "Taas verkossa",
   "clearSearch": "Tyhjennä haku",
   "close": "Sulje",
   "confirm": "Vahvista",
@@ -14,6 +15,7 @@
   "fieldRequired": "Tämä kenttä on pakollinen.",
   "fieldTooLong": "Enintään {{count}} merkkiä sallittu.",
   "loading": "Ladataan",
+  "noConnection": "Ei internetyhteyttä",
   "noResults": "Ei tuloksia",
   "ok": "OK",
   "save": "Tallenna",

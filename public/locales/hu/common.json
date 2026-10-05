@@ -1,4 +1,5 @@
 {
+  "backOnline": "Újra online",
   "clearSearch": "Keresés törlése",
   "close": "Bezárás",
   "confirm": "Megerősítés",
@@ -14,6 +15,7 @@
   "fieldRequired": "Ez a mező kötelező.",
   "fieldTooLong": "Legfeljebb {{count}} karakter engedélyezett.",
   "loading": "Betöltés",
+  "noConnection": "Nincs internetkapcsolat",
   "noResults": "Nincs találat",
   "ok": "OK",
   "save": "Mentés",

@@ -1,4 +1,5 @@
 {
+  "backOnline": "Opět online",
   "clearSearch": "Smazat filtr",
   "close": "Zavřít",
   "confirm": "Potvrdit",
@@ -14,6 +15,7 @@
   "fieldRequired": "Toto pole je povinné.",
   "fieldTooLong": "Maximálně {{count}} znaků.",
   "loading": "Načítání",
+  "noConnection": "Žádné připojení k internetu",
   "noResults": "Žádné výsledky",
   "ok": "OK",
   "save": "Uložit",
