@@ -88,13 +88,20 @@ export default function EventAdminForm(props: EventAdminFormProps) {
   const { t, i18n } = useTranslation()
   const notifications = useNotifications()
 
+  const initialStartDate: DateTime | null = props.eventDetail
+    ? DateTime.fromSQL(props.eventDetail.initial_date)
+    : null
+  const initialEndDate: DateTime | null = props.eventDetail
+    ? DateTime.fromSQL(props.eventDetail.final_date)
+    : null
+
   const form = useForm({
     defaultValues: {
       description: props.eventDetail?.description ?? "",
       website: props.eventDetail?.website ?? "",
       organizer: props.eventDetail?.organizer || null,
-      startDate: props.eventDetail ? DateTime.fromSQL(props.eventDetail.initial_date) : null,
-      endDate: props.eventDetail ? DateTime.fromSQL(props.eventDetail.final_date) : null,
+      startDate: initialStartDate,
+      endDate: initialEndDate,
       scope: props.eventDetail?.scope ?? "",
       isPublic: props.eventDetail ? !props.eventDetail.is_hidden : false,
       timezone: timeZoneOptionGenerator(
