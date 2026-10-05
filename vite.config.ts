@@ -1,6 +1,6 @@
 /// <reference types="vitest/config" />
 import { sentryVitePlugin } from "@sentry/vite-plugin"
-import { defineConfig } from "vitest/config"
+import { configDefaults, defineConfig } from "vitest/config"
 import { loadEnv, type Plugin } from "vite"
 import react from "@vitejs/plugin-react"
 import { VitePWA } from "vite-plugin-pwa"
@@ -11,6 +11,7 @@ const NO_CACHE_HEADERS = { "cache-control": "no-cache" }
 const ALWAYS_FRESH_FILES = ["/sw.js", "/registerSW.js", "/manifest.webmanifest"]
 const AZURE_CONFIG_FILE = "staticwebapp.config.json"
 const ASSET_LINKS_FILE = ".well-known/assetlinks.json"
+const AGENT_WORKTREES = ".claude/**"
 
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 
@@ -174,6 +175,7 @@ export default defineConfig(({ mode }) => {
       globals: true,
       environment: "jsdom",
       setupFiles: "./src/test/setup.ts",
+      exclude: [...configDefaults.exclude, AGENT_WORKTREES],
       env: {
         TZ: "UTC",
       },
