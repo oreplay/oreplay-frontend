@@ -7,7 +7,7 @@ type NowProviderProps = {
 }
 
 export default function NowProvider({ children }: NowProviderProps) {
-  const [now, setNow] = useState<DateTime>(DateTime.now())
+  const [now, setNow] = useState<DateTime<true>>(DateTime.now())
 
   useEffect(() => {
     const intervalId = setInterval(() => {
