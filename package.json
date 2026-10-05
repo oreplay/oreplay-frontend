@@ -12,7 +12,9 @@
     "lint": "eslint . --ext ts,tsx,json --report-unused-disable-directives --max-warnings 0",
     "before-commit": "npm run format && npm run lint && npm run test && npm run build",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "vitest run"
+    "test": "vitest run",
+    "twa:manifest": "node android-twa/generate-twa-manifest.mjs",
+    "twa:update": "npm run twa:manifest && cd android-twa && bubblewrap update --skipVersionUpgrade"
   },
   "engines": {
     "node": ">=22.22.0"

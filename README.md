@@ -40,3 +40,11 @@ Everyone is welcome in the O-Replay community. There are several ways to contrib
 
 To integrate with O-Replay, refer to the [backend repository](https://github.com/oreplay/oreplay-backend).
 We provide a public API for external systems to interact with our platform.
+
+---
+
+## Android app (Trusted Web Activity)
+
+The app is packaged as an Android app via [Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap),
+wrapping the PWA in a Trusted Web Activity. See [`android-twa/README.md`](android-twa/README.md) for
+setup and build instructions.

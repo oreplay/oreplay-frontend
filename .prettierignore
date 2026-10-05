@@ -4,3 +4,7 @@ build
 coverage
 src/infrastructure/repositories
 package-lock.json
+android-twa/*
+!android-twa/README.md
+!android-twa/generate-twa-manifest.mjs
+!android-twa/twa-manifest.template.json
