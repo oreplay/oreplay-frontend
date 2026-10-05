@@ -15,14 +15,15 @@ locally and gitignored.
 
 ## Configuration (`.env`)
 
-| Variable                       | Used for                                                                      |
-| ------------------------------ | ----------------------------------------------------------------------------- |
-| `VITE_WEBSITE_DOMAIN`          | Deployment URL: TWA host, icon and manifest URLs, CORS origin, CI smoke test. |
-| `VITE_VERSION_NUMBER`          | `appVersionName`; `appVersionCode` is `major*1000000 + minor*1000 + patch`.   |
-| `TWA_PACKAGE_ID`               | Android application ID and `assetlinks.json` package name.                    |
-| `TWA_SHA256_CERT_FINGERPRINTS` | Comma-separated signing certificate fingerprints for `assetlinks.json`.       |
-| `TWA_KEYSTORE_PATH` (optional) | Keystore path relative to this dir (default `android.keystore`).              |
-| `TWA_KEY_ALIAS` (optional)     | Key alias (default `android`).                                                |
+| Variable                       | Used for                                                                                   |
+| ------------------------------ | ------------------------------------------------------------------------------------------ |
+| `VITE_WEBSITE_DOMAIN`          | Deployment URL: TWA host, icon and manifest URLs, CORS origin, CI smoke test.              |
+| `VITE_VERSION_NUMBER`          | `appVersionName`; `appVersionCode` is `major*1000000 + minor*1000 + patch`.                |
+| `TWA_PACKAGE_ID`               | Android application ID and `assetlinks.json` package name.                                 |
+| `TWA_SHA256_CERT_FINGERPRINTS` | Comma-separated signing certificate fingerprints for `assetlinks.json`.                    |
+| `TWA_KEYSTORE_PATH` (optional) | Keystore path relative to this dir (default `android.keystore`).                           |
+| `TWA_KEY_ALIAS` (optional)     | Key alias (default `android`).                                                             |
+| `TWA_ASSETS_ORIGIN` (optional) | Origin Bubblewrap downloads the icons and web manifest from (default: the deployment URL). |
 
 Machine-specific values (keystore path, a local test URL) belong in `.env.local` /
 `.env.production.local`, which are gitignored and override `.env`.
@@ -83,6 +84,20 @@ bubblewrap doctor   # should report both paths valid
 `bubblewrap init` is not needed: `bubblewrap update` regenerates the whole Gradle project from
 `twa-manifest.json`. To change a non-deployment setting (colors, orientation, …) edit
 `twa-manifest.template.json` and re-run `npm run twa:update`.
+
+## CI build
+
+On every version tag, after the web app is deployed, the `android-apk` job of
+`.github/workflows/ci.yml` builds the APK and uploads it as the workflow artifact
+`oreplay-<version>-throwaway-signed-apk`. It can also be started by hand from the Actions tab
+(`workflow_dispatch`), which skips the deployment.
+
+- The job serves the freshly built `dist/` on `localhost` and sets `TWA_ASSETS_ORIGIN` to it, so the
+  icons come from that build rather than from the live site.
+- The APK is signed with a **throwaway key generated in the job**. It is installable for testing,
+  but each run uses a different key: uninstall the previous build before installing a new one, and
+  the app opens with a browser bar because the key is not listed in `assetlinks.json`. It must not
+  be published.
 
 ## Signing key & Digital Asset Links
 
