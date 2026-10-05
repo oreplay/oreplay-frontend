@@ -30,3 +30,10 @@ dist-ssr
 # orval auto generated
 src/infrastructure/**/*.d.ts
 
+# Bubblewrap / Android TWA project: only the env-free sources are tracked;
+# twa-manifest.json, the Gradle project, keystores and build outputs are generated locally
+android-twa/*
+!android-twa/README.md
+!android-twa/generate-twa-manifest.mjs
+!android-twa/twa-manifest.template.json
+.bublewrap/
