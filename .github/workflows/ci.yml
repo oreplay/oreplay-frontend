@@ -99,6 +99,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy production
     steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
       - name: Download build artifacts
         uses: actions/download-artifact@v8
         with:
@@ -121,6 +124,8 @@ jobs:
 
       - name: Check production serves this build
         run: |
+          WEBSITE_DOMAIN="$(grep '^VITE_WEBSITE_DOMAIN=' .env | cut -d= -f2-)"
+          ORIGIN="${WEBSITE_DOMAIN%/}"
           ENTRY=$(grep -o 'index-[A-Za-z0-9_-]*\.js' dist/index.html | head -1)
           if [ -z "$ENTRY" ]; then
             echo "No entry bundle found in dist/index.html"
@@ -130,7 +135,7 @@ jobs:
           if [ -f dist/sw.js ]; then
             PATHS="$PATHS /sw.js"
           fi
-          echo "Expecting $ENTRY on $PATHS"
+          echo "Expecting $ENTRY on $ORIGIN for $PATHS"
           MAX_RETRIES=12
           SLEEP=10
 
@@ -138,7 +143,7 @@ jobs:
             sleep $SLEEP
             STALE=""
             for P in $PATHS; do
-              if ! curl -sf "https://www.oreplay.es$P" | grep -q "$ENTRY"; then
+              if ! curl -sf "$ORIGIN$P" | grep -q "$ENTRY"; then
                 STALE="$STALE $P"
               fi
             done
