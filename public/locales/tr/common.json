@@ -1,4 +1,5 @@
 {
+  "backOnline": "Tekrar çevrimiçi",
   "clearSearch": "Aramayı temizle",
   "close": "Kapat",
   "confirm": "Onayla",
@@ -14,6 +15,7 @@
   "fieldRequired": "Bu alan zorunludur.",
   "fieldTooLong": "En fazla {{count}} karaktere izin verilir.",
   "loading": "Yükleniyor",
+  "noConnection": "İnternet bağlantısı yok",
   "noResults": "Sonuç yok",
   "ok": "Tamam",
   "save": "Kaydet",

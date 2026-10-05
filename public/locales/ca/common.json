@@ -1,4 +1,5 @@
 {
+  "backOnline": "Torna a estar en línia",
   "clearSearch": "Esborrar cerca",
   "close": "Tanca",
   "confirm": "Confirma",
@@ -14,6 +15,7 @@
   "fieldRequired": "Aquest camp és obligatori.",
   "fieldTooLong": "Màxim {{count}} caràcters permesos.",
   "loading": "Carregant",
+  "noConnection": "Sense connexió a internet",
   "noResults": "Sense resultats",
   "ok": "D'acord",
   "save": "Guardar",

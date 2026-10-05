@@ -1,4 +1,5 @@
 {
+  "backOnline": "Berriro konektatuta",
   "clearSearch": "Bilaketa garbitu",
   "close": "Itxi",
   "confirm": "Berretsi",
@@ -14,6 +15,7 @@
   "fieldRequired": "Eremu hau derrigorrezkoa da.",
   "fieldTooLong": "Gehienez {{count}} karaktere onartzen dira.",
   "loading": "Kargatzen",
+  "noConnection": "Ez dago Interneteko konexiorik",
   "noResults": "Emaitzarik ez",
   "ok": "Ados",
   "save": "Gorde",

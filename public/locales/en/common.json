@@ -1,4 +1,5 @@
 {
+  "backOnline": "Back online",
   "clearSearch": "Clear search",
   "close": "Close",
   "confirm": "Confirm",
@@ -14,6 +15,7 @@
   "fieldRequired": "This field is required.",
   "fieldTooLong": "Maximum {{count}} characters allowed.",
   "loading": "Loading",
+  "noConnection": "No connection",
   "noResults": "No matches",
   "ok": "OK",
   "save": "Save",

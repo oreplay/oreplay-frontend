@@ -1,4 +1,5 @@
 {
+  "backOnline": "Online igen",
   "clearSearch": "Rensa sökning",
   "close": "Stäng",
   "confirm": "Bekräfta",
@@ -14,6 +15,7 @@
   "fieldRequired": "Det här fältet är obligatoriskt.",
   "fieldTooLong": "Högst {{count}} tecken tillåtna.",
   "loading": "Laddar",
+  "noConnection": "Ingen internetanslutning",
   "noResults": "Inga träffar",
   "ok": "OK",
   "save": "Spara",

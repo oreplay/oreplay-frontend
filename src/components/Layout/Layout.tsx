@@ -5,6 +5,7 @@ import { Suspense, useState } from "react"
 import Sidebar from "./components/Sidebar/Sidebar.tsx"
 import GeneralSuspenseFallback from "../GeneralSuspenseFallback.tsx"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary.tsx"
+import ConnectionStatus from "./components/ConnectionStatus/ConnectionStatus.tsx"
 
 export default function Layout() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
@@ -19,6 +20,8 @@ export default function Layout() {
           <Outlet />
         </ErrorBoundary>
       </Suspense>
+
+      <ConnectionStatus />
     </Box>
   )
 }
