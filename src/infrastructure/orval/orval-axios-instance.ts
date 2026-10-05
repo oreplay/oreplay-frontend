@@ -19,8 +19,9 @@ export const orvalAxiosInstance = async <T>(
   } else {
     client = getClient()
   }
-  return client({
+  const response = await client<T>({
     ...config,
     ...options,
   })
+  return response.data
 }

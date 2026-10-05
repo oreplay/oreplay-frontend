@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from "axios"
 let axiosClientInstance: AxiosInstance | null = null
 
 const createAxiosInstance = (baseURL: string, headers: Record<string, string> = {}) => {
-  const instance = axios.create({
+  return axios.create({
     baseURL,
     headers: {
       Accept: "application/json",
@@ -11,11 +11,6 @@ const createAxiosInstance = (baseURL: string, headers: Record<string, string> = 
       ...headers,
     },
   })
-  instance.interceptors.response.use(function (response) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return response.data
-  })
-  return instance
 }
 
 export const initAxiosClientInstance = (baseURL: string, headers: Record<string, string> = {}) => {
