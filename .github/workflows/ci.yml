@@ -63,6 +63,7 @@ jobs:
         with:
           name: dist-${{ github.ref_name }}
           path: dist
+          include-hidden-files: true
 
   docker-build-push:
     needs: build
