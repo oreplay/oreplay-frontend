@@ -39,7 +39,7 @@
     "Create security keys": "Crear unha chave de seguridade",
     "DangerArea": "Zona de perigo",
     "DataUpload": {
-      "description": "Hai dúas formas de subir datos a este evento: co botón de subida de cada etapa na táboa de arriba, ou a través do cliente de escritorio de O-Replay. O cliente necesita a información de seguridade que aparece a continuación. Compártea só co teu equipo. Pode ser revocada en calquera momento.",
+      "description": "Hai dúas formas de subir datos a este evento: co botón de subida <uploadIcon/> de cada etapa na táboa de arriba, ou a través do cliente de escritorio de O-Replay. O cliente necesita a información de seguridade que aparece a continuación. Compártea só co teu equipo. Pode ser revocada en calquera momento.",
       "title": "Subida de datos"
     },
     "DeleteEvent": "Borrar evento",

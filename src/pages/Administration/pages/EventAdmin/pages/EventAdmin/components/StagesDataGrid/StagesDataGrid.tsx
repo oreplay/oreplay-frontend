@@ -31,6 +31,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "../GridActionsSettingsMenu.tsx"
 import StageUploadDialog from "../StageUploadDialog/StageUploadDialog.tsx"
 import UploadFileIcon from "@mui/icons-material/UploadFile"
+import Sparkles from "../../../../../../../../components/Sparkles/Sparkles.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
 import { useNavigate } from "react-router-dom"
@@ -497,7 +498,9 @@ export default function StagesDataGrid(props: Props) {
             key="upload-files"
             icon={
               <Tooltip title={t("EventAdmin.DataUpload.uploadFiles")}>
-                <UploadFileIcon />
+                <Sparkles>
+                  <UploadFileIcon />
+                </Sparkles>
               </Tooltip>
             }
             label={t("EventAdmin.DataUpload.uploadFiles")}
