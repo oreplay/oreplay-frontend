@@ -13,6 +13,7 @@ export const UPLOAD_MESSAGE_LEVEL = {
 } as const
 
 export const UPLOAD_STATUS = {
+  cancelled: "cancelled",
   done: "done",
   failed: "failed",
   pending: "pending",
@@ -33,6 +34,8 @@ export type UpdatedCounts = {
   runners: number
 }
 
+const UNFINISHED_STATUSES: UploadStatus[] = [UPLOAD_STATUS.pending, UPLOAD_STATUS.uploading]
+
 const STATUS_KEY_PREFIX = "EventAdmin.DataUpload.status."
 
 const SEVERITY_BY_LEVEL: Record<string, AlertColor> = {
@@ -45,6 +48,10 @@ export function failedUploadMeta(error: unknown): UploadedV2Meta | undefined {
   return isAxiosError<ResUploadedV2>(error) ? error.response?.data?.meta : undefined
 }
 
+export function isUnfinished(entry: UploadEntry): boolean {
+  return UNFINISHED_STATUSES.includes(entry.status)
+}
+
 export function messagesOf(entry: UploadEntry): UploadMessage[] {
   return entry.meta?.messages ?? []
 }
@@ -55,6 +62,7 @@ export function pendingEntry(id: string, file: File): UploadEntry {
 
 export function severityOf(entry: UploadEntry): AlertColor {
   if (entry.status === UPLOAD_STATUS.failed) return "error"
+  if (entry.status === UPLOAD_STATUS.cancelled) return "warning"
   if (entry.status !== UPLOAD_STATUS.done) return "info"
   return SEVERITY_BY_LEVEL[entry.meta?.level ?? UPLOAD_MESSAGE_LEVEL.info] ?? "success"
 }
@@ -76,4 +84,10 @@ export function withChanges(
   changes: Partial<UploadEntry>,
 ): UploadEntry[] {
   return entries.map((entry) => (entry.id === id ? { ...entry, ...changes } : entry))
+}
+
+export function withUnfinishedCancelled(entries: UploadEntry[]): UploadEntry[] {
+  return entries.map((entry) =>
+    isUnfinished(entry) ? { ...entry, status: UPLOAD_STATUS.cancelled } : entry,
+  )
 }

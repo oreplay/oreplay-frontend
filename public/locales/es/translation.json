@@ -30,21 +30,27 @@
     "Create security keys": "Crear una clave de seguridad",
     "DangerArea": "Zona de peligro",
     "DataUpload": {
+      "cancelUpload": {
+        "body": "Todavía se están subiendo ficheros. Si sales ahora, se cancelarán los que aún no se han enviado. El fichero que se está enviando en este momento puede haberse procesado ya.",
+        "confirm": "Cancelar subida",
+        "keepUploading": "Seguir subiendo",
+        "title": "¿Cancelar la subida?"
+      },
       "description": "Esta información de seguridad permite subir datos a este evento. Compártela solo con tu equipo. Puede revocarse en cualquier momento.",
       "dropHere": "Arrastra y suelta aquí ficheros IOF XML 3.0",
       "filesIgnored_one": "Se ha ignorado {{count}} fichero: solo se pueden subir ficheros .xml.",
       "filesIgnored_other": "Se han ignorado {{count}} ficheros: solo se pueden subir ficheros .xml.",
-      "noStages": "Crea una etapa antes de subir ficheros.",
       "selectFiles": "Seleccionar ficheros",
-      "stage": "Etapa",
       "status": {
+        "cancelled": "Cancelado",
         "done": "{{classes}} categorías y {{runners}} corredores actualizados",
         "pending": "En espera",
         "uploading": "Subiendo"
       },
       "title": "Subida de datos",
+      "titleWithStage": "Subida de datos: {{stageName}}",
       "uploadFiles": "Subir ficheros",
-      "uploadFilesDescription": "Sube listas de salida o de resultados en IOF XML 3.0 a la etapa seleccionada. El tipo de subida se detecta en cada fichero."
+      "uploadFilesDescription": "Sube listas de salida o de resultados en IOF XML 3.0 a esta etapa. El tipo de subida se detecta en cada fichero."
     },
     "DeleteEvent": "Borrar evento",
     "Do you want to delete this event?": "¿Desea borrar el evento?",

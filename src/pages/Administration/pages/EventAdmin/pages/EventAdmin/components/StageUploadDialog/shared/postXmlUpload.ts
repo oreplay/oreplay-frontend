@@ -7,6 +7,7 @@ export function postXmlUpload(
   eventId: string,
   stageId: string,
   file: File,
+  signal: AbortSignal,
 ): Promise<ResUploadedV2> {
   return orvalAxiosInstance<ResUploadedV2>({
     url: `/api/v1/events/${eventId}/uploads/v2/`,
@@ -14,5 +15,6 @@ export function postXmlUpload(
     headers: { "Content-Type": XML_CONTENT_TYPE },
     params: { stage_id: stageId },
     data: file,
+    signal,
   })
 }

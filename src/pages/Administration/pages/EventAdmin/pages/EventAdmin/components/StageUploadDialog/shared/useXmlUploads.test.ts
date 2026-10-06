@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react"
+import { act, renderHook, waitFor } from "@testing-library/react"
 import { AxiosError, AxiosHeaders } from "axios"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { postXmlUpload } from "./postXmlUpload.ts"
@@ -26,6 +26,16 @@ const refusedWith = (status: number) =>
     statusText: "",
   })
 
+const pendingUntilAborted = (
+  _eventId: string,
+  _stageId: string,
+  _file: File,
+  signal: AbortSignal,
+) =>
+  new Promise<never>((_resolve, reject) => {
+    signal.addEventListener("abort", () => reject(new AxiosError("canceled", "ERR_CANCELED")))
+  })
+
 const uploadWithHook = async (files: File[]) => {
   const { result } = renderHook(() => useXmlUploads(EVENT_ID))
   await act(() => result.current.upload(files, STAGE_ID))
@@ -48,8 +58,8 @@ describe("useXmlUploads", () => {
     const result = await uploadWithHook([first, second])
 
     expect(vi.mocked(postXmlUpload).mock.calls).toEqual([
-      [EVENT_ID, STAGE_ID, first],
-      [EVENT_ID, STAGE_ID, second],
+      [EVENT_ID, STAGE_ID, first, expect.any(AbortSignal)],
+      [EVENT_ID, STAGE_ID, second, expect.any(AbortSignal)],
     ])
     expect(result.current.entries.map((entry) => [entry.fileName, entry.status])).toEqual([
       ["start.xml", UPLOAD_STATUS.done],
@@ -82,5 +92,27 @@ describe("useXmlUploads", () => {
       status: UPLOAD_STATUS.failed,
       errorKey: "common:error.forbidden",
     })
+  })
+
+  it("aborts the request in flight and skips the waiting files when cancelled", async () => {
+    vi.mocked(postXmlUpload).mockImplementation(pendingUntilAborted)
+    const { result } = renderHook(() => useXmlUploads(EVENT_ID))
+
+    let uploading = Promise.resolve()
+    act(() => {
+      uploading = result.current.upload([xml("start.xml"), xml("results.xml")], STAGE_ID)
+    })
+    await waitFor(() => expect(postXmlUpload).toHaveBeenCalledTimes(1))
+    await act(async () => {
+      result.current.cancel()
+      await uploading
+    })
+
+    expect(postXmlUpload).toHaveBeenCalledTimes(1)
+    expect(result.current.entries.map((entry) => entry.status)).toEqual([
+      UPLOAD_STATUS.cancelled,
+      UPLOAD_STATUS.cancelled,
+    ])
+    expect(result.current.isUploading).toBe(false)
   })
 })

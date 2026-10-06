@@ -29,6 +29,8 @@ import { EventDetailModel } from "../../../../../../../../shared/EntityTypes.ts"
 import { useAuth } from "../../../../../../../../shared/hooks.ts"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "../GridActionsSettingsMenu.tsx"
+import StageUploadDialog from "../StageUploadDialog/StageUploadDialog.tsx"
+import UploadFileIcon from "@mui/icons-material/UploadFile"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
 import { useNavigate } from "react-router-dom"
@@ -115,6 +117,7 @@ export default function StagesDataGrid(props: Props) {
   const notifications = useNotifications()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const [stageToUpload, setStageToUpload] = useState<StageRow | null>(null)
 
   const stageTypeOptions = [
     {
@@ -462,7 +465,7 @@ export default function StagesDataGrid(props: Props) {
       field: "actions",
       type: "actions",
       headerName: "",
-      width: 100,
+      width: 140,
       cellClassName: "actions",
       getActions: (row: GridRowParams<StageRow>) => {
         const isInEditMode = rowModesModel[row.id]?.mode === GridRowModes.Edit
@@ -490,6 +493,17 @@ export default function StagesDataGrid(props: Props) {
         }
 
         return [
+          <GridActionsCellItem
+            key="upload-files"
+            icon={
+              <Tooltip title={t("EventAdmin.DataUpload.uploadFiles")}>
+                <UploadFileIcon />
+              </Tooltip>
+            }
+            label={t("EventAdmin.DataUpload.uploadFiles")}
+            className="textPrimary"
+            onClick={() => setStageToUpload(row.row)}
+          />,
           <GridActionsSettingsMenu
             key="settings-menu"
             handleEditClick={() => handleEditClick(row)}
@@ -569,6 +583,14 @@ export default function StagesDataGrid(props: Props) {
           },
         }}
       />
+      {stageToUpload && (
+        <StageUploadDialog
+          eventId={props.eventDetail.id}
+          stageId={stageToUpload.stageId}
+          stageName={stageToUpload.stageName}
+          onClose={() => setStageToUpload(null)}
+        />
+      )}
     </Box>
   )
 }
