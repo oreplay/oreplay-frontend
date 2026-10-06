@@ -36,7 +36,7 @@
         "keepUploading": "Keep uploading",
         "title": "Cancel the upload?"
       },
-      "description": "This security information allows data uploads to this specific event. Share it only with your team. It can be revoked at any time.",
+      "description": "There are two ways to upload data to this event: with the upload button of each stage in the table above, or through the O-Replay Desktop Client. The client needs the security information below. Share it only with your team. It can be revoked at any time.",
       "dropHere": "Drag and drop IOF XML 3.0 files here",
       "filesIgnored_one": "{{count}} file was ignored: only .xml files can be uploaded.",
       "filesIgnored_other": "{{count}} files were ignored: only .xml files can be uploaded.",
