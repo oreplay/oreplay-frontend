@@ -115,4 +115,13 @@ describe("useXmlUploads", () => {
     ])
     expect(result.current.isUploading).toBe(false)
   })
+
+  it("forgets the results when cleared", async () => {
+    vi.mocked(postXmlUpload).mockResolvedValue({ data: {}, meta: {} })
+    const result = await uploadWithHook([xml("results.xml")])
+
+    act(() => result.current.clear())
+
+    expect(result.current.entries).toEqual([])
+  })
 })

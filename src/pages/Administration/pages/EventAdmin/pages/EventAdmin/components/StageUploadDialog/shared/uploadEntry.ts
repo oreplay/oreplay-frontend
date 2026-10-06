@@ -34,6 +34,8 @@ export type UpdatedCounts = {
   runners: number
 }
 
+const SEVERITIES_BY_PRIORITY: AlertColor[] = ["error", "warning", "info", "success"]
+
 const UNFINISHED_STATUSES: UploadStatus[] = [UPLOAD_STATUS.pending, UPLOAD_STATUS.uploading]
 
 const STATUS_KEY_PREFIX = "EventAdmin.DataUpload.status."
@@ -54,6 +56,11 @@ export function isUnfinished(entry: UploadEntry): boolean {
 
 export function messagesOf(entry: UploadEntry): UploadMessage[] {
   return entry.meta?.messages ?? []
+}
+
+export function overallSeverityOf(entries: UploadEntry[]): AlertColor {
+  const severities = entries.map(severityOf)
+  return SEVERITIES_BY_PRIORITY.find((severity) => severities.includes(severity)) ?? "info"
 }
 
 export function pendingEntry(id: string, file: File): UploadEntry {

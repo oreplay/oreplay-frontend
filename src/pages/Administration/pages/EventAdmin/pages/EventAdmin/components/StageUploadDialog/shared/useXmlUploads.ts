@@ -56,5 +56,7 @@ export function useXmlUploads(eventId: string) {
     setEntries(withUnfinishedCancelled)
   }
 
-  return { cancel, entries, isUploading, upload }
+  const clear = () => setEntries([])
+
+  return { cancel, clear, entries, isUploading, upload }
 }

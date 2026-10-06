@@ -1,13 +1,14 @@
 import { useState } from "react"
-import { Dialog, DialogContent, Stack, Typography } from "@mui/material"
-import { useTranslation } from "react-i18next"
-import DropArea from "./components/DropArea.tsx"
-import UploadResultList from "./components/UploadResultList.tsx"
+import { Dialog } from "@mui/material"
 import { useXmlFilesIntake } from "./shared/useXmlFilesIntake.ts"
 import { useXmlUploads } from "./shared/useXmlUploads.ts"
 import CancelUploadDialog from "./components/CancelUploadDialog.tsx"
+import StageUploadDialogBody from "./components/StageUploadDialogBody.tsx"
 import StageUploadDialogTitle from "./components/StageUploadDialogTitle.tsx"
+import { uploadPhaseOf } from "./shared/uploadPhase.ts"
 import { useLeavePagePrompt } from "./shared/useLeavePagePrompt.ts"
+
+const FIXED_DIALOG_HEIGHT = "min(400px, calc(100% - 64px))"
 
 interface StageUploadDialogProps {
   eventId: string
@@ -22,9 +23,9 @@ export default function StageUploadDialog({
   stageId,
   stageName,
 }: StageUploadDialogProps) {
-  const { t } = useTranslation()
   const [isCloseRequested, setIsCloseRequested] = useState(false)
-  const { cancel, entries, isUploading, upload } = useXmlUploads(eventId)
+  const { cancel, clear, entries, isUploading, upload } = useXmlUploads(eventId)
+  const phase = uploadPhaseOf(entries, isUploading)
   useLeavePagePrompt(isUploading)
 
   const handleFiles = useXmlFilesIntake((files) => {
@@ -44,17 +45,20 @@ export default function StageUploadDialog({
 
   return (
     <>
-      <Dialog open onClose={handleCloseRequest} maxWidth="xl" fullWidth>
+      <Dialog
+        open
+        onClose={handleCloseRequest}
+        maxWidth="xl"
+        fullWidth
+        slotProps={{ paper: { sx: { height: FIXED_DIALOG_HEIGHT } } }}
+      >
         <StageUploadDialogTitle stageName={stageName} onClose={handleCloseRequest} />
-        <DialogContent>
-          <Stack spacing={2}>
-            <Typography component="p" variant="body2" color="text.secondary">
-              {t("EventAdmin.DataUpload.uploadFilesDescription")}
-            </Typography>
-            <DropArea disabled={false} isUploading={isUploading} onFiles={handleFiles} />
-            <UploadResultList entries={entries} />
-          </Stack>
-        </DialogContent>
+        <StageUploadDialogBody
+          phase={phase}
+          entries={entries}
+          onFiles={handleFiles}
+          onUploadMore={clear}
+        />
       </Dialog>
       <CancelUploadDialog
         open={isCloseRequested && isUploading}
