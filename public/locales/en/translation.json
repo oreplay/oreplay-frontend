@@ -44,7 +44,6 @@
         "body": "Upload your IOF XML 3.0 start lists and results straight from this page, without the desktop client. Use the upload button <uploadIcon/> of each stage in the table above.",
         "title": "New: upload XML files directly"
       },
-      "selectFiles": "Select files",
       "status": {
         "cancelled": "Cancelled",
         "done": "{{classes}} classes and {{runners}} runners updated",

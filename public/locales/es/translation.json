@@ -44,7 +44,6 @@
         "body": "Sube tus listas de salida y resultados en IOF XML 3.0 directamente desde esta página, sin el cliente de escritorio. Usa el botón de subida <uploadIcon/> de cada etapa en la tabla de arriba.",
         "title": "Novedad: sube ficheros XML directamente"
       },
-      "selectFiles": "Seleccionar ficheros",
       "status": {
         "cancelled": "Cancelado",
         "done": "{{classes}} categorías y {{runners}} corredores actualizados",
