@@ -2,6 +2,7 @@ import { ChangeEvent, DragEvent, useRef, useState } from "react"
 import { Button, Stack, Typography } from "@mui/material"
 import UploadFileIcon from "@mui/icons-material/UploadFile"
 import { useTranslation } from "react-i18next"
+import { isLeavingArea } from "../shared/dragLeave.ts"
 import { XML_FILE_EXTENSION } from "../shared/xmlFiles.ts"
 import UploadBox from "./UploadBox.tsx"
 
@@ -19,7 +20,9 @@ export default function DropArea({ onFiles }: DropAreaProps) {
     setIsDragging(true)
   }
 
-  const handleDragLeave = () => setIsDragging(false)
+  const handleDragLeave = (event: DragEvent<HTMLElement>) => {
+    if (isLeavingArea(event.currentTarget, event.relatedTarget)) setIsDragging(false)
+  }
 
   const handleDrop = (event: DragEvent<HTMLElement>) => {
     event.preventDefault()
