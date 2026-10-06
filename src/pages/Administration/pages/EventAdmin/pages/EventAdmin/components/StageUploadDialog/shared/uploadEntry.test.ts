@@ -12,6 +12,7 @@ import {
   UPLOAD_STATUS,
   UploadEntry,
   withChanges,
+  withUnfinishedCancelled,
 } from "./uploadEntry.ts"
 
 const entry = (changes: Partial<UploadEntry> = {}): UploadEntry => ({
@@ -58,6 +59,24 @@ describe("withChanges", () => {
   })
 })
 
+describe("withUnfinishedCancelled", () => {
+  it("cancels the files still waiting or uploading and keeps the finished ones", () => {
+    const statusesAfterCancelling = withUnfinishedCancelled([
+      entry({ status: UPLOAD_STATUS.done }),
+      entry({ status: UPLOAD_STATUS.failed }),
+      entry({ status: UPLOAD_STATUS.uploading }),
+      entry({ status: UPLOAD_STATUS.pending }),
+    ]).map(({ status }) => status)
+
+    expect(statusesAfterCancelling).toEqual([
+      UPLOAD_STATUS.done,
+      UPLOAD_STATUS.failed,
+      UPLOAD_STATUS.cancelled,
+      UPLOAD_STATUS.cancelled,
+    ])
+  })
+})
+
 describe("severityOf", () => {
   it("is informative while the file waits or uploads", () => {
     expect(severityOf(entry())).toBe("info")
@@ -66,6 +85,10 @@ describe("severityOf", () => {
 
   it("is an error when the upload failed", () => {
     expect(severityOf(entry({ status: UPLOAD_STATUS.failed }))).toBe("error")
+  })
+
+  it("is a warning when the upload was cancelled", () => {
+    expect(severityOf(entry({ status: UPLOAD_STATUS.cancelled }))).toBe("warning")
   })
 
   it("follows the level the backend reports for a finished upload", () => {

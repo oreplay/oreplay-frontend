@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next"
 import StagesDataGrid from "./components/StagesDataGrid/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
 import DeleteEventButton from "./components/DeleteEventButton.tsx"
-import UploadDropzone from "./components/UploadDropzone/UploadDropzone.tsx"
 import { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
 import { EventDetailModel, useRequiredParams } from "../../../../../../shared/EntityTypes.ts"
@@ -166,9 +165,6 @@ export default function EventAdmin() {
           </Typography>
           <Box sx={{ paddingX: 4, paddingY: 1, borderRadius: 3, backgroundColor: "white" }}>
             <EventTokenDataGrid event_id={detail ? detail.id : ""} />
-          </Box>
-          <Box sx={{ mt: 2, p: 4, borderRadius: 3, backgroundColor: "white" }}>
-            {detail ? <UploadDropzone eventDetail={detail} /> : <></>}
           </Box>
 
           {/* Danger zone */}
