@@ -36,7 +36,7 @@
         "keepUploading": "Seguir subiendo",
         "title": "¿Cancelar la subida?"
       },
-      "description": "Esta información de seguridad permite subir datos a este evento. Compártela solo con tu equipo. Puede revocarse en cualquier momento.",
+      "description": "Hay dos formas de subir datos a este evento: con el botón de subida de cada etapa en la tabla de arriba, o a través del cliente de escritorio de O-Replay. El cliente necesita la información de seguridad que aparece a continuación. Compártela solo con tu equipo. Puede revocarse en cualquier momento.",
       "dropHere": "Arrastra y suelta aquí ficheros IOF XML 3.0",
       "filesIgnored_one": "Se ha ignorado {{count}} fichero: solo se pueden subir ficheros .xml.",
       "filesIgnored_other": "Se han ignorado {{count}} ficheros: solo se pueden subir ficheros .xml.",
