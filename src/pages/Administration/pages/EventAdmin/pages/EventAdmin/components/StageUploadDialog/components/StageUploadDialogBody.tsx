@@ -4,6 +4,7 @@ import { UploadEntry } from "../shared/uploadEntry.ts"
 import { UPLOAD_PHASE, UploadPhase } from "../shared/uploadPhase.ts"
 import DropArea from "./DropArea.tsx"
 import UploadResultBox from "./UploadResultBox.tsx"
+import ExperimentalFeatureAlert from "../../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 
 interface StageUploadDialogBodyProps {
   entries: UploadEntry[]
@@ -25,6 +26,7 @@ export default function StageUploadDialogBody({
       <Typography component="p" variant="body2" color="text.secondary">
         {t("EventAdmin.DataUpload.uploadFilesDescription")}
       </Typography>
+      <ExperimentalFeatureAlert />
       {phase === UPLOAD_PHASE.selecting ? (
         <DropArea onFiles={onFiles} />
       ) : (
