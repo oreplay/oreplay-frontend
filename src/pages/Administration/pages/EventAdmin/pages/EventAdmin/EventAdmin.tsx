@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next"
 import StagesDataGrid from "./components/StagesDataGrid/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
 import DeleteEventButton from "./components/DeleteEventButton.tsx"
+import DirectUploadAnnouncement from "./components/DirectUploadAnnouncement.tsx"
+import TextWithUploadIcon from "./components/TextWithUploadIcon.tsx"
 import { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
 import { EventDetailModel, useRequiredParams } from "../../../../../../shared/EntityTypes.ts"
@@ -161,8 +163,9 @@ export default function EventAdmin() {
             {t("EventAdmin.DataUpload.title")}
           </Typography>
           <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            {t("EventAdmin.DataUpload.description")}
+            <TextWithUploadIcon i18nKey="EventAdmin.DataUpload.description" />
           </Typography>
+          <DirectUploadAnnouncement />
           <Box sx={{ paddingX: 4, paddingY: 1, borderRadius: 3, backgroundColor: "white" }}>
             <EventTokenDataGrid event_id={detail ? detail.id : ""} />
           </Box>
