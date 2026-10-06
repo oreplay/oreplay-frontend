@@ -1,9 +1,15 @@
 import { DragEventHandler, ReactNode } from "react"
 import { AlertColor, Box } from "@mui/material"
-import { uploadBoxFrameOf } from "../shared/uploadBoxFrame.ts"
+import { alpha, Theme } from "@mui/material/styles"
+import { HIGHLIGHT_TINT_OPACITY, uploadBoxFrameOf } from "../shared/uploadBoxFrame.ts"
+
+const highlightTintOf = (theme: Theme) => alpha(theme.palette.primary.main, HIGHLIGHT_TINT_OPACITY)
+
+const HIGHLIGHTED_FILE_PICKER = { backgroundColor: highlightTintOf, borderColor: "primary.main" }
 
 interface UploadBoxProps {
   children: ReactNode
+  isFilePicker?: boolean
   isHighlighted?: boolean
   onDragLeave?: DragEventHandler<HTMLElement>
   onDragOver?: DragEventHandler<HTMLElement>
@@ -14,6 +20,7 @@ interface UploadBoxProps {
 
 export default function UploadBox({
   children,
+  isFilePicker = false,
   isHighlighted = false,
   onDragLeave,
   onDragOver,
@@ -21,16 +28,24 @@ export default function UploadBox({
   severity,
   testId,
 }: UploadBoxProps) {
-  const { backgroundColor, borderColor, borderStyle } = uploadBoxFrameOf(isHighlighted, severity)
+  const { borderColor, borderStyle, isTinted } = uploadBoxFrameOf(isHighlighted, severity)
+  const filePickerStyles = isFilePicker
+    ? {
+        "&:focus-within": HIGHLIGHTED_FILE_PICKER,
+        "&:hover": HIGHLIGHTED_FILE_PICKER,
+        cursor: "pointer",
+      }
+    : {}
 
   return (
     <Box
+      component={isFilePicker ? "label" : "div"}
       data-testid={testId}
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}
       onDrop={onDrop}
       sx={{
-        backgroundColor,
+        backgroundColor: isTinted ? highlightTintOf : "transparent",
         borderColor,
         borderRadius: 3,
         borderStyle,
@@ -41,6 +56,7 @@ export default function UploadBox({
         minHeight: 0,
         overflowY: "auto",
         p: 3,
+        ...filePickerStyles,
       }}
     >
       {children}

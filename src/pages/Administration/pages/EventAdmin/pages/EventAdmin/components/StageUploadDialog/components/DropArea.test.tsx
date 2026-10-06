@@ -29,4 +29,14 @@ describe("DropArea", () => {
 
     expect(onFiles).toHaveBeenCalledWith([xml])
   })
+
+  it("opens the file dialog when clicked anywhere", () => {
+    renderDropArea()
+    const onInputClick = vi.fn()
+    screen.getByTestId("upload-file-input").addEventListener("click", onInputClick)
+
+    fireEvent.click(screen.getByTestId("upload-drop-area"))
+
+    expect(onInputClick).toHaveBeenCalledOnce()
+  })
 })
