@@ -53,8 +53,8 @@
       },
       "title": "Subida de datos",
       "titleWithStage": "Subida de datos: {{stageName}}",
-      "uploadFiles": "Subir ficheros",
-      "uploadFilesDescription": "Sube listas de salida o de resultados en IOF XML 3.0 a esta etapa. El tipo de subida se detecta en cada fichero.",
+      "uploadFiles": "Subir datos",
+      "uploadFilesDescription": "Sube listas de salida o de resultados en IOF XML 3.0 a esta etapa.",
       "uploadMore": {
         "action": "Subir más ficheros",
         "question": "¿Quieres subir más ficheros?"
