@@ -8,7 +8,11 @@ import StageUploadDialogTitle from "./components/StageUploadDialogTitle.tsx"
 import { uploadPhaseOf } from "./shared/uploadPhase.ts"
 import { useLeavePagePrompt } from "./shared/useLeavePagePrompt.ts"
 
-const FIXED_DIALOG_HEIGHT = "min(400px, calc(100% - 64px))"
+const DIALOG_HEIGHT_FILLING_SCREEN = "calc(100% - 64px)"
+const DIALOG_HEIGHT = {
+  xs: DIALOG_HEIGHT_FILLING_SCREEN,
+  sm: `min(400px, ${DIALOG_HEIGHT_FILLING_SCREEN})`,
+}
 
 interface StageUploadDialogProps {
   eventId: string
@@ -50,7 +54,7 @@ export default function StageUploadDialog({
         onClose={handleCloseRequest}
         maxWidth="xl"
         fullWidth
-        slotProps={{ paper: { sx: { height: FIXED_DIALOG_HEIGHT } } }}
+        slotProps={{ paper: { sx: { height: DIALOG_HEIGHT } } }}
       >
         <StageUploadDialogTitle stageName={stageName} onClose={handleCloseRequest} />
         <StageUploadDialogBody
