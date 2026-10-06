@@ -53,8 +53,8 @@
       },
       "title": "Data upload",
       "titleWithStage": "Data upload: {{stageName}}",
-      "uploadFiles": "Upload files",
-      "uploadFilesDescription": "Upload IOF XML 3.0 start lists or result lists to this stage. The upload type is detected from each file.",
+      "uploadFiles": "Upload data",
+      "uploadFilesDescription": "Upload IOF XML 3.0 start lists or result lists to this stage.",
       "uploadMore": {
         "action": "Upload more files",
         "question": "Do you want to upload more files?"
