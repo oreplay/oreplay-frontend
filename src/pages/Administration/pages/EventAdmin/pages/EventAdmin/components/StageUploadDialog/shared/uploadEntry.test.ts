@@ -4,6 +4,7 @@ import { ResUploadedV2 } from "../../../../../../../../../domain/types/v1api"
 import {
   failedUploadMeta,
   messagesOf,
+  overallSeverityOf,
   pendingEntry,
   severityOf,
   statusKeyOf,
@@ -98,6 +99,24 @@ describe("severityOf", () => {
     expect(severityOf(done(UPLOAD_MESSAGE_LEVEL.warning))).toBe("warning")
     expect(severityOf(done(UPLOAD_MESSAGE_LEVEL.error))).toBe("error")
     expect(severityOf(done())).toBe("success")
+  })
+})
+
+describe("overallSeverityOf", () => {
+  const done = entry({ status: UPLOAD_STATUS.done })
+  const failed = entry({ status: UPLOAD_STATUS.failed })
+  const cancelled = entry({ status: UPLOAD_STATUS.cancelled })
+  const uploading = entry({ status: UPLOAD_STATUS.uploading })
+
+  it("is the most serious severity among the files", () => {
+    expect(overallSeverityOf([done, uploading, cancelled, failed])).toBe("error")
+    expect(overallSeverityOf([done, uploading, cancelled])).toBe("warning")
+    expect(overallSeverityOf([done, uploading])).toBe("info")
+    expect(overallSeverityOf([done, done])).toBe("success")
+  })
+
+  it("is informative when there are no files", () => {
+    expect(overallSeverityOf([])).toBe("info")
   })
 })
 

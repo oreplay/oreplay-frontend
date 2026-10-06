@@ -20,7 +20,11 @@ export default function UploadResultItem({ entry }: UploadResultItemProps) {
     entry.status === UPLOAD_STATUS.uploading ? <CircularProgress size={20} /> : undefined
 
   return (
-    <Alert severity={severityOf(entry)} icon={uploadingIcon} variant="outlined">
+    <Alert
+      severity={severityOf(entry)}
+      icon={uploadingIcon}
+      sx={{ backgroundColor: "transparent", p: 0 }}
+    >
       <AlertTitle sx={{ overflowWrap: "anywhere" }}>{entry.fileName}</AlertTitle>
       <Typography variant="body2">{t(statusKeyOf(entry), updatedCountsOf(entry))}</Typography>
       {messages.length > 0 && (

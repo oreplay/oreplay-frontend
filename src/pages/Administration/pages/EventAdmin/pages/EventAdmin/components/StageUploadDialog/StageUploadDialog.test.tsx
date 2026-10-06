@@ -25,6 +25,12 @@ const startUploading = async () => {
   await waitFor(() => expect(postXmlUpload).toHaveBeenCalled())
 }
 
+const finishUploading = async () => {
+  vi.mocked(postXmlUpload).mockResolvedValue({ data: {}, meta: {} })
+  await startUploading()
+  await screen.findByTestId("upload-more")
+}
+
 const requestClose = () => fireEvent.click(screen.getByTestId("stage-upload-close"))
 
 const sentSignal = () => vi.mocked(postXmlUpload).mock.calls[0][3]
@@ -71,5 +77,34 @@ describe("StageUploadDialog", () => {
 
     expect(sentSignal().aborted).toBe(true)
     expect(onClose).toHaveBeenCalled()
+  })
+
+  it("shows the progress in place of the drop area while uploading", async () => {
+    renderDialog()
+
+    await startUploading()
+
+    expect(screen.queryByTestId("upload-drop-area")).not.toBeInTheDocument()
+    expect(screen.getByText("results.xml")).toBeInTheDocument()
+    expect(screen.queryByTestId("upload-more")).not.toBeInTheDocument()
+  })
+
+  it("keeps the result in place of the drop area once finished", async () => {
+    renderDialog()
+
+    await finishUploading()
+
+    expect(screen.queryByTestId("upload-drop-area")).not.toBeInTheDocument()
+    expect(screen.getByText("results.xml")).toBeInTheDocument()
+  })
+
+  it("brings the drop area back when asked to upload more files", async () => {
+    renderDialog()
+    await finishUploading()
+
+    fireEvent.click(screen.getByTestId("upload-more"))
+
+    expect(screen.getByTestId("upload-drop-area")).toBeInTheDocument()
+    expect(screen.queryByText("results.xml")).not.toBeInTheDocument()
   })
 })
