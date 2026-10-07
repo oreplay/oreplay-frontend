@@ -11,6 +11,7 @@ function ScrollTable<Column, Row>({
   getColumnKey,
   getRowKey,
   HeaderCellContent,
+  headerStickyTopPx = 0,
   RowHeading,
   rows,
 }: ScrollTableProps<Column, Row>) {
@@ -26,6 +27,7 @@ function ScrollTable<Column, Row>({
         getColumnKey={getColumnKey}
         HeaderCellContent={HeaderCellContent}
         scrollerRef={scrollers.firstScrollerRef}
+        stickyTopPx={headerStickyTopPx}
       />
       <ScrollTableBody
         CellContent={CellContent}

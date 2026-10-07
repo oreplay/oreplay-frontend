@@ -5,6 +5,7 @@ import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTic
 import { hasChipDownload } from "../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "../../../components/NoRunnerWithSplitsMsg.tsx"
 import { DEFAULT_TIME_LOSS_THRESHOLD } from "../../../shared/timeLossThreshold.ts"
+import { splitsTableHeaderStickyTopPx } from "../shared/splitsToolbarLayout.ts"
 import { showsTimeLoss, SPLITS_VIEW_CONFIG, SplitsView } from "../shared/splitsViews.ts"
 import FootOSplitsTable from "./FootOSplitsTable/FootOSplitsTable.tsx"
 
@@ -13,6 +14,7 @@ interface SplitsViewContentProps {
   isTimeLossOn: boolean
   radiosList: OnlineControlModel[]
   runners: ProcessedRunnerModel[]
+  toolbarStickyTopPx: number
   view: SplitsView
 }
 
@@ -21,6 +23,7 @@ export default function SplitsViewContent({
   isTimeLossOn,
   radiosList,
   runners,
+  toolbarStickyTopPx,
   view,
 }: SplitsViewContentProps) {
   const viewConfig = SPLITS_VIEW_CONFIG[view]
@@ -39,6 +42,7 @@ export default function SplitsViewContent({
         </Box>
       )}
       <FootOSplitsTable
+        headerStickyTopPx={splitsTableHeaderStickyTopPx(toolbarStickyTopPx)}
         onlyRadios={viewConfig.onlyRadios}
         radiosList={radiosList}
         runners={runners}

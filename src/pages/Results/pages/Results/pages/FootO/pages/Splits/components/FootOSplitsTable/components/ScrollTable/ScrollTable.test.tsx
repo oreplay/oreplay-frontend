@@ -33,6 +33,8 @@ function RowHeading({ row }: ScrollTableRowHeadingProps<string>) {
   return row
 }
 
+const HEADER_STICKY_TOP_PX = 60
+
 function TableIn({ unit }: { unit: string }) {
   return (
     <UnitContext.Provider value={unit}>
@@ -42,6 +44,7 @@ function TableIn({ unit }: { unit: string }) {
         getColumnKey={identity}
         getRowKey={identity}
         HeaderCellContent={HeaderCellContent}
+        headerStickyTopPx={HEADER_STICKY_TOP_PX}
         RowHeading={RowHeading}
         rows={ROWS}
       />
@@ -81,6 +84,15 @@ describe("ScrollTable", () => {
     const headerCells = Array.from(headerTable.querySelectorAll("thead tr > *"))
 
     expect(headerCells.map((cell) => cell.textContent)).toEqual(COLUMNS)
+  })
+
+  it("sticks the header at the given distance from the top", () => {
+    const { headerScroller } = renderTable()
+
+    expect(headerScroller.parentElement).toHaveStyle({
+      position: "sticky",
+      top: `${HEADER_STICKY_TOP_PX}px`,
+    })
   })
 
   it("gives the header one column per cell plus the two gutters", () => {

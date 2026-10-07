@@ -29,5 +29,6 @@ export type ScrollTableRowContentProps<Column, Row> = {
 export type ScrollTableProps<Column, Row> = ScrollTableColumnsProps<Column> &
   ScrollTableRowContentProps<Column, Row> & {
     getRowKey: (row: Row) => string
+    headerStickyTopPx?: number
     rows: readonly Row[]
   }

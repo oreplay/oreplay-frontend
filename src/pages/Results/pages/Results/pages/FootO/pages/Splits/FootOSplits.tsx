@@ -4,6 +4,7 @@ import { Box } from "@mui/material"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { OnlineControlModel, RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
+import useResultsStickyTopPx from "../../../../shared/useResultsStickyTopPx.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
@@ -34,6 +35,7 @@ export default function FootOSplits(
 
   const [selectedView, setSelectedView] = useState<SplitsView>(defaultSplitsView(hasRadios))
   const [isTimeLossOn, setIsTimeLossOn] = useState(false)
+  const stickyTopPx = useResultsStickyTopPx()
 
   useEffect(() => {
     setSelectedView(defaultSplitsView(hasRadios))
@@ -65,6 +67,7 @@ export default function FootOSplits(
         onTimeLossToggle={toggleTimeLoss}
         onViewChange={setSelectedView}
         selectedView={selectedView}
+        stickyTopPx={stickyTopPx}
         views={availableSplitsViews(hasRadios)}
       />
 
@@ -73,6 +76,7 @@ export default function FootOSplits(
         isTimeLossOn={isTimeLossOn}
         radiosList={radiosList}
         runners={runners}
+        toolbarStickyTopPx={stickyTopPx}
         view={selectedView}
       />
     </Box>

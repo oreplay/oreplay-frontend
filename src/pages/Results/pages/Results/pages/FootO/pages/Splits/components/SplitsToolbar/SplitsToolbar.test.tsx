@@ -5,6 +5,7 @@ import SplitsToolbar from "./SplitsToolbar.tsx"
 
 const TIME_LOSS_LABEL = "Graphs.TimeLossAnalysis"
 const NEXT_OPTION_KEY = "ArrowRight"
+const STICKY_TOP_PX = 59
 
 type ToolbarOptions = {
   hasRadios?: boolean
@@ -28,6 +29,7 @@ function renderToolbar({
       onTimeLossToggle={onTimeLossToggle}
       onViewChange={onViewChange}
       selectedView={selectedView}
+      stickyTopPx={STICKY_TOP_PX}
       views={availableSplitsViews(hasRadios)}
     />,
   )
@@ -35,6 +37,14 @@ function renderToolbar({
 }
 
 describe("SplitsToolbar", () => {
+  it("sticks at the given distance from the top", () => {
+    renderToolbar()
+
+    expect(screen.getByRole("radiogroup").parentElement).toHaveStyle({
+      top: `${STICKY_TOP_PX}px`,
+    })
+  })
+
   it("offers splits and accumulated times when the class has no radios", () => {
     renderToolbar()
 
