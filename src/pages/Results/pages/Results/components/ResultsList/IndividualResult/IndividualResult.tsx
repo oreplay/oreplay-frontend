@@ -13,7 +13,7 @@ export interface ResultColumnProps {
   runner: ProcessedRunnerModel
 }
 
-interface IndividualResultProps extends ResultItemProps {
+export interface IndividualResultProps extends ResultItemProps {
   details?: ReactNode
 }
 
