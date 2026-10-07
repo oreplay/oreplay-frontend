@@ -12,6 +12,7 @@ import { RESULT_STATUS_TEXT } from "../../../../../../../../../shared/constants.
 import RunnerSplit from "./RunnerSplit.tsx"
 import RunnerOnlineSplit from "./RunnerOnlineSplit.tsx"
 import { getOnlineSplits } from "../shared/footOSplitsTableFunctions.ts"
+import { ROW_WITH_GUTTERS_SX } from "../shared/splitsTableLayout.ts"
 import { OnlineControlModel } from "../../../../../../../../../../../shared/EntityTypes.ts"
 import RaceTimeBehind from "../../../../../../../components/RaceTimeBehind.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../../../../../shared/functions.ts"
@@ -32,7 +33,6 @@ type RunnerRowProps = {
   radiosList: OnlineControlModel[]
   timeLossResults?: TimeLossResults | null
   timeLossEnabled?: boolean
-  colsWidth: number[]
 }
 
 const extractRunnerResult = (runner: ProcessedRunnerModel) => runner.stage
@@ -130,21 +130,7 @@ export default function RunnerRow(props: RunnerRowProps) {
           </Box>
         </TableCell>
       </TableRow>
-      <TableRow
-        key={`runnerTimesRow-${props.runner.id}`}
-        sx={{
-          "&:before": {
-            content: '""',
-            display: "block",
-            width: "16px",
-          },
-          "&:after": {
-            content: '""',
-            display: "block",
-            width: "16px",
-          },
-        }}
-      >
+      <TableRow key={`runnerTimesRow-${props.runner.id}`} sx={ROW_WITH_GUTTERS_SX}>
         <TableCell
           key={`time${props.runner.id}`}
           sx={{
@@ -156,7 +142,6 @@ export default function RunnerRow(props: RunnerRowProps) {
             backgroundBlendMode: "darken",
             backgroundColor: "#F6F6F6",
             borderRadius: "6px 0 0 6px",
-            minWidth: props.colsWidth[0],
           }}
         >
           <RaceTime
@@ -179,7 +164,6 @@ export default function RunnerRow(props: RunnerRowProps) {
               background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)",
               backgroundColor: "#F6F6F6",
               border: "none",
-              minWidth: props.colsWidth[1],
             }}
           >
             {result.time_seconds > 0 && cleanTime > 0 && shouldCalculateCleanTime
@@ -189,7 +173,7 @@ export default function RunnerRow(props: RunnerRowProps) {
                 : ""}
           </TableCell>
         )}
-        {splits.map((split, index) => {
+        {splits.map((split) => {
           const legId = splitLegId(split)
           const timeLossInfo =
             props.timeLossEnabled && !props.showCumulative && props.timeLossResults && legId
@@ -205,10 +189,6 @@ export default function RunnerRow(props: RunnerRowProps) {
                 background: "linear-gradient(180deg, #00000008 0%, #F6F6F6FF 10%)",
                 backgroundColor: "#F6F6F6",
                 border: "none",
-                minWidth:
-                  props.colsWidth[
-                    1 + (props.timeLossEnabled && !props.showCumulative ? 1 : 0) + index
-                  ],
                 "&:last-of-type": {
                   borderRadius: "0 6px 6px 0",
                 },
