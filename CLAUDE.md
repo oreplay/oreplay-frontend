@@ -303,7 +303,18 @@ Never leave the user waiting on a silent UI — every asynchronous action shows 
 - **DRY**: extract duplicated logic into reusable functions.
 - **i18n**: user-facing markup strings go through `t()`.
 - **Accessibility**: prefer semantic HTML and appropriate ARIA attributes.
-- **Do not write any comments at all**: If you feel the need to write a comment explaining something, extract a variable or a function with a meaningful name, following SOLID and Clean Code (Robert C. Martin). A magic number becomes a named constant; a condition becomes a named predicate; a block becomes a named function. This includes JSDoc, section dividers (`// ─── Section ───`), inline notes, and per-section UI comments. Compiler and tooling directives (`eslint-disable`, `@ts-expect-error`, `#!/usr/bin/env`) are not comments and are exempt.
+- **JSDoc on every function**: every function gets a JSDoc block — exported or private, plain
+  functions, hooks and components alike. It opens with a sentence on what the function does (and
+  why, when that is not obvious), then one `@param` per parameter and a `@returns` when it returns a
+  value. A component documents its props as `@param props.<name>` and needs no `@returns`. Describe
+  meaning, units and edge cases (`null`, empty, out of range) rather than repeating the TypeScript
+  types. Inline callbacks passed as arguments are exempt.
+- **No other comments**: JSDoc is the only kind of comment. If you feel the need to explain
+  something inside a function, extract a variable or a function with a meaningful name, following
+  SOLID and Clean Code (Robert C. Martin). A magic number becomes a named constant; a condition
+  becomes a named predicate; a block becomes a named function. This rules out section dividers
+  (`// ─── Section ───`), inline notes, and per-section UI comments. Compiler and tooling directives
+  (`eslint-disable`, `@ts-expect-error`, `#!/usr/bin/env`) are not comments and are exempt.
 - **Tests**: add tests for new logic and features.
 - **Before considering a task done**: run `npm run format`, `npm run lint`, `npm test`, `npm run build`.
 - **CSS class naming (ranking area)**: the root element of every ranking component has a first CSS
