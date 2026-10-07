@@ -10,5 +10,4 @@ export const PROGRESS_COLOR_CLASS_NAME = [
 
 export interface OnlineCourseSymbolProps {
   node: OnlineCourseNode
-  x: number
 }

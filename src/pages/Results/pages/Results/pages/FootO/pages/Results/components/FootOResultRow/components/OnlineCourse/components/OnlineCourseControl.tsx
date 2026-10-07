@@ -5,11 +5,10 @@ import {
 } from "../../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import { OnlineCourseSymbolProps, PROGRESS_COLOR_CLASS_NAME } from "../shared/onlineCourseStyles.ts"
 
-export default function OnlineCourseControl({ node, x }: OnlineCourseSymbolProps) {
+export default function OnlineCourseControl({ node }: OnlineCourseSymbolProps) {
   return (
     <g className={PROGRESS_COLOR_CLASS_NAME} data-kind={node.kind} data-progress={node.progress}>
       <circle
-        cx={x}
         cy={SYMBOL_CENTER_Y_PX}
         fill="none"
         r={CONTROL_RADIUS_PX}
@@ -21,7 +20,6 @@ export default function OnlineCourseControl({ node, x }: OnlineCourseSymbolProps
         dominantBaseline="central"
         fill="currentColor"
         textAnchor="middle"
-        x={x}
         y={SYMBOL_CENTER_Y_PX}
       >
         {node.label}

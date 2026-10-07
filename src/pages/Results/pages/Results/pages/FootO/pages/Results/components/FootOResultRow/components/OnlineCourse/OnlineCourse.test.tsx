@@ -11,9 +11,11 @@ import {
   buildOnlineSplit,
   buildRunnerWithOnlineSplits,
 } from "../../../../shared/onlineCourse/onlineCourseFixtures.ts"
+import onlineCourseGeometry from "../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import OnlineCourse from "./OnlineCourse.tsx"
 
 const { InProgress, Pending, Reached } = ONLINE_COURSE_PROGRESS
+const NODE_COUNT = 4
 const BEST_CUMULATIVE_SECONDS = [100, 240, 400]
 const HAS_STARTED = true
 
@@ -93,6 +95,14 @@ describe("OnlineCourse", () => {
 
     expect(container).toHaveTextContent("02:10")
     expect(container).not.toHaveTextContent("+")
+  })
+
+  it("fills its container and never gets narrower than the course at its fixed spacing", () => {
+    const container = renderCourseAfterFirstControl(BEST_CUMULATIVE_SECONDS)
+    const image = container.querySelector<SVGSVGElement>('svg[role="img"]')
+
+    expect(image).toHaveAttribute("width", "100%")
+    expect(image).toHaveStyle({ minWidth: `${onlineCourseGeometry(NODE_COUNT).minWidth}px` })
   })
 
   it("is a single image for assistive technology", () => {

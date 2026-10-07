@@ -1,8 +1,13 @@
 import { FunctionComponent } from "react"
 import {
   ONLINE_COURSE_NODE_KIND,
+  OnlineCourseNode as OnlineCourseNodeModel,
   OnlineCourseNodeKind,
 } from "../../../../../shared/onlineCourse/onlineCourse.ts"
+import {
+  fractionToPercent,
+  OnlineCourseNodeGeometry,
+} from "../../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import { OnlineCourseSymbolProps } from "../shared/onlineCourseStyles.ts"
 import OnlineCourseControl from "./OnlineCourseControl.tsx"
 import OnlineCourseFinish from "./OnlineCourseFinish.tsx"
@@ -15,13 +20,20 @@ const SYMBOL_BY_KIND: Record<OnlineCourseNodeKind, FunctionComponent<OnlineCours
   [ONLINE_COURSE_NODE_KIND.Start]: OnlineCourseStart,
 }
 
-export default function OnlineCourseNode({ node, x }: OnlineCourseSymbolProps) {
+interface OnlineCourseNodeProps {
+  geometry: OnlineCourseNodeGeometry
+  node: OnlineCourseNodeModel
+}
+
+export default function OnlineCourseNode({ geometry, node }: OnlineCourseNodeProps) {
   const Symbol = SYMBOL_BY_KIND[node.kind]
 
   return (
-    <>
-      <Symbol node={node} x={x} />
-      <OnlineCourseNodeTimes node={node} x={x} />
-    </>
+    <g transform={`translate(${geometry.offsetX})`}>
+      <svg overflow="visible" x={fractionToPercent(geometry.xFraction)}>
+        <Symbol node={node} />
+        <OnlineCourseNodeTimes node={node} />
+      </svg>
+    </g>
   )
 }

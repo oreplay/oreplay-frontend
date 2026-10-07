@@ -6,7 +6,7 @@ import {
 } from "../../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import { OnlineCourseSymbolProps, PROGRESS_COLOR_CLASS_NAME } from "../shared/onlineCourseStyles.ts"
 
-export default function OnlineCourseFinish({ node, x }: OnlineCourseSymbolProps) {
+export default function OnlineCourseFinish({ node }: OnlineCourseSymbolProps) {
   return (
     <g
       className={PROGRESS_COLOR_CLASS_NAME}
@@ -16,8 +16,8 @@ export default function OnlineCourseFinish({ node, x }: OnlineCourseSymbolProps)
       stroke="currentColor"
       strokeWidth={SYMBOL_STROKE_WIDTH_PX}
     >
-      <circle cx={x} cy={SYMBOL_CENTER_Y_PX} r={CONTROL_RADIUS_PX} />
-      <circle cx={x} cy={SYMBOL_CENTER_Y_PX} r={FINISH_INNER_RADIUS_PX} />
+      <circle cy={SYMBOL_CENTER_Y_PX} r={CONTROL_RADIUS_PX} />
+      <circle cy={SYMBOL_CENTER_Y_PX} r={FINISH_INNER_RADIUS_PX} />
     </g>
   )
 }
