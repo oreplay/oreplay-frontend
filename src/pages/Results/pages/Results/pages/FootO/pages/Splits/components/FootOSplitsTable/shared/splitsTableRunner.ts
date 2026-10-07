@@ -10,6 +10,7 @@ import {
   FINISH_LEG_ID,
   getRunnerTimeLossInfo,
   RunnerTimeLossInfo,
+  splitLegId,
   TimeLossResults,
 } from "../../../../../shared/timeLossAnalysis.ts"
 
@@ -29,7 +30,7 @@ export function calculateTotalLossTime(
 ): number {
   if (!timeLossResults) return 0
 
-  const legIds = [...runner.stage.splits.map((split) => split.control?.id), FINISH_LEG_ID]
+  const legIds = [...runner.stage.splits.map(splitLegId), FINISH_LEG_ID]
   const totalLoss = legIds.reduce((total, legId) => {
     const timeLossInfo = legId ? getRunnerTimeLossInfo(timeLossResults, runner.id, legId) : null
     return total + (timeLossInfo?.timeLoss ?? 0)
@@ -60,8 +61,9 @@ export function getSplitTimeLoss(
   split: ProcessedSplitModel,
   timeLossResults: TimeLossResults | null,
 ): RunnerTimeLossInfo | null {
-  if (!timeLossResults || !split.control?.id) return null
-  return getRunnerTimeLossInfo(timeLossResults, runner.id, split.control.id)
+  const legId = splitLegId(split)
+  if (!timeLossResults || !legId) return null
+  return getRunnerTimeLossInfo(timeLossResults, runner.id, legId)
 }
 
 export function isRunnerNotCompeting(runner: ProcessedRunnerModel): boolean {

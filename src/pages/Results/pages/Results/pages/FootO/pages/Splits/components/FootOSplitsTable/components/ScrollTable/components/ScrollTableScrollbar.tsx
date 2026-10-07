@@ -11,11 +11,11 @@ const SCROLLBAR_HEIGHT = "8px"
 const THUMB_WIDTH = `max(${MIN_SCROLLBAR_THUMB_WIDTH_PX}px, calc(var(${VISIBLE_RATIO_CSS_VARIABLE}, 1) * 100%))`
 const THUMB_LEFT = `calc(var(${SCROLL_PROGRESS_CSS_VARIABLE}, 0) * (100% - ${THUMB_WIDTH}))`
 
-type SplitsTableScrollbarProps = {
+type ScrollTableScrollbarProps = {
   scrollerRef: RefObject<HTMLElement | null>
 }
 
-export default function SplitsTableScrollbar({ scrollerRef }: SplitsTableScrollbarProps) {
+export default function ScrollTableScrollbar({ scrollerRef }: ScrollTableScrollbarProps) {
   const scrollbar = useScrollbar(scrollerRef)
 
   return (

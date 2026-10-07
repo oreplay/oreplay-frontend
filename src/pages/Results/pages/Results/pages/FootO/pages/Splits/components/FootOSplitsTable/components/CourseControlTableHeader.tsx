@@ -1,49 +1,32 @@
 import { Box, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import SplitsTableHeaderCell from "./SplitsTableHeaderCell.tsx"
-
-const HORIZONTAL_PADDING = "8px"
+import { ControlColumnHeader, isFinishColumnHeader } from "../shared/footOSplitsTableFunctions.ts"
 
 type CourseControlTableHeaderProps = {
-  isWidthSizer?: boolean
-  onlyRadios?: boolean
-  order_number?: number | null
-  station?: number | string | null
+  header: ControlColumnHeader
 }
 
-export default function CourseControlTableHeader({
-  isWidthSizer,
-  onlyRadios,
-  order_number,
-  station,
-}: CourseControlTableHeaderProps) {
+export default function CourseControlTableHeader({ header }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
+  const stationLabel = `(${header.station})`
 
-  if (station === "Finish" || order_number === Infinity) {
-    return (
-      <SplitsTableHeaderCell horizontalPadding={HORIZONTAL_PADDING} isWidthSizer={isWidthSizer}>
-        <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
-      </SplitsTableHeaderCell>
-    )
+  if (isFinishColumnHeader(header)) {
+    return <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
   }
 
+  if (header.isOnlineControl) return <Typography>{stationLabel}</Typography>
+
   return (
-    <SplitsTableHeaderCell horizontalPadding={HORIZONTAL_PADDING} isWidthSizer={isWidthSizer}>
-      {onlyRadios ? (
-        <Typography>{`(${station})`}</Typography>
-      ) : (
-        <Box
-          sx={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "2px",
-            fontSize: "1rem",
-          }}
-        >
-          <Typography>{order_number}</Typography>
-          <Typography sx={{ fontSize: "0.75rem", color: "#8D8D8D" }}>{`(${station})`}</Typography>
-        </Box>
-      )}
-    </SplitsTableHeaderCell>
+    <Box
+      sx={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "2px",
+        fontSize: "1rem",
+      }}
+    >
+      <Typography>{header.orderNumber}</Typography>
+      <Typography sx={{ fontSize: "0.75rem", color: "#8D8D8D" }}>{stationLabel}</Typography>
+    </Box>
   )
 }
