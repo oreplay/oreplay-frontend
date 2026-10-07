@@ -43,7 +43,6 @@ export default function SplitsViewContent({
         <TimeLossThresholdSlider threshold={timeLossThreshold} onChange={setTimeLossThreshold} />
       )}
       <FootOSplitsTable
-        key={view}
         onlyRadios={viewConfig.onlyRadios}
         radiosList={radiosList}
         runners={runners}
