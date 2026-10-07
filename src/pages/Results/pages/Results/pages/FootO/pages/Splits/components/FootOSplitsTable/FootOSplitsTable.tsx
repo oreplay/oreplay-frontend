@@ -16,6 +16,7 @@ import {
   getOnlineControlsCourseFromClassSplits,
 } from "./shared/footOSplitsTableFunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
+import SplitsTableScrollbar from "./components/SplitsTableScrollbar.tsx"
 import NowProvider from "../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
@@ -60,26 +61,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
   const isSyncingRef = useRef(false)
   const headerRef = useRef<HTMLDivElement | null>(null)
   const bodyRef = useRef<HTMLDivElement | null>(null)
-  const scrollTrackRef = useRef<HTMLDivElement | null>(null)
-  const scrollThumbRef = useRef<HTMLDivElement | null>(null)
-  const observer = useRef<ResizeObserver | null>(null)
-  const [thumbWidth, setThumbWidth] = useState(20)
-  const [scrollStartPosition, setScrollStartPosition] = useState<number | null>(null)
-  const [initialScrollLeft, setInitialScrollLeft] = useState<number>(0)
-  const [isDragging, setIsDragging] = useState(false)
-
-  const handleThumbPosition = useCallback(() => {
-    if (!bodyRef.current || !scrollTrackRef.current || !scrollThumbRef.current) {
-      return
-    }
-
-    const { scrollLeft: contentLeft, scrollWidth: contentWidth } = bodyRef.current
-    const { clientWidth: trackWidth } = scrollTrackRef.current
-    let newLeft = (contentLeft / contentWidth) * trackWidth
-    newLeft = Math.min(newLeft, trackWidth - thumbWidth)
-
-    scrollThumbRef.current.style.left = `${newLeft}px`
-  }, [thumbWidth])
 
   const handleBodyScroll = useCallback(() => {
     if (isSyncingRef.current) return
@@ -87,13 +68,12 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     if (headerRef.current && bodyRef.current) {
       isSyncingRef.current = true
       headerRef.current.scrollLeft = bodyRef.current.scrollLeft
-      handleThumbPosition()
       // Allow a short delay before unlocking syncing
       requestAnimationFrame(() => {
         isSyncingRef.current = false
       })
     }
-  }, [handleThumbPosition])
+  }, [])
 
   const handleHeaderScroll = useCallback(() => {
     if (isSyncingRef.current) return
@@ -101,135 +81,26 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     if (headerRef.current && bodyRef.current) {
       isSyncingRef.current = true
       bodyRef.current.scrollLeft = headerRef.current.scrollLeft
-      handleThumbPosition()
       requestAnimationFrame(() => {
         isSyncingRef.current = false
       })
     }
-  }, [handleThumbPosition])
+  }, [])
 
   useEffect(() => {
     const bodyDiv = bodyRef.current
-    const trackDiv = scrollTrackRef.current
     const headerDiv = headerRef.current
 
-    if (!bodyDiv || !headerDiv || !trackDiv) return
-
-    const updateThumbSize = () => {
-      const trackSize = trackDiv.clientWidth
-      const { clientWidth, scrollWidth } = bodyDiv
-      const calculatedThumbWidth = Math.max((clientWidth / scrollWidth) * trackSize, 20)
-      setThumbWidth(calculatedThumbWidth)
-    }
-
-    observer.current = new ResizeObserver(() => {
-      updateThumbSize()
-      handleThumbPosition()
-    })
-
-    observer.current.observe(bodyDiv)
-    observer.current.observe(trackDiv)
+    if (!bodyDiv || !headerDiv) return
 
     bodyDiv.addEventListener("scroll", handleBodyScroll)
     headerDiv.addEventListener("scroll", handleHeaderScroll)
 
-    // Initial call
-    updateThumbSize()
-    handleThumbPosition()
-
     return () => {
-      observer.current?.disconnect()
       bodyDiv.removeEventListener("scroll", handleBodyScroll)
       headerDiv.removeEventListener("scroll", handleHeaderScroll)
     }
-  }, [handleThumbPosition, handleBodyScroll, handleHeaderScroll])
-
-  const handleTrackClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      e.preventDefault()
-      e.stopPropagation()
-      const { current: trackCurrent } = scrollTrackRef
-      const { current: contentCurrent } = bodyRef
-      const { current: headerCurrent } = headerRef
-      if (trackCurrent && contentCurrent && headerCurrent) {
-        // First, figure out where we clicked
-        const { clientX } = e
-        // Next, figure out the distance between the top of the track and the top of the viewport
-        const target = e.target as HTMLDivElement
-        const rect = target.getBoundingClientRect()
-        const trackLeft = rect.left
-        // We want the middle of the thumb to jump to where we clicked, so we subtract half the thumb's height to offset the position
-        const thumbOffset = -(thumbWidth / 2)
-        // Find the ratio of the new position to the total content length using the thumb and track values...
-        const clickRatio = (clientX - trackLeft + thumbOffset) / trackCurrent.clientWidth
-        // ...so that you can compute where the content should scroll to.
-        const scrollAmount = Math.floor(clickRatio * contentCurrent.scrollWidth)
-        // And finally, scroll to the new position!
-        contentCurrent.scrollTo({
-          left: scrollAmount,
-          behavior: "smooth",
-        })
-        headerCurrent.scrollTo({
-          left: scrollAmount,
-          behavior: "smooth",
-        })
-      }
-    },
-    [thumbWidth],
-  )
-
-  const handleThumbMousedown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setScrollStartPosition(e.clientX)
-    if (bodyRef.current) setInitialScrollLeft(bodyRef.current.scrollLeft)
-    if (headerRef.current) setInitialScrollLeft(headerRef.current.scrollLeft)
-    setIsDragging(true)
-  }, [])
-
-  const handleThumbMouseup = useCallback(
-    (e: MouseEvent) => {
-      e.preventDefault()
-      e.stopPropagation()
-      if (isDragging) {
-        setIsDragging(false)
-      }
-    },
-    [isDragging],
-  )
-
-  const handleThumbMousemove = useCallback(
-    (e: MouseEvent) => {
-      e.preventDefault()
-      e.stopPropagation()
-      if (isDragging) {
-        const { scrollWidth: contentScrollWidth, offsetWidth: contentOffsetWidth } =
-          bodyRef.current!
-
-        const deltaX = (e.clientX - scrollStartPosition!) * (contentOffsetWidth / thumbWidth)
-        const newScrollLeft = Math.min(
-          initialScrollLeft + deltaX,
-          contentScrollWidth - contentOffsetWidth,
-        )
-
-        bodyRef.current!.scrollLeft = newScrollLeft
-        headerRef.current!.scrollLeft = newScrollLeft
-      }
-    },
-    [isDragging, scrollStartPosition, thumbWidth, initialScrollLeft],
-  )
-
-  // Listen for mouse events to handle scrolling by dragging the thumb
-  useEffect(() => {
-    document.addEventListener("mousemove", handleThumbMousemove)
-    document.addEventListener("mouseup", handleThumbMouseup)
-    document.addEventListener("mouseleave", handleThumbMouseup)
-    return () => {
-      document.removeEventListener("mousemove", handleThumbMousemove)
-      document.removeEventListener("mouseup", handleThumbMouseup)
-      document.removeEventListener("mouseleave", handleThumbMouseup)
-    }
-  }, [handleThumbMousemove, handleThumbMouseup])
+  }, [handleBodyScroll, handleHeaderScroll])
 
   const [colsWidth, setColWidths] = useState<number[]>([])
   useEffect(() => {
@@ -355,36 +226,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
           </Table>
         </TableContainer>
 
-        <Box
-          key="ScrollBar"
-          sx={{ display: "block", width: "100%", height: "8px", position: "relative" }}
-        >
-          <Box
-            ref={scrollTrackRef}
-            onClick={handleTrackClick}
-            key="ScrollBarTrack"
-            sx={{
-              cursor: isDragging ? "grabbing" : "pointer",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              height: "8px",
-              backgroundColor: "#EFEFEF",
-            }}
-          ></Box>
-          <Box
-            ref={scrollThumbRef}
-            onMouseDown={handleThumbMousedown}
-            key="ScrollBarThumb"
-            sx={{
-              cursor: isDragging ? "grabbing" : "grab",
-              position: "absolute",
-              height: "8px",
-              backgroundColor: "#5E2572",
-              width: `${thumbWidth}px`,
-            }}
-          ></Box>
-        </Box>
+        <SplitsTableScrollbar scrollerRef={bodyRef} />
       </Box>
 
       {/* Table body */}
