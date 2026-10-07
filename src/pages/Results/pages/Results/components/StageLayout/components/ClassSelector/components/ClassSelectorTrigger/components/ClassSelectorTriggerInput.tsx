@@ -3,7 +3,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useTranslation } from "react-i18next"
 import { classSelectorLabelKey, ClassSelectorTriggerProps } from "../../../shared/classSelector.ts"
 
-export default function ClassSelectorTriggerDesktop(props: ClassSelectorTriggerProps) {
+export default function ClassSelectorTriggerInput(props: ClassSelectorTriggerProps) {
   const { t } = useTranslation()
   const label = t(classSelectorLabelKey(props.isClass))
   const hasActiveName = !!props.activeName

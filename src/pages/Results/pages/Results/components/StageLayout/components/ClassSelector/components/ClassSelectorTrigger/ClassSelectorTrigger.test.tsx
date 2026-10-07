@@ -16,17 +16,17 @@ describe("ClassSelectorTrigger", () => {
     onClick.mockClear()
   })
 
-  it("renders a floating button with the active name on a mobile device", () => {
+  it("adds a floating button next to the input on a mobile device", () => {
     vi.mocked(useIsMobileDevice).mockReturnValue(true)
     render(<ClassSelectorTrigger activeName={ACTIVE_NAME} isClass onClick={onClick} />)
 
     fireEvent.click(screen.getByRole("button", { name: ACTIVE_NAME }))
+    fireEvent.click(screen.getByDisplayValue(ACTIVE_NAME))
 
-    expect(screen.queryByRole("textbox")).toBeNull()
-    expect(onClick).toHaveBeenCalledTimes(1)
+    expect(onClick).toHaveBeenCalledTimes(2)
   })
 
-  it("keeps the read-only input on desktop", () => {
+  it("renders only the input on desktop", () => {
     vi.mocked(useIsMobileDevice).mockReturnValue(false)
     render(<ClassSelectorTrigger activeName={ACTIVE_NAME} isClass onClick={onClick} />)
 

@@ -78,9 +78,13 @@ desktop; a phone in landscape stays mobile.
   there, never with an ad-hoc `navigator.userAgent` check or `useMediaQuery` in a component.
 - **Shape**: a thin `Foo` switch that only picks the variant, plus one component per variant —
   `Foo/Foo.tsx` → `Foo/components/FooMobile.tsx` / `FooDesktop.tsx`, all sharing one props type
-  declared in `shared/`. References: `ResultTabsBar` (bottom navigation vs tabs) and
-  `ClassSelectorTrigger` (floating button vs outlined input). State and anything common to both
-  variants stay in the parent (`ClassSelector` owns the dialog), so the variants stay presentational.
+  declared in `shared/`. Reference: `ResultTabsBar` (bottom navigation vs tabs). State and anything
+  common to both variants stay in the parent, so the variants stay presentational.
+- **A mobile-only extra is added, not swapped**: when mobile keeps the desktop UI and gains something
+  on top, the switch renders the common part always and the extra conditionally, and the parts are
+  named after what they are rather than `Mobile`/`Desktop` — `ClassSelectorTrigger` always renders
+  `ClassSelectorTriggerInput` and adds `ClassSelectorTriggerFloatingButton` on mobile, while
+  `ClassSelector` owns the dialog both open.
 - **Fixed mobile chrome shares its dimensions** through
   `src/pages/Results/pages/Results/shared/mobileLayout.ts` (bottom navigation height, floating button
   offset, content bottom padding). Anything else pinned to the bottom of the screen reads those
