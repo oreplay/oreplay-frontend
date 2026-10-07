@@ -18,10 +18,24 @@ interface RunnerFixture {
   statusCode?: string
 }
 
+/**
+ * Builds the online split of the finish for tests.
+ *
+ * @param cumulativeSeconds Time since the start at the finish, or `null` without a reading.
+ * @returns The finish split.
+ */
 export function buildFinishSplit(cumulativeSeconds: number | null): RadioSplitModel {
   return { ...createMissingRadioFinish(), cumulative_time: cumulativeSeconds }
 }
 
+/**
+ * Builds the online split of a control for tests.
+ *
+ * @param station Station code of the control.
+ * @param orderNumber Position of the control in the course, starting at 1.
+ * @param cumulativeSeconds Time since the start at the control, or `null` without a reading.
+ * @returns The online split.
+ */
 export function buildOnlineSplit(
   station: number,
   orderNumber: number,
@@ -30,6 +44,13 @@ export function buildOnlineSplit(
   return { ...createMissingRadioSplit(station, orderNumber), cumulative_time: cumulativeSeconds }
 }
 
+/**
+ * Builds a runner for tests with only the fields the online course reads.
+ *
+ * @param fixture Online splits of the runner and, optionally, their result. By default the runner
+ * has an OK status, no start time and has not finished.
+ * @returns The runner.
+ */
 export function buildRunnerWithOnlineSplits({
   finishTime = null,
   id = "runner",

@@ -5,6 +5,11 @@ import {
 } from "../../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import { OnlineCourseSymbolProps, PROGRESS_COLOR_CLASS_NAME } from "../shared/onlineCourseStyles.ts"
 
+/**
+ * Draws an online control: a circle with its station code inside.
+ *
+ * @param props.node Node of the control.
+ */
 export default function OnlineCourseControl({ node }: OnlineCourseSymbolProps) {
   return (
     <g className={PROGRESS_COLOR_CLASS_NAME} data-kind={node.kind} data-progress={node.progress}>

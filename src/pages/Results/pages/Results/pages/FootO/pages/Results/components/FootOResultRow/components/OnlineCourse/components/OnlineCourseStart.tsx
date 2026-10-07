@@ -7,6 +7,11 @@ import { OnlineCourseSymbolProps, PROGRESS_COLOR_CLASS_NAME } from "../shared/on
 
 const START_TRIANGLE_CENTER_X_PX = 0
 
+/**
+ * Draws the start: a triangle pointing to the first control.
+ *
+ * @param props.node Node of the start.
+ */
 export default function OnlineCourseStart({ node }: OnlineCourseSymbolProps) {
   return (
     <g className={PROGRESS_COLOR_CLASS_NAME} data-kind={node.kind} data-progress={node.progress}>

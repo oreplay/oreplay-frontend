@@ -31,6 +31,13 @@ interface OnlineCourseProps {
   className?: string
 }
 
+/**
+ * Draws the online course of a runner as a single image that fills the row, scrolls together
+ * with the other courses on screen and fades at the edges it overflows.
+ *
+ * @param props.course Nodes and legs to draw, with the progress of the runner.
+ * @param props.className Extra classes for the scrolling container.
+ */
 export default function OnlineCourse({ course, className }: OnlineCourseProps) {
   const { t } = useTranslation()
   const joinScrollGroup = useJoinHorizontalScrollGroup<HTMLDivElement>()
