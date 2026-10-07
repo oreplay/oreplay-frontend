@@ -11,6 +11,8 @@ import {
   classSelectorTriggerText,
 } from "../../../shared/classSelector.ts"
 
+const TINY_SHADOW = "0 1px 2px rgba(0, 0, 0, 0.08)"
+
 export default function ClassSelectorTriggerFloatingButton(props: ClassSelectorTriggerProps) {
   const { t } = useTranslation()
   const text = classSelectorTriggerText(props.activeName, t(classSelectorLabelKey(props.isClass)))
@@ -18,16 +20,18 @@ export default function ClassSelectorTriggerFloatingButton(props: ClassSelectorT
   return (
     <Button
       variant="outlined"
-      color="primary"
+      color="inherit"
       aria-haspopup="dialog"
       onClick={props.onClick}
       sx={{
         position: "fixed",
         zIndex: "fab",
-        boxShadow: 3,
+        boxShadow: TINY_SHADOW,
         borderRadius: 3,
+        borderColor: "divider",
+        color: "text.primary",
         backgroundColor: "background.paper",
-        "&:hover": { backgroundColor: "background.paper" },
+        "&:hover": { backgroundColor: "background.paper", borderColor: "divider" },
         bottom: `${MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX}px`,
         right: `${MOBILE_FLOATING_BUTTON_GAP_PX}px`,
         height: `${MOBILE_FLOATING_BUTTON_HEIGHT_PX}px`,
