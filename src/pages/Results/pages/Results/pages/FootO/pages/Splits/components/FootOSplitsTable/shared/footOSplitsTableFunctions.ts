@@ -48,6 +48,25 @@ export function getCourseFromRunner(
   return courseControlList
 }
 
+export interface ControlColumnHeader {
+  key: string
+  orderNumber?: number | null
+  station?: string
+}
+
+export function getControlColumnHeader(
+  control: CourseControlModel | OnlineControlModel,
+): ControlColumnHeader {
+  if ("order_number" in control) {
+    return {
+      key: `courseControlHeader${control.order_number}${control.control?.id ?? "unknown"}`,
+      orderNumber: control.order_number,
+      station: control.control?.station,
+    }
+  }
+  return { key: `courseControlHeader${control.id}`, station: control.station }
+}
+
 export function getCourseFromSplits(
   splitsList: SplitModel[] | ProcessedSplitModel[],
 ): CourseControlModel[] {

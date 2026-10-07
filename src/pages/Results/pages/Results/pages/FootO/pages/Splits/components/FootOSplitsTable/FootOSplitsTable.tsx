@@ -1,28 +1,21 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material"
-import { useTranslation } from "react-i18next"
+import { Box, Table, TableBody, TableContainer, TableHead, TableRow } from "@mui/material"
 import RunnerRow from "./components/RunnerRow.tsx"
 import {
-  CourseControlModel,
   getCourseFromRunner,
   getOnlineControlsCourseFromClassSplits,
 } from "./shared/footOSplitsTableFunctions.ts"
-import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
+import SplitsTableColumns from "./components/SplitsTableColumns.tsx"
+import SplitsTableHeaderCells from "./components/SplitsTableHeaderCells.tsx"
 import SplitsTableScrollbar from "./components/SplitsTableScrollbar.tsx"
+import { countSplitsTableColumns, ROW_WITH_GUTTERS_SX } from "./shared/splitsTableLayout.ts"
+import useColumnWidthSync from "./shared/useColumnWidthSync.ts"
 import useSyncedHorizontalScroll from "./shared/useSyncedHorizontalScroll.ts"
 import NowProvider from "../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "../../../../components/NoRunnerWithSplitsMsg.tsx"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../../../../shared/timeLossAnalysis.ts"
 import { runnerService } from "../../../../../../../../../../domain/services/RunnerService.ts"
 
@@ -36,7 +29,6 @@ type FootOSplitsTableProps = {
 }
 
 export default function FootOSplitsTable(props: FootOSplitsTableProps) {
-  const { t } = useTranslation()
   const runnerList = props.onlyRadios
     ? props.runners.filter((runner) => !runnerService.isDNS(runner))
     : props.runners.filter((runner) => hasChipDownload(runner) && !runnerService.isDNS(runner))
@@ -64,39 +56,16 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     HTMLDivElement
   >()
 
-  const [colsWidth, setColWidths] = useState<number[]>([])
-  useEffect(() => {
-    if (!bodyRef.current || !headerRef.current) return
-
-    const getWidths = (row: HTMLTableRowElement | undefined): number[] => {
-      if (!row) return []
-      return Array.from(row.children).map((cell) => {
-        const style = window.getComputedStyle(cell)
-        const width = cell.getBoundingClientRect().width
-        const paddingLeft = parseFloat(style.paddingLeft)
-        const paddingRight = parseFloat(style.paddingRight)
-        return width - paddingLeft - paddingRight
-      })
-    }
-
-    const bodyRow = bodyRef.current.querySelectorAll("tr")[1] as HTMLTableRowElement | undefined
-    const headerRow = headerRef.current.querySelector("tr") as HTMLTableRowElement | undefined
-
-    const bodyWidths = getWidths(bodyRow)
-    const headerWidths = getWidths(headerRow)
-
-    const maxWidths = bodyWidths.map((width, index) => {
-      return Math.max(width, headerWidths[index])
-    })
-
-    setColWidths(maxWidths)
-  }, [bodyRef, headerRef])
+  const showTimeLossColumn = Boolean(props.timeLossEnabled && !props.showCumulative)
+  const columnCount = countSplitsTableColumns(controlList.length, showTimeLossColumn)
+  const { sourceRowRef: widthSizerRowRef, targetColumnsRef: headerColumnsRef } = useColumnWidthSync<
+    HTMLTableRowElement,
+    HTMLTableColElement
+  >(columnCount)
 
   if (runnerList.length === 0) {
     return <NoRunnerWithSplitsMsg />
   }
-
-  const showTimeLossColumn = props.timeLossEnabled && !props.showCumulative
 
   return (
     <NowProvider>
@@ -110,79 +79,19 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
             scrollbarWidth: "none",
           }}
         >
-          <Table size="small" key="SplitsTableHeader" sx={{ backgroundColor: "white" }}>
+          <Table
+            size="small"
+            key="SplitsTableHeader"
+            sx={{ backgroundColor: "white", tableLayout: "fixed" }}
+          >
+            <SplitsTableColumns columnCount={columnCount} columnsRef={headerColumnsRef} />
             <TableHead key="TableHead">
-              <TableRow
-                key="tableHeadRow"
-                sx={{
-                  "&:before": {
-                    content: '""',
-                    display: "block",
-                    width: "16px",
-                  },
-                  "&:after": {
-                    content: '""',
-                    display: "block",
-                    width: "16px",
-                  },
-                }}
-              >
-                <TableCell
-                  key="Time"
-                  sx={{
-                    border: "none",
-                    py: "10px",
-                    px: "16px",
-                    minWidth: colsWidth[0],
-                  }}
-                >
-                  {t("ResultsStage.Times")}
-                </TableCell>
-                {showTimeLossColumn && (
-                  <TableCell
-                    key="CleanTime"
-                    sx={{
-                      fontWeight: "bold",
-                      border: "none",
-                      py: "10px",
-                      px: "8px",
-                      minWidth: colsWidth[1],
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {t("ResultsStage.SplitsTable.CleanTime")}
-                  </TableCell>
-                )}
-                {controlList.map((courseControl, idx) => {
-                  // Calculate the correct index for colWidths
-                  const baseIdx =
-                    1 + // Time column
-                    (showTimeLossColumn ? 1 : 0)
-                  const colIdx = baseIdx + idx
-
-                  if (props.onlyRadios) {
-                    const radio = courseControl as OnlineControlModel
-                    return (
-                      <CourseControlTableHeader
-                        key={`courseControlHeader${radio.id}`}
-                        station={radio.station}
-                        onlyRadios={props.onlyRadios}
-                        colWidth={colsWidth[colIdx]}
-                      />
-                    )
-                  } else {
-                    const course = courseControl as CourseControlModel
-                    return (
-                      <CourseControlTableHeader
-                        key={`courseControlHeader${course.order_number}${course.control?.id ?? "unknown"}`}
-                        station={course.control?.station}
-                        order_number={course.order_number}
-                        onlyRadios={props.onlyRadios}
-                        colWidth={colsWidth[colIdx]}
-                      />
-                    )
-                  }
-                })}
+              <TableRow key="tableHeadRow" sx={ROW_WITH_GUTTERS_SX}>
+                <SplitsTableHeaderCells
+                  controlList={controlList}
+                  onlyRadios={props.onlyRadios}
+                  showCleanTime={showTimeLossColumn}
+                />
               </TableRow>
             </TableHead>
           </Table>
@@ -200,6 +109,18 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
       >
         <Table size="small" key="SplitsTableBody">
           <TableBody key="TableBody">
+            <TableRow
+              aria-hidden
+              ref={widthSizerRowRef}
+              sx={{ ...ROW_WITH_GUTTERS_SX, visibility: "hidden" }}
+            >
+              <SplitsTableHeaderCells
+                controlList={controlList}
+                isWidthSizer
+                onlyRadios={props.onlyRadios}
+                showCleanTime={showTimeLossColumn}
+              />
+            </TableRow>
             {runnerList.map((runner) => (
               <RunnerRow
                 key={`runnerRow${runner.id}`}
@@ -209,7 +130,6 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
                 radiosList={props.radiosList}
                 timeLossResults={timeLossResults}
                 timeLossEnabled={props.timeLossEnabled}
-                colsWidth={colsWidth}
               />
             ))}
           </TableBody>

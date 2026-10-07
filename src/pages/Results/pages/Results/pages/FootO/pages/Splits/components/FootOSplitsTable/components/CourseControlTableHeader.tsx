@@ -1,37 +1,34 @@
-import { Box, TableCell, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
+import SplitsTableHeaderCell from "./SplitsTableHeaderCell.tsx"
+
+const HORIZONTAL_PADDING = "8px"
 
 type CourseControlTableHeaderProps = {
+  isWidthSizer?: boolean
+  onlyRadios?: boolean
   order_number?: number | null
   station?: number | string | null
-  onlyRadios?: boolean
-  colWidth: number
 }
 
 export default function CourseControlTableHeader({
+  isWidthSizer,
+  onlyRadios,
   order_number,
   station,
-  onlyRadios,
-  colWidth,
 }: CourseControlTableHeaderProps) {
   const { t } = useTranslation()
-  const cellStyle = {
-    py: "10px",
-    px: "8px",
-    border: "none",
-    minWidth: colWidth,
-  }
 
   if (station === "Finish" || order_number === Infinity) {
     return (
-      <TableCell key={"Finish Control"} sx={cellStyle}>
+      <SplitsTableHeaderCell horizontalPadding={HORIZONTAL_PADDING} isWidthSizer={isWidthSizer}>
         <Typography>{t("ResultsStage.VirtualTicket.FinishControl")}</Typography>
-      </TableCell>
+      </SplitsTableHeaderCell>
     )
   }
 
   return (
-    <TableCell key={`tableHeaderControl${order_number}(${station})`} sx={cellStyle}>
+    <SplitsTableHeaderCell horizontalPadding={HORIZONTAL_PADDING} isWidthSizer={isWidthSizer}>
       {onlyRadios ? (
         <Typography>{`(${station})`}</Typography>
       ) : (
@@ -47,6 +44,6 @@ export default function CourseControlTableHeader({
           <Typography sx={{ fontSize: "0.75rem", color: "#8D8D8D" }}>{`(${station})`}</Typography>
         </Box>
       )}
-    </TableCell>
+    </SplitsTableHeaderCell>
   )
 }

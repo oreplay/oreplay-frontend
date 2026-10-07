@@ -7,9 +7,37 @@ import {
 import {
   createMissingRadioFinish,
   createMissingRadioSplit,
+  getControlColumnHeader,
   getOnlineSplits,
 } from "./footOSplitsTableFunctions.ts"
 import { DateTime } from "luxon"
+
+describe("getControlColumnHeader", () => {
+  const control = { control_type: { description: "Normal", id: "type1" }, id: "c1", station: "31" }
+
+  it("labels a course control with its order number and station", () => {
+    expect(getControlColumnHeader({ control, order_number: 3 })).toEqual({
+      key: "courseControlHeader3c1",
+      orderNumber: 3,
+      station: "31",
+    })
+  })
+
+  it("keeps a stable key for a course control whose control is unknown", () => {
+    expect(getControlColumnHeader({ control: null, order_number: 4 })).toEqual({
+      key: "courseControlHeader4unknown",
+      orderNumber: 4,
+      station: undefined,
+    })
+  })
+
+  it("labels an online control with its station only", () => {
+    expect(getControlColumnHeader({ id: "radio1", station: "41" })).toEqual({
+      key: "courseControlHeaderradio1",
+      station: "41",
+    })
+  })
+})
 
 describe("getOnlineSplits", () => {
   const radiosList: OnlineControlModel[] = [
