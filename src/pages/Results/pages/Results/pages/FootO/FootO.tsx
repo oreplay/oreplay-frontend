@@ -107,7 +107,7 @@ export default function FootO() {
       setActiveClassClub={setClassClubId}
       handleRefreshClick={refetch}
       displayTimezoneMsg={!timezoneMatch}
-      isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+      isFetching={runnersQueryByClasses.isFetching || runnersQueryByClubs.isFetching}
       navigation={
         <ResultTabsBar
           options={FOOT_O_TABS}
