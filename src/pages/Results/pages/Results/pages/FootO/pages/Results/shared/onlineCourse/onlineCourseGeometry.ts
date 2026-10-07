@@ -3,7 +3,7 @@ export const CONTROL_RADIUS_PX = 11
 export const CUMULATIVE_TIME_BASELINE_Y_PX = 36
 export const FINISH_INNER_RADIUS_PX = 7.5
 export const NODE_SPACING_PX = 56
-export const START_TRIANGLE_SIDE_PX = 22
+export const START_TRIANGLE_SIDE_PX = 19
 export const SYMBOL_CENTER_Y_PX = 13
 export const SYMBOL_STROKE_WIDTH_PX = 1.5
 

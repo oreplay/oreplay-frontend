@@ -16,7 +16,7 @@ export default function OnlineCourseControl({ node }: OnlineCourseSymbolProps) {
         strokeWidth={SYMBOL_STROKE_WIDTH_PX}
       />
       <text
-        className="text-[9px] font-semibold tabular-nums"
+        className="text-[11px] font-semibold tabular-nums"
         dominantBaseline="central"
         fill="currentColor"
         textAnchor="middle"
