@@ -23,6 +23,12 @@ interface OnlineCourseLegProps {
   progress: OnlineCourseProgress
 }
 
+/**
+ * Draws the line between two nodes and, over it, the part the runner has travelled.
+ *
+ * @param props.geometry Where the leg is drawn.
+ * @param props.progress Progress of the runner on the leg.
+ */
 export default function OnlineCourseLeg({ geometry, progress }: OnlineCourseLegProps) {
   const travelledStyle = { transform: `scaleX(${legFillRatio(progress)})` }
 

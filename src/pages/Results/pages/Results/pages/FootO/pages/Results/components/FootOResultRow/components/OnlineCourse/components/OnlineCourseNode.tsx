@@ -25,6 +25,12 @@ interface OnlineCourseNodeProps {
   node: OnlineCourseNodeModel
 }
 
+/**
+ * Places a node of the course: the symbol of its kind and the times under it.
+ *
+ * @param props.geometry Where the node is drawn.
+ * @param props.node Node to draw.
+ */
 export default function OnlineCourseNode({ geometry, node }: OnlineCourseNodeProps) {
   const Symbol = SYMBOL_BY_KIND[node.kind]
 

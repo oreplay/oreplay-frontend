@@ -6,6 +6,11 @@ import {
 } from "../../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import { OnlineCourseSymbolProps, PROGRESS_COLOR_CLASS_NAME } from "../shared/onlineCourseStyles.ts"
 
+/**
+ * Draws the finish: two concentric circles.
+ *
+ * @param props.node Node of the finish.
+ */
 export default function OnlineCourseFinish({ node }: OnlineCourseSymbolProps) {
   return (
     <g
