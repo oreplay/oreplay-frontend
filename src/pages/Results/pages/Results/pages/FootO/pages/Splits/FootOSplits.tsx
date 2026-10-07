@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
+import { OnlineControlModel, RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
@@ -25,6 +25,8 @@ import {
   SPLITS_VIEW,
   SplitsView,
 } from "./shared/splitsViews.ts"
+
+const NO_RADIOS: OnlineControlModel[] = []
 
 const SPLITS_VIEW_OPTIONS: Record<SplitsView, ViewOption<SplitsView>> = {
   [SPLITS_VIEW.Accumulated]: {
@@ -49,15 +51,14 @@ export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
   const activeItem = props.activeItem
-  const runners = useMemo(() => props.runnersQuery.data ?? [], [props.runnersQuery.data])
-  const radiosList = activeItem && "splits" in activeItem ? activeItem.splits : []
+  const runners = useMemo(
+    () => sortFootORunners([...(props.runnersQuery.data ?? [])]),
+    [props.runnersQuery.data],
+  )
+  const radiosList = activeItem && "splits" in activeItem ? activeItem.splits : NO_RADIOS
   const hasRadios = radiosList.length > 0
 
   const [selectedView, setSelectedView] = useState<SplitsView>(defaultSplitsView(hasRadios))
-
-  useEffect(() => {
-    sortFootORunners(runners)
-  }, [runners])
 
   useEffect(() => {
     setSelectedView(defaultSplitsView(hasRadios))
