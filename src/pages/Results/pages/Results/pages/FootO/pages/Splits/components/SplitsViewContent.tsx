@@ -7,11 +7,12 @@ import { hasChipDownload } from "../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "../../../components/NoRunnerWithSplitsMsg.tsx"
 import TimeLossThresholdSlider from "../../../components/TimeLossThresholdSlider.tsx"
 import { DEFAULT_TIME_LOSS_THRESHOLD } from "../../../shared/timeLossThreshold.ts"
-import { SPLITS_VIEW_CONFIG, SplitsView } from "../shared/splitsViews.ts"
+import { showsTimeLoss, SPLITS_VIEW_CONFIG, SplitsView } from "../shared/splitsViews.ts"
 import FootOSplitsTable from "./FootOSplitsTable/FootOSplitsTable.tsx"
 
 interface SplitsViewContentProps {
   hasRadios: boolean
+  isTimeLossOn: boolean
   radiosList: OnlineControlModel[]
   runners: ProcessedRunnerModel[]
   view: SplitsView
@@ -19,6 +20,7 @@ interface SplitsViewContentProps {
 
 export default function SplitsViewContent({
   hasRadios,
+  isTimeLossOn,
   radiosList,
   runners,
   view,
@@ -28,7 +30,8 @@ export default function SplitsViewContent({
   const viewConfig = SPLITS_VIEW_CONFIG[view]
   const hasRunnersWithSplits = runners.some((runner) => hasChipDownload(runner))
   const isMissingSplits = viewConfig.requiresChipDownload && !hasRunnersWithSplits
-  const showExperimentalAlert = viewConfig.isExperimental && !hasRadios
+  const timeLossEnabled = showsTimeLoss(view, isTimeLossOn)
+  const showExperimentalAlert = timeLossEnabled && !hasRadios
 
   if (isMissingSplits) return <NoRunnerWithSplitsMsg />
 
@@ -39,7 +42,7 @@ export default function SplitsViewContent({
           <ExperimentalFeatureAlert />
         </Box>
       )}
-      {viewConfig.timeLossEnabled && (
+      {timeLossEnabled && (
         <TimeLossThresholdSlider threshold={timeLossThreshold} onChange={setTimeLossThreshold} />
       )}
       <FootOSplitsTable
@@ -47,7 +50,7 @@ export default function SplitsViewContent({
         radiosList={radiosList}
         runners={runners}
         showCumulative={viewConfig.showCumulative}
-        timeLossEnabled={viewConfig.timeLossEnabled}
+        timeLossEnabled={timeLossEnabled}
         timeLossThreshold={timeLossThreshold}
       />
     </Box>
