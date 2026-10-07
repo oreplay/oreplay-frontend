@@ -24,6 +24,9 @@ import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { DateTime } from "luxon"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 import { RESULT_TAB } from "../../shared/constants.ts"
+import OnlineCourseToggle from "./components/OnlineCourseToggle/OnlineCourseToggle.tsx"
+import hasOnlineControls from "./pages/Results/shared/onlineCourse/hasOnlineControls.ts"
+import useOnlineCourseVisibility from "./shared/onlineCourseVisibility/useOnlineCourseVisibility.ts"
 
 const FOOT_O_TABS: readonly ResultTabOption[] = [
   { icon: <AccessTime />, key: RESULT_TAB.StartTimes, labelKey: "StageHeader.StartTime" },
@@ -100,9 +103,23 @@ export default function FootO() {
     FOOT_O_TABS,
   )
 
+  const { isOnlineCourseVisible, toggleOnlineCourseVisibility } = useOnlineCourseVisibility(eventId)
+  const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
+  const isResultsTabSelected = FOOT_O_TABS[selectedMenu]?.key === RESULT_TAB.Results
+  const hasOnlineCourses = shownRunnersQuery.data?.some(hasOnlineControls) ?? false
+  const canToggleOnlineCourse = isResultsTabSelected && hasOnlineCourses
+
   return (
     <StageLayout
       key={"stageLayout"}
+      actions={
+        canToggleOnlineCourse && (
+          <OnlineCourseToggle
+            isActive={isOnlineCourseVisible}
+            onToggle={toggleOnlineCourseVisibility}
+          />
+        )
+      }
       activeItem={activeItem}
       isClass={isClass}
       classesQuery={classesQuery}
@@ -132,6 +149,7 @@ export default function FootO() {
             runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
             activeItem={activeItem}
             isClass={isClass}
+            isOnlineCourseVisible={isOnlineCourseVisible}
             setClassClubId={setClassClubId}
           />
         </Box>

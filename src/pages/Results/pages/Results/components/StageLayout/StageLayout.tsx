@@ -13,6 +13,7 @@ import { useIsMobileDevice } from "../../shared/useIsMobileDevice.ts"
 import { MOBILE_CONTENT_BOTTOM_PADDING_PX } from "../../shared/mobileLayout.ts"
 
 type StageLayoutProps = {
+  actions?: React.ReactNode
   handleRefreshClick: () => void
   isClass: boolean
   classesQuery: UseQueryResult<Page<ClassModel>>
@@ -59,15 +60,18 @@ export default function StageLayout(props: StageLayoutProps) {
           classesQuery={props.classesQuery}
           clubsQuery={props.clubsQuery}
         />
-        <Tooltip title={t("ResultsStage.Refresh")}>
-          <IconButton onClick={props.handleRefreshClick}>
-            <RefreshIcon
-              sx={{
-                animation: props.isFetching ? "spin .6s linear infinite" : "none",
-              }}
-            />
-          </IconButton>
-        </Tooltip>
+        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+          {props.actions}
+          <Tooltip title={t("ResultsStage.Refresh")}>
+            <IconButton onClick={props.handleRefreshClick}>
+              <RefreshIcon
+                sx={{
+                  animation: props.isFetching ? "spin .6s linear infinite" : "none",
+                }}
+              />
+            </IconButton>
+          </Tooltip>
+        </Box>
       </Box>
       {props.displayTimezoneMsg ? <TimezoneMsg /> : null}
       <Box
