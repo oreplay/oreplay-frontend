@@ -7,7 +7,7 @@ import FootOSplitsTable from "./components/FootOSplitsTable/FootOSplitsTable.tsx
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
-import { Box, useTheme, useMediaQuery, Slider, Typography } from "@mui/material"
+import { Box, useTheme, useMediaQuery } from "@mui/material"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import OnlyForClassesMsg from "../../components/OnlyForClassesMsg.tsx"
 import { analyzeTimeLoss, TimeLossResults } from "../../shared/timeLossAnalysis.ts"
@@ -26,6 +26,8 @@ import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.ts
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "../../components/NoRunnerWithSplitsMsg.tsx"
 import { sortFootORunners } from "../../shared/functions.ts"
+import TimeLossThresholdSlider from "../../components/TimeLossThresholdSlider.tsx"
+import { DEFAULT_TIME_LOSS_THRESHOLD } from "../../shared/timeLossThreshold.ts"
 
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -59,8 +61,8 @@ export default function FootOSplits(
   }, [hasRadios])
 
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
-  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
-  const [barChartThreshold, setBarChartThreshold] = useState<number>(15)
+  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(DEFAULT_TIME_LOSS_THRESHOLD)
+  const [barChartThreshold, setBarChartThreshold] = useState<number>(DEFAULT_TIME_LOSS_THRESHOLD)
   const [selectedRunners, setSelectedRunners] = useState<string[]>([])
 
   useEffect(() => {
@@ -209,23 +211,7 @@ export default function FootOSplits(
             <ExperimentalFeatureAlert />
           </Box>
         )}
-        <Box sx={{ px: "16px", pb: "16px", display: "flex", alignItems: "center", gap: 2 }}>
-          <Typography sx={{ whiteSpace: "nowrap" }}>
-            {t("Graphs.ThresholdWithPercent", { percent: timeLossThreshold })}
-          </Typography>
-          <Slider
-            size="small"
-            value={timeLossThreshold}
-            min={5}
-            max={100}
-            step={5}
-            marks
-            onChange={(_, newValue) => {
-              if (typeof newValue === "number") setTimeLossThreshold(newValue)
-            }}
-            sx={{ flexGrow: 1, maxWidth: 300 }}
-          />
-        </Box>
+        <TimeLossThresholdSlider threshold={timeLossThreshold} onChange={setTimeLossThreshold} />
 
         <FootOSplitsTable
           onlyRadios={false}
@@ -251,25 +237,7 @@ export default function FootOSplits(
           </Box>
         )}
         {selectedView === "barChart" && (
-          <Box sx={{ px: "16px", display: "flex", alignItems: "center", gap: 2 }}>
-            <Typography>
-              {t("Graphs.ThresholdWithPercent", { percent: barChartThreshold })}
-            </Typography>
-            <Slider
-              size="small"
-              value={barChartThreshold}
-              min={5}
-              max={100}
-              step={5}
-              marks
-              onChange={(_, newValue) => {
-                if (typeof newValue === "number") {
-                  setBarChartThreshold(newValue)
-                }
-              }}
-              sx={{ flexGrow: 1, maxWidth: 300 }}
-            />
-          </Box>
+          <TimeLossThresholdSlider threshold={barChartThreshold} onChange={setBarChartThreshold} />
         )}
 
         <Box

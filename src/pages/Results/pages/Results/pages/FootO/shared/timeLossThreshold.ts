@@ -1,0 +1,4 @@
+export const DEFAULT_TIME_LOSS_THRESHOLD = 15
+export const MAX_TIME_LOSS_THRESHOLD = 100
+export const MIN_TIME_LOSS_THRESHOLD = 5
+export const TIME_LOSS_THRESHOLD_STEP = 5
