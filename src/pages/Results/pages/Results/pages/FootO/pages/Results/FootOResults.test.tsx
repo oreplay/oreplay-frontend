@@ -1,16 +1,14 @@
 import { render, screen } from "@testing-library/react"
-import { ComponentProps } from "react"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { UPLOAD_TYPES } from "../../../../shared/constants.ts"
 import FootOResults from "./FootOResults.tsx"
+import { FootOResultProps } from "./shared/footOResultProps.ts"
 import {
   buildFinishSplit,
   buildOnlineSplit,
   buildRunnerWithOnlineSplits,
 } from "./shared/onlineCourse/onlineCourseFixtures.ts"
-
-type FootOResultProps = ComponentProps<typeof FootOResults>
 
 const SKELETON_TEST_ID = "results-skeleton"
 const RUNNER_NAME = "Ada Lovelace"
@@ -85,5 +83,22 @@ describe("FootOResults", () => {
 
     expect(screen.getByText(RUNNER_NAME)).toBeInTheDocument()
     expect(screen.queryByTestId(SKELETON_TEST_ID)).not.toBeInTheDocument()
+  })
+
+  it("draws the online course of a runner whose class has online controls", () => {
+    const container = renderResults({ data: [buildRunner()], isFetching: false, isLoading: false })
+
+    expect(container.querySelectorAll('svg[role="img"]')).toHaveLength(1)
+  })
+
+  it("draws no online course when the class has no online controls", () => {
+    const container = renderResults({
+      data: [buildRunner([])],
+      isFetching: false,
+      isLoading: false,
+    })
+
+    expect(screen.getByText(RUNNER_NAME)).toBeInTheDocument()
+    expect(container.querySelectorAll('svg[role="img"]')).toHaveLength(0)
   })
 })
