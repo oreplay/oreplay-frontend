@@ -4,7 +4,7 @@ import { TimeLossResults } from "../../../../../shared/timeLossAnalysis.ts"
 import { CourseControlModel } from "../shared/footOSplitsTableFunctions.ts"
 import { countSplitsTableColumns } from "../shared/splitsTableLayout.ts"
 import useColumnWidthSync from "../shared/useColumnWidthSync.ts"
-import useSyncedHorizontalScroll from "../shared/useSyncedHorizontalScroll.ts"
+import useSyncedHorizontalScroll from "../../../../../shared/horizontalScroll/useSyncedHorizontalScroll.ts"
 import SplitsTableBody from "./SplitsTableBody.tsx"
 import SplitsTableHeader from "./SplitsTableHeader.tsx"
 
