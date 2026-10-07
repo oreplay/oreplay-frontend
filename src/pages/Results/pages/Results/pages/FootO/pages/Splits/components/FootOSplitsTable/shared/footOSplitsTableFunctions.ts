@@ -49,6 +49,7 @@ export function getCourseFromRunner(
 }
 
 export interface ControlColumnHeader {
+  isOnlineControl: boolean
   key: string
   orderNumber?: number | null
   station?: string
@@ -59,12 +60,23 @@ export function getControlColumnHeader(
 ): ControlColumnHeader {
   if ("order_number" in control) {
     return {
+      isOnlineControl: false,
       key: `courseControlHeader${control.order_number}${control.control?.id ?? "unknown"}`,
       orderNumber: control.order_number,
       station: control.control?.station,
     }
   }
-  return { key: `courseControlHeader${control.id}`, station: control.station }
+  return {
+    isOnlineControl: true,
+    key: `courseControlHeader${control.id}`,
+    station: control.station,
+  }
+}
+
+const FINISH_STATION = "Finish"
+
+export function isFinishColumnHeader(header: ControlColumnHeader): boolean {
+  return header.station === FINISH_STATION || header.orderNumber === Infinity
 }
 
 export function getCourseFromSplits(

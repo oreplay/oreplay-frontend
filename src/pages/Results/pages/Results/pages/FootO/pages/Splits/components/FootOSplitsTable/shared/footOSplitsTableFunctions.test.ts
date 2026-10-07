@@ -17,6 +17,7 @@ describe("getControlColumnHeader", () => {
 
   it("labels a course control with its order number and station", () => {
     expect(getControlColumnHeader({ control, order_number: 3 })).toEqual({
+      isOnlineControl: false,
       key: "courseControlHeader3c1",
       orderNumber: 3,
       station: "31",
@@ -25,6 +26,7 @@ describe("getControlColumnHeader", () => {
 
   it("keeps a stable key for a course control whose control is unknown", () => {
     expect(getControlColumnHeader({ control: null, order_number: 4 })).toEqual({
+      isOnlineControl: false,
       key: "courseControlHeader4unknown",
       orderNumber: 4,
       station: undefined,
@@ -33,6 +35,7 @@ describe("getControlColumnHeader", () => {
 
   it("labels an online control with its station only", () => {
     expect(getControlColumnHeader({ id: "radio1", station: "41" })).toEqual({
+      isOnlineControl: true,
       key: "courseControlHeaderradio1",
       station: "41",
     })
