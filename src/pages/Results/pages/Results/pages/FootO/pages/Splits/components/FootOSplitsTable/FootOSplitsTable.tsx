@@ -21,6 +21,7 @@ import {
 } from "./shared/splitsTableRows.ts"
 
 type FootOSplitsTableProps = {
+  headerStickyTopPx?: number
   runners: ProcessedRunnerModel[]
   onlyRadios?: boolean
   showCumulative?: boolean
@@ -30,6 +31,7 @@ type FootOSplitsTableProps = {
 }
 
 export default function FootOSplitsTable({
+  headerStickyTopPx,
   runners,
   onlyRadios = false,
   showCumulative = false,
@@ -85,6 +87,7 @@ export default function FootOSplitsTable({
           getColumnKey={getSplitsTableColumnKey}
           getRowKey={getSplitsTableRowKey}
           HeaderCellContent={SplitsTableHeaderCellContent}
+          headerStickyTopPx={headerStickyTopPx}
           RowHeading={RunnerHeading}
           rows={rows}
         />
