@@ -19,6 +19,8 @@ interface FootOResultProps
   setClassClubId: (newClassClubId: string, isClass: boolean) => void
 }
 
+const FootOResultRowMemo = memo(FootOResultRow)
+
 export default function FootOResults(props: FootOResultProps) {
   const runnersList = props.runnersQuery.data
 
@@ -32,8 +34,6 @@ export default function FootOResults(props: FootOResultProps) {
     }),
     [props.isClass, handleRowClick],
   )
-
-  const FootOResultRowMemo = memo(FootOResultRow)
 
   if (!props.activeItem) {
     return <ChooseClassMsg />
