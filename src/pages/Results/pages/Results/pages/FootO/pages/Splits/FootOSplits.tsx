@@ -9,7 +9,7 @@ import GeneralErrorFallback from "../../../../../../../../components/GeneralErro
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
 import { Box, useTheme, useMediaQuery, Slider, Typography } from "@mui/material"
 import ExperimentalFeatureAlert from "../../../../../../../../components/ExperimentalFeatureAlert.tsx"
-import OnlyForClassesMsg from "./components/OnlyForClassesMsg.tsx"
+import OnlyForClassesMsg from "../../components/OnlyForClassesMsg.tsx"
 import { analyzeTimeLoss, TimeLossResults } from "../../shared/timeLossAnalysis.ts"
 import ViewSelector, { ViewType } from "./components/ViewSelector.tsx"
 import LineChart from "./components/Charts/LineChart.tsx"
@@ -24,7 +24,7 @@ import {
 import { useTranslation } from "react-i18next"
 import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
 import { hasChipDownload } from "../../../../shared/functions.ts"
-import NoRunnerWithSplitsMsg from "./components/FootOSplitsTable/components/NoRunnerWithSplitsMsg.tsx"
+import NoRunnerWithSplitsMsg from "../../components/NoRunnerWithSplitsMsg.tsx"
 import { sortFootORunners } from "../../shared/functions.ts"
 
 export default function FootOSplits(
