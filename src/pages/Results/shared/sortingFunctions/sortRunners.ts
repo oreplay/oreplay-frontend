@@ -66,7 +66,7 @@ export function conditionalCompare<T>(
  */
 export function sortRunners(runnersList: ProcessedRunnerModel[]): ProcessedRunnerModel[]
 export function sortRunners(runnersList: RunnerModel[]): RunnerModel[]
-export function sortRunners(runnersList: RunnerModel[]|ProcessedRunnerModel[]) {
+export function sortRunners(runnersList: RunnerModel[] | ProcessedRunnerModel[]) {
   return runnersList.sort((a, b) => {
     return multiLevelCompare(a, b, [
       runnerCompareFunctions.byStageStatus,
