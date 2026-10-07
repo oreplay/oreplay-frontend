@@ -5,5 +5,6 @@ import { ResultsPageProps } from "../../../../../shared/commonProps.ts"
 
 export interface FootOResultProps
   extends ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>> {
+  isOnlineCourseVisible: boolean
   setClassClubId: (newClassClubId: string, isClass: boolean) => void
 }

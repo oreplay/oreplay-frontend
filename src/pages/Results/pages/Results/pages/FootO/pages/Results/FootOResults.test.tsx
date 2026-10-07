@@ -44,12 +44,13 @@ function buildRunner(onlineSplits = [buildOnlineSplit(31, 1, 130), buildFinishSp
   } as ProcessedRunnerModel
 }
 
-function renderResults(queryState: QueryState) {
+function renderResults(queryState: QueryState, isOnlineCourseVisible = true) {
   const runnersQuery = { isError: false, ...queryState } as FootOResultProps["runnersQuery"]
   return render(
     <FootOResults
       activeItem={ACTIVE_CLASS}
       isClass
+      isOnlineCourseVisible={isOnlineCourseVisible}
       runnersQuery={runnersQuery}
       setClassClubId={vi.fn()}
     />,
@@ -89,6 +90,16 @@ describe("FootOResults", () => {
     const container = renderResults({ data: [buildRunner()], isFetching: false, isLoading: false })
 
     expect(container.querySelectorAll('svg[role="img"]')).toHaveLength(1)
+  })
+
+  it("draws no online course while the user keeps it hidden", () => {
+    const container = renderResults(
+      { data: [buildRunner()], isFetching: false, isLoading: false },
+      false,
+    )
+
+    expect(screen.getByText(RUNNER_NAME)).toBeInTheDocument()
+    expect(container.querySelectorAll('svg[role="img"]')).toHaveLength(0)
   })
 
   it("draws no online course when the class has no online controls", () => {

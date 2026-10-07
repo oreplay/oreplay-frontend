@@ -286,7 +286,9 @@
     "NonContributory": "Dropped",
     "NotStarted": "-",
     "OnlineCourse": {
-      "ControlsReached": "{{reached}} of {{total}} online controls reached"
+      "ControlsReached": "{{reached}} of {{total}} online controls reached",
+      "Hide": "Hide online controls",
+      "Show": "Show online controls"
     },
     "PenaltyPoints": "Penalty:",
     "Points": "Points:",

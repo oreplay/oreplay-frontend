@@ -27,9 +27,10 @@ export default function FootOResultsContent(props: FootOResultProps) {
     () => ({
       bestOnlineCumulativeSeconds: bestCumulativeSeconds,
       isClass: props.isClass,
+      isOnlineCourseVisible: props.isOnlineCourseVisible,
       onClick: handleRowClick,
     }),
-    [bestCumulativeSeconds, props.isClass, handleRowClick],
+    [bestCumulativeSeconds, props.isClass, props.isOnlineCourseVisible, handleRowClick],
   )
 
   if (props.runnersQuery.isLoading) {

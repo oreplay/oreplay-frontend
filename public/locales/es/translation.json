@@ -284,7 +284,9 @@
     "NonContributory": "No puntúa",
     "NotStarted": "-",
     "OnlineCourse": {
-      "ControlsReached": "{{reached}} de {{total}} radiocontroles alcanzados"
+      "ControlsReached": "{{reached}} de {{total}} radiocontroles alcanzados",
+      "Hide": "Ocultar radiocontroles",
+      "Show": "Mostrar radiocontroles"
     },
     "PenaltyPoints": "Penalización:",
     "Points": "Puntos:",
