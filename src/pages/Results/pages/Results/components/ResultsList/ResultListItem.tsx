@@ -1,8 +1,12 @@
 import { ReactNode } from "react"
 
+const COLUMNS_CLASS_NAME = "flex min-w-0 flex-row items-center justify-between gap-1"
+const COLUMNS_AND_DETAILS_CLASS_NAME = "flex min-w-0 flex-col"
+
 interface ResultListItemProps {
   /** Content to render inside the item. */
   children: ReactNode
+  details?: ReactNode
   /** Optional click handler. When provided, the item becomes keyboard-operable and focusable. */
   onClick?: () => void
 }
@@ -23,8 +27,10 @@ interface ResultListItemProps {
  * </ResultListItem>
  * ```
  */
-export default function ResultListItem({ children, onClick }: ResultListItemProps) {
+export default function ResultListItem({ children, details, onClick }: ResultListItemProps) {
   const clickable = Boolean(onClick)
+  const hasDetails = Boolean(details)
+  const columns = hasDetails ? <div className={COLUMNS_CLASS_NAME}>{children}</div> : children
 
   /**
    * Handles keyboard activation (Enter/Space) for clickable items,
@@ -44,13 +50,15 @@ export default function ResultListItem({ children, onClick }: ResultListItemProp
       onClick={onClick}
       onKeyDown={clickable ? handleKeyDown : undefined}
       className={[
-        "flex min-w-0 flex-row items-center justify-between gap-1 px-2 py-1",
+        hasDetails ? COLUMNS_AND_DETAILS_CLASS_NAME : COLUMNS_CLASS_NAME,
+        "px-2 py-1",
         clickable
           ? "cursor-pointer hover:bg-amber-50 hover:rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
           : "",
       ].join(" ")}
     >
-      {children}
+      {columns}
+      {details}
     </div>
   )
 }
