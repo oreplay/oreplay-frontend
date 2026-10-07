@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { RESULT_STATUS, RESULT_STATUS_TEXT } from "../../../../../../../../../shared/constants.ts"
 import { UPLOAD_TYPES } from "../../../../../../../shared/constants.ts"
-import { FINISH_LEG_ID } from "../../../../../shared/timeLossAnalysis.ts"
+import { buildLegId, FINISH_LEG_ID } from "../../../../../shared/timeLossAnalysis.ts"
 import {
   buildRunnerFixture,
   buildTimeLossResultsFixture,
@@ -29,8 +29,8 @@ describe("calculateTotalLossTime", () => {
 
   it("adds the loss of every leg, including the finish leg", () => {
     const results = buildTimeLossResultsFixture("anna", {
-      control31: 10,
-      control51: 5,
+      [buildLegId(1, "control31")]: 10,
+      [buildLegId(3, "control51")]: 5,
       [FINISH_LEG_ID]: 3,
     })
 
@@ -38,7 +38,7 @@ describe("calculateTotalLossTime", () => {
   })
 
   it("ignores the loss of other runners", () => {
-    const results = buildTimeLossResultsFixture("bea", { control31: 10 })
+    const results = buildTimeLossResultsFixture("bea", { [buildLegId(1, "control31")]: 10 })
 
     expect(calculateTotalLossTime(runner, results)).toBe(0)
   })
@@ -46,7 +46,7 @@ describe("calculateTotalLossTime", () => {
 
 describe("getRunnerCleanTimeLabel", () => {
   it("subtracts the lost time from the race time", () => {
-    const results = buildTimeLossResultsFixture("anna", { control31: 30 })
+    const results = buildTimeLossResultsFixture("anna", { [buildLegId(1, "control31")]: 30 })
 
     expect(getRunnerCleanTimeLabel(buildRunnerFixture("anna"), results)).toBe("04:00")
   })
@@ -62,7 +62,9 @@ describe("getRunnerCleanTimeLabel", () => {
   })
 
   it("has no clean time when the whole race time was lost", () => {
-    const results = buildTimeLossResultsFixture("anna", { control31: RACE_TIME_SECONDS })
+    const results = buildTimeLossResultsFixture("anna", {
+      [buildLegId(1, "control31")]: RACE_TIME_SECONDS,
+    })
 
     expect(getRunnerCleanTimeLabel(buildRunnerFixture("anna"), results)).toBe(NO_CLEAN_TIME_LABEL)
   })
@@ -85,13 +87,13 @@ describe("getSplitTimeLoss", () => {
   const [firstSplit, secondSplit] = runner.stage.splits
 
   it("finds the loss of the runner on the control of the split", () => {
-    const results = buildTimeLossResultsFixture("anna", { control31: 12 })
+    const results = buildTimeLossResultsFixture("anna", { [buildLegId(1, "control31")]: 12 })
 
     expect(getSplitTimeLoss(runner, firstSplit, results)?.timeLoss).toBe(12)
   })
 
   it("is null when the control was not analysed", () => {
-    const results = buildTimeLossResultsFixture("anna", { control31: 12 })
+    const results = buildTimeLossResultsFixture("anna", { [buildLegId(1, "control31")]: 12 })
 
     expect(getSplitTimeLoss(runner, secondSplit, results)).toBeNull()
   })

@@ -1,16 +1,24 @@
+import { useMemo } from "react"
+import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import NowProvider from "../../../../../../components/NowProvider.tsx"
+import NoRunnerWithSplitsMsg from "../../../../components/NoRunnerWithSplitsMsg.tsx"
+import { analyzeTimeLoss } from "../../../../shared/timeLossAnalysis.ts"
+import RunnerHeading from "./components/RunnerHeading.tsx"
+import ScrollTable from "./components/ScrollTable/ScrollTable.tsx"
+import SplitsTableCell from "./components/SplitsTableCell.tsx"
+import SplitsTableHeaderCellContent from "./components/SplitsTableHeaderCellContent.tsx"
 import {
   getCourseFromRunner,
   getOnlineControlsCourseFromClassSplits,
 } from "./shared/footOSplitsTableFunctions.ts"
-import SplitsTableLayout from "./components/SplitsTableLayout.tsx"
-import NowProvider from "../../../../../../components/NowProvider.tsx"
-import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
-import { hasChipDownload } from "../../../../../../shared/functions.ts"
-import NoRunnerWithSplitsMsg from "../../../../components/NoRunnerWithSplitsMsg.tsx"
-import { useMemo } from "react"
-import { analyzeTimeLoss, TimeLossResults } from "../../../../shared/timeLossAnalysis.ts"
-import { runnerService } from "../../../../../../../../../../domain/services/RunnerService.ts"
+import { buildSplitsTableColumns, getSplitsTableColumnKey } from "./shared/splitsTableColumns.ts"
+import { SplitsTableContentContext } from "./shared/splitsTableContentContext.ts"
+import {
+  buildSplitsTableRows,
+  getSplitsTableRowKey,
+  selectRunnersForSplitsTable,
+} from "./shared/splitsTableRows.ts"
 
 type FootOSplitsTableProps = {
   runners: ProcessedRunnerModel[]
@@ -21,44 +29,66 @@ type FootOSplitsTableProps = {
   timeLossThreshold?: number
 }
 
-export default function FootOSplitsTable(props: FootOSplitsTableProps) {
-  const runnerList = props.onlyRadios
-    ? props.runners.filter((runner) => !runnerService.isDNS(runner))
-    : props.runners.filter((runner) => hasChipDownload(runner) && !runnerService.isDNS(runner))
+export default function FootOSplitsTable({
+  runners,
+  onlyRadios = false,
+  showCumulative = false,
+  radiosList,
+  timeLossEnabled = false,
+  timeLossThreshold,
+}: FootOSplitsTableProps) {
+  const showTimeLoss = timeLossEnabled && !showCumulative
 
-  const onlineControlList = useMemo(
-    () => getOnlineControlsCourseFromClassSplits(props.radiosList),
-    [props.radiosList],
+  const runnerList = useMemo(
+    () => selectRunnersForSplitsTable(runners, onlyRadios),
+    [runners, onlyRadios],
   )
 
-  const courseControlList = useMemo(() => {
-    return getCourseFromRunner(runnerList)
-  }, [runnerList])
+  const controlList = useMemo(
+    () =>
+      onlyRadios
+        ? getOnlineControlsCourseFromClassSplits(radiosList)
+        : getCourseFromRunner(runnerList),
+    [onlyRadios, radiosList, runnerList],
+  )
 
-  const controlList = props.onlyRadios && props.radiosList ? onlineControlList : courseControlList
+  const columns = useMemo(
+    () => buildSplitsTableColumns(controlList, showTimeLoss),
+    [controlList, showTimeLoss],
+  )
 
-  const timeLossResults: TimeLossResults | null = useMemo(() => {
-    if (!props.timeLossEnabled || props.onlyRadios || !props.timeLossThreshold) {
-      return null
-    }
-    return analyzeTimeLoss(runnerList, props.timeLossThreshold)
-  }, [props.timeLossEnabled, props.onlyRadios, props.timeLossThreshold, runnerList])
+  const rows = useMemo(
+    () => buildSplitsTableRows(runnerList, onlyRadios, radiosList),
+    [runnerList, onlyRadios, radiosList],
+  )
 
-  if (runnerList.length === 0) {
+  const timeLossResults = useMemo(() => {
+    if (!timeLossEnabled || onlyRadios || !timeLossThreshold) return null
+    return analyzeTimeLoss(runnerList, timeLossThreshold)
+  }, [timeLossEnabled, onlyRadios, timeLossThreshold, runnerList])
+
+  const content = useMemo(
+    () => ({ showCumulative, showTimeLoss, timeLossResults }),
+    [showCumulative, showTimeLoss, timeLossResults],
+  )
+
+  if (rows.length === 0) {
     return <NoRunnerWithSplitsMsg />
   }
 
   return (
     <NowProvider>
-      <SplitsTableLayout
-        controlList={controlList}
-        onlyRadios={props.onlyRadios}
-        radiosList={props.radiosList}
-        runnerList={runnerList}
-        showCumulative={props.showCumulative}
-        timeLossEnabled={props.timeLossEnabled}
-        timeLossResults={timeLossResults}
-      />
+      <SplitsTableContentContext.Provider value={content}>
+        <ScrollTable
+          CellContent={SplitsTableCell}
+          columns={columns}
+          getColumnKey={getSplitsTableColumnKey}
+          getRowKey={getSplitsTableRowKey}
+          HeaderCellContent={SplitsTableHeaderCellContent}
+          RowHeading={RunnerHeading}
+          rows={rows}
+        />
+      </SplitsTableContentContext.Provider>
     </NowProvider>
   )
 }

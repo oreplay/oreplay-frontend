@@ -43,19 +43,19 @@ export function buildTimeLossResultsFixture(
   lossPerLeg: Record<string, number>,
 ): TimeLossResults {
   const analyses = Object.entries(lossPerLeg).map(
-    ([controlId, timeLoss], index): [string, TimeLossAnalysis] => [
-      controlId,
+    ([legId, timeLoss], index): [string, TimeLossAnalysis] => [
+      legId,
       {
         bestTime: 0,
-        controlId,
         estimatedTimeWithoutError: 0,
+        legId,
         orderNumber: index + 1,
         runnerAnalysis: new Map([[runnerId, buildTimeLossInfoFixture(timeLoss)]]),
       },
     ],
   )
   return {
-    analysisPerControl: new Map(analyses),
+    analysisPerLeg: new Map(analyses),
     globalStats: { totalControls: 0, totalSplitsAnalyzed: 0, totalTimeLossDetected: 0 },
   }
 }
