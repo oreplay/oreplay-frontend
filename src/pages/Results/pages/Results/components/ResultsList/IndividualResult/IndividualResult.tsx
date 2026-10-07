@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
 import ResultListItem from "../ResultListItem.tsx"
@@ -12,16 +13,25 @@ export interface ResultColumnProps {
   runner: ProcessedRunnerModel
 }
 
+interface IndividualResultProps extends ResultItemProps {
+  details?: ReactNode
+}
+
 export default function IndividualResult({
   runner,
   isClass,
   onClick,
   ResultColumn,
-}: ResultItemProps) {
+  details,
+}: IndividualResultProps) {
   const { t } = useTranslation()
 
   return (
-    <ResultListItem key={runner.id} onClick={onClick ? () => onClick(runner) : undefined}>
+    <ResultListItem
+      key={runner.id}
+      details={details}
+      onClick={onClick ? () => onClick(runner) : undefined}
+    >
       <ResultListItemColumn
         slotProps={{
           className: "flex h-full flex-grow flex-row items-start",
