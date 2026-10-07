@@ -92,6 +92,16 @@ describe("FootOSplitsTable", () => {
     expect(headerScroller.scrollLeft).toBe(140)
   })
 
+  it("keeps the clean time column when the time loss is shown on the accumulated times", () => {
+    const { bodyTable, headerTable, show } = renderTable()
+    const headerCellCountBefore = headerTable.querySelectorAll("thead th").length
+
+    show({ showCumulative: true, timeLossEnabled: true })
+
+    expect(headerTable.querySelectorAll("thead th")).toHaveLength(headerCellCountBefore + 1)
+    expect(bodyTable).toHaveTextContent(SECOND_CUMULATIVE_TIME)
+  })
+
   it("adds the clean time column to the same table when the time loss is shown", () => {
     const { bodyScroller, bodyTable, headerTable, show } = renderTable()
     const headerCellCountBefore = headerTable.querySelectorAll("thead th").length

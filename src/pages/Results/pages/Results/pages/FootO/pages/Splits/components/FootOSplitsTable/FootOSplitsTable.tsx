@@ -37,7 +37,7 @@ export default function FootOSplitsTable({
   timeLossEnabled = false,
   timeLossThreshold,
 }: FootOSplitsTableProps) {
-  const showTimeLoss = timeLossEnabled && !showCumulative
+  const showTimeLoss = timeLossEnabled && !onlyRadios
 
   const runnerList = useMemo(
     () => selectRunnersForSplitsTable(runners, onlyRadios),

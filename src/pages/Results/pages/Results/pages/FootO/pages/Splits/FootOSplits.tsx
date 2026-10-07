@@ -1,12 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { AxiosError } from "axios"
 import { Box } from "@mui/material"
-import {
-  AccessTime as AccessTimeIcon,
-  Analytics as AnalyticsIcon,
-  SettingsRemote as SettingsRemoteIcon,
-  Timer as TimerIcon,
-} from "@mui/icons-material"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { OnlineControlModel, RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
@@ -15,37 +9,17 @@ import GeneralErrorFallback from "../../../../../../../../components/GeneralErro
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
 import OnlyForClassesMsg from "../../components/OnlyForClassesMsg.tsx"
 import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.tsx"
-import ViewSelector from "../../components/ViewSelector.tsx"
 import { sortFootORunners } from "../../shared/functions.ts"
-import { ViewOption } from "../../shared/viewOption.ts"
+import SplitsToolbar from "./components/SplitsToolbar/SplitsToolbar.tsx"
 import SplitsViewContent from "./components/SplitsViewContent.tsx"
 import {
   availableSplitsViews,
   defaultSplitsView,
-  SPLITS_VIEW,
+  SPLITS_VIEW_CONFIG,
   SplitsView,
 } from "./shared/splitsViews.ts"
 
 const NO_RADIOS: OnlineControlModel[] = []
-
-const SPLITS_VIEW_OPTIONS: Record<SplitsView, ViewOption<SplitsView>> = {
-  [SPLITS_VIEW.Accumulated]: {
-    icon: <AccessTimeIcon />,
-    key: SPLITS_VIEW.Accumulated,
-    labelKey: "view.accumulated",
-  },
-  [SPLITS_VIEW.Radios]: {
-    icon: <SettingsRemoteIcon />,
-    key: SPLITS_VIEW.Radios,
-    labelKey: "view.radios",
-  },
-  [SPLITS_VIEW.Splits]: { icon: <TimerIcon />, key: SPLITS_VIEW.Splits, labelKey: "view.splits" },
-  [SPLITS_VIEW.TimeLoss]: {
-    icon: <AnalyticsIcon />,
-    key: SPLITS_VIEW.TimeLoss,
-    labelKey: "view.timeLoss",
-  },
-}
 
 export default function FootOSplits(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
@@ -59,6 +33,7 @@ export default function FootOSplits(
   const hasRadios = radiosList.length > 0
 
   const [selectedView, setSelectedView] = useState<SplitsView>(defaultSplitsView(hasRadios))
+  const [isTimeLossOn, setIsTimeLossOn] = useState(false)
 
   useEffect(() => {
     setSelectedView(defaultSplitsView(hasRadios))
@@ -74,7 +49,7 @@ export default function FootOSplits(
   if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
   if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
-  const viewOptions = availableSplitsViews(hasRadios).map((view) => SPLITS_VIEW_OPTIONS[view])
+  const toggleTimeLoss = () => setIsTimeLossOn((isOn) => !isOn)
 
   return (
     <Box>
@@ -84,14 +59,18 @@ export default function FootOSplits(
         </Box>
       )}
 
-      <ViewSelector
-        options={viewOptions}
-        selectedView={selectedView}
+      <SplitsToolbar
+        isTimeLossAvailable={SPLITS_VIEW_CONFIG[selectedView].supportsTimeLoss}
+        isTimeLossOn={isTimeLossOn}
+        onTimeLossToggle={toggleTimeLoss}
         onViewChange={setSelectedView}
+        selectedView={selectedView}
+        views={availableSplitsViews(hasRadios)}
       />
 
       <SplitsViewContent
         hasRadios={hasRadios}
+        isTimeLossOn={isTimeLossOn}
         radiosList={radiosList}
         runners={runners}
         view={selectedView}

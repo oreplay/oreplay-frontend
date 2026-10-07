@@ -2,8 +2,10 @@ import { describe, expect, it } from "vitest"
 import {
   availableSplitsViews,
   defaultSplitsView,
+  showsTimeLoss,
   SPLITS_VIEW,
   SPLITS_VIEW_CONFIG,
+  splitsViewOptionId,
 } from "./splitsViews.ts"
 
 describe("availableSplitsViews", () => {
@@ -12,16 +14,11 @@ describe("availableSplitsViews", () => {
       SPLITS_VIEW.Radios,
       SPLITS_VIEW.Splits,
       SPLITS_VIEW.Accumulated,
-      SPLITS_VIEW.TimeLoss,
     ])
   })
 
   it("hides the radios view when the class has no radios", () => {
-    expect(availableSplitsViews(false)).toEqual([
-      SPLITS_VIEW.Splits,
-      SPLITS_VIEW.Accumulated,
-      SPLITS_VIEW.TimeLoss,
-    ])
+    expect(availableSplitsViews(false)).toEqual([SPLITS_VIEW.Splits, SPLITS_VIEW.Accumulated])
   })
 })
 
@@ -47,9 +44,30 @@ describe("SPLITS_VIEW_CONFIG", () => {
       requiresChipDownload: false,
     })
   })
+})
 
-  it("only analyses time loss on the time loss view", () => {
-    expect(SPLITS_VIEW_CONFIG[SPLITS_VIEW.TimeLoss].timeLossEnabled).toBe(true)
-    expect(SPLITS_VIEW_CONFIG[SPLITS_VIEW.Splits].timeLossEnabled).toBe(false)
+describe("showsTimeLoss", () => {
+  it("shows the time loss on the splits view when it is switched on", () => {
+    expect(showsTimeLoss(SPLITS_VIEW.Splits, true)).toBe(true)
+  })
+
+  it("shows the time loss on the accumulated view when it is switched on", () => {
+    expect(showsTimeLoss(SPLITS_VIEW.Accumulated, true)).toBe(true)
+  })
+
+  it("never shows the time loss on the radios view", () => {
+    expect(showsTimeLoss(SPLITS_VIEW.Radios, true)).toBe(false)
+  })
+
+  it("hides the time loss when it is switched off", () => {
+    expect(showsTimeLoss(SPLITS_VIEW.Splits, false)).toBe(false)
+  })
+})
+
+describe("splitsViewOptionId", () => {
+  it("gives every view a different element id", () => {
+    const ids = Object.values(SPLITS_VIEW).map(splitsViewOptionId)
+
+    expect(new Set(ids).size).toBe(ids.length)
   })
 })
