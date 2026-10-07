@@ -65,6 +65,33 @@ MUI because the styling is scoped:
   only emits utilities that are actually used, and the host's MUI code uses `sx`/emotion, not bare
   utility class names.
 
+## Mobile vs desktop
+
+When mobile and desktop need **different components** (not just different sizes), decide by **device,
+not viewport width**, with `useIsMobileDevice()`
+(`src/pages/Results/pages/Results/shared/useIsMobileDevice.ts`). A narrow desktop window stays
+desktop; a phone in landscape stays mobile.
+
+- **Detection is user-agent based**: the hook memoises the pure, tested `isMobileDevice(navigator)`
+  (`shared/isMobileDevice.ts`), which trusts `navigator.userAgentData.mobile` when the browser
+  provides it and otherwise matches the user-agent string (`Mobi`, `Opera Mini`). Change the rule
+  there, never with an ad-hoc `navigator.userAgent` check or `useMediaQuery` in a component.
+- **Shape**: a thin `Foo` switch that only picks the variant, plus one component per variant —
+  `Foo/Foo.tsx` → `Foo/components/FooMobile.tsx` / `FooDesktop.tsx`, all sharing one props type
+  declared in `shared/`. References: `ResultTabsBar` (bottom navigation vs tabs) and
+  `ClassSelectorTrigger` (floating button vs outlined input). State and anything common to both
+  variants stay in the parent (`ClassSelector` owns the dialog), so the variants stay presentational.
+- **Fixed mobile chrome shares its dimensions** through
+  `src/pages/Results/pages/Results/shared/mobileLayout.ts` (bottom navigation height, floating button
+  offset, content bottom padding). Anything else pinned to the bottom of the screen reads those
+  constants instead of repeating pixel values, so nothing ends up hidden behind the bar or the button.
+- **Breakpoints are still right for purely responsive layout** inside one component (Tailwind `lg:`,
+  MUI `sx` breakpoints) — column counts, spacing, font sizes.
+- **Tests** mock the hook (`vi.mock` of `useIsMobileDevice.ts`) to render each variant — see
+  `ClassSelectorTrigger.test.tsx`.
+- The hook lives under Results because that is its only user today; move it up by the
+  tightest-common-ancestor rule when another area needs it.
+
 ## API client — orval-generated
 
 One orval config (`orval.config.ts`) runs against the OpenAPI spec and generates a **single** client
