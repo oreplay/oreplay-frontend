@@ -1,5 +1,5 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { ChartDataItem } from "../pages/Splits/components/Charts/BarChart.tsx"
+import { ChartDataItem } from "../pages/Graphs/components/Charts/BarChart.tsx"
 import {
   computeLegReferences,
   FINISH_LEG_ID,

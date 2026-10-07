@@ -29,6 +29,7 @@ export const RESULTS_QUERY = {
 }
 
 export const RESULT_TAB = {
+  Graphs: "graphs",
   Legs: "legs",
   Points: "points",
   Results: "results",
