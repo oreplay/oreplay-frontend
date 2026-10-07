@@ -48,19 +48,18 @@ export default function OnlineCourse({ course, className }: OnlineCourseProps) {
         className="block font-sans"
         height={geometry.height}
         role="img"
-        viewBox={`0 0 ${geometry.width} ${geometry.height}`}
-        width={geometry.width}
+        style={{ minWidth: geometry.minWidth }}
+        width="100%"
       >
         {course.legs.map((leg, legIndex) => (
           <OnlineCourseLeg
-            endX={geometry.legs[legIndex].endX}
+            geometry={geometry.legs[legIndex]}
             key={legIndex}
             progress={leg.progress}
-            startX={geometry.legs[legIndex].startX}
           />
         ))}
         {course.nodes.map((node, nodeIndex) => (
-          <OnlineCourseNode key={nodeIndex} node={node} x={geometry.nodeXs[nodeIndex]} />
+          <OnlineCourseNode geometry={geometry.nodes[nodeIndex]} key={nodeIndex} node={node} />
         ))}
       </svg>
     </div>

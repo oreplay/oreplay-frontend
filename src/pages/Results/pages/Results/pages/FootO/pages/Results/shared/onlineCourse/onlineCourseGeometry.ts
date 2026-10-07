@@ -17,27 +17,70 @@ const START_TRIANGLE_BASE_OFFSET_PX = START_TRIANGLE_HEIGHT_PX / 3
 export interface OnlineCourseGeometry {
   height: number
   legs: OnlineCourseLegGeometry[]
-  nodeXs: number[]
-  width: number
+  minWidth: number
+  nodes: OnlineCourseNodeGeometry[]
 }
 
 export interface OnlineCourseLegGeometry {
-  endX: number
-  startX: number
+  lineStartX: number
+  offsetX: number
+  widthFraction: number
+  xFraction: number
 }
 
-function nodeX(nodeIndex: number) {
+export interface OnlineCourseNodeGeometry {
+  offsetX: number
+  xFraction: number
+}
+
+function minWidth(legCount: number) {
+  return 2 * HORIZONTAL_PADDING_PX + legCount * NODE_SPACING_PX
+}
+
+function nodeXAtMinWidth(nodeIndex: number) {
   return HORIZONTAL_PADDING_PX + nodeIndex * NODE_SPACING_PX
 }
 
-function legStartX(startNodeIndex: number) {
+function legStartXAtMinWidth(startNodeIndex: number) {
   const symbolTrailingEdgeOffset =
     startNodeIndex === START_NODE_INDEX ? START_TRIANGLE_APEX_OFFSET_PX : CONTROL_RADIUS_PX
-  return nodeX(startNodeIndex) + symbolTrailingEdgeOffset
+  return nodeXAtMinWidth(startNodeIndex) + symbolTrailingEdgeOffset
 }
 
-function legEndX(endNodeIndex: number) {
-  return nodeX(endNodeIndex) - CONTROL_RADIUS_PX
+function legEndXAtMinWidth(endNodeIndex: number) {
+  return nodeXAtMinWidth(endNodeIndex) - CONTROL_RADIUS_PX
+}
+
+function nodeXFraction(nodeIndex: number, legCount: number) {
+  return legCount === 0 ? 0 : nodeIndex / legCount
+}
+
+function nodeGeometry(nodeIndex: number, legCount: number): OnlineCourseNodeGeometry {
+  const xFraction = nodeXFraction(nodeIndex, legCount)
+
+  return {
+    offsetX: nodeXAtMinWidth(nodeIndex) - xFraction * minWidth(legCount),
+    xFraction,
+  }
+}
+
+function legGeometry(legIndex: number, legCount: number): OnlineCourseLegGeometry {
+  const startX = legStartXAtMinWidth(legIndex)
+  const lengthAtMinWidth = legEndXAtMinWidth(legIndex + 1) - startX
+  const xFraction = nodeXFraction(legIndex, legCount)
+  const widthFraction = 1 / legCount
+  const lineStartX = widthFraction * minWidth(legCount) - lengthAtMinWidth
+
+  return {
+    lineStartX,
+    offsetX: startX - xFraction * minWidth(legCount) - lineStartX,
+    widthFraction,
+    xFraction,
+  }
+}
+
+export function fractionToPercent(fraction: number): string {
+  return `${fraction * 100}%`
 }
 
 export function startTrianglePoints(centerX: number, centerY: number): string {
@@ -57,11 +100,8 @@ export default function onlineCourseGeometry(nodeCount: number): OnlineCourseGeo
 
   return {
     height: HEIGHT_PX,
-    legs: Array.from({ length: legCount }, (_, legIndex) => ({
-      endX: legEndX(legIndex + 1),
-      startX: legStartX(legIndex),
-    })),
-    nodeXs: Array.from({ length: nodeCount }, (_, nodeIndex) => nodeX(nodeIndex)),
-    width: 2 * HORIZONTAL_PADDING_PX + legCount * NODE_SPACING_PX,
+    legs: Array.from({ length: legCount }, (_, legIndex) => legGeometry(legIndex, legCount)),
+    minWidth: minWidth(legCount),
+    nodes: Array.from({ length: nodeCount }, (_, nodeIndex) => nodeGeometry(nodeIndex, legCount)),
   }
 }
