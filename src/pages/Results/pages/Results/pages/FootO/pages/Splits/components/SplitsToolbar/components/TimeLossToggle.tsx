@@ -1,5 +1,5 @@
-import AnalyticsIcon from "@mui/icons-material/Analytics"
 import { useTranslation } from "react-i18next"
+import TimeLossIcon from "./icons/TimeLossIcon.tsx"
 
 const ON_CLASS = "border-primary text-primary hover:bg-primary/10"
 const OFF_CLASS = "border-neutral-300 text-neutral-500 hover:text-neutral-800"
@@ -28,7 +28,7 @@ export default function TimeLossToggle({ isDisabled, isOn, onToggle }: TimeLossT
       onClick={onToggle}
       className={`time-loss-toggle flex shrink-0 items-center justify-center gap-1.5 rounded-lg border bg-white px-3 py-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
     >
-      <AnalyticsIcon fontSize="small" />
+      <TimeLossIcon />
       <span className="hidden md:inline">{label}</span>
     </button>
   )

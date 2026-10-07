@@ -7,9 +7,10 @@ interface OnlineCourseToggleProps {
 }
 
 /**
- * Icon button that shows or hides the online course of the result rows. Its icon is the one of the
- * online controls view of the splits, orange while
+ * Icon button that shows or hides the online course of the result rows. Its icon is orange while
  * the online course is shown and grey while it is hidden, and a tooltip names what a click does.
+ * The icon must stay the same as `RadiosIcon`, the one of the radio controls view in the splits
+ * toolbar, which shows the same online controls there: change both together.
  *
  * @param props.isActive Whether the online course is shown now.
  * @param props.onToggle Called when the user asks to switch it.
