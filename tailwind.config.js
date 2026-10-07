@@ -19,6 +19,7 @@ export default {
       colors: {
         // Channel-format CSS vars (see src/styles/tokens.css) so opacity
         // utilities like `bg-primary/50` work. These are our OWN semantic vars.
+        course: "rgb(var(--color-course) / <alpha-value>)",
         primary: "rgb(var(--color-primary) / <alpha-value>)",
         secondary: "rgb(var(--color-secondary) / <alpha-value>)",
         surface: "rgb(var(--color-surface) / <alpha-value>)",

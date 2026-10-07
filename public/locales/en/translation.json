@@ -285,6 +285,9 @@
     "NoStartTime": "-",
     "NonContributory": "Dropped",
     "NotStarted": "-",
+    "OnlineCourse": {
+      "ControlsReached": "{{reached}} of {{total}} online controls reached"
+    },
     "PenaltyPoints": "Penalty:",
     "Points": "Points:",
     "PointsTable": {
