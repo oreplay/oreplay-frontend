@@ -1,5 +1,4 @@
-import { Box, Fab } from "@mui/material"
-import ListIcon from "@mui/icons-material/List"
+import { Box, Button } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import {
   MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX,
@@ -17,13 +16,18 @@ export default function ClassSelectorTriggerMobile(props: ClassSelectorTriggerPr
   const text = classSelectorTriggerText(props.activeName, t(classSelectorLabelKey(props.isClass)))
 
   return (
-    <Fab
-      variant="extended"
+    <Button
+      variant="outlined"
       color="primary"
       aria-haspopup="dialog"
       onClick={props.onClick}
       sx={{
         position: "fixed",
+        zIndex: "fab",
+        boxShadow: 3,
+        borderRadius: 3,
+        backgroundColor: "background.paper",
+        "&:hover": { backgroundColor: "background.paper" },
         bottom: `${MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX}px`,
         right: `${MOBILE_FLOATING_BUTTON_GAP_PX}px`,
         height: `${MOBILE_FLOATING_BUTTON_HEIGHT_PX}px`,
@@ -31,13 +35,12 @@ export default function ClassSelectorTriggerMobile(props: ClassSelectorTriggerPr
         textTransform: "none",
       }}
     >
-      <ListIcon sx={{ marginRight: 1 }} />
       <Box
         component="span"
         sx={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
       >
         {text}
       </Box>
-    </Fab>
+    </Button>
   )
 }
