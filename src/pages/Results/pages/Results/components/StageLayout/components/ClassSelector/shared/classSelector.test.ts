@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest"
 import {
+  CLASS_SELECTOR_LABEL_KEYS,
+  classSelectorLabelKey,
   classSelectorPanelId,
   classSelectorTabId,
+  classSelectorTriggerText,
   filterByName,
   ignoreDashes,
   ignoreDashesAndUnderscores,
@@ -9,6 +12,24 @@ import {
 } from "./classSelector.ts"
 
 const identity = (name: string) => name
+
+describe("classSelectorLabelKey", () => {
+  it("labels the selector after the kind of item being shown", () => {
+    expect(classSelectorLabelKey(true)).toBe(CLASS_SELECTOR_LABEL_KEYS.classes)
+    expect(classSelectorLabelKey(false)).toBe(CLASS_SELECTOR_LABEL_KEYS.clubs)
+  })
+})
+
+describe("classSelectorTriggerText", () => {
+  it("shows the active name when there is one", () => {
+    expect(classSelectorTriggerText("M-21E", "Class")).toBe("M-21E")
+  })
+
+  it("falls back to the label when nothing is selected", () => {
+    expect(classSelectorTriggerText(undefined, "Class")).toBe("Class")
+    expect(classSelectorTriggerText("", "Class")).toBe("Class")
+  })
+})
 
 describe("filterByName", () => {
   const names = ["M-21E", "F21E", "M16", "Open_Long"]

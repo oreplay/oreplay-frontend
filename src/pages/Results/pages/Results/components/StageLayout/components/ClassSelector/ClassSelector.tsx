@@ -1,12 +1,11 @@
-import { Box, FormControl, InputAdornment, InputLabel, OutlinedInput } from "@mui/material"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { useTranslation } from "react-i18next"
+import { Box } from "@mui/material"
 import { ClassModel, ClubModel, Page } from "../../../../../../../../shared/EntityTypes.ts"
 import { useEffect, useRef, useState } from "react"
 import { UseQueryResult } from "react-query"
 import { useParams } from "react-router-dom"
 import { useClassClubSearchParams } from "../../../../../../shared/hooks.ts"
 import ClassSelectorDialog from "./components/ClassSelectorDialog/ClassSelectorDialog.tsx"
+import ClassSelectorTrigger from "./components/ClassSelectorTrigger/ClassSelectorTrigger.tsx"
 import { ClassSelectorTab, tabForKind } from "./shared/classSelector.ts"
 import { useRecentClassesClubs } from "./shared/useRecentClassesClubs.ts"
 
@@ -19,8 +18,6 @@ interface ClassSelectorProps {
 }
 
 export default function ClassSelector(props: ClassSelectorProps) {
-  const { t } = useTranslation()
-
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [currentTab, setCurrentTab] = useState<ClassSelectorTab>("classes")
 
@@ -59,34 +56,11 @@ export default function ClassSelector(props: ClassSelectorProps) {
 
   return (
     <Box>
-      <FormControl
-        sx={{
-          maxWidth: 300,
-          cursor: "pointer",
-        }}
+      <ClassSelectorTrigger
+        activeName={props.activeClassClub?.short_name}
+        isClass={props.isClass}
         onClick={() => setIsOpen(true)}
-      >
-        <InputLabel shrink={!!props.activeClassClub}>
-          {props.isClass ? t("ResultsStage.Class") : t("ResultsStage.Club")}
-        </InputLabel>
-        <OutlinedInput
-          readOnly
-          notched={!!props.activeClassClub}
-          value={props.activeClassClub?.short_name || ""}
-          endAdornment={
-            <InputAdornment position="end">
-              <ExpandMoreIcon />
-            </InputAdornment>
-          }
-          label={props.isClass ? t("ResultsStage.Class") : t("ResultsStage.Club")}
-          sx={{
-            pointerEvents: "none",
-          }}
-          inputProps={{
-            tabIndex: -1,
-          }}
-        />
-      </FormControl>
+      />
       <ClassSelectorDialog
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
