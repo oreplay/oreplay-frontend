@@ -21,11 +21,17 @@ export interface OnlineCourseLeg {
   progress: OnlineCourseProgress
 }
 
+export interface OnlineCourseLiveTiming {
+  bestSeconds: number | null
+  startTime: string
+}
+
 export interface OnlineCourseNode {
   behindSeconds: number | null
   cumulativeSeconds: number | null
   kind: OnlineCourseNodeKind
   label: string | null
+  liveTiming: OnlineCourseLiveTiming | null
   progress: OnlineCourseNodeProgress
 }
 

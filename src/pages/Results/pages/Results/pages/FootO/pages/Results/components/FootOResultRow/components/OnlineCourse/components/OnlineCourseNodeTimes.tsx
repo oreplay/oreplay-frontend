@@ -1,26 +1,24 @@
-import {
-  parseSecondsToMMSS,
-  parseTimeBehind,
-} from "../../../../../../../../../../../../../shared/Functions.tsx"
-import {
-  BEHIND_TIME_BASELINE_Y_PX,
-  CUMULATIVE_TIME_BASELINE_Y_PX,
-} from "../../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import { OnlineCourseSymbolProps } from "../shared/onlineCourseStyles.ts"
+import OnlineCourseLiveNodeTimes from "./OnlineCourseLiveNodeTimes.tsx"
+import OnlineCourseTimesText from "./OnlineCourseTimesText.tsx"
 
+/**
+ * Picks the times written under a node of the course: the reading when the runner has one, the
+ * live running time when they are heading to it, and nothing otherwise.
+ *
+ * @param props.node Node of the course the times belong to.
+ */
 export default function OnlineCourseNodeTimes({ node }: OnlineCourseSymbolProps) {
-  if (node.cumulativeSeconds === null) return null
+  if (node.cumulativeSeconds !== null) {
+    return (
+      <OnlineCourseTimesText
+        cumulativeSeconds={node.cumulativeSeconds}
+        differenceSeconds={node.behindSeconds}
+      />
+    )
+  }
 
-  return (
-    <g className="text-[10px] tabular-nums" textAnchor="middle">
-      <text className="fill-neutral-700" y={CUMULATIVE_TIME_BASELINE_Y_PX}>
-        {parseSecondsToMMSS(node.cumulativeSeconds)}
-      </text>
-      {node.behindSeconds !== null && (
-        <text className="fill-primary" y={BEHIND_TIME_BASELINE_Y_PX}>
-          {parseTimeBehind(node.behindSeconds)}
-        </text>
-      )}
-    </g>
-  )
+  if (node.liveTiming !== null) return <OnlineCourseLiveNodeTimes liveTiming={node.liveTiming} />
+
+  return null
 }
