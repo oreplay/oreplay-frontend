@@ -14,6 +14,7 @@ interface RunnerFixture {
   isNC?: boolean
   onlineSplits: RadioSplitModel[]
   position?: number
+  startTime?: string | null
   statusCode?: string
 }
 
@@ -35,6 +36,7 @@ export function buildRunnerWithOnlineSplits({
   isNC = false,
   onlineSplits,
   position = 0,
+  startTime = null,
   statusCode = RESULT_STATUS.ok,
 }: RunnerFixture): ProcessedRunnerModel {
   return {
@@ -45,6 +47,7 @@ export function buildRunnerWithOnlineSplits({
       finish_time: finishTime,
       online_splits: onlineSplits,
       position,
+      start_time: startTime,
       status_code: statusCode,
     },
   } as ProcessedRunnerModel

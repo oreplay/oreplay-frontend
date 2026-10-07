@@ -13,6 +13,7 @@ const BEST_CUMULATIVE_SECONDS = [100, 240, 400]
 const FINISH_TIME = "2026-01-01T11:00:00.000+00:00"
 const HAS_STARTED = true
 const HAS_NOT_STARTED = false
+const START_TIME = "2026-01-01T10:00:00.000+00:00"
 
 function buildOnlineSplits(
   firstRadioSeconds: number | null,
@@ -32,6 +33,10 @@ function nodeProgresses(course: OnlineCourse) {
 
 function legProgresses(course: OnlineCourse) {
   return course.legs.map((leg) => leg.progress)
+}
+
+function liveTimings(course: OnlineCourse) {
+  return course.nodes.map((node) => node.liveTiming)
 }
 
 describe("buildOnlineCourse", () => {
@@ -185,5 +190,64 @@ describe("buildOnlineCourse", () => {
     const course = buildOnlineCourse(runner, [null, null, null], HAS_STARTED)
 
     expect(course.nodes[1]).toMatchObject({ behindSeconds: null, cumulativeSeconds: 130 })
+  })
+
+  it("times live the control a running runner is heading to against the best time there", () => {
+    const runner = buildRunnerWithOnlineSplits({
+      onlineSplits: buildOnlineSplits(130, null, null),
+      startTime: START_TIME,
+    })
+
+    const course = buildOnlineCourse(runner, BEST_CUMULATIVE_SECONDS, HAS_STARTED)
+
+    expect(liveTimings(course)).toEqual([
+      null,
+      null,
+      { bestSeconds: BEST_CUMULATIVE_SECONDS[1], startTime: START_TIME },
+      null,
+    ])
+  })
+
+  it("times live the first control for a runner that has just started", () => {
+    const runner = buildRunnerWithOnlineSplits({
+      onlineSplits: buildOnlineSplits(null, null, null),
+      startTime: START_TIME,
+    })
+
+    const course = buildOnlineCourse(runner, null, HAS_STARTED)
+
+    expect(liveTimings(course)).toEqual([
+      null,
+      { bestSeconds: null, startTime: START_TIME },
+      null,
+      null,
+    ])
+  })
+
+  it("times nothing live before the start, after the finish or without a start time", () => {
+    const beforeStart = buildRunnerWithOnlineSplits({
+      onlineSplits: buildOnlineSplits(null, null, null),
+      startTime: START_TIME,
+    })
+    const finished = buildRunnerWithOnlineSplits({
+      finishTime: FINISH_TIME,
+      onlineSplits: buildOnlineSplits(130, 250, 420),
+      position: 2,
+      startTime: START_TIME,
+    })
+    const withoutStartTime = buildRunnerWithOnlineSplits({
+      onlineSplits: buildOnlineSplits(130, null, null),
+    })
+    const nothingLive = [null, null, null, null]
+
+    expect(
+      liveTimings(buildOnlineCourse(beforeStart, BEST_CUMULATIVE_SECONDS, HAS_NOT_STARTED)),
+    ).toEqual(nothingLive)
+    expect(liveTimings(buildOnlineCourse(finished, BEST_CUMULATIVE_SECONDS, HAS_STARTED))).toEqual(
+      nothingLive,
+    )
+    expect(
+      liveTimings(buildOnlineCourse(withoutStartTime, BEST_CUMULATIVE_SECONDS, HAS_STARTED)),
+    ).toEqual(nothingLive)
   })
 })

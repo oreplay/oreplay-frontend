@@ -8,6 +8,7 @@ import {
   ONLINE_COURSE_PROGRESS,
   OnlineCourse,
   OnlineCourseLeg,
+  OnlineCourseLiveTiming,
   OnlineCourseNode,
   OnlineCourseNodeProgress,
 } from "./onlineCourse.ts"
@@ -50,8 +51,17 @@ function buildStartNode(isReached: boolean): OnlineCourseNode {
     cumulativeSeconds: null,
     kind: ONLINE_COURSE_NODE_KIND.Start,
     label: null,
+    liveTiming: null,
     progress: nodeProgress(isReached),
   }
+}
+
+function buildLiveTiming(
+  runner: ProcessedRunnerModel,
+  bestSeconds: number | null | undefined,
+): OnlineCourseLiveTiming | null {
+  const startTime = runner.stage.start_time
+  return startTime ? { bestSeconds: bestSeconds ?? null, startTime } : null
 }
 
 function buildLeg(endNode: OnlineCourseNode, isInProgress: boolean): OnlineCourseLeg {
@@ -71,6 +81,8 @@ export default function buildOnlineCourse(
   const hasReachedAnySplit = furthestSplitIndex > NO_SPLIT_REACHED_INDEX
   const hasLeftTheStart = hasStarted && !runnerService.isDNS(runner)
   const isStartReached = hasReachedAnySplit || hasLeftTheStart
+  const isRunning = isStartReached && isStillRunning(runner)
+  const nextSplitIndex = furthestSplitIndex + 1
 
   const splitNodes = splits.map(
     (split, splitIndex): OnlineCourseNode => ({
@@ -81,6 +93,10 @@ export default function buildOnlineCourse(
           ? ONLINE_COURSE_NODE_KIND.Finish
           : ONLINE_COURSE_NODE_KIND.Control,
       label: split.control?.station ?? null,
+      liveTiming:
+        isRunning && splitIndex === nextSplitIndex
+          ? buildLiveTiming(runner, bestCumulativeSeconds?.[splitIndex])
+          : null,
       progress: nodeProgress(splitIndex <= furthestSplitIndex),
     }),
   )
@@ -89,7 +105,6 @@ export default function buildOnlineCourse(
   const furthestNodeIndex = hasReachedAnySplit
     ? furthestSplitIndex + START_NODE_COUNT
     : START_NODE_INDEX
-  const isRunning = isStartReached && isStillRunning(runner)
   const legs = nodes
     .slice(START_NODE_COUNT)
     .map((endNode, legIndex) => buildLeg(endNode, isRunning && legIndex === furthestNodeIndex))
