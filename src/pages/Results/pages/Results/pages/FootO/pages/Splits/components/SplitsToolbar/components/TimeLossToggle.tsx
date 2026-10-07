@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next"
+import { SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS } from "../../../shared/splitsToolbarLayout.ts"
 import TimeLossIcon from "./icons/TimeLossIcon.tsx"
 
 const ON_CLASS = "border-primary text-primary hover:bg-primary/10"
@@ -26,7 +27,7 @@ export default function TimeLossToggle({ isDisabled, isOn, onToggle }: TimeLossT
       disabled={isDisabled}
       title={label}
       onClick={onToggle}
-      className={`time-loss-toggle flex shrink-0 items-center justify-center gap-1.5 rounded-lg border bg-white px-3 py-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
+      className={`time-loss-toggle flex shrink-0 items-center justify-center gap-1.5 rounded-lg border bg-white px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS} ${colorClass}`}
     >
       <TimeLossIcon />
       <span className="hidden md:inline">{label}</span>

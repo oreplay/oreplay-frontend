@@ -1,3 +1,5 @@
+export const SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS = "box-border h-11"
+
 export const SPLITS_TOOLBAR_HEIGHT_PX = 60
 
 /**

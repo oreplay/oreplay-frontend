@@ -1,6 +1,7 @@
 import { KeyboardEvent, ReactElement } from "react"
 import { useTranslation } from "react-i18next"
 import { tabIndexForKey } from "../../../../../../../shared/resultTabs.ts"
+import { SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS } from "../../../shared/splitsToolbarLayout.ts"
 import { SplitsView, splitsViewOptionId } from "../../../shared/splitsViews.ts"
 import AccumulatedIcon from "./icons/AccumulatedIcon.tsx"
 import RadiosIcon from "./icons/RadiosIcon.tsx"
@@ -46,7 +47,7 @@ export default function SplitsViewSelector({
     <div
       role="radiogroup"
       aria-label={t("StageHeader.Splits")}
-      className="splits-view-selector flex min-w-0 max-w-md flex-1 gap-1 rounded-lg bg-neutral-100 p-1"
+      className={`splits-view-selector flex min-w-0 max-w-md flex-1 gap-1 rounded-lg bg-neutral-100 p-1 ${SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS}`}
     >
       {views.map((view) => (
         <SplitsViewOption
