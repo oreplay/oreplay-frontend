@@ -11,7 +11,7 @@ import {
   classSelectorTriggerText,
 } from "../../../shared/classSelector.ts"
 
-export default function ClassSelectorTriggerMobile(props: ClassSelectorTriggerProps) {
+export default function ClassSelectorTriggerFloatingButton(props: ClassSelectorTriggerProps) {
   const { t } = useTranslation()
   const text = classSelectorTriggerText(props.activeName, t(classSelectorLabelKey(props.isClass)))
 
