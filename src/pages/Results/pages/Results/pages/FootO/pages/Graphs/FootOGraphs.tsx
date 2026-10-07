@@ -1,225 +1,62 @@
-import React, { useState, useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { AxiosError } from "axios"
+import { Box } from "@mui/material"
+import { BarChart as BarChartIcon, ShowChart, Timeline } from "@mui/icons-material"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
 import { ProcessedRunnerModel } from "../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../../../shared/EntityTypes.ts"
 import ChooseClassMsg from "../../../../components/ChooseClassMsg.tsx"
 import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
 import GeneralSuspenseFallback from "../../../../../../../../components/GeneralSuspenseFallback.tsx"
+import { hasChipDownload } from "../../../../shared/functions.ts"
+import NoRunnerWithSplitsMsg from "../../components/NoRunnerWithSplitsMsg.tsx"
 import OnlyForClassesMsg from "../../components/OnlyForClassesMsg.tsx"
-import { Box, Typography, Paper, Tab, Tabs, useTheme, useMediaQuery, Slider } from "@mui/material"
-import { useTranslation } from "react-i18next"
-import LineChart from "../Splits/components/Charts/LineChart.tsx"
-import BarChart from "../Splits/components/Charts/BarChart.tsx"
-import PositionChart from "../Splits/components/Charts/PositionChart.tsx"
-import {
-  transformRunnersForLineChart,
-  transformRunnersForBarChart,
-  transformRunnersForPositionChart,
-} from "../../shared/chartDataTransform.ts"
-import { analyzeTimeLoss, TimeLossResults } from "../../shared/timeLossAnalysis.ts"
-import CompactRunnerTable from "./components/CompactRunnerTable.tsx"
-import { ShowChart, BarChart as BarChartIcon, Timeline } from "@mui/icons-material"
+import ViewSelector from "../../components/ViewSelector.tsx"
+import { sortFootORunners } from "../../shared/functions.ts"
+import { ViewOption } from "../../shared/viewOption.ts"
+import GraphsViewContent from "./components/GraphsViewContent.tsx"
+import { DEFAULT_GRAPH_VIEW, GRAPH_VIEW, GraphView } from "./shared/graphViews.ts"
 
-export type GraphType = "line" | "bar" | "position"
-
-interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`chart-tabpanel-${index}`}
-      aria-labelledby={`chart-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ pt: 2 }}>{children}</Box>}
-    </div>
-  )
-}
+const GRAPH_VIEW_OPTIONS: readonly ViewOption<GraphView>[] = [
+  { icon: <ShowChart />, key: GRAPH_VIEW.LineChart, labelKey: "view.lineChart" },
+  { icon: <BarChartIcon />, key: GRAPH_VIEW.BarChart, labelKey: "view.barChart" },
+  { icon: <Timeline />, key: GRAPH_VIEW.PositionChart, labelKey: "view.positionChart" },
+]
 
 export default function FootOGraphs(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
-  const { t } = useTranslation()
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
-
-  const [selectedGraphType, setSelectedGraphType] = useState<GraphType>("line")
-  const [selectedRunners, setSelectedRunners] = useState<string[]>([])
-  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(15)
-
-  const activeItem = props.activeItem
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const runners = props.runnersQuery.data || []
+  const runners = useMemo(() => props.runnersQuery.data ?? [], [props.runnersQuery.data])
+  const [selectedView, setSelectedView] = useState<GraphView>(DEFAULT_GRAPH_VIEW)
 
   useEffect(() => {
-    const saved = localStorage.getItem("selectedRunners")
-    if (saved) {
-      try {
-        const parsedRunners = JSON.parse(saved) as string[]
-        setSelectedRunners(parsedRunners)
-      } catch (error) {
-        console.error("Error parsing saved runners:", error)
-      }
-    }
-  }, [])
+    sortFootORunners(runners)
+  }, [runners])
 
-  useEffect(() => {
-    if (runners.length > 0 && selectedRunners.length === 0) {
-      const topRunners = runners
-        .filter((runner) => runner.stage.position && runner.stage.position <= 5)
-        .sort((a, b) => (a.stage.position || 0) - (b.stage.position || 0))
-        .slice(0, 5)
-        .map((runner) => runner.id)
-      setSelectedRunners(topRunners)
-    }
-  }, [runners, selectedRunners.length])
-
-  useEffect(() => {
-    if (selectedRunners.length > 0) {
-      localStorage.setItem("selectedRunners", JSON.stringify(selectedRunners))
-    }
-  }, [selectedRunners])
-
-  const timeLossResults: TimeLossResults | undefined = useMemo(() => {
-    if (!timeLossThreshold || runners.length === 0) return undefined
-    return analyzeTimeLoss(runners, timeLossThreshold)
-  }, [runners, timeLossThreshold])
-
-  if (!activeItem) return <ChooseClassMsg />
-  if (!props.isClass) return <OnlyForClassesMsg />
+  if (!props.activeItem) return <ChooseClassMsg />
+  if (!props.isClass)
+    return (
+      <Box sx={{ px: 2 }}>
+        <OnlyForClassesMsg />
+      </Box>
+    )
   if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
   if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
-  const lineChartData =
-    selectedGraphType === "line" && selectedRunners.length > 0
-      ? transformRunnersForLineChart(runners, selectedRunners, t)
-      : []
-
-  const barChartData =
-    selectedGraphType === "bar" && selectedRunners.length > 0
-      ? transformRunnersForBarChart(runners, selectedRunners, timeLossResults)
-      : []
-
-  const positionChartData =
-    selectedGraphType === "position" && selectedRunners.length > 0
-      ? transformRunnersForPositionChart(runners, selectedRunners, t)
-      : []
-
-  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
-    const graphTypes: GraphType[] = ["line", "bar", "position"]
-    setSelectedGraphType(graphTypes[newValue])
-  }
-
-  const handleRunnerSelectionChange = (runnerIds: string[]) => {
-    setSelectedRunners(runnerIds)
-  }
-
-  const tabIndex = selectedGraphType === "line" ? 0 : selectedGraphType === "bar" ? 1 : 2
+  const hasRunnersWithSplits = runners.some((runner) => hasChipDownload(runner))
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Paper sx={{ mb: 2 }}>
-        <Tabs
-          value={tabIndex}
-          onChange={handleTabChange}
-          variant="fullWidth"
-          sx={{ minHeight: 48 }}
-        >
-          <Tab
-            icon={<ShowChart />}
-            label={t("Graphs.LineChart")}
-            iconPosition="start"
-            sx={{ minHeight: 48 }}
-          />
-          <Tab
-            icon={<BarChartIcon />}
-            label={t("Graphs.BarChart")}
-            iconPosition="start"
-            sx={{ minHeight: 48 }}
-          />
-          <Tab
-            icon={<Timeline />}
-            label={t("Graphs.PositionChart")}
-            iconPosition="start"
-            sx={{ minHeight: 48 }}
-          />
-        </Tabs>
-      </Paper>
-
-      {/* Time loss threshold control - always visible on bar chart */}
-      {selectedGraphType === "bar" && (
-        <Paper sx={{ p: 2, mb: 2 }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography sx={{ minWidth: 80, whiteSpace: "nowrap" }}>
-              {t("Graphs.Threshold")} {timeLossThreshold}%:
-            </Typography>
-            <Box sx={{ width: 120 }}>
-              <Slider
-                value={timeLossThreshold}
-                min={5}
-                max={100}
-                step={5}
-                onChange={(_, value) => setTimeLossThreshold(value)}
-                size="small"
-                marks
-              />
-            </Box>
-          </Box>
-        </Paper>
+    <Box>
+      <ViewSelector
+        options={GRAPH_VIEW_OPTIONS}
+        selectedView={selectedView}
+        onViewChange={setSelectedView}
+      />
+      {hasRunnersWithSplits ? (
+        <GraphsViewContent runners={runners} view={selectedView} />
+      ) : (
+        <NoRunnerWithSplitsMsg />
       )}
-
-      {/* Charts and runner table */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: isMobile ? "column" : "row",
-          gap: 2,
-          flex: 1,
-          minHeight: 0,
-        }}
-      >
-        <Box
-          sx={{
-            flex: 1,
-            minHeight: 400,
-            order: isMobile ? 2 : 1,
-          }}
-        >
-          <TabPanel value={tabIndex} index={0}>
-            <LineChart data={lineChartData} height={400} />
-          </TabPanel>
-          <TabPanel value={tabIndex} index={1}>
-            <BarChart data={barChartData} height={400} />
-          </TabPanel>
-          <TabPanel value={tabIndex} index={2}>
-            <PositionChart data={positionChartData} height={400} />
-          </TabPanel>
-        </Box>
-
-        <Box
-          sx={{
-            width: isMobile ? "100%" : "auto",
-            height: 400,
-            overflowY: "auto",
-            overflowX: "hidden",
-            order: isMobile ? 1 : 2,
-          }}
-        >
-          <CompactRunnerTable
-            runners={runners}
-            selectedRunners={selectedRunners}
-            onSelectionChange={handleRunnerSelectionChange}
-          />
-        </Box>
-      </Box>
     </Box>
   )
 }

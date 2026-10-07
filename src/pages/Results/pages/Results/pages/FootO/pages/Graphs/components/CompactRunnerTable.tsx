@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import {
   Box,
   Paper,
@@ -16,7 +15,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { formatTime } from "../../../shared/chartDataTransform.ts"
-import { hasChipDownload } from "../../../../../shared/functions.ts"
+import { isSelectableRunner } from "../shared/selectedRunners.ts"
 
 interface CompactRunnerTableProps {
   runners: ProcessedRunnerModel[]
@@ -33,14 +32,7 @@ export default function CompactRunnerTable({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
-  const selectableRunnerIds = runners
-    .filter((r) => r.stage.position && hasChipDownload(r))
-    .map((r) => r.id)
-
-  useEffect(() => {
-    // Note: Removed auto-refill behavior. Users can now have 0 selected runners.
-    // Initial selection is handled by the parent component (FootOSplits)
-  }, [runners])
+  const selectableRunnerIds = runners.filter(isSelectableRunner).map((runner) => runner.id)
 
   const handleToggleRunner = (runnerId: string) => {
     if (!selectableRunnerIds.includes(runnerId)) return
@@ -105,7 +97,7 @@ export default function CompactRunnerTable({
           </TableHead>
           <TableBody>
             {runners.map((runner) => {
-              const isSelectable = !!runner.stage.position && hasChipDownload(runner)
+              const isSelectable = isSelectableRunner(runner)
               const isChecked = selectedRunners.includes(runner.id)
               return (
                 <TableRow

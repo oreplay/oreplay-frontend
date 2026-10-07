@@ -1,56 +1,21 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Box, IconButton, Typography, useTheme } from "@mui/material"
-import {
-  Timer as TimerIcon,
-  AccessTime as AccessTimeIcon,
-  Analytics as AnalyticsIcon,
-  ShowChart,
-  BarChart as BarChartIcon,
-  Timeline,
-  SettingsRemote as SettingsRemoteIcon,
-} from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
+import { ViewOption } from "../shared/viewOption.ts"
 
-export type ViewType =
-  | "splits"
-  | "accumulated"
-  | "radios"
-  | "timeLoss"
-  | "lineChart"
-  | "barChart"
-  | "positionChart"
-
-interface ViewOption {
-  key: ViewType
-  labelKey: string
-  icon: React.ReactNode
+interface ViewSelectorProps<View extends string> {
+  onViewChange: (view: View) => void
+  options: readonly ViewOption<View>[]
+  selectedView: View
 }
 
-interface ViewSelectorProps {
-  selectedView: ViewType
-  onViewChange: (view: ViewType) => void
-  hasRadios?: boolean
-}
-
-export default function ViewSelector({
-  selectedView,
+export default function ViewSelector<View extends string>({
   onViewChange,
-  hasRadios = false,
-}: ViewSelectorProps) {
+  options,
+  selectedView,
+}: ViewSelectorProps<View>) {
   const theme = useTheme()
   const { t } = useTranslation()
-
-  const viewOptions: ViewOption[] = [
-    ...(hasRadios
-      ? [{ key: "radios" as const, labelKey: "view.radios", icon: <SettingsRemoteIcon /> }]
-      : []),
-    { key: "splits", labelKey: "view.splits", icon: <TimerIcon /> },
-    { key: "accumulated", labelKey: "view.accumulated", icon: <AccessTimeIcon /> },
-    { key: "timeLoss", labelKey: "view.timeLoss", icon: <AnalyticsIcon /> },
-    { key: "lineChart", labelKey: "view.lineChart", icon: <ShowChart /> },
-    { key: "barChart", labelKey: "view.barChart", icon: <BarChartIcon /> },
-    { key: "positionChart", labelKey: "view.positionChart", icon: <Timeline /> },
-  ]
 
   const boxRef = useRef<HTMLDivElement | null>(null)
   const [hasScroll, setHasScroll] = useState(false)
@@ -88,7 +53,7 @@ export default function ViewSelector({
         maxWidth: "100%",
       }}
     >
-      {viewOptions.map((option) => {
+      {options.map((option) => {
         const isSelected = selectedView === option.key
 
         return (
