@@ -1,11 +1,9 @@
-import { useState } from "react"
 import { Box } from "@mui/material"
 import ExperimentalFeatureAlert from "../../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 import { OnlineControlModel } from "../../../../../../../../../shared/EntityTypes.ts"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "../../../components/NoRunnerWithSplitsMsg.tsx"
-import TimeLossThresholdSlider from "../../../components/TimeLossThresholdSlider.tsx"
 import { DEFAULT_TIME_LOSS_THRESHOLD } from "../../../shared/timeLossThreshold.ts"
 import { showsTimeLoss, SPLITS_VIEW_CONFIG, SplitsView } from "../shared/splitsViews.ts"
 import FootOSplitsTable from "./FootOSplitsTable/FootOSplitsTable.tsx"
@@ -25,8 +23,6 @@ export default function SplitsViewContent({
   runners,
   view,
 }: SplitsViewContentProps) {
-  const [timeLossThreshold, setTimeLossThreshold] = useState<number>(DEFAULT_TIME_LOSS_THRESHOLD)
-
   const viewConfig = SPLITS_VIEW_CONFIG[view]
   const hasRunnersWithSplits = runners.some((runner) => hasChipDownload(runner))
   const isMissingSplits = viewConfig.requiresChipDownload && !hasRunnersWithSplits
@@ -42,16 +38,13 @@ export default function SplitsViewContent({
           <ExperimentalFeatureAlert />
         </Box>
       )}
-      {timeLossEnabled && (
-        <TimeLossThresholdSlider threshold={timeLossThreshold} onChange={setTimeLossThreshold} />
-      )}
       <FootOSplitsTable
         onlyRadios={viewConfig.onlyRadios}
         radiosList={radiosList}
         runners={runners}
         showCumulative={viewConfig.showCumulative}
         timeLossEnabled={timeLossEnabled}
-        timeLossThreshold={timeLossThreshold}
+        timeLossThreshold={DEFAULT_TIME_LOSS_THRESHOLD}
       />
     </Box>
   )
