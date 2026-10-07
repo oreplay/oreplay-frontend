@@ -26,6 +26,7 @@ import RadiosExperimentalAlert from "../../components/RadiosExperimentalAlert.ts
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "../../components/NoRunnerWithSplitsMsg.tsx"
 import { sortFootORunners } from "../../shared/functions.ts"
+import { useSelectedRunners } from "../Graphs/shared/useSelectedRunners.ts"
 import TimeLossThresholdSlider from "../../components/TimeLossThresholdSlider.tsx"
 import { DEFAULT_TIME_LOSS_THRESHOLD } from "../../shared/timeLossThreshold.ts"
 
@@ -63,36 +64,7 @@ export default function FootOSplits(
   const [showCumulative, setShowCumulative] = useState<boolean>(false)
   const [timeLossThreshold, setTimeLossThreshold] = useState<number>(DEFAULT_TIME_LOSS_THRESHOLD)
   const [barChartThreshold, setBarChartThreshold] = useState<number>(DEFAULT_TIME_LOSS_THRESHOLD)
-  const [selectedRunners, setSelectedRunners] = useState<string[]>([])
-
-  useEffect(() => {
-    const saved = localStorage.getItem("selectedRunners")
-    if (saved) {
-      try {
-        const parsedRunners = JSON.parse(saved) as string[]
-        setSelectedRunners(parsedRunners)
-      } catch (error) {
-        console.error("Error parsing saved runners:", error)
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    if (runners.length > 0 && selectedRunners.length === 0) {
-      const topRunners = runners
-        .filter((runner) => runner.stage.position && hasChipDownload(runner))
-        .sort((a, b) => (a.stage.position || 0) - (b.stage.position || 0))
-        .slice(0, 5)
-        .map((runner) => runner.id)
-      setSelectedRunners(topRunners)
-    }
-  }, [runners, selectedRunners.length])
-
-  useEffect(() => {
-    if (selectedRunners.length > 0) {
-      localStorage.setItem("selectedRunners", JSON.stringify(selectedRunners))
-    }
-  }, [selectedRunners])
+  const [selectedRunners, setSelectedRunners] = useSelectedRunners(runners)
 
   const handleViewChange = (view: ViewType) => {
     setSelectedView(view)
