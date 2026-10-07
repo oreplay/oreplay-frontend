@@ -17,11 +17,12 @@ import {
 } from "./shared/footOSplitsTableFunctions.ts"
 import CourseControlTableHeader from "./components/CourseControlTableHeader.tsx"
 import SplitsTableScrollbar from "./components/SplitsTableScrollbar.tsx"
+import useSyncedHorizontalScroll from "./shared/useSyncedHorizontalScroll.ts"
 import NowProvider from "../../../../../../components/NowProvider.tsx"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../../shared/functions.ts"
 import NoRunnerWithSplitsMsg from "../../../../components/NoRunnerWithSplitsMsg.tsx"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { analyzeTimeLoss, TimeLossResults } from "../../../../shared/timeLossAnalysis.ts"
 import { runnerService } from "../../../../../../../../../../domain/services/RunnerService.ts"
 
@@ -58,49 +59,10 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     return analyzeTimeLoss(runnerList, props.timeLossThreshold)
   }, [props.timeLossEnabled, props.onlyRadios, props.timeLossThreshold, runnerList])
 
-  const isSyncingRef = useRef(false)
-  const headerRef = useRef<HTMLDivElement | null>(null)
-  const bodyRef = useRef<HTMLDivElement | null>(null)
-
-  const handleBodyScroll = useCallback(() => {
-    if (isSyncingRef.current) return
-
-    if (headerRef.current && bodyRef.current) {
-      isSyncingRef.current = true
-      headerRef.current.scrollLeft = bodyRef.current.scrollLeft
-      // Allow a short delay before unlocking syncing
-      requestAnimationFrame(() => {
-        isSyncingRef.current = false
-      })
-    }
-  }, [])
-
-  const handleHeaderScroll = useCallback(() => {
-    if (isSyncingRef.current) return
-
-    if (headerRef.current && bodyRef.current) {
-      isSyncingRef.current = true
-      bodyRef.current.scrollLeft = headerRef.current.scrollLeft
-      requestAnimationFrame(() => {
-        isSyncingRef.current = false
-      })
-    }
-  }, [])
-
-  useEffect(() => {
-    const bodyDiv = bodyRef.current
-    const headerDiv = headerRef.current
-
-    if (!bodyDiv || !headerDiv) return
-
-    bodyDiv.addEventListener("scroll", handleBodyScroll)
-    headerDiv.addEventListener("scroll", handleHeaderScroll)
-
-    return () => {
-      bodyDiv.removeEventListener("scroll", handleBodyScroll)
-      headerDiv.removeEventListener("scroll", handleHeaderScroll)
-    }
-  }, [handleBodyScroll, handleHeaderScroll])
+  const { firstScrollerRef: headerRef, secondScrollerRef: bodyRef } = useSyncedHorizontalScroll<
+    HTMLDivElement,
+    HTMLDivElement
+  >()
 
   const [colsWidth, setColWidths] = useState<number[]>([])
   useEffect(() => {
@@ -128,7 +90,7 @@ export default function FootOSplitsTable(props: FootOSplitsTableProps) {
     })
 
     setColWidths(maxWidths)
-  }, [])
+  }, [bodyRef, headerRef])
 
   if (runnerList.length === 0) {
     return <NoRunnerWithSplitsMsg />
