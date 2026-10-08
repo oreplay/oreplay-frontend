@@ -36,7 +36,9 @@ function courseHeadingToSecondControl() {
 }
 
 function courseAt(secondsSinceStart: number) {
-  const now = DateTime.fromISO(START_TIME).plus({ seconds: secondsSinceStart })
+  const now = DateTime.fromISO(START_TIME).plus({
+    seconds: secondsSinceStart,
+  }) as DateTime<true>
   return (
     <NowContext.Provider value={now}>
       <OnlineCourse course={courseHeadingToSecondControl()} />
