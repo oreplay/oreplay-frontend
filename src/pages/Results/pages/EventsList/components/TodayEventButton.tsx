@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { EventModel } from "../../../../../shared/EntityTypes.ts"
 import Button from "@mui/material/Button"
 import { Launch } from "@mui/icons-material"
 import CountryFlag from "../../../../../components/CountryFlag/CountryFlag.tsx"
+import { Event } from "../../../../../domain/types/v1api"
 
 interface TodayEventButtonProps {
-  event: EventModel
+  event: Event
   index: number
 }
 

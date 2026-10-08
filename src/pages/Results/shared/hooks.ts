@@ -1,14 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import { getClassesInStage, getClubsInStage, getEventList } from "../services/EventService.ts"
-import {
-  ClassModel,
-  ClubModel,
-  EventModel,
-  Page,
-  StageClassModel,
-} from "../../../shared/EntityTypes.ts"
+import { getClassesInStage, getClubsInStage } from "../services/EventService.ts"
+import { ClassModel, ClubModel, Page, StageClassModel } from "../../../shared/EntityTypes.ts"
 import { useParams, useSearchParams } from "react-router-dom"
-import { useAuth } from "../../../shared/hooks.ts"
 import { useQuery, UseQueryResult } from "react-query"
 
 export function useFetchClasses(): {
@@ -162,33 +155,6 @@ export function useClassClubSearchParams(): {
     setClassClubSearchParam: setClassClubSearchParam,
     getClassClubSearchParamName: getClassClubSearchParamName,
   }
-}
-
-export function useFetchEvents(
-  when?: "today" | "past" | "future",
-  limit?: number,
-): [EventModel[], boolean, number, (page: number) => void, number] {
-  const { token } = useAuth()
-
-  // Required states
-  const [events, setEvents] = useState<EventModel[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [page, setPage] = useState<number>(1)
-  const [numPages, setNumPages] = useState<number>(1)
-
-  // HTTP query
-  useEffect(() => {
-    void getEventList(page, when, token, limit).then((response) => {
-      setEvents(response.data)
-      setIsLoading(false)
-      setNumPages(Math.ceil(response.total / response.limit))
-
-      return () => setIsLoading(true)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
-
-  return [events, isLoading, page, setPage, numPages]
 }
 
 export function useSelectedMenu(
