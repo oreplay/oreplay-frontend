@@ -8,6 +8,7 @@ import {
   UPLOAD_STATUS,
   UploadEntry,
 } from "../shared/uploadEntry.ts"
+import { messageKeyOf, messageValuesOf } from "../shared/uploadMessage.ts"
 
 interface UploadResultItemProps {
   entry: UploadEntry
@@ -31,7 +32,7 @@ export default function UploadResultItem({ entry }: UploadResultItemProps) {
         <Box component="ul" sx={{ m: 0, mt: 1, pl: 2 }}>
           {messages.map((message, index) => (
             <Typography component="li" variant="body2" key={`${message.code}-${index}`}>
-              {message.text}
+              {t(messageKeyOf(message), messageValuesOf(message))}
             </Typography>
           ))}
         </Box>

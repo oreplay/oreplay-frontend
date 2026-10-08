@@ -40,6 +40,26 @@
       "dropHere": "Drag and drop IOF XML 3.0 files here",
       "filesIgnored_one": "{{count}} file was ignored: only .xml files can be uploaded.",
       "filesIgnored_other": "{{count}} files were ignored: only .xml files can be uploaded.",
+      "messages": {
+        "bad_request": "The upload request is not valid.",
+        "conflict": "Another upload for this stage is still being processed. Wait a moment and try again.",
+        "duplicated_runner": "Duplicated runner with bib {{bib}} in class {{class}}: two entries of the file match the same runner, so only one was kept.",
+        "event_without_time_zone": "The event has no time zone, so the times in the file were read as {{timeZone}}. Set the time zone of the event and upload the file again.",
+        "finish_time_without_seconds": "Some results have a finish time but no running time.",
+        "forbidden": "You do not have permission to upload data to this event.",
+        "invalid_payload": "The file could not be imported. Check that it is an IOF XML 3.0 start list or result list exported for this stage.",
+        "invalid_token": "Your session is not valid. Log in again and retry.",
+        "not_found": "The event or the stage was not found.",
+        "nothing_changed": "Nothing changed: this data had already been uploaded.",
+        "result_type_converted": "Stage results were converted to partial overall results.",
+        "results_without_splits": "The results were uploaded without split times.",
+        "rows_not_saved": "{{rows}} rows of class {{class}} could not be saved. Upload the file again.",
+        "runner_without_results": "Some runners have no results.",
+        "taking_too_long": "Processing took too long and did not finish. Upload the file again to complete it.",
+        "team_without_results": "Some teams have no results.",
+        "team_without_runners": "The team {{team}} has no runners.",
+        "upload_type_guessed": "The file has neither split times nor finish times, so its type could not be determined. It was treated as finish times."
+      },
       "newFeature": {
         "body": "Upload your IOF XML 3.0 start lists and results straight from this page, without the desktop client. Use the upload button <uploadIcon/> of each stage in the table above.",
         "title": "New: upload XML files directly"
@@ -52,6 +72,10 @@
       },
       "title": "Data upload",
       "titleWithStage": "Data upload: {{stageName}}",
+      "unknownMessage": {
+        "error": "The server could not process the file because of an unexpected error. Try again later.",
+        "warning": "The file was processed with a warning that cannot be shown in detail."
+      },
       "uploadFiles": "Upload data",
       "uploadFilesDescription": "Upload IOF XML 3.0 start lists or result lists to this stage.",
       "uploadMore": {

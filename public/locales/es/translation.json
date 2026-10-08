@@ -40,6 +40,26 @@
       "dropHere": "Arrastra y suelta aquí ficheros IOF XML 3.0",
       "filesIgnored_one": "Se ha ignorado {{count}} fichero: solo se pueden subir ficheros .xml.",
       "filesIgnored_other": "Se han ignorado {{count}} ficheros: solo se pueden subir ficheros .xml.",
+      "messages": {
+        "bad_request": "La solicitud de subida no es válida.",
+        "conflict": "Todavía se está procesando otra subida para esta etapa. Espera un momento y vuelve a intentarlo.",
+        "duplicated_runner": "Corredor duplicado con dorsal {{bib}} en la categoría {{class}}: dos entradas del fichero coinciden con el mismo corredor, así que solo se ha guardado una.",
+        "event_without_time_zone": "El evento no tiene zona horaria, así que las horas del fichero se han interpretado como {{timeZone}}. Configura la zona horaria del evento y vuelve a subir el fichero.",
+        "finish_time_without_seconds": "Algunos resultados tienen hora de meta pero no tiempo de carrera.",
+        "forbidden": "No tienes permiso para subir datos a este evento.",
+        "invalid_payload": "No se ha podido importar el fichero. Comprueba que es una lista de salida o de resultados en IOF XML 3.0 exportada para esta etapa.",
+        "invalid_token": "Tu sesión no es válida. Vuelve a iniciar sesión e inténtalo de nuevo.",
+        "not_found": "No se ha encontrado el evento o la etapa.",
+        "nothing_changed": "No ha cambiado nada: estos datos ya se habían subido.",
+        "result_type_converted": "Los resultados de etapa se han convertido en resultados de general parcial.",
+        "results_without_splits": "Los resultados se han subido sin tiempos parciales.",
+        "rows_not_saved": "No se han podido guardar {{rows}} filas de la categoría {{class}}. Vuelve a subir el fichero.",
+        "runner_without_results": "Algunos corredores no tienen resultados.",
+        "taking_too_long": "El procesamiento ha tardado demasiado y no ha terminado. Vuelve a subir el fichero para completarlo.",
+        "team_without_results": "Algunos equipos no tienen resultados.",
+        "team_without_runners": "El equipo {{team}} no tiene corredores.",
+        "upload_type_guessed": "El fichero no tiene tiempos parciales ni horas de meta, así que no se ha podido determinar su tipo. Se ha tratado como tiempos de meta."
+      },
       "newFeature": {
         "body": "Sube tus listas de salida y resultados en IOF XML 3.0 directamente desde esta página, sin el cliente de escritorio. Usa el botón de subida <uploadIcon/> de cada etapa en la tabla de arriba.",
         "title": "Novedad: sube ficheros XML directamente"
@@ -52,6 +72,10 @@
       },
       "title": "Subida de datos",
       "titleWithStage": "Subida de datos: {{stageName}}",
+      "unknownMessage": {
+        "error": "El servidor no ha podido procesar el fichero por un error inesperado. Inténtalo de nuevo más tarde.",
+        "warning": "El fichero se ha procesado con un aviso que no se puede mostrar en detalle."
+      },
       "uploadFiles": "Subir datos",
       "uploadFilesDescription": "Sube listas de salida o de resultados en IOF XML 3.0 a esta etapa.",
       "uploadMore": {
