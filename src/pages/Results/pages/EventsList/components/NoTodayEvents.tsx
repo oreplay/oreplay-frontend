@@ -1,9 +1,9 @@
 import { Box, Pagination } from "@mui/material"
 import NoTodayEventButton from "./NoTodayEventButton.tsx"
-import { EventModel } from "../../../../../shared/EntityTypes.ts"
+import { Event } from "../../../../../domain/types/v1api"
 
 interface Props {
-  eventList: EventModel[]
+  eventList: Event[]
   numPages: number
   page: number
   setPage: (page: number) => void
@@ -21,6 +21,7 @@ export default function NoTodayEvents(props: Props) {
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignContent: "flex-start",
+          height: "100%",
         }}
       >
         {props.eventList.map((event) => (
