@@ -44,6 +44,7 @@ export default function UploadResultTabs() {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label={t("DuringRace.UploadingResults.Tabs1.OE2010.title")} id={"OE2010"} />
           <Tab label={t("DuringRace.UploadingResults.Tabs1.OE12.title")} id={"OE12"} />
+          <Tab label={t("DuringRace.UploadingResults.Tabs1.OS12.title")} id={"OS12"} />
           <Tab label={t("DuringRace.UploadingResults.Tabs1.MeOS.title")} id={"MeOS"} />
         </Tabs>
       </Box>
@@ -151,6 +152,54 @@ export default function UploadResultTabs() {
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OS12.p1")}</Typography>
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OS12.p2")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OS12.img1.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OS12.img1.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OS12.p3")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OS12.img2.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OS12.img2.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OS12.p4")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OS12.img3.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OS12.img3.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OS12.p5")}</Typography>
+        <img
+          src={t("DuringRace.UploadingResults.Tabs1.OS12.img4.url")}
+          alt={t("DuringRace.UploadingResults.Tabs1.OS12.img4.alt")}
+          loading={"lazy"}
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            objectFit: "contain",
+          }}
+        />
+        <Typography>{t("DuringRace.UploadingResults.Tabs1.OS12.p6")}</Typography>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
         <Typography>{t("DuringRace.UploadingResults.Tabs1.MeOS.p1")}</Typography>
         <img
           src={t("DuringRace.UploadingResults.Tabs1.MeOS.img1.url")}

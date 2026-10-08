@@ -23,7 +23,6 @@
         "list1": {
           "item1": "Open the O-Replay Desktop Client and click <1>\"Check connection\"</1>.",
           "item2": "Paste the security key (you will get it after creating the event on the web, we will se that later), then click <2>\"Enter\"</2> and select the stage you want to upload data to. You will get the event Id and security token when you create the event.",
-
           "item3": "Choose the directory where you will export files to, then press <2>\"Start\"</2>. The client will now monitor this folder for any `XML` or `csv` files. When you export start times or results from your timekeeping software, the client will read the file and upload it to O-Replay. Files will be automatically deleted after successful uploads."
         },
         "img1": {
@@ -173,6 +172,31 @@
             "url": "organizers/en/OE12/ExportSplitsSetIOFXML.png",
             "alt": "Save using IOF XML format"
           }
+        },
+        "OS12": {
+          "title": "OS12",
+          "p1": "Relay results are exported with OS12. Relay support is still in active development: split times and final positions are already processed, but online controls are not available for relays yet. Two different reports have to be exported: the official results, which contain the split times of the teams that already have a final result, and the provisional results, which contain the legs that are still being run.",
+          "p2": "First, export the official results. They include the teams that have a final result: either the whole team has finished or one of its members is not classified (mp, dsq, dnf, dns…). Go to Results → Official results → Classes:",
+          "img1": {
+            "url": "/organizers/en/OS12/ExportRelayOfficialResults_ChooseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p3": "In the settings menu at the left side, go to \"Results\" and tick \"Extended format\". Without this option, the split times are not included in the XML file.",
+          "img2": {
+            "url": "/organizers/en/OS12/ExportRelayOfficialResults_Settings.png",
+            "alt": "Official results settings menu with the extended format option ticked"
+          },
+          "p4": "Then, export the provisional results. They are needed for the live coverage of the race, as they include the legs that are currently being run. Go to Results → Provisional results → Classes:",
+          "img3": {
+            "url": "/organizers/en/OS12/ExportRelayProvisionalResults_ChooseMenu.png",
+            "alt": "Menu that has to be chosen"
+          },
+          "p5": "In the settings menu at the left side, go to \"Provisional results\", choose \"Total result\" and tick \"Extended format\". Without this option, the XML file only includes the same teams as the official results instead of all the current legs.",
+          "img4": {
+            "url": "/organizers/en/OS12/ExportRelayProvisionalResults_Settings.png",
+            "alt": "Provisional results settings menu with total result and extended format chosen"
+          },
+          "p6": "Export both reports using IOF XML v3 in the folder O-Replay Client is listening. The provisional results do not include split times, so the official results are still necessary. There is no need to export the Results → Split times → Classes report, which can only be saved as \".csv\"."
         },
         "MeOS": {
           "title": "MeOS",

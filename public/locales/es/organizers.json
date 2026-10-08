@@ -23,7 +23,6 @@
         "list1": {
           "item1": "Abra Cliente de escritorio de O-Replay y haga clic en <1>«Comprobar conexión»</1>.",
           "item2": "Pega la clave de seguridad (la obtendrás después de crear el evento en la web, lo veremos más adelante), luego pulsa <2>«Entrar»</2> y selecciona la etapa a la que quieres subir los datos.",
-
           "item3": "Elija la carpeta a la que exportará los archivos y pulse <2>«Iniciar»</2>. El cliente buscará en esta carpeta cualquier archivo `XML` o `csv`. Cuando exporte horas de salida o resultados desde su programa de cronometraje, el cliente leerá el archivo y lo cargará en O-Replay. Los archivos se borrarán automáticamente después de subirlos con éxito."
         },
         "img1": {
@@ -173,6 +172,27 @@
             "url": "organizers/en/OE12/ExportSplitsSetIOFXML.png",
             "alt": "Guardar utilizando el formato IOF XML"
           }
+        },
+        "OS12": {
+          "title": "OS12",
+          "p1": "Los resultados de relevos se exportan con OS12. El soporte para relevos todavía está en desarrollo activo: los parciales y las posiciones finales ya se procesan, pero los controles online todavía no están disponibles para relevos. Hay que exportar dos informes distintos: los resultados oficiales, que contienen los parciales de los equipos que ya tienen un resultado final, y los resultados provisionales, que contienen los relevos que todavía se están corriendo.",
+          "p2": "En primer lugar, exporta los resultados oficiales. Incluyen los equipos que tienen un resultado final: o bien el equipo completo ha terminado o alguno de sus miembros no está clasificado (error en tarjeta, descalificado, abandono, no sale…). Ve a Resultados → Resultados oficiales → Categorías:",
+          "img1": {
+            "alt": "Captura de pantalla de OS12: Menú que debe ser elegido."
+          },
+          "p3": "En el menú de ajustes de la izquierda, ve a \"Resultados\" y marca \"Formato extendido\". Sin esta opción, los parciales no se incluyen en el archivo XML.",
+          "img2": {
+            "alt": "Captura de pantalla de OS12: Menú de ajustes de los resultados oficiales con la opción de formato extendido marcada."
+          },
+          "p4": "A continuación, exporta los resultados provisionales. Son necesarios para el seguimiento en directo de la carrera, ya que incluyen los relevos que se están corriendo en ese momento. Ve a Resultados → Resultados provisionales → Categorías:",
+          "img3": {
+            "alt": "Captura de pantalla de OS12: Menú que debe ser elegido."
+          },
+          "p5": "En el menú de ajustes de la izquierda, ve a \"Resultados provisionales\", elige \"Resultado total\" y marca \"Formato extendido\". Sin esta opción, el archivo XML solo incluye los mismos equipos que los resultados oficiales en lugar de todos los relevos en curso.",
+          "img4": {
+            "alt": "Captura de pantalla de OS12: Menú de ajustes de los resultados provisionales con resultado total y formato extendido seleccionados."
+          },
+          "p6": "Exporta ambos informes usando IOF XML v3 a la carpeta en la que el cliente está escuchando. Los resultados provisionales no incluyen parciales, por lo que los resultados oficiales siguen siendo necesarios. No hace falta exportar el informe Resultados → Parciales → Categorías, que solo se puede guardar como \".csv\"."
         },
         "MeOS": {
           "title": "MeOS",
