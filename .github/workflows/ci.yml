@@ -119,22 +119,35 @@ jobs:
           skip_app_build: true
           ###### End of Repository/Build Configurations ######
 
-      - name: Smoke test production URL
+      - name: Check production serves this build
         run: |
-          URL="https://www.oreplay.es?updateFront=1"
-          MAX_RETRIES=5
-          SLEEP=15
+          ENTRY=$(grep -o 'index-[A-Za-z0-9_-]*\.js' dist/index.html | head -1)
+          if [ -z "$ENTRY" ]; then
+            echo "No entry bundle found in dist/index.html"
+            exit 1
+          fi
+          PATHS="/ /index.html"
+          if [ -f dist/sw.js ]; then
+            PATHS="$PATHS /sw.js"
+          fi
+          echo "Expecting $ENTRY on $PATHS"
+          MAX_RETRIES=12
+          SLEEP=10
 
           for i in $(seq 1 $MAX_RETRIES); do
-            echo "Waiting $SLEEP seconds before try..."
             sleep $SLEEP
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" $URL || echo 000)
-            echo "Attempt $i → HTTP $STATUS"
-            if [ "$STATUS" -eq 200 ]; then
-              echo "Production is up"
+            STALE=""
+            for P in $PATHS; do
+              if ! curl -sf "https://www.oreplay.es$P" | grep -q "$ENTRY"; then
+                STALE="$STALE $P"
+              fi
+            done
+            if [ -z "$STALE" ]; then
+              echo "Production serves $ENTRY"
               exit 0
             fi
+            echo "Attempt $i: not serving $ENTRY yet on$STALE"
           done
 
-          echo "Production did not become healthy after $MAX_RETRIES attempts"
+          echo "Production did not serve $ENTRY after $MAX_RETRIES attempts"
           exit 1
