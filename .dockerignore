@@ -25,4 +25,4 @@ dist-ssr
 
 # Bubblewrap / Android TWA project (keystore, build outputs)
 android-twa
-.bublewrap
+.bubblewrap
