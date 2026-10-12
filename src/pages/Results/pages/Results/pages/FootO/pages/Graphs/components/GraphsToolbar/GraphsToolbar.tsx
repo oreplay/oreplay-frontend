@@ -7,6 +7,7 @@ import { ViewOption } from "../../../../shared/viewOption.ts"
 import {
   GRAPH_VIEW,
   GRAPH_VIEW_LABEL_KEY,
+  GRAPH_VIEW_ORDER,
   GRAPH_VIEW_SHORT_LABEL_KEY,
   GraphView,
 } from "../../shared/graphViews.ts"
@@ -27,14 +28,12 @@ const GRAPH_VIEW_ICONS: Record<GraphView, ReactElement> = {
   [GRAPH_VIEW.PositionChart]: <PositionIcon />,
 }
 
-const GRAPH_VIEW_OPTIONS: readonly ViewOption<GraphView>[] = Object.values(GRAPH_VIEW).map(
-  (view) => ({
-    icon: GRAPH_VIEW_ICONS[view],
-    key: view,
-    labelKey: GRAPH_VIEW_LABEL_KEY[view],
-    shortLabelKey: GRAPH_VIEW_SHORT_LABEL_KEY[view],
-  }),
-)
+const GRAPH_VIEW_OPTIONS: readonly ViewOption<GraphView>[] = GRAPH_VIEW_ORDER.map((view) => ({
+  icon: GRAPH_VIEW_ICONS[view],
+  key: view,
+  labelKey: GRAPH_VIEW_LABEL_KEY[view],
+  shortLabelKey: GRAPH_VIEW_SHORT_LABEL_KEY[view],
+}))
 
 /**
  * Bar above the graphs that picks which graph is shown. It sticks to the top of the page so it
