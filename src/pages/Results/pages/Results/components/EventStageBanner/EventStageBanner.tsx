@@ -42,14 +42,18 @@ export default function EventStageBanner(props: EventStageBannerProps) {
         </p>
       )}
       {(stageStart || hasWebsite) && (
-        <div className="flex flex-wrap items-center gap-1.5 text-[small] text-[#646464]">
+        <div className="flex flex-col items-start gap-1.5 text-[small] text-[#646464] sm:flex-row sm:flex-wrap sm:items-center">
           {stageStart && (
             <p className="m-0 flex items-center gap-1.5 whitespace-normal break-words">
               <CalendarIcon />
               {stageStart}
             </p>
           )}
-          {showSeparator && <span aria-hidden="true">—</span>}
+          {showSeparator && (
+            <span aria-hidden="true" className="hidden sm:inline">
+              —
+            </span>
+          )}
           {hasWebsite && (
             <EventDetailURLButton url={props.website ?? undefined} sx={WEBSITE_BUTTON_SX} />
           )}
