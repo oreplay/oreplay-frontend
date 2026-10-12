@@ -13,6 +13,7 @@ import { getAccessibleColors } from "../../../../../../../../../../utils/accessi
 import { visibleAxisLabelIndexes } from "../../shared/axisLabels.ts"
 import {
   CHART_RIGHT_MARGIN_PX,
+  CHART_TOP_MARGIN_PX,
   plotWidthPx,
   verticalAxisMarginPx,
 } from "../../shared/chartLayout.ts"
@@ -58,7 +59,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
           borderRadius: 1,
         }}
       >
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ px: 2, textAlign: "center" }}>
           {t("lineChart.noData")}
         </Typography>
       </Box>
@@ -70,7 +71,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
       <ResponsiveLine
         data={dataWithColors}
         margin={{
-          top: 50,
+          top: CHART_TOP_MARGIN_PX,
           right: CHART_RIGHT_MARGIN_PX,
           bottom: 50,
           left: leftMargin,

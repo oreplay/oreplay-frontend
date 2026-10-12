@@ -1,6 +1,7 @@
 export const AXIS_LABEL_CHARACTER_WIDTH_PX = 6.5
 export const AXIS_TICK_SPACE_PX = 14
 export const CHART_RIGHT_MARGIN_PX = 16
+export const CHART_TOP_MARGIN_PX = 16
 
 /**
  * Room a vertical axis needs beside the plot, so its labels fit without leaving the wide empty
