@@ -5,6 +5,7 @@ import { formatStageStart } from "../../../../shared/eventDates.ts"
 import { parseWebsiteUrl } from "../../../../shared/websiteUrl.ts"
 import CalendarIcon from "./components/CalendarIcon.tsx"
 import EventStageBannerOrganizer from "./components/EventStageBannerOrganizer.tsx"
+import EventStageBannerSubtitle from "./components/EventStageBannerSubtitle.tsx"
 import EventStageBannerWatermark from "./components/EventStageBannerWatermark.tsx"
 
 interface EventStageBannerProps {
@@ -15,6 +16,7 @@ interface EventStageBannerProps {
   countryCode?: string | null
   website?: string | null
   singleStage: boolean
+  subtitleTo?: string
 }
 
 const WEBSITE_BUTTON_SX = { minWidth: 0, paddingX: 0.5, paddingY: 0, lineHeight: "inherit" }
@@ -36,11 +38,7 @@ export default function EventStageBanner(props: EventStageBannerProps) {
         />
       )}
       <p className="m-0 text-[x-large] font-semibold text-black/[0.87]">{title}</p>
-      {subtitle && (
-        <p className="m-0 whitespace-normal font-semibold break-words text-[normal] text-black/[0.87]">
-          {subtitle}
-        </p>
-      )}
+      {subtitle && <EventStageBannerSubtitle text={subtitle} to={props.subtitleTo} />}
       {(stageStart || hasWebsite) && (
         <div className="flex flex-col items-start gap-1.5 text-[small] text-[#646464] sm:flex-row sm:flex-wrap sm:items-center">
           {stageStart && (
