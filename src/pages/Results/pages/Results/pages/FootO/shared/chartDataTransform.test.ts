@@ -293,11 +293,22 @@ describe("transformRunnersForPositionChart", () => {
 
     const [series] = transformRunnersForPositionChart(runners, ["r1"], translate)
 
-    expect(series.data.map((point) => [point.x, point.controlName, point.y])).toEqual([
+    expect(series.data.map((point) => [point.xLabel, point.controlName, point.y])).toEqual([
       ["1", "31", 2],
       ["2", "32", 3],
       ["3", "33", 4],
       ["Graphs.Finish", "Graphs.Finish", 1],
     ])
+  })
+
+  it("spaces the controls by the reference time of their leg, like the line charts", () => {
+    const runners = [makeRunner("r1", [60, 120, 30], 30)]
+
+    const [positionSeries] = transformRunnersForPositionChart(runners, ["r1"], translate)
+    const [lineSeries] = transformRunnersForLineChart(runners, ["r1"], translate)
+
+    expect(positionSeries.data.map((point) => point.x)).toEqual(
+      lineSeries.data.slice(1).map((point) => point.x),
+    )
   })
 })

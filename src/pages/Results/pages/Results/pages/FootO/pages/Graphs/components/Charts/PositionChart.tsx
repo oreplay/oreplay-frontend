@@ -2,7 +2,12 @@ import React from "react"
 import { ResponsiveLine } from "@nivo/line"
 import { Box, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import { formatTime } from "../../../../shared/chartDataTransform.ts"
+import {
+  formatTime,
+  getLineChartTicks,
+  PositionChartData,
+  PositionDataPoint,
+} from "../../../../shared/chartDataTransform.ts"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 import { visibleAxisLabelIndexes } from "../../shared/axisLabels.ts"
 import {
@@ -10,23 +15,8 @@ import {
   plotWidthPx,
   verticalAxisMarginPx,
 } from "../../shared/chartLayout.ts"
-import { positionChartControls, positionLabel } from "../../shared/positionChartAxis.ts"
+import { positionLabel } from "../../shared/positionChartAxis.ts"
 import useElementWidth from "../../shared/useElementWidth.ts"
-
-export interface PositionDataPoint {
-  x: string
-  y: number
-  runnerName: string
-  splitTime: number
-  timeLost: number
-  controlName?: string
-}
-
-export interface PositionChartData {
-  id: string
-  color: string
-  data: PositionDataPoint[]
-}
 
 interface PositionChartProps {
   data: PositionChartData[]
@@ -78,12 +68,17 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
 
   const positionLabels = yTickValues.map(positionLabel)
   const leftMargin = verticalAxisMarginPx(positionLabels)
-  const controls = positionChartControls(data)
-  const labelledControlIndexes = visibleAxisLabelIndexes(
-    controls.map((_, index) => index),
+  const ticks = getLineChartTicks(data)
+  const tickValues = ticks.map((tick) => tick.value)
+  const labelledTickIndexes = visibleAxisLabelIndexes(
+    tickValues,
     plotWidthPx(chartWidth, leftMargin, CHART_RIGHT_MARGIN_PX),
   )
-  const labelledControls = new Set(controls.filter((_, index) => labelledControlIndexes.has(index)))
+  const tickLabelByValue = new Map(
+    ticks
+      .filter((_, index) => labelledTickIndexes.has(index))
+      .map((tick) => [tick.value, tick.label]),
+  )
 
   return (
     <Box ref={chartRef} sx={{ height, width: "100%" }}>
@@ -95,7 +90,8 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           bottom: 50,
           left: leftMargin,
         }}
-        xScale={{ type: "point" }}
+        xScale={{ type: "linear", min: "auto", max: "auto", nice: false }}
+        gridXValues={tickValues}
         yScale={{
           type: "linear",
           min: 1,
@@ -109,7 +105,8 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           tickSize: 5,
           tickPadding: 5,
           tickRotation: -45,
-          format: (value) => (labelledControls.has(String(value)) ? String(value) : ""),
+          tickValues,
+          format: (value) => tickLabelByValue.get(Number(value)) ?? "",
           legend: t("positionChart.xAxisLabel"),
           legendOffset: 36,
           legendPosition: "middle",
@@ -133,7 +130,6 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         legends={[]}
         tooltip={({ point }) => {
           const data = point.data as PositionDataPoint
-          if (data.x === "START" || data.x === "FINISH") return null
 
           return (
             <Box

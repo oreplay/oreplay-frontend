@@ -21,7 +21,8 @@ export const START_CONTROL_ID = "START"
 
 // Position Evolution Data Structures
 export interface PositionDataPoint {
-  x: string
+  x: number
+  xLabel: string
   controlName: string
   y: number // Position (inverted: 1 at top)
   control: string
@@ -106,7 +107,9 @@ export function computeLegAxisPositions(runners: ProcessedRunnerModel[]): Map<st
   return positions
 }
 
-export function getLineChartTicks(series: LineChartData[]): LineChartTick[] {
+export function getLineChartTicks(
+  series: readonly { data: readonly { x: number; xLabel: string }[] }[],
+): LineChartTick[] {
   const labelByValue = new Map<number, string>()
   series.forEach((runnerSeries) =>
     runnerSeries.data.forEach((point) => labelByValue.set(point.x, point.xLabel)),
@@ -320,8 +323,13 @@ export function transformRunnersForLineChart(
 }
 
 /**
- * Transforms runner data for position evolution chart (unlimited runners, inverted Y-axis)
- * More permissive with runner validation
+ * Builds the series of the position chart: the place of each selected runner at every control.
+ * Controls are spaced along the x axis by the reference time of their leg, as in the line charts.
+ *
+ * @param runners Runners of the class.
+ * @param selectedRunnerIds Ids of the runners to plot; the ones without chip download are skipped.
+ * @param t Translation function for the finish label.
+ * @returns One series per plotted runner that has at least one position.
  */
 export function transformRunnersForPositionChart(
   runners: ProcessedRunnerModel[],
@@ -335,6 +343,7 @@ export function transformRunnersForPositionChart(
     (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
   )
   const colors = generateRunnerColors(selectedRunners.length)
+  const axisPositions = computeLegAxisPositions(runners)
 
   return selectedRunners
     .map((runner, index) => {
@@ -347,13 +356,16 @@ export function transformRunnersForPositionChart(
         )
 
         sortedSplits.forEach((split) => {
+          const axisPosition = axisPositions.get(orderNumberLegKey(split) ?? "")
           if (
+            axisPosition !== undefined &&
             split.control?.id &&
             split.cumulative_position !== null &&
             split.cumulative_position > 0
           ) {
             data.push({
-              x: (split.order_number ?? data.length + 1).toString(),
+              x: axisPosition,
+              xLabel: (split.order_number ?? data.length + 1).toString(),
               controlName: split.control.station,
               y: split.cumulative_position, // Position (will be inverted in the chart)
               control: split.control.id,
@@ -367,9 +379,11 @@ export function transformRunnersForPositionChart(
       }
 
       // Add a finish position if available
-      if (runner.stage?.position && runner.stage.position > 0) {
+      const finishAxisPosition = axisPositions.get(FINISH_LEG_ID)
+      if (runner.stage?.position && runner.stage.position > 0 && finishAxisPosition !== undefined) {
         data.push({
-          x: t("Graphs.Finish"),
+          x: finishAxisPosition,
+          xLabel: t("Graphs.Finish"),
           controlName: t("Graphs.Finish"),
           y: runner.stage.position,
           control: "FINISH",
