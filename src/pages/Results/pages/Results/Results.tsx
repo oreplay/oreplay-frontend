@@ -13,6 +13,7 @@ import ErrorBoundary from "../../../../components/ErrorBoundary/ErrorBoundary.ts
 import { useQuery } from "react-query"
 import { getClassesInStage } from "../../services/EventService.ts"
 import NoDataInStageMsg from "./components/NoDataInStageMsg.tsx"
+import { getEventPath } from "../../shared/eventPath.ts"
 import "../../../../styles/tailwind.css"
 
 export default function Results() {
@@ -82,6 +83,7 @@ export default function Results() {
           }
           stageStart={stageDetail.start}
           singleStage={singleStage}
+          subtitleTo={getEventPath(eventDetail.id)}
         />
         {classesQuery.isSuccess && classesQuery.data.data.length > 0 ? (
           <StageTypeSelector // display stage data
