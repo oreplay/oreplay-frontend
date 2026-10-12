@@ -241,8 +241,7 @@
       "splitTime": "Роздільний час",
       "timeLost": "Час позаду найкращого розриву: {{timeLost}}"
     },
-    "xAxisLabel": "Елементи керування",
-    "yAxisLabel": "Позиція"
+    "xAxisLabel": "Елементи керування"
   },
   "PrivateEventPage": {
     "Header": "Приватний Захід",

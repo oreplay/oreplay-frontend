@@ -445,8 +445,7 @@
       "splitTime": "Split time",
       "timeLost": "Time behind best split: {{timeLost}}"
     },
-    "xAxisLabel": "Controls",
-    "yAxisLabel": "Position"
+    "xAxisLabel": "Controls"
   },
   "sidebar": {
     "backendVersion": "Backend",

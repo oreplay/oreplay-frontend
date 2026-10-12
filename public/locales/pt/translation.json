@@ -241,8 +241,7 @@
       "splitTime": "Tempo parcial",
       "timeLost": "Tempo por detrás do melhor parcial: {{timeLost}}"
     },
-    "xAxisLabel": "Pontos",
-    "yAxisLabel": "Posição"
+    "xAxisLabel": "Pontos"
   },
   "sidebar": {
     "backendVersion": "Atrás",

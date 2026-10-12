@@ -238,8 +238,7 @@
       "splitTime": "Denbora partziala",
       "timeLost": "Denbora partzial onenari dagokionez: {{timeLost}}"
     },
-    "xAxisLabel": "Kontrolak",
-    "yAxisLabel": "Posizioak"
+    "xAxisLabel": "Kontrolak"
   },
   "PrivateEventPage": {
     "Header": "Ekitaldi Pribatua",

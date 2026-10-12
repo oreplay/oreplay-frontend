@@ -241,8 +241,7 @@
       "splitTime": "Temps intermédiaire",
       "timeLost": "Temps derrière le meilleur intermédiaire : {{timeLost}}"
     },
-    "xAxisLabel": "Contrôles",
-    "yAxisLabel": "Position"
+    "xAxisLabel": "Contrôles"
   },
   "PrivateEventPage": {
     "Header": "Événement privé",

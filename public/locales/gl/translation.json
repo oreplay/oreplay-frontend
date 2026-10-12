@@ -239,8 +239,7 @@
       "splitTime": "Tempo parcial",
       "timeLost": "Tempo respecto ao mellor parcial: {{timeLost}}"
     },
-    "xAxisLabel": "Controis",
-    "yAxisLabel": "Posto"
+    "xAxisLabel": "Controis"
   },
   "PrivateEventPage": {
     "Header": "Evento Privado",

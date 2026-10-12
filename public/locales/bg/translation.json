@@ -313,8 +313,7 @@
       "splitTime": "Междинно време",
       "timeLost": "Изоставане от най-доброто междинно време: {{timeLost}}"
     },
-    "xAxisLabel": "Контролни точки",
-    "yAxisLabel": "Място"
+    "xAxisLabel": "Контролни точки"
   },
   "sidebar": {
     "backendVersion": "Сървърна част",

@@ -130,9 +130,6 @@
   },
   "firstName": "Imię",
   "lastName": "Nazwisko",
-  "positionChart": {
-    "yAxisLabel": "Pozycja"
-  },
   "sidebar": {
     "backendVersion": "Backend",
     "frontendVersion": "Frontend"
