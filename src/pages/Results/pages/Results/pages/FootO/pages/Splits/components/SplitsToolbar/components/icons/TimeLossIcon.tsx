@@ -1,4 +1,4 @@
-import ToolbarIcon from "./ToolbarIcon.tsx"
+import ToolbarIcon from "../../../../../../components/icons/ToolbarIcon.tsx"
 
 /**
  * Icon for the time loss analysis: a stopwatch with a slice of its dial filled in, the part of the

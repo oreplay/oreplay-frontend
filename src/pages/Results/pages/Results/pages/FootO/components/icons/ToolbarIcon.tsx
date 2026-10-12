@@ -5,7 +5,7 @@ interface ToolbarIconProps {
 }
 
 /**
- * Frame shared by the splits toolbar icons, so they all have the same size, line weight and
+ * Frame shared by the icons of the FootO toolbars, so they all have the same size, line weight and
  * colour. The icon is decorative: the button around it carries the label.
  *
  * @param props.children The SVG shapes of the icon, drawn on a 24 by 24 grid.
@@ -20,7 +20,7 @@ export default function ToolbarIcon({ children }: ToolbarIconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className="splits-toolbar-icon h-5 w-5 shrink-0"
+      className="toolbar-icon h-5 w-5 shrink-0"
     >
       {children}
     </svg>

@@ -1,4 +1,4 @@
-import ToolbarIcon from "./ToolbarIcon.tsx"
+import ToolbarIcon from "../../../../../../components/icons/ToolbarIcon.tsx"
 
 /**
  * Icon for the split times: three bars stepping away from the start line, each one beginning where
