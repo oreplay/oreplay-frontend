@@ -28,6 +28,7 @@ import { isAdmin } from "../../../../shared/permissions.ts"
 import { useQuery } from "react-query"
 import { getBackendVersion } from "../../../../services/VersionService.ts"
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts"
+import { SAFE_AREA_INSET_TOP } from "../../shared/safeArea.ts"
 
 type Props = {
   openSidebar: boolean
@@ -57,6 +58,7 @@ export default function Sidebar({ openSidebar, setOpenSidebar }: Props) {
         sx={{
           "&.MuiDrawer-root .MuiDrawer-paper": {
             background: "white",
+            paddingTop: SAFE_AREA_INSET_TOP,
           },
         }}
       >
