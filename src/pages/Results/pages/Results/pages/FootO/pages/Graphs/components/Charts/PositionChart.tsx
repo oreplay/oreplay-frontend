@@ -4,6 +4,10 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { formatTime } from "../../../../shared/chartDataTransform.ts"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
+import { visibleAxisLabelIndexes } from "../../shared/axisLabels.ts"
+import { plotWidthPx, verticalAxisMarginPx } from "../../shared/chartLayout.ts"
+import { positionChartControls, positionLabel } from "../../shared/positionChartAxis.ts"
+import useElementWidth from "../../shared/useElementWidth.ts"
 
 export interface PositionDataPoint {
   x: string
@@ -20,6 +24,8 @@ export interface PositionChartData {
   data: PositionDataPoint[]
 }
 
+const LEFT_LEGEND_GAP_PX = 12
+
 interface PositionChartProps {
   data: PositionChartData[]
   height?: number
@@ -29,6 +35,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
   const { t } = useTranslation()
+  const [chartRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
   if (!data || data.length === 0) {
     return (
@@ -69,16 +76,26 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
     yTickValues.push(dynamicMaxY)
   }
 
+  const positionLabels = yTickValues.map(positionLabel)
+  const leftMargin = verticalAxisMarginPx(positionLabels, true)
+  const rightMargin = verticalAxisMarginPx(positionLabels)
+  const controls = positionChartControls(data)
+  const labelledControlIndexes = visibleAxisLabelIndexes(
+    controls.map((_, index) => index),
+    plotWidthPx(chartWidth, leftMargin, rightMargin),
+  )
+  const labelledControls = new Set(controls.filter((_, index) => labelledControlIndexes.has(index)))
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <Box sx={{ height, width: "100%" }}>
+      <Box ref={chartRef} sx={{ height, width: "100%" }}>
         <ResponsiveLine
           data={dataWithColors}
           margin={{
             top: 50,
-            right: isMobile ? 20 : 40,
+            right: rightMargin,
             bottom: isMobile ? 120 : 50,
-            left: 80,
+            left: leftMargin,
           }}
           xScale={{ type: "point" }}
           yScale={{
@@ -93,16 +110,14 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: t("positionChart.yAxisLabel"),
-            legendOffset: 60,
-            legendPosition: "middle",
-            format: (value) => `${Math.round(Number(value))}°`,
+            format: (value) => positionLabel(Number(value)),
             tickValues: yTickValues,
           }}
           axisBottom={{
             tickSize: 5,
             tickPadding: 5,
             tickRotation: -45,
+            format: (value) => (labelledControls.has(String(value)) ? String(value) : ""),
             legend: t("positionChart.xAxisLabel"),
             legendOffset: 36,
             legendPosition: "middle",
@@ -112,9 +127,9 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             tickPadding: 5,
             tickRotation: 0,
             legend: t("positionChart.yAxisLabel"),
-            legendOffset: -60,
+            legendOffset: LEFT_LEGEND_GAP_PX - leftMargin,
             legendPosition: "middle",
-            format: (value) => `${Math.round(Number(value))}°`,
+            format: (value) => positionLabel(Number(value)),
             tickValues: yTickValues,
           }}
           pointSize={8}
