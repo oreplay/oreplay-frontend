@@ -12,6 +12,7 @@ import { getAccessibleColors } from "../../../../../../../../../../utils/accessi
 import { visibleAxisLabelIndexes } from "../../shared/axisLabels.ts"
 import {
   CHART_RIGHT_MARGIN_PX,
+  CHART_TOP_MARGIN_PX,
   plotWidthPx,
   verticalAxisMarginPx,
 } from "../../shared/chartLayout.ts"
@@ -39,7 +40,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           borderRadius: 1,
         }}
       >
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" sx={{ px: 2, textAlign: "center" }}>
           {t("positionChart.noData")}
         </Typography>
       </Box>
@@ -85,7 +86,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
       <ResponsiveLine
         data={dataWithColors}
         margin={{
-          top: 50,
+          top: CHART_TOP_MARGIN_PX,
           right: CHART_RIGHT_MARGIN_PX,
           bottom: 50,
           left: leftMargin,
