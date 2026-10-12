@@ -6,11 +6,11 @@ import { useResultTabs } from "../../shared/useResultTabs.ts"
 import { Box } from "@mui/material"
 import { AccessTime } from "@mui/icons-material"
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
-import ShowChartIcon from "@mui/icons-material/ShowChart"
 import TimerIcon from "@mui/icons-material/Timer"
 import FootOStartTime from "./pages/StartTime/FootOStartTime.tsx"
 import FootOResults from "./pages/Results/FootOResults.tsx"
 import FootOSplits from "./pages/Splits/FootOSplits.tsx"
+import GraphsTabIcon from "./components/icons/GraphsTabIcon.tsx"
 import FootOGraphs from "./pages/Graphs/FootOGraphs.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { useCallback, useMemo } from "react"
@@ -32,7 +32,7 @@ const FOOT_O_TABS: readonly ResultTabOption[] = [
   { icon: <AccessTime />, key: RESULT_TAB.StartTimes, labelKey: "StageHeader.StartTime" },
   { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
   { icon: <TimerIcon />, key: RESULT_TAB.Splits, labelKey: "StageHeader.Splits" },
-  { icon: <ShowChartIcon />, key: RESULT_TAB.Graphs, labelKey: "StageHeader.Graphs" },
+  { icon: <GraphsTabIcon />, key: RESULT_TAB.Graphs, labelKey: "StageHeader.Graphs" },
 ]
 
 export default function FootO() {
