@@ -148,6 +148,12 @@
   "GoBack": "Tornar enrere",
   "Graphs": {
     "BarChart": "Gràfic de Barres",
+    "Description": {
+      "lineChart": "Mostra quant de temps porta perdut cada corredor respecte del líder de la cursa a cada control. El líder a cada control queda a la línia superior; com més avall és la línia d'un corredor, més temps porta perdut. Els controls se separen segons el que es triga a cada tram.",
+      "perfectRunnerChart": "Mostra quant de temps porta perdut cada corredor respecte del corredor ideal a cada control. El corredor ideal és un competidor imaginari que té el millor temps de la categoria a tots els trams. Una línia que cau amb força assenyala un tram en què el corredor va perdre temps; un tram pla, un de fet a prop del millor temps. Els controls se separen segons el que es triga a cada tram.",
+      "positionChart": "Mostra la posició de cada corredor a la categoria a cada control, segons el temps acumulat. El primer lloc és a dalt, de manera que una línia que puja indica que el corredor guanya posicions."
+    },
+    "DescriptionLabel": "Què mostra aquest gràfic?",
     "Finish": "Meta",
     "LineChart": "Gràfic de Línies",
     "PositionChart": "Evolució de Posició",
@@ -159,7 +165,12 @@
     "Start": "Sortida",
     "Threshold": "Llindar",
     "ThresholdWithPercent": "Llindar ({{percent}}%)",
-    "TimeLossAnalysis": "Anàlisi de pèrdua de Temps"
+    "TimeLossAnalysis": "Anàlisi de pèrdua de Temps",
+    "Title": {
+      "lineChart": "Darrere del líder",
+      "perfectRunnerChart": "Darrere del corredor ideal",
+      "positionChart": "Evolució de la posició"
+    }
   },
   "Language": {
     "English": "English",
@@ -346,8 +357,8 @@
   "lineChart": {
     "noData": "Selecciona corredors per a veure el gràfic de línies",
     "tooltip": {
-      "behindBestPartial": "Temps respecte el millor parcial",
-      "behindLeader": "Temps respecte el líder"
+      "behindLeader": "Temps respecte el líder",
+      "behindPerfectRunner": "Temps respecte el corredor ideal"
     },
     "xAxisLabel": "Fites"
   },
@@ -382,6 +393,9 @@
     "accumulated": "Acumulats",
     "barChart": "Temps perdut",
     "lineChart": "Darrere líder",
+    "lineChartShort": "Líder",
+    "perfectRunnerChart": "Corredor ideal",
+    "perfectRunnerChartShort": "Ideal",
     "positionChart": "Posició",
     "radios": "Radios",
     "splits": "Parcials",

@@ -187,7 +187,18 @@
     "Start": "Départ",
     "Threshold": "Seuil",
     "ThresholdWithPercent": "Seuil ({{percent}}%)",
-    "TimeLossAnalysis": "Analyse des Pertes de Temps"
+    "TimeLossAnalysis": "Analyse des Pertes de Temps",
+    "Description": {
+      "lineChart": "Montre le retard de chaque coureur sur le leader de la course à chaque poste. Le leader à chaque poste se trouve sur la ligne du haut ; plus la ligne d'un coureur est basse, plus son retard est grand. Les postes sont espacés selon la durée de chaque interposte.",
+      "perfectRunnerChart": "Montre le retard de chaque coureur sur le coureur parfait à chaque poste. Le coureur parfait est un concurrent imaginaire qui réalise le meilleur temps de la catégorie sur chaque interposte. Une ligne qui chute nettement signale un interposte où le coureur a perdu du temps ; une portion plate, un interposte couru près du meilleur temps. Les postes sont espacés selon la durée de chaque interposte.",
+      "positionChart": "Montre la place de chaque coureur dans la catégorie à chaque poste, selon le temps cumulé. La première place est en haut : une ligne qui monte signifie que le coureur gagne des places."
+    },
+    "DescriptionLabel": "Que montre ce graphique ?",
+    "Title": {
+      "lineChart": "Derrière le leader",
+      "perfectRunnerChart": "Derrière le coureur parfait",
+      "positionChart": "Évolution du classement"
+    }
   },
   "Language": {
     "English": "English",
@@ -199,8 +210,8 @@
   "lineChart": {
     "noData": "Sélectionnez des coureurs pour voir le graphique linéaire",
     "tooltip": {
-      "behindBestPartial": "Temps derrière le meilleur intermédiaire",
-      "behindLeader": "Temps par rapport au leader"
+      "behindLeader": "Temps par rapport au leader",
+      "behindPerfectRunner": "Temps par rapport au coureur parfait"
     },
     "xAxisLabel": "Contrôles"
   },
@@ -394,6 +405,9 @@
     "accumulated": "Cumulé",
     "barChart": "Pertes de Temps",
     "lineChart": "Derrière le leader",
+    "lineChartShort": "Leader",
+    "perfectRunnerChart": "Coureur parfait",
+    "perfectRunnerChartShort": "Parfait",
     "positionChart": "Position",
     "radios": "Radios",
     "splits": "Intermédiaires",

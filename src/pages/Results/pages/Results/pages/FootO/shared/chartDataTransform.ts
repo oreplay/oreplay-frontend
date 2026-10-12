@@ -1,18 +1,20 @@
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { ChartDataItem } from "../pages/Graphs/components/Charts/BarChart.tsx"
 import {
+  computeBestLegTimes,
   computeLegReferences,
   FINISH_LEG_ID,
-  getRunnerTimeLossInfo,
   mean,
   orderNumberLegKey,
-  splitLegId,
-  TimeLossResults,
 } from "./timeLossAnalysis.ts"
 import { hasChipDownload } from "../../../shared/functions.ts"
 import { TFunction } from "i18next"
 
 export const EVEN_LEG_AXIS_WIDTH = 1
+export const LINE_CHART_REFERENCE = {
+  Leader: "leader",
+  PerfectRunner: "perfectRunner",
+} as const
+export type LineChartReference = (typeof LINE_CHART_REFERENCE)[keyof typeof LINE_CHART_REFERENCE]
 export const MIN_LEG_AXIS_WIDTH_RATIO = 0.5
 export const START_AXIS_POSITION = 0
 export const START_CONTROL_ID = "START"
@@ -45,7 +47,7 @@ export interface ChartDataPoint {
   runnerName: string
   position: number
   timeBehindLeader: number
-  timeBehindBestPartialIncremental: number // Incremental sum of control-to-control gaps
+  timeBehindPerfectRunner: number
   cumulativeTime: number
 }
 
@@ -177,73 +179,68 @@ export function generateRunnerColors(runnerCount: number): string[] {
 }
 
 /**
- * Calculates incremental time behind the best partial for each runner
+ * Time the perfect runner, the one with the best time on every leg, needs to reach each control.
+ *
+ * @param runners Runners of the class.
+ * @returns Seconds from the start by leg key, in course order and with the finish leg last. A leg
+ * nobody has a time for adds nothing to the total.
  */
-function calculateIncrementalTimeBehindBestPartial(
-  runners: ProcessedRunnerModel[],
-  runnerId: string,
-): Map<string, number> {
-  const incrementalMap = new Map<string, number>()
-
-  const runner = runners.find((r) => r.id === runnerId)
-  if (!runner) return incrementalMap
-
-  const sortedSplits = [...runner.stage.splits].sort(
-    (a, b) => (a.order_number || 0) - (b.order_number || 0),
-  )
-
-  let cumulativeTimeBehindBestPartial = 0
-
-  sortedSplits.forEach((split) => {
-    const legKey = orderNumberLegKey(split)
-    if (!split.control?.id || !split.time || !legKey) return
-
-    const runnerSplitTime = split.time // Individual split time, not cumulative
-
-    // Find the best split time for this control among all runners
-    let bestSplitTime = Infinity
-    runners.forEach((r) => {
-      const runnerSplit = r.stage.splits.find((s) => s.order_number === split.order_number)
-      if (runnerSplit && runnerSplit.time !== null && runnerSplit.time < bestSplitTime) {
-        bestSplitTime = runnerSplit.time
-      }
-    })
-
-    if (bestSplitTime !== Infinity) {
-      // Calculate a gap for this control only (not cumulative)
-      const gapForThisControl = runnerSplitTime - bestSplitTime
-
-      // Add to an incremental sum
-      cumulativeTimeBehindBestPartial += Math.max(0, gapForThisControl)
-      incrementalMap.set(legKey, cumulativeTimeBehindBestPartial)
-    }
+export function computePerfectRunnerTimes(runners: ProcessedRunnerModel[]): Map<string, number> {
+  const bestLegTimes = computeBestLegTimes(runners, orderNumberLegKey)
+  const perfectRunnerTimes = new Map<string, number>()
+  let elapsed = 0
+  courseLegKeys(runners).forEach((legKey) => {
+    elapsed += bestLegTimes.get(legKey) ?? 0
+    perfectRunnerTimes.set(legKey, elapsed)
   })
-
-  return incrementalMap
+  return perfectRunnerTimes
 }
 
 /**
- * Transforms runner data for line chart visualization (cumulative time progression)
+ * Picks the value a line chart plots for a point, according to who the runners are compared with.
+ *
+ * @param reference Who the runners are compared with.
+ * @param timeBehindLeader Seconds the runner is behind the leader at the point.
+ * @param timeBehindPerfectRunner Seconds the runner is behind the perfect runner at the point.
+ * @returns The seconds to plot.
+ */
+function timeBehindReference(
+  reference: LineChartReference,
+  timeBehindLeader: number,
+  timeBehindPerfectRunner: number,
+): number {
+  return reference === LINE_CHART_REFERENCE.PerfectRunner
+    ? timeBehindPerfectRunner
+    : timeBehindLeader
+}
+
+/**
+ * Builds the series of a line chart that shows, control by control, how far behind a reference each
+ * selected runner is. Controls are spaced along the x axis by the reference time of their leg.
+ *
+ * @param runners Runners of the class.
+ * @param selectedRunnerIds Ids of the runners to plot; the ones without chip download are skipped.
+ * @param t Translation function for the start and finish labels.
+ * @param reference Who the runners are compared with: the leader at each control, or the perfect
+ * runner made of the best time on every leg.
+ * @returns One series per plotted runner.
  */
 export function transformRunnersForLineChart(
   runners: ProcessedRunnerModel[],
   selectedRunnerIds: string[],
   t: TFunction,
+  reference: LineChartReference = LINE_CHART_REFERENCE.Leader,
 ): LineChartData[] {
   const selectedRunners = runners.filter(
     (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
   )
   const colors = generateRunnerColors(selectedRunners.length)
   const axisPositions = computeLegAxisPositions(runners)
+  const perfectRunnerTimes = computePerfectRunnerTimes(runners)
 
   return selectedRunners.map((runner, index) => {
     const sortedSplits = [...runner.stage.splits].sort(
       (a, b) => (a.order_number || 0) - (b.order_number || 0),
-    )
-
-    const incrementalTimeBehindBestPartial = calculateIncrementalTimeBehindBestPartial(
-      runners,
-      runner.id,
     )
 
     const data: ChartDataPoint[] = []
@@ -258,7 +255,7 @@ export function transformRunnersForLineChart(
       runnerName: runner.full_name,
       position: 1,
       timeBehindLeader: 0,
-      timeBehindBestPartialIncremental: 0,
+      timeBehindPerfectRunner: 0,
       cumulativeTime: 0,
     })
 
@@ -274,19 +271,19 @@ export function transformRunnersForLineChart(
 
       const timeBehindLeader = split.cumulative_behind || 0
 
-      const timeBehindBestPartialIncremental = incrementalTimeBehindBestPartial.get(legKey) || 0
+      const timeBehindPerfectRunner = cumulativeTime - (perfectRunnerTimes.get(legKey) ?? 0)
 
       data.push({
         x: axisPosition,
         xLabel: orderNumber.toString(),
-        y: timeBehindLeader,
+        y: timeBehindReference(reference, timeBehindLeader, timeBehindPerfectRunner),
         controlId,
         controlStation: split.control.station,
         orderNumber,
         runnerName: runner.full_name,
         position: split.cumulative_position || 0,
         timeBehindLeader,
-        timeBehindBestPartialIncremental,
+        timeBehindPerfectRunner,
         cumulativeTime,
       })
     })
@@ -296,19 +293,20 @@ export function transformRunnersForLineChart(
       const finishTime = runner.stage.time_seconds
       const finishTimeBehindLeader = runner.stage.time_behind
 
-      const finalIncrementalTime = Array.from(incrementalTimeBehindBestPartial.values()).pop() || 0
+      const finishTimeBehindPerfectRunner =
+        finishTime - (perfectRunnerTimes.get(FINISH_LEG_ID) ?? 0)
 
       data.push({
         x: finishAxisPosition,
         xLabel: t("Graphs.Finish"),
-        y: finishTimeBehindLeader,
+        y: timeBehindReference(reference, finishTimeBehindLeader, finishTimeBehindPerfectRunner),
         controlId: FINISH_LEG_ID,
         controlStation: FINISH_LEG_ID,
         orderNumber: Infinity,
         runnerName: runner.full_name,
         position: runner.stage.position,
         timeBehindLeader: finishTimeBehindLeader,
-        timeBehindBestPartialIncremental: finalIncrementalTime,
+        timeBehindPerfectRunner: finishTimeBehindPerfectRunner,
         cumulativeTime: finishTime,
       })
     }
@@ -389,137 +387,4 @@ export function transformRunnersForPositionChart(
       }
     })
     .filter((runner) => runner.data.length > 0)
-}
-
-/**
- * Calculates the total loss time using the exact same logic as the table
- */
-function calculateTotalLossTime(
-  runner: ProcessedRunnerModel,
-  timeLossResults?: TimeLossResults,
-): number {
-  if (!timeLossResults) {
-    return 0
-  }
-
-  let totalLoss = 0
-
-  runner.stage.splits.forEach((split) => {
-    const legId = splitLegId(split)
-    if (!legId) return
-    const timeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, legId)
-    if (timeLossInfo) {
-      totalLoss += timeLossInfo.timeLoss
-    }
-  })
-
-  const finishLegTimeLossInfo = getRunnerTimeLossInfo(timeLossResults, runner.id, FINISH_LEG_ID)
-  if (finishLegTimeLossInfo) {
-    totalLoss += finishLegTimeLossInfo.timeLoss
-  }
-
-  return Math.max(0, totalLoss)
-}
-
-/**
- * Calculates error-free time and error time using the exact same logic as the table RunnerRow.tsx
- * This ensures perfect data consistency between table and bar chart views
- */
-function calculateRaceAnalysisData(
-  runner: ProcessedRunnerModel,
-  timeLossResults?: TimeLossResults,
-): { totalTime: number; errorFreeTime: number; errorTime: number } {
-  const totalTime = runner.stage?.time_seconds || 0
-
-  if (totalTime <= 0) {
-    return {
-      totalTime: 0,
-      errorFreeTime: 0,
-      errorTime: 0,
-    }
-  }
-
-  // Use the exact same calculation logic as the table (RunnerRow.tsx calculateTotalLossTime)
-  const totalLossTime = calculateTotalLossTime(runner, timeLossResults)
-
-  // Calculate clean time: Total race time - Total loss time (identical to table calculation)
-  // const cleanTime = Math.max(0, result.time_seconds - totalLossTime) from RunnerRow.tsx
-  const errorFreeTime = Math.max(0, totalTime - totalLossTime)
-  return {
-    totalTime: totalTime,
-    errorFreeTime: errorFreeTime,
-    errorTime: totalLossTime,
-  }
-}
-
-/**
- * Transforms runner data for bar chart visualization (stacked bar showing race analysis data)
- * Uses the same logic as timeLossAnalysis.ts: estimatedTimeWithoutError and hasTimeLoss
- */
-export function transformRunnersForBarChart(
-  runners: ProcessedRunnerModel[],
-  selectedRunnerIds: string[],
-  timeLossResults?: TimeLossResults,
-): ChartDataItem[] {
-  // Filter by hasChipDownload and selectedRunnerIds
-  const selectedRunners = runners.filter(
-    (runner) => selectedRunnerIds.includes(runner.id) && hasChipDownload(runner),
-  )
-
-  if (selectedRunners.length === 0) {
-    return []
-  }
-
-  const colors = generateRunnerColors(selectedRunners.length)
-
-  return selectedRunners
-    .map((runner, index) => {
-      // If the runner doesn't have basic time data, create the default entry
-      const totalTime = runner.stage?.time_seconds || 0
-
-      if (totalTime <= 0) {
-        return {
-          runnerId: runner.id,
-          name: runner.full_name || "Unknown Runner",
-          totalTime: 0,
-          errorFreeTime: 0,
-          errorTime: 0,
-          theoreticalTime: 0,
-          color: colors[index],
-        }
-      }
-
-      const {
-        totalTime: calcTotal,
-        errorFreeTime,
-        errorTime,
-      } = calculateRaceAnalysisData(runner, timeLossResults)
-
-      // Ensure the bar segments add up correctly for stacked visualization
-      const finalErrorFreeTime = Math.max(0, errorFreeTime)
-      const finalErrorTime = Math.max(0, errorTime)
-
-      // Validate that the sum doesn't exceed total time
-      const sum = finalErrorFreeTime + finalErrorTime
-      let adjustedErrorFreeTime = finalErrorFreeTime
-      let adjustedErrorTime = finalErrorTime
-
-      if (sum > calcTotal && calcTotal > 0) {
-        // Proportionally adjust if a sum exceeds the total
-        const ratio = calcTotal / sum
-        adjustedErrorFreeTime = finalErrorFreeTime * ratio
-        adjustedErrorTime = finalErrorTime * ratio
-      }
-
-      return {
-        runnerId: runner.id,
-        name: runner.full_name || "Unknown Runner",
-        totalTime: calcTotal,
-        errorFreeTime: adjustedErrorFreeTime,
-        errorTime: adjustedErrorTime,
-        theoreticalTime: adjustedErrorFreeTime, // Best possible time without errors
-        color: colors[index],
-      }
-    })
-    .filter((item): item is NonNullable<typeof item> => item !== null)
 }

@@ -185,7 +185,18 @@
     "Start": "Saída",
     "Threshold": "Limiar",
     "ThresholdWithPercent": "Limiar ({{percent}}%)",
-    "TimeLossAnalysis": "Análise de tempo perdido"
+    "TimeLossAnalysis": "Análise de tempo perdido",
+    "Description": {
+      "lineChart": "Mostra canto tempo leva perdido cada corredor respecto do líder da carreira en cada control. O líder en cada control queda na liña superior; canto máis baixa está a liña dun corredor, máis tempo leva perdido. Os controis sepáranse segundo o que se tarda en cada tramo.",
+      "perfectRunnerChart": "Mostra canto tempo leva perdido cada corredor respecto do corredor ideal en cada control. O corredor ideal é un competidor imaxinario que ten o mellor tempo da categoría en todos os tramos. Unha liña que cae con forza sinala un tramo no que o corredor perdeu tempo; un tramo plano, un feito preto do mellor tempo. Os controis sepáranse segundo o que se tarda en cada tramo.",
+      "positionChart": "Mostra a posición de cada corredor na categoría en cada control, segundo o tempo acumulado. O primeiro posto está arriba, así que unha liña que sobe indica que o corredor gaña posicións."
+    },
+    "DescriptionLabel": "Que mostra este gráfico?",
+    "Title": {
+      "lineChart": "Detrás do líder",
+      "perfectRunnerChart": "Detrás do corredor ideal",
+      "positionChart": "Evolución da posición"
+    }
   },
   "Language": {
     "English": "Inglés",
@@ -197,8 +208,8 @@
   "lineChart": {
     "noData": "Selecciona corredores para ver o gráfico de liñas",
     "tooltip": {
-      "behindBestPartial": "Tempo respecto do mellor parcial",
-      "behindLeader": "Tempo respecto do líder"
+      "behindLeader": "Tempo respecto do líder",
+      "behindPerfectRunner": "Tempo respecto do corredor ideal"
     },
     "xAxisLabel": "Controis"
   },
@@ -387,6 +398,9 @@
     "accumulated": "Acumulados",
     "barChart": "Tempo perdido",
     "lineChart": "Detrás do líder",
+    "lineChartShort": "Líder",
+    "perfectRunnerChart": "Corredor ideal",
+    "perfectRunnerChartShort": "Ideal",
     "positionChart": "Posto",
     "radios": "Radios",
     "splits": "Parciais",

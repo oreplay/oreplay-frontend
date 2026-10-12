@@ -300,6 +300,28 @@ function buildLegReferences(
   return legReferences
 }
 
+/**
+ * Fastest time anyone ran on each leg of the course, the finish leg included. Together they are the
+ * race of the "perfect runner", who is the best on every leg.
+ *
+ * @param runners Runners of the class. Only the ones that take part in the analysis count: those
+ * without chip download, that did not start or that are not competing are ignored, so a runner who
+ * is not competing can end up ahead of the perfect runner.
+ * @param legKeyOf How a split is mapped to the leg it belongs to.
+ * @returns The best time in seconds by leg key. Legs nobody has a time for are absent.
+ */
+export function computeBestLegTimes(
+  runners: ProcessedRunnerModel[],
+  legKeyOf: LegKeyOf = controlLegKey,
+): Map<string, number> {
+  const entriesByLeg = collectLegEntries(runners.filter(isAnalyzable), legKeyOf)
+  const bestLegTimes = new Map<string, number>()
+  entriesByLeg.forEach((legEntries, legKey) =>
+    bestLegTimes.set(legKey, Math.min(...legEntries.map((entry) => entry.legTime))),
+  )
+  return bestLegTimes
+}
+
 export function computeLegReferences(
   runners: ProcessedRunnerModel[],
   legKeyOf: LegKeyOf = controlLegKey,

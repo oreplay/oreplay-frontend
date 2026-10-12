@@ -219,6 +219,12 @@
   "GoBack": "Go back",
   "Graphs": {
     "BarChart": "Bar Chart",
+    "Description": {
+      "lineChart": "Shows how far behind the race leader each runner is at every control. The leader at each control sits on the top line; the lower a runner's line, the more time they are behind. Controls are spaced according to how long each leg takes.",
+      "perfectRunnerChart": "Shows how far behind the perfect runner each runner is at every control. The perfect runner is an imaginary competitor with the best time of the class on every leg. A line that drops sharply marks a leg where the runner lost time; a flat stretch is a leg run close to the best time. Controls are spaced according to how long each leg takes.",
+      "positionChart": "Shows the position of each runner in the class at every control, by accumulated time. First place is at the top, so a line that climbs means the runner is gaining places."
+    },
+    "DescriptionLabel": "What does this graph show?",
     "Finish": "Finish",
     "LineChart": "Line Chart",
     "PositionChart": "Position Chart",
@@ -229,7 +235,12 @@
     "Start": "Start",
     "Threshold": "Threshold",
     "ThresholdWithPercent": "Threshold ({{percent}}%)",
-    "TimeLossAnalysis": "Time Loss Analysis"
+    "TimeLossAnalysis": "Time Loss Analysis",
+    "Title": {
+      "lineChart": "Behind the leader",
+      "perfectRunnerChart": "Behind the perfect runner",
+      "positionChart": "Position evolution"
+    }
   },
   "Language": {
     "English": "English",
@@ -420,8 +431,8 @@
   "lineChart": {
     "noData": "Select runners to view the line chart",
     "tooltip": {
-      "behindBestPartial": "Time behind best split",
-      "behindLeader": "Time behind leader"
+      "behindLeader": "Time behind leader",
+      "behindPerfectRunner": "Time behind perfect runner"
     },
     "xAxisLabel": "Controls"
   },
@@ -456,6 +467,9 @@
     "accumulated": "Accumulated",
     "barChart": "Time Loss",
     "lineChart": "Behind leader",
+    "lineChartShort": "Leader",
+    "perfectRunnerChart": "Perfect runner",
+    "perfectRunnerChartShort": "Perfect",
     "positionChart": "Position",
     "radios": "Radios",
     "splits": "Splits",
