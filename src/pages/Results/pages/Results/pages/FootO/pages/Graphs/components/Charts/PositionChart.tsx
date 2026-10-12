@@ -1,11 +1,15 @@
 import React from "react"
 import { ResponsiveLine } from "@nivo/line"
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { formatTime } from "../../../../shared/chartDataTransform.ts"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
 import { visibleAxisLabelIndexes } from "../../shared/axisLabels.ts"
-import { plotWidthPx, verticalAxisMarginPx } from "../../shared/chartLayout.ts"
+import {
+  CHART_RIGHT_MARGIN_PX,
+  plotWidthPx,
+  verticalAxisMarginPx,
+} from "../../shared/chartLayout.ts"
 import { positionChartControls, positionLabel } from "../../shared/positionChartAxis.ts"
 import useElementWidth from "../../shared/useElementWidth.ts"
 
@@ -24,16 +28,12 @@ export interface PositionChartData {
   data: PositionDataPoint[]
 }
 
-const LEFT_LEGEND_GAP_PX = 12
-
 interface PositionChartProps {
   data: PositionChartData[]
   height?: number
 }
 
 const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
   const { t } = useTranslation()
   const [chartRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
@@ -77,12 +77,11 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
   }
 
   const positionLabels = yTickValues.map(positionLabel)
-  const leftMargin = verticalAxisMarginPx(positionLabels, true)
-  const rightMargin = verticalAxisMarginPx(positionLabels)
+  const leftMargin = verticalAxisMarginPx(positionLabels)
   const controls = positionChartControls(data)
   const labelledControlIndexes = visibleAxisLabelIndexes(
     controls.map((_, index) => index),
-    plotWidthPx(chartWidth, leftMargin, rightMargin),
+    plotWidthPx(chartWidth, leftMargin, CHART_RIGHT_MARGIN_PX),
   )
   const labelledControls = new Set(controls.filter((_, index) => labelledControlIndexes.has(index)))
 
@@ -93,8 +92,8 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
           data={dataWithColors}
           margin={{
             top: 50,
-            right: rightMargin,
-            bottom: isMobile ? 120 : 50,
+            right: CHART_RIGHT_MARGIN_PX,
+            bottom: 50,
             left: leftMargin,
           }}
           xScale={{ type: "point" }}
@@ -106,13 +105,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             nice: false,
           }}
           axisTop={null}
-          axisRight={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            format: (value) => positionLabel(Number(value)),
-            tickValues: yTickValues,
-          }}
+          axisRight={null}
           axisBottom={{
             tickSize: 5,
             tickPadding: 5,
@@ -126,9 +119,6 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: t("positionChart.yAxisLabel"),
-            legendOffset: LEFT_LEGEND_GAP_PX - leftMargin,
-            legendPosition: "middle",
             format: (value) => positionLabel(Number(value)),
             tickValues: yTickValues,
           }}

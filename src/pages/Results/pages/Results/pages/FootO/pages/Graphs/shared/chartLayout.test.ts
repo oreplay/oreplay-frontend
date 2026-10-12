@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest"
 import {
   AXIS_LABEL_CHARACTER_WIDTH_PX,
-  AXIS_LEGEND_WIDTH_PX,
   AXIS_TICK_SPACE_PX,
   plotWidthPx,
   verticalAxisMarginPx,
@@ -11,12 +10,6 @@ describe("verticalAxisMarginPx", () => {
   it("fits the longest label", () => {
     expect(verticalAxisMarginPx(["00:00", "1:00:00"])).toBe(
       Math.ceil(7 * AXIS_LABEL_CHARACTER_WIDTH_PX + AXIS_TICK_SPACE_PX),
-    )
-  })
-
-  it("adds room for a legend", () => {
-    expect(verticalAxisMarginPx(["1°"], true)).toBe(
-      verticalAxisMarginPx(["1°"]) + AXIS_LEGEND_WIDTH_PX,
     )
   })
 

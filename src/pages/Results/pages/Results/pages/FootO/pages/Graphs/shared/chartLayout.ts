@@ -1,5 +1,4 @@
 export const AXIS_LABEL_CHARACTER_WIDTH_PX = 6.5
-export const AXIS_LEGEND_WIDTH_PX = 20
 export const AXIS_TICK_SPACE_PX = 14
 export const CHART_RIGHT_MARGIN_PX = 16
 
@@ -8,18 +7,11 @@ export const CHART_RIGHT_MARGIN_PX = 16
  * strip a fixed margin would.
  *
  * @param labels Every label written on the axis.
- * @param hasLegend Whether the axis also carries a legend written along it.
  * @returns The margin in whole pixels.
  */
-export function verticalAxisMarginPx(
-  labels: readonly string[],
-  hasLegend: boolean = false,
-): number {
+export function verticalAxisMarginPx(labels: readonly string[]): number {
   const longestLabelLength = Math.max(0, ...labels.map((label) => label.length))
-  const legendWidth = hasLegend ? AXIS_LEGEND_WIDTH_PX : 0
-  return Math.ceil(
-    longestLabelLength * AXIS_LABEL_CHARACTER_WIDTH_PX + AXIS_TICK_SPACE_PX + legendWidth,
-  )
+  return Math.ceil(longestLabelLength * AXIS_LABEL_CHARACTER_WIDTH_PX + AXIS_TICK_SPACE_PX)
 }
 
 /**

@@ -448,8 +448,7 @@
       "splitTime": "Tiempo parcial",
       "timeLost": "Tiempo respecto al mejor parcial: {{timeLost}}"
     },
-    "xAxisLabel": "Controles",
-    "yAxisLabel": "Posición"
+    "xAxisLabel": "Controles"
   },
   "sidebar": {
     "backendVersion": "Backend",

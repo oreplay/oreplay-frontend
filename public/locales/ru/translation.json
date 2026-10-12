@@ -241,8 +241,7 @@
       "splitTime": "Сплит-время",
       "timeLost": "Время отставания от лучшего сплита: {{timeLost}}"
     },
-    "xAxisLabel": "Контрольные пункты",
-    "yAxisLabel": "Позиция"
+    "xAxisLabel": "Контрольные пункты"
   },
   "PrivateEventPage": {
     "Header": "Приватный Ивент",
