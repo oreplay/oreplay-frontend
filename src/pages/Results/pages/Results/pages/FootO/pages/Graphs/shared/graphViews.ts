@@ -8,7 +8,7 @@ export const GRAPH_VIEW = {
 
 export type GraphView = (typeof GRAPH_VIEW)[keyof typeof GRAPH_VIEW]
 
-export const DEFAULT_GRAPH_VIEW: GraphView = GRAPH_VIEW.LineChart
+export const DEFAULT_GRAPH_VIEW: GraphView = GRAPH_VIEW.PerfectRunnerChart
 
 export const GRAPH_VIEW_DESCRIPTION_KEY: Record<GraphView, string> = {
   [GRAPH_VIEW.LineChart]: "Graphs.Description.lineChart",
@@ -21,6 +21,12 @@ export const GRAPH_VIEW_LABEL_KEY: Record<GraphView, string> = {
   [GRAPH_VIEW.PerfectRunnerChart]: "view.perfectRunnerChart",
   [GRAPH_VIEW.PositionChart]: "view.positionChart",
 }
+
+export const GRAPH_VIEW_ORDER: readonly GraphView[] = [
+  GRAPH_VIEW.PerfectRunnerChart,
+  GRAPH_VIEW.LineChart,
+  GRAPH_VIEW.PositionChart,
+]
 
 export const GRAPH_VIEW_SHORT_LABEL_KEY: Partial<Record<GraphView, string>> = {
   [GRAPH_VIEW.LineChart]: "view.lineChartShort",
