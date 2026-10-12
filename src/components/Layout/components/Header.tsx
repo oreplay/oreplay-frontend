@@ -8,6 +8,8 @@ import React from "react"
 import { HorizontalLogo } from "../../../assets/HorizontalLogo.tsx"
 import { SAFE_AREA_INSET_TOP } from "../shared/safeArea.ts"
 
+const LOGO_HEIGHT = "20px"
+
 type Props = {
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
   ref: React.MutableRefObject<HTMLDivElement>
@@ -43,7 +45,7 @@ const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
           </Box>
           <Box sx={{ width: "30%" }}>
             <HorizontalLogo
-              sx={{ width: "100%", cursor: "pointer" }}
+              sx={{ width: "100%", height: LOGO_HEIGHT, cursor: "pointer" }}
               onClick={() => {
                 void navigate("/competitions")
               }}
