@@ -28,7 +28,15 @@ export default function GraphsViewContent({ runners, view }: GraphsViewContentPr
           minHeight: 0,
         }}
       >
-        <Box sx={{ flex: 1, minHeight: GRAPH_AREA_HEIGHT, order: isMobile ? 2 : 1, px: 2 }}>
+        <Box
+          sx={{
+            flex: 1,
+            minWidth: 0,
+            minHeight: GRAPH_AREA_HEIGHT,
+            order: isMobile ? 2 : 1,
+            px: 1,
+          }}
+        >
           <SelectedGraph runners={runners} selectedRunnerIds={selectedRunnerIds} view={view} />
         </Box>
         <Box

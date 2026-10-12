@@ -1,6 +1,6 @@
 import React from "react"
 import { ResponsiveLine } from "@nivo/line"
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import {
   LineChartData,
@@ -10,6 +10,13 @@ import {
   getLineChartTicks,
 } from "../../../../shared/chartDataTransform.ts"
 import { getAccessibleColors } from "../../../../../../../../../../utils/accessibleColors.ts"
+import { visibleAxisLabelIndexes } from "../../shared/axisLabels.ts"
+import {
+  CHART_RIGHT_MARGIN_PX,
+  plotWidthPx,
+  verticalAxisMarginPx,
+} from "../../shared/chartLayout.ts"
+import useElementWidth from "../../shared/useElementWidth.ts"
 
 interface LineChartProps {
   data: LineChartData[]
@@ -17,9 +24,8 @@ interface LineChartProps {
 }
 
 const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
   const { t } = useTranslation()
+  const [chartRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
   const accessibleColors = getAccessibleColors(data.length)
   const dataWithColors = data.map((series, index) => ({
@@ -28,7 +34,17 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
   }))
   const ticks = getLineChartTicks(data)
   const tickValues = ticks.map((tick) => tick.value)
-  const tickLabelByValue = new Map(ticks.map((tick) => [tick.value, tick.label]))
+  const longestTime = Math.max(0, ...data.flatMap((series) => series.data.map((point) => point.y)))
+  const leftMargin = verticalAxisMarginPx([formatTime(longestTime)])
+  const labelledTickIndexes = visibleAxisLabelIndexes(
+    tickValues,
+    plotWidthPx(chartWidth, leftMargin, CHART_RIGHT_MARGIN_PX),
+  )
+  const tickLabelByValue = new Map(
+    ticks
+      .filter((_, index) => labelledTickIndexes.has(index))
+      .map((tick) => [tick.value, tick.label]),
+  )
 
   if (!data || data.length === 0) {
     return (
@@ -51,14 +67,14 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <Box sx={{ height, width: "100%" }}>
+      <Box ref={chartRef} sx={{ height, width: "100%" }}>
         <ResponsiveLine
           data={dataWithColors}
           margin={{
             top: 50,
-            right: isMobile ? 20 : 40,
+            right: CHART_RIGHT_MARGIN_PX,
             bottom: 50,
-            left: 80,
+            left: leftMargin,
           }}
           xScale={{ type: "linear", min: "auto", max: "auto", nice: false }}
           gridXValues={tickValues}
