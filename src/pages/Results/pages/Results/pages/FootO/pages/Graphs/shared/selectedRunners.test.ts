@@ -4,6 +4,7 @@ import { UPLOAD_TYPES } from "../../../../../shared/constants.ts"
 import {
   DEFAULT_SELECTED_RUNNERS_COUNT,
   isSelectableRunner,
+  needsDefaultSelection,
   parseStoredRunnerIds,
   pickDefaultSelectedRunnerIds,
 } from "./selectedRunners.ts"
@@ -27,6 +28,20 @@ describe("isSelectableRunner", () => {
 
   it("rejects a runner without chip download", () => {
     expect(isSelectableRunner(buildRunner("a", 1, UPLOAD_TYPES.ONLINE_SPLITS))).toBe(false)
+  })
+})
+
+describe("needsDefaultSelection", () => {
+  it("asks for the defaults when no selected runner is in the class", () => {
+    expect(needsDefaultSelection([buildRunner("a", 1)], ["other"])).toBe(true)
+  })
+
+  it("keeps a selection that includes a runner of the class", () => {
+    expect(needsDefaultSelection([buildRunner("a", 1)], ["a", "other"])).toBe(false)
+  })
+
+  it("waits until the class has runners", () => {
+    expect(needsDefaultSelection([], [])).toBe(false)
   })
 })
 

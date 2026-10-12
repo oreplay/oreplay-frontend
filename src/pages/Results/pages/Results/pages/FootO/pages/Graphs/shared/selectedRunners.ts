@@ -8,6 +8,21 @@ export function isSelectableRunner(runner: ProcessedRunnerModel): boolean {
   return !!runner.stage.position && hasChipDownload(runner)
 }
 
+/**
+ * Whether the graph should fall back to the default runners: nothing selected belongs to the class
+ * on screen, as on a first visit or after moving to another class.
+ *
+ * @param runners Runners of the class.
+ * @param selectedRunnerIds Ids currently selected, possibly of another class.
+ * @returns `false` while the class is still empty or one of its runners is selected.
+ */
+export function needsDefaultSelection(
+  runners: ProcessedRunnerModel[],
+  selectedRunnerIds: string[],
+): boolean {
+  return runners.length > 0 && !runners.some((runner) => selectedRunnerIds.includes(runner.id))
+}
+
 export function parseStoredRunnerIds(storedRunnerIds: string | null): string[] {
   if (!storedRunnerIds) return []
 
