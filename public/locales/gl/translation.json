@@ -175,10 +175,12 @@
   "GoBack": "Atrás",
   "Graphs": {
     "BarChart": "Gráfico de barras",
+    "ClearSelection": "Quitar selección",
     "Finish": "Meta",
     "LineChart": "Gráfico de liñas",
     "PositionChart": "Gráfico de postos",
     "RunnerSelection": "Selección de corredor",
+    "SelectAll": "Seleccionar todos",
     "SelectedCount_one": "{{count}} de {{total}} selecccionado",
     "SelectedCount_other": "{{count}} de {{total}} selecccionados",
     "SelectRunnersMessage": "Selecciona corredores para ver as gráficas",
@@ -231,7 +233,6 @@
   },
   "Password": "Contrasinal",
   "positionChart": {
-    "caption": "* Posto 1 arriba (mellor), números máis altos abaixo (peor)",
     "noData": "Selecciona corredores para ver a evolución do posto",
     "tooltip": {
       "control": "Control",

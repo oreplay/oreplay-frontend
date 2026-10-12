@@ -176,10 +176,12 @@
   "GoBack": "Повернутися назад",
   "Graphs": {
     "BarChart": "Прямокутна Діаграма",
+    "ClearSelection": "Скасувати вибір",
     "Finish": "Фініш",
     "LineChart": "Лінійна діаграма",
     "PositionChart": "Діаграма позицій",
     "RunnerSelection": "Вибір Бігунів",
+    "SelectAll": "Вибрати всіх",
     "SelectedCount_few": "Обрано {{count}} з {{total}}",
     "SelectedCount_many": "Обрано {{count}} з {{total}}",
     "SelectedCount_one": "Обрано {{count}} з {{total}}",
@@ -233,7 +235,6 @@
   },
   "Password": "Пароль",
   "positionChart": {
-    "caption": "* Позиція 1 зверху (найкраща), вищі цифри нижче (гірша)",
     "noData": "Виберіть бігунів, щоб переглянути еволюцію позицій",
     "tooltip": {
       "control": "Контроль",

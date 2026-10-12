@@ -176,10 +176,12 @@
   "GoBack": "Вернуться назад",
   "Graphs": {
     "BarChart": "Столбиковая диаграмма",
+    "ClearSelection": "Снять выбор",
     "Finish": "Финиш",
     "LineChart": "Линейная диаграмма",
     "PositionChart": "Диаграмма позиций",
     "RunnerSelection": "Выбор бегуна",
+    "SelectAll": "Выбрать всех",
     "SelectedCount_few": "выбраны {{count}} из {{total}}",
     "SelectedCount_many": "выбраны {{count}} из {{total}}",
     "SelectedCount_one": "выбран {{count}} из {{total}}",
@@ -233,7 +235,6 @@
   },
   "Password": "Пароль",
   "positionChart": {
-    "caption": "* Позиция 1 выше всех (лучшая), большие числа ниже (хуже)",
     "noData": "Выберите бегунов для просмотра динамики позиции",
     "tooltip": {
       "control": "КП",

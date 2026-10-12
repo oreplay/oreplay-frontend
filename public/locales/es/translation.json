@@ -216,6 +216,7 @@
   "GoBack": "Volver atrás",
   "Graphs": {
     "BarChart": "Gráfico de Barras",
+    "ClearSelection": "Quitar selección",
     "Description": {
       "lineChart": "Muestra cuánto tiempo lleva perdido cada corredor respecto al líder de la carrera en cada control. El líder en cada control queda en la línea superior; cuanto más baja está la línea de un corredor, más tiempo lleva perdido. Los controles se separan según lo que se tarda en cada tramo.",
       "perfectRunnerChart": "Muestra cuánto tiempo lleva perdido cada corredor respecto al corredor ideal en cada control. El corredor ideal es un competidor imaginario que tiene el mejor tiempo de la categoría en todos los tramos. Una línea que cae con fuerza señala un tramo en el que el corredor perdió tiempo; un tramo plano, uno hecho cerca del mejor tiempo. Los controles se separan según lo que se tarda en cada tramo.",
@@ -226,6 +227,7 @@
     "LineChart": "Gráfico de Líneas",
     "PositionChart": "Evolución de Posición",
     "RunnerSelection": "Selección de Corredores",
+    "SelectAll": "Seleccionar todos",
     "SelectRunnersMessage": "Selecciona corredores para ver gráficos",
     "SelectedCount_many": "{{count}} de {{total}} seleccionados",
     "SelectedCount_one": "{{count}} de {{total}} seleccionados",
@@ -440,7 +442,6 @@
     "xAxisLabel": "Controles"
   },
   "positionChart": {
-    "caption": "* Posición 1 arriba (mejor), posiciones más altas abajo (peor)",
     "noData": "Selecciona corredores para ver la evolución de posición",
     "tooltip": {
       "control": "Control",

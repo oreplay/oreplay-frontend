@@ -93,6 +93,7 @@
   "GoBack": "Volte a trás",
   "Graphs": {
     "BarChart": "Barra de acesso",
+    "ClearSelection": "Limpar seleção",
     "Description": {
       "lineChart": "Mostra quanto tempo cada corredor leva de atraso em relação ao líder da prova em cada ponto de controlo. O líder em cada controlo fica na linha superior; quanto mais baixa estiver a linha de um corredor, maior é o atraso. Os controlos são espaçados de acordo com o tempo que demora cada pernada.",
       "perfectRunnerChart": "Mostra quanto tempo cada corredor leva de atraso em relação ao corredor ideal em cada ponto de controlo. O corredor ideal é um concorrente imaginário que tem o melhor tempo do escalão em todas as pernadas. Uma linha que desce de forma acentuada assinala uma pernada em que o corredor perdeu tempo; um troço plano, uma pernada feita perto do melhor tempo. Os controlos são espaçados de acordo com o tempo que demora cada pernada.",
@@ -103,6 +104,7 @@
     "LineChart": "Grafico de linhas",
     "PositionChart": "Grafico de posição",
     "RunnerSelection": "Seleção do atleta",
+    "SelectAll": "Selecionar todos",
     "SelectRunnersMessage": "Selecione os atletas para ver grafico",
     "SelectedCount_many": "{{count}} de {{total}} selecionados",
     "SelectedCount_one": "{{count}} de {{total}} selecionado",
@@ -233,7 +235,6 @@
     "xAxisLabel": "Controlos"
   },
   "positionChart": {
-    "caption": "* Posição 1 no topo (melhor), números mais altos abaixo (pior)",
     "noData": "Selecione os atletas para visualizar a evolução da posição",
     "tooltip": {
       "control": "Controlo",

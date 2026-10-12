@@ -125,6 +125,7 @@
   "GoBack": "Zpět",
   "Graphs": {
     "BarChart": "Sloupcový graf",
+    "ClearSelection": "Zrušit výběr",
     "Description": {
       "lineChart": "Ukazuje, jakou ztrátu má každý závodník na vedoucího závodníka na každé kontrole. Vedoucí závodník na dané kontrole leží na horní čáře; čím níže je čára závodníka, tím větší má ztrátu. Kontroly jsou rozmístěny podle toho, jak dlouho trvá každý úsek.",
       "perfectRunnerChart": "Ukazuje, jakou ztrátu má každý závodník na ideálního závodníka na každé kontrole. Ideální závodník je pomyslný soupeř, který má na každém úseku nejlepší čas kategorie. Prudce klesající čára označuje úsek, na kterém závodník ztratil čas; rovný úsek znamená čas blízký nejlepšímu. Kontroly jsou rozmístěny podle toho, jak dlouho trvá každý úsek.",
@@ -135,6 +136,7 @@
     "LineChart": "Čárový graf",
     "PositionChart": "Graf umístění",
     "RunnerSelection": "Výběr běžce",
+    "SelectAll": "Vybrat vše",
     "SelectRunnersMessage": "Vyber běžce pro zobrazení grafů",
     "SelectedCount_few": "{{count}} z {{total}} vybráno",
     "SelectedCount_one": "{{count}} z {{total}} vybrán",
@@ -270,7 +272,6 @@
     "xAxisLabel": "Kontroly"
   },
   "positionChart": {
-    "caption": "* Umístění 1 nahoře (nejlepší), vyšší čísla jsou níž (horší)",
     "noData": "Vyber závodníky pro zobrazení vývoje umístění",
     "tooltip": {
       "control": "Kontrola",

@@ -174,10 +174,12 @@
   "GoBack": "Atzera egin",
   "Graphs": {
     "BarChart": "Barra-diagrama",
+    "ClearSelection": "Garbitu hautaketa",
     "Finish": "Meta",
     "LineChart": "Lerro-diagrama",
     "PositionChart": "Posizio-diagrama",
     "RunnerSelection": "Korrikalarien hautaketa",
+    "SelectAll": "Hautatu denak",
     "SelectedCount_one": "{{total}}tik {{count}} hautatua",
     "SelectedCount_other": "{{total}}tik {{count}} hautatuak",
     "SelectRunnersMessage": "Hautatu korrikalariak grafikoak ikusteko",
@@ -230,7 +232,6 @@
   },
   "Password": "Pasahitza",
   "positionChart": {
-    "caption": "* 1. posizioa goian (onena), zenbaki altuenak behean (okerragoak)",
     "noData": "Hautatu korrikalariak posizioen bilakaera ikusteko",
     "tooltip": {
       "control": "Kontrola",

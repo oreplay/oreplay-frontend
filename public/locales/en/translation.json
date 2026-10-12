@@ -219,6 +219,7 @@
   "GoBack": "Go back",
   "Graphs": {
     "BarChart": "Bar Chart",
+    "ClearSelection": "Clear selection",
     "Description": {
       "lineChart": "Shows how far behind the race leader each runner is at every control. The leader at each control sits on the top line; the lower a runner's line, the more time they are behind. Controls are spaced according to how long each leg takes.",
       "perfectRunnerChart": "Shows how far behind the perfect runner each runner is at every control. The perfect runner is an imaginary competitor with the best time of the class on every leg. A line that drops sharply marks a leg where the runner lost time; a flat stretch is a leg run close to the best time. Controls are spaced according to how long each leg takes.",
@@ -229,6 +230,7 @@
     "LineChart": "Line Chart",
     "PositionChart": "Position Chart",
     "RunnerSelection": "Runner Selection",
+    "SelectAll": "Select all",
     "SelectRunnersMessage": "Select runners to view charts",
     "SelectedCount_one": "{{count}} of {{total}} selected",
     "SelectedCount_other": "{{count}} of {{total}} selected",
@@ -437,7 +439,6 @@
     "xAxisLabel": "Controls"
   },
   "positionChart": {
-    "caption": "* Position 1 at the top (best), higher numbers lower (worse)",
     "noData": "Select runners to view position evolution",
     "tooltip": {
       "control": "Control",
