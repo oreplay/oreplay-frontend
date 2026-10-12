@@ -47,7 +47,3 @@ export function defaultSplitsView(hasRadios: boolean): SplitsView {
 export function showsTimeLoss(view: SplitsView, isTimeLossOn: boolean): boolean {
   return isTimeLossOn && SPLITS_VIEW_CONFIG[view].supportsTimeLoss
 }
-
-export function splitsViewOptionId(view: SplitsView): string {
-  return `splits-view-option-${view}`
-}

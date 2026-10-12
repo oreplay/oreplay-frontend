@@ -5,7 +5,6 @@ import {
   showsTimeLoss,
   SPLITS_VIEW,
   SPLITS_VIEW_CONFIG,
-  splitsViewOptionId,
 } from "./splitsViews.ts"
 
 describe("availableSplitsViews", () => {
@@ -61,13 +60,5 @@ describe("showsTimeLoss", () => {
 
   it("hides the time loss when it is switched off", () => {
     expect(showsTimeLoss(SPLITS_VIEW.Splits, false)).toBe(false)
-  })
-})
-
-describe("splitsViewOptionId", () => {
-  it("gives every view a different element id", () => {
-    const ids = Object.values(SPLITS_VIEW).map(splitsViewOptionId)
-
-    expect(new Set(ids).size).toBe(ids.length)
   })
 })

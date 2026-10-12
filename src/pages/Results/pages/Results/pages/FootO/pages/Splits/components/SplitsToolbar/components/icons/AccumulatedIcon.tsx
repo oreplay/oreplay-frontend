@@ -1,4 +1,4 @@
-import ToolbarIcon from "./ToolbarIcon.tsx"
+import ToolbarIcon from "../../../../../../components/icons/ToolbarIcon.tsx"
 
 /**
  * Icon for the accumulated times: three bars growing from the same start line, because every time

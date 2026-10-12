@@ -1,12 +1,11 @@
-import { KeyboardEvent, ReactElement } from "react"
 import { useTranslation } from "react-i18next"
-import { tabIndexForKey } from "../../../../../../../shared/resultTabs.ts"
+import SegmentedSelector from "../../../../../components/SegmentedSelector/SegmentedSelector.tsx"
+import { ViewOption } from "../../../../../shared/viewOption.ts"
 import { SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS } from "../../../shared/splitsToolbarLayout.ts"
-import { SplitsView, splitsViewOptionId } from "../../../shared/splitsViews.ts"
+import { SPLITS_VIEW, SplitsView } from "../../../shared/splitsViews.ts"
 import AccumulatedIcon from "./icons/AccumulatedIcon.tsx"
 import RadiosIcon from "./icons/RadiosIcon.tsx"
 import SplitsIcon from "./icons/SplitsIcon.tsx"
-import SplitsViewOption from "./SplitsViewOption.tsx"
 
 interface SplitsViewSelectorProps {
   onViewChange: (view: SplitsView) => void
@@ -14,52 +13,38 @@ interface SplitsViewSelectorProps {
   views: readonly SplitsView[]
 }
 
-const VIEW_ICONS: Record<SplitsView, ReactElement> = {
-  accumulated: <AccumulatedIcon />,
-  radios: <RadiosIcon />,
-  splits: <SplitsIcon />,
+const VIEW_OPTIONS: Record<SplitsView, ViewOption<SplitsView>> = {
+  [SPLITS_VIEW.Accumulated]: {
+    icon: <AccumulatedIcon />,
+    key: SPLITS_VIEW.Accumulated,
+    labelKey: "view.accumulated",
+  },
+  [SPLITS_VIEW.Radios]: { icon: <RadiosIcon />, key: SPLITS_VIEW.Radios, labelKey: "view.radios" },
+  [SPLITS_VIEW.Splits]: { icon: <SplitsIcon />, key: SPLITS_VIEW.Splits, labelKey: "view.splits" },
 }
 
-const VIEW_LABEL_KEYS: Record<SplitsView, string> = {
-  accumulated: "view.accumulated",
-  radios: "view.radios",
-  splits: "view.splits",
-}
-
+/**
+ * Switch between the views of the splits table.
+ *
+ * @param props.onViewChange Called with the view the user picked.
+ * @param props.selectedView The view currently shown.
+ * @param props.views The views on offer, in display order.
+ */
 export default function SplitsViewSelector({
   onViewChange,
   selectedView,
   views,
 }: SplitsViewSelectorProps) {
   const { t } = useTranslation()
-
-  const selectViewFromKeyboard = (event: KeyboardEvent) => {
-    const newIndex = tabIndexForKey(event.key, views.indexOf(selectedView), views.length)
-    if (newIndex === null) return
-
-    event.preventDefault()
-    const newView = views[newIndex]
-    onViewChange(newView)
-    document.getElementById(splitsViewOptionId(newView))?.focus()
-  }
+  const options = views.map((view) => VIEW_OPTIONS[view])
 
   return (
-    <div
-      role="radiogroup"
-      aria-label={t("StageHeader.Splits")}
-      className={`splits-view-selector flex min-w-0 max-w-md flex-1 gap-1 rounded-lg bg-neutral-100 p-1 ${SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS}`}
-    >
-      {views.map((view) => (
-        <SplitsViewOption
-          key={view}
-          icon={VIEW_ICONS[view]}
-          isSelected={view === selectedView}
-          labelKey={VIEW_LABEL_KEYS[view]}
-          onKeyDown={selectViewFromKeyboard}
-          onSelect={() => onViewChange(view)}
-          view={view}
-        />
-      ))}
-    </div>
+    <SegmentedSelector
+      ariaLabel={t("StageHeader.Splits")}
+      onChange={onViewChange}
+      options={options}
+      selectedKey={selectedView}
+      className={SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS}
+    />
   )
 }
