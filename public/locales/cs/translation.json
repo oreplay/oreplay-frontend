@@ -125,6 +125,12 @@
   "GoBack": "Zpět",
   "Graphs": {
     "BarChart": "Sloupcový graf",
+    "Description": {
+      "lineChart": "Ukazuje, jakou ztrátu má každý závodník na vedoucího závodníka na každé kontrole. Vedoucí závodník na dané kontrole leží na horní čáře; čím níže je čára závodníka, tím větší má ztrátu. Kontroly jsou rozmístěny podle toho, jak dlouho trvá každý úsek.",
+      "perfectRunnerChart": "Ukazuje, jakou ztrátu má každý závodník na ideálního závodníka na každé kontrole. Ideální závodník je pomyslný soupeř, který má na každém úseku nejlepší čas kategorie. Prudce klesající čára označuje úsek, na kterém závodník ztratil čas; rovný úsek znamená čas blízký nejlepšímu. Kontroly jsou rozmístěny podle toho, jak dlouho trvá každý úsek.",
+      "positionChart": "Ukazuje pořadí každého závodníka v kategorii na každé kontrole podle průběžného času. První místo je nahoře, takže stoupající čára znamená, že závodník získává pozice."
+    },
+    "DescriptionLabel": "Co tento graf ukazuje?",
     "Finish": "Cíl",
     "LineChart": "Čárový graf",
     "PositionChart": "Graf umístění",
@@ -136,7 +142,12 @@
     "Start": "Start",
     "Threshold": "Prahová hodnota",
     "ThresholdWithPercent": "Prahová hodnota ({{percent}}%)",
-    "TimeLossAnalysis": "Analýza časové ztráty"
+    "TimeLossAnalysis": "Analýza časové ztráty",
+    "Title": {
+      "lineChart": "Ztráta na vedoucího závodníka",
+      "perfectRunnerChart": "Ztráta na ideálního závodníka",
+      "positionChart": "Vývoj pořadí"
+    }
   },
   "Language": {
     "English": "Angličtina",
@@ -253,8 +264,8 @@
   "lineChart": {
     "noData": "Vyber závodníky pro zobrazení čárového grafu",
     "tooltip": {
-      "behindBestPartial": "Ztráta na nejlepší mezičas",
-      "behindLeader": "Ztráta na vítěze"
+      "behindLeader": "Ztráta na vítěze",
+      "behindPerfectRunner": "Ztráta na ideálního závodníka"
     },
     "xAxisLabel": "Kontroly"
   },
@@ -289,6 +300,9 @@
     "accumulated": "Akumulované",
     "barChart": "Časová ztráta",
     "lineChart": "Za vedoucím závodníkem",
+    "lineChartShort": "Vedoucí",
+    "perfectRunnerChart": "Ideální závodník",
+    "perfectRunnerChartShort": "Ideální",
     "positionChart": "Umístění",
     "radios": "Radiokontroly",
     "splits": "Mezičasy",

@@ -93,6 +93,12 @@
   "GoBack": "Volte a trás",
   "Graphs": {
     "BarChart": "Barra de acesso",
+    "Description": {
+      "lineChart": "Mostra quanto tempo cada corredor leva de atraso em relação ao líder da prova em cada ponto de controlo. O líder em cada controlo fica na linha superior; quanto mais baixa estiver a linha de um corredor, maior é o atraso. Os controlos são espaçados de acordo com o tempo que demora cada pernada.",
+      "perfectRunnerChart": "Mostra quanto tempo cada corredor leva de atraso em relação ao corredor ideal em cada ponto de controlo. O corredor ideal é um concorrente imaginário que tem o melhor tempo do escalão em todas as pernadas. Uma linha que desce de forma acentuada assinala uma pernada em que o corredor perdeu tempo; um troço plano, uma pernada feita perto do melhor tempo. Os controlos são espaçados de acordo com o tempo que demora cada pernada.",
+      "positionChart": "Mostra a posição de cada corredor no escalão em cada ponto de controlo, segundo o tempo acumulado. O primeiro lugar fica em cima, pelo que uma linha que sobe indica que o corredor está a ganhar posições."
+    },
+    "DescriptionLabel": "O que mostra este gráfico?",
     "Finish": "Fim",
     "LineChart": "Grafico de linhas",
     "PositionChart": "Grafico de posição",
@@ -104,7 +110,12 @@
     "Start": "Partida",
     "Threshold": "Limiar",
     "ThresholdWithPercent": "Limiar ({{percent}}%)",
-    "TimeLossAnalysis": "Analise de tempo perdido"
+    "TimeLossAnalysis": "Analise de tempo perdido",
+    "Title": {
+      "lineChart": "Atrás do líder",
+      "perfectRunnerChart": "Atrás do corredor ideal",
+      "positionChart": "Evolução da posição"
+    }
   },
   "Language": {
     "English": "Inglês",
@@ -216,8 +227,8 @@
   "lineChart": {
     "noData": "Selecione atletas para ver o gráfico de linhas",
     "tooltip": {
-      "behindBestPartial": "Tempo atrás do melhor split",
-      "behindLeader": "Tempo por detrás do líder"
+      "behindLeader": "Tempo por detrás do líder",
+      "behindPerfectRunner": "Tempo por detrás do corredor ideal"
     },
     "xAxisLabel": "Controlos"
   },
@@ -252,6 +263,9 @@
     "accumulated": "Acumulado",
     "barChart": "Tempo perdido",
     "lineChart": "Por detrás do líder",
+    "lineChartShort": "Líder",
+    "perfectRunnerChart": "Corredor ideal",
+    "perfectRunnerChartShort": "Ideal",
     "positionChart": "Posição",
     "radios": "Radios",
     "splits": "Parciais",

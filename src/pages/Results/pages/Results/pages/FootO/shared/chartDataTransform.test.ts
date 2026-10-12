@@ -6,15 +6,17 @@ import { UPLOAD_TYPES } from "../../../shared/constants.ts"
 import {
   computeLegAxisPositions,
   computeLegAxisWidths,
+  computePerfectRunnerTimes,
   EVEN_LEG_AXIS_WIDTH,
   getLineChartTicks,
+  LINE_CHART_REFERENCE,
   MIN_LEG_AXIS_WIDTH_RATIO,
   START_AXIS_POSITION,
   START_CONTROL_ID,
   transformRunnersForLineChart,
   transformRunnersForPositionChart,
 } from "./chartDataTransform.ts"
-import { computeLegReferences, FINISH_LEG_ID } from "./timeLossAnalysis.ts"
+import { computeBestLegTimes, computeLegReferences, FINISH_LEG_ID } from "./timeLossAnalysis.ts"
 
 const translate = ((key: string) => key) as unknown as TFunction
 
@@ -168,6 +170,85 @@ describe("transformRunnersForLineChart", () => {
       [180, "2"],
       [240, "Graphs.Finish"],
     ])
+  })
+})
+
+describe("computeBestLegTimes", () => {
+  it("keeps the fastest time of every leg, the finish leg included", () => {
+    const runners = [makeRunner("r1", [60, 120], 15), makeRunner("r2", [70, 100], 12)]
+
+    const bestLegTimes = computeBestLegTimes(runners)
+
+    expect(bestLegTimes.get("c1")).toBe(60)
+    expect(bestLegTimes.get("c2")).toBe(100)
+    expect(bestLegTimes.get(FINISH_LEG_ID)).toBe(12)
+  })
+
+  it("ignores the legs of runners that are not competing", () => {
+    const runners = [makeRunner("r1", [60], 15), makeRunner("nc", [50], 10, RESULT_STATUS.nc)]
+
+    const bestLegTimes = computeBestLegTimes(runners)
+
+    expect(bestLegTimes.get("c1")).toBe(60)
+    expect(bestLegTimes.get(FINISH_LEG_ID)).toBe(15)
+  })
+})
+
+describe("computePerfectRunnerTimes", () => {
+  it("adds up the best time of every leg in course order", () => {
+    const runners = [makeRunner("r1", [60, 120], 15), makeRunner("r2", [70, 100], 12)]
+
+    const perfectRunnerTimes = computePerfectRunnerTimes(runners)
+
+    expect([...perfectRunnerTimes.entries()]).toEqual([
+      ["1", 60],
+      ["2", 160],
+      [FINISH_LEG_ID, 172],
+    ])
+  })
+})
+
+describe("transformRunnersForLineChart behind the perfect runner", () => {
+  const runners = [makeRunner("r1", [60, 120], 15), makeRunner("r2", [70, 100], 12)]
+
+  it("plots the time behind the perfect runner at every control", () => {
+    const [first, second] = transformRunnersForLineChart(
+      runners,
+      ["r1", "r2"],
+      translate,
+      LINE_CHART_REFERENCE.PerfectRunner,
+    )
+
+    expect(first.data.map((point) => point.y)).toEqual([0, 0, 20, 23])
+    expect(second.data.map((point) => point.y)).toEqual([0, 10, 10, 10])
+  })
+
+  it("spaces the controls like the time behind leader graph", () => {
+    const [behindLeader] = transformRunnersForLineChart(runners, ["r1"], translate)
+    const [behindPerfectRunner] = transformRunnersForLineChart(
+      runners,
+      ["r1"],
+      translate,
+      LINE_CHART_REFERENCE.PerfectRunner,
+    )
+
+    expect(behindPerfectRunner.data.map((point) => point.x)).toEqual(
+      behindLeader.data.map((point) => point.x),
+    )
+  })
+
+  it("keeps plotting the time behind the leader by default", () => {
+    const [series] = transformRunnersForLineChart(runners, ["r1"], translate)
+
+    expect(series.data.map((point) => point.y)).toEqual(
+      series.data.map((point) => point.timeBehindLeader),
+    )
+  })
+
+  it("carries the time behind the perfect runner on every point for the tooltip", () => {
+    const [series] = transformRunnersForLineChart(runners, ["r2"], translate)
+
+    expect(series.data.map((point) => point.timeBehindPerfectRunner)).toEqual([0, 10, 10, 10])
   })
 })
 

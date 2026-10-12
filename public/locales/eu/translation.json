@@ -184,7 +184,18 @@
     "Start": "Irteera",
     "Threshold": "Atalasea",
     "ThresholdWithPercent": "Atalasea ({{percent}}%)",
-    "TimeLossAnalysis": "Denbora-galeren analisia"
+    "TimeLossAnalysis": "Denbora-galeren analisia",
+    "Description": {
+      "lineChart": "Korrikalari bakoitzak kontrol bakoitzean lasterketako liderrarekiko duen atzerapena erakusten du. Kontrol bakoitzeko liderra goiko lerroan dago; korrikalari baten lerroa zenbat eta beherago egon, orduan eta atzerapen handiagoa du. Kontrolak tarte bakoitzak irauten duenaren arabera banatzen dira.",
+      "perfectRunnerChart": "Korrikalari bakoitzak kontrol bakoitzean korrikalari perfektuarekiko duen atzerapena erakusten du. Korrikalari perfektua irudizko lehiakide bat da, tarte guztietan kategoriako denborarik onena duena. Nabarmen jaisten den lerroak korrikalariak denbora galdu duen tartea adierazten du; zati lauak, denbora onenetik gertu egindako tartea. Kontrolak tarte bakoitzak irauten duenaren arabera banatzen dira.",
+      "positionChart": "Korrikalari bakoitzak kontrol bakoitzean kategorian duen postua erakusten du, denbora metatuaren arabera. Lehen postua goian dago; beraz, gora doan lerroak korrikalaria postuak irabazten ari dela esan nahi du."
+    },
+    "DescriptionLabel": "Zer erakusten du grafiko honek?",
+    "Title": {
+      "lineChart": "Liderraren atzetik",
+      "perfectRunnerChart": "Korrikalari perfektuaren atzetik",
+      "positionChart": "Postuaren bilakaera"
+    }
   },
   "Language": {
     "English": "Ingelesa",
@@ -196,8 +207,8 @@
   "lineChart": {
     "noData": "Hautatu korrikalariak lerro-diagrama ikusteko",
     "tooltip": {
-      "behindBestPartial": "Denbora partzial onenarekiko erlatiboa",
-      "behindLeader": "Liderrarekiko denbora-aldea"
+      "behindLeader": "Liderrarekiko denbora-aldea",
+      "behindPerfectRunner": "Korrikalari perfektuarekiko denbora-aldea"
     },
     "xAxisLabel": "Kontrolak"
   },
@@ -388,6 +399,9 @@
     "accumulated": "Metatua",
     "barChart": "Denbora galduta",
     "lineChart": "Liderraren atzetik",
+    "lineChartShort": "Liderra",
+    "perfectRunnerChart": "Korrikalari perfektua",
+    "perfectRunnerChartShort": "Perfektua",
     "positionChart": "Posizioa",
     "radios": "Irratiak",
     "splits": "Partzialak",

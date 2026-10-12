@@ -119,8 +119,8 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
                   {formatTimeDifference(data.timeBehindLeader)}
                 </Typography>
                 <Typography variant="body2">
-                  {t("lineChart.tooltip.behindBestPartial")}:{" "}
-                  {formatTimeDifference(data.timeBehindBestPartialIncremental)}
+                  {t("lineChart.tooltip.behindPerfectRunner")}:{" "}
+                  {formatTimeDifference(data.timeBehindPerfectRunner)}
                 </Typography>
               </Box>
             )
