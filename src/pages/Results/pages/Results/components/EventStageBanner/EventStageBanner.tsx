@@ -5,6 +5,7 @@ import { formatStageStart } from "../../../../shared/eventDates.ts"
 import { parseWebsiteUrl } from "../../../../shared/websiteUrl.ts"
 import CalendarIcon from "./components/CalendarIcon.tsx"
 import EventStageBannerOrganizer from "./components/EventStageBannerOrganizer.tsx"
+import EventStageBannerWatermark from "./components/EventStageBannerWatermark.tsx"
 
 interface EventStageBannerProps {
   eventName: string
@@ -26,7 +27,8 @@ export default function EventStageBanner(props: EventStageBannerProps) {
   const showSeparator = Boolean(stageStart) && hasWebsite
 
   return (
-    <div className="event-stage-banner tw-root flex flex-col gap-2 bg-[linear-gradient(30deg,#fbe1d7_0%,#ffd4fa_100%)] px-6 py-8 text-left font-sans text-base font-normal leading-normal tracking-[0.00938em]">
+    <div className="event-stage-banner tw-root relative isolate flex flex-col gap-2 overflow-hidden bg-white px-6 py-8 text-left font-sans text-base font-normal leading-normal tracking-[0.00938em]">
+      <EventStageBannerWatermark />
       {props.organizerName && (
         <EventStageBannerOrganizer
           organizerName={props.organizerName}

@@ -20,7 +20,7 @@ export default function ResultTabsBarDesktop(props: ResultTabsBarProps) {
   return (
     <nav
       style={BAR_STYLE}
-      className="result-tabs-bar-desktop tw-root sticky top-0 z-10 box-border flex justify-start border-b border-neutral-200 bg-white px-4 font-sans shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+      className="result-tabs-bar-desktop tw-root sticky top-0 z-10 box-border flex justify-start border-0 border-b-4 border-solid border-neutral-200 bg-white px-4 font-sans"
     >
       <div role="tablist" className="flex gap-1">
         {props.options.map((option, index) => (
