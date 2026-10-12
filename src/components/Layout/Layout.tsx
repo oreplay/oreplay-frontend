@@ -6,6 +6,7 @@ import Sidebar from "./components/Sidebar/Sidebar.tsx"
 import GeneralSuspenseFallback from "../GeneralSuspenseFallback.tsx"
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary.tsx"
 import ConnectionStatus from "./components/ConnectionStatus/ConnectionStatus.tsx"
+import { SAFE_AREA_INSET_LEFT, SAFE_AREA_INSET_RIGHT } from "./shared/safeArea.ts"
 
 export default function Layout() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
@@ -16,6 +17,8 @@ export default function Layout() {
         minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
+        paddingLeft: SAFE_AREA_INSET_LEFT,
+        paddingRight: SAFE_AREA_INSET_RIGHT,
       }}
     >
       <Header key={"AppHeader"} setOpenSidebar={setIsSideBarOpen} />
