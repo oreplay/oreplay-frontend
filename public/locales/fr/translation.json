@@ -176,10 +176,12 @@
   "GoBack": "Retourner",
   "Graphs": {
     "BarChart": "Graphique en Barres",
+    "ClearSelection": "Effacer la sélection",
     "Finish": "Arrivée",
     "LineChart": "Graphique Linéaire",
     "PositionChart": "Évolution des Positions",
     "RunnerSelection": "Sélection des Coureurs",
+    "SelectAll": "Tout sélectionner",
     "SelectedCount_many": "{{count}} sur {{total}} sélectionnés",
     "SelectedCount_one": "{{count}} sur {{total}} sélectionné",
     "SelectedCount_other": "{{count}} sur {{total}} sélectionnés",
@@ -233,7 +235,6 @@
   },
   "Password": "Mot de passe",
   "positionChart": {
-    "caption": "* Position 1 en haut (meilleur), positions plus élevées en bas (pire)",
     "noData": "Sélectionnez des coureurs pour voir l'évolution de la position",
     "tooltip": {
       "control": "Contrôle",

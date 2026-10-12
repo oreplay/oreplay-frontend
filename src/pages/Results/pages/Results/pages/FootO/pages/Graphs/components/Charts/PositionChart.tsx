@@ -86,171 +86,136 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
   const labelledControls = new Set(controls.filter((_, index) => labelledControlIndexes.has(index)))
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <Box ref={chartRef} sx={{ height, width: "100%" }}>
-        <ResponsiveLine
-          data={dataWithColors}
-          margin={{
-            top: 50,
-            right: CHART_RIGHT_MARGIN_PX,
-            bottom: 50,
-            left: leftMargin,
-          }}
-          xScale={{ type: "point" }}
-          yScale={{
-            type: "linear",
-            min: 1,
-            max: dynamicMaxY,
-            reverse: true,
-            nice: false,
-          }}
-          axisTop={null}
-          axisRight={null}
-          axisBottom={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: -45,
-            format: (value) => (labelledControls.has(String(value)) ? String(value) : ""),
-            legend: t("positionChart.xAxisLabel"),
-            legendOffset: 36,
-            legendPosition: "middle",
-          }}
-          axisLeft={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            format: (value) => positionLabel(Number(value)),
-            tickValues: yTickValues,
-          }}
-          pointSize={8}
-          pointColor={{ theme: "background" }}
-          pointBorderWidth={2}
-          pointBorderColor={{ from: "serieColor" }}
-          pointLabelYOffset={-12}
-          enableArea={false}
-          colors={(d) => d.color}
-          lineWidth={3}
-          useMesh={true}
-          legends={[]}
-          tooltip={({ point }) => {
-            const data = point.data as PositionDataPoint
-            if (data.x === "START" || data.x === "FINISH") return null
+    <Box ref={chartRef} sx={{ height, width: "100%" }}>
+      <ResponsiveLine
+        data={dataWithColors}
+        margin={{
+          top: 50,
+          right: CHART_RIGHT_MARGIN_PX,
+          bottom: 50,
+          left: leftMargin,
+        }}
+        xScale={{ type: "point" }}
+        yScale={{
+          type: "linear",
+          min: 1,
+          max: dynamicMaxY,
+          reverse: true,
+          nice: false,
+        }}
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: -45,
+          format: (value) => (labelledControls.has(String(value)) ? String(value) : ""),
+          legend: t("positionChart.xAxisLabel"),
+          legendOffset: 36,
+          legendPosition: "middle",
+        }}
+        axisLeft={{
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
+          format: (value) => positionLabel(Number(value)),
+          tickValues: yTickValues,
+        }}
+        pointSize={8}
+        pointColor={{ theme: "background" }}
+        pointBorderWidth={2}
+        pointBorderColor={{ from: "serieColor" }}
+        pointLabelYOffset={-12}
+        enableArea={false}
+        colors={(d) => d.color}
+        lineWidth={3}
+        useMesh={true}
+        legends={[]}
+        tooltip={({ point }) => {
+          const data = point.data as PositionDataPoint
+          if (data.x === "START" || data.x === "FINISH") return null
 
-            return (
-              <Box
-                sx={{
-                  background: "white",
-                  padding: 2,
-                  border: "1px solid #ccc",
-                  borderRadius: 1,
-                  boxShadow: 2,
-                  minWidth: 250,
-                }}
-              >
-                <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
-                  {data.runnerName}
+          return (
+            <Box
+              sx={{
+                background: "white",
+                padding: 2,
+                border: "1px solid #ccc",
+                borderRadius: 1,
+                boxShadow: 2,
+                minWidth: 250,
+              }}
+            >
+              <Typography variant="subtitle2" sx={{ fontWeight: "bold", mb: 1 }}>
+                {data.runnerName}
+              </Typography>
+
+              <Typography variant="body2" sx={{ mb: 0.5 }}>
+                {t("positionChart.tooltip.control")}: {data.controlName}
+              </Typography>
+
+              <Typography variant="body2" sx={{ mb: 0.5 }}>
+                {t("positionChart.tooltip.position")}: {Math.round(data.y)}°
+              </Typography>
+
+              {data.splitTime > 0 && (
+                <Typography
+                  variant="body2"
+                  sx={{ mb: 0.5, fontWeight: data.timeLost <= 0 ? "bold" : "normal" }}
+                >
+                  {t("positionChart.tooltip.splitTime")}: {formatTime(data.splitTime)}
                 </Typography>
+              )}
 
+              {data.timeLost > 0 && (
                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                  {t("positionChart.tooltip.control")}: {data.controlName}
+                  {t("positionChart.tooltip.timeLost", {
+                    timeLost: `+${formatTime(data.timeLost)}`,
+                  })}
                 </Typography>
-
-                <Typography variant="body2" sx={{ mb: 0.5 }}>
-                  {t("positionChart.tooltip.position")}: {Math.round(data.y)}°
-                </Typography>
-
-                {data.splitTime > 0 && (
-                  <Typography
-                    variant="body2"
-                    sx={{ mb: 0.5, fontWeight: data.timeLost <= 0 ? "bold" : "normal" }}
-                  >
-                    {t("positionChart.tooltip.splitTime")}: {formatTime(data.splitTime)}
-                  </Typography>
-                )}
-
-                {data.timeLost > 0 && (
-                  <Typography variant="body2" sx={{ mb: 0.5 }}>
-                    {t("positionChart.tooltip.timeLost", {
-                      timeLost: `+${formatTime(data.timeLost)}`,
-                    })}
-                  </Typography>
-                )}
-              </Box>
-            )
-          }}
-          theme={{
-            axis: {
-              domain: {
-                line: {
-                  stroke: "#777777",
-                  strokeWidth: 1,
-                },
-              },
-              legend: {
-                text: {
-                  fontSize: 12,
-                  fill: "#333333",
-                },
-              },
-              ticks: {
-                line: {
-                  stroke: "#777777",
-                  strokeWidth: 1,
-                },
-                text: {
-                  fontSize: 11,
-                  fill: "#333333",
-                },
+              )}
+            </Box>
+          )
+        }}
+        theme={{
+          axis: {
+            domain: {
+              line: {
+                stroke: "#777777",
+                strokeWidth: 1,
               },
             },
-            legends: {
+            legend: {
+              text: {
+                fontSize: 12,
+                fill: "#333333",
+              },
+            },
+            ticks: {
+              line: {
+                stroke: "#777777",
+                strokeWidth: 1,
+              },
               text: {
                 fontSize: 11,
                 fill: "#333333",
               },
             },
-            grid: {
-              line: {
-                stroke: "#dddddd",
-                strokeWidth: 1,
-              },
+          },
+          legends: {
+            text: {
+              fontSize: 11,
+              fill: "#333333",
             },
-          }}
-        />
-      </Box>
-
-      <Box
-        sx={{
-          mt: 2,
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          rowGap: 1,
-          columnGap: 2,
+          },
+          grid: {
+            line: {
+              stroke: "#dddddd",
+              strokeWidth: 1,
+            },
+          },
         }}
-      >
-        {dataWithColors.map((series) => (
-          <Box key={series.id} sx={{ display: "flex", alignItems: "center", minWidth: 100 }}>
-            <Box
-              sx={{
-                width: 12,
-                height: 12,
-                borderRadius: "50%",
-                backgroundColor: series.color,
-                marginRight: 1,
-              }}
-            />
-            <Typography variant="body2">{series.id}</Typography>
-          </Box>
-        ))}
-      </Box>
-
-      <Box sx={{ mt: 1 }}>
-        <Typography variant="caption" color="text.secondary" sx={{ textAlign: "center" }}>
-          {t("positionChart.caption")}
-        </Typography>
-      </Box>
-      <Box sx={{ height: 40 }} />
+      />
     </Box>
   )
 }

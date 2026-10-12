@@ -148,6 +148,7 @@
   "GoBack": "Tornar enrere",
   "Graphs": {
     "BarChart": "Gràfic de Barres",
+    "ClearSelection": "Treu la selecció",
     "Description": {
       "lineChart": "Mostra quant de temps porta perdut cada corredor respecte del líder de la cursa a cada control. El líder a cada control queda a la línia superior; com més avall és la línia d'un corredor, més temps porta perdut. Els controls se separen segons el que es triga a cada tram.",
       "perfectRunnerChart": "Mostra quant de temps porta perdut cada corredor respecte del corredor ideal a cada control. El corredor ideal és un competidor imaginari que té el millor temps de la categoria a tots els trams. Una línia que cau amb força assenyala un tram en què el corredor va perdre temps; un tram pla, un de fet a prop del millor temps. Els controls se separen segons el que es triga a cada tram.",
@@ -158,6 +159,7 @@
     "LineChart": "Gràfic de Línies",
     "PositionChart": "Evolució de Posició",
     "RunnerSelection": "Selecció de Corredors",
+    "SelectAll": "Selecciona'ls tots",
     "SelectRunnersMessage": "Selecciona corredors per a veure gràfics",
     "SelectedCount_many": "{{count}} de {{total}} seleccionats",
     "SelectedCount_one": "{{count}} de {{total}} seleccionat",
@@ -363,7 +365,6 @@
     "xAxisLabel": "Fites"
   },
   "positionChart": {
-    "caption": "* Posició 1 a dalt (millor), posicions més altes a baix (pitjor)",
     "noData": "Selecciona corredors per a veure l'evolució de posicions",
     "tooltip": {
       "control": "Fita",
