@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { ArrowBack } from "@mui/icons-material"
 import React from "react"
 import { HorizontalLogo } from "../../../assets/HorizontalLogo.tsx"
+import { SAFE_AREA_INSET_TOP } from "../shared/safeArea.ts"
 
 type Props = {
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,7 +20,11 @@ const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 
   return (
     <Box ref={ref}>
-      <AppBar sx={{ backgroundColor: "white" }} elevation={0} position="static">
+      <AppBar
+        sx={{ backgroundColor: "white", paddingTop: SAFE_AREA_INSET_TOP }}
+        elevation={0}
+        position="static"
+      >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ minWidth: "48px", minHeight: "48px" }}>
             {location?.key !== "default" && (
