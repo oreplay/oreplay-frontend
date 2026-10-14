@@ -67,13 +67,26 @@
         "Rogaine": {
           "title": "Wynik"
         },
-        "StageType": "Rodzaj"
+        "StageType": "Rodzaj",
+        "TrailO": {
+          "description": "Orienteering precyzyjny. Wyniki są obliczane w TOP lub Jaruori i podlinkowane z O-Replay.",
+          "title": "Trail-O"
+        }
       },
       "Stats": {
         "DialogBody": "Statystki etapów będą wyświetlone.",
         "DialogConfirm": "OK",
         "DialogTitle": "Zobacz statystyki etapów",
         "MenuText": "Statystyki"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Wklej link do wyników tego etapu opublikowanych w TOP (top.yq.cz) lub Jaruori (jaruori.es). Pozostaw puste, aby usunąć link.",
+        "DialogTitle": "Wyniki Trail-O: {{stageName}}",
+        "InvalidUrl": "Dozwolone są tylko linki do TOP (top.yq.cz) lub Jaruori (jaruori.es).",
+        "Label": "URL wyników",
+        "MenuText": "URL wyników",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "URL wyników zapisany"
       },
       "WipeOutRunners": {
         "DialogConfirm": "Reset",
