@@ -5,6 +5,7 @@ export const STAGE_TYPE_DATABASE_ID = {
   Totals: "3d4cf037-64d6-442c-969d-35452048daf9",
   Ranking: "fb7ffebf-90ae-4e68-9a6f-0a6762a8b454",
   OneManRelay: "cf89c9f2-4046-4e4b-a903-feb6bb279516",
+  TrailO: "de0dd0e7-ffcb-4bdf-9842-327b4ea33e44",
 }
 
 export const UPLOAD_TYPES = {

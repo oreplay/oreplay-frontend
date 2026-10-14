@@ -58,13 +58,26 @@
       "GoToStage": "Ir para a etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
-        "StageType": "Tipo"
+        "StageType": "Tipo",
+        "TrailO": {
+          "description": "Orientação de precisão. Os resultados são calculados no TOP ou no Jaruori e ligados a partir do O-Replay.",
+          "title": "Trail-O"
+        }
       },
       "Stats": {
         "DialogBody": "As estatísticas das etapas serão apresentadas.",
         "DialogConfirm": "Ok",
         "DialogTitle": "Veja as estatísticas da etapa",
         "MenuText": "Estatísticas"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Cole a ligação para os resultados desta etapa publicados no TOP (top.yq.cz) ou no Jaruori (jaruori.es). Deixe vazio para remover a ligação.",
+        "DialogTitle": "Resultados Trail-O de {{stageName}}",
+        "InvalidUrl": "Só são permitidas ligações do TOP (top.yq.cz) ou do Jaruori (jaruori.es).",
+        "Label": "URL dos resultados",
+        "MenuText": "URL dos resultados",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "URL dos resultados guardado"
       },
       "WipeOutRunners": {
         "DialogBody": "Isto eliminará todos os resultados ou as horas de partida enviados para esta etapa. Depois, poderá enviá-los novamente. Esta opção é utilizada para corrigir erros nos dados enviados.",
@@ -173,6 +186,9 @@
     },
     "StartTime": "Partida",
     "Times": "Tempo",
+    "TrailO": {
+      "ExternalResults": "Os resultados desta etapa de Trail-O estão publicados em:"
+    },
     "VirtualTicket": {
       "Behind": "Diferença",
       "Bib": "Dorsal {{bib}}",
