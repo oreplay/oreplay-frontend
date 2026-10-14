@@ -116,6 +116,10 @@
         "Totals": {
           "description": "Résultat combiné, basé sur les points ou le temps, sur deux étapes ou plus.",
           "title": "Général"
+        },
+        "TrailO": {
+          "description": "Course d'orientation de précision. Les résultats sont calculés dans TOP ou Jaruori et liés depuis O-Replay.",
+          "title": "Trail-O"
         }
       },
       "Start": "Départ (heure locale)",
@@ -124,6 +128,15 @@
         "DialogConfirm": "OK",
         "DialogTitle": "Voir les statistiques des étapes",
         "MenuText": "Statistiques"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Collez le lien vers les résultats de cette étape publiés sur TOP (top.yq.cz) ou Jaruori (jaruori.es). Laissez-le vide pour supprimer le lien.",
+        "DialogTitle": "Résultats Trail-O de {{stageName}}",
+        "InvalidUrl": "Seuls les liens vers TOP (top.yq.cz) ou Jaruori (jaruori.es) sont autorisés.",
+        "Label": "URL des résultats",
+        "MenuText": "URL des résultats",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "URL des résultats enregistrée"
       },
       "WipeOutRunners": {
         "DialogBody": "Cette option supprimera tous les résultats ou heures de départ téléchargés à cette étape. Vous pourrez ensuite les télécharger à nouveau. Cette option permet de corriger les erreurs sur les données téléchargées.",
@@ -302,6 +315,9 @@
       "ot": "Hors délai"
     },
     "Times": "Temps",
+    "TrailO": {
+      "ExternalResults": "Les résultats de cette étape de Trail-O sont publiés sur :"
+    },
     "VirtualTicket": {
       "Control": "Contrôle",
       "Cumulative": "Cumulatif",

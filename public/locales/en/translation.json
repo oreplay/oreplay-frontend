@@ -157,6 +157,10 @@
         "Totals": {
           "description": "Combined point-based or time-based result across two or more stages.",
           "title": "Overall"
+        },
+        "TrailO": {
+          "description": "Precision orienteering. Results are computed in TOP or Jaruori and linked from O-Replay.",
+          "title": "Trail-O"
         }
       },
       "Start": "Start (local time)",
@@ -165,6 +169,15 @@
         "DialogConfirm": "OK",
         "DialogTitle": "See stages stats",
         "MenuText": "Stats"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Paste the link to the results of this stage published on TOP (top.yq.cz) or Jaruori (jaruori.es). Leave it empty to remove the link.",
+        "DialogTitle": "Trail-O results of {{stageName}}",
+        "InvalidUrl": "Only links to TOP (top.yq.cz) or Jaruori (jaruori.es) are allowed.",
+        "Label": "Results URL",
+        "MenuText": "Results URL",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "Results URL saved"
       },
       "WipeOutRunners": {
         "DialogBody": "This will delete all of the results or start times uploaded to this stage. Afterwards, you can upload them again. This option is used to correct errors on uploaded data.",
@@ -322,6 +335,9 @@
     "StageNumber": "Stage {{number}}",
     "StartTime": "Start",
     "Times": "Time",
+    "TrailO": {
+      "ExternalResults": "The results of this Trail-O stage are published on:"
+    },
     "VirtualTicket": {
       "Control": "Ctrl",
       "Cumulative": "Cumulative",
