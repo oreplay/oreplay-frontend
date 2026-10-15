@@ -90,7 +90,7 @@ export default function Results() {
           singleStage={singleStage}
           subtitleTo={getEventPath(eventDetail.id)}
         />
-        {isTrailO && <TrailO externalResultsUrl={stageDetail.external_results_url} />}
+        {isTrailO && <TrailO externalUrl={stageDetail.external_url} />}
         {!isTrailO && hasClasses && (
           <StageTypeSelector
             key={`StageTypeSelector${eventDetail?.id}`}

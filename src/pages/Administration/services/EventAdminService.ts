@@ -199,20 +199,16 @@ export async function patchStage(
  * Make an HTTP request to the backend to set where the results of a Trail-O stage are published
  * @param eventId Id of the event the stage belongs to
  * @param stageId Id of the stage we want to edit
- * @param externalResultsUrl TOP or Jaruori results URL, or null to remove it
+ * @param externalUrl TOP or Jaruori results URL, or null to remove it
  * @param token User's authentication token
  */
-export async function patchStageExternalResultsUrl(
+export async function patchStageExternalUrl(
   eventId: string,
   stageId: string,
-  externalResultsUrl: string | null,
+  externalUrl: string | null,
   token: string,
 ) {
-  return patch(
-    `events/${eventId}/stages/${stageId}`,
-    { external_results_url: externalResultsUrl },
-    token,
-  )
+  return patch(`events/${eventId}/stages/${stageId}`, { external_url: externalUrl }, token)
 }
 
 export async function deleteStage(eventId: string, stageId: string, token: string) {

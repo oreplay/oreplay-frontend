@@ -89,7 +89,7 @@ export interface StateLog {
 export interface StageModel {
   id: string
   description: string
-  external_results_url: string | null
+  external_url: string | null
   last_logs: StateLog[]
   stage_type: StageTypeModel
   start: string | null
