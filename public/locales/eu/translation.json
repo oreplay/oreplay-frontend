@@ -116,6 +116,10 @@
         "Totals": {
           "description": "Bi etapa edo gehiagotan puntuetan edo denboran oinarritutako emaitza konbinatua.",
           "title": "Totalak"
+        },
+        "TrailO": {
+          "description": "Zehaztasun-orientazioa. Emaitzak TOP edo Jaruori-n kalkulatzen dira eta O-Replay-tik estekatzen dira.",
+          "title": "Trail-O"
         }
       },
       "Start": "Irteera (tokiko ordua)",
@@ -124,6 +128,15 @@
         "DialogConfirm": "OK",
         "DialogTitle": "Ikusi etaparen estatistikak",
         "MenuText": "Estatistikak"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Itsatsi TOP (top.yq.cz) edo Jaruori-n (jaruori.es) argitaratutako etapa honen emaitzen esteka. Utzi hutsik esteka kentzeko.",
+        "DialogTitle": "{{stageName}} etaparen Trail-O emaitzak",
+        "InvalidUrl": "TOP (top.yq.cz) edo Jaruori (jaruori.es) esteka soilik onartzen dira.",
+        "Label": "Emaitzen URLa",
+        "MenuText": "Emaitzen URLa",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "Emaitzen URLa gordeta"
       },
       "WipeOutRunners": {
         "DialogBody": "Honek etapa honetara igotako emaitza edo hasiera-ordu guztiak ezabatuko ditu. Ondoren, berriro igo ditzakezu. Aukera hau igotako datuetan dauden akatsak zuzentzeko erabiltzen da.",
@@ -299,6 +312,9 @@
       "ot": "KK"
     },
     "Times": "Denbora",
+    "TrailO": {
+      "ExternalResults": "Trail-O etapa honen emaitzak hemen argitaratuta daude:"
+    },
     "VirtualTicket": {
       "Control": "Ctrl",
       "Cumulative": "Metatua",

@@ -9,18 +9,21 @@ import EditIcon from "@mui/icons-material/Edit"
 import GridActionsSettingsMenuDialogItem from "./GridActionsSettingsMenuDialogItem.tsx"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import PersonOffIcon from "@mui/icons-material/PersonOff"
+import LinkIcon from "@mui/icons-material/Link"
 
 type GridActionsSettingsMenuProps = {
   handleDeleteClick: () => void
   handleEditClick: () => void
-  handleWipeOutRunnersClick: () => void
+  handleWipeOutRunnersClick?: () => void
   handleStatsClick: () => void
+  handleExternalUrlClick?: () => void
 }
 
 const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
   handleDeleteClick,
   handleEditClick,
   handleWipeOutRunnersClick,
+  handleExternalUrlClick,
 }) => {
   const { t } = useTranslation()
 
@@ -52,20 +55,35 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           </ListItemIcon>
           <ListItemText>{t("common:edit")}</ListItemText>
         </MenuItem>
+        {handleExternalUrlClick && (
+          <MenuItem
+            onClick={() => {
+              handleClose()
+              handleExternalUrlClick()
+            }}
+          >
+            <ListItemIcon>
+              <LinkIcon />
+            </ListItemIcon>
+            <ListItemText>{t("EventAdmin.Stages.TrailOResultsUrl.MenuText")}</ListItemText>
+          </MenuItem>
+        )}
         <Divider />
-        <GridActionsSettingsMenuDialogItem
-          icon={<PersonOffIcon />}
-          menuText={t("EventAdmin.Stages.WipeOutRunners.MenuText")}
-          action={() => {
-            handleClose()
-            handleWipeOutRunnersClick()
-          }}
-          menuCloseAction={handleClose}
-          dialogTitle={t("EventAdmin.Stages.WipeOutRunners.DialogTitle")}
-          dialogBody={t("EventAdmin.Stages.WipeOutRunners.DialogBody")}
-          dialogCancelButtonText={t("Cancel")}
-          dialogConfirmButtonText={t("EventAdmin.Stages.WipeOutRunners.DialogConfirm")}
-        />
+        {handleWipeOutRunnersClick && (
+          <GridActionsSettingsMenuDialogItem
+            icon={<PersonOffIcon />}
+            menuText={t("EventAdmin.Stages.WipeOutRunners.MenuText")}
+            action={() => {
+              handleClose()
+              handleWipeOutRunnersClick()
+            }}
+            menuCloseAction={handleClose}
+            dialogTitle={t("EventAdmin.Stages.WipeOutRunners.DialogTitle")}
+            dialogBody={t("EventAdmin.Stages.WipeOutRunners.DialogBody")}
+            dialogCancelButtonText={t("Cancel")}
+            dialogConfirmButtonText={t("EventAdmin.Stages.WipeOutRunners.DialogConfirm")}
+          />
+        )}
         <GridActionsSettingsMenuDialogItem
           icon={<DeleteIcon />}
           menuText={t("EventAdmin.Stages.DeleteStage.MenuText")}

@@ -102,6 +102,10 @@
         "Totals": {
           "description": "Комбиниран резултат на база точки или време за два или повече етапа.",
           "title": "Общо класиране"
+        },
+        "TrailO": {
+          "description": "Прецизно ориентиране. Резултатите се изчисляват в TOP или Jaruori и се свързват от O-Replay.",
+          "title": "Trail-O"
         }
       },
       "Stats": {
@@ -109,6 +113,15 @@
         "DialogConfirm": "Добре",
         "DialogTitle": "Виж статистиката на етапите",
         "MenuText": "Статистика"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Поставете връзката към резултатите от този етап, публикувани в TOP (top.yq.cz) или Jaruori (jaruori.es). Оставете празно, за да премахнете връзката.",
+        "DialogTitle": "Резултати Trail-O на {{stageName}}",
+        "InvalidUrl": "Разрешени са само връзки към TOP (top.yq.cz) или Jaruori (jaruori.es).",
+        "Label": "URL на резултатите",
+        "MenuText": "URL на резултатите",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "URL адресът на резултатите е запазен"
       },
       "WipeOutRunners": {
         "DialogBody": "Това ще изтрие всички резултати или стартови времена, качени за този етап. След това можете да ги качите отново. Тази опция се използва за коригиране на грешки в качените данни.",
@@ -217,6 +230,9 @@
     "NoClubMsg": "Без клуб",
     "NoData": "Няма данни",
     "NonContributory": "Незачетен",
+    "TrailO": {
+      "ExternalResults": "Резултатите от този етап на Trail-O са публикувани на:"
+    },
     "statusCodes": {
       "ok": "ок"
     }

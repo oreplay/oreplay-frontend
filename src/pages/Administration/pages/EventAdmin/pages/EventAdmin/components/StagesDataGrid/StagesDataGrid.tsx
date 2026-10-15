@@ -41,6 +41,8 @@ import ConstructionIcon from "@mui/icons-material/Construction"
 import { DateTime } from "luxon"
 import { GridLuxonDateTimeEditCell } from "./components/GridDateTimeEditCell/GridDateTimeEditCell.tsx"
 import { isStartApplicable } from "./shared/functions.ts"
+import { isTrailOStage } from "../../../../../../../Results/pages/Results/shared/stageTypes.ts"
+import TrailOResultsUrlDialog from "../TrailOResultsUrlDialog/TrailOResultsUrlDialog.tsx"
 import { useQueryClient } from "react-query"
 
 /**
@@ -63,7 +65,10 @@ function EditToolbar(props: EditToolbarProps) {
 
   const handleClick = () => {
     const id = `new-${Math.random().toString(36).substring(2, 9)}`
-    setRows((oldRows) => [...oldRows, { id: id, stageName: "", isNew: true, isEdit: false }])
+    setRows((oldRows) => [
+      ...oldRows,
+      { id: id, stageName: "", externalUrl: null, isNew: true, isEdit: false },
+    ])
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
@@ -108,6 +113,7 @@ export interface StageRow {
   stageName: string
   stageTypeId: string
   start: DateTime | null
+  externalUrl: string | null
   isNew?: boolean
   isEdit?: boolean
 }
@@ -119,6 +125,7 @@ export default function StagesDataGrid(props: Props) {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [stageToUpload, setStageToUpload] = useState<StageRow | null>(null)
+  const [stageToEditResultsUrl, setStageToEditResultsUrl] = useState<StageRow | null>(null)
 
   const stageTypeOptions = [
     {
@@ -152,6 +159,11 @@ export default function StagesDataGrid(props: Props) {
       ),
     },
     {
+      value: STAGE_TYPE_DATABASE_ID.TrailO,
+      label: t("EventAdmin.Stages.StagesTypes.TrailO.title"),
+      description: t("EventAdmin.Stages.StagesTypes.TrailO.description"),
+    },
+    {
       value: STAGE_TYPE_DATABASE_ID.Totals,
       label: t("EventAdmin.Stages.StagesTypes.Totals.title"),
       description: t("EventAdmin.Stages.StagesTypes.Totals.description"),
@@ -164,6 +176,7 @@ export default function StagesDataGrid(props: Props) {
     stageName: stage.description,
     stageTypeId: stage.stage_type.id,
     start: stage.start ? DateTime.fromISO(stage.start) : null,
+    externalUrl: stage.external_url,
   }))
 
   const [rows, setRows] = useState(initialRows)
@@ -231,6 +244,16 @@ export default function StagesDataGrid(props: Props) {
         severity: "error", // Could be 'success', 'error', 'warning', 'info'.
       })
     }
+  }
+
+  /**
+   * Shows the results URL just saved in the row of its stage, so reopening the dialog starts from it.
+   *
+   * @param stageId Stage whose URL was saved.
+   * @param externalUrl Saved URL, `null` when it was removed.
+   */
+  const handleExternalUrlSaved = (stageId: string, externalUrl: string | null) => {
+    setRows(rows.map((row) => (row.stageId === stageId ? { ...row, externalUrl } : row)))
   }
 
   const handleCancelClick = (row: GridRowParams<StageRow>) => () => {
@@ -493,7 +516,11 @@ export default function StagesDataGrid(props: Props) {
           ]
         }
 
-        return [
+        const isTrailO = isTrailOStage(row.row.stageTypeId)
+        const handleExternalUrlClick = isTrailO
+          ? () => setStageToEditResultsUrl(row.row)
+          : undefined
+        const uploadFilesAction = (
           <GridActionsCellItem
             key="upload-files"
             icon={
@@ -506,13 +533,20 @@ export default function StagesDataGrid(props: Props) {
             label={t("EventAdmin.DataUpload.uploadFiles")}
             className="textPrimary"
             onClick={() => setStageToUpload(row.row)}
-          />,
+          />
+        )
+        const uploadFilesActions = isTrailO ? [] : [uploadFilesAction]
+        const handleWipeOutClick = isTrailO ? undefined : () => void handleWipeOutRunnersClick(row)
+
+        return [
+          ...uploadFilesActions,
           <GridActionsSettingsMenu
             key="settings-menu"
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
             handleStatsClick={() => void handleStatsClick(row)}
-            handleWipeOutRunnersClick={() => void handleWipeOutRunnersClick(row)}
+            handleWipeOutRunnersClick={handleWipeOutClick}
+            handleExternalUrlClick={handleExternalUrlClick}
           />,
           <GridActionsCellItem
             key="go-to-stage"
@@ -592,6 +626,16 @@ export default function StagesDataGrid(props: Props) {
           stageId={stageToUpload.stageId}
           stageName={stageToUpload.stageName}
           onClose={() => setStageToUpload(null)}
+        />
+      )}
+      {stageToEditResultsUrl && (
+        <TrailOResultsUrlDialog
+          eventId={props.eventDetail.id}
+          stageId={stageToEditResultsUrl.stageId}
+          stageName={stageToEditResultsUrl.stageName}
+          externalUrl={stageToEditResultsUrl.externalUrl}
+          onClose={() => setStageToEditResultsUrl(null)}
+          onSaved={(url) => handleExternalUrlSaved(stageToEditResultsUrl.stageId, url)}
         />
       )}
     </Box>

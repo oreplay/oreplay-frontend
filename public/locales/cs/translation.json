@@ -90,6 +90,10 @@
         "Totals": {
           "description": "Kombinované na body nebo na čas napříč dvěma nebo více etapami.",
           "title": "Celkové"
+        },
+        "TrailO": {
+          "description": "Přesný orientační běh. Výsledky se počítají v TOP nebo Jaruori a O-Replay na ně odkazuje.",
+          "title": "Trail-O"
         }
       },
       "Stats": {
@@ -97,6 +101,15 @@
         "DialogConfirm": "OK",
         "DialogTitle": "Zobrazit statistiky etap",
         "MenuText": "Statistiky"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Vložte odkaz na výsledky této etapy zveřejněné na TOP (top.yq.cz) nebo Jaruori (jaruori.es). Ponechte prázdné pro odstranění odkazu.",
+        "DialogTitle": "Výsledky Trail-O: {{stageName}}",
+        "InvalidUrl": "Povoleny jsou pouze odkazy na TOP (top.yq.cz) nebo Jaruori (jaruori.es).",
+        "Label": "URL výsledků",
+        "MenuText": "URL výsledků",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "URL výsledků uložena"
       },
       "WipeOutRunners": {
         "DialogBody": "Smaže všechny výsledky nebo startovky nahrané k etapě. Poté bude možné provést opakované nahrání. Možnost slouží k opravě chyb při nahrání dat.",
@@ -209,6 +222,9 @@
     },
     "StartTime": "Start",
     "Times": "Čas",
+    "TrailO": {
+      "ExternalResults": "Výsledky této etapy Trail-O jsou zveřejněny na:"
+    },
     "VirtualTicket": {
       "Control": "Ctrl",
       "Cumulative": "Kumulativní",

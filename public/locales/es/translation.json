@@ -156,6 +156,10 @@
         "Totals": {
           "description": "Resultados por suma de tiempos o suma de puntos de todas las etapas.",
           "title": "Totales"
+        },
+        "TrailO": {
+          "description": "Orientación de precisión. Los resultados se calculan en TOP o Jaruori y se enlazan desde O-Replay.",
+          "title": "Trail-O"
         }
       },
       "Start": "Hora cero (hora local)",
@@ -164,6 +168,15 @@
         "DialogConfirm": "OK",
         "DialogTitle": "Ver estadísticas de la etapa",
         "MenuText": "Estadísticas"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Pega el enlace a los resultados de esta etapa publicados en TOP (top.yq.cz) o Jaruori (jaruori.es). Déjalo vacío para quitar el enlace.",
+        "DialogTitle": "Resultados Trail-O de {{stageName}}",
+        "InvalidUrl": "Solo se permiten enlaces de TOP (top.yq.cz) o Jaruori (jaruori.es).",
+        "Label": "URL de resultados",
+        "MenuText": "URL de resultados",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "URL de resultados guardada"
       },
       "WipeOutRunners": {
         "DialogBody": "Se borrarán todos los resultados y horas de salida subidos a esta etapa. Después, puedes volverlos a subir. Esta opción se utiliza para corregir errores en los datos subidos.",
@@ -320,6 +333,9 @@
     "StageNumber": "Etapa {{number}}",
     "StartTime": "Salida",
     "Times": "Tiempos",
+    "TrailO": {
+      "ExternalResults": "Los resultados de esta etapa de Trail-O están publicados en:"
+    },
     "VirtualTicket": {
       "Control": "Ctrl",
       "Cumulative": "Acumulado",

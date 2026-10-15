@@ -116,6 +116,10 @@
         "Totals": {
           "description": "Комбінований що базується на балах або часі результат, за два або більше стадій.",
           "title": "Загалом"
+        },
+        "TrailO": {
+          "description": "Точне орієнтування. Результати обчислюються в TOP або Jaruori, а O-Replay дає на них посилання.",
+          "title": "Trail-O"
         }
       },
       "Start": "Старт (місцевий час)",
@@ -124,6 +128,15 @@
         "DialogConfirm": "OK",
         "DialogTitle": "Дивитися статистику етапів",
         "MenuText": "Статистика"
+      },
+      "TrailOResultsUrl": {
+        "DialogBody": "Вставте посилання на результати цього етапу, опубліковані в TOP (top.yq.cz) або Jaruori (jaruori.es). Залиште поле порожнім, щоб видалити посилання.",
+        "DialogTitle": "Результати Trail-O: {{stageName}}",
+        "InvalidUrl": "Дозволені лише посилання на TOP (top.yq.cz) або Jaruori (jaruori.es).",
+        "Label": "URL результатів",
+        "MenuText": "URL результатів",
+        "Placeholder": "https://top.yq.cz/…",
+        "Saved": "URL результатів збережено"
       },
       "WipeOutRunners": {
         "DialogBody": "Це видалить усі результати або час початку, завантажені на цей етап. Після цього, ви зможете відвантажити їх знову. Ця опція використовується для виправлення помилок у відвантажених даних.",
@@ -302,6 +315,9 @@
       "ot": "OT"
     },
     "Times": "Час",
+    "TrailO": {
+      "ExternalResults": "Результати цього етапу Trail-O опубліковані на:"
+    },
     "VirtualTicket": {
       "Control": "Ктрл",
       "Cumulative": "Сукупний",

@@ -15,6 +15,8 @@ import { getClassesInStage } from "../../services/EventService.ts"
 import NoDataInStageMsg from "./components/NoDataInStageMsg.tsx"
 import { getEventPath } from "../../shared/eventPath.ts"
 import "../../../../styles/tailwind.css"
+import TrailO from "./pages/TrailO/TrailO.tsx"
+import { isTrailOStage } from "./shared/stageTypes.ts"
 
 export default function Results() {
   const { t } = useTranslation()
@@ -66,6 +68,9 @@ export default function Results() {
     return <NotFoundPage />
   }
 
+  const isTrailO = isTrailOStage(stageDetail.stage_type.id)
+  const hasClasses = classesQuery.isSuccess && classesQuery.data.data.length > 0
+
   // Component
   return (
     <Suspense fallback={<GeneralSuspenseFallback />}>
@@ -85,15 +90,14 @@ export default function Results() {
           singleStage={singleStage}
           subtitleTo={getEventPath(eventDetail.id)}
         />
-        {classesQuery.isSuccess && classesQuery.data.data.length > 0 ? (
-          <StageTypeSelector // display stage data
+        {isTrailO && <TrailO externalUrl={stageDetail.external_url} />}
+        {!isTrailO && hasClasses && (
+          <StageTypeSelector
             key={`StageTypeSelector${eventDetail?.id}`}
             stageType={stageDetail?.stage_type.id}
           />
-        ) : (
-          // No classes created: no data available
-          <NoDataInStageMsg />
         )}
+        {!isTrailO && !hasClasses && <NoDataInStageMsg />}
       </ErrorBoundary>
     </Suspense>
   )
