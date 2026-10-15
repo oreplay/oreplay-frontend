@@ -5,18 +5,18 @@ import TrailOResultsUrlInput from "./components/TrailOResultsUrlInput.tsx"
 import TrailOResultsUrlHelp from "./components/TrailOResultsUrlHelp.tsx"
 import {
   isValidTrailOResultsInput,
-  toExternalResultsUrl,
+  toExternalUrl,
   TRAIL_O_RESULTS_URL_MAX_LENGTH,
 } from "./shared/trailOResultsUrl.ts"
-import { useSaveExternalResultsUrl } from "./shared/useSaveExternalResultsUrl.ts"
+import { useSaveExternalUrl } from "./shared/useSaveExternalUrl.ts"
 
 interface TrailOResultsUrlDialogProps {
   eventId: string
   stageId: string
   stageName: string
-  externalResultsUrl: string | null
+  externalUrl: string | null
   onClose: () => void
-  onSaved: (externalResultsUrl: string | null) => void
+  onSaved: (externalUrl: string | null) => void
 }
 
 /**
@@ -26,13 +26,13 @@ interface TrailOResultsUrlDialogProps {
  * @param props.eventId Event the stage belongs to.
  * @param props.stageId Stage whose results URL is edited.
  * @param props.stageName Name of the stage, shown in the title.
- * @param props.externalResultsUrl URL saved so far, `null` when there is none.
+ * @param props.externalUrl URL saved so far, `null` when there is none.
  * @param props.onClose Closes the dialog, on cancel and after saving.
  * @param props.onSaved Called with the saved URL (`null` when removed) so the grid shows it.
  */
 export default function TrailOResultsUrlDialog(props: TrailOResultsUrlDialogProps) {
   const { t } = useTranslation()
-  const saveMutation = useSaveExternalResultsUrl(props.eventId, props.stageId, (url) => {
+  const saveMutation = useSaveExternalUrl(props.eventId, props.stageId, (url) => {
     props.onSaved(url)
     props.onClose()
   })
@@ -54,8 +54,8 @@ export default function TrailOResultsUrlDialog(props: TrailOResultsUrlDialogProp
   }
 
   const form = useForm({
-    defaultValues: { externalResultsUrl: props.externalResultsUrl ?? "" },
-    onSubmit: ({ value }) => saveMutation.mutate(toExternalResultsUrl(value.externalResultsUrl)),
+    defaultValues: { externalUrl: props.externalUrl ?? "" },
+    onSubmit: ({ value }) => saveMutation.mutate(toExternalUrl(value.externalUrl)),
   })
 
   return (
@@ -74,7 +74,7 @@ export default function TrailOResultsUrlDialog(props: TrailOResultsUrlDialogProp
         <DialogContent>
           <TrailOResultsUrlHelp />
           <form.Field
-            name="externalResultsUrl"
+            name="externalUrl"
             validators={{ onChange: ({ value }) => validateResultsUrl(value) }}
           >
             {(field) => {

@@ -16,14 +16,14 @@ type GridActionsSettingsMenuProps = {
   handleEditClick: () => void
   handleWipeOutRunnersClick?: () => void
   handleStatsClick: () => void
-  handleExternalResultsUrlClick?: () => void
+  handleExternalUrlClick?: () => void
 }
 
 const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
   handleDeleteClick,
   handleEditClick,
   handleWipeOutRunnersClick,
-  handleExternalResultsUrlClick,
+  handleExternalUrlClick,
 }) => {
   const { t } = useTranslation()
 
@@ -55,11 +55,11 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           </ListItemIcon>
           <ListItemText>{t("common:edit")}</ListItemText>
         </MenuItem>
-        {handleExternalResultsUrlClick && (
+        {handleExternalUrlClick && (
           <MenuItem
             onClick={() => {
               handleClose()
-              handleExternalResultsUrlClick()
+              handleExternalUrlClick()
             }}
           >
             <ListItemIcon>
