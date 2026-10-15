@@ -24,8 +24,8 @@ export default function TrailOResultsUrlInput(props: TrailOResultsUrlInputProps)
     <TextField
       autoFocus
       fullWidth
-      id="externalResultsUrl"
-      name="externalResultsUrl"
+      id="externalUrl"
+      name="externalUrl"
       type="url"
       autoComplete="url"
       label={t("EventAdmin.Stages.TrailOResultsUrl.Label")}

@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest"
-import {
-  isTrailOResultsUrl,
-  isValidTrailOResultsInput,
-  toExternalResultsUrl,
-} from "./trailOResultsUrl.ts"
+import { isTrailOResultsUrl, isValidTrailOResultsInput, toExternalUrl } from "./trailOResultsUrl.ts"
 
 describe("isTrailOResultsUrl", () => {
   it.each([
@@ -43,12 +39,12 @@ describe("isValidTrailOResultsInput", () => {
   })
 })
 
-describe("toExternalResultsUrl", () => {
+describe("toExternalUrl", () => {
   it("trims the url", () => {
-    expect(toExternalResultsUrl("  https://top.yq.cz/event/1 ")).toBe("https://top.yq.cz/event/1")
+    expect(toExternalUrl("  https://top.yq.cz/event/1 ")).toBe("https://top.yq.cz/event/1")
   })
 
   it("clears the url when it is left empty", () => {
-    expect(toExternalResultsUrl("   ")).toBeNull()
+    expect(toExternalUrl("   ")).toBeNull()
   })
 })

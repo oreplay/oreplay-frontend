@@ -1,9 +1,9 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { useSaveExternalResultsUrl } from "./shared/useSaveExternalResultsUrl.ts"
+import { useSaveExternalUrl } from "./shared/useSaveExternalUrl.ts"
 import TrailOResultsUrlDialog from "./TrailOResultsUrlDialog.tsx"
 
-vi.mock("./shared/useSaveExternalResultsUrl.ts", () => ({ useSaveExternalResultsUrl: vi.fn() }))
+vi.mock("./shared/useSaveExternalUrl.ts", () => ({ useSaveExternalUrl: vi.fn() }))
 
 const TOP_URL = "https://top.yq.cz/event/123/results"
 const mutate = vi.fn()
@@ -11,16 +11,16 @@ const mutate = vi.fn()
 /**
  * Renders the dialog for a stage.
  *
- * @param externalResultsUrl URL already saved in the stage, none by default.
+ * @param externalUrl URL already saved in the stage, none by default.
  * @returns The render result.
  */
-const renderDialog = (externalResultsUrl: string | null = null) =>
+const renderDialog = (externalUrl: string | null = null) =>
   render(
     <TrailOResultsUrlDialog
       eventId="event-1"
       stageId="stage-1"
       stageName="Day 1"
-      externalResultsUrl={externalResultsUrl}
+      externalUrl={externalUrl}
       onClose={vi.fn()}
       onSaved={vi.fn()}
     />,
@@ -51,10 +51,10 @@ const submit = () => fireEvent.click(screen.getByRole("button", { name: "common:
 describe("TrailOResultsUrlDialog", () => {
   beforeEach(() => {
     vi.resetAllMocks()
-    vi.mocked(useSaveExternalResultsUrl).mockReturnValue({
+    vi.mocked(useSaveExternalUrl).mockReturnValue({
       mutate,
       isLoading: false,
-    } as unknown as ReturnType<typeof useSaveExternalResultsUrl>)
+    } as unknown as ReturnType<typeof useSaveExternalUrl>)
   })
 
   it("shows the url already saved in the stage", () => {

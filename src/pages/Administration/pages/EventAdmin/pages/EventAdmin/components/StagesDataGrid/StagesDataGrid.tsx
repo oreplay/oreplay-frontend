@@ -67,7 +67,7 @@ function EditToolbar(props: EditToolbarProps) {
     const id = `new-${Math.random().toString(36).substring(2, 9)}`
     setRows((oldRows) => [
       ...oldRows,
-      { id: id, stageName: "", externalResultsUrl: null, isNew: true, isEdit: false },
+      { id: id, stageName: "", externalUrl: null, isNew: true, isEdit: false },
     ])
     setRowModesModel((oldModel) => ({
       ...oldModel,
@@ -113,7 +113,7 @@ export interface StageRow {
   stageName: string
   stageTypeId: string
   start: DateTime | null
-  externalResultsUrl: string | null
+  externalUrl: string | null
   isNew?: boolean
   isEdit?: boolean
 }
@@ -176,7 +176,7 @@ export default function StagesDataGrid(props: Props) {
     stageName: stage.description,
     stageTypeId: stage.stage_type.id,
     start: stage.start ? DateTime.fromISO(stage.start) : null,
-    externalResultsUrl: stage.external_results_url,
+    externalUrl: stage.external_url,
   }))
 
   const [rows, setRows] = useState(initialRows)
@@ -250,10 +250,10 @@ export default function StagesDataGrid(props: Props) {
    * Shows the results URL just saved in the row of its stage, so reopening the dialog starts from it.
    *
    * @param stageId Stage whose URL was saved.
-   * @param externalResultsUrl Saved URL, `null` when it was removed.
+   * @param externalUrl Saved URL, `null` when it was removed.
    */
-  const handleExternalResultsUrlSaved = (stageId: string, externalResultsUrl: string | null) => {
-    setRows(rows.map((row) => (row.stageId === stageId ? { ...row, externalResultsUrl } : row)))
+  const handleExternalUrlSaved = (stageId: string, externalUrl: string | null) => {
+    setRows(rows.map((row) => (row.stageId === stageId ? { ...row, externalUrl } : row)))
   }
 
   const handleCancelClick = (row: GridRowParams<StageRow>) => () => {
@@ -517,7 +517,7 @@ export default function StagesDataGrid(props: Props) {
         }
 
         const isTrailO = isTrailOStage(row.row.stageTypeId)
-        const handleExternalResultsUrlClick = isTrailO
+        const handleExternalUrlClick = isTrailO
           ? () => setStageToEditResultsUrl(row.row)
           : undefined
         const uploadFilesAction = (
@@ -546,7 +546,7 @@ export default function StagesDataGrid(props: Props) {
             handleDeleteClick={() => void handleDeleteClick(row)}
             handleStatsClick={() => void handleStatsClick(row)}
             handleWipeOutRunnersClick={handleWipeOutClick}
-            handleExternalResultsUrlClick={handleExternalResultsUrlClick}
+            handleExternalUrlClick={handleExternalUrlClick}
           />,
           <GridActionsCellItem
             key="go-to-stage"
@@ -633,9 +633,9 @@ export default function StagesDataGrid(props: Props) {
           eventId={props.eventDetail.id}
           stageId={stageToEditResultsUrl.stageId}
           stageName={stageToEditResultsUrl.stageName}
-          externalResultsUrl={stageToEditResultsUrl.externalResultsUrl}
+          externalUrl={stageToEditResultsUrl.externalUrl}
           onClose={() => setStageToEditResultsUrl(null)}
-          onSaved={(url) => handleExternalResultsUrlSaved(stageToEditResultsUrl.stageId, url)}
+          onSaved={(url) => handleExternalUrlSaved(stageToEditResultsUrl.stageId, url)}
         />
       )}
     </Box>

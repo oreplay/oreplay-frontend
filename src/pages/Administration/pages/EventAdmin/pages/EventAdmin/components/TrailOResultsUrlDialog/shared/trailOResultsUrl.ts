@@ -38,7 +38,7 @@ export function isTrailOResultsUrl(url: string): boolean {
  * @returns `true` when it is empty, which removes the link, or a TOP or Jaruori URL.
  */
 export function isValidTrailOResultsInput(input: string): boolean {
-  const url = toExternalResultsUrl(input)
+  const url = toExternalUrl(input)
   return url === null || isTrailOResultsUrl(url)
 }
 
@@ -48,7 +48,7 @@ export function isValidTrailOResultsInput(input: string): boolean {
  * @param url Raw text of the field.
  * @returns The trimmed URL, or `null` when the field is blank so the link is removed.
  */
-export function toExternalResultsUrl(url: string): string | null {
+export function toExternalUrl(url: string): string | null {
   const trimmedUrl = url.trim()
   return trimmedUrl === "" ? null : trimmedUrl
 }
