@@ -3,11 +3,14 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
+import type { ClassEntity } from "./classEntity.ts"
 
 /**
  * Entity RunnerSearch
  */
 export interface RunnerSearch {
+  /** @nullable */
+  class?: ClassEntity
   first_name: string
   id: string
   last_name: string
