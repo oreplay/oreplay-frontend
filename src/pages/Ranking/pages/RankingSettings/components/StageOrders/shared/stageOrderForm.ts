@@ -49,7 +49,7 @@ export function initStageOrderForm(
 export function toPostBody(state: StageOrderFormState): PostStageOrdersBody {
   return {
     description: state.description,
-    is_official: state.isOfficial ? 1 : 0,
+    is_official: state.isOfficial,
     original_event_id: state.originalEventId ?? undefined,
     original_stage_id: state.originalStageId ?? undefined,
     stage_order: state.stageOrder ?? undefined,
@@ -60,7 +60,7 @@ export function toPostBody(state: StageOrderFormState): PostStageOrdersBody {
 export function toPatchBody(state: StageOrderFormState): PatchStageOrdersBody {
   return {
     description: state.description,
-    is_official: state.isOfficial ? 1 : 0,
+    is_official: state.isOfficial,
     original_event_id: state.originalEventId ?? undefined,
     original_stage_id: state.originalStageId ?? undefined,
     start: state.start || undefined,
