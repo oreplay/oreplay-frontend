@@ -1,5 +1,6 @@
-import { ReactNode, useEffect, useRef, useState } from "react"
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
+import { MenuPlacement, menuPlacement } from "./shared/menuPlacement.ts"
 
 export interface DropdownMenuItem {
   label: string
@@ -18,6 +19,11 @@ interface DropdownMenuProps {
   className?: string
 }
 
+const PLACEMENT_CLASS: Record<MenuPlacement, string> = {
+  above: "bottom-full mb-1",
+  below: "top-full mt-1",
+}
+
 const ITEM_CLASS =
   "block w-full rounded-sm px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-100"
 
@@ -28,7 +34,22 @@ export default function DropdownMenu({
   className,
 }: DropdownMenuProps) {
   const [open, setOpen] = useState(false)
+  const [placement, setPlacement] = useState<MenuPlacement>("below")
   const containerRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLUListElement>(null)
+
+  useLayoutEffect(() => {
+    if (!open || !containerRef.current || !menuRef.current) return
+    const trigger = containerRef.current.getBoundingClientRect()
+    setPlacement(
+      menuPlacement({
+        triggerTop: trigger.top,
+        triggerBottom: trigger.bottom,
+        menuHeight: menuRef.current.getBoundingClientRect().height,
+        viewportHeight: window.innerHeight,
+      }),
+    )
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -62,8 +83,12 @@ export default function DropdownMenu({
       </button>
       {open && (
         <ul
+          ref={menuRef}
           role="menu"
-          className="absolute right-0 z-10 mt-1 min-w-[11rem] list-none rounded-lg border border-neutral-200 bg-white p-1 shadow-md"
+          className={[
+            "absolute right-0 z-10 min-w-[11rem] list-none rounded-lg border border-neutral-200 bg-white p-1 shadow-md",
+            PLACEMENT_CLASS[placement],
+          ].join(" ")}
         >
           {items.map((item) => (
             <li key={item.label} role="none">
