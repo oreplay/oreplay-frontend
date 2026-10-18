@@ -50,6 +50,7 @@ export default function RankingSettings() {
               },
             )
           }
+          rankingId={ranking.id}
           secondaryAction={
             <DeleteRankingButton rankingId={ranking.id} eventId={ranking.event_id} />
           }

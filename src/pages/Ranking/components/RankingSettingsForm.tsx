@@ -31,6 +31,7 @@ interface RankingSettingsFormProps {
   onSubmit: (state: RankingSettingsFormState) => void
   /** Extra action shown next to the submit button (e.g. delete). */
   secondaryAction?: ReactNode
+  rankingId?: string
 }
 
 // Presentational, action-agnostic form; the page wires `onSubmit` and labels.
@@ -44,6 +45,7 @@ export default function RankingSettingsForm({
   isSubmitting,
   onSubmit,
   secondaryAction,
+  rankingId,
 }: RankingSettingsFormProps) {
   const { t } = useTranslationRanking()
 
@@ -80,7 +82,9 @@ export default function RankingSettingsForm({
             />
           )}
         </form.Field>
-        {eventId && <CompetitionResultsActions eventId={eventId} stageId={stageId} />}
+        {eventId && (
+          <CompetitionResultsActions eventId={eventId} stageId={stageId} rankingId={rankingId} />
+        )}
       </div>
 
       <FormSection title={t("Settings.generalSettings")}>

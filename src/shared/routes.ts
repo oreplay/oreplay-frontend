@@ -6,6 +6,9 @@ export const rankingSettingsPath = (rankingId: string): string =>
 
 export const rankingCreatePath = (): string => `${RANKING_LIST_PATH}/new`
 
+export const rankingDuplicatedRunnersPath = (rankingId: string): string =>
+  `${RANKING_LIST_PATH}/${rankingId}/duplicated-runners`
+
 export const rankingOrganizersPath = (
   rankingId: string,
   eventId: string,

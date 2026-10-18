@@ -89,7 +89,6 @@ export function useRankingOrganizers(params: RankingOrganizersParams) {
     isLoading: list.isLoading,
     isError: list.isError,
     isAdding: create.isLoading,
-    isRemoving: remove.isLoading,
     add,
     removeOrganizer,
     replaceOrganizer,
