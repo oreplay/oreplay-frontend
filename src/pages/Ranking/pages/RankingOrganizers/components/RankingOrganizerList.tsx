@@ -3,7 +3,7 @@ import { PostListRankingOrganizersBody, RankingOrganizer } from "../../../../../
 import Spinner from "../../../components/Spinner/Spinner.tsx"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import RankingOrganizerListItem from "./RankingOrganizerListItem.tsx"
-import { usePendingRemoval } from "../shared/usePendingRemoval.ts"
+import { usePendingRemoval } from "../../../shared/usePendingRemoval.ts"
 import { OrganizerRankingContext } from "../shared/useOrganizerRankingStatus.ts"
 
 interface RankingOrganizerListProps {
@@ -11,7 +11,6 @@ interface RankingOrganizerListProps {
   rankingContext: OrganizerRankingContext
   isLoading: boolean
   isError: boolean
-  isRemoving: boolean
   /** Resolves `true` when the organizer was removed, so the dialog closes. */
   onRemove: (organizer: RankingOrganizer) => Promise<boolean>
   onReplace: (
@@ -25,7 +24,6 @@ export default function RankingOrganizerList({
   rankingContext,
   isLoading,
   isError,
-  isRemoving,
   onRemove,
   onReplace,
 }: RankingOrganizerListProps) {
@@ -66,7 +64,7 @@ export default function RankingOrganizerList({
         title={t("RankingOrganizers.removeTitle")}
         confirmLabel={t("common:delete")}
         closeLabel={t("common:close")}
-        isConfirming={isRemoving}
+        isConfirming={removal.isConfirming}
         destructive
         onConfirm={() => void removal.confirm()}
         onClose={removal.cancel}

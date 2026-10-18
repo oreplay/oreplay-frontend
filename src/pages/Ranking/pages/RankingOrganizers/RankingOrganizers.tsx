@@ -43,7 +43,6 @@ export default function RankingOrganizers() {
         rankingContext={rankingContext}
         isLoading={organizers.isLoading}
         isError={organizers.isError}
-        isRemoving={organizers.isRemoving}
         onRemove={organizers.removeOrganizer}
         onReplace={organizers.replaceOrganizer}
       />
