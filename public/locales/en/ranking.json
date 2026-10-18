@@ -64,6 +64,7 @@
     "lastName": "Last name",
     "loadError": "We couldn't load the organizers.",
     "missing": "Missing",
+    "possibleMatches": "Possible matches",
     "removeTitle": "Remove organizer",
     "searchRunnerAll": "Search runner (all events)",
     "searchRunnerEvent": "Search runner (current ranking results)",

@@ -1,7 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { Participant, RankingOrganizer } from "../../../../../domain/types/v1api"
+import { Participant, RankingOrganizer, RunnerSearch } from "../../../../../domain/types/v1api"
 import { UPLOAD_TYPES } from "../../../../Results/pages/Results/shared/constants.ts"
 import RankingOrganizerListItem from "./RankingOrganizerListItem.tsx"
 
@@ -9,6 +9,9 @@ const mocks = vi.hoisted(() => ({
   participants: [] as Participant[],
   isLoadingResults: false,
   mutateAsync: vi.fn(),
+  runnerMatches: [] as RunnerSearch[],
+  runnerSearch: vi.fn(),
+  onReplace: vi.fn(),
 }))
 
 vi.mock("../../../../../infrastructure/repositories/results/results.ts", () => ({
@@ -28,6 +31,16 @@ vi.mock(
     }),
   }),
 )
+
+vi.mock("../../../../../infrastructure/repositories/runner-search/runner-search.ts", () => ({
+  useGetListRunnerSearch: (
+    params: { text: string; event_id?: string },
+    options: { query: { enabled: boolean } },
+  ) => {
+    mocks.runnerSearch(params, options.query.enabled)
+    return { data: { data: mocks.runnerMatches }, isLoading: false }
+  },
+}))
 
 vi.mock("../../../../../infrastructure/notifications/useNotifyError.ts", () => ({
   useNotifyError: () => vi.fn(),
@@ -67,6 +80,13 @@ const participantWithParts = (stageOrders: number[]): Participant => ({
   },
 })
 
+const matchedRunner: RunnerSearch = {
+  class: { id: "class-2", long_name: "Hombres 40", short_name: "H-40" },
+  first_name: "Felipe",
+  id: "runner-2",
+  last_name: "Peña Pita",
+}
+
 const rankingContext = { rankingId: "rk-1", eventId: "evt-1", stageId: "stg-1", stageOrder: 2 }
 
 const renderItem = (item: RankingOrganizer = organizer) =>
@@ -77,6 +97,7 @@ const renderItem = (item: RankingOrganizer = organizer) =>
           organizer={item}
           rankingContext={rankingContext}
           onRemove={vi.fn()}
+          onReplace={mocks.onReplace}
         />
       </ul>
     </QueryClientProvider>,
@@ -87,6 +108,9 @@ describe("RankingOrganizerListItem", () => {
     mocks.mutateAsync.mockReset()
     mocks.isLoadingResults = false
     mocks.participants = []
+    mocks.runnerMatches = []
+    mocks.runnerSearch.mockReset()
+    mocks.onReplace.mockReset()
   })
 
   it("adds the runner as organizer of the stage order when it has no result there", () => {
@@ -123,5 +147,47 @@ describe("RankingOrganizerListItem", () => {
   it("keeps the delete button for an organizer missing from the ranking", () => {
     renderItem({ ...organizer, runner_id: null })
     expect(screen.getByRole("button", { name: DELETE_BUTTON_NAME })).toBeInTheDocument()
+  })
+
+  it("does not search for matches when the runner has a result in the ranking", () => {
+    mocks.participants = [participantWithParts([1, 2])]
+    renderItem()
+    expect(mocks.runnerSearch).toHaveBeenLastCalledWith(
+      { text: "Felipe Peña Pita", event_id: "evt-1" },
+      false,
+    )
+  })
+
+  it("replaces a missing organizer with the matched runner added to its class", async () => {
+    mocks.runnerMatches = [matchedRunner]
+    mocks.mutateAsync.mockResolvedValue({})
+    mocks.onReplace.mockResolvedValue(true)
+    renderItem({ ...organizer, runner_id: null, description: "Course setter" })
+    expect(mocks.runnerSearch).toHaveBeenLastCalledWith(
+      { text: "Felipe Peña Pita", event_id: "evt-1" },
+      true,
+    )
+
+    const matches = screen.getByRole("list", { name: "RankingOrganizers.possibleMatches" })
+    fireEvent.click(within(matches).getByRole("button", { name: ADD_BUTTON_NAME }))
+
+    await waitFor(() =>
+      expect(mocks.onReplace).toHaveBeenCalledWith({
+        first_name: "Felipe",
+        last_name: "Peña Pita",
+        description: "Course setter",
+        runner_id: "runner-2",
+      }),
+    )
+    expect(mocks.mutateAsync).toHaveBeenCalledWith({
+      rankingID: "rk-1",
+      eventID: "evt-1",
+      stageID: "stg-1",
+      data: {
+        upload_type: UPLOAD_TYPES.COMPUTABLE_ORG,
+        runner_id: "runner-2",
+        stage_order: 2,
+      },
+    })
   })
 })
