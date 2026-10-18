@@ -53,7 +53,7 @@ describe("toPostBody / toPatchBody", () => {
     const state = initStageOrderForm(entity)
     expect(toPostBody(state)).toEqual({
       description: "Prologue",
-      is_official: 1,
+      is_official: true,
       original_event_id: "evt-9",
       original_stage_id: "stg-3",
       stage_order: 2,
@@ -65,7 +65,7 @@ describe("toPostBody / toPatchBody", () => {
     const body = toPatchBody(initStageOrderForm(entity))
     expect(body).toEqual({
       description: "Prologue",
-      is_official: 1,
+      is_official: true,
       original_event_id: "evt-9",
       original_stage_id: "stg-3",
       start: "2026-05-01T08:30:00+00:00",
