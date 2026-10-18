@@ -45,6 +45,7 @@ export default function RankingOrganizers() {
         isError={organizers.isError}
         isRemoving={organizers.isRemoving}
         onRemove={organizers.removeOrganizer}
+        onReplace={organizers.replaceOrganizer}
       />
     </SettingsPageLayout>
   )

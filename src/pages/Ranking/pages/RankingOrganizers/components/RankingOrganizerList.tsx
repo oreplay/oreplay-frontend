@@ -1,5 +1,5 @@
 import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
-import { RankingOrganizer } from "../../../../../domain/types/v1api"
+import { PostListRankingOrganizersBody, RankingOrganizer } from "../../../../../domain/types/v1api"
 import Spinner from "../../../components/Spinner/Spinner.tsx"
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import RankingOrganizerListItem from "./RankingOrganizerListItem.tsx"
@@ -14,6 +14,10 @@ interface RankingOrganizerListProps {
   isRemoving: boolean
   /** Resolves `true` when the organizer was removed, so the dialog closes. */
   onRemove: (organizer: RankingOrganizer) => Promise<boolean>
+  onReplace: (
+    organizer: RankingOrganizer,
+    replacement: PostListRankingOrganizersBody,
+  ) => Promise<boolean>
 }
 
 export default function RankingOrganizerList({
@@ -23,6 +27,7 @@ export default function RankingOrganizerList({
   isError,
   isRemoving,
   onRemove,
+  onReplace,
 }: RankingOrganizerListProps) {
   const { t } = useTranslationRanking()
   const removal = usePendingRemoval(onRemove)
@@ -52,6 +57,7 @@ export default function RankingOrganizerList({
             organizer={organizer}
             rankingContext={rankingContext}
             onRemove={() => removal.request(organizer)}
+            onReplace={(replacement) => onReplace(organizer, replacement)}
           />
         ))}
       </ul>

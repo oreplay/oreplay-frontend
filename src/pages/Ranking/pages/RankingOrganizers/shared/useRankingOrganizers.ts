@@ -6,7 +6,7 @@ import {
   useGetListRankingOrganizers,
   usePostListRankingOrganizers,
 } from "../../../../../infrastructure/repositories/ranking-organizers/ranking-organizers.ts"
-import { RankingOrganizer } from "../../../../../domain/types/v1api"
+import { PostListRankingOrganizersBody, RankingOrganizer } from "../../../../../domain/types/v1api"
 import { RankingOrganizerFormState, toPostBody } from "./rankingOrganizerForm.ts"
 
 export interface RankingOrganizersParams {
@@ -68,6 +68,22 @@ export function useRankingOrganizers(params: RankingOrganizersParams) {
     }
   }
 
+  const replaceOrganizer = async (
+    organizer: RankingOrganizer,
+    replacement: PostListRankingOrganizersBody,
+  ): Promise<boolean> => {
+    try {
+      await create.mutateAsync({ ...ids, data: replacement })
+      await remove.mutateAsync({ ...ids, organizerID: organizer.id })
+      return true
+    } catch (error) {
+      notifyError(error)
+      return false
+    } finally {
+      await invalidateList()
+    }
+  }
+
   return {
     organizers: list.data?.data ?? [],
     isLoading: list.isLoading,
@@ -76,5 +92,6 @@ export function useRankingOrganizers(params: RankingOrganizersParams) {
     isRemoving: remove.isLoading,
     add,
     removeOrganizer,
+    replaceOrganizer,
   }
 }
