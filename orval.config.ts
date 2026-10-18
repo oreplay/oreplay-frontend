@@ -37,17 +37,8 @@ const config = (name: string, url?: string) => {
       filters: {
         mode: "exclude",
         tags: [
-          "FedoStats",
           "Me",
-          "Organizers",
-          "OrganizersManagement",
-          "Pdf",
-          "RawUploads",
-          "Results",
-          "RunnerSearch",
-          "StageClasses",
           "StageClubs",
-          "Stats",
           "Uploads",
           "Users",
           "ValidateTokens",
