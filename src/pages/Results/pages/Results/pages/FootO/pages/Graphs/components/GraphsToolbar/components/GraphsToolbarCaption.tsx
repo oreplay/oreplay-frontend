@@ -4,7 +4,7 @@ import {
   GRAPH_VIEW_TITLE_KEY,
   GraphView,
 } from "../../../shared/graphViews.ts"
-import GraphDescription from "./GraphDescription.tsx"
+import InfoTip from "../../../../../components/InfoTip/InfoTip.tsx"
 
 interface GraphsToolbarCaptionProps {
   view: GraphView
@@ -24,7 +24,7 @@ export default function GraphsToolbarCaption({ view }: GraphsToolbarCaptionProps
       <p className="graphs-toolbar-title m-0 pl-1 text-left text-sm font-bold text-neutral-800 sm:hidden">
         {t(GRAPH_VIEW_TITLE_KEY[view])}
       </p>
-      <GraphDescription
+      <InfoTip
         description={t(GRAPH_VIEW_DESCRIPTION_KEY[view])}
         label={t("Graphs.DescriptionLabel")}
       />

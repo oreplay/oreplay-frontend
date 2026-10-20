@@ -1,29 +1,25 @@
 import { KeyboardEvent, PointerEvent, useId, useState } from "react"
-import {
-  CLOSE_KEY,
-  isDescriptionVisible,
-  isMousePointer,
-} from "../../../shared/descriptionVisibility.ts"
-import InfoIcon from "./icons/InfoIcon.tsx"
+import { CLOSE_KEY, isInfoTipVisible, isMousePointer } from "../../shared/infoTipVisibility.ts"
+import InfoIcon from "../icons/InfoIcon.tsx"
 
-interface GraphDescriptionProps {
+interface InfoTipProps {
   description: string
   label: string
 }
 
 /**
- * Info icon that explains the graph on screen. Hovering it with a mouse shows the explanation, and
+ * Info icon that explains what is next to it, such as the graph on screen or the points of a runner. Hovering it with a mouse shows the explanation, and
  * a click or a tap pins it open until it is clicked again, loses the focus or Escape is pressed.
  * The explanation is anchored to the closest positioned ancestor.
  *
- * @param props.description Already translated explanation of the graph.
+ * @param props.description Already translated explanation.
  * @param props.label Already translated name of the icon for assistive technology.
  */
-export default function GraphDescription({ description, label }: GraphDescriptionProps) {
+export default function InfoTip({ description, label }: InfoTipProps) {
   const descriptionId = useId()
   const [isHovered, setIsHovered] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
-  const isVisible = isDescriptionVisible(isHovered, isPinned)
+  const isVisible = isInfoTipVisible(isHovered, isPinned)
   const colorClass = isVisible ? "text-primary" : "text-neutral-500 hover:text-neutral-800"
 
   const hoverWithMouse = (event: PointerEvent) => {
@@ -38,7 +34,7 @@ export default function GraphDescription({ description, label }: GraphDescriptio
 
   return (
     <div
-      className="graph-description flex"
+      className="info-tip flex"
       onPointerEnter={hoverWithMouse}
       onPointerLeave={() => setIsHovered(false)}
     >

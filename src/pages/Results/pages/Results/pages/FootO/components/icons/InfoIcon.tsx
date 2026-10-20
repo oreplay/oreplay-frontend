@@ -1,7 +1,7 @@
-import ToolbarIcon from "../../../../../../components/icons/ToolbarIcon.tsx"
+import ToolbarIcon from "./ToolbarIcon.tsx"
 
 /**
- * Icon for the explanation of a graph: the letter "i" inside a circle.
+ * Icon for an explanation: the letter "i" inside a circle.
  */
 export default function InfoIcon() {
   return (
