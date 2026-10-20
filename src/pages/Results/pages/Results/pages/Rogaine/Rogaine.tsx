@@ -15,11 +15,12 @@ import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 import { DateTime } from "luxon"
 import { RESULT_TAB } from "../../shared/constants.ts"
+import { useRefreshStage } from "../../shared/useRefreshStage.ts"
 
 const ROGAINE_TABS: readonly ResultTabOption[] = [
   { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
@@ -80,29 +81,21 @@ export default function Rogaine() {
     },
   )
 
-  // Handle re-fetching
-  const handleRefreshClick = useCallback(() => {
-    refreshClassesClubs()
-
-    if (isClass) {
-      void runnersQueryByClasses.refetch()
-    } else {
-      void runnersQueryByClubs.refetch()
-    }
-  }, [refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs, isClass])
+  const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
+  const refresh = useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery })
 
   const { selectedMenu, handleMenuChange } = useResultTabs(0, ROGAINE_TABS)
 
   return (
     <StageLayout
-      handleRefreshClick={handleRefreshClick}
+      onRefresh={refresh}
       activeItem={activeItem}
       isClass={isClass}
       classesQuery={classesQuery}
       clubsQuery={clubsQuery}
       setActiveClassClub={setClassClubId}
       displayTimezoneMsg={!timezoneMatch}
-      isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+      isFetching={shownRunnersQuery.isFetching}
       navigation={
         <ResultTabsBar
           options={ROGAINE_TABS}
@@ -114,17 +107,13 @@ export default function Rogaine() {
       <ResultTabsPanel options={ROGAINE_TABS} selectedMenu={selectedMenu}>
         <Box sx={{ px: 1, height: "100%" }}>
           <RogaineResults
-            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+            runnersQuery={shownRunnersQuery}
             activeItem={activeItem}
             isClass={isClass}
             setClassClubId={setClassClubId}
           />
         </Box>
-        <RogainePoints
-          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
-          activeItem={activeItem}
-          isClass={isClass}
-        />
+        <RogainePoints runnersQuery={shownRunnersQuery} activeItem={activeItem} isClass={isClass} />
       </ResultTabsPanel>
     </StageLayout>
   )

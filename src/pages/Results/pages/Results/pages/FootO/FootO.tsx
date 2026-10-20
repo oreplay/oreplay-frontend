@@ -13,7 +13,7 @@ import FootOSplits from "./pages/Splits/FootOSplits.tsx"
 import GraphsTabIcon from "./components/icons/GraphsTabIcon.tsx"
 import FootOGraphs from "./pages/Graphs/FootOGraphs.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import { useQuery } from "react-query"
 import { getFootORunnersByClass, getFootORunnersByClub } from "./services/FootOService.ts"
 import { useParams } from "react-router-dom"
@@ -27,6 +27,7 @@ import { RESULT_TAB } from "../../shared/constants.ts"
 import OnlineCourseToggle from "./components/OnlineCourseToggle/OnlineCourseToggle.tsx"
 import hasOnlineControls from "./pages/Results/shared/onlineCourse/hasOnlineControls.ts"
 import useOnlineCourseVisibility from "./shared/onlineCourseVisibility/useOnlineCourseVisibility.ts"
+import { useRefreshStage } from "../../shared/useRefreshStage.ts"
 
 const FOOT_O_TABS: readonly ResultTabOption[] = [
   { icon: <AccessTime />, key: RESULT_TAB.StartTimes, labelKey: "StageHeader.StartTime" },
@@ -89,14 +90,8 @@ export default function FootO() {
     },
   )
 
-  const refetch = useCallback(() => {
-    refreshClassesClubs()
-    if (isClass) {
-      void runnersQueryByClasses.refetch()
-    } else {
-      void runnersQueryByClubs.refetch()
-    }
-  }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
+  const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
+  const refresh = useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery })
 
   const { selectedMenu, handleMenuChange } = useResultTabs(
     eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1, // display start times if the race has not started
@@ -104,7 +99,6 @@ export default function FootO() {
   )
 
   const { isOnlineCourseVisible, toggleOnlineCourseVisibility } = useOnlineCourseVisibility(eventId)
-  const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
   const isResultsTabSelected = FOOT_O_TABS[selectedMenu]?.key === RESULT_TAB.Results
   const hasOnlineCourses = shownRunnersQuery.data?.some(hasOnlineControls) ?? false
   const canToggleOnlineCourse = isResultsTabSelected && hasOnlineCourses
@@ -125,9 +119,9 @@ export default function FootO() {
       classesQuery={classesQuery}
       clubsQuery={clubsQuery}
       setActiveClassClub={setClassClubId}
-      handleRefreshClick={refetch}
+      onRefresh={refresh}
       displayTimezoneMsg={!timezoneMatch}
-      isFetching={runnersQueryByClasses.isFetching || runnersQueryByClubs.isFetching}
+      isFetching={shownRunnersQuery.isFetching}
       navigation={
         <ResultTabsBar
           options={FOOT_O_TABS}
@@ -139,30 +133,22 @@ export default function FootO() {
       <ResultTabsPanel key={"ResultTabs"} options={FOOT_O_TABS} selectedMenu={selectedMenu}>
         <Box sx={{ px: 1, height: "100%" }}>
           <FootOStartTime
-            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+            runnersQuery={shownRunnersQuery}
             activeItem={activeItem}
             isClass={isClass}
           />
         </Box>
         <Box sx={{ px: 1, height: "100%" }}>
           <FootOResults
-            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+            runnersQuery={shownRunnersQuery}
             activeItem={activeItem}
             isClass={isClass}
             isOnlineCourseVisible={isOnlineCourseVisible}
             setClassClubId={setClassClubId}
           />
         </Box>
-        <FootOSplits
-          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
-          activeItem={activeItem}
-          isClass={isClass}
-        />
-        <FootOGraphs
-          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
-          activeItem={activeItem}
-          isClass={isClass}
-        />
+        <FootOSplits runnersQuery={shownRunnersQuery} activeItem={activeItem} isClass={isClass} />
+        <FootOGraphs runnersQuery={shownRunnersQuery} activeItem={activeItem} isClass={isClass} />
       </ResultTabsPanel>
     </StageLayout>
   )

@@ -4,7 +4,7 @@ import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import StageLayout from "../../components/StageLayout/StageLayout.tsx"
 import ResultTabsPanel from "../../components/ResultTabsPanel.tsx"
 import ResultTabsBar from "../../components/ResultTabsBar/ResultTabsBar.tsx"
@@ -23,6 +23,7 @@ import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { DateTime } from "luxon"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 import { RESULT_TAB } from "../../shared/constants.ts"
+import { useRefreshStage } from "../../shared/useRefreshStage.ts"
 
 const ONE_MAN_RELAY_TABS: readonly ResultTabOption[] = [
   { icon: <AccessTime />, key: RESULT_TAB.StartTimes, labelKey: "StageHeader.StartTime" },
@@ -82,14 +83,8 @@ export default function OneManRelay() {
     },
   )
 
-  const refetch = useCallback(() => {
-    refreshClassesClubs()
-    if (isClass) {
-      void runnersQueryByClasses.refetch()
-    } else {
-      void runnersQueryByClubs.refetch()
-    }
-  }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
+  const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
+  const refresh = useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery })
 
   const { selectedMenu, handleMenuChange } = useResultTabs(
     eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1, // display start times if the race has not started
@@ -104,9 +99,9 @@ export default function OneManRelay() {
       classesQuery={classesQuery}
       clubsQuery={clubsQuery}
       setActiveClassClub={setClassClubId}
-      handleRefreshClick={refetch}
+      onRefresh={refresh}
       displayTimezoneMsg={!timezoneMatch}
-      isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+      isFetching={shownRunnersQuery.isFetching}
       navigation={
         <ResultTabsBar
           options={ONE_MAN_RELAY_TABS}
@@ -118,14 +113,14 @@ export default function OneManRelay() {
       <ResultTabsPanel key={"ResultTabs"} options={ONE_MAN_RELAY_TABS} selectedMenu={selectedMenu}>
         <Box sx={{ px: 1, height: "100%" }}>
           <FootOStartTime
-            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+            runnersQuery={shownRunnersQuery}
             activeItem={activeItem}
             isClass={isClass}
           />
         </Box>
         <Box sx={{ px: 1, height: "100%" }}>
           <OneManRelayResults
-            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+            runnersQuery={shownRunnersQuery}
             activeItem={activeItem}
             isClass={isClass}
             setClassClubId={setClassClubId}
