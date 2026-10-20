@@ -15,6 +15,7 @@ export default function RunnerHeading({ row }: ScrollTableRowHeadingProps<Splits
     <>
       <RacePosition
         position={runner.stage.position}
+        statusCode={runner.stage.status_code}
         isNC={isRunnerNotCompeting(runner)}
         hasDownload={hasChipDownload(runner)}
         slotProps={{ text: { marginRight: 1 } }}

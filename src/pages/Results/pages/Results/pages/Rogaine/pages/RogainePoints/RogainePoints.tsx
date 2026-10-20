@@ -83,6 +83,7 @@ export default function RogainePoints(
                   <TableCell key={`runner${runner.id}pos`}>
                     <RacePosition
                       position={runner.stage.position}
+                      statusCode={runner.stage.status_code}
                       isNC={runner.is_nc || status === RESULT_STATUS_TEXT.nc}
                       hasDownload={hasChipDownload(runner)}
                     />
