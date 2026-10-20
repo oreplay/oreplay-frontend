@@ -1,6 +1,7 @@
 import { SxProps, Theme, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import {
+  getRacePositionAlign,
   getRacePositionColor,
   getRacePositionDisplay,
   RACE_POSITION_PENDING_LABEL,
@@ -8,7 +9,7 @@ import {
 } from "../../shared/racePosition.ts"
 import NotOkCross from "./components/NotOkCross.tsx"
 
-const POSITION_SLOT_MIN_WIDTH = "4ch"
+const POSITION_SLOT_MIN_WIDTH = "2.5ch"
 
 interface RacePositionSlotProps {
   text: SxProps<Theme>
@@ -23,9 +24,11 @@ type RacePositionProps = {
 }
 
 /**
- * Position slot of a result row. It always takes the same width and right-aligns its content so
- * names line up across rows: "NC" for not-competitive runners, a cross when the status is known to
- * be not ok, the position when there is one, and a dash while it is not available yet.
+ * Position slot of a result row: "NC" for not-competitive runners, a cross when the status is known
+ * to be not ok, the position when there is one, and a dash while it is not available yet. The slot
+ * is always wide enough for a two-digit position and its dot, so names line up across rows; only a
+ * longer label (three digits, a long "NC") widens it. Numbers and "NC" are right-aligned, the dash
+ * and the cross centred.
  * @param props.position Position in the classification; `null` or `0` when not available yet.
  * @param props.statusCode Result status code (numeric or text); omitted when unknown.
  * @param props.isNC Whether the runner takes part out of competition.
@@ -42,6 +45,7 @@ export default function RacePosition({
   const { t } = useTranslation()
   const display = getRacePositionDisplay(position, statusCode, isNC)
   const color = getRacePositionColor(display, hasDownload)
+  const textAlign = getRacePositionAlign(display)
   const statusLabel = t(`ResultsStage.statusCodes.${toResultStatusText(statusCode)}`)
 
   return (
@@ -49,8 +53,9 @@ export default function RacePosition({
       sx={{
         color,
         flexShrink: 0,
-        textAlign: "end",
+        textAlign,
         minWidth: POSITION_SLOT_MIN_WIDTH,
+        whiteSpace: "nowrap",
         fontVariantNumeric: "tabular-nums",
         ...slotProps?.text,
       }}
