@@ -246,19 +246,42 @@
     "StartTime": "Sortida",
     "Times": "Temps",
     "VirtualTicket": {
+      "Behind": "Diferència",
+      "Bib": "Dorsal {{bib}}",
+      "BonusPenalty": "Bonificació / Penalització",
       "Control": "Fita",
+      "Controls": "Controls",
+      "ControlsPunched": "<strong>{{punched}}</strong> de {{total}} controls picats",
       "Cumulative": "Acumulat",
+      "Finish": "Arribada",
       "FinishControl": "Meta",
-      "FinishHour": "Hora de meta:",
       "FootO": {
         "Points": {
+          "HelpLabel": "Com es calculen els punts?",
           "HelpMsg": "Fórmula dels 1000 punts: 1000 * (temps guanyador / el teu temps)"
         }
       },
+      "Leg": "Relleu {{leg}} – {{name}}",
+      "LegTime": "Temps del relleu",
+      "NoDownloadHint": "Els parcials apareixen quan es llegeix el xip a l'arribada.",
       "NoDownloadMsg": "No hi ha lectura de xip",
       "Partial": "Parcial",
-      "RaceTime": "Temps:",
-      "StartHour": "H. sortida:"
+      "Position": "Posició",
+      "Splits": "Parcials",
+      "Start": "Sortida",
+      "Status": {
+        "dnf": "No ha acabat",
+        "dns": "No ha sortit",
+        "dsq": "Desqualificat",
+        "mp": "Error de targeta",
+        "nc": "Fora de concurs",
+        "ok": "OK",
+        "ot": "Fora de temps"
+      },
+      "Team": "Equip",
+      "TeamTime": "Temps de l'equip",
+      "TicketView": "Vista del tiquet",
+      "Time": "Temps"
     },
     "WrongFileUploaded": {
       "Msg": "El cronometrador ha pujat els resultats finals sense parcials. Aquests arxius no s'haurien de pujar i poden causar dades incorrectes o faltants. Pots trobar més informació sobre com pujar resultats al nostre servei a la pàgina d'<2>Organitzadors</2>.",

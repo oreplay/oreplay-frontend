@@ -1,14 +1,22 @@
-import { Grid, Skeleton } from "@mui/material"
+import VirtualTicketSplitRow from "../../../../../../../components/VirtualTicket/components/VirtualTicketSplitRow.tsx"
 
+const BAR_CLASS = "animate-pulse rounded-md bg-[#ededed]"
+
+/**
+ * Placeholder row of the FootO splits table, shown while the class-wide splits load.
+ */
 export default function FootOVirtualTicketSplitSkeletonItem() {
   return (
-    <Grid
-      size={12}
-      sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}
-    >
-      <Skeleton variant={"rounded"} width={"70px"} height={"39px"} />
-      <Skeleton variant={"rounded"} width={"120px"} height={"39px"} />
-      <Skeleton variant={"rounded"} width={"120px"} height={"39px"} />
-    </Grid>
+    <VirtualTicketSplitRow>
+      <span className={`h-[18px] w-10 ${BAR_CLASS}`} />
+      <span className="flex items-center gap-2">
+        <span className={`h-4 w-10 ${BAR_CLASS}`} />
+        <span className={`h-3 w-[52px] ${BAR_CLASS}`} />
+      </span>
+      <span className="flex items-center gap-2">
+        <span className={`h-4 w-10 ${BAR_CLASS}`} />
+        <span className={`h-3 w-[52px] ${BAR_CLASS}`} />
+      </span>
+    </VirtualTicketSplitRow>
   )
 }

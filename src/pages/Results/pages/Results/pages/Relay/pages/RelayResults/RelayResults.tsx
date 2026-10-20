@@ -61,6 +61,7 @@ export default function RelayResults(props: RelayResultProps) {
           isTicketOpen={isTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseTicket}
+          isClass={props.isClass}
           setClassClubId={props.setClassClubId}
           leg={leg}
         />

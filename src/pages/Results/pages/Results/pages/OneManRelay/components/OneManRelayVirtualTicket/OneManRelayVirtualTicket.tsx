@@ -3,72 +3,69 @@ import {
   VirtualTicketProps,
 } from "../../../../../../components/VirtualTicket/VirtualTicketContainer.tsx"
 import OneManRelayVirtualTicketSplit from "./components/OneManRelayVirtualTicketSplit/OneManRelayVirtualTicketSplit.tsx"
-import { CSSProperties } from "react"
-import { Grid, Typography } from "@mui/material"
 import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
 import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
 import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
+import VirtualTicketSplitsTable from "../../../../../../components/VirtualTicket/components/VirtualTicketSplitsTable.tsx"
+import { classSize } from "../../../../../../components/VirtualTicket/shared/ticketDisplay.ts"
+import {
+  selectRunnerList,
+  useClassRunners,
+} from "../../../../../../components/VirtualTicket/shared/useClassRunners.ts"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
-import { useTranslation } from "react-i18next"
 import { hasChipDownload } from "../../../../shared/functions.ts"
 import FootOVirtualTicketTimesBanner from "../../../FootO/components/FootOVirtualTicket/components/FootOVirtualTicketTimesBanner.tsx"
+import { getOneManRelayRunnersByClass } from "../../services/OneManRelayService.ts"
 
 /**
- * This is the Virtual Ticket for Score results
+ * This is the Virtual Ticket for one-man relay results: the runner, a summary of the result and
+ * the splits with times only.
  *
- * @param isTicketOpen
- * @param runner: ProcessedRunnerModel|RunnerResultModel
- * @param handleCloseTicket
- * @constructor
+ * @param props.isTicketOpen Whether the ticket is shown.
+ * @param props.runner Runner the ticket is about; `null` renders nothing.
+ * @param props.handleCloseTicket Called when the user closes the ticket.
+ * @param props.isClass Whether the results page lists a class rather than a club.
+ * @param props.setClassClubId Changes the results page to another class or club.
  */
 export default function OneManRelayVirtualTicket({
   isTicketOpen,
   runner,
   handleCloseTicket,
+  isClass = false,
   setClassClubId,
 }: VirtualTicketProps) {
-  const { t } = useTranslation()
+  const { runner: displayedRunner, classRunners } = useClassRunners(
+    runner,
+    isClass,
+    getOneManRelayRunnersByClass,
+    selectRunnerList,
+  )
 
-  const headersStyles: CSSProperties = {
-    fontWeight: "bold",
-    fontSize: "medium",
-    textAlign: "center",
-  }
+  if (!displayedRunner) return null
 
-  if (runner) {
-    return (
-      <VirtualTicketContainer
-        isTicketOpen={isTicketOpen}
-        runner={runner}
-        handleCloseTicket={handleCloseTicket}
+  return (
+    <VirtualTicketContainer
+      isTicketOpen={isTicketOpen}
+      runner={displayedRunner}
+      handleCloseTicket={handleCloseTicket}
+    >
+      <VirtualTicketHeader>
+        <VirtualTicketRunnerInfo runner={displayedRunner} setClassClubId={setClassClubId} />
+        <FootOVirtualTicketTimesBanner
+          classSize={classSize(classRunners)}
+          runnerResult={displayedRunner.stage}
+        />
+      </VirtualTicketHeader>
+      <VirtualTicketSplits
+        download={hasChipDownload(displayedRunner)}
+        isDNS={runnerService.isDNS(displayedRunner)}
       >
-        <VirtualTicketHeader>
-          <VirtualTicketRunnerInfo runner={runner} setClassClubId={setClassClubId} />
-          <FootOVirtualTicketTimesBanner runnerResult={runner.stage} />
-        </VirtualTicketHeader>
-        <VirtualTicketSplits download={hasChipDownload(runner)} isDNS={runnerService.isDNS(runner)}>
-          <Grid size={3}>
-            <Typography variant="subtitle2" sx={headersStyles}>
-              {t("ResultsStage.VirtualTicket.Control")}
-            </Typography>
-          </Grid>
-          <Grid size={4}>
-            <Typography variant="subtitle2" sx={headersStyles}>
-              {t("ResultsStage.VirtualTicket.Partial")}
-            </Typography>
-          </Grid>
-          <Grid size={5}>
-            <Typography variant="subtitle2" sx={headersStyles}>
-              {t("ResultsStage.VirtualTicket.Cumulative")}
-            </Typography>
-          </Grid>
-          {runner.stage.splits.map((split, index) => (
-            <OneManRelayVirtualTicketSplit key={split.id} split={split} index={index} />
+        <VirtualTicketSplitsTable>
+          {displayedRunner.stage.splits.map((split) => (
+            <OneManRelayVirtualTicketSplit key={split.id} split={split} />
           ))}
-        </VirtualTicketSplits>
-      </VirtualTicketContainer>
-    )
-  } else {
-    return <></>
-  }
+        </VirtualTicketSplitsTable>
+      </VirtualTicketSplits>
+    </VirtualTicketContainer>
+  )
 }

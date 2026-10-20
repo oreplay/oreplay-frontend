@@ -1,66 +1,62 @@
-import React, { CSSProperties } from "react"
-import Grid from "@mui/material/Grid"
-import { Typography } from "@mui/material"
-import { ProcessedRunnerResultModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { parseResultStatus } from "../../../../../../../shared/sortingFunctions/sortRunners.ts"
-import RaceTime from "../../../../../components/RaceTime.tsx"
-import StartTime from "../../../../../components/StartTime.tsx"
+import React from "react"
 import { useTranslation } from "react-i18next"
+import { ProcessedRunnerResultModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import VirtualTicketPosition from "../../../../../../../components/VirtualTicket/components/VirtualTicketPosition.tsx"
+import VirtualTicketResultTime from "../../../../../../../components/VirtualTicket/components/VirtualTicketResultTime.tsx"
+import VirtualTicketStat from "../../../../../../../components/VirtualTicket/components/VirtualTicketStat.tsx"
+import VirtualTicketSummary from "../../../../../../../components/VirtualTicket/components/VirtualTicketSummary.tsx"
+import {
+  behindText,
+  isRankedResult,
+  timeOfDayText,
+} from "../../../../../../../components/VirtualTicket/shared/ticketDisplay.ts"
+import { STAT_SIZE } from "../../../../../../../components/VirtualTicket/shared/ticketLayout.ts"
 import { hasChipDownload } from "../../../../../shared/functions.ts"
+import FootOVirtualTicketPoints from "./FootOVirtualTicketPoints.tsx"
 
 type FootOVirtualTicketTimesBannerProps = {
+  classSize: number | null
   runnerResult: ProcessedRunnerResultModel
 }
 
 /**
- * Displays a runner start and finish times and race time within a virtual ticket for FootO.
- * @param runner Runner to be displayed
+ * Summary of a FootO result within a virtual ticket: position, time and time behind, then the
+ * start and finish times of day and the points. A result that is not ranked shows its status
+ * where the time and time behind would be.
+ *
+ * @param props.classSize Number of runners in the class; `null` while unknown.
+ * @param props.runnerResult Result to be displayed.
  */
 const FootOVirtualTicketTimesBanner: React.FC<FootOVirtualTicketTimesBannerProps> = ({
+  classSize,
   runnerResult,
 }) => {
   const { t } = useTranslation()
-  const status = parseResultStatus(runnerResult.status_code as string)
-
-  const gridStylesStartTime: CSSProperties = {
-    display: "flex",
-    padding: 8,
-  }
-
-  const gridStylesTotalTime: CSSProperties = {
-    display: "flex",
-    padding: "8px 0px 8px 8px",
-    justifyContent: "flex-end",
-  }
-
-  const titleStyles: CSSProperties = {
-    fontWeight: "bold",
-    fontSize: "small",
-  }
-
-  const timesStyles: CSSProperties = {
-    fontSize: "small",
-  }
+  const isRanked = isRankedResult(runnerResult)
+  const timeSpanClass = isRanked ? "" : "col-span-2"
 
   return (
-    <>
-      <Grid style={gridStylesStartTime} size={6}>
-        <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.StartHour")}</Typography>
-        <StartTime style={timesStyles} startTime={runnerResult.start_time} />
-      </Grid>
-      <Grid style={gridStylesTotalTime} size={6}>
-        <Typography style={titleStyles}>{t("ResultsStage.VirtualTicket.RaceTime")}</Typography>
-        <RaceTime
-          style={timesStyles}
-          isFinalTime={hasChipDownload(runnerResult)}
-          displayStatus
-          status={status}
-          start_time={runnerResult.start_time}
-          finish_time={runnerResult.finish_time}
-          time_seconds={runnerResult.time_seconds}
-        />
-      </Grid>
-    </>
+    <VirtualTicketSummary>
+      <VirtualTicketPosition classSize={classSize} result={runnerResult} />
+      <VirtualTicketResultTime result={runnerResult} className={timeSpanClass} />
+      {isRanked && (
+        <VirtualTicketStat
+          label={t("ResultsStage.VirtualTicket.Behind")}
+          size={STAT_SIZE.LargeMuted}
+        >
+          {behindText(runnerResult)}
+        </VirtualTicketStat>
+      )}
+      <VirtualTicketStat label={t("ResultsStage.VirtualTicket.Start")}>
+        {timeOfDayText(runnerResult.start_time)}
+      </VirtualTicketStat>
+      <VirtualTicketStat label={t("ResultsStage.VirtualTicket.Finish")}>
+        {timeOfDayText(runnerResult.finish_time)}
+      </VirtualTicketStat>
+      {hasChipDownload(runnerResult) && (
+        <FootOVirtualTicketPoints points={runnerResult.points_final} />
+      )}
+    </VirtualTicketSummary>
   )
 }
 

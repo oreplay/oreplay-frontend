@@ -43,6 +43,7 @@ export default function RogainePoints(props: RogainePointsProps) {
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
+          isClass={props.isClass}
           setClassClubId={props.setClassClubId}
           controls={props.runnersQuery.data ? props.runnersQuery.data[1] : null}
         />

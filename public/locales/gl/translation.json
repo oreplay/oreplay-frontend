@@ -301,19 +301,42 @@
     },
     "Times": "Tempo",
     "VirtualTicket": {
+      "Behind": "Diferenza",
+      "Bib": "Dorsal {{bib}}",
+      "BonusPenalty": "Bonificación / Penalización",
       "Control": "Ctrl",
+      "Controls": "Controis",
+      "ControlsPunched": "<strong>{{punched}}</strong> de {{total}} controis picados",
       "Cumulative": "Acumulativo",
+      "Finish": "Meta",
       "FinishControl": "Meta",
-      "FinishHour": "H.Meta:",
       "FootO": {
         "Points": {
+          "HelpLabel": "Como se calculan os puntos?",
           "HelpMsg": "Puntos obtidos segundo a fórmula dos 1000 puntos: 1000*(tempo do gañador / teu tempo)"
         }
       },
+      "Leg": "Posta {{leg}} – {{name}}",
+      "LegTime": "Tempo da posta",
+      "NoDownloadHint": "Os parciais aparecen cando se le o chip na meta.",
       "NoDownloadMsg": "Non hai lectura do chip",
       "Partial": "Parcial",
-      "RaceTime": "Tempo:",
-      "StartHour": "H.Saída:"
+      "Position": "Posición",
+      "Splits": "Parciais",
+      "Start": "Saída",
+      "Status": {
+        "dnf": "Non rematou",
+        "dns": "Non saíu",
+        "dsq": "Descualificado",
+        "mp": "Erro de tarxeta",
+        "nc": "Fóra de concurso",
+        "ok": "OK",
+        "ot": "Fóra de tempo"
+      },
+      "Team": "Equipo",
+      "TeamTime": "Tempo do equipo",
+      "TicketView": "Vista do ticket",
+      "Time": "Tempo"
     },
     "WrongFileUploaded": {
       "Msg": "O cronometrador subiu os resultados finais sen parciais. Estes ficheiros non se deben subir e poden provocar que falten datos ou que se mostren datos incorrectos. Podes atopar máis información sobre como subir resultados ao noso servizo na páxina de <2>Organizadores</2>.",

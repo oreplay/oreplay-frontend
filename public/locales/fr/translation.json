@@ -303,19 +303,42 @@
     },
     "Times": "Temps",
     "VirtualTicket": {
+      "Behind": "Écart",
+      "Bib": "Dossard {{bib}}",
+      "BonusPenalty": "Bonus / Pénalité",
       "Control": "Contrôle",
+      "Controls": "Postes",
+      "ControlsPunched": "<strong>{{punched}}</strong> postes poinçonnés sur {{total}}",
       "Cumulative": "Cumulatif",
+      "Finish": "Arrivée",
       "FinishControl": "Fin",
-      "FinishHour": "Heure de Arrivée :",
       "FootO": {
         "Points": {
+          "HelpLabel": "Comment les points sont-ils calculés ?",
           "HelpMsg": "Points obtenus selon la formule à 1000 points : 1000 × (temps du vainqueur / votre temps)"
         }
       },
+      "Leg": "Relais {{leg}} – {{name}}",
+      "LegTime": "Temps du relais",
+      "NoDownloadHint": "Les temps intermédiaires apparaissent une fois la puce lue à l'arrivée.",
       "NoDownloadMsg": "Pas de lecture de puce",
       "Partial": "Intermédiaire",
-      "RaceTime": "Temps :",
-      "StartHour": "Heure de départ :"
+      "Position": "Place",
+      "Splits": "Intermédiaires",
+      "Start": "Départ",
+      "Status": {
+        "dnf": "Abandon",
+        "dns": "Non partant",
+        "dsq": "Disqualifié",
+        "mp": "Poste manquant",
+        "nc": "Hors concours",
+        "ok": "OK",
+        "ot": "Hors délai"
+      },
+      "Team": "Équipe",
+      "TeamTime": "Temps de l'équipe",
+      "TicketView": "Vue du ticket",
+      "Time": "Temps"
     },
     "WrongFileUploaded": {
       "Msg": "Le chronométreur a téléchargé les résultats finaux sans les temps intermédiaires. Ces fichiers ne doivent pas être téléchargés, car ils pourraient entraîner l'affichage de données manquantes ou incorrectes. Pour plus d'informations sur la manière de télécharger les résultats sur notre service, consultez la page <2>Organisateurs</2>.",

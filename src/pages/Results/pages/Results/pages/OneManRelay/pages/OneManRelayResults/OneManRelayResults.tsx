@@ -46,6 +46,7 @@ export default function OneManRelayResults(props: OneManRelayResultProps) {
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
+          isClass={props.isClass}
           setClassClubId={props.setClassClubId}
         />
       </>
