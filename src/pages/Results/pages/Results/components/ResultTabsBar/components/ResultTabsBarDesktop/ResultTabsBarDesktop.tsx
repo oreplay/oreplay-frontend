@@ -2,7 +2,8 @@ import "../../../../../../../../styles/tokens.css"
 import "../../../../../../../../styles/tailwind.css"
 import React from "react"
 import { DESKTOP_RESULT_TABS_BAR_HEIGHT_PX } from "../../../../shared/desktopLayout.ts"
-import { ResultTabsBarProps, resultTabId, tabIndexForKey } from "../../../../shared/resultTabs.ts"
+import { tabIndexForKey } from "../../../../../../../../shared/tabIndexForKey.ts"
+import { ResultTabsBarProps, resultTabId } from "../../../../shared/resultTabs.ts"
 import ResultTabDesktop from "./components/ResultTabDesktop.tsx"
 
 const BAR_STYLE = { height: DESKTOP_RESULT_TABS_BAR_HEIGHT_PX }

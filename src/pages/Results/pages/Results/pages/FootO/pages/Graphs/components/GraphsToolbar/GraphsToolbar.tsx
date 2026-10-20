@@ -2,8 +2,8 @@ import "../../../../../../../../../../styles/tokens.css"
 import "../../../../../../../../../../styles/tailwind.css"
 import { ReactElement } from "react"
 import { useTranslation } from "react-i18next"
-import SegmentedSelector from "../../../../components/SegmentedSelector/SegmentedSelector.tsx"
-import { ViewOption } from "../../../../shared/viewOption.ts"
+import SegmentedControl from "../../../../../../../../../../components/SegmentedControl/SegmentedControl.tsx"
+import { SegmentedControlOption } from "../../../../../../../../../../components/SegmentedControl/shared/segmentedControl.ts"
 import {
   GRAPH_VIEW,
   GRAPH_VIEW_LABEL_KEY,
@@ -28,12 +28,14 @@ const GRAPH_VIEW_ICONS: Record<GraphView, ReactElement> = {
   [GRAPH_VIEW.PositionChart]: <PositionIcon />,
 }
 
-const GRAPH_VIEW_OPTIONS: readonly ViewOption<GraphView>[] = GRAPH_VIEW_ORDER.map((view) => ({
-  icon: GRAPH_VIEW_ICONS[view],
-  key: view,
-  labelKey: GRAPH_VIEW_LABEL_KEY[view],
-  shortLabelKey: GRAPH_VIEW_SHORT_LABEL_KEY[view],
-}))
+const GRAPH_VIEW_OPTIONS: readonly SegmentedControlOption<GraphView>[] = GRAPH_VIEW_ORDER.map(
+  (view) => ({
+    icon: GRAPH_VIEW_ICONS[view],
+    key: view,
+    labelKey: GRAPH_VIEW_LABEL_KEY[view],
+    shortLabelKey: GRAPH_VIEW_SHORT_LABEL_KEY[view],
+  }),
+)
 
 /**
  * Bar above the graphs that picks which graph is shown. It sticks to the top of the page so it
@@ -58,11 +60,12 @@ export default function GraphsToolbar({
       style={toolbarStyle}
       className="graphs-toolbar tw-root sticky z-[2] flex flex-col gap-2 bg-white px-4 py-2 font-sans sm:flex-row sm:items-center"
     >
-      <SegmentedSelector
+      <SegmentedControl
         ariaLabel={t("StageHeader.Graphs")}
         onChange={onViewChange}
         options={GRAPH_VIEW_OPTIONS}
         selectedKey={selectedView}
+        className="max-w-md"
       />
       <GraphsToolbarCaption view={selectedView} />
     </div>

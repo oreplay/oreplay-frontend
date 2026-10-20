@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
-import SegmentedSelector from "../../../../../components/SegmentedSelector/SegmentedSelector.tsx"
-import { ViewOption } from "../../../../../shared/viewOption.ts"
+import SegmentedControl from "../../../../../../../../../../../components/SegmentedControl/SegmentedControl.tsx"
+import { SegmentedControlOption } from "../../../../../../../../../../../components/SegmentedControl/shared/segmentedControl.ts"
 import { SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS } from "../../../shared/splitsToolbarLayout.ts"
 import { SPLITS_VIEW, SplitsView } from "../../../shared/splitsViews.ts"
 import AccumulatedIcon from "./icons/AccumulatedIcon.tsx"
@@ -13,7 +13,7 @@ interface SplitsViewSelectorProps {
   views: readonly SplitsView[]
 }
 
-const VIEW_OPTIONS: Record<SplitsView, ViewOption<SplitsView>> = {
+const VIEW_OPTIONS: Record<SplitsView, SegmentedControlOption<SplitsView>> = {
   [SPLITS_VIEW.Accumulated]: {
     icon: <AccumulatedIcon />,
     key: SPLITS_VIEW.Accumulated,
@@ -39,12 +39,12 @@ export default function SplitsViewSelector({
   const options = views.map((view) => VIEW_OPTIONS[view])
 
   return (
-    <SegmentedSelector
+    <SegmentedControl
       ariaLabel={t("StageHeader.Splits")}
       onChange={onViewChange}
       options={options}
       selectedKey={selectedView}
-      className={SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS}
+      className={`max-w-md ${SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS}`}
     />
   )
 }
