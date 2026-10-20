@@ -31,6 +31,7 @@ export default function RelayResultItem({
       <td className="relay-result-column min-width">
         <RacePosition
           position={runner.stage.position}
+          statusCode={runner.stage.status_code}
           hasDownload={hasChipDownload}
           isNC={isRunnerNC(runner)}
         />

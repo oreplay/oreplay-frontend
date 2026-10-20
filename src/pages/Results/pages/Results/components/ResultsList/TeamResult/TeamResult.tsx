@@ -16,6 +16,9 @@ export default function TeamResult({ runner, onClick, ResultColumn }: ResultItem
       >
         <RacePosition
           position={runner.overalls ? runner.overalls.overall.position : runner.stage.position}
+          statusCode={
+            runner.overalls ? runner.overalls.overall.status_code : runner.stage.status_code
+          }
           hasDownload={runner.overalls ? true : hasChipDownloadFunction(runner)}
           isNC={runnerService.isNC(runner)}
           slotProps={{ text: { marginRight: 1 } }}
