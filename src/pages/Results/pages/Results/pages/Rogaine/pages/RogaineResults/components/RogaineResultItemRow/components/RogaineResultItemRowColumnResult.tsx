@@ -4,20 +4,26 @@ import RaceTime from "../../../../../../../components/RaceTime.tsx"
 import { hasChipDownload } from "../../../../../../../shared/functions.ts"
 import { parseResultStatus } from "../../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
+import { Typography } from "@mui/material"
 
+/**
+ * The result column of a Score results row: the final points above the race time or status.
+ *
+ * @param props.runner The runner or team whose result is shown.
+ */
 export default function RogaineResultItemRowColumnResult(props: ResultColumnProps) {
   const runnerResult = props.runner.stage
   const statusOkOrNc = runnerService.isOK(props.runner) || runnerService.isNC(props.runner)
 
   return (
     <div className="flex flex-col items-end">
-      <span>
+      <Typography>
         {statusOkOrNc
           ? runnerResult.points_final || runnerResult.finish_time
             ? `${formatScoreAsInteger(runnerResult.points_final)}`
             : ""
           : ""}
-      </span>
+      </Typography>
       <RaceTime
         displayStatus
         status={parseResultStatus(props.runner.stage.status_code as string)}
