@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
+import { getRunnerRacePosition } from "../../../shared/racePosition.ts"
 import ResultListItem from "../ResultListItem.tsx"
 import ResultListItemColumn from "../ResultListItemColumn.tsx"
 import RacePosition from "../../RacePosition/RacePosition.tsx"
@@ -38,12 +39,8 @@ export default function IndividualResult({
         }}
       >
         <RacePosition
-          position={runner.overalls ? runner.overalls.overall.position : runner.stage.position}
-          statusCode={
-            runner.overalls ? runner.overalls.overall.status_code : runner.stage.status_code
-          }
+          {...getRunnerRacePosition(runner)}
           hasDownload={runner.overalls ? true : hasChipDownloadFunction(runner)}
-          isNC={runnerService.isNC(runner)}
           slotProps={{ text: { marginRight: 1 } }}
         />
         <div className="min-w-0 flex-grow">

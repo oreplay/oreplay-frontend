@@ -1,6 +1,23 @@
 import { describe, expect, it } from "vitest"
 import { RESULT_STATUS, RESULT_STATUS_TEXT } from "../../../shared/constants.ts"
-import { getRacePositionColor, getRacePositionDisplay, toResultStatusText } from "./racePosition.ts"
+import { buildRunnerFixture } from "../pages/FootO/pages/Splits/components/FootOSplitsTable/shared/splitsTableFixtures.ts"
+import {
+  getRacePositionColor,
+  getRacePositionDisplay,
+  getRunnerRacePosition,
+  toResultStatusText,
+} from "./racePosition.ts"
+
+describe("getRunnerRacePosition", () => {
+  it("reads the stage result", () => {
+    const runner = buildRunnerFixture("a", undefined, { statusCode: RESULT_STATUS.mp })
+    expect(getRunnerRacePosition(runner)).toEqual({
+      position: 1,
+      statusCode: RESULT_STATUS.mp,
+      isNC: false,
+    })
+  })
+})
 
 describe("getRacePositionDisplay", () => {
   it("shows the position of a classified runner", () => {
