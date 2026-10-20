@@ -1,6 +1,6 @@
 import { ResultItemProps } from "../shared/types.ts"
 import ResultListItemColumn from "../ResultListItemColumn.tsx"
-import RacePosition from "../../RacePosition.tsx"
+import RacePosition from "../../RacePosition/RacePosition.tsx"
 import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/functions.ts"
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
 import ParticipantName from "../../ParticipantName.tsx"
