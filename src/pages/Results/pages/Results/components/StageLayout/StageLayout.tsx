@@ -12,6 +12,7 @@ import ErrorBoundary from "../../../../../../components/ErrorBoundary/ErrorBound
 import TimezoneMsg from "./components/TimezoneMsg.tsx"
 import { useIsMobileDevice } from "../../shared/useIsMobileDevice.ts"
 import { MOBILE_CONTENT_BOTTOM_PADDING_PX } from "../../shared/mobileLayout.ts"
+import PullToRefetch from "./components/PullToRefetch/PullToRefetch.tsx"
 
 const spin = keyframes({ from: { transform: "rotate(0deg)" }, to: { transform: "rotate(360deg)" } })
 
@@ -86,7 +87,9 @@ export default function StageLayout(props: StageLayoutProps) {
           paddingBottom: contentBottomPadding,
         }}
       >
-        <ErrorBoundary displayMsg>{props.children}</ErrorBoundary>
+        <PullToRefetch onRefresh={props.onRefresh}>
+          <ErrorBoundary displayMsg>{props.children}</ErrorBoundary>
+        </PullToRefetch>
       </Box>
     </Box>
   )
