@@ -323,19 +323,42 @@
     "StartTime": "Start",
     "Times": "Time",
     "VirtualTicket": {
+      "Behind": "Behind",
+      "Bib": "Bib {{bib}}",
+      "BonusPenalty": "Bonus / Penalty",
       "Control": "Ctrl",
+      "Controls": "Controls",
+      "ControlsPunched": "<strong>{{punched}}</strong> of {{total}} controls punched",
       "Cumulative": "Cumulative",
+      "Finish": "Finish",
       "FinishControl": "Fin",
-      "FinishHour": "Finish time:",
       "FootO": {
         "Points": {
+          "HelpLabel": "How are points calculated?",
           "HelpMsg": "Points obtained by 1000-point formula: 1000*(winner's time / your time)"
         }
       },
+      "Leg": "Leg {{leg}} – {{name}}",
+      "LegTime": "Leg time",
+      "NoDownloadHint": "Splits appear once the chip is read at the finish.",
       "NoDownloadMsg": "No chip reading",
       "Partial": "Split",
-      "RaceTime": "Time:",
-      "StartHour": "Start time:"
+      "Position": "Position",
+      "Splits": "Splits",
+      "Start": "Start",
+      "Status": {
+        "dnf": "Did not finish",
+        "dns": "Did not start",
+        "dsq": "Disqualified",
+        "mp": "Mispunch",
+        "nc": "Not competitive",
+        "ok": "OK",
+        "ot": "Out of time"
+      },
+      "Team": "Team",
+      "TeamTime": "Team time",
+      "TicketView": "Ticket view",
+      "Time": "Time"
     },
     "WrongFileUploaded": {
       "Msg": "The timekeeper has uploaded final results without splits. These files should not be uploaded and may cause missing or incorrect data to be displayed. More information on how to upload results to our service can be found on the <2>Organizers</2> page.",

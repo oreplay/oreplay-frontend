@@ -55,6 +55,7 @@ export default function FootOResultsContent(props: FootOResultProps) {
           isTicketOpen={isVirtualTicketOpen}
           runner={selectedRunner}
           handleCloseTicket={handleCloseVirtualTicket}
+          isClass={props.isClass}
           setClassClubId={props.setClassClubId}
         />
       </>

@@ -1,31 +1,29 @@
-import { Grid, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import Tooltip from "@mui/material/Tooltip"
+import VirtualTicketStat from "../../../../../../../components/VirtualTicket/components/VirtualTicketStat.tsx"
+import InfoTip from "../../InfoTip/InfoTip.tsx"
 
-export default function FootOVirtualTicketPoints({ points }: { points: number }) {
+interface FootOVirtualTicketPointsProps {
+  points: number
+}
+
+/**
+ * Points a FootO runner scored, with the same info tip as the graphs that explains the 1000-point
+ * formula. The explanation opens below the summary, its closest positioned ancestor.
+ *
+ * @param props.points Points scored.
+ */
+export default function FootOVirtualTicketPoints({ points }: FootOVirtualTicketPointsProps) {
   const { t } = useTranslation()
 
   return (
-    <Grid size={12}>
-      <Typography
-        sx={{
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          flexDirection: "row",
-          gap: 0,
-          fontSize: "small",
-        }}
-      >
-        <Tooltip title={t("ResultsStage.VirtualTicket.FootO.Points.HelpMsg")}>
-          <Typography component={"span"} sx={{ fontWeight: "bold", fontSize: "inherit" }}>
-            {t("ResultsStage.Points")}
-          </Typography>
-        </Tooltip>
-        <Typography component={"span"} sx={{ fontSize: "inherit", marginLeft: 1 }}>
-          {points}
-        </Typography>
-      </Typography>
-    </Grid>
+    <VirtualTicketStat label={t("ResultsStage.Points")}>
+      <span className="-my-1 flex items-center gap-0.5 sm:gap-1">
+        {points}
+        <InfoTip
+          description={t("ResultsStage.VirtualTicket.FootO.Points.HelpMsg")}
+          label={t("ResultsStage.VirtualTicket.FootO.Points.HelpLabel")}
+        />
+      </span>
+    </VirtualTicketStat>
   )
 }

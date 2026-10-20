@@ -300,19 +300,42 @@
     },
     "Times": "Denbora",
     "VirtualTicket": {
+      "Behind": "Aldea",
+      "Bib": "Dortsala {{bib}}",
+      "BonusPenalty": "Hobaria / Zigorra",
       "Control": "Ctrl",
+      "Controls": "Kontrolak",
+      "ControlsPunched": "{{total}} kontroletatik <strong>{{punched}}</strong> zulatuta",
       "Cumulative": "Metatua",
+      "Finish": "Helmuga",
       "FinishControl": "Amaiera",
-      "FinishHour": "Meta denbora:",
       "FootO": {
         "Points": {
+          "HelpLabel": "Nola kalkulatzen dira puntuak?",
           "HelpMsg": "1000 puntuko formularen bidez lortutako puntuak: 1000 * (irabazlearen denbora / zure denbora)"
         }
       },
+      "Leg": "{{leg}}. txanda – {{name}}",
+      "LegTime": "Txandaren denbora",
+      "NoDownloadHint": "Tarteko denborak txipa helmugan irakurtzean agertzen dira.",
       "NoDownloadMsg": "Txip irakurketarik ez",
       "Partial": "Partziala",
-      "RaceTime": "Denbora:",
-      "StartHour": "Irteera ordua:"
+      "Position": "Postua",
+      "Splits": "Tartekoak",
+      "Start": "Irteera",
+      "Status": {
+        "dnf": "Ez du amaitu",
+        "dns": "Ez da irten",
+        "dsq": "Deskalifikatua",
+        "mp": "Txartel akatsa",
+        "nc": "Lehiaketaz kanpo",
+        "ok": "OK",
+        "ot": "Denboraz kanpo"
+      },
+      "Team": "Taldea",
+      "TeamTime": "Taldearen denbora",
+      "TicketView": "Txartelaren ikuspegia",
+      "Time": "Denbora"
     },
     "WrongFileUploaded": {
       "Msg": "Kronometratzaileak azken emaitzak partzialik gabe igo ditu. Fitxategi hauek ez dira igo behar eta datu falta edo okerrak bistaratzea eragin dezakete. Emaitzak gure zerbitzura nola igo jakiteko informazio gehiago aurki daiteke <2>Antolatzaileak</2> orrian.",

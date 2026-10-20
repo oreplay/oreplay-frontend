@@ -1,4 +1,3 @@
-import { CSSProperties } from "react"
 import {
   VirtualTicketContainer,
   VirtualTicketProps,
@@ -6,90 +5,69 @@ import {
 import { VirtualTicketHeader } from "../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
 import { VirtualTicketSplits } from "../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
 import VirtualTicketRunnerInfo from "../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
+import VirtualTicketSplitsTable from "../../../../../../components/VirtualTicket/components/VirtualTicketSplitsTable.tsx"
+import {
+  selectRunnerList,
+  useClassRunners,
+} from "../../../../../../components/VirtualTicket/shared/useClassRunners.ts"
+import { classSize } from "../../../../../../components/VirtualTicket/shared/ticketDisplay.ts"
 import FootOVirtualTicketTimesBanner from "./components/FootOVirtualTicketTimesBanner.tsx"
-import FootOVirtualTicketSplit from "./components/FootOVirtualTicketSplit.tsx"
-import { Grid, Typography } from "@mui/material"
-import { useTranslation } from "react-i18next"
+import FootOVirtualTicketSplitRows from "./components/FootOVirtualTicketSplitRows.tsx"
 import { hasChipDownload } from "../../../../shared/functions.ts"
-import GeneralErrorFallback from "../../../../../../../../components/GeneralErrorFallback.tsx"
-import ListSkeleton from "../../../../../../../../components/ListSkeleton/ListSkeleton.tsx"
-import FootOVirtualTicketSplitSkeletonItem from "./components/FootOVirtualTicketSplitSkeletonItem.tsx"
-import { useFillClubRunner } from "./shared/hooks.ts"
 import { runnerService } from "../../../../../../../../domain/services/RunnerService.ts"
-import FootOVirtualTicketPoints from "./components/FootOVirtualTicketPoints.tsx"
-
-interface FootOVirtualTicketProps extends VirtualTicketProps {
-  isClass?: boolean
-}
+import { getFootORunnersByClass } from "../../services/FootOService.ts"
 
 /**
- * This is the Virtual Ticket for Foot-O results
+ * This is the Virtual Ticket for Foot-O results: the runner, a summary of the result and the
+ * splits. In club view it loads the runner's class to get the class-wide splits and class size.
+ *
+ * @param props.isTicketOpen Whether the ticket is shown.
+ * @param props.runner Runner the ticket is about; `null` renders nothing.
+ * @param props.handleCloseTicket Called when the user closes the ticket.
+ * @param props.isClass Whether the results page lists a class rather than a club.
+ * @param props.setClassClubId Changes the results page to another class or club.
  */
 export default function FootOVirtualTicket({
   isTicketOpen,
   runner,
   handleCloseTicket,
-  isClass,
+  isClass = false,
   setClassClubId,
-}: FootOVirtualTicketProps) {
-  const { t } = useTranslation()
-
-  const headersStyles: CSSProperties = {
-    fontWeight: "bold",
-    fontSize: "medium",
-    textAlign: "center",
-  }
-
+}: VirtualTicketProps) {
   const {
     runner: displayedRunner,
+    classRunners,
     isLoading,
     isError,
-  } = useFillClubRunner(runner, !isClass && runner != null)
+  } = useClassRunners(runner, isClass, getFootORunnersByClass, selectRunnerList)
 
-  if (displayedRunner) {
-    return (
-      <VirtualTicketContainer
-        isTicketOpen={isTicketOpen}
-        runner={displayedRunner}
-        handleCloseTicket={handleCloseTicket}
+  if (!displayedRunner) return null
+
+  return (
+    <VirtualTicketContainer
+      isTicketOpen={isTicketOpen}
+      runner={displayedRunner}
+      handleCloseTicket={handleCloseTicket}
+    >
+      <VirtualTicketHeader>
+        <VirtualTicketRunnerInfo runner={displayedRunner} setClassClubId={setClassClubId} />
+        <FootOVirtualTicketTimesBanner
+          classSize={classSize(classRunners)}
+          runnerResult={displayedRunner.stage}
+        />
+      </VirtualTicketHeader>
+      <VirtualTicketSplits
+        download={hasChipDownload(displayedRunner)}
+        isDNS={runnerService.isDNS(displayedRunner)}
       >
-        <VirtualTicketHeader>
-          <VirtualTicketRunnerInfo runner={displayedRunner} setClassClubId={setClassClubId} />
-          {hasChipDownload(displayedRunner) ? (
-            <FootOVirtualTicketPoints points={displayedRunner.stage.points_final} />
-          ) : null}
-          <FootOVirtualTicketTimesBanner runnerResult={displayedRunner.stage} />
-        </VirtualTicketHeader>
-        <VirtualTicketSplits
-          download={hasChipDownload(displayedRunner)}
-          isDNS={runnerService.isDNS(displayedRunner)}
-        >
-          <Grid size={2}>
-            <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Control")}</Typography>
-          </Grid>
-          <Grid size={5}>
-            <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Partial")}</Typography>
-          </Grid>
-          <Grid size={5}>
-            <Typography sx={headersStyles}>{t("ResultsStage.VirtualTicket.Cumulative")}</Typography>
-          </Grid>
-          {!isLoading ? (
-            displayedRunner.stage.splits.map((split, index) => (
-              <FootOVirtualTicketSplit key={split.id} split={split} index={index} />
-            ))
-          ) : isError ? (
-            <GeneralErrorFallback />
-          ) : (
-            <ListSkeleton
-              SkeletonItem={FootOVirtualTicketSplitSkeletonItem}
-              gap={"10px"}
-              minItems={10}
-            />
-          )}
-        </VirtualTicketSplits>
-      </VirtualTicketContainer>
-    )
-  } else {
-    return <></>
-  }
+        <VirtualTicketSplitsTable>
+          <FootOVirtualTicketSplitRows
+            isError={isError}
+            isLoading={isLoading}
+            splits={displayedRunner.stage.splits}
+          />
+        </VirtualTicketSplitsTable>
+      </VirtualTicketSplits>
+    </VirtualTicketContainer>
+  )
 }

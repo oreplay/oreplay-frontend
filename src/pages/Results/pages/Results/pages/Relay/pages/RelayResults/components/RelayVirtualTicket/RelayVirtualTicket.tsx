@@ -5,73 +5,70 @@ import {
 import { VirtualTicketHeader } from "../../../../../../../../components/VirtualTicket/VirtualTicketHeader.tsx"
 import { VirtualTicketSplits } from "../../../../../../../../components/VirtualTicket/VirtualTicketSplits/VirtualTicketSplits.tsx"
 import VirtualTicketRunnerInfo from "../../../../../../../../components/VirtualTicket/VirtualTicketRunnerInfo.tsx"
+import VirtualTicketSplitsTable from "../../../../../../../../components/VirtualTicket/components/VirtualTicketSplitsTable.tsx"
+import { classSize } from "../../../../../../../../components/VirtualTicket/shared/ticketDisplay.ts"
+import {
+  selectRunnerList,
+  useClassRunners,
+} from "../../../../../../../../components/VirtualTicket/shared/useClassRunners.ts"
 import RelayVirtualTicketLegBanner from "./components/RelayVirtualTicketLegBanner/RelayVirtualTicketLegBanner.tsx"
 import RelayVirtualTicketTeamResult from "./components/RelayVirtualTicketTeamResult/RelayVirtualTicketTeamResult.tsx"
-import FootOVirtualTicketTimesBanner from "../../../../../FootO/components/FootOVirtualTicket/components/FootOVirtualTicketTimesBanner.tsx"
 import GeneralErrorFallback from "../../../../../../../../../../components/GeneralErrorFallback.tsx"
-import NotImplementedAlertBox from "../../../../../../../../../../components/NotImplementedAlertBox.tsx"
-import { Divider, Grid, Typography } from "@mui/material"
 import RogaineVirtualTicketSplit from "../../../../../Rogaine/components/RogaineVirtualTicket/components/RogaineVirtualTicketSplitsTab/components/RogaineVirtualTicketSplits.tsx"
-import { useTranslation } from "react-i18next"
-import { CSSProperties } from "react"
-
-const headersStyles: CSSProperties = {
-  fontWeight: "bold",
-  fontSize: "medium",
-  textAlign: "center",
-}
+import { getRelayRunnersByClass } from "../../../../services/RelayService.ts"
 
 interface RelayVirtualTicketProps extends VirtualTicketProps {
   leg?: number
 }
 
+/**
+ * This is the Virtual Ticket of one leg of a relay team: the team and its final result, then the
+ * leg runner with the leg's result and the team's standing at the end of it, and the leg's splits.
+ *
+ * @param props.isTicketOpen Whether the ticket is shown.
+ * @param props.runner The team the ticket is about; renders nothing without it.
+ * @param props.handleCloseTicket Called when the user closes the ticket.
+ * @param props.isClass Whether the results page lists a class rather than a club.
+ * @param props.setClassClubId Changes the results page to another class or club.
+ * @param props.leg Leg number shown, starting at one; renders nothing without it.
+ */
 export default function RelayVirtualTicket(props: RelayVirtualTicketProps) {
-  const { t } = useTranslation()
+  const { runner, classRunners } = useClassRunners(
+    props.runner,
+    props.isClass ?? false,
+    getRelayRunnersByClass,
+    selectRunnerList,
+  )
 
-  if (!props.runner || !props.leg) {
+  if (!runner || !props.leg) {
     return
   }
 
-  const legRunner = props.runner.runners?.at(props.leg - 1)
+  const legRunner = runner.runners?.at(props.leg - 1)
 
   if (!legRunner) {
-    console.error(`Runner ${props.runner.full_name} doesn't have leg ${props.leg}`)
+    console.error(`Runner ${runner.full_name} doesn't have leg ${props.leg}`)
     return <GeneralErrorFallback />
   }
 
   return (
     <VirtualTicketContainer
       isTicketOpen={props.isTicketOpen}
-      runner={props.runner}
+      runner={runner}
       handleCloseTicket={props.handleCloseTicket}
     >
       <VirtualTicketHeader>
-        <NotImplementedAlertBox />
-        <VirtualTicketRunnerInfo runner={props.runner} setClassClubId={props.setClassClubId} />
-        <RelayVirtualTicketTeamResult result={props.runner.stage} />
-        <Divider />
-        <RelayVirtualTicketLegBanner runner={props.runner} leg={props.leg} />
-        <FootOVirtualTicketTimesBanner runnerResult={legRunner.stage} />
+        <VirtualTicketRunnerInfo runner={runner} setClassClubId={props.setClassClubId} />
+        <RelayVirtualTicketTeamResult classSize={classSize(classRunners)} result={runner.stage} />
+        <hr className="m-0 h-px border-0 bg-[#ededed]" />
+        <RelayVirtualTicketLegBanner classTeams={classRunners} runner={runner} leg={props.leg} />
       </VirtualTicketHeader>
       <VirtualTicketSplits download={true} isDNS={false}>
-        <Grid size={3}>
-          <Typography variant="subtitle2" sx={headersStyles}>
-            {t("ResultsStage.VirtualTicket.Control")}
-          </Typography>
-        </Grid>
-        <Grid size={4}>
-          <Typography variant="subtitle2" sx={headersStyles}>
-            {t("ResultsStage.VirtualTicket.Partial")}
-          </Typography>
-        </Grid>
-        <Grid size={5}>
-          <Typography variant="subtitle2" sx={headersStyles}>
-            {t("ResultsStage.VirtualTicket.Cumulative")}
-          </Typography>
-        </Grid>
-        {legRunner.stage.splits.map((split, index) => (
-          <RogaineVirtualTicketSplit key={split.id} split={split} index={index} />
-        ))}
+        <VirtualTicketSplitsTable>
+          {legRunner.stage.splits.map((split) => (
+            <RogaineVirtualTicketSplit key={split.id} split={split} />
+          ))}
+        </VirtualTicketSplitsTable>
       </VirtualTicketSplits>
     </VirtualTicketContainer>
   )

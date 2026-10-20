@@ -321,19 +321,42 @@
     "StartTime": "Salida",
     "Times": "Tiempos",
     "VirtualTicket": {
+      "Behind": "Diferencia",
+      "Bib": "Dorsal {{bib}}",
+      "BonusPenalty": "Bonificación / Penalización",
       "Control": "Ctrl",
+      "Controls": "Controles",
+      "ControlsPunched": "<strong>{{punched}}</strong> de {{total}} controles picados",
       "Cumulative": "Acumulado",
+      "Finish": "Meta",
       "FinishControl": "Meta",
-      "FinishHour": "Hora de meta:",
       "FootO": {
         "Points": {
+          "HelpLabel": "¿Cómo se calculan los puntos?",
           "HelpMsg": "Fórmula de los 1000 puntos: 1000*(tiempo ganador / tu tiempo)"
         }
       },
+      "Leg": "Posta {{leg}} – {{name}}",
+      "LegTime": "Tiempo de posta",
+      "NoDownloadHint": "Los parciales aparecen cuando se lee el chip en meta.",
       "NoDownloadMsg": "No hay lectura del chip",
       "Partial": "Parcial",
-      "RaceTime": "Tiempo:",
-      "StartHour": "H. salida:"
+      "Position": "Posición",
+      "Splits": "Parciales",
+      "Start": "Salida",
+      "Status": {
+        "dnf": "No terminó",
+        "dns": "No salió",
+        "dsq": "Descalificado",
+        "mp": "Error de tarjeta",
+        "nc": "Fuera de concurso",
+        "ok": "OK",
+        "ot": "Fuera de tiempo"
+      },
+      "Team": "Equipo",
+      "TeamTime": "Tiempo de equipo",
+      "TicketView": "Vista del ticket",
+      "Time": "Tiempo"
     },
     "WrongFileUploaded": {
       "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>.",

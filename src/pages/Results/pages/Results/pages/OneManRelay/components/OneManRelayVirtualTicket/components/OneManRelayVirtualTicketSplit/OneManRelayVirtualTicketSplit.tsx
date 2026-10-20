@@ -1,37 +1,34 @@
 import { ProcessedSplitModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { Grid, Typography } from "@mui/material"
 import VirtualTicketControl from "../../../../../../../../components/VirtualTicket/VirtualTicketControl.tsx"
-import { parseSecondsToMMSS } from "../../../../../../../../../../shared/Functions.tsx"
+import VirtualTicketSplitTime from "../../../../../../../../components/VirtualTicket/VirtualTicketSplitTime.tsx"
+import VirtualTicketSplitRow from "../../../../../../../../components/VirtualTicket/components/VirtualTicketSplitRow.tsx"
+import { isMissedSplit } from "../../../../../../../../components/VirtualTicket/shared/ticketDisplay.ts"
 
 interface OneManRelayVirtualTicketSplitProps {
   split: ProcessedSplitModel
-  index: number
 }
 
+/**
+ * Display a one-man relay splits line within a virtual ticket: the control, the split and the
+ * cumulative time.
+ *
+ * @param props.split Split to be displayed.
+ */
 export default function OneManRelayVirtualTicketSplit({
   split,
-  index,
 }: OneManRelayVirtualTicketSplitProps) {
+  const isMissed = isMissedSplit(split)
+
   return (
-    <Grid
-      style={{ display: "flex", width: "100%", backgroundColor: index % 2 ? "white" : "#fcefde" }}
-    >
+    <VirtualTicketSplitRow isMissed={isMissed}>
       <VirtualTicketControl
         control={split.control}
         order_number={split.order_number}
         points={split.points}
-        gridWidth={3}
+        isMissed={isMissed}
       />
-      <Grid size={4}>
-        <Typography sx={{ textAlign: "center" }}>
-          {split.time !== null ? parseSecondsToMMSS(split.time) : "--"}
-        </Typography>
-      </Grid>
-      <Grid size={5}>
-        <Typography sx={{ textAlign: "center" }}>
-          {split.cumulative_time !== null ? parseSecondsToMMSS(split.cumulative_time) : "--"}
-        </Typography>
-      </Grid>
-    </Grid>
+      <VirtualTicketSplitTime time={split.time} isMissed={isMissed} />
+      <VirtualTicketSplitTime time={split.cumulative_time} isMissed={isMissed} />
+    </VirtualTicketSplitRow>
   )
 }
