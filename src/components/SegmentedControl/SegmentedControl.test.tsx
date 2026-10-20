@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import { describe, expect, it, vi } from "vitest"
-import { ViewOption } from "../../shared/viewOption.ts"
-import SegmentedSelector from "./SegmentedSelector.tsx"
+import SegmentedControl from "./SegmentedControl.tsx"
+import { SEGMENTED_CONTROL_MODE, SegmentedControlOption } from "./shared/segmentedControl.ts"
 
 const FRUIT = { Apple: "apple", Banana: "banana", Cherry: "cherry" } as const
 type Fruit = (typeof FRUIT)[keyof typeof FRUIT]
@@ -11,7 +11,7 @@ const FIRST_OPTION_KEY = "Home"
 const NEXT_OPTION_KEY = "ArrowRight"
 const PREVIOUS_OPTION_KEY = "ArrowLeft"
 
-const OPTIONS: readonly ViewOption<Fruit>[] = [
+const OPTIONS: readonly SegmentedControlOption<Fruit>[] = [
   { icon: <svg />, key: FRUIT.Apple, labelKey: "fruit.apple" },
   {
     icon: <svg />,
@@ -25,7 +25,7 @@ const OPTIONS: readonly ViewOption<Fruit>[] = [
 function renderSelector(selectedKey: Fruit = FRUIT.Apple) {
   const onChange = vi.fn()
   render(
-    <SegmentedSelector
+    <SegmentedControl
       ariaLabel={GROUP_LABEL}
       onChange={onChange}
       options={OPTIONS}
@@ -35,7 +35,7 @@ function renderSelector(selectedKey: Fruit = FRUIT.Apple) {
   return { onChange }
 }
 
-describe("SegmentedSelector", () => {
+describe("SegmentedControl", () => {
   it("names the group for assistive technology", () => {
     renderSelector()
 
@@ -113,5 +113,37 @@ describe("SegmentedSelector", () => {
     fireEvent.keyDown(screen.getByRole("radio", { checked: true }), { key: "a" })
 
     expect(onChange).not.toHaveBeenCalled()
+  })
+
+  it("works as tabs that point at their panels", () => {
+    render(
+      <SegmentedControl
+        ariaLabel={GROUP_LABEL}
+        mode={SEGMENTED_CONTROL_MODE.Tabs}
+        onChange={vi.fn()}
+        options={OPTIONS}
+        optionId={(key) => `tab-${key}`}
+        panelId={(key) => `panel-${key}`}
+        selectedKey={FRUIT.Banana}
+      />,
+    )
+    const selected = screen.getByRole("tab", { selected: true })
+
+    expect(screen.getByRole("tablist", { name: GROUP_LABEL })).toBeInTheDocument()
+    expect(selected).toHaveAttribute("id", "tab-banana")
+    expect(selected).toHaveAttribute("aria-controls", "panel-banana")
+  })
+
+  it("renders a choice without an icon", () => {
+    render(
+      <SegmentedControl
+        ariaLabel={GROUP_LABEL}
+        onChange={vi.fn()}
+        options={[{ key: FRUIT.Apple, labelKey: "fruit.apple" }]}
+        selectedKey={FRUIT.Apple}
+      />,
+    )
+
+    expect(screen.getByRole("radio", { name: "fruit.apple" }).querySelector("svg")).toBeNull()
   })
 })
