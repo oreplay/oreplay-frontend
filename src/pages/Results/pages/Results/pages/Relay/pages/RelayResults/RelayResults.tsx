@@ -7,7 +7,6 @@ import RelayResultItem from "./components/RelayResultItem/RelayResultItem.tsx"
 import RelayResultContainer from "./components/RelayResultContainer.tsx"
 import RelayVirtualTicket from "./components/RelayVirtualTicket/RelayVirtualTicket.tsx"
 import { useVirtualTicket } from "../../../../../../components/VirtualTicket/shared/hooks.ts"
-import NotImplementedAlertBox from "../../../../../../../../components/NotImplementedAlertBox.tsx"
 import RunnerSorter from "../../../../components/RunnerSorter/RunnerSorter.tsx"
 import { FC, memo, useMemo } from "react"
 import { sortRelayRunners } from "../../shared/sortRelayRunners.ts"
@@ -41,7 +40,6 @@ export default function RelayResults(props: RelayResultProps) {
 
   return (
     <>
-      <NotImplementedAlertBox />
       <LoadingStateManager
         query={props.runnersQuery}
         skeleton={<ResultsListSkeleton />}
