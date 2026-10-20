@@ -5,7 +5,17 @@ import { hasChipDownload as hasChipDownloadFunction } from "../../../shared/func
 import { getRunnerRacePosition } from "../../../shared/racePosition.ts"
 import ParticipantName from "../../ParticipantName.tsx"
 import ResultListItem from "../ResultListItem.tsx"
+import { Typography } from "@mui/material"
 
+/**
+ * One team of a results list: its position, its name with its members' names below, and the result
+ * column of the result type.
+ *
+ * @param props.runner The team, with its members in `runners`.
+ * @param props.onClick Called with the team when the row is clicked; the row is not clickable
+ * without it.
+ * @param props.ResultColumn Renders the team's result on the right of the row.
+ */
 export default function TeamResult({ runner, onClick, ResultColumn }: ResultItemProps) {
   return (
     <ResultListItem key={runner.id} onClick={onClick ? () => onClick(runner) : undefined}>
@@ -22,9 +32,9 @@ export default function TeamResult({ runner, onClick, ResultColumn }: ResultItem
         <div className="min-w-0 flex-grow">
           <ParticipantName name={runner.full_name} />
           {runner.runners?.map((teamMember) => (
-            <p key={teamMember.id} className="text-sm text-gray-600">
+            <Typography key={teamMember.id} sx={{ color: "text.secondary", fontSize: "small" }}>
               {teamMember.full_name}
-            </p>
+            </Typography>
           ))}
         </div>
       </ResultListItemColumn>
