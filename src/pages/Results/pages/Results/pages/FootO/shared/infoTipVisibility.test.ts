@@ -1,21 +1,17 @@
 import { describe, expect, it } from "vitest"
-import {
-  isDescriptionVisible,
-  isMousePointer,
-  MOUSE_POINTER_TYPE,
-} from "./descriptionVisibility.ts"
+import { isInfoTipVisible, isMousePointer, MOUSE_POINTER_TYPE } from "./infoTipVisibility.ts"
 
-describe("isDescriptionVisible", () => {
+describe("isInfoTipVisible", () => {
   it("hides the explanation while it is neither hovered nor pinned", () => {
-    expect(isDescriptionVisible(false, false)).toBe(false)
+    expect(isInfoTipVisible(false, false)).toBe(false)
   })
 
   it("shows the explanation while it is hovered", () => {
-    expect(isDescriptionVisible(true, false)).toBe(true)
+    expect(isInfoTipVisible(true, false)).toBe(true)
   })
 
   it("keeps a pinned explanation on screen after the pointer leaves", () => {
-    expect(isDescriptionVisible(false, true)).toBe(true)
+    expect(isInfoTipVisible(false, true)).toBe(true)
   })
 })
 

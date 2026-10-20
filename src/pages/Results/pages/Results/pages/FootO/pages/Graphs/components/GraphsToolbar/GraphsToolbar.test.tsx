@@ -6,7 +6,7 @@ import {
   GRAPH_VIEW_TITLE_KEY,
   GraphView,
 } from "../../shared/graphViews.ts"
-import { MOUSE_POINTER_TYPE } from "../../shared/descriptionVisibility.ts"
+import { MOUSE_POINTER_TYPE } from "../../../../shared/infoTipVisibility.ts"
 import GraphsToolbar from "./GraphsToolbar.tsx"
 
 const DESCRIPTION_LABEL = "Graphs.DescriptionLabel"
@@ -89,7 +89,7 @@ describe("GraphsToolbar", () => {
 
   it("shows the explanation while the info icon is hovered with a mouse", () => {
     const { container } = renderToolbar()
-    const hoverArea = container.querySelector(".graph-description") as HTMLElement
+    const hoverArea = container.querySelector(".info-tip") as HTMLElement
 
     enterWithPointer(hoverArea, MOUSE_POINTER_TYPE)
     expect(screen.getByRole("tooltip")).toBeInTheDocument()
@@ -100,7 +100,7 @@ describe("GraphsToolbar", () => {
 
   it("does not open the explanation on the hover a tap fires", () => {
     const { container } = renderToolbar()
-    const hoverArea = container.querySelector(".graph-description") as HTMLElement
+    const hoverArea = container.querySelector(".info-tip") as HTMLElement
 
     enterWithPointer(hoverArea, TOUCH_POINTER_TYPE)
 
