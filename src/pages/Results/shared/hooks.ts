@@ -9,7 +9,7 @@ export function useFetchClasses(): {
   isClass: boolean
   classesQuery: UseQueryResult<Page<StageClassModel>>
   clubsQuery: UseQueryResult<Page<ClubModel>>
-  refresh: () => void
+  refresh: () => Promise<unknown>
   setClassClubId: (newItemId: string, isClass: boolean) => void
 } {
   const { eventId, stageId } = useParams()
@@ -73,10 +73,10 @@ export function useFetchClasses(): {
     }
   }, [classesQuery, classesQuery.data, clubsQuery, clubsQuery.data, getClassClubSearchParamName])
 
-  const refresh = useCallback((): void => {
-    void classesQuery.refetch()
-    void clubsQuery.refetch()
-  }, [classesQuery, clubsQuery])
+  const refresh = useCallback(
+    () => Promise.all([classesQuery.refetch(), clubsQuery.refetch()]),
+    [classesQuery, clubsQuery],
+  )
 
   return {
     activeItem: activeItem,

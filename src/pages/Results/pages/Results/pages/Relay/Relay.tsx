@@ -13,13 +13,14 @@ import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/share
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useParams } from "react-router-dom"
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import RelayLegs from "./pages/RelayLegs/RelayLegs.tsx"
 import { getRelayRunnersByClass, getRelayRunnersByClub } from "./services/RelayService.ts"
 import { RESULT_TAB, RESULTS_QUERY } from "../../shared/constants.ts"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 import { DateTime } from "luxon"
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
+import { useRefreshStage } from "../../shared/useRefreshStage.ts"
 
 const RELAY_TABS: readonly ResultTabOption[] = [
   { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
@@ -80,14 +81,8 @@ export default function Relay() {
     },
   )
 
-  const handleRefreshClick = useCallback(() => {
-    refreshClassesClubs()
-    if (isClass) {
-      void runnersQueryByClasses.refetch()
-    } else {
-      void runnersQueryByClubs.refetch()
-    }
-  }, [isClass, refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
+  const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
+  const refresh = useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery })
 
   const { selectedMenu, handleMenuChange } = useResultTabs(0, RELAY_TABS)
 
@@ -100,9 +95,9 @@ export default function Relay() {
         classesQuery={classesQuery}
         clubsQuery={clubsQuery}
         setActiveClassClub={setClassClubId}
-        handleRefreshClick={handleRefreshClick}
+        onRefresh={refresh}
         displayTimezoneMsg={!timezoneMatch}
-        isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+        isFetching={shownRunnersQuery.isFetching}
         navigation={
           <ResultTabsBar
             options={RELAY_TABS}
@@ -113,16 +108,12 @@ export default function Relay() {
       >
         <ResultTabsPanel options={RELAY_TABS} selectedMenu={selectedMenu}>
           <RelayResults
-            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
+            runnersQuery={shownRunnersQuery}
             activeItem={activeItem}
             isClass={isClass}
             setClassClubId={setClassClubId}
           />
-          <RelayLegs
-            runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
-            activeItem={activeItem}
-            isClass={isClass}
-          />
+          <RelayLegs runnersQuery={shownRunnersQuery} activeItem={activeItem} isClass={isClass} />
         </ResultTabsPanel>
       </StageLayout>
     </Box>

@@ -1,4 +1,5 @@
 import { Box, IconButton } from "@mui/material"
+import { keyframes } from "@mui/material/styles"
 import ClassSelector from "./components/ClassSelector/ClassSelector.tsx"
 import Tooltip from "@mui/material/Tooltip"
 import RefreshIcon from "@mui/icons-material/Refresh"
@@ -12,9 +13,10 @@ import TimezoneMsg from "./components/TimezoneMsg.tsx"
 import { useIsMobileDevice } from "../../shared/useIsMobileDevice.ts"
 import { MOBILE_CONTENT_BOTTOM_PADDING_PX } from "../../shared/mobileLayout.ts"
 
+const spin = keyframes({ from: { transform: "rotate(0deg)" }, to: { transform: "rotate(360deg)" } })
+
 type StageLayoutProps = {
   actions?: React.ReactNode
-  handleRefreshClick: () => void
   isClass: boolean
   classesQuery: UseQueryResult<Page<ClassModel>>
   clubsQuery: UseQueryResult<Page<ClubModel>>
@@ -22,6 +24,7 @@ type StageLayoutProps = {
   activeItem: ClassModel | ClubModel | null
   isWrongFileUploaded?: boolean
   isFetching?: boolean
+  onRefresh: () => Promise<unknown>
   children: React.ReactNode
   displayTimezoneMsg?: boolean
   navigation?: React.ReactNode
@@ -63,10 +66,10 @@ export default function StageLayout(props: StageLayoutProps) {
         <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
           {props.actions}
           <Tooltip title={t("ResultsStage.Refresh")}>
-            <IconButton onClick={props.handleRefreshClick}>
+            <IconButton onClick={() => void props.onRefresh()}>
               <RefreshIcon
                 sx={{
-                  animation: props.isFetching ? "spin .6s linear infinite" : "none",
+                  animation: props.isFetching ? `${spin} .6s linear infinite` : "none",
                 }}
               />
             </IconButton>

@@ -6,9 +6,9 @@ import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/share
 import { AxiosError } from "axios"
 import { RunnerModel } from "../../../../../../shared/EntityTypes.ts"
 import { useParams } from "react-router-dom"
-import { useCallback } from "react"
 import { getTotalsByClass, getTotalsByClub } from "./services/TotalsService.ts"
 import { Box } from "@mui/material"
+import { useRefreshStage } from "../../shared/useRefreshStage.ts"
 
 export default function Totals() {
   // Get stage's and event's ids
@@ -51,12 +51,8 @@ export default function Totals() {
     },
   )
 
-  // Handle re-fetching
-  const handleRefreshClick = useCallback(() => {
-    refreshClassesClubs()
-    void runnersQueryByClasses.refetch()
-    void runnersQueryByClubs.refetch()
-  }, [refreshClassesClubs, runnersQueryByClasses, runnersQueryByClubs])
+  const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
+  const refresh = useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery })
 
   return (
     <Box sx={{ px: 3, height: "100%" }}>
@@ -67,14 +63,10 @@ export default function Totals() {
         classesQuery={classesQuery}
         clubsQuery={clubsQuery}
         setActiveClassClub={setClassClubId}
-        handleRefreshClick={handleRefreshClick}
-        isFetching={runnersQueryByClasses.isFetching || runnersQueryByClasses.isFetching}
+        onRefresh={refresh}
+        isFetching={shownRunnersQuery.isFetching}
       >
-        <TotalsResults
-          runnersQuery={isClass ? runnersQueryByClasses : runnersQueryByClubs}
-          activeItem={activeItem}
-          isClass={isClass}
-        />
+        <TotalsResults runnersQuery={shownRunnersQuery} activeItem={activeItem} isClass={isClass} />
       </StageLayout>
     </Box>
   )
