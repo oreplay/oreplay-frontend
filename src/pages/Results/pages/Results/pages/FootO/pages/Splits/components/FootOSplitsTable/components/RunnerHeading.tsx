@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { runnerService } from "../../../../../../../../../../../domain/services/RunnerService.ts"
 import ParticipantName from "../../../../../../../components/ParticipantName.tsx"
-import RacePosition from "../../../../../../../components/RacePosition.tsx"
+import RacePosition from "../../../../../../../components/RacePosition/RacePosition.tsx"
 import { hasChipDownload } from "../../../../../../../shared/functions.ts"
 import { isRunnerNotCompeting } from "../shared/splitsTableRunner.ts"
 import { SplitsTableRow } from "../shared/splitsTableRows.ts"

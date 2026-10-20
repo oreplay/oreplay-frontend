@@ -1,7 +1,7 @@
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { parseResultStatus } from "../../../../../../../../shared/sortingFunctions/sortRunners.ts"
 import { RESULT_STATUS_TEXT } from "../../../../../../../../shared/constants.ts"
-import RacePosition from "../../../../../../components/RacePosition.tsx"
+import RacePosition from "../../../../../../components/RacePosition/RacePosition.tsx"
 import RaceTimeBehind from "../../../../../../components/RaceTimeBehind.tsx"
 import {
   hasChipDownload as hasChipDownloadFunction,
