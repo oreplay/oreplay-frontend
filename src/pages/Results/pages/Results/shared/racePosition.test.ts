@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import { RESULT_STATUS, RESULT_STATUS_TEXT } from "../../../shared/constants.ts"
 import { buildRunnerFixture } from "../pages/FootO/pages/Splits/components/FootOSplitsTable/shared/splitsTableFixtures.ts"
 import {
+  getRacePositionAlign,
   getRacePositionColor,
   getRacePositionDisplay,
   getRunnerRacePosition,
@@ -48,6 +49,15 @@ describe("getRacePositionDisplay", () => {
   it("shows NC before anything else", () => {
     expect(getRacePositionDisplay(2, RESULT_STATUS.mp, true)).toBe("nc")
     expect(getRacePositionDisplay(null, RESULT_STATUS.nc, true)).toBe("nc")
+  })
+})
+
+describe("getRacePositionAlign", () => {
+  it("centres the symbols and right-aligns numbers and NC", () => {
+    expect(getRacePositionAlign("notOk")).toBe("center")
+    expect(getRacePositionAlign("pending")).toBe("center")
+    expect(getRacePositionAlign("position")).toBe("end")
+    expect(getRacePositionAlign("nc")).toBe("end")
   })
 })
 

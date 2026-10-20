@@ -23,6 +23,18 @@ const NOT_OK_STATUSES: readonly string[] = [
 ]
 
 /**
+ * Picks the horizontal alignment of the position slot's content: the dash and the cross are
+ * symbols, so they sit centred in the slot, while numbers and "NC" are right-aligned so their dots
+ * and last letters line up across rows.
+ * @param display What the slot shows.
+ * @returns A CSS `text-align` value.
+ */
+export function getRacePositionAlign(display: RacePositionDisplay): "center" | "end" {
+  if (display === "notOk" || display === "pending") return "center"
+  return "end"
+}
+
+/**
  * Picks the theme colour of the position slot: primary for "NC" and final positions, a dim grey
  * for the not-ok cross so it recedes, and secondary grey for provisional positions and the dash.
  * @param display What the slot shows.
