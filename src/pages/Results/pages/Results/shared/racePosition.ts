@@ -1,3 +1,5 @@
+import { runnerService } from "../../../../../domain/services/RunnerService.ts"
+import { ProcessedRunnerModel } from "../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { RESULT_STATUS_TEXT } from "../../../shared/constants.ts"
 import { parseResultStatus } from "../../../shared/sortingFunctions/sortRunners.ts"
 
@@ -6,6 +8,12 @@ export type RacePositionDisplay = (typeof RACE_POSITION_DISPLAYS)[number]
 
 export const RACE_POSITION_PENDING_LABEL = "-"
 
+export interface RacePosition {
+  position: number | bigint | null
+  statusCode: string | null
+  isNC: boolean
+}
+
 const NOT_OK_STATUSES: readonly string[] = [
   RESULT_STATUS_TEXT.dnf,
   RESULT_STATUS_TEXT.dns,
@@ -13,6 +21,22 @@ const NOT_OK_STATUSES: readonly string[] = [
   RESULT_STATUS_TEXT.mp,
   RESULT_STATUS_TEXT.ot,
 ]
+
+/**
+ * Picks the theme colour of the position slot: primary for "NC" and final positions, a dim grey
+ * for the not-ok cross so it recedes, and secondary grey for provisional positions and the dash.
+ * @param display What the slot shows.
+ * @param hasDownload Whether the chip was downloaded, i.e. the result is final.
+ * @returns An MUI palette path usable in `sx.color`.
+ */
+export function getRacePositionColor(
+  display: RacePositionDisplay,
+  hasDownload: boolean | undefined,
+): string {
+  if (display === "nc" || (display === "position" && hasDownload)) return "primary.main"
+  if (display === "notOk") return "text.disabled"
+  return "text.secondary"
+}
 
 /**
  * Picks what the position slot of a result row shows. A not-competitive runner shows "NC", a
@@ -36,19 +60,18 @@ export function getRacePositionDisplay(
 }
 
 /**
- * Picks the theme colour of the position slot: primary for "NC" and final positions, a dim grey
- * for the not-ok cross so it recedes, and secondary grey for provisional positions and the dash.
- * @param display What the slot shows.
- * @param hasDownload Whether the chip was downloaded, i.e. the result is final.
- * @returns An MUI palette path usable in `sx.color`.
+ * Reads what a result row's position slot needs from a runner: the overall position and status on
+ * multi-stage totals, the stage ones otherwise.
+ * @param runner Runner shown in the row.
+ * @returns Position, status code and not-competitive flag of the runner.
  */
-export function getRacePositionColor(
-  display: RacePositionDisplay,
-  hasDownload: boolean | undefined,
-): string {
-  if (display === "nc" || (display === "position" && hasDownload)) return "primary.main"
-  if (display === "notOk") return "text.disabled"
-  return "text.secondary"
+export function getRunnerRacePosition(runner: ProcessedRunnerModel): RacePosition {
+  const result = runner.overalls ? runner.overalls.overall : runner.stage
+  return {
+    position: result.position,
+    statusCode: result.status_code,
+    isNC: runnerService.isNC(runner),
+  }
 }
 
 /**
