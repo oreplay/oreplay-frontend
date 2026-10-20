@@ -345,13 +345,13 @@
       "Splits": "Parciales",
       "Start": "Salida",
       "Status": {
-        "dnf": "No terminó",
-        "dns": "No salió",
+        "dnf": "Abandona",
+        "dns": "No sale",
         "dsq": "Descalificado",
-        "mp": "Error de tarjeta",
-        "nc": "Fuera de concurso",
+        "mp": "Error en tarjeta",
+        "nc": "No clasifica",
         "ok": "OK",
-        "ot": "Fuera de tiempo"
+        "ot": "Fuera de control"
       },
       "Team": "Equipo",
       "TeamTime": "Tiempo de equipo",
