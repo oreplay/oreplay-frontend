@@ -27,7 +27,7 @@ export default function FootOSplits(
 ) {
   const activeItem = props.activeItem
   const runners = useMemo(
-    () => sortFootORunners([...(props.runnersQuery.data ?? [])]),
+    () => sortFootORunners(props.runnersQuery.data ?? []),
     [props.runnersQuery.data],
   )
   const radiosList = activeItem && "splits" in activeItem ? activeItem.splits : NO_RADIOS

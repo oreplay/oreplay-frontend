@@ -118,6 +118,26 @@ describe("sortRunners and sortFootORunners", () => {
     expect(sortFootORunners(runnerList, now), "Failed footO runners").toEqual(expected)
   })
 
+  it("should return a sorted copy without reordering the input", () => {
+    const runnerOK = {
+      ...baseRunner,
+      full_name: "ok",
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.ok },
+    }
+    const runnerDNS = {
+      ...baseRunner,
+      full_name: "dns",
+      stage: { ...baseRunner.stage, status_code: RESULT_STATUS.dns },
+    }
+    const runnerList = [runnerDNS, runnerOK]
+
+    const sorted = sortFootORunners(runnerList, now)
+
+    expect(sorted).toEqual([runnerOK, runnerDNS])
+    expect(sorted).not.toBe(runnerList)
+    expect(runnerList).toEqual([runnerDNS, runnerOK])
+  })
+
   it("should handle nc", () => {
     const runnerOK = {
       ...baseRunner,

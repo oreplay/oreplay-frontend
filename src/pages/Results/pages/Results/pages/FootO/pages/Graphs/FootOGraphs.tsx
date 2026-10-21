@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { AxiosError } from "axios"
 import { Box } from "@mui/material"
 import { ResultsPageProps } from "../../../../shared/commonProps.ts"
@@ -19,13 +19,12 @@ import { DEFAULT_GRAPH_VIEW, GraphView } from "./shared/graphViews.ts"
 export default function FootOGraphs(
   props: ResultsPageProps<ProcessedRunnerModel[], AxiosError<RunnerModel[]>>,
 ) {
-  const runners = useMemo(() => props.runnersQuery.data ?? [], [props.runnersQuery.data])
+  const runners = useMemo(
+    () => sortFootORunners(props.runnersQuery.data ?? []),
+    [props.runnersQuery.data],
+  )
   const [selectedView, setSelectedView] = useState<GraphView>(DEFAULT_GRAPH_VIEW)
   const stickyTopPx = useResultsStickyTopPx()
-
-  useEffect(() => {
-    sortFootORunners(runners)
-  }, [runners])
 
   if (!props.activeItem) return <ChooseClassMsg />
   if (!props.isClass)
