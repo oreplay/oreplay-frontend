@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import {
+  isClearedSelection,
   needsDefaultSelection,
   parseStoredRunnerIds,
   pickDefaultSelectedRunnerIds,
@@ -10,7 +11,7 @@ import {
 /**
  * Keeps the runners plotted in the graphs, remembered across visits. When nothing selected belongs
  * to the class on screen the best placed runners are picked, unless the user emptied the selection
- * on purpose.
+ * on purpose, which is remembered across visits too.
  *
  * @param runners Runners of the class.
  * @returns The selected runner ids and the setter used when the user changes them.
@@ -18,10 +19,11 @@ import {
 export function useSelectedRunners(
   runners: ProcessedRunnerModel[],
 ): [string[], (runnerIds: string[]) => void] {
+  const [storedRunnerIds] = useState(() => localStorage.getItem(SELECTED_RUNNERS_STORAGE_KEY))
   const [selectedRunnerIds, setSelectedRunnerIds] = useState<string[]>(() =>
-    parseStoredRunnerIds(localStorage.getItem(SELECTED_RUNNERS_STORAGE_KEY)),
+    parseStoredRunnerIds(storedRunnerIds),
   )
-  const wasClearedByUser = useRef(false)
+  const wasClearedByUser = useRef(isClearedSelection(storedRunnerIds))
 
   useEffect(() => {
     if (!wasClearedByUser.current && needsDefaultSelection(runners, selectedRunnerIds)) {

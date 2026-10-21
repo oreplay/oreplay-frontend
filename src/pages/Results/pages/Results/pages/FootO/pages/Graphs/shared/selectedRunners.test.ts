@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { UPLOAD_TYPES } from "../../../../../shared/constants.ts"
 import {
+  CLEARED_SELECTION,
   DEFAULT_SELECTED_RUNNERS_COUNT,
+  isClearedSelection,
   isSelectableRunner,
   needsDefaultSelection,
   parseStoredRunnerIds,
@@ -16,6 +18,20 @@ function buildRunner(
 ): ProcessedRunnerModel {
   return { id, stage: { position, upload_type: uploadType } } as ProcessedRunnerModel
 }
+
+describe("isClearedSelection", () => {
+  it("recognises a selection the user emptied", () => {
+    expect(isClearedSelection(CLEARED_SELECTION)).toBe(true)
+  })
+
+  it("is not cleared when nothing was stored", () => {
+    expect(isClearedSelection(null)).toBe(false)
+  })
+
+  it("is not cleared while runners are selected", () => {
+    expect(isClearedSelection('["a"]')).toBe(false)
+  })
+})
 
 describe("isSelectableRunner", () => {
   it("accepts a classified runner whose chip was downloaded", () => {

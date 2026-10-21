@@ -1,8 +1,20 @@
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { hasChipDownload } from "../../../../../shared/functions.ts"
 
+export const CLEARED_SELECTION = JSON.stringify([])
 export const DEFAULT_SELECTED_RUNNERS_COUNT = 5
 export const SELECTED_RUNNERS_STORAGE_KEY = "selectedRunners"
+
+/**
+ * Whether the stored selection is one the user emptied on purpose, as opposed to nothing stored
+ * yet, so the graph keeps it empty instead of picking the default runners.
+ *
+ * @param storedRunnerIds Raw stored selection, `null` when nothing was ever stored.
+ * @returns `true` only for a stored empty list; `false` for a missing or non-empty value.
+ */
+export function isClearedSelection(storedRunnerIds: string | null): boolean {
+  return storedRunnerIds === CLEARED_SELECTION
+}
 
 export function isSelectableRunner(runner: ProcessedRunnerModel): boolean {
   return !!runner.stage.position && hasChipDownload(runner)
