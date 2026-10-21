@@ -1,16 +1,9 @@
 import SearchIcon from "@mui/icons-material/Search"
-import {
-  Box,
-  CircularProgress,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@mui/material"
+import { Box, CircularProgress, IconButton, InputAdornment, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
-import NoTodayEvents from "./components/NoTodayEvents.tsx"
+import EventsListResults from "./components/EventsListResults.tsx"
 import TimeRangeFilter, {
   DEFAULT_TIME_RANGE,
   TimeRangeValue,
@@ -74,7 +67,7 @@ export default function EventsList() {
   }
 
   // --- Queries ---
-  const { data, isLoading, isFetching } = useGetListEvents(params, {
+  const { data, isError, isLoading, isFetching } = useGetListEvents(params, {
     query: { keepPreviousData: true, staleTime: 24 * 3600 * 1000 },
   })
 
@@ -164,22 +157,14 @@ export default function EventsList() {
 
       {/** Events **/}
       <Box sx={{ marginTop: "0em" }}>
-        {!isLoading && eventList.length === 0 ? (
-          <Box sx={{ marginTop: "32px", textAlign: "center", py: 4 }}>
-            <Typography variant="body1" color="text.secondary">
-              {t("EventList.NoResults")}
-            </Typography>
-          </Box>
-        ) : (
-          <Box sx={{ marginTop: { xs: "0px", sm: "24px" } }}>
-            <NoTodayEvents
-              eventList={eventList}
-              numPages={numPages}
-              page={page}
-              setPage={setPage}
-            />
-          </Box>
-        )}
+        <EventsListResults
+          eventList={eventList}
+          isError={isError}
+          isLoading={isLoading}
+          numPages={numPages}
+          page={page}
+          setPage={setPage}
+        />
       </Box>
     </Box>
   )
