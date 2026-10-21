@@ -18,5 +18,16 @@
   "noResults": "Sin resultados",
   "ok": "OK",
   "save": "Guardar",
-  "search": "Buscar"
+  "search": "Buscar",
+  "timeFilter": {
+    "Anytime": "Cualquier fecha",
+    "CustomRange": "Personalizado",
+    "From": "Desde",
+    "Future": "Futuro",
+    "InvalidRange": "La fecha de fin debe ser posterior a la fecha de inicio",
+    "LastMonth": "Último mes",
+    "LastWeek": "Última semana",
+    "LastYear": "Último año",
+    "To": "Hasta"
+  }
 }

@@ -47,7 +47,7 @@
       },
       "description": "Hay dos formas de subir datos a este evento: con el botón de subida <uploadIcon/> de cada etapa en la tabla de arriba, o a través del cliente de escritorio de O-Replay. El cliente necesita la información de seguridad que aparece a continuación. Compártela solo con tu equipo. Puede revocarse en cualquier momento.",
       "dropHere": "Arrastra y suelta aquí ficheros IOF XML 3.0",
-      "filesIgnored_many": "",
+      "filesIgnored_many": "Se ha ignorado {{count}} ficheros: solo se pueden subir ficheros .xml.",
       "filesIgnored_one": "Se ha ignorado {{count}} fichero: solo se pueden subir ficheros .xml.",
       "filesIgnored_other": "Se han ignorado {{count}} ficheros: solo se pueden subir ficheros .xml.",
       "messages": {
@@ -207,7 +207,8 @@
   },
   "EventList": {
     "LiveToday": "En vivo hoy",
-    "NoLiveEventsToday": "No hay eventos hoy"
+    "NoLiveEventsToday": "No hay eventos hoy",
+    "NoResults": "Ningún evento cumple los criterios de búsqueda."
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Funcionalidad experimental",
@@ -498,6 +499,11 @@
     "totalDisplayedTime": "Tiempo total mostrado"
   },
   "UnderDevelopment": "En desarrollo",
+  "URLButtonDialog": {
+    "body": "Estás a punto de salir de está página y abrir un sitio web externo. Abre el enlace únicamente si confías en él.",
+    "openLink": "Abrir enlace",
+    "title": "¿Abrir el enlace externo?"
+  },
   "view": {
     "accumulated": "Acumulados",
     "barChart": "Tiempo perdido",
