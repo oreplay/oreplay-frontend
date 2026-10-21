@@ -13,7 +13,7 @@ interface TrailOResultsUrlInputProps {
  *
  * @param props.value Current text of the field.
  * @param props.errors Validation messages; the field is in error while there is any.
- * @param props.onBlur Called when the field loses focus, to validate it.
+ * @param props.onBlur Called when the field loses focus, to mark it as touched.
  * @param props.onChange Called with the new text on every keystroke.
  */
 export default function TrailOResultsUrlInput(props: TrailOResultsUrlInputProps) {
