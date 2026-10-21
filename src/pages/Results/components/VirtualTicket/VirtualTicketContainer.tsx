@@ -29,13 +29,14 @@ const PAPER_SX = {
   maxHeight: "none",
   margin: { xs: `${DIALOG_INSET_PX.xs}px`, sm: `${DIALOG_INSET_PX.sm}px` },
   borderRadius: "16px",
-  overflowY: "auto",
+  overflow: "hidden",
 }
 
 /**
- * Dialog that frames every virtual ticket: a plain white sheet with a close button in its top
- * right corner, which scrolls as a whole when the ticket is taller than the screen. The ticket's
- * header and splits are its children. It renders nothing without a runner.
+ * Dialog that frames every virtual ticket: a plain white sheet with a close button pinned to its
+ * top right corner. The ticket's header and splits are its children and scroll together when the
+ * ticket is taller than the screen, inside a scroller inset from the sheet's rounded corners so its
+ * scrollbar never runs into them. It renders nothing without a runner.
  *
  * @param props.isTicketOpen Whether the dialog is shown.
  * @param props.runner Runner the ticket is about; `null` renders nothing.
@@ -57,13 +58,15 @@ export const VirtualTicketContainer: React.FC<VirtualTicketContainerProps> = ({
       maxWidth={false}
       slotProps={{ paper: { sx: PAPER_SX } }}
     >
-      <div className="virtual-ticket-container tw-root relative flex shrink-0 grow flex-col bg-white font-sans text-neutral-800">
+      <div className="virtual-ticket-container tw-root relative flex min-h-0 grow flex-col bg-white font-sans text-neutral-800">
         <VirtualTicketCloseButton onClick={handleCloseTicket} />
-        <VirtualTicketContext.Provider
-          value={{ isOpen: isTicketOpen, handleClose: handleCloseTicket }}
-        >
-          {children}
-        </VirtualTicketContext.Provider>
+        <div className="virtual-ticket-scroller my-4 flex min-h-0 grow flex-col overflow-y-auto [scrollbar-width:thin]">
+          <VirtualTicketContext.Provider
+            value={{ isOpen: isTicketOpen, handleClose: handleCloseTicket }}
+          >
+            {children}
+          </VirtualTicketContext.Provider>
+        </div>
       </div>
     </Dialog>
   )

@@ -23,7 +23,7 @@ export const VirtualTicketSplits: React.FC<VirtualTicketSplitsProps> = ({
   const hasSplits = download && !isDNS
 
   return (
-    <div className="virtual-ticket-splits flex flex-1 flex-col gap-3 px-4 pb-4 pt-1.5 sm:px-5 sm:pt-2">
+    <div className="virtual-ticket-splits flex flex-1 flex-col gap-3 px-4 pb-0 pt-1.5 sm:px-5 sm:pt-2">
       {hasSplits ? children : <VirtualTicketNoDownloadMsg />}
     </div>
   )

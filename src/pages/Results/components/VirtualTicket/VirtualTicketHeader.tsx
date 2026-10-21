@@ -11,7 +11,7 @@ type VirtualTicketHeaderProps = {
  */
 export const VirtualTicketHeader: React.FC<VirtualTicketHeaderProps> = ({ children }) => {
   return (
-    <header className="virtual-ticket-header flex flex-col gap-3 px-4 pb-3.5 pt-4 sm:px-5 sm:pb-4 sm:pt-5">
+    <header className="virtual-ticket-header flex flex-col gap-3 px-4 pb-3.5 pt-0 sm:px-5 sm:pb-4 sm:pt-1">
       {children}
     </header>
   )
