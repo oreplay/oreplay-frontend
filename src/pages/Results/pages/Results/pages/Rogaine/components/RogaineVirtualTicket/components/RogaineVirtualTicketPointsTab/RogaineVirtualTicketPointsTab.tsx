@@ -1,5 +1,5 @@
 import { Trans } from "react-i18next"
-import ControlBadge from "../../../../pages/RogainePoints/components/ControlBadge.tsx"
+import ControlBadge from "../../../ControlBadge.tsx"
 import { ProcessedSplitModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { punchedControls } from "../../shared/rogaineTicket.ts"
 
