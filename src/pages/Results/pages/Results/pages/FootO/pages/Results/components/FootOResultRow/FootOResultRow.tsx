@@ -1,6 +1,7 @@
-import { useMemo } from "react"
+import { useContext, useMemo } from "react"
 import { runnerService } from "../../../../../../../../../../domain/services/RunnerService.ts"
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { NowContext } from "../../../../../../../../shared/context.ts"
 import IndividualResultColumnResultTimeAndDiff from "../../../../../../components/ResultsList/IndividualResultColumnResultTimeAndDiff/IndividualResultColumnResultTimeAndDiff.tsx"
 import IndividualOrTeamResult from "../../../../../../components/ResultsList/IndividualOrTeamResult/IndividualOrTeamResult.tsx"
 import buildOnlineCourse from "../../shared/onlineCourse/buildOnlineCourse.ts"
@@ -16,7 +17,8 @@ export interface FootOResultRowProps {
 }
 
 /**
- * Result row of a FootO runner, with the online course of the runner as a second line.
+ * Result row of a FootO runner, with the online course of the runner as a second line. The course
+ * is rebuilt when the runner crosses their start time, so it goes live without a data refetch.
  *
  * @param props.runner Runner the row is about.
  * @param props.onClick Called with the runner when the row is clicked.
@@ -33,12 +35,14 @@ export default function FootOResultRow({
   bestOnlineCumulativeSeconds,
   isOnlineCourseVisible,
 }: FootOResultRowProps) {
+  const now = useContext(NowContext)
+  const hasStarted = runnerService.hasStarted(runner, now)
   const onlineCourse = useMemo(
     () =>
       isOnlineCourseVisible && hasOnlineControls(runner)
-        ? buildOnlineCourse(runner, bestOnlineCumulativeSeconds, runnerService.hasStarted(runner))
+        ? buildOnlineCourse(runner, bestOnlineCumulativeSeconds, hasStarted)
         : null,
-    [runner, bestOnlineCumulativeSeconds, isOnlineCourseVisible],
+    [runner, bestOnlineCumulativeSeconds, isOnlineCourseVisible, hasStarted],
   )
 
   return (
