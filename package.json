@@ -55,7 +55,8 @@
   "overrides": {
     "@toolpad/core": {
       "@mui/icons-material": "^9.2.0",
-      "@mui/material": "^9.2.0"
+      "@mui/material": "^9.2.0",
+      "yaml": "^2.9.1"
     }
   },
   "devDependencies": {
