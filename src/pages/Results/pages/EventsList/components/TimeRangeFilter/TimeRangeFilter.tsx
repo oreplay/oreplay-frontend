@@ -6,6 +6,8 @@ import { DateRangeIcon } from "@mui/x-date-pickers/icons"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon"
+import { isValidCustomRange } from "./shared/isValidCustomRange.ts"
+import { toIsoDate } from "./shared/toIsoDate.ts"
 
 export type TimeRangeOption =
   | "last_week"
@@ -89,24 +91,40 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => setAnchorEl(null)
-  const handleApply = () => {
-    onChange(draft)
+
+  /**
+   * Applies a preset option as soon as it is selected and closes the popover; selecting the
+   * custom range only reveals its date pickers, since it cannot apply until both dates are set.
+   *
+   * @param option - The radio option the user just selected.
+   */
+  const handleOptionChange = (option: TimeRangeOption) => {
+    if (option === "custom") {
+      setDraft((d) => ({ ...d, option }))
+      return
+    }
+    onChange({ option })
     handleClose()
+  }
+
+  /**
+   * Updates one bound of the custom range and applies it as soon as the range is complete and
+   * ordered, keeping the popover open so the other bound can still be adjusted.
+   *
+   * @param bounds - The changed bound(s) as ISO dates; `undefined` clears a bound.
+   */
+  const handleCustomRangeChange = (bounds: Pick<TimeRangeValue, "from" | "to">) => {
+    const next: TimeRangeValue = { ...draft, ...bounds, option: "custom" }
+    setDraft(next)
+    if (isValidCustomRange(next.from, next.to)) onChange(next)
   }
 
   const labelFor = (v: TimeRangeValue) => options.find((o) => o.value === v.option)?.label ?? ""
 
-  // Parse draft's ISO strings into Luxon DateTimes for the pickers
   const fromDate = draft.from ? DateTime.fromISO(draft.from) : null
   const toDate = draft.to ? DateTime.fromISO(draft.to) : null
-
-  // Validate custom range with Luxon: `from` must not be after `to`
-  const customRangeValid =
-    draft.option !== "custom" ||
-    (!!fromDate && fromDate.isValid && !!toDate && toDate.isValid && fromDate <= toDate)
-
-  const toDateError =
-    !!fromDate && !!toDate && toDate.isValid && fromDate.isValid && !customRangeValid
+  const bothDatesPicked = !!draft.from && !!draft.to
+  const toDateError = bothDatesPicked && !isValidCustomRange(draft.from, draft.to)
 
   return (
     <LocalizationProvider dateAdapter={AdapterLuxon}>
@@ -138,7 +156,7 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
         <Box sx={{ p: 2, minWidth: 260 }}>
           <RadioGroup
             value={draft.option}
-            onChange={(e) => setDraft((d) => ({ ...d, option: e.target.value as TimeRangeOption }))}
+            onChange={(e) => handleOptionChange(e.target.value as TimeRangeOption)}
           >
             {options.map((o) => (
               <FormControlLabel key={o.value} value={o.value} control={<Radio />} label={o.label} />
@@ -151,30 +169,14 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
                 label={t("common:timeFilter.From")}
                 value={fromDate}
                 maxDate={toDate ?? undefined}
-                onChange={(newValue) =>
-                  setDraft((d) => ({
-                    ...d,
-                    from:
-                      newValue && newValue.isValid
-                        ? (newValue.toISODate() ?? undefined)
-                        : undefined,
-                  }))
-                }
+                onChange={(newValue) => handleCustomRangeChange({ from: toIsoDate(newValue) })}
                 slotProps={{ textField: { size: "small" } }}
               />
               <DatePicker
                 label={t("common:timeFilter.To")}
                 value={toDate}
                 minDate={fromDate ?? undefined}
-                onChange={(newValue) =>
-                  setDraft((d) => ({
-                    ...d,
-                    to:
-                      newValue && newValue.isValid
-                        ? (newValue.toISODate() ?? undefined)
-                        : undefined,
-                  }))
-                }
+                onChange={(newValue) => handleCustomRangeChange({ to: toIsoDate(newValue) })}
                 slotProps={{
                   textField: {
                     size: "small",
@@ -185,15 +187,6 @@ export default function TimeRangeFilter({ value, onChange }: TimeRangeFilterProp
               />
             </Box>
           )}
-
-          <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1, mt: 2 }}>
-            <Button onClick={handleClose} color={"inherit"}>
-              {t("common:Cancel")}
-            </Button>
-            <Button variant="text" onClick={handleApply} disabled={!customRangeValid}>
-              {t("common:apply")}
-            </Button>
-          </Box>
         </Box>
       </Popover>
     </LocalizationProvider>
