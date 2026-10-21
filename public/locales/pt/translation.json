@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "Sobre nós"
   },
+  "authenticationError": "Um erro aconteceu",
   "Cancel": "Cancelar",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Erro- partida livre",
+      "errorTime": "Tempo perdido ( erro)"
+    },
+    "selectRunnersMessage": "Selecione atletas para ver o gráfico",
+    "timeAxisLabel": "Tempo (segundos)"
+  },
   "Copied to the clipboard": "Copiado para a área de transferência.",
   "Copy": "Copiar",
   "Dashboard": {
@@ -91,10 +100,8 @@
     "Website": "Site do evento"
   },
   "EventList": {
-    "FutureEvents": "Eventos futuros",
     "LiveToday": "Ao vivo",
-    "NoLiveEventsToday": "Nao existe eventos hoje",
-    "PastEvents": "Eventos passados"
+    "NoLiveEventsToday": "Nao existe eventos hoje"
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Característica experimental",
@@ -118,10 +125,10 @@
     "PositionChart": "Grafico de posição",
     "RunnerSelection": "Seleção do atleta",
     "SelectAll": "Selecionar todos",
-    "SelectRunnersMessage": "Selecione os atletas para ver grafico",
     "SelectedCount_many": "{{count}} de {{total}} selecionados",
     "SelectedCount_one": "{{count}} de {{total}} selecionado",
     "SelectedCount_other": "{{count}} de {{total}} selecionados",
+    "SelectRunnersMessage": "Selecione os atletas para ver grafico",
     "Start": "Partida",
     "Threshold": "Limiar",
     "ThresholdWithPercent": "Limiar ({{percent}}%)",
@@ -138,12 +145,30 @@
     "Language": "Língua",
     "Spanish": "Espanhol"
   },
+  "lineChart": {
+    "noData": "Selecione atletas para ver o gráfico de linhas",
+    "tooltip": {
+      "behindLeader": "Tempo por detrás do líder",
+      "behindPerfectRunner": "Tempo por detrás do corredor ideal"
+    },
+    "xAxisLabel": "Controlos"
+  },
   "Location": "Localização",
   "Menu": "Menu",
   "Name": "Nome",
   "Organizer": "Organizador",
   "Organizers": "Informação do organizador",
   "Password": "Palavra passe",
+  "positionChart": {
+    "noData": "Selecione os atletas para visualizar a evolução da posição",
+    "tooltip": {
+      "control": "Controlo",
+      "position": "Posição",
+      "splitTime": "Tempo parcial",
+      "timeLost": "Tempo por detrás do melhor parcial: {{timeLost}}"
+    },
+    "xAxisLabel": "Pontos"
+  },
   "RadiosExperimentalMsg": "Ao utilizar controlos online, os recursos relacionados com os splits são experimentais.",
   "Results": {
     "Class": "Escalão",
@@ -151,10 +176,10 @@
     "Finish": "Fim",
     "Name": "Nome",
     "Position": "Posição",
+    "shortClass": "Escalão",
     "SiCard": "SI Card",
     "Start": "Partida",
-    "Time": "Tempo",
-    "shortClass": "Escalão"
+    "Time": "Tempo"
   },
   "ResultsStage": {
     "BonusPoints": "Bônus",
@@ -185,6 +210,15 @@
       "PartialTimes": "Parciais"
     },
     "StartTime": "Partida",
+    "statusCodes": {
+      "dnf": "Não terminou",
+      "dns": "Não partiu",
+      "dsq": "Desqualificado",
+      "mp": "Missing Point",
+      "nc": "Não Classificado",
+      "ok": "OK",
+      "ot": "Fora de tempo"
+    },
     "Times": "Tempo",
     "TrailO": {
       "ExternalResults": "Os resultados desta etapa de Trail-O estão publicados em:",
@@ -225,18 +259,18 @@
     "WrongFileUploaded": {
       "Msg": "O cronometrista enviou os resultados finais sem parciais. Estes ficheiros não devem ser enviados e podem provocar a apresentação de dados em falta ou incorretos. Mais informações sobre como enviar os resultados para o nosso serviço podem ser consultadas na página <2>Organizadores</2>.",
       "Title": "Resultados sem parciais!"
-    },
-    "statusCodes": {
-      "dnf": "Não terminou",
-      "dns": "Não partiu",
-      "dsq": "Desqualificado",
-      "mp": "Missing Point",
-      "nc": "Não Classificado",
-      "ok": "OK",
-      "ot": "Fora de tempo"
     }
   },
   "Settings": "Definições",
+  "sidebar": {
+    "backendVersion": "Atrás",
+    "cookiePolicy": "Política de cookies",
+    "frontendVersion": "Frente",
+    "frontendVersionWithVersion": "Frente v{{version}}",
+    "legalNotice": "Politica legal",
+    "loading": "A carregar...",
+    "privacyPolicy": "Política de privacidade"
+  },
   "Sign in": {
     "ForgotPassword": "Esqueceu palavra passe?",
     "Logout": "Logout",
@@ -256,42 +290,6 @@
   "Success": "Sucesso",
   "This action cannot be undone": "Esta ação não pode ser anulada.",
   "ThisFunctionalityNotImplementedMsg": "Esta ação ainda não foi implementado.",
-  "authenticationError": "Um erro aconteceu",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Erro- partida livre",
-      "errorTime": "Tempo perdido ( erro)"
-    },
-    "selectRunnersMessage": "Selecione atletas para ver o gráfico",
-    "timeAxisLabel": "Tempo (segundos)"
-  },
-  "lineChart": {
-    "noData": "Selecione atletas para ver o gráfico de linhas",
-    "tooltip": {
-      "behindLeader": "Tempo por detrás do líder",
-      "behindPerfectRunner": "Tempo por detrás do corredor ideal"
-    },
-    "xAxisLabel": "Controlos"
-  },
-  "positionChart": {
-    "noData": "Selecione os atletas para visualizar a evolução da posição",
-    "tooltip": {
-      "control": "Controlo",
-      "position": "Posição",
-      "splitTime": "Tempo parcial",
-      "timeLost": "Tempo por detrás do melhor parcial: {{timeLost}}"
-    },
-    "xAxisLabel": "Pontos"
-  },
-  "sidebar": {
-    "backendVersion": "Atrás",
-    "cookiePolicy": "Política de cookies",
-    "frontendVersion": "Frente",
-    "frontendVersionWithVersion": "Frente v{{version}}",
-    "legalNotice": "Politica legal",
-    "loading": "A carregar...",
-    "privacyPolicy": "Política de privacidade"
-  },
   "tooltip": {
     "efficiency": "Eficácia",
     "errorFreeTime": "Erro- tempo livre",

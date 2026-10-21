@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "Sobre nosotros"
   },
+  "authenticationError": "Ha ocurrido un error",
   "Cancel": "Cancelar",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Tiempo sin errores",
+      "errorTime": "Tiempo de error (pérdida)"
+    },
+    "selectRunnersMessage": "Selecciona corredores para ver el gráfico",
+    "timeAxisLabel": "Tiempo (segundos)"
+  },
   "Copied to the clipboard": "Copiado al portapapeles.",
   "Copy": "Copiar",
   "Dashboard": {
@@ -38,6 +47,7 @@
       },
       "description": "Hay dos formas de subir datos a este evento: con el botón de subida <uploadIcon/> de cada etapa en la tabla de arriba, o a través del cliente de escritorio de O-Replay. El cliente necesita la información de seguridad que aparece a continuación. Compártela solo con tu equipo. Puede revocarse en cualquier momento.",
       "dropHere": "Arrastra y suelta aquí ficheros IOF XML 3.0",
+      "filesIgnored_many": "",
       "filesIgnored_one": "Se ha ignorado {{count}} fichero: solo se pueden subir ficheros .xml.",
       "filesIgnored_other": "Se han ignorado {{count}} ficheros: solo se pueden subir ficheros .xml.",
       "messages": {
@@ -132,6 +142,7 @@
         "DialogTitle": "Desea borrar esta etapa?",
         "MenuText": "Borrar"
       },
+      "description": "Crea tantas etapas como tenga tu evento. Cada evento debe tener al menos una etapa.",
       "FailedToLoadOrganizers": "No se han podido cargar los organizadores",
       "GoToStage": "Ver la etapa",
       "NewStage": "Nueva etapa",
@@ -183,8 +194,7 @@
         "DialogConfirm": "Restablecer",
         "DialogTitle": "Desea restablecer esta etapa?",
         "MenuText": "Restablecer"
-      },
-      "description": "Crea tantas etapas como tenga tu evento. Cada evento debe tener al menos una etapa."
+      }
     },
     "StartDate": "Fecha de comienzo",
     "StartMustBeAfterEnd": "La fecha de comienzo no puede ser posterior a la fecha del final.",
@@ -196,10 +206,8 @@
     "WebsitePlaceholder": "https://tuclub.es/tuevento"
   },
   "EventList": {
-    "FutureEvents": "Eventos futuros",
     "LiveToday": "En vivo hoy",
-    "NoLiveEventsToday": "No hay eventos hoy",
-    "PastEvents": "Eventos pasados"
+    "NoLiveEventsToday": "No hay eventos hoy"
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Funcionalidad experimental",
@@ -207,6 +215,7 @@
     "msg": "Compruebe su conexión a internet. Si el error continua, inténtelo de nuevo más tarde.",
     "title": "La carga de la página ha fallado"
   },
+  "firstName": "Nombre",
   "ForbiddenAccess": "Acceso denegado",
   "ForgotPassword": {
     "EmailSent": {
@@ -241,10 +250,10 @@
     "PositionChart": "Evolución de Posición",
     "RunnerSelection": "Selección de Corredores",
     "SelectAll": "Seleccionar todos",
-    "SelectRunnersMessage": "Selecciona corredores para ver gráficos",
     "SelectedCount_many": "{{count}} de {{total}} seleccionados",
     "SelectedCount_one": "{{count}} de {{total}} seleccionados",
     "SelectedCount_other": "{{count}} of {{total}} seleccionados",
+    "SelectRunnersMessage": "Selecciona corredores para ver gráficos",
     "Start": "Salida",
     "Threshold": "Umbral",
     "ThresholdWithPercent": "Umbral ({{percent}}%)",
@@ -260,6 +269,15 @@
     "French": "Frances",
     "Language": "Idioma",
     "Spanish": "Español"
+  },
+  "lastName": "Apellidos",
+  "lineChart": {
+    "noData": "Selecciona corredores para ver el gráfico de líneas",
+    "tooltip": {
+      "behindLeader": "Tiempo respecto al líder",
+      "behindPerfectRunner": "Tiempo respecto al corredor ideal"
+    },
+    "xAxisLabel": "Controles"
   },
   "Location": "Ubicación",
   "Menu": "Menu",
@@ -278,6 +296,16 @@
     "pointsAbbreviation": "pts"
   },
   "Password": "Contraseña",
+  "positionChart": {
+    "noData": "Selecciona corredores para ver la evolución de posición",
+    "tooltip": {
+      "control": "Control",
+      "position": "Posición",
+      "splitTime": "Tiempo parcial",
+      "timeLost": "Tiempo respecto al mejor parcial: {{timeLost}}"
+    },
+    "xAxisLabel": "Controles"
+  },
   "PrivateEventPage": {
     "Header": "Evento privado",
     "Message": "El organizador ha configurado este evento como privado. Si crees que es un error, por favor contacta con el organizador del evento."
@@ -290,10 +318,10 @@
     "Finish": "Fin",
     "Name": "Nombre",
     "Position": "Posición",
+    "shortClass": "Categoría",
     "SiCard": "Pinza",
     "Start": "Salida",
-    "Time": "Tiempo",
-    "shortClass": "Categoría"
+    "Time": "Tiempo"
   },
   "ResultsStage": {
     "BonusPoints": "Bonus",
@@ -306,8 +334,8 @@
     "Name": "Nombre",
     "NoClubMsg": "Sin club",
     "NoData": "No hay datos disponibles",
-    "NoStartTime": "-",
     "NonContributory": "No puntúa",
+    "NoStartTime": "-",
     "NotStarted": "-",
     "OnlineCourse": {
       "ControlsReached": "{{reached}} de {{total}} radiocontroles alcanzados",
@@ -332,6 +360,15 @@
     },
     "StageNumber": "Etapa {{number}}",
     "StartTime": "Salida",
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "FC"
+    },
     "Times": "Tiempos",
     "TrailO": {
       "ExternalResults": "Los resultados de esta etapa de Trail-O están publicados en:",
@@ -378,18 +415,18 @@
     "WrongFileUploaded": {
       "Msg": "El cronometrador ha subido los resultados finales sin parciales. Estos archivos no deben subirse y pueden provocar que falten datos o sean incorrectos. Puedes encontrar más información sobre cómo subir resultados a nuestro servicio en la página de <2>Organizadores</2>.",
       "Title": "¡Resultados Sin Parciales!"
-    },
-    "statusCodes": {
-      "dnf": "DNF",
-      "dns": "DNS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "FC"
     }
   },
   "Settings": "Ajustes",
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Política de Cookies",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Aviso Legal",
+    "loading": "Cargando...",
+    "privacyPolicy": "Política de Privacidad"
+  },
   "Sign in": {
     "ForgotPassword": "¿Olvidaste tu contraseña?",
     "InvalidCredentials": "Usuario o contraseña incorrectos",
@@ -454,58 +491,13 @@
   "ThisFunctionalityNotImplementedMsg": "Esta funcionalidad aún no está disponible.",
   "TimeZone": "Zona horaria",
   "TimezoneMismatchRunnerMsg": "Estas en una zona horaria diferente a la del evento. Todas las horas mostradas, incluyendo las de salida, se muestran en tu hora local y no en la del evento.",
-  "UnderDevelopment": "En desarrollo",
-  "WorldContinents": {
-    "America": "America",
-    "Asia": "Asia",
-    "Australia": "Australia",
-    "Europe": "Europa",
-    "Other": "Otro"
-  },
-  "authenticationError": "Ha ocurrido un error",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Tiempo sin errores",
-      "errorTime": "Tiempo de error (pérdida)"
-    },
-    "selectRunnersMessage": "Selecciona corredores para ver el gráfico",
-    "timeAxisLabel": "Tiempo (segundos)"
-  },
-  "firstName": "Nombre",
-  "lastName": "Apellidos",
-  "lineChart": {
-    "noData": "Selecciona corredores para ver el gráfico de líneas",
-    "tooltip": {
-      "behindLeader": "Tiempo respecto al líder",
-      "behindPerfectRunner": "Tiempo respecto al corredor ideal"
-    },
-    "xAxisLabel": "Controles"
-  },
-  "positionChart": {
-    "noData": "Selecciona corredores para ver la evolución de posición",
-    "tooltip": {
-      "control": "Control",
-      "position": "Posición",
-      "splitTime": "Tiempo parcial",
-      "timeLost": "Tiempo respecto al mejor parcial: {{timeLost}}"
-    },
-    "xAxisLabel": "Controles"
-  },
-  "sidebar": {
-    "backendVersion": "Backend",
-    "cookiePolicy": "Política de Cookies",
-    "frontendVersion": "Frontend",
-    "frontendVersionWithVersion": "Frontend v{{version}}",
-    "legalNotice": "Aviso Legal",
-    "loading": "Cargando...",
-    "privacyPolicy": "Política de Privacidad"
-  },
   "tooltip": {
     "efficiency": "Eficiencia",
     "errorFreeTime": "Tiempo sin errores",
     "errorTime": "Tiempo perdido (pérdida)",
     "totalDisplayedTime": "Tiempo total mostrado"
   },
+  "UnderDevelopment": "En desarrollo",
   "view": {
     "accumulated": "Acumulados",
     "barChart": "Tiempo perdido",
@@ -517,5 +509,12 @@
     "radios": "Radios",
     "splits": "Parciales",
     "timeLoss": "Tabla de tiempo perdido"
+  },
+  "WorldContinents": {
+    "America": "America",
+    "Asia": "Asia",
+    "Australia": "Australia",
+    "Europe": "Europa",
+    "Other": "Otro"
   }
 }

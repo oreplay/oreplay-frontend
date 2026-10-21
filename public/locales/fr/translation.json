@@ -155,10 +155,8 @@
     "WebsitePlaceholder": "https://votreclub.com/votreevenement"
   },
   "EventList": {
-    "FutureEvents": "Événements à venir",
     "LiveToday": "Aujourd'hui en direct",
-    "NoLiveEventsToday": "Il n'y a pas d'événements aujourd'hui",
-    "PastEvents": "Événements passés"
+    "NoLiveEventsToday": "Il n'y a pas d'événements aujourd'hui"
   },
   "Events": "Événements",
   "ExperimentalFeatureMsg": "Fonctionnalité expérimentale",
@@ -190,6 +188,12 @@
   "Graphs": {
     "BarChart": "Graphique en Barres",
     "ClearSelection": "Effacer la sélection",
+    "Description": {
+      "lineChart": "Montre le retard de chaque coureur sur le leader de la course à chaque poste. Le leader à chaque poste se trouve sur la ligne du haut ; plus la ligne d'un coureur est basse, plus son retard est grand. Les postes sont espacés selon la durée de chaque interposte.",
+      "perfectRunnerChart": "Montre le retard de chaque coureur sur le coureur parfait à chaque poste. Le coureur parfait est un concurrent imaginaire qui réalise le meilleur temps de la catégorie sur chaque interposte. Une ligne qui chute nettement signale un interposte où le coureur a perdu du temps ; une portion plate, un interposte couru près du meilleur temps. Les postes sont espacés selon la durée de chaque interposte.",
+      "positionChart": "Montre la place de chaque coureur dans la catégorie à chaque poste, selon le temps cumulé. La première place est en haut : une ligne qui monte signifie que le coureur gagne des places."
+    },
+    "DescriptionLabel": "Que montre ce graphique ?",
     "Finish": "Arrivée",
     "LineChart": "Graphique Linéaire",
     "PositionChart": "Évolution des Positions",
@@ -203,12 +207,6 @@
     "Threshold": "Seuil",
     "ThresholdWithPercent": "Seuil ({{percent}}%)",
     "TimeLossAnalysis": "Analyse des Pertes de Temps",
-    "Description": {
-      "lineChart": "Montre le retard de chaque coureur sur le leader de la course à chaque poste. Le leader à chaque poste se trouve sur la ligne du haut ; plus la ligne d'un coureur est basse, plus son retard est grand. Les postes sont espacés selon la durée de chaque interposte.",
-      "perfectRunnerChart": "Montre le retard de chaque coureur sur le coureur parfait à chaque poste. Le coureur parfait est un concurrent imaginaire qui réalise le meilleur temps de la catégorie sur chaque interposte. Une ligne qui chute nettement signale un interposte où le coureur a perdu du temps ; une portion plate, un interposte couru près du meilleur temps. Les postes sont espacés selon la durée de chaque interposte.",
-      "positionChart": "Montre la place de chaque coureur dans la catégorie à chaque poste, selon le temps cumulé. La première place est en haut : une ligne qui monte signifie que le coureur gagne des places."
-    },
-    "DescriptionLabel": "Que montre ce graphique ?",
     "Title": {
       "lineChart": "Derrière le leader",
       "perfectRunnerChart": "Derrière le coureur parfait",

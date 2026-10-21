@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "Sobre nosaltres"
   },
+  "authenticationError": "S'ha produït un error",
   "Cancel": "Cancel·lar",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Temps sense errors",
+      "errorTime": "Temps perdut (error)"
+    },
+    "selectRunnersMessage": "Selecciona corredors per a veure el gràfic",
+    "timeAxisLabel": "Temps (segons)"
+  },
   "Copied to the clipboard": "Copiat al portaretalls.",
   "Copy": "Copiar",
   "Dashboard": {
@@ -82,6 +91,7 @@
         "DialogTitle": "Vols eliminar aquesta etapa?",
         "MenuText": "Eliminar"
       },
+      "description": "Crea tantes etapes com tingui el teu event. Cada event ha de tenir mínim una etapa.",
       "FailedToLoadOrganizers": "No s'han pogut carregar els organitzadors",
       "GoToStage": "Veure l'etapa",
       "NewStage": "Nova etapa",
@@ -133,8 +143,7 @@
         "DialogConfirm": "Restablir",
         "DialogTitle": "Vols restablir aquesta etapa?",
         "MenuText": "Restablir"
-      },
-      "description": "Crea tantes etapes com tingui el teu event. Cada event ha de tenir mínim una etapa."
+      }
     },
     "StartDate": "Data d'inici",
     "StartMustBeAfterEnd": "La data d'inici no pot ser posterior a la data de fi.",
@@ -146,13 +155,12 @@
     "WebsitePlaceholder": "https://elteuclub.cat/elteuevent"
   },
   "EventList": {
-    "FutureEvents": "Events futurs",
     "LiveToday": "En viu avui",
-    "NoLiveEventsToday": "No hi ha events avui",
-    "PastEvents": "Events passats"
+    "NoLiveEventsToday": "No hi ha events avui"
   },
   "Events": "Events",
   "ExperimentalFeatureMsg": "Funcionalitat experimental",
+  "firstName": "Nom",
   "ForbiddenAccess": "Accés denegat",
   "GeneralErrorFallback": {
     "msg": "Intenta refrescar la pàgina. Si l'error persisteix, intenti-ho de nou més tard.",
@@ -173,10 +181,10 @@
     "PositionChart": "Evolució de Posició",
     "RunnerSelection": "Selecció de Corredors",
     "SelectAll": "Selecciona'ls tots",
-    "SelectRunnersMessage": "Selecciona corredors per a veure gràfics",
     "SelectedCount_many": "{{count}} de {{total}} seleccionats",
     "SelectedCount_one": "{{count}} de {{total}} seleccionat",
     "SelectedCount_other": "{{count}} de {{total}} seleccionats",
+    "SelectRunnersMessage": "Selecciona corredors per a veure gràfics",
     "Start": "Sortida",
     "Threshold": "Llindar",
     "ThresholdWithPercent": "Llindar ({{percent}}%)",
@@ -192,6 +200,15 @@
     "French": "Français",
     "Language": "Idioma",
     "Spanish": "Español"
+  },
+  "lastName": "Cognoms",
+  "lineChart": {
+    "noData": "Selecciona corredors per a veure el gràfic de línies",
+    "tooltip": {
+      "behindLeader": "Temps respecte el líder",
+      "behindPerfectRunner": "Temps respecte el corredor ideal"
+    },
+    "xAxisLabel": "Fites"
   },
   "Location": "Ubicació",
   "Menu": "Menú",
@@ -210,6 +227,16 @@
     "pointsAbbreviation": "pts"
   },
   "Password": "Contrassenya",
+  "positionChart": {
+    "noData": "Selecciona corredors per a veure l'evolució de posicions",
+    "tooltip": {
+      "control": "Fita",
+      "position": "Posició",
+      "splitTime": "Temps parcial",
+      "timeLost": "Temps respecte el millor parcial: {{timeLost}}"
+    },
+    "xAxisLabel": "Fites"
+  },
   "PrivateEventPage": {
     "Header": "Event Privat",
     "Message": "Aquest event s'ha configurat com a privat per l'organitzador. Si creu que és un error, si us plau, contacta amb l'organitzador de l'event."
@@ -221,10 +248,10 @@
     "Finish": "Meta",
     "Name": "Nom",
     "Position": "Posició",
+    "shortClass": "Categoria",
     "SiCard": "Xip",
     "Start": "Sortida",
-    "Time": "Temps",
-    "shortClass": "Categoria"
+    "Time": "Temps"
   },
   "ResultsStage": {
     "BonusPoints": "Bonus",
@@ -237,8 +264,8 @@
     "Name": "Nom",
     "NoClubMsg": "Sense club",
     "NoData": "No hi ha dades disponibles",
-    "NoStartTime": "-",
     "NonContributory": "No puntua",
+    "NoStartTime": "-",
     "NotStarted": "-",
     "PenaltyPoints": "Penalització:",
     "Points": "Punts:",
@@ -257,6 +284,15 @@
     },
     "StageNumber": "Etapa {{number}}",
     "StartTime": "Sortida",
+    "statusCodes": {
+      "dnf": "Aban",
+      "dns": "NS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "FT"
+    },
     "Times": "Temps",
     "TrailO": {
       "ExternalResults": "Els resultats d'aquesta etapa de Trail-O estan publicats a:",
@@ -303,18 +339,18 @@
     "WrongFileUploaded": {
       "Msg": "El cronometrador ha pujat els resultats finals sense parcials. Aquests arxius no s'haurien de pujar i poden causar dades incorrectes o faltants. Pots trobar més informació sobre com pujar resultats al nostre servei a la pàgina d'<2>Organitzadors</2>.",
       "Title": "Resultats Sense Parcials!"
-    },
-    "statusCodes": {
-      "dnf": "Aban",
-      "dns": "NS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "FT"
     }
   },
   "Settings": "Configuració",
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Política de Cookies (galetes)",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Avís Legal",
+    "loading": "Carregant...",
+    "privacyPolicy": "Política de Privacitat"
+  },
   "Sign in": {
     "ForgotPassword": "Has oblidat la contrassenya?",
     "Logout": "Tancar sessió",
@@ -377,58 +413,13 @@
   "ThisFunctionalityNotImplementedMsg": "Aquesta funcionalitat encara no està disponible.",
   "TimeZone": "Zona horària",
   "TimezoneMismatchRunnerMsg": "Estàs en una zona horària diferent a la de l'event. Totes les hores mostrades, incloses les de sortida, es mostren en la teva hora local i no en la de l'event.",
-  "UnderDevelopment": "En desenvolupament",
-  "WorldContinents": {
-    "America": "Amèrica",
-    "Asia": "Àsia",
-    "Australia": "Austràlia",
-    "Europe": "Europa",
-    "Other": "Altres"
-  },
-  "authenticationError": "S'ha produït un error",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Temps sense errors",
-      "errorTime": "Temps perdut (error)"
-    },
-    "selectRunnersMessage": "Selecciona corredors per a veure el gràfic",
-    "timeAxisLabel": "Temps (segons)"
-  },
-  "firstName": "Nom",
-  "lastName": "Cognoms",
-  "lineChart": {
-    "noData": "Selecciona corredors per a veure el gràfic de línies",
-    "tooltip": {
-      "behindLeader": "Temps respecte el líder",
-      "behindPerfectRunner": "Temps respecte el corredor ideal"
-    },
-    "xAxisLabel": "Fites"
-  },
-  "positionChart": {
-    "noData": "Selecciona corredors per a veure l'evolució de posicions",
-    "tooltip": {
-      "control": "Fita",
-      "position": "Posició",
-      "splitTime": "Temps parcial",
-      "timeLost": "Temps respecte el millor parcial: {{timeLost}}"
-    },
-    "xAxisLabel": "Fites"
-  },
-  "sidebar": {
-    "backendVersion": "Backend",
-    "cookiePolicy": "Política de Cookies (galetes)",
-    "frontendVersion": "Frontend",
-    "frontendVersionWithVersion": "Frontend v{{version}}",
-    "legalNotice": "Avís Legal",
-    "loading": "Carregant...",
-    "privacyPolicy": "Política de Privacitat"
-  },
   "tooltip": {
     "efficiency": "Eficiència",
     "errorFreeTime": "Temps sense errors",
     "errorTime": "Temps perdut (error)",
     "totalDisplayedTime": "Temps total mostrat"
   },
+  "UnderDevelopment": "En desenvolupament",
   "view": {
     "accumulated": "Acumulats",
     "barChart": "Temps perdut",
@@ -440,5 +431,12 @@
     "radios": "Radios",
     "splits": "Parcials",
     "timeLoss": "Taula de temps perdut"
+  },
+  "WorldContinents": {
+    "America": "Amèrica",
+    "Asia": "Àsia",
+    "Australia": "Austràlia",
+    "Europe": "Europa",
+    "Other": "Altres"
   }
 }

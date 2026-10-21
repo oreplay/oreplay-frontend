@@ -154,10 +154,8 @@
     "WebsitePlaceholder": "https://teuclub.com/teuevento"
   },
   "EventList": {
-    "FutureEvents": "Eventos futuros",
     "LiveToday": "En directo hoxe",
-    "NoLiveEventsToday": "Hoxe non hai eventos",
-    "PastEvents": "Eventos pasados"
+    "NoLiveEventsToday": "Hoxe non hai eventos"
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Característica experimental",
@@ -189,6 +187,12 @@
   "Graphs": {
     "BarChart": "Gráfico de barras",
     "ClearSelection": "Quitar selección",
+    "Description": {
+      "lineChart": "Mostra canto tempo leva perdido cada corredor respecto do líder da carreira en cada control. O líder en cada control queda na liña superior; canto máis baixa está a liña dun corredor, máis tempo leva perdido. Os controis sepáranse segundo o que se tarda en cada tramo.",
+      "perfectRunnerChart": "Mostra canto tempo leva perdido cada corredor respecto do corredor ideal en cada control. O corredor ideal é un competidor imaxinario que ten o mellor tempo da categoría en todos os tramos. Unha liña que cae con forza sinala un tramo no que o corredor perdeu tempo; un tramo plano, un feito preto do mellor tempo. Os controis sepáranse segundo o que se tarda en cada tramo.",
+      "positionChart": "Mostra a posición de cada corredor na categoría en cada control, segundo o tempo acumulado. O primeiro posto está arriba, así que unha liña que sobe indica que o corredor gaña posicións."
+    },
+    "DescriptionLabel": "Que mostra este gráfico?",
     "Finish": "Meta",
     "LineChart": "Gráfico de liñas",
     "PositionChart": "Gráfico de postos",
@@ -201,12 +205,6 @@
     "Threshold": "Limiar",
     "ThresholdWithPercent": "Limiar ({{percent}}%)",
     "TimeLossAnalysis": "Análise de tempo perdido",
-    "Description": {
-      "lineChart": "Mostra canto tempo leva perdido cada corredor respecto do líder da carreira en cada control. O líder en cada control queda na liña superior; canto máis baixa está a liña dun corredor, máis tempo leva perdido. Os controis sepáranse segundo o que se tarda en cada tramo.",
-      "perfectRunnerChart": "Mostra canto tempo leva perdido cada corredor respecto do corredor ideal en cada control. O corredor ideal é un competidor imaxinario que ten o mellor tempo da categoría en todos os tramos. Unha liña que cae con forza sinala un tramo no que o corredor perdeu tempo; un tramo plano, un feito preto do mellor tempo. Os controis sepáranse segundo o que se tarda en cada tramo.",
-      "positionChart": "Mostra a posición de cada corredor na categoría en cada control, segundo o tempo acumulado. O primeiro posto está arriba, así que unha liña que sobe indica que o corredor gaña posicións."
-    },
-    "DescriptionLabel": "Que mostra este gráfico?",
     "Title": {
       "lineChart": "Detrás do líder",
       "perfectRunnerChart": "Detrás do corredor ideal",

@@ -5,7 +5,11 @@
   "AboutUs": {
     "AboutUs": "O nas"
   },
+  "authenticationError": "Wystąpił błąd",
   "Cancel": "Anuluj",
+  "chart": {
+    "timeAxisLabel": "Czas (sekundy)"
+  },
   "Copied to the clipboard": "Skopiowano do schowka.",
   "Copy": "Kopiuj",
   "Dashboard": {
@@ -59,6 +63,7 @@
       "DeleteStage": {
         "MenuText": "Usuń"
       },
+      "description": "Stwórz tyle etapów dla swojego wydarzenia ile potrzebujesz. Każde wydarzenie musi mieć przynajmniej jeden etap.",
       "FailedToLoadOrganizers": "Nie udało się załadować organizatorów",
       "StagesTypes": {
         "FootO": {
@@ -92,8 +97,7 @@
         "DialogConfirm": "Reset",
         "DialogTitle": "Czy chcesz zresetować ten etap?",
         "MenuText": "Reset"
-      },
-      "description": "Stwórz tyle etapów dla swojego wydarzenia ile potrzebujesz. Każde wydarzenie musi mieć przynajmniej jeden etap."
+      }
     },
     "StartDate": "Data rozpoczęcia",
     "StartMustBeAfterEnd": "Data rozpoczęcia nie może być po dacie zakończenia.",
@@ -104,16 +108,16 @@
     "WebsitePlaceholder": "https://twojklub.com/twojewydarzenie"
   },
   "EventList": {
-    "FutureEvents": "Przyszłe wydarzenia",
     "LiveToday": "Na żywo dzisiaj",
-    "NoLiveEventsToday": "Nie ma dzisiaj żadnych wydarzeń",
-    "PastEvents": "Poprzednie wydarzenia"
+    "NoLiveEventsToday": "Nie ma dzisiaj żadnych wydarzeń"
   },
   "Events": "Wydarzenia",
+  "firstName": "Imię",
   "GeneralErrorFallback": {
     "msg": "Odśwież stronę. Jeśli błąd dalej występuje, spróbuj ponownie później."
   },
   "GoBack": "Wróć",
+  "lastName": "Nazwisko",
   "MyAccount": {
     "description": "Zarządzaj swoimi personalnymi danymi.",
     "personalInformation": {
@@ -130,21 +134,15 @@
     "Header": "Prywatne wydarzenie",
     "Message": "To wydarzenie zostało ustawione na prywatne przez organizatora. Jeśli uważasz, że to błąd, skontaktuj się z organizatorem wydarzenia."
   },
+  "sidebar": {
+    "backendVersion": "Backend",
+    "frontendVersion": "Frontend"
+  },
   "WorldContinents": {
     "America": "Ameryka",
     "Asia": "Azja",
     "Australia": "Australia",
     "Europe": "Europa",
     "Other": "Inne"
-  },
-  "authenticationError": "Wystąpił błąd",
-  "chart": {
-    "timeAxisLabel": "Czas (sekundy)"
-  },
-  "firstName": "Imię",
-  "lastName": "Nazwisko",
-  "sidebar": {
-    "backendVersion": "Backend",
-    "frontendVersion": "Frontend"
   }
 }
