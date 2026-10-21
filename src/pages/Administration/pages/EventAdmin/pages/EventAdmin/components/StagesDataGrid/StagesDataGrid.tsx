@@ -31,6 +31,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import GridActionsSettingsMenu from "../GridActionsSettingsMenu.tsx"
 import StageUploadDialog from "../StageUploadDialog/StageUploadDialog.tsx"
 import UploadFileIcon from "@mui/icons-material/UploadFile"
+import LinkIcon from "@mui/icons-material/Link"
 import Sparkles from "../../../../../../../../components/Sparkles/Sparkles.tsx"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { stageStatsService } from "../../../../../../../../domain/services/StageStatsService.ts"
@@ -517,9 +518,19 @@ export default function StagesDataGrid(props: Props) {
         }
 
         const isTrailO = isTrailOStage(row.row.stageTypeId)
-        const handleExternalUrlClick = isTrailO
-          ? () => setStageToEditResultsUrl(row.row)
-          : undefined
+        const externalUrlAction = (
+          <GridActionsCellItem
+            key="external-url"
+            icon={
+              <Tooltip title={t("EventAdmin.Stages.TrailOResultsUrl.MenuText")}>
+                <LinkIcon />
+              </Tooltip>
+            }
+            label={t("EventAdmin.Stages.TrailOResultsUrl.MenuText")}
+            className="textPrimary"
+            onClick={() => setStageToEditResultsUrl(row.row)}
+          />
+        )
         const uploadFilesAction = (
           <GridActionsCellItem
             key="upload-files"
@@ -535,18 +546,17 @@ export default function StagesDataGrid(props: Props) {
             onClick={() => setStageToUpload(row.row)}
           />
         )
-        const uploadFilesActions = isTrailO ? [] : [uploadFilesAction]
+        const stageDataAction = isTrailO ? externalUrlAction : uploadFilesAction
         const handleWipeOutClick = isTrailO ? undefined : () => void handleWipeOutRunnersClick(row)
 
         return [
-          ...uploadFilesActions,
+          stageDataAction,
           <GridActionsSettingsMenu
             key="settings-menu"
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
             handleStatsClick={() => void handleStatsClick(row)}
             handleWipeOutRunnersClick={handleWipeOutClick}
-            handleExternalUrlClick={handleExternalUrlClick}
           />,
           <GridActionsCellItem
             key="go-to-stage"
