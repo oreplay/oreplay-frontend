@@ -2,7 +2,7 @@ import { Box } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { SPLITS_TABLE_COLUMN_KIND, SplitsTableColumn } from "../shared/splitsTableColumns.ts"
 import CourseControlTableHeader from "./CourseControlTableHeader.tsx"
-import { ScrollTableHeaderCellContentProps } from "./ScrollTable/shared/scrollTableProps.ts"
+import { ScrollTableHeaderCellContentProps } from "../../../../../../../components/ScrollTable/shared/scrollTableProps.ts"
 
 const CLEAN_TIME_SX = { fontWeight: "bold", whiteSpace: "nowrap" }
 
