@@ -1,6 +1,7 @@
 import { Box, Pagination, useMediaQuery, useTheme } from "@mui/material"
 import NoTodayEventButton from "./NoTodayEventButton.tsx"
 import { Event } from "../../../../../domain/types/v1api"
+import { EVENTS_GRID_COLUMNS } from "../shared/eventsGridLayout.ts"
 
 interface Props {
   eventList: Event[]
@@ -20,9 +21,9 @@ export default function NoTodayEvents(props: Props) {
           marginTop: "24px",
           display: "grid",
           gridTemplateColumns: {
-            xs: "1fr",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
+            xs: `repeat(${EVENTS_GRID_COLUMNS.xs}, 1fr)`,
+            sm: `repeat(${EVENTS_GRID_COLUMNS.sm}, 1fr)`,
+            md: `repeat(${EVENTS_GRID_COLUMNS.md}, 1fr)`,
           },
           gap: { xs: "12px", sm: "16px" },
         }}

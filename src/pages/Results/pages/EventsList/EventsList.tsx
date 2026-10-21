@@ -22,6 +22,7 @@ import { DateTime } from "luxon"
 import TodayEvents from "./components/TodayEvents.tsx"
 import { ClearIcon } from "@mui/x-date-pickers"
 import Tooltip from "@mui/material/Tooltip"
+import { useEventsPageSize } from "./shared/useEventsPageSize.ts"
 
 function useDebouncedValue<T>(value: T, delay = 400): T {
   const [debounced, setDebounced] = useState(value)
@@ -31,8 +32,6 @@ function useDebouncedValue<T>(value: T, delay = 400): T {
   }, [value, delay])
   return debounced
 }
-
-const PAGE_SIZE = 10
 
 export default function EventsList() {
   const { t } = useTranslation()
@@ -44,6 +43,7 @@ export default function EventsList() {
 
   // Pagination
   const [page, setPage] = useState(1)
+  const pageSize = useEventsPageSize()
 
   // Reset to page 1 whenever the search or filter changes
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function EventsList() {
 
   const params: GetListEventsParams = {
     page: page.toString(),
-    limit: PAGE_SIZE.toString(),
+    limit: pageSize.toString(),
     ...(debouncedSearch ? { description: debouncedSearch } : {}),
     ...(after ? { "final_date:gte": after } : {}),
     ...(before ? { "initial_date:lte": before } : {}),
@@ -82,7 +82,7 @@ export default function EventsList() {
     query: { staleTime: 24 * 3600 * 1000 },
   })
   const eventList = data?.data ?? []
-  const numPages = Math.ceil((data?.total ?? 0) / PAGE_SIZE)
+  const numPages = Math.ceil((data?.total ?? 0) / pageSize)
 
   const todayEventList = todayData?.data ?? []
 
