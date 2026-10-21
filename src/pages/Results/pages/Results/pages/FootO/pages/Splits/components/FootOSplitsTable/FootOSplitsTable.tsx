@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import { OnlineControlModel } from "../../../../../../../../../../shared/EntityTypes.ts"
 import { ProcessedRunnerModel } from "../../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import NowProvider from "../../../../../../components/NowProvider.tsx"
@@ -39,6 +40,7 @@ export default function FootOSplitsTable({
   timeLossEnabled = false,
   timeLossThreshold,
 }: FootOSplitsTableProps) {
+  const { t } = useTranslation()
   const showTimeLoss = timeLossEnabled && !onlyRadios
 
   const runnerList = useMemo(
@@ -88,6 +90,7 @@ export default function FootOSplitsTable({
           getRowKey={getSplitsTableRowKey}
           HeaderCellContent={SplitsTableHeaderCellContent}
           headerStickyTopPx={headerStickyTopPx}
+          headingColumnHeader={t("ResultsStage.Name")}
           RowHeading={RunnerHeading}
           rows={rows}
         />
