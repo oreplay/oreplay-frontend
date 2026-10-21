@@ -10,7 +10,7 @@ import WrongResultsFileUploadedMsg from "../WrongResultsFileUploadedMsg.tsx"
 import { UseQueryResult } from "react-query"
 import ErrorBoundary from "../../../../../../components/ErrorBoundary/ErrorBoundary.tsx"
 import TimezoneMsg from "./components/TimezoneMsg.tsx"
-import { useIsMobileDevice } from "../../shared/useIsMobileDevice.ts"
+import { useIsMobileDevice } from "../../../../shared/useIsMobileDevice.ts"
 import { MOBILE_CONTENT_BOTTOM_PADDING_PX } from "../../shared/mobileLayout.ts"
 import PullToRefetch from "./components/PullToRefetch/PullToRefetch.tsx"
 

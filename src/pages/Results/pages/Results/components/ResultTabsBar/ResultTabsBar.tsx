@@ -1,4 +1,4 @@
-import { useIsMobileDevice } from "../../shared/useIsMobileDevice.ts"
+import { useIsMobileDevice } from "../../../../shared/useIsMobileDevice.ts"
 import { ResultTabsBarProps } from "../../shared/resultTabs.ts"
 import ResultTabsBarMobile from "./components/ResultTabsBarMobile.tsx"
 import ResultTabsBarDesktop from "./components/ResultTabsBarDesktop/ResultTabsBarDesktop.tsx"

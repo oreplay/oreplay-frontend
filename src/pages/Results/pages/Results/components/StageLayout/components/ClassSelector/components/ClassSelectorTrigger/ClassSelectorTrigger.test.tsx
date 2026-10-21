@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { useIsMobileDevice } from "../../../../../../shared/useIsMobileDevice.ts"
+import { useIsMobileDevice } from "../../../../../../../../shared/useIsMobileDevice.ts"
 import ClassSelectorTrigger from "./ClassSelectorTrigger.tsx"
 
-vi.mock("../../../../../../shared/useIsMobileDevice.ts", () => ({
+vi.mock("../../../../../../../../shared/useIsMobileDevice.ts", () => ({
   useIsMobileDevice: vi.fn(),
 }))
 

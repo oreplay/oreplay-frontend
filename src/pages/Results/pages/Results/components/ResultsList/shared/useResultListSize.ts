@@ -1,6 +1,6 @@
 import { RefObject, useLayoutEffect, useState } from "react"
 import { ResultListLayout } from "./resultListLayoutContext.ts"
-import { useIsMobileDevice } from "../../../shared/useIsMobileDevice.ts"
+import { useIsMobileDevice } from "../../../../../shared/useIsMobileDevice.ts"
 import {
   computeResultListHeight,
   RESULT_LIST_MIN_HEIGHT_PX,
