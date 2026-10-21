@@ -115,6 +115,9 @@ import { Ranking } from "../../domain/types/v1api"
 - **Never edit generated files** under `src/infrastructure/repositories/` or `src/domain/types/v1api`
   — change the backend OpenAPI spec and re-run `npm run orval-build`. These paths are ignored by
   ESLint/Prettier.
+- `orval.config.ts` sets `override.query.version: 3` because the app uses the legacy `react-query`
+  v3 package, which orval cannot detect. Don't add `query.useQuery: true`: since orval 8 it turns
+  every POST/PATCH/DELETE into a query instead of a mutation hook.
 - **Surface type/OpenAPI inconsistencies, don't work around them** — if a generated type looks wrong
   or forces an awkward cast/extra request, flag it so it's fixed in the OpenAPI spec and regenerated,
   rather than patched over in app code.

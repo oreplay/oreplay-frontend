@@ -11,7 +11,8 @@ const config = (name: string, url?: string) => {
       //   type: 'msw',
       //   indexMockFiles: true
       // },
-      prettier: true,
+      formatter: "prettier",
+      httpClient: "axios",
       client: "react-query",
       allParamsOptional: false,
       propertySortOrder: "Alphabetical",
@@ -22,8 +23,8 @@ const config = (name: string, url?: string) => {
           ...(info.description ? [info.description] : []),
         ],
         query: {
-          useQuery: true,
           usePrefetch: true,
+          version: 3,
         },
         mutator: {
           path: "./src/infrastructure/orval/orval-axios-instance.ts",
