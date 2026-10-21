@@ -6,6 +6,12 @@ interface ControlBadgeProps {
   punched?: boolean
 }
 
+/**
+ * Round badge with a control's station number, filled when the runner punched it.
+ *
+ * @param props.number Station number of the control.
+ * @param props.punched Whether the runner punched the control; an outlined badge when not.
+ */
 const ControlBadge: React.FC<ControlBadgeProps> = ({ number, punched = false }) => {
   return (
     <Box
@@ -13,9 +19,9 @@ const ControlBadge: React.FC<ControlBadgeProps> = ({ number, punched = false }) 
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        width: 32, // Circle diameter
-        height: 32, // Circle diameter
-        borderRadius: "50%", // Makes it a circle,
+        width: 32,
+        height: 32,
+        borderRadius: "50%",
         borderColor: punched ? undefined : "text.secondary",
         border: punched ? 0 : 1,
         backgroundColor: punched ? "secondary.main" : undefined,
