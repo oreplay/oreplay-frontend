@@ -33,7 +33,7 @@
     "@nivo/radar": "^0.99.0",
     "@nivo/scatterplot": "^0.99.0",
     "@sentry/react": "^9.38.0",
-    "@sentry/vite-plugin": "^3.6.0",
+    "@sentry/vite-plugin": "^5.4.1",
     "@tanstack/react-form": "^1.27.7",
     "@toolpad/core": "^0.16.0",
     "@types/luxon": "^3.4.2",
