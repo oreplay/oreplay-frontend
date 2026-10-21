@@ -214,7 +214,8 @@ use it).
 Vitest is configured in `vite.config.ts` (`test` block: `globals: true`, `environment: "jsdom"`,
 `setupFiles: "./src/test/setup.ts"`, `env: { TZ: "UTC" }`, and `server.deps.inline: ["@toolpad/core"]`
 so Vite resolves its ESM directory import). `src/test/setup.ts` only pulls in
-`@testing-library/jest-dom`.
+`@testing-library/jest-dom`; its matchers are typed for Vitest's `expect` by
+`src/test/jest-dom.d.ts`, which merges them into Vitest's `Matchers` interface.
 
 - **Tests live next to the source they cover** (`foo.ts` → `foo.test.ts`). No `__tests__/`
   folder are allowed in the codebase.
