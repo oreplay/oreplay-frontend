@@ -10,7 +10,7 @@ export async function getBackendVersion(): Promise<string> {
   try {
     const response = await get<BackendResponse>("")
     return response.data.version
-  } catch (error) {
+  } catch {
     throw new Error("Failed to fetch backend version")
   }
 }

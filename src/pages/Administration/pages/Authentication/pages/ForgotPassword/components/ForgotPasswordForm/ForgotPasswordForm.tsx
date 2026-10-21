@@ -22,7 +22,7 @@ export default function ForgotPasswordForm({ onSubmit, isSubmitting }: ForgotPas
   const { t } = useTranslation()
 
   const form = useForm({
-    defaultValues: { email: "" } as ForgotPasswordFormState,
+    defaultValues: { email: "" },
     onSubmit: ({ value }) => onSubmit(value.email), // <-- pass value.email, not value
   })
 

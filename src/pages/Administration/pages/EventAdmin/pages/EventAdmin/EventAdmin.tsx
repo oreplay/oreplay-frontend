@@ -141,7 +141,7 @@ export default function EventAdmin() {
             {t("EventAdmin.EventDataDescription")}
           </Typography>
           <EventAdminForm
-            eventDetail={detail as EventDetailModel}
+            eventDetail={detail}
             handleCancel={handleCancelEditingEvent}
             handleEdit={handleClickEditEvent}
             handleSubmit={(values) => void handleUpdateEvent(values)}

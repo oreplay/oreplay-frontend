@@ -84,7 +84,7 @@ describe("runner status", () => {
     const runnerWithStatus = {
       ...runner,
       stage: { ...runner.stage, status_code: statusCode },
-    } as ProcessedRunnerModel
+    }
     return buildRunnerListItems([runnerWithStatus], [])[0]
   }
 

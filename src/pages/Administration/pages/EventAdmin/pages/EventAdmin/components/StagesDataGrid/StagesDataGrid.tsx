@@ -219,7 +219,7 @@ export default function StagesDataGrid(props: Props) {
           severity: "success",
         },
       )
-    } catch (e) {
+    } catch {
       notifications.show("Error", {
         autoHideDuration: 3000,
         severity: "error",
@@ -239,7 +239,7 @@ export default function StagesDataGrid(props: Props) {
         autoHideDuration: 3000,
         severity: "success", // Could be 'success', 'error', 'warning', 'info'.
       })
-    } catch (e) {
+    } catch {
       notifications.show("An error occurred resetting the event.", {
         autoHideDuration: 3000,
         severity: "error", // Could be 'success', 'error', 'warning', 'info'.
@@ -338,7 +338,7 @@ export default function StagesDataGrid(props: Props) {
         const { id, field, value, api } = params
         return (
           <Select
-            value={(value as string) ?? ""}
+            value={value ?? ""}
             onChange={(e) => {
               void api.setEditCellValue({ id, field, value: e.target.value })
               if (!isStartApplicable(e.target.value)) {

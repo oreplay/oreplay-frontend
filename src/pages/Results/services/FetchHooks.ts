@@ -4,7 +4,7 @@ import { Data, EventDetailModel, StageModel } from "../../../shared/EntityTypes.
 import { getEventDetail } from "./EventService.ts"
 import { useAuth } from "../../../shared/hooks.ts"
 
-interface EmptyModel {}
+type EmptyModel = object
 
 //export function useGet<T,D>(function) {
 //  return useQuery<T, D>({})

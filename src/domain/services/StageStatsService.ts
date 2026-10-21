@@ -40,7 +40,7 @@ function processData(data: ApiStats): ProcessedStats {
   ]
 
   const initTable = (rows: string[]): StatsTable =>
-    Object.fromEntries(rows.map((row) => [row, { M: 0, F: 0, total: 0 }])) as StatsTable
+    Object.fromEntries<StatsTable[string]>(rows.map((row) => [row, { M: 0, F: 0, total: 0 }]))
 
   result.table1 = initTable(rowsTable1)
   result.table2 = initTable(rowsTable2)

@@ -21,7 +21,7 @@ const ranking = {
   excluded_class_names: null,
   created: "",
   modified: "",
-  _links: {} as Ranking["_links"],
+  _links: {},
 } as Ranking
 
 describe("ranking settings form", () => {

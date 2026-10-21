@@ -42,7 +42,7 @@ export default function ForgotPasswordResetForm({
   const { t } = useTranslation()
 
   const form = useForm({
-    defaultValues: { code: "", password: "" } as ForgotPasswordResetFormState,
+    defaultValues: { code: "", password: "" },
     onSubmit: ({ value }) => onSubmit(value),
   })
 

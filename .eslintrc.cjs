@@ -4,7 +4,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:react-hooks/recommended",
     "prettier",
   ],
@@ -46,6 +46,7 @@ module.exports = {
     {
       files: ["*.json"],
       parser: "jsonc-eslint-parser",
+      extends: ["plugin:@typescript-eslint/disable-type-checked"],
       rules: {
         "@typescript-eslint/": "off",
         "@typescript-eslint/no-unsafe-assignment": "off",

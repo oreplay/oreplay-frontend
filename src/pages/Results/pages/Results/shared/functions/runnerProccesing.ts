@@ -165,7 +165,7 @@ export function processParticipant<T extends ParticipantModel>(
     return {
       ...participant,
       stage: processed_stage,
-    } as ReplaceParticipantFields<T>
+    }
   } else {
     // @ts-expect-error TS2352 Temporally set Participant as non nullable
     return participant as ReplaceParticipantFields<T>
