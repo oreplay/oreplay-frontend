@@ -1,4 +1,4 @@
-import { ComponentType } from "react"
+import { ComponentType, ReactNode } from "react"
 
 export type ScrollTableCellContentProps<Column, Row> = {
   column: Column
@@ -19,6 +19,11 @@ export type ScrollTableColumnsProps<Column> = {
   HeaderCellContent: ComponentType<ScrollTableHeaderCellContentProps<Column>>
 }
 
+export type ScrollTableHeadingColumnProps = {
+  headingColumnHeader?: ReactNode
+  isHeadingColumn: boolean
+}
+
 export type ScrollTableRowContentProps<Column, Row> = {
   CellContent: ComponentType<ScrollTableCellContentProps<Column, Row>>
   columns: readonly Column[]
@@ -30,5 +35,6 @@ export type ScrollTableProps<Column, Row> = ScrollTableColumnsProps<Column> &
   ScrollTableRowContentProps<Column, Row> & {
     getRowKey: (row: Row) => string
     headerStickyTopPx?: number
+    headingColumnHeader?: ReactNode
     rows: readonly Row[]
   }

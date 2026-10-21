@@ -4,14 +4,14 @@ import syncColumnWidths from "./syncColumnWidths.ts"
 export default function useColumnWidthSync<
   SourceRow extends HTMLElement,
   TargetColumns extends HTMLElement,
->(columns: readonly unknown[]) {
+>(columns: readonly unknown[], isHeadingColumn: boolean) {
   const sourceRowRef = useRef<SourceRow | null>(null)
   const targetColumnsRef = useRef<TargetColumns | null>(null)
 
   useLayoutEffect(() => {
     if (!sourceRowRef.current || !targetColumnsRef.current) return
     return syncColumnWidths(sourceRowRef.current, targetColumnsRef.current)
-  }, [columns])
+  }, [columns, isHeadingColumn])
 
   return { sourceRowRef, targetColumnsRef }
 }
