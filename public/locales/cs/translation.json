@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "O nás"
   },
+  "authenticationError": "Došlo k chybě",
   "Cancel": "Zrušit",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Čas bez chyb",
+      "errorTime": "Ztracený čas (chyba)"
+    },
+    "selectRunnersMessage": "Vyber závodníky pro zobrazení grafu",
+    "timeAxisLabel": "Čas (vteřiny)"
+  },
   "Copied to the clipboard": "Zkopírované do schránky.",
   "Copy": "Kopírovat",
   "Dashboard": {
@@ -123,10 +132,8 @@
     "Website": "Webovky akce"
   },
   "EventList": {
-    "FutureEvents": "Budoucí akce",
     "LiveToday": "Dnes živě",
-    "NoLiveEventsToday": "Dnes nejsou žádné akce",
-    "PastEvents": "Proběhlé akce"
+    "NoLiveEventsToday": "Dnes nejsou žádné akce"
   },
   "Events": "Akce",
   "ExperimentalFeatureMsg": "Experimentální funkce",
@@ -150,10 +157,10 @@
     "PositionChart": "Graf umístění",
     "RunnerSelection": "Výběr běžce",
     "SelectAll": "Vybrat vše",
-    "SelectRunnersMessage": "Vyber běžce pro zobrazení grafů",
     "SelectedCount_few": "{{count}} z {{total}} vybráno",
     "SelectedCount_one": "{{count}} z {{total}} vybrán",
     "SelectedCount_other": "{{count}} z {{total}} vybrané",
+    "SelectRunnersMessage": "Vyber běžce pro zobrazení grafů",
     "Start": "Start",
     "Threshold": "Prahová hodnota",
     "ThresholdWithPercent": "Prahová hodnota ({{percent}}%)",
@@ -170,12 +177,30 @@
     "Language": "Jazyk",
     "Spanish": "Španělština"
   },
+  "lineChart": {
+    "noData": "Vyber závodníky pro zobrazení čárového grafu",
+    "tooltip": {
+      "behindLeader": "Ztráta na vítěze",
+      "behindPerfectRunner": "Ztráta na ideálního závodníka"
+    },
+    "xAxisLabel": "Kontroly"
+  },
   "Location": "Lokalita",
   "Menu": "Menu",
   "Name": "Název",
   "Organizer": "Pořadatel",
   "Organizers": "Organizační informace",
   "Password": "Heslo",
+  "positionChart": {
+    "noData": "Vyber závodníky pro zobrazení vývoje umístění",
+    "tooltip": {
+      "control": "Kontrola",
+      "position": "Umístění",
+      "splitTime": "Mezičas",
+      "timeLost": "Ztráta na nejlepší mezičas: {{timeLost}}"
+    },
+    "xAxisLabel": "Kontroly"
+  },
   "PrivateEventPage": {
     "Header": "Soukromá událost",
     "Message": "Tato událost byla nastavena jako soukromá. Pokud ti to přijde jako chyba, tak se obrať na pořadatele."
@@ -187,10 +212,10 @@
     "Finish": "Cíl",
     "Name": "Název",
     "Position": "Umístění",
+    "shortClass": "Kategorie",
     "SiCard": "SI čip",
     "Start": "Start",
-    "Time": "Čas",
-    "shortClass": "Kategorie"
+    "Time": "Čas"
   },
   "ResultsStage": {
     "BonusPoints": "Bonus_",
@@ -221,6 +246,15 @@
       "PartialTimes": "Částečné"
     },
     "StartTime": "Start",
+    "statusCodes": {
+      "dnf": "DNF",
+      "dns": "DNS",
+      "dsq": "DSQ",
+      "mp": "MP",
+      "nc": "NC",
+      "ok": "ok",
+      "ot": "OT"
+    },
     "Times": "Čas",
     "TrailO": {
       "ExternalResults": "Výsledky této etapy Trail-O jsou zveřejněny na:"
@@ -260,18 +294,18 @@
     "WrongFileUploaded": {
       "Msg": "Časoměřič nahrál konečné výsledky bez mezičasů. Tyto soubory by neměly být nahrávány, protože mohou způsobit chybějící nebo nesprávné zobrazení dat. Více informací o tom, jak nahrávat výsledky do naší služby, naleznete na stránce <2>Organizátoři</2>.",
       "Title": "Výsledky bez mezičasů!"
-    },
-    "statusCodes": {
-      "dnf": "DNF",
-      "dns": "DNS",
-      "dsq": "DSQ",
-      "mp": "MP",
-      "nc": "NC",
-      "ok": "ok",
-      "ot": "OT"
     }
   },
   "Settings": "Nastavení",
+  "sidebar": {
+    "backendVersion": "Backend",
+    "cookiePolicy": "Zásady používání souborů cookie",
+    "frontendVersion": "Frontend",
+    "frontendVersionWithVersion": "Frontend v{{version}}",
+    "legalNotice": "Právní upozornění",
+    "loading": "Načítání...",
+    "privacyPolicy": "Zásady ochrany osobních údajů"
+  },
   "Sign in": {
     "ForgotPassword": "Zapomenuté heslo?",
     "Logout": "Odhlásit",
@@ -291,49 +325,13 @@
   "Success": "Úspěch",
   "This action cannot be undone": "Tato operace je nevratná.",
   "ThisFunctionalityNotImplementedMsg": "Tato funkce ještě nebyla implementována.",
-  "UnderDevelopment": "Ve vývoji",
-  "authenticationError": "Došlo k chybě",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Čas bez chyb",
-      "errorTime": "Ztracený čas (chyba)"
-    },
-    "selectRunnersMessage": "Vyber závodníky pro zobrazení grafu",
-    "timeAxisLabel": "Čas (vteřiny)"
-  },
-  "lineChart": {
-    "noData": "Vyber závodníky pro zobrazení čárového grafu",
-    "tooltip": {
-      "behindLeader": "Ztráta na vítěze",
-      "behindPerfectRunner": "Ztráta na ideálního závodníka"
-    },
-    "xAxisLabel": "Kontroly"
-  },
-  "positionChart": {
-    "noData": "Vyber závodníky pro zobrazení vývoje umístění",
-    "tooltip": {
-      "control": "Kontrola",
-      "position": "Umístění",
-      "splitTime": "Mezičas",
-      "timeLost": "Ztráta na nejlepší mezičas: {{timeLost}}"
-    },
-    "xAxisLabel": "Kontroly"
-  },
-  "sidebar": {
-    "backendVersion": "Backend",
-    "cookiePolicy": "Zásady používání souborů cookie",
-    "frontendVersion": "Frontend",
-    "frontendVersionWithVersion": "Frontend v{{version}}",
-    "legalNotice": "Právní upozornění",
-    "loading": "Načítání...",
-    "privacyPolicy": "Zásady ochrany osobních údajů"
-  },
   "tooltip": {
     "efficiency": "Účinnost",
     "errorFreeTime": "Čas bez chyb",
     "errorTime": "Čas ztráty (chyba)",
     "totalDisplayedTime": "Celkový zobrazený čas"
   },
+  "UnderDevelopment": "Ve vývoji",
   "view": {
     "accumulated": "Akumulované",
     "barChart": "Časová ztráta",

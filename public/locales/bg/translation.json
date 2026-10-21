@@ -7,7 +7,16 @@
   "AboutUs": {
     "AboutUs": "За нас"
   },
+  "authenticationError": "Възникна грешка",
   "Cancel": "Отказ",
+  "chart": {
+    "legend": {
+      "errorFreeTime": "Време без допуснати грешки",
+      "errorTime": "Загубено време (грешка)"
+    },
+    "selectRunnersMessage": "Изберете състезатели, за да видите графиката",
+    "timeAxisLabel": "Време (секунди)"
+  },
   "Copied to the clipboard": "Копирано в клипборда.",
   "Copy": "Копирай",
   "Dashboard": {
@@ -135,10 +144,8 @@
     "Website": "Уебсайт на събитието"
   },
   "EventList": {
-    "FutureEvents": "Бъдещи събития",
     "LiveToday": "На живо днес",
-    "NoLiveEventsToday": "Няма събития днес",
-    "PastEvents": "Минали събития"
+    "NoLiveEventsToday": "Няма събития днес"
   },
   "Events": "Събития",
   "ExperimentalFeatureMsg": "Експериментална функция",
@@ -146,6 +153,7 @@
     "msg": "Проверете интернет връзката си. Ако проблемът продължи, опитайте отново по-късно.",
     "title": "Зареждането на страницата е неуспешно"
   },
+  "firstName": "Малко име",
   "ForbiddenAccess": "Достъп забранен",
   "GeneralErrorFallback": {
     "msg": "Опитайте да обновите страницата. Ако грешката продължава, моля опитайте по-късно.",
@@ -166,9 +174,9 @@
     "PositionChart": "Диаграма на позициите",
     "RunnerSelection": "Избор на състезател",
     "SelectAll": "Избери всички",
-    "SelectRunnersMessage": "Изберете състезатели, за да видите диаграмите",
     "SelectedCount_one": "{{count}} от {{total}} избран",
     "SelectedCount_other": "{{count}} от {{total}} избрани",
+    "SelectRunnersMessage": "Изберете състезатели, за да видите диаграмите",
     "Start": "Старт",
     "Threshold": "Праг",
     "ThresholdWithPercent": "Праг ({{percent}}%)",
@@ -184,6 +192,15 @@
     "French": "Френски",
     "Language": "Език",
     "Spanish": "Испански"
+  },
+  "lastName": "Фамилия",
+  "lineChart": {
+    "noData": "Изберете състезатели, за да видите линейната графика",
+    "tooltip": {
+      "behindLeader": "Изоставане от лидера",
+      "behindPerfectRunner": "Изоставане от перфектния състезател"
+    },
+    "xAxisLabel": "Контроли"
   },
   "Location": "Местоположение",
   "Menu": "Меню",
@@ -202,6 +219,16 @@
     "pointsAbbreviation": "т."
   },
   "Password": "Парола",
+  "positionChart": {
+    "noData": "Изберете състезатели, за да видите развитието на класирането",
+    "tooltip": {
+      "control": "Контролна точка",
+      "position": "Място",
+      "splitTime": "Междинно време",
+      "timeLost": "Изоставане от най-доброто междинно време: {{timeLost}}"
+    },
+    "xAxisLabel": "Контролни точки"
+  },
   "PrivateEventPage": {
     "Header": "Частно събитие",
     "Message": "Това събитие е зададено като частно от организатора. Ако смятате, че това е грешка, моля свържете се с организатора на събитието."
@@ -213,10 +240,10 @@
     "Finish": "Финал",
     "Name": "Име",
     "Position": "Място",
+    "shortClass": "Група",
     "SiCard": "SI карта",
     "Start": "Старт",
-    "Time": "Време",
-    "shortClass": "Група"
+    "Time": "Време"
   },
   "ResultsStage": {
     "BonusPoints": "Бонус",
@@ -230,14 +257,23 @@
     "NoClubMsg": "Без клуб",
     "NoData": "Няма данни",
     "NonContributory": "Незачетен",
-    "TrailO": {
-      "ExternalResults": "Резултатите от този етап на Trail-O са публикувани на:"
-    },
     "statusCodes": {
       "ok": "ок"
+    },
+    "TrailO": {
+      "ExternalResults": "Резултатите от този етап на Trail-O са публикувани на:"
     }
   },
   "Settings": "Настройки",
+  "sidebar": {
+    "backendVersion": "Сървърна част",
+    "cookiePolicy": "Политика за бисквитките",
+    "frontendVersion": "Потребителска част",
+    "frontendVersionWithVersion": "Потребителска част v{{version}}",
+    "legalNotice": "Правна информация",
+    "loading": "Зареждане...",
+    "privacyPolicy": "Политика за поверителност"
+  },
   "Sign in": {
     "ForgotPassword": "Забравена парола?",
     "Logout": "Излез",
@@ -295,58 +331,13 @@
   "ThisFunctionalityNotImplementedMsg": "Тази функция все още не е реализирана.",
   "TimeZone": "Часова зона",
   "TimezoneMismatchRunnerMsg": "Преглеждате това събитие в различна часова зона. Всички показани времена, включително стартовите времена, са във вашата местна часова зона, а не в часовата зона на събитието.",
-  "UnderDevelopment": "В процес на разработка",
-  "WorldContinents": {
-    "America": "Америка",
-    "Asia": "Азия",
-    "Australia": "Австралия",
-    "Europe": "Европа",
-    "Other": "Друго"
-  },
-  "authenticationError": "Възникна грешка",
-  "chart": {
-    "legend": {
-      "errorFreeTime": "Време без допуснати грешки",
-      "errorTime": "Загубено време (грешка)"
-    },
-    "selectRunnersMessage": "Изберете състезатели, за да видите графиката",
-    "timeAxisLabel": "Време (секунди)"
-  },
-  "firstName": "Малко име",
-  "lastName": "Фамилия",
-  "lineChart": {
-    "noData": "Изберете състезатели, за да видите линейната графика",
-    "tooltip": {
-      "behindLeader": "Изоставане от лидера",
-      "behindPerfectRunner": "Изоставане от перфектния състезател"
-    },
-    "xAxisLabel": "Контроли"
-  },
-  "positionChart": {
-    "noData": "Изберете състезатели, за да видите развитието на класирането",
-    "tooltip": {
-      "control": "Контролна точка",
-      "position": "Място",
-      "splitTime": "Междинно време",
-      "timeLost": "Изоставане от най-доброто междинно време: {{timeLost}}"
-    },
-    "xAxisLabel": "Контролни точки"
-  },
-  "sidebar": {
-    "backendVersion": "Сървърна част",
-    "cookiePolicy": "Политика за бисквитките",
-    "frontendVersion": "Потребителска част",
-    "frontendVersionWithVersion": "Потребителска част v{{version}}",
-    "legalNotice": "Правна информация",
-    "loading": "Зареждане...",
-    "privacyPolicy": "Политика за поверителност"
-  },
   "tooltip": {
     "efficiency": "Ефективност",
     "errorFreeTime": "Време без грешки",
     "errorTime": "Загубено време (грешка)",
     "totalDisplayedTime": "Общо показано време"
   },
+  "UnderDevelopment": "В процес на разработка",
   "view": {
     "accumulated": "С натрупване",
     "barChart": "Загубено време",
@@ -358,5 +349,12 @@
     "radios": "Радио контроли",
     "splits": "Сплитове",
     "timeLoss": "Таблица със загубено време"
+  },
+  "WorldContinents": {
+    "America": "Америка",
+    "Asia": "Азия",
+    "Australia": "Австралия",
+    "Europe": "Европа",
+    "Other": "Друго"
   }
 }

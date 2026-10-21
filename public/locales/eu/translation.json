@@ -154,10 +154,8 @@
     "WebsitePlaceholder": "https://zurekluba.com/zureekitaldia"
   },
   "EventList": {
-    "FutureEvents": "Etorkizuneko ekitaldiak",
     "LiveToday": "Zuzenean gaur",
-    "NoLiveEventsToday": "Ez dago ekitaldirik gaur",
-    "PastEvents": "Iraganeko ekitaldiak"
+    "NoLiveEventsToday": "Ez dago ekitaldirik gaur"
   },
   "Events": "Ekitaldiak",
   "ExperimentalFeatureMsg": "Ezaugarri esperimentala",
@@ -188,6 +186,12 @@
   "Graphs": {
     "BarChart": "Barra-diagrama",
     "ClearSelection": "Garbitu hautaketa",
+    "Description": {
+      "lineChart": "Korrikalari bakoitzak kontrol bakoitzean lasterketako liderrarekiko duen atzerapena erakusten du. Kontrol bakoitzeko liderra goiko lerroan dago; korrikalari baten lerroa zenbat eta beherago egon, orduan eta atzerapen handiagoa du. Kontrolak tarte bakoitzak irauten duenaren arabera banatzen dira.",
+      "perfectRunnerChart": "Korrikalari bakoitzak kontrol bakoitzean korrikalari perfektuarekiko duen atzerapena erakusten du. Korrikalari perfektua irudizko lehiakide bat da, tarte guztietan kategoriako denborarik onena duena. Nabarmen jaisten den lerroak korrikalariak denbora galdu duen tartea adierazten du; zati lauak, denbora onenetik gertu egindako tartea. Kontrolak tarte bakoitzak irauten duenaren arabera banatzen dira.",
+      "positionChart": "Korrikalari bakoitzak kontrol bakoitzean kategorian duen postua erakusten du, denbora metatuaren arabera. Lehen postua goian dago; beraz, gora doan lerroak korrikalaria postuak irabazten ari dela esan nahi du."
+    },
+    "DescriptionLabel": "Zer erakusten du grafiko honek?",
     "Finish": "Meta",
     "LineChart": "Lerro-diagrama",
     "PositionChart": "Posizio-diagrama",
@@ -200,12 +204,6 @@
     "Threshold": "Atalasea",
     "ThresholdWithPercent": "Atalasea ({{percent}}%)",
     "TimeLossAnalysis": "Denbora-galeren analisia",
-    "Description": {
-      "lineChart": "Korrikalari bakoitzak kontrol bakoitzean lasterketako liderrarekiko duen atzerapena erakusten du. Kontrol bakoitzeko liderra goiko lerroan dago; korrikalari baten lerroa zenbat eta beherago egon, orduan eta atzerapen handiagoa du. Kontrolak tarte bakoitzak irauten duenaren arabera banatzen dira.",
-      "perfectRunnerChart": "Korrikalari bakoitzak kontrol bakoitzean korrikalari perfektuarekiko duen atzerapena erakusten du. Korrikalari perfektua irudizko lehiakide bat da, tarte guztietan kategoriako denborarik onena duena. Nabarmen jaisten den lerroak korrikalariak denbora galdu duen tartea adierazten du; zati lauak, denbora onenetik gertu egindako tartea. Kontrolak tarte bakoitzak irauten duenaren arabera banatzen dira.",
-      "positionChart": "Korrikalari bakoitzak kontrol bakoitzean kategorian duen postua erakusten du, denbora metatuaren arabera. Lehen postua goian dago; beraz, gora doan lerroak korrikalaria postuak irabazten ari dela esan nahi du."
-    },
-    "DescriptionLabel": "Zer erakusten du grafiko honek?",
     "Title": {
       "lineChart": "Liderraren atzetik",
       "perfectRunnerChart": "Korrikalari perfektuaren atzetik",
