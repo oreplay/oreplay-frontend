@@ -3,7 +3,7 @@ import { SplitsTableRow } from "../shared/splitsTableRows.ts"
 import RunnerCleanTime from "./RunnerCleanTime.tsx"
 import RunnerControlSplit from "./RunnerControlSplit.tsx"
 import RunnerTime from "./RunnerTime.tsx"
-import { ScrollTableCellContentProps } from "./ScrollTable/shared/scrollTableProps.ts"
+import { ScrollTableCellContentProps } from "../../../../../../../components/ScrollTable/shared/scrollTableProps.ts"
 
 export default function SplitsTableCell({
   column,

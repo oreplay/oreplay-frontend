@@ -6,7 +6,7 @@ import { buildRunnerFixture } from "./shared/splitsTableFixtures.ts"
 
 const runnerHeadingRenders = vi.hoisted(() => vi.fn())
 
-vi.mock("./components/RunnerHeading.tsx", () => ({
+vi.mock("../../../../../../components/RunnerHeading.tsx", () => ({
   default: () => {
     runnerHeadingRenders()
     return null

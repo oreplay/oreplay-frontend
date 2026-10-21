@@ -4,8 +4,8 @@ import { ProcessedRunnerModel } from "../../../../../../../../components/Virtual
 import NowProvider from "../../../../../../components/NowProvider.tsx"
 import NoRunnerWithSplitsMsg from "../../../../components/NoRunnerWithSplitsMsg.tsx"
 import { analyzeTimeLoss } from "../../../../shared/timeLossAnalysis.ts"
-import RunnerHeading from "./components/RunnerHeading.tsx"
-import ScrollTable from "./components/ScrollTable/ScrollTable.tsx"
+import RunnerHeading from "../../../../../../components/RunnerHeading.tsx"
+import ScrollTable from "../../../../../../components/ScrollTable/ScrollTable.tsx"
 import SplitsTableCell from "./components/SplitsTableCell.tsx"
 import SplitsTableHeaderCellContent from "./components/SplitsTableHeaderCellContent.tsx"
 import {

@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { ScrollTableProps } from "./shared/scrollTableProps.ts"
 import useColumnWidthSync from "./shared/useColumnWidthSync.ts"
-import useSyncedHorizontalScroll from "../../../../../../shared/horizontalScroll/useSyncedHorizontalScroll.ts"
+import useSyncedHorizontalScroll from "../../shared/horizontalScroll/useSyncedHorizontalScroll.ts"
 import ScrollTableBody from "./components/ScrollTableBody.tsx"
 import ScrollTableHeader from "./components/ScrollTableHeader.tsx"
 

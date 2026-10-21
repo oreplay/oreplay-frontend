@@ -12,7 +12,6 @@ import {
   getRunnerCleanTimeLabel,
   getRunnerStatus,
   getSplitTimeLoss,
-  isRunnerNotCompeting,
   isRunnerOkOrNotCompeting,
   NO_CLEAN_TIME_LABEL,
   showsRunnerTimeBehind,
@@ -100,22 +99,6 @@ describe("getSplitTimeLoss", () => {
 
   it("is null without a time loss analysis", () => {
     expect(getSplitTimeLoss(runner, firstSplit, null)).toBeNull()
-  })
-})
-
-describe("isRunnerNotCompeting", () => {
-  it("is true for a not competing status", () => {
-    const runner = buildRunnerFixture("anna", FIXTURE_LEGS, { statusCode: RESULT_STATUS.nc })
-
-    expect(isRunnerNotCompeting(runner)).toBe(true)
-  })
-
-  it("is true for a runner flagged as not competing", () => {
-    expect(isRunnerNotCompeting({ ...buildRunnerFixture("anna"), is_nc: true })).toBe(true)
-  })
-
-  it("is false for a regular runner", () => {
-    expect(isRunnerNotCompeting(buildRunnerFixture("anna"))).toBe(false)
   })
 })
 

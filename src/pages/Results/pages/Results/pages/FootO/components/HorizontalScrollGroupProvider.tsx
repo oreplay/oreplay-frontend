@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react"
-import createHorizontalScrollGroup from "../shared/horizontalScroll/createHorizontalScrollGroup.ts"
-import { HorizontalScrollGroupContext } from "../shared/horizontalScroll/HorizontalScrollGroupContext.ts"
-import useWatchHorizontalScrollReorders from "../shared/horizontalScroll/useWatchHorizontalScrollReorders.ts"
+import createHorizontalScrollGroup from "../../../shared/horizontalScroll/createHorizontalScrollGroup.ts"
+import { HorizontalScrollGroupContext } from "../../../shared/horizontalScroll/HorizontalScrollGroupContext.ts"
+import useWatchHorizontalScrollReorders from "../../../shared/horizontalScroll/useWatchHorizontalScrollReorders.ts"
 
 interface HorizontalScrollGroupProviderProps {
   children: ReactNode

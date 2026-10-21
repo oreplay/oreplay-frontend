@@ -1,7 +1,7 @@
 import "../../../../../../../../../../../../styles/tokens.css"
 import { CSSProperties } from "react"
 import { useTranslation } from "react-i18next"
-import useJoinHorizontalScrollGroup from "../../../../../../shared/horizontalScroll/useJoinHorizontalScrollGroup.ts"
+import useJoinHorizontalScrollGroup from "../../../../../../../../shared/horizontalScroll/useJoinHorizontalScrollGroup.ts"
 import { OnlineCourse as OnlineCourseModel } from "../../../../shared/onlineCourse/onlineCourse.ts"
 import onlineCourseGeometry from "../../../../shared/onlineCourse/onlineCourseGeometry.ts"
 import {

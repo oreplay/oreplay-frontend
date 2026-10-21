@@ -66,10 +66,6 @@ export function getSplitTimeLoss(
   return getRunnerTimeLossInfo(timeLossResults, runner.id, legId)
 }
 
-export function isRunnerNotCompeting(runner: ProcessedRunnerModel): boolean {
-  return Boolean(runner.is_nc) || getRunnerStatus(runner) === RESULT_STATUS_TEXT.nc
-}
-
 export function isRunnerOkOrNotCompeting(runner: ProcessedRunnerModel): boolean {
   const status = getRunnerStatus(runner)
   return status === RESULT_STATUS_TEXT.ok || status === RESULT_STATUS_TEXT.nc
