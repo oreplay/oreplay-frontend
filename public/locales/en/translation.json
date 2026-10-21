@@ -336,7 +336,8 @@
     "StartTime": "Start",
     "Times": "Time",
     "TrailO": {
-      "ExternalResults": "The results of this Trail-O stage are published on:"
+      "ExternalResults": "The results of this Trail-O stage are published on:",
+      "MissingExternalResults": "The organizer has not set up the results of this Trail-O stage properly. Please contact the organizer."
     },
     "VirtualTicket": {
       "Behind": "Behind",

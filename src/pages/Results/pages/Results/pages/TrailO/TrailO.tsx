@@ -1,5 +1,5 @@
-import NoDataInStageMsg from "../../components/NoDataInStageMsg.tsx"
 import TrailOExternalResults from "./components/TrailOExternalResults.tsx"
+import TrailOMissingExternalResults from "./components/TrailOMissingExternalResults.tsx"
 
 interface TrailOProps {
   externalUrl: string | null
@@ -10,11 +10,11 @@ interface TrailOProps {
  * the stage only links to them.
  *
  * @param props.externalUrl Where the results are published; `null` while the organiser has
- * not set it yet, which shows that no data is available.
+ * not set it yet, which asks the visitor to contact the organiser.
  */
 export default function TrailO(props: TrailOProps) {
   if (!props.externalUrl) {
-    return <NoDataInStageMsg />
+    return <TrailOMissingExternalResults />
   }
 
   return <TrailOExternalResults url={props.externalUrl} />

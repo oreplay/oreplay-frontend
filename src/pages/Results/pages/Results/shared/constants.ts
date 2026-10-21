@@ -1,3 +1,9 @@
+export const STAGE_DESTINATION = {
+  ExternalResults: "externalResults",
+  MissingExternalResults: "missingExternalResults",
+  StageResults: "stageResults",
+} as const
+
 export const STAGE_TYPE_DATABASE_ID = {
   FootO: "29d5050b-4769-4be5-ace4-7e5973f68e3c",
   Rogaine: "2b5de3d0-9bc9-435a-8bd9-2d4060b86e45",

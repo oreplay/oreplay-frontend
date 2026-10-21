@@ -314,7 +314,8 @@
     },
     "Times": "Tempo",
     "TrailO": {
-      "ExternalResults": "Os resultados desta etapa de Trail-O están publicados en:"
+      "ExternalResults": "Os resultados desta etapa de Trail-O están publicados en:",
+      "MissingExternalResults": "A organización non configurou correctamente os resultados desta etapa de Trail-O. Por favor, contacta coa organización."
     },
     "VirtualTicket": {
       "Behind": "Diferenza",

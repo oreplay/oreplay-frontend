@@ -1,12 +1,16 @@
 import { Box, Typography } from "@mui/material"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useNotifications } from "@toolpad/core/useNotifications"
 import { ArrowForward } from "@mui/icons-material"
 import EventDetailURLButton from "../../components/EventDetailURLButton.tsx"
 import NotFoundPage from "../../../NotFoundPage/NotFoundPage.tsx"
 import GeneralSuspenseFallback from "../../../../components/GeneralSuspenseFallback.tsx"
 import { useFetchEventDetail } from "../../services/FetchHooks.ts"
-import { STAGE_TYPE_DATABASE_ID } from "../Results/shared/constants.ts"
+import { STAGE_DESTINATION, STAGE_TYPE_DATABASE_ID } from "../Results/shared/constants.ts"
+import { getStageDestination } from "../Results/shared/stageTypes.ts"
+import ExternalRedirect from "./components/ExternalRedirect.tsx"
+import { StageModel } from "../../../../shared/EntityTypes.ts"
 import EventCountry from "../../components/EventCountry.tsx"
 import { EVENT_GRADIENT } from "../../shared/constants.ts"
 import { formatEventDateRange, formatStageStart } from "../../shared/eventDates.ts"
@@ -24,11 +28,38 @@ export default function EventDetail() {
   const { id } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const notifications = useNotifications()
 
   const { data, isLoading, error, isError } = useFetchEventDetail(id as string)
 
   const detail = data?.data
   const eventDates = formatEventDateRange(detail?.initial_date, detail?.final_date)
+  const singleStageDestination =
+    detail?.stages.length == 1 ? getStageDestination(detail.stages[0]) : null
+
+  const openStage = (stage: StageModel) => {
+    const destination = getStageDestination(stage)
+    switch (destination.kind) {
+      case STAGE_DESTINATION.ExternalResults:
+        window.location.assign(destination.url)
+        return
+      case STAGE_DESTINATION.MissingExternalResults:
+        notifications.show(t("ResultsStage.TrailO.MissingExternalResults"), {
+          severity: "error",
+          autoHideDuration: 5000,
+        })
+        return
+      case STAGE_DESTINATION.StageResults:
+        void navigate(`/competitions/${id}/${stage.id}`, {
+          state: {
+            eventName: detail?.description,
+            stageName: stage.description,
+            stageTypeId: stage.stage_type.id,
+            singleStage: false,
+          },
+        })
+    }
+  }
 
   if (isLoading) {
     return <GeneralSuspenseFallback />
@@ -38,6 +69,8 @@ export default function EventDetail() {
       return <NotFoundPage />
     }
     throw error
+  } else if (singleStageDestination?.kind === STAGE_DESTINATION.ExternalResults) {
+    return <ExternalRedirect url={singleStageDestination.url} />
   } else if (detail?.stages.length == 1) {
     // navigate to stage for single stage events
     return <Navigate to={`/competitions/${id}/${detail.stages[0].id}`} replace={true} />
@@ -141,16 +174,7 @@ export default function EventDetail() {
                         borderColor: "primary.main",
                       },
                     }}
-                    onClick={() =>
-                      void navigate(`/competitions/${id}/${stage.id}`, {
-                        state: {
-                          eventName: detail?.description,
-                          stageName: stage.description,
-                          stageTypeId: stage.stage_type.id,
-                          singleStage: false,
-                        },
-                      })
-                    }
+                    onClick={() => openStage(stage)}
                   >
                     <Box
                       sx={{
