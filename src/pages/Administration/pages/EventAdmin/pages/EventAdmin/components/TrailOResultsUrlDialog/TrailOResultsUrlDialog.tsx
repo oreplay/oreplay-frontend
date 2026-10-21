@@ -38,20 +38,27 @@ export default function TrailOResultsUrlDialog(props: TrailOResultsUrlDialogProp
   })
 
   /**
-   * Checks the field on every keystroke, so the save button follows the current value, while the
-   * message waits until the field is left.
+   * Checks the length on every keystroke, so an over-long URL is flagged while it is typed.
    *
    * @param value Raw text of the field.
-   * @returns The translated reason it cannot be saved, or `undefined` when it can.
+   * @returns The translated reason it is too long, or `undefined` when it fits.
    */
-  const validateResultsUrl = (value: string) => {
-    if (value.length > TRAIL_O_RESULTS_URL_MAX_LENGTH) {
-      return t("common:fieldTooLong", { count: TRAIL_O_RESULTS_URL_MAX_LENGTH })
-    }
-    return isValidTrailOResultsInput(value)
+  const validateResultsUrlLength = (value: string) =>
+    value.length > TRAIL_O_RESULTS_URL_MAX_LENGTH
+      ? t("common:fieldTooLong", { count: TRAIL_O_RESULTS_URL_MAX_LENGTH })
+      : undefined
+
+  /**
+   * Checks on save that the URL points to TOP or Jaruori; the message clears as soon as the field
+   * is edited again.
+   *
+   * @param value Raw text of the field.
+   * @returns The translated reason the site is rejected, or `undefined` when it is allowed.
+   */
+  const validateResultsUrlSite = (value: string) =>
+    isValidTrailOResultsInput(value)
       ? undefined
       : t("EventAdmin.Stages.TrailOResultsUrl.InvalidUrl")
-  }
 
   const form = useForm({
     defaultValues: { externalUrl: props.externalUrl ?? "" },
@@ -75,21 +82,19 @@ export default function TrailOResultsUrlDialog(props: TrailOResultsUrlDialogProp
           <TrailOResultsUrlHelp />
           <form.Field
             name="externalUrl"
-            validators={{ onChange: ({ value }) => validateResultsUrl(value) }}
-          >
-            {(field) => {
-              const shouldShowErrors =
-                field.state.meta.isBlurred || field.form.state.submissionAttempts > 0
-              const visibleErrors = shouldShowErrors ? field.state.meta.errors : []
-              return (
-                <TrailOResultsUrlInput
-                  value={field.state.value}
-                  errors={visibleErrors}
-                  onBlur={field.handleBlur}
-                  onChange={field.handleChange}
-                />
-              )
+            validators={{
+              onChange: ({ value }) => validateResultsUrlLength(value),
+              onSubmit: ({ value }) => validateResultsUrlSite(value),
             }}
+          >
+            {(field) => (
+              <TrailOResultsUrlInput
+                value={field.state.value}
+                errors={field.state.meta.errors}
+                onBlur={field.handleBlur}
+                onChange={field.handleChange}
+              />
+            )}
           </form.Field>
         </DialogContent>
         <DialogActions>
