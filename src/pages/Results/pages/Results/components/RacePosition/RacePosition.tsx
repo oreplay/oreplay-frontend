@@ -5,11 +5,10 @@ import {
   getRacePositionColor,
   getRacePositionDisplay,
   RACE_POSITION_PENDING_LABEL,
+  RACE_POSITION_SLOT_MIN_WIDTH,
   toResultStatusText,
 } from "../../shared/racePosition.ts"
 import NotOkCross from "./components/NotOkCross.tsx"
-
-const POSITION_SLOT_MIN_WIDTH = "2.5ch"
 
 interface RacePositionSlotProps {
   text: SxProps<Theme>
@@ -54,7 +53,7 @@ export default function RacePosition({
         color,
         flexShrink: 0,
         textAlign,
-        minWidth: POSITION_SLOT_MIN_WIDTH,
+        minWidth: RACE_POSITION_SLOT_MIN_WIDTH,
         whiteSpace: "nowrap",
         fontVariantNumeric: "tabular-nums",
         ...slotProps?.text,

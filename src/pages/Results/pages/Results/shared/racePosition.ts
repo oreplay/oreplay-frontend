@@ -8,6 +8,8 @@ export type RacePositionDisplay = (typeof RACE_POSITION_DISPLAYS)[number]
 
 export const RACE_POSITION_PENDING_LABEL = "-"
 
+export const RACE_POSITION_SLOT_MIN_WIDTH = "2.5ch"
+
 export interface RacePosition {
   position: number | bigint | null
   statusCode: string | null
