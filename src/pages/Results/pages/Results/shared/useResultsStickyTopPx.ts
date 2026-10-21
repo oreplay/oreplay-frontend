@@ -1,5 +1,5 @@
 import { resultsStickyTopPx } from "./desktopLayout.ts"
-import { useIsMobileDevice } from "./useIsMobileDevice.ts"
+import { useIsMobileDevice } from "../../../shared/useIsMobileDevice.ts"
 
 /**
  * Sticky `top` offset for content of a results tab on the current device.

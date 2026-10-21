@@ -69,7 +69,7 @@ MUI because the styling is scoped:
 
 When mobile and desktop need **different components** (not just different sizes), decide by **device,
 not viewport width**, with `useIsMobileDevice()`
-(`src/pages/Results/pages/Results/shared/useIsMobileDevice.ts`). A narrow desktop window stays
+(`src/pages/Results/shared/useIsMobileDevice.ts`). A narrow desktop window stays
 desktop; a phone in landscape stays mobile.
 
 - **Detection is user-agent based**: the hook memoises the pure, tested `isMobileDevice(navigator)`
@@ -93,8 +93,8 @@ desktop; a phone in landscape stays mobile.
   MUI `sx` breakpoints) — column counts, spacing, font sizes.
 - **Tests** mock the hook (`vi.mock` of `useIsMobileDevice.ts`) to render each variant — see
   `ClassSelectorTrigger.test.tsx`.
-- The hook lives under Results because that is its only user today; move it up by the
-  tightest-common-ancestor rule when another area needs it.
+- The hook lives in `src/pages/Results/shared/` because the results views and the events list use
+  it; move it up by the tightest-common-ancestor rule when another area needs it.
 
 ## API client — orval-generated
 
