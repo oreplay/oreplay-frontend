@@ -37,7 +37,7 @@ export function buildSplitsTableColumns(
     }),
   )
   const cleanTimeColumns = showCleanTime ? [CLEAN_TIME_COLUMN] : []
-  return [TIME_COLUMN, ...cleanTimeColumns, ...controlColumns]
+  return [TIME_COLUMN, ...controlColumns, ...cleanTimeColumns]
 }
 
 export function getSplitsTableColumnKey(column: SplitsTableColumn): string {

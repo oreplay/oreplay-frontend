@@ -22,21 +22,21 @@ describe("buildSplitsTableColumns", () => {
     ])
   })
 
-  it("places the clean time column right after the time column", () => {
+  it("places the clean time column last so the control columns do not shift", () => {
     const columns = buildSplitsTableColumns(RADIOS, true)
 
     expect(columns.map((column) => column.kind)).toEqual([
       SPLITS_TABLE_COLUMN_KIND.Time,
+      SPLITS_TABLE_COLUMN_KIND.Control,
+      SPLITS_TABLE_COLUMN_KIND.Control,
       SPLITS_TABLE_COLUMN_KIND.CleanTime,
-      SPLITS_TABLE_COLUMN_KIND.Control,
-      SPLITS_TABLE_COLUMN_KIND.Control,
     ])
   })
 
   it("points each control column at the split in the same position", () => {
     const columns = buildSplitsTableColumns(RADIOS, true)
 
-    expect(columns.slice(2)).toMatchObject([{ splitIndex: 0 }, { splitIndex: 1 }])
+    expect(columns.slice(1, 3)).toMatchObject([{ splitIndex: 0 }, { splitIndex: 1 }])
   })
 
   it("keeps only the time column when there are no controls", () => {
