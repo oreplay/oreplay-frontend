@@ -35,7 +35,7 @@ export default function IndividualResult({
     >
       <ResultListItemColumn
         slotProps={{
-          className: "flex h-full flex-grow flex-row items-start",
+          className: "flex h-full grow flex-row items-start",
         }}
       >
         <RacePosition
@@ -43,7 +43,7 @@ export default function IndividualResult({
           hasDownload={runner.overalls ? true : hasChipDownloadFunction(runner)}
           slotProps={{ text: { marginRight: 1 } }}
         />
-        <div className="min-w-0 flex-grow">
+        <div className="min-w-0 grow">
           <ParticipantName
             name={runner.full_name}
             subtitle={

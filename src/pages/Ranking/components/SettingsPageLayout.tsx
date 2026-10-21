@@ -42,7 +42,7 @@ export default function SettingsPageLayout({
         <h1 className="mb-4 text-2xl font-semibold">{heading}</h1>
 
         <div className="flex flex-col gap-6">
-          <div className="rounded-xl bg-white p-6 shadow-sm">
+          <div className="rounded-xl bg-white p-6 shadow-xs">
             {isLoading ? (
               <Spinner label={t("common:loading")} />
             ) : isMissing ? (

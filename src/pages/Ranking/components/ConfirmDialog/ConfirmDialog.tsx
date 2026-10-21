@@ -80,7 +80,7 @@ export default function ConfirmDialog({
             disabled={isConfirming}
             onClick={onConfirm}
             className={[
-              "inline-flex items-center justify-center gap-2 rounded px-4 py-2 font-medium disabled:cursor-not-allowed disabled:opacity-50",
+              "inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2 font-medium disabled:cursor-not-allowed disabled:opacity-50",
               confirmClass,
             ].join(" ")}
           >

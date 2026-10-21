@@ -26,7 +26,7 @@ export default function VirtualTicketMetaButton({
       type="button"
       disabled={isDisabled}
       onClick={onClick}
-      className="virtual-ticket-meta-button inline-flex h-6 cursor-pointer items-center gap-1.5 rounded-md border-0 bg-transparent p-0 font-sans text-[13px] font-medium text-neutral-600 hover:text-neutral-900 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-default disabled:no-underline disabled:hover:text-neutral-600"
+      className="virtual-ticket-meta-button inline-flex h-6 cursor-pointer items-center gap-1.5 rounded-md border-0 bg-transparent p-0 font-sans text-[13px] font-medium text-neutral-600 hover:text-neutral-900 hover:underline focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-default disabled:no-underline disabled:hover:text-neutral-600"
     >
       {icon && <span className="flex text-neutral-500">{icon}</span>}
       {children}

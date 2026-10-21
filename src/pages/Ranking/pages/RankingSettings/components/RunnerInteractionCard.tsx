@@ -72,7 +72,7 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
   }
 
   return (
-    <div className="rk-runner-interaction-card rounded-xl bg-white p-6 shadow-sm">
+    <div className="rk-runner-interaction-card rounded-xl bg-white p-6 shadow-xs">
       <h2 className="m-0 mb-4 text-lg font-semibold text-neutral-900">
         {t("RunnerInteraction.title")}
       </h2>
@@ -97,7 +97,7 @@ export default function RunnerInteractionCard({ rankingId }: RunnerInteractionCa
             type="button"
             disabled={sendOrganizer.isLoading || !selectedOrder}
             onClick={() => void send()}
-            className="mt-2 inline-flex items-center justify-center gap-2 self-end rounded bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-2 inline-flex items-center justify-center gap-2 self-end rounded-sm bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {sendOrganizer.isLoading && (
               <span

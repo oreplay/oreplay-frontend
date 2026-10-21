@@ -44,7 +44,7 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
   return (
     <li
       onClick={() => void navigate(settingsPath)}
-      className="rk-ranking-list-item flex cursor-pointer items-center justify-between rounded-xl bg-white px-4 py-3 shadow-sm transition-colors hover:bg-neutral-50"
+      className="rk-ranking-list-item flex cursor-pointer items-center justify-between rounded-xl bg-white px-4 py-3 shadow-xs transition-colors hover:bg-neutral-50"
     >
       <div>
         <p className="font-medium">{ranking.title}</p>

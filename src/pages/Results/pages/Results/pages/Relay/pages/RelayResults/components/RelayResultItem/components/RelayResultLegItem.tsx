@@ -37,7 +37,7 @@ export default function RelayResultLegItem({
 
   return (
     <ResultListItem onClick={() => onClick(team, legParticipant.leg_number)}>
-      <div className="flex min-w-0 flex-grow items-baseline px-0.5">
+      <div className="flex min-w-0 grow items-baseline px-0.5">
         <RelayResultLegNumber legNumber={legParticipant.leg_number} />
         <Typography noWrap sx={LEG_TEXT_STYLE}>
           {legParticipant.full_name}

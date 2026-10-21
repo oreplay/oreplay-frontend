@@ -44,26 +44,33 @@ One preferred layout applies to the **whole codebase**:
 **Tailwind** is preferred for new code (especially in the ranking area). It coexists with the app's
 MUI because the styling is scoped:
 
-- **Preflight is off** globally (`tailwind.config.js` → `corePlugins.preflight: false`), so Tailwind
-  adds no global reset that would restyle the host's MUI tree.
+- **Tailwind v4, configured CSS-first** — there is no `tailwind.config.js`. `src/styles/tailwind.css`
+  imports only Tailwind's `theme` and `utilities` layers, so **preflight is off**: Tailwind adds no
+  global reset that would restyle the host's MUI tree. It also lists the scanned sources with
+  `@source` (automatic detection is off via `source(none)`).
 - The base resets that Tailwind's border/button/box-sizing utilities rely on are re-added **scoped to
-  `.tw-root`** via `:where(.tw-root)` in `src/styles/tailwind.css`. `:where()` contributes zero
-  specificity, so single-class utilities (`.bg-primary`) still win over the resets. Every ranking
-  screen renders inside the `.tw-root` wrapper set by the ranking entry
-  (`src/pages/Ranking/Ranking.tsx`), so the resets never leak out.
-- That same entry imports `src/styles/tokens.css` (palette CSS vars) and `src/styles/tailwind.css`
-  (the `@tailwind` directives). Vite's PostCSS (`postcss.config.js` → `tailwindcss` + `autoprefixer`)
-  compiles them at build time — there is **no** precompiled `compiled.css` and **no** `build:css`
-  step; the compiled utilities land in a code-split CSS chunk loaded with the lazily-imported entry.
+  `.tw-root`** via `:where(.tw-root)` in the `base` cascade layer of `src/styles/tailwind.css`, which
+  always loses to the `utilities` layer. Every ranking screen renders inside the `.tw-root` wrapper
+  set by the ranking entry (`src/pages/Ranking/Ranking.tsx`), so the resets never leak out.
+- Utilities live in a **cascade layer**, so any _unlayered_ CSS (MUI/emotion styles) beats them
+  regardless of specificity. Don't rely on a Tailwind class to override a style MUI sets on the
+  same element — use `sx` there.
+- That same entry imports `src/styles/tokens.css` and `src/styles/tailwind.css`. Vite's PostCSS
+  (`postcss.config.js` → `@tailwindcss/postcss`, which also handles vendor prefixes) compiles them at
+  build time — there is **no** precompiled `compiled.css` and **no** `build:css` step; the compiled
+  utilities land in a code-split CSS chunk loaded with the lazily-imported entry.
 - In ranking code: **do not import `@mui/*` or `@emotion/*`.** Build UI from semantic HTML + Tailwind
   utilities written plain (`bg-primary`, `flex`, `text-sm` — **no `tw-` prefix**), inline-SVG icons
   (`src/pages/Ranking/components/icons/`), and the shared `src/pages/Ranking/components/Spinner/`.
-- The palette lives in `src/styles/tokens.css` as **channel-format** CSS vars
-  (`--color-primary: 255 113 10`) consumed by `tailwind.config.js`, so opacity utilities
-  (`bg-primary/50`) work. `primary`, `secondary`, `surface` mirror the host's MUI palette.
-- Tailwind's `content` glob is broad (`./src/**/*.{ts,tsx}`); with preflight off this is safe — it
-  only emits utilities that are actually used, and the host's MUI code uses `sx`/emotion, not bare
-  utility class names.
+- The brand palette lives in `src/styles/tokens.css` as hex `--color-*` variables in an `@theme`
+  block; opacity utilities (`bg-primary/50`) work through `color-mix()`. `primary`, `secondary`,
+  `surface` mirror the host's MUI palette.
+- `src/styles/palette.css` pins the default palette families in use (amber, gray, neutral, red) to
+  their Tailwind v3 hex values: v4's `oklch()` palette looks slightly different and loses its colour
+  in browsers without OKLCH support. **Pin a whole new family there before using it.**
+- The `@source` glob is broad (`../**/*.{ts,tsx}`); with preflight off this is safe — it only emits
+  utilities that are actually used, and the host's MUI code uses `sx`/emotion, not bare utility
+  class names.
 
 ## Mobile vs desktop
 

@@ -46,7 +46,7 @@ export default function InfoTip({ description, label }: InfoTipProps) {
         onClick={() => setIsPinned((wasPinned) => !wasPinned)}
         onBlur={() => setIsPinned(false)}
         onKeyDown={closeFromKeyboard}
-        className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
+        className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
       >
         <InfoIcon />
       </button>

@@ -57,7 +57,7 @@ export default function SegmentedControlOption({
       tabIndex={focusableIndex}
       onClick={onSelect}
       onKeyDown={onKeyDown}
-      className={`segmented-control-option flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
+      className={`segmented-control-option flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
     >
       {icon}
       {shortLabelKey && <span className="truncate sm:hidden">{t(shortLabelKey)}</span>}

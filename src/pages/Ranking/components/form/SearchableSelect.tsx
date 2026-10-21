@@ -118,7 +118,7 @@ export default function SearchableSelect({
                     type="button"
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={() => select(option)}
-                    className="block w-full rounded px-3 py-2 text-left text-sm hover:bg-neutral-100"
+                    className="block w-full rounded-sm px-3 py-2 text-left text-sm hover:bg-neutral-100"
                   >
                     {option.label}
                   </button>

@@ -27,7 +27,7 @@ export default function TimeLossToggle({ isDisabled, isOn, onToggle }: TimeLossT
       disabled={isDisabled}
       title={label}
       onClick={onToggle}
-      className={`time-loss-toggle flex shrink-0 items-center justify-center gap-1.5 rounded-lg border bg-white px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS} ${colorClass}`}
+      className={`time-loss-toggle flex shrink-0 items-center justify-center gap-1.5 rounded-lg border bg-white px-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 ${SPLITS_TOOLBAR_CONTROL_HEIGHT_CLASS} ${colorClass}`}
     >
       <TimeLossIcon />
       <span className="hidden md:inline">{label}</span>

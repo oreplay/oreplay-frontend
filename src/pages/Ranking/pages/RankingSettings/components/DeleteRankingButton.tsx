@@ -49,7 +49,7 @@ export default function DeleteRankingButton({ rankingId, eventId }: DeleteRankin
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded border border-red-600 px-4 py-2 font-medium text-red-600 transition-colors hover:bg-red-50"
+        className="rounded-sm border border-red-600 px-4 py-2 font-medium text-red-600 transition-colors hover:bg-red-50"
       >
         {t("common:delete")}
       </button>

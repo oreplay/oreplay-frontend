@@ -33,7 +33,7 @@ export default function OnlineCourseToggle({ isActive, onToggle }: OnlineCourseT
       </button>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-full z-10 mt-1 whitespace-nowrap rounded bg-neutral-600/90 px-2 py-1 text-[11px] font-medium leading-normal text-white opacity-0 transition-opacity group-has-[:focus-visible]:opacity-100 [@media(hover:hover)]:group-hover:opacity-100"
+        className="pointer-events-none absolute right-0 top-full z-10 mt-1 whitespace-nowrap rounded-sm bg-neutral-600/90 px-2 py-1 text-[11px] font-medium leading-normal text-white opacity-0 transition-opacity group-has-[:focus-visible]:opacity-100 [@media(hover:hover)]:group-hover:opacity-100"
       >
         {label}
       </span>

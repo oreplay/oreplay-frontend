@@ -53,7 +53,7 @@ export default function ResultListItem({ children, details, onClick }: ResultLis
         hasDetails ? COLUMNS_AND_DETAILS_CLASS_NAME : COLUMNS_CLASS_NAME,
         "px-2 py-1",
         clickable
-          ? "cursor-pointer hover:bg-amber-50 hover:rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
+          ? "cursor-pointer hover:bg-amber-50 hover:rounded-lg focus:outline-hidden focus-visible:ring-2 focus-visible:ring-amber-300"
           : "",
       ].join(" ")}
     >

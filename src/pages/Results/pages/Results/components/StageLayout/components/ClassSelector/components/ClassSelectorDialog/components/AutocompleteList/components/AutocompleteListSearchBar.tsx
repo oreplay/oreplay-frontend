@@ -23,7 +23,7 @@ export default function AutocompleteListSearchBar(props: AutocompleteListSearchB
         onChange={(e) => props.setValue(e.target.value)}
         placeholder={t("common:search")}
         aria-label={t("common:search")}
-        className="w-full rounded-xl border border-neutral-200 bg-neutral-50 py-2.5 pl-10 pr-10 text-[0.9375rem] outline-none transition-colors placeholder:text-neutral-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
+        className="w-full rounded-xl border border-neutral-200 bg-neutral-50 py-2.5 pl-10 pr-10 text-[0.9375rem] outline-hidden transition-colors placeholder:text-neutral-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20"
       />
       {hasQuery && (
         <button

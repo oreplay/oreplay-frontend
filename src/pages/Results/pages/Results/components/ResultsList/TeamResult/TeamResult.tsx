@@ -21,7 +21,7 @@ export default function TeamResult({ runner, onClick, ResultColumn }: ResultItem
     <ResultListItem key={runner.id} onClick={onClick ? () => onClick(runner) : undefined}>
       <ResultListItemColumn
         slotProps={{
-          className: "flex h-full flex-grow flex-row items-start",
+          className: "flex h-full grow flex-row items-start",
         }}
       >
         <RacePosition
@@ -29,7 +29,7 @@ export default function TeamResult({ runner, onClick, ResultColumn }: ResultItem
           hasDownload={runner.overalls ? true : hasChipDownloadFunction(runner)}
           slotProps={{ text: { marginRight: 1 } }}
         />
-        <div className="min-w-0 flex-grow">
+        <div className="min-w-0 grow">
           <ParticipantName name={runner.full_name} />
           {runner.runners?.map((teamMember) => (
             <Typography key={teamMember.id} sx={{ color: "text.secondary", fontSize: "small" }}>

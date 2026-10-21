@@ -13,7 +13,7 @@ export default function ClassSelectorCloseButton(props: ClassSelectorCloseButton
       type="button"
       aria-label={t("common:close")}
       onClick={props.onClick}
-      className="class-selector-close-button flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+      className="class-selector-close-button flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40"
     >
       <CloseIcon fontSize="small" />
     </button>

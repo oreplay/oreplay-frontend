@@ -26,7 +26,7 @@ export default function ResultTabDesktop(props: ResultTabDesktopProps) {
       tabIndex={focusableIndex}
       onClick={props.onSelect}
       onKeyDown={props.onKeyDown}
-      className={`result-tab-desktop relative flex min-w-[88px] flex-col items-center justify-center gap-0.5 px-4 pb-2 pt-2.5 text-[0.8125rem] font-medium transition-colors duration-200 focus-visible:bg-neutral-100 focus-visible:outline-none ${colorClass}`}
+      className={`result-tab-desktop relative flex min-w-[88px] flex-col items-center justify-center gap-0.5 px-4 pb-2 pt-2.5 text-[0.8125rem] font-medium transition-colors duration-200 focus-visible:bg-neutral-100 focus-visible:outline-hidden ${colorClass}`}
     >
       {props.option.icon}
       <span>{t(props.option.labelKey)}</span>

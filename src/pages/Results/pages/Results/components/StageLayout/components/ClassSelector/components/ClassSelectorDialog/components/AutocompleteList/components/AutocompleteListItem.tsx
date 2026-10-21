@@ -41,7 +41,7 @@ export default function AutocompleteListItem(props: AutocompleteListItemProps) {
         type="button"
         aria-current={props.isSelected}
         onClick={props.onClick}
-        className={`flex items-center rounded px-3 py-2.5 text-[0.9375rem] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${BUTTON_LAYOUT_CLASSES[props.layout]} ${colorClass}`}
+        className={`flex items-center rounded-sm px-3 py-2.5 text-[0.9375rem] transition-colors duration-150 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 ${BUTTON_LAYOUT_CLASSES[props.layout]} ${colorClass}`}
       >
         <span className="truncate">{props.name}</span>
       </button>

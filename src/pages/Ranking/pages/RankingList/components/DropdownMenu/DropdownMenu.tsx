@@ -17,7 +17,7 @@ interface DropdownMenuProps {
 }
 
 const ITEM_CLASS =
-  "block w-full rounded px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-100"
+  "block w-full rounded-sm px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-100"
 
 export default function DropdownMenu({
   triggerLabel,

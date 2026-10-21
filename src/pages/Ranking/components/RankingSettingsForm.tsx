@@ -238,7 +238,7 @@ export default function RankingSettingsForm({
             <button
               type="submit"
               disabled={isSubmitting || !canSubmit || !isRankingSettingsFormComplete(values)}
-              className="inline-flex items-center justify-center gap-2 rounded bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting && (
                 <span

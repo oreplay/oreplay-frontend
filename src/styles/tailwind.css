@@ -1,6 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
+ * Tailwind without preflight: only the theme and utilities layers are imported, so Tailwind
+ * adds no global reset that would restyle the host's MUI tree. The scoped resets below go
+ * into the `base` cascade layer, which always loses to the `utilities` layer.
+ *
+ * Sources are listed explicitly (`source(none)` turns off automatic detection) so the scan
+ * matches what the app actually renders.
+ */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "./palette.css" layer(theme);
+@import "./tokens.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "../../index.html";
+@source "../**/*.{ts,tsx}";
+
+@theme {
+  /*
+   * Mirror the host's MUI default font stack so Tailwind screens render in the same
+   * typeface. The host sets no `<body>` font (no CssBaseline), so we can't `inherit`.
+   */
+  --font-sans: "Roboto", "Helvetica", "Arial", sans-serif;
+}
 
 @layer base {
   /*
