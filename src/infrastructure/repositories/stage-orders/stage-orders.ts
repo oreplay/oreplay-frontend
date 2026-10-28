@@ -3,10 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation,
-  useQuery
-} from 'react-query';
+import { useMutation, useQuery } from "react-query"
 import type {
   MutationFunction,
   QueryClient,
@@ -15,228 +12,447 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
 import type {
   ArrayStageOrderManagement,
   PatchStageOrdersBody,
   PostStageOrdersBody,
-  ResStageOrderManagement
-} from '../../../domain/types/v1api';
+  ResStageOrderManagement,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Get list returns only selected fields
  */
 export const getListStageOrders = (
-    eventID: string,
-    stageID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  stageID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ArrayStageOrderManagement>(
-      {url: `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/`, method: 'GET', signal
+  return orvalAxiosInstance<ArrayStageOrderManagement>(
+    {
+      url: `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/`,
+      method: "GET",
+      signal,
     },
-      options);
-    }
-  
-
-
-
-export const getGetListStageOrdersQueryKey = (eventID?: string,
-    stageID?: string,) => {
-    return [
-    `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/`
-    ] as const;
-    }
-
-    
-export const getGetListStageOrdersQueryOptions = <TData = Awaited<ReturnType<typeof getListStageOrders>>, TError = unknown>(eventID: string,
-    stageID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListStageOrders>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListStageOrdersQueryKey(eventID,stageID);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListStageOrders>>> = ({ signal }) => getListStageOrders(eventID,stageID, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(eventID && stageID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListStageOrders>>, TError, TData> & { queryKey: QueryKey }
+    options,
+  )
 }
 
-export type GetListStageOrdersQueryResult = NonNullable<Awaited<ReturnType<typeof getListStageOrders>>>
+export const getGetListStageOrdersQueryKey = (
+  eventID: string,
+  stageID: string,
+) => {
+  return [`/api/v1/events/${eventID}/stages/${stageID}/stageOrders/`] as const
+}
+
+export const getGetListStageOrdersQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListStageOrders>>,
+  TError = unknown,
+>(
+  eventID: string,
+  stageID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListStageOrders>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetListStageOrdersQueryKey(eventID, stageID)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListStageOrders>>
+  > = ({ signal }) =>
+    getListStageOrders(eventID, stageID, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled:
+      eventID !== null &&
+      eventID !== undefined &&
+      stageID !== null &&
+      stageID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListStageOrders>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListStageOrdersQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListStageOrders>>
+>
 export type GetListStageOrdersQueryError = unknown
 
+export function useGetListStageOrders<
+  TData = Awaited<ReturnType<typeof getListStageOrders>>,
+  TError = unknown,
+>(
+  eventID: string,
+  stageID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListStageOrders>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListStageOrdersQueryOptions(
+    eventID,
+    stageID,
+    options,
+  )
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListStageOrders<TData = Awaited<ReturnType<typeof getListStageOrders>>, TError = unknown>(
- eventID: string,
-    stageID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListStageOrders>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListStageOrdersQueryOptions(eventID,stageID,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListStageOrdersQuery = async <TData = Awaited<ReturnType<typeof getListStageOrders>>, TError = unknown>(
- queryClient: QueryClient, eventID: string,
-    stageID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListStageOrders>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+export const prefetchGetListStageOrdersQuery = async <
+  TData = Awaited<ReturnType<typeof getListStageOrders>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  eventID: string,
+  stageID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListStageOrders>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListStageOrdersQueryOptions(
+    eventID,
+    stageID,
+    options,
+  )
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListStageOrdersQueryOptions(eventID,stageID,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Add new as manager creates in stage
  */
 export const postListStageOrders = (
-    eventID: string,
-    stageID: string,
-    postStageOrdersBody: PostStageOrdersBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  stageID: string,
+  postStageOrdersBody?: PostStageOrdersBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResStageOrderManagement>(
-      {url: `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: postStageOrdersBody, signal
+  return orvalAxiosInstance<ResStageOrderManagement>(
+    {
+      url: `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: postStageOrdersBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListStageOrdersMutationKey = () =>
+  ["postListStageOrders"] as const
 
-export const getPostListStageOrdersMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListStageOrders>>, TError,{eventID: string;stageID: string;data: PostStageOrdersBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListStageOrders>>, TError,{eventID: string;stageID: string;data: PostStageOrdersBody}, TContext> => {
+export const getPostListStageOrdersMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListStageOrders>>,
+    TError,
+    PostListStageOrdersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListStageOrders>>,
+  TError,
+  PostListStageOrdersMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListStageOrdersMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListStageOrders'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListStageOrders>>,
+    PostListStageOrdersMutationVariables
+  > = (props) => {
+    const { eventID, stageID, data } = props ?? {}
 
-      
+    return postListStageOrders(eventID, stageID, data, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListStageOrders>>, {eventID: string;stageID: string;data: PostStageOrdersBody}> = (props) => {
-          const {eventID,stageID,data} = props ?? {};
+export type PostListStageOrdersMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListStageOrders>>
+>
+export type PostListStageOrdersMutationBody = PostStageOrdersBody | undefined
+export type PostListStageOrdersMutationError = unknown
+export type PostListStageOrdersMutationVariables = {
+  eventID: string
+  stageID: string
+  data?: PostStageOrdersBody
+}
 
-          return  postListStageOrders(eventID,stageID,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListStageOrdersMutationResult = NonNullable<Awaited<ReturnType<typeof postListStageOrders>>>
-    export type PostListStageOrdersMutationBody = PostStageOrdersBody
-    export type PostListStageOrdersMutationError = unknown
-
-    export const usePostListStageOrders = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListStageOrders>>, TError,{eventID: string;stageID: string;data: PostStageOrdersBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListStageOrders>>,
-        TError,
-        {eventID: string;stageID: string;data: PostStageOrdersBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListStageOrdersMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+export const usePostListStageOrders = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListStageOrders>>,
+    TError,
+    PostListStageOrdersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListStageOrders>>,
+  TError,
+  PostListStageOrdersMutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListStageOrdersMutationOptions(options))
+}
+/**
  * Edit updates editable fields
  */
 export const patchStageOrders = (
-    eventID: string,
-    stageID: string,
-    stageOrderID: string,
-    patchStageOrdersBody: PatchStageOrdersBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<ResStageOrderManagement>(
-      {url: `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: patchStageOrdersBody
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  patchStageOrdersBody?: PatchStageOrdersBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<ResStageOrderManagement>(
+    {
+      url: `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: patchStageOrdersBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPatchStageOrdersMutationKey = () =>
+  ["patchStageOrders"] as const
 
-export const getPatchStageOrdersMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchStageOrders>>, TError,{eventID: string;stageID: string;stageOrderID: string;data: PatchStageOrdersBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchStageOrders>>, TError,{eventID: string;stageID: string;stageOrderID: string;data: PatchStageOrdersBody}, TContext> => {
+export const getPatchStageOrdersMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchStageOrders>>,
+    TError,
+    PatchStageOrdersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof patchStageOrders>>,
+  TError,
+  PatchStageOrdersMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPatchStageOrdersMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['patchStageOrders'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof patchStageOrders>>,
+    PatchStageOrdersMutationVariables
+  > = (props) => {
+    const { eventID, stageID, stageOrderID, data } = props ?? {}
 
-      
+    return patchStageOrders(
+      eventID,
+      stageID,
+      stageOrderID,
+      data,
+      requestOptions,
+    )
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchStageOrders>>, {eventID: string;stageID: string;stageOrderID: string;data: PatchStageOrdersBody}> = (props) => {
-          const {eventID,stageID,stageOrderID,data} = props ?? {};
+export type PatchStageOrdersMutationResult = NonNullable<
+  Awaited<ReturnType<typeof patchStageOrders>>
+>
+export type PatchStageOrdersMutationBody = PatchStageOrdersBody | undefined
+export type PatchStageOrdersMutationError = unknown
+export type PatchStageOrdersMutationVariables = {
+  eventID: string
+  stageID: string
+  stageOrderID: string
+  data?: PatchStageOrdersBody
+}
 
-          return  patchStageOrders(eventID,stageID,stageOrderID,data,requestOptions)
-        }
+export const usePatchStageOrders = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchStageOrders>>,
+    TError,
+    PatchStageOrdersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof patchStageOrders>>,
+  TError,
+  PatchStageOrdersMutationVariables,
+  TContext
+> => {
+  return useMutation(getPatchStageOrdersMutationOptions(options))
+}
+/**
+ * Delete removes stage order with its computed results
+ */
+export const deleteStageOrders = (
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<void>(
+    {
+      url: `/api/v1/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}`,
+      method: "DELETE",
+      signal,
+    },
+    options,
+  )
+}
 
-        
+export const getDeleteStageOrdersMutationKey = () =>
+  ["deleteStageOrders"] as const
 
+export const getDeleteStageOrdersMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteStageOrders>>,
+    TError,
+    DeleteStageOrdersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteStageOrders>>,
+  TError,
+  DeleteStageOrdersMutationVariables,
+  TContext
+> => {
+  const mutationKey = getDeleteStageOrdersMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-  return  { mutationFn, ...mutationOptions }}
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteStageOrders>>,
+    DeleteStageOrdersMutationVariables
+  > = (props) => {
+    const { eventID, stageID, stageOrderID } = props ?? {}
 
-    export type PatchStageOrdersMutationResult = NonNullable<Awaited<ReturnType<typeof patchStageOrders>>>
-    export type PatchStageOrdersMutationBody = PatchStageOrdersBody
-    export type PatchStageOrdersMutationError = unknown
+    return deleteStageOrders(eventID, stageID, stageOrderID, requestOptions)
+  }
 
-    export const usePatchStageOrders = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchStageOrders>>, TError,{eventID: string;stageID: string;stageOrderID: string;data: PatchStageOrdersBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof patchStageOrders>>,
-        TError,
-        {eventID: string;stageID: string;stageOrderID: string;data: PatchStageOrdersBody},
-        TContext
-      > => {
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationOptions = getPatchStageOrdersMutationOptions(options);
+export type DeleteStageOrdersMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteStageOrders>>
+>
 
-      return useMutation(mutationOptions);
-    }
-    
+export type DeleteStageOrdersMutationError = unknown
+export type DeleteStageOrdersMutationVariables = {
+  eventID: string
+  stageID: string
+  stageOrderID: string
+}
+
+export const useDeleteStageOrders = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteStageOrders>>,
+    TError,
+    DeleteStageOrdersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteStageOrders>>,
+  TError,
+  DeleteStageOrdersMutationVariables,
+  TContext
+> => {
+  return useMutation(getDeleteStageOrdersMutationOptions(options))
+}

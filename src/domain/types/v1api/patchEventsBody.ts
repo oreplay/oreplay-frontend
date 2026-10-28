@@ -12,9 +12,11 @@ export type PatchEventsBody = {
   description?: string
   final_date?: string
   initial_date?: string
-  is_hidden?: number
+  is_hidden?: boolean
   location?: string
+  organizer_id?: string
   picture?: string
   scope?: string
+  timezone?: string
   website?: string
 }

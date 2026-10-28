@@ -3,10 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation,
-  useQuery
-} from 'react-query';
+import { useMutation, useQuery } from "react-query"
 import type {
   MutationFunction,
   QueryClient,
@@ -15,355 +12,504 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
 import type {
   GetListRankingSettingsParams,
   PaginatedRanking,
   PatchRankingSettingsBody,
   PostListRankingSettingsBody,
-  ResRanking
-} from '../../../domain/types/v1api';
+  ResRanking,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Get list returns rankings
  */
 export const getListRankingSettings = (
-    params?: GetListRankingSettingsParams,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  params?: GetListRankingSettingsParams,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<PaginatedRanking>(
-      {url: `/api/v1/rankings/`, method: 'GET',
-        params, signal
-    },
-      options);
-    }
-  
-
-
-
-export const getGetListRankingSettingsQueryKey = (params?: GetListRankingSettingsParams,) => {
-    return [
-    `/api/v1/rankings/`, ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getGetListRankingSettingsQueryOptions = <TData = Awaited<ReturnType<typeof getListRankingSettings>>, TError = unknown>(params?: GetListRankingSettingsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRankingSettings>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListRankingSettingsQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListRankingSettings>>> = ({ signal }) => getListRankingSettings(params, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListRankingSettings>>, TError, TData> & { queryKey: QueryKey }
+  return orvalAxiosInstance<PaginatedRanking>(
+    { url: `/api/v1/rankings/`, method: "GET", params, signal },
+    options,
+  )
 }
 
-export type GetListRankingSettingsQueryResult = NonNullable<Awaited<ReturnType<typeof getListRankingSettings>>>
+export const getGetListRankingSettingsQueryKey = (
+  params?: GetListRankingSettingsParams,
+) => {
+  return [`/api/v1/rankings/`, ...(params ? [params] : [])] as const
+}
+
+export const getGetListRankingSettingsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListRankingSettings>>,
+  TError = unknown,
+>(
+  params?: GetListRankingSettingsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRankingSettings>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetListRankingSettingsQueryKey(params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListRankingSettings>>
+  > = ({ signal }) => getListRankingSettings(params, requestOptions, signal)
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListRankingSettings>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListRankingSettingsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListRankingSettings>>
+>
 export type GetListRankingSettingsQueryError = unknown
 
+export function useGetListRankingSettings<
+  TData = Awaited<ReturnType<typeof getListRankingSettings>>,
+  TError = unknown,
+>(
+  params?: GetListRankingSettingsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRankingSettings>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListRankingSettingsQueryOptions(params, options)
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListRankingSettings<TData = Awaited<ReturnType<typeof getListRankingSettings>>, TError = unknown>(
- params?: GetListRankingSettingsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRankingSettings>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListRankingSettingsQueryOptions(params,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListRankingSettingsQuery = async <TData = Awaited<ReturnType<typeof getListRankingSettings>>, TError = unknown>(
- queryClient: QueryClient, params?: GetListRankingSettingsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRankingSettings>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+export const prefetchGetListRankingSettingsQuery = async <
+  TData = Awaited<ReturnType<typeof getListRankingSettings>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  params?: GetListRankingSettingsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRankingSettings>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListRankingSettingsQueryOptions(params, options)
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListRankingSettingsQueryOptions(params,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Add new generates uuid server side
  */
 export const postListRankingSettings = (
-    postListRankingSettingsBody: PostListRankingSettingsBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  postListRankingSettingsBody?: PostListRankingSettingsBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResRanking>(
-      {url: `/api/v1/rankings/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: postListRankingSettingsBody, signal
+  return orvalAxiosInstance<ResRanking>(
+    {
+      url: `/api/v1/rankings/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: postListRankingSettingsBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListRankingSettingsMutationKey = () =>
+  ["postListRankingSettings"] as const
 
-export const getPostListRankingSettingsMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListRankingSettings>>, TError,{data: PostListRankingSettingsBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListRankingSettings>>, TError,{data: PostListRankingSettingsBody}, TContext> => {
+export const getPostListRankingSettingsMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListRankingSettings>>,
+    TError,
+    PostListRankingSettingsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListRankingSettings>>,
+  TError,
+  PostListRankingSettingsMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListRankingSettingsMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListRankingSettings'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListRankingSettings>>,
+    PostListRankingSettingsMutationVariables
+  > = (props) => {
+    const { data } = props ?? {}
 
-      
+    return postListRankingSettings(data, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListRankingSettings>>, {data: PostListRankingSettingsBody}> = (props) => {
-          const {data} = props ?? {};
+export type PostListRankingSettingsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListRankingSettings>>
+>
+export type PostListRankingSettingsMutationBody =
+  | PostListRankingSettingsBody
+  | undefined
+export type PostListRankingSettingsMutationError = unknown
+export type PostListRankingSettingsMutationVariables = {
+  data?: PostListRankingSettingsBody
+}
 
-          return  postListRankingSettings(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListRankingSettingsMutationResult = NonNullable<Awaited<ReturnType<typeof postListRankingSettings>>>
-    export type PostListRankingSettingsMutationBody = PostListRankingSettingsBody
-    export type PostListRankingSettingsMutationError = unknown
-
-    export const usePostListRankingSettings = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListRankingSettings>>, TError,{data: PostListRankingSettingsBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListRankingSettings>>,
-        TError,
-        {data: PostListRankingSettingsBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListRankingSettingsMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+export const usePostListRankingSettings = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListRankingSettings>>,
+    TError,
+    PostListRankingSettingsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListRankingSettings>>,
+  TError,
+  PostListRankingSettingsMutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListRankingSettingsMutationOptions(options))
+}
+/**
  * Get data returns one ranking
  */
 export const getRankingSettings = (
-    rankingID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  rankingID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResRanking>(
-      {url: `/api/v1/rankings/${rankingID}`, method: 'GET', signal
-    },
-      options);
-    }
-  
-
-
-
-export const getGetRankingSettingsQueryKey = (rankingID?: string,) => {
-    return [
-    `/api/v1/rankings/${rankingID}`
-    ] as const;
-    }
-
-    
-export const getGetRankingSettingsQueryOptions = <TData = Awaited<ReturnType<typeof getRankingSettings>>, TError = unknown>(rankingID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRankingSettings>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetRankingSettingsQueryKey(rankingID);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getRankingSettings>>> = ({ signal }) => getRankingSettings(rankingID, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(rankingID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getRankingSettings>>, TError, TData> & { queryKey: QueryKey }
+  return orvalAxiosInstance<ResRanking>(
+    { url: `/api/v1/rankings/${rankingID}`, method: "GET", signal },
+    options,
+  )
 }
 
-export type GetRankingSettingsQueryResult = NonNullable<Awaited<ReturnType<typeof getRankingSettings>>>
+export const getGetRankingSettingsQueryKey = (rankingID: string) => {
+  return [`/api/v1/rankings/${rankingID}`] as const
+}
+
+export const getGetRankingSettingsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getRankingSettings>>,
+  TError = unknown,
+>(
+  rankingID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getRankingSettings>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetRankingSettingsQueryKey(rankingID)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getRankingSettings>>
+  > = ({ signal }) => getRankingSettings(rankingID, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: rankingID !== null && rankingID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getRankingSettings>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetRankingSettingsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getRankingSettings>>
+>
 export type GetRankingSettingsQueryError = unknown
 
+export function useGetRankingSettings<
+  TData = Awaited<ReturnType<typeof getRankingSettings>>,
+  TError = unknown,
+>(
+  rankingID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getRankingSettings>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetRankingSettingsQueryOptions(rankingID, options)
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetRankingSettings<TData = Awaited<ReturnType<typeof getRankingSettings>>, TError = unknown>(
- rankingID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRankingSettings>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetRankingSettingsQueryOptions(rankingID,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetRankingSettingsQuery = async <TData = Awaited<ReturnType<typeof getRankingSettings>>, TError = unknown>(
- queryClient: QueryClient, rankingID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRankingSettings>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+export const prefetchGetRankingSettingsQuery = async <
+  TData = Awaited<ReturnType<typeof getRankingSettings>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  rankingID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getRankingSettings>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetRankingSettingsQueryOptions(rankingID, options)
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetRankingSettingsQueryOptions(rankingID,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Edit updates ranking and invalidates cache
  */
 export const patchRankingSettings = (
-    rankingID: string,
-    patchRankingSettingsBody: PatchRankingSettingsBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<ResRanking>(
-      {url: `/api/v1/rankings/${rankingID}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: patchRankingSettingsBody
+  rankingID: string,
+  patchRankingSettingsBody?: PatchRankingSettingsBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<ResRanking>(
+    {
+      url: `/api/v1/rankings/${rankingID}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: patchRankingSettingsBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPatchRankingSettingsMutationKey = () =>
+  ["patchRankingSettings"] as const
 
-export const getPatchRankingSettingsMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchRankingSettings>>, TError,{rankingID: string;data: PatchRankingSettingsBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchRankingSettings>>, TError,{rankingID: string;data: PatchRankingSettingsBody}, TContext> => {
+export const getPatchRankingSettingsMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchRankingSettings>>,
+    TError,
+    PatchRankingSettingsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof patchRankingSettings>>,
+  TError,
+  PatchRankingSettingsMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPatchRankingSettingsMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['patchRankingSettings'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof patchRankingSettings>>,
+    PatchRankingSettingsMutationVariables
+  > = (props) => {
+    const { rankingID, data } = props ?? {}
 
-      
+    return patchRankingSettings(rankingID, data, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchRankingSettings>>, {rankingID: string;data: PatchRankingSettingsBody}> = (props) => {
-          const {rankingID,data} = props ?? {};
+export type PatchRankingSettingsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof patchRankingSettings>>
+>
+export type PatchRankingSettingsMutationBody =
+  | PatchRankingSettingsBody
+  | undefined
+export type PatchRankingSettingsMutationError = unknown
+export type PatchRankingSettingsMutationVariables = {
+  rankingID: string
+  data?: PatchRankingSettingsBody
+}
 
-          return  patchRankingSettings(rankingID,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PatchRankingSettingsMutationResult = NonNullable<Awaited<ReturnType<typeof patchRankingSettings>>>
-    export type PatchRankingSettingsMutationBody = PatchRankingSettingsBody
-    export type PatchRankingSettingsMutationError = unknown
-
-    export const usePatchRankingSettings = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchRankingSettings>>, TError,{rankingID: string;data: PatchRankingSettingsBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof patchRankingSettings>>,
-        TError,
-        {rankingID: string;data: PatchRankingSettingsBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPatchRankingSettingsMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+export const usePatchRankingSettings = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchRankingSettings>>,
+    TError,
+    PatchRankingSettingsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof patchRankingSettings>>,
+  TError,
+  PatchRankingSettingsMutationVariables,
+  TContext
+> => {
+  return useMutation(getPatchRankingSettingsMutationOptions(options))
+}
+/**
  * Delete soft deletes ranking
  */
 export const deleteRankingSettings = (
-    rankingID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<void>(
-      {url: `/api/v1/rankings/${rankingID}`, method: 'DELETE'
-    },
-      options);
-    }
-  
+  rankingID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<void>(
+    { url: `/api/v1/rankings/${rankingID}`, method: "DELETE", signal },
+    options,
+  )
+}
 
+export const getDeleteRankingSettingsMutationKey = () =>
+  ["deleteRankingSettings"] as const
 
-export const getDeleteRankingSettingsMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRankingSettings>>, TError,{rankingID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteRankingSettings>>, TError,{rankingID: string}, TContext> => {
+export const getDeleteRankingSettingsMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteRankingSettings>>,
+    TError,
+    DeleteRankingSettingsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteRankingSettings>>,
+  TError,
+  DeleteRankingSettingsMutationVariables,
+  TContext
+> => {
+  const mutationKey = getDeleteRankingSettingsMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['deleteRankingSettings'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteRankingSettings>>,
+    DeleteRankingSettingsMutationVariables
+  > = (props) => {
+    const { rankingID } = props ?? {}
 
-      
+    return deleteRankingSettings(rankingID, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteRankingSettings>>, {rankingID: string}> = (props) => {
-          const {rankingID} = props ?? {};
+export type DeleteRankingSettingsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteRankingSettings>>
+>
 
-          return  deleteRankingSettings(rankingID,requestOptions)
-        }
+export type DeleteRankingSettingsMutationError = unknown
+export type DeleteRankingSettingsMutationVariables = { rankingID: string }
 
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteRankingSettingsMutationResult = NonNullable<Awaited<ReturnType<typeof deleteRankingSettings>>>
-    
-    export type DeleteRankingSettingsMutationError = unknown
-
-    export const useDeleteRankingSettings = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRankingSettings>>, TError,{rankingID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof deleteRankingSettings>>,
-        TError,
-        {rankingID: string},
-        TContext
-      > => {
-
-      const mutationOptions = getDeleteRankingSettingsMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+export const useDeleteRankingSettings = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteRankingSettings>>,
+    TError,
+    DeleteRankingSettingsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteRankingSettings>>,
+  TError,
+  DeleteRankingSettingsMutationVariables,
+  TContext
+> => {
+  return useMutation(getDeleteRankingSettingsMutationOptions(options))
+}

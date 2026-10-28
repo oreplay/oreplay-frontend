@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { StageOrderManagement } from "./stageOrderManagement"
+import type { StageOrderManagement } from "./stageOrderManagement.ts"
 
 /**
  * Data wrapper for StageOrderManagement
