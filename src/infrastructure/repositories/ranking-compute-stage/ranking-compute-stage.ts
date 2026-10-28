@@ -3,92 +3,127 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation
-} from 'react-query';
+import { useMutation } from "react-query"
 import type {
   MutationFunction,
   UseMutationOptions,
-  UseMutationResult
-} from 'react-query';
+  UseMutationResult,
+} from "react-query"
 
 import type {
   PostListRankingComputeStage200,
   PostListRankingComputeStageBody,
-  PostListRankingComputeStageParams
-} from '../../../domain/types/v1api';
+  PostListRankingComputeStageParams,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
 /**
  * Add new only class list
  */
 export const postListRankingComputeStage = (
-    rankingID: string,
-    eventID: string,
-    stageID: string,
-    postListRankingComputeStageBody: PostListRankingComputeStageBody,
-    params?: PostListRankingComputeStageParams,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  postListRankingComputeStageBody?: PostListRankingComputeStageBody,
+  params?: PostListRankingComputeStageParams,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<PostListRankingComputeStage200>(
-      {url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/compute/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  return orvalAxiosInstance<PostListRankingComputeStage200>(
+    {
+      url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/compute/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: postListRankingComputeStageBody,
-        params, signal
+      params,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListRankingComputeStageMutationKey = () =>
+  ["postListRankingComputeStage"] as const
 
-export const getPostListRankingComputeStageMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListRankingComputeStage>>, TError,{rankingID: string;eventID: string;stageID: string;data: PostListRankingComputeStageBody;params?: PostListRankingComputeStageParams}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListRankingComputeStage>>, TError,{rankingID: string;eventID: string;stageID: string;data: PostListRankingComputeStageBody;params?: PostListRankingComputeStageParams}, TContext> => {
+export const getPostListRankingComputeStageMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListRankingComputeStage>>,
+    TError,
+    PostListRankingComputeStageMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListRankingComputeStage>>,
+  TError,
+  PostListRankingComputeStageMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListRankingComputeStageMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListRankingComputeStage'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListRankingComputeStage>>,
+    PostListRankingComputeStageMutationVariables
+  > = (props) => {
+    const { rankingID, eventID, stageID, data, params } = props ?? {}
 
-      
+    return postListRankingComputeStage(
+      rankingID,
+      eventID,
+      stageID,
+      data,
+      params,
+      requestOptions,
+    )
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListRankingComputeStage>>, {rankingID: string;eventID: string;stageID: string;data: PostListRankingComputeStageBody;params?: PostListRankingComputeStageParams}> = (props) => {
-          const {rankingID,eventID,stageID,data,params} = props ?? {};
+export type PostListRankingComputeStageMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListRankingComputeStage>>
+>
+export type PostListRankingComputeStageMutationBody =
+  | PostListRankingComputeStageBody
+  | undefined
+export type PostListRankingComputeStageMutationError = unknown
+export type PostListRankingComputeStageMutationVariables = {
+  rankingID: string
+  eventID: string
+  stageID: string
+  data?: PostListRankingComputeStageBody
+  params?: PostListRankingComputeStageParams
+}
 
-          return  postListRankingComputeStage(rankingID,eventID,stageID,data,params,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListRankingComputeStageMutationResult = NonNullable<Awaited<ReturnType<typeof postListRankingComputeStage>>>
-    export type PostListRankingComputeStageMutationBody = PostListRankingComputeStageBody
-    export type PostListRankingComputeStageMutationError = unknown
-
-    export const usePostListRankingComputeStage = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListRankingComputeStage>>, TError,{rankingID: string;eventID: string;stageID: string;data: PostListRankingComputeStageBody;params?: PostListRankingComputeStageParams}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListRankingComputeStage>>,
-        TError,
-        {rankingID: string;eventID: string;stageID: string;data: PostListRankingComputeStageBody;params?: PostListRankingComputeStageParams},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListRankingComputeStageMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+export const usePostListRankingComputeStage = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListRankingComputeStage>>,
+    TError,
+    PostListRankingComputeStageMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListRankingComputeStage>>,
+  TError,
+  PostListRankingComputeStageMutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListRankingComputeStageMutationOptions(options))
+}

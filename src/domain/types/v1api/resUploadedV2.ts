@@ -3,8 +3,8 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { ResUploadedV2Data } from "./resUploadedV2Data"
-import type { UploadedV2Meta } from "./uploadedV2Meta"
+import type { ResUploadedV2Data } from "./resUploadedV2Data.ts"
+import type { UploadedV2Meta } from "./uploadedV2Meta.ts"
 
 /**
  * Data wrapper for ResUploadedV2

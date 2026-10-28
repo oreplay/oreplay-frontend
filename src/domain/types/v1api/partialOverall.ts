@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { StageOrder } from "./stageOrder"
+import type { StageOrder } from "./stageOrder.ts"
 
 /**
  * Entity PartialOverall
@@ -20,8 +20,7 @@ export interface PartialOverall {
   points_behind?: string | null
   points_final: number
   position: number
-  /** @nullable */
-  stage?: StageOrder
+  stage?: StageOrder | null
   stage_order: number
   status_code: number
   /** @nullable */

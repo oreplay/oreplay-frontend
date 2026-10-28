@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadedV2MetaTimingsProcessingRunners } from "./uploadedV2MetaTimingsProcessingRunners"
+import type { UploadedV2MetaTimingsProcessingRunners } from "./uploadedV2MetaTimingsProcessingRunners.ts"
 
 /**
  * objectInArray

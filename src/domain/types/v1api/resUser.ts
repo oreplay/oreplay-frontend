@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { User } from "./user"
+import type { User } from "./user.ts"
 
 /**
  * Data wrapper for User

@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { RankingLinks } from "./rankingLinks"
+import type { RankingLinks } from "./rankingLinks.ts"
 
 /**
  * Entity Ranking
@@ -15,8 +15,7 @@ export interface Ranking {
   /** @nullable */
   excluded_class_names?: string | null
   id: string
-  /** @nullable */
-  included_class_names?: string | null
+  included_class_names: string[]
   max_points: number
   modified: string
   /** @nullable */

@@ -3,18 +3,17 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { ClassEntity } from "./classEntity"
-import type { Club } from "./club"
-import type { Overalls } from "./overalls"
-import type { Result } from "./result"
+import type { ClassEntity } from "./classEntity.ts"
+import type { Club } from "./club.ts"
+import type { Overalls } from "./overalls.ts"
+import type { Result } from "./result.ts"
 
 /**
  * Entity Participant
  */
 export interface Participant {
   bib_number: number
-  /** @nullable */
-  class?: ClassEntity
+  class?: ClassEntity | null
   club: Club
   created: string
   eligibility: string
@@ -25,12 +24,10 @@ export interface Participant {
   leg_number?: string | null
   /** @nullable */
   legs?: string | null
-  /** @nullable */
-  overalls?: Overalls
+  overalls?: Overalls | null
   runners?: Participant[]
   /** @nullable */
   sex?: string | null
   sicard?: number
-  /** @nullable */
-  stage?: Result
+  stage?: Result | null
 }

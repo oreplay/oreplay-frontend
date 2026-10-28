@@ -3,9 +3,9 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PaginationLinksNext } from "./paginationLinksNext"
-import type { PaginationLinksPrev } from "./paginationLinksPrev"
-import type { PaginationLinksSelf } from "./paginationLinksSelf"
+import type { PaginationLinksNext } from "./paginationLinksNext.ts"
+import type { PaginationLinksPrev } from "./paginationLinksPrev.ts"
+import type { PaginationLinksSelf } from "./paginationLinksSelf.ts"
 
 /**
  * Pagination links.

@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Control } from "./control"
+import type { Control } from "./control.ts"
 
 /**
  * Entity Split

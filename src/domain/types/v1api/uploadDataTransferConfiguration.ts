@@ -13,5 +13,5 @@ export type UploadDataTransferConfiguration = {
   source?: string
   source_vendor?: string
   source_version?: number
-  utf?: number
+  utf?: boolean
 }

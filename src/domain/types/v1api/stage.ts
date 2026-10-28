@@ -3,9 +3,9 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { StageLinks } from "./stageLinks"
-import type { UploadLog } from "./uploadLog"
-import type { StageType } from "./stageType"
+import type { StageLinks } from "./stageLinks.ts"
+import type { StageType } from "./stageType.ts"
+import type { UploadLog } from "./uploadLog.ts"
 
 /**
  * Entity Stage
@@ -13,6 +13,8 @@ import type { StageType } from "./stageType"
 export interface Stage {
   _links: StageLinks
   description: string
+  /** @nullable */
+  external_url?: string | null
   id: string
   last_logs: UploadLog[]
   stage_type?: StageType

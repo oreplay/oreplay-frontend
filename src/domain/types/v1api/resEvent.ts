@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Event } from "./event"
+import type { Event } from "./event.ts"
 
 /**
  * Data wrapper for Event

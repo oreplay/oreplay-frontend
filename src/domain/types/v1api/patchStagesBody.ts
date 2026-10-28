@@ -9,6 +9,9 @@
  */
 export interface PatchStagesBody {
   description?: string
+  /** @nullable */
+  external_url?: string | null
   stage_type_id?: string
-  state_end?: number
+  start?: string
+  state_end?: boolean
 }

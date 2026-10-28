@@ -8,6 +8,12 @@
  * Entity Club
  */
 export interface Club {
+  /** @nullable */
+  city?: string | null
   id: string
+  /** @nullable */
+  province?: string | null
+  /** @nullable */
+  region?: string | null
   short_name: string
 }

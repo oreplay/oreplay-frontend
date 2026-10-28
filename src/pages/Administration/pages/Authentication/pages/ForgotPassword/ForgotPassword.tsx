@@ -27,7 +27,7 @@ export default function ForgotPassword() {
           severity: "error",
         })
       },
-      onSuccess: (_data, variables) => setSubmittedEmail(variables.data.email ?? null),
+      onSuccess: (_data, variables) => setSubmittedEmail(variables.data?.email ?? null),
     },
   })
 
