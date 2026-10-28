@@ -3,148 +3,202 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation
-} from 'react-query';
+import { useMutation } from "react-query"
 import type {
   MutationFunction,
   UseMutationOptions,
-  UseMutationResult
-} from 'react-query';
+  UseMutationResult,
+} from "react-query"
 
 import type {
   PatchResetPasswordBody,
   PostListResetPasswordBody,
-  ResUser
-} from '../../../domain/types/v1api';
+  ResUser,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
 /**
  * Add new
  */
 export const postListResetPassword = (
-    postListResetPasswordBody: PostListResetPasswordBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  postListResetPasswordBody?: PostListResetPasswordBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<void>(
-      {url: `/api/v1/resetPassword/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: postListResetPasswordBody, signal
+  return orvalAxiosInstance<void>(
+    {
+      url: `/api/v1/resetPassword/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: postListResetPasswordBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListResetPasswordMutationKey = () =>
+  ["postListResetPassword"] as const
 
-export const getPostListResetPasswordMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListResetPassword>>, TError,{data: PostListResetPasswordBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListResetPassword>>, TError,{data: PostListResetPasswordBody}, TContext> => {
+export const getPostListResetPasswordMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListResetPassword>>,
+    TError,
+    PostListResetPasswordMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListResetPassword>>,
+  TError,
+  PostListResetPasswordMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListResetPasswordMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListResetPassword'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListResetPassword>>,
+    PostListResetPasswordMutationVariables
+  > = (props) => {
+    const { data } = props ?? {}
 
-      
+    return postListResetPassword(data, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListResetPassword>>, {data: PostListResetPasswordBody}> = (props) => {
-          const {data} = props ?? {};
+export type PostListResetPasswordMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListResetPassword>>
+>
+export type PostListResetPasswordMutationBody =
+  | PostListResetPasswordBody
+  | undefined
+export type PostListResetPasswordMutationError = unknown
+export type PostListResetPasswordMutationVariables = {
+  data?: PostListResetPasswordBody
+}
 
-          return  postListResetPassword(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListResetPasswordMutationResult = NonNullable<Awaited<ReturnType<typeof postListResetPassword>>>
-    export type PostListResetPasswordMutationBody = PostListResetPasswordBody
-    export type PostListResetPasswordMutationError = unknown
-
-    export const usePostListResetPassword = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListResetPassword>>, TError,{data: PostListResetPasswordBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListResetPassword>>,
-        TError,
-        {data: PostListResetPasswordBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListResetPasswordMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+export const usePostListResetPassword = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListResetPassword>>,
+    TError,
+    PostListResetPasswordMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListResetPassword>>,
+  TError,
+  PostListResetPasswordMutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListResetPasswordMutationOptions(options))
+}
+/**
  * Edit
  */
 export const patchResetPassword = (
-    resetPasswordID: number,
-    patchResetPasswordBody: PatchResetPasswordBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<ResUser>(
-      {url: `/api/v1/resetPassword/${resetPasswordID}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: patchResetPasswordBody
+  resetPasswordID: number,
+  patchResetPasswordBody?: PatchResetPasswordBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<ResUser>(
+    {
+      url: `/api/v1/resetPassword/${resetPasswordID}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: patchResetPasswordBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPatchResetPasswordMutationKey = () =>
+  ["patchResetPassword"] as const
 
-export const getPatchResetPasswordMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchResetPassword>>, TError,{resetPasswordID: number;data: PatchResetPasswordBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchResetPassword>>, TError,{resetPasswordID: number;data: PatchResetPasswordBody}, TContext> => {
+export const getPatchResetPasswordMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchResetPassword>>,
+    TError,
+    PatchResetPasswordMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof patchResetPassword>>,
+  TError,
+  PatchResetPasswordMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPatchResetPasswordMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['patchResetPassword'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof patchResetPassword>>,
+    PatchResetPasswordMutationVariables
+  > = (props) => {
+    const { resetPasswordID, data } = props ?? {}
 
-      
+    return patchResetPassword(resetPasswordID, data, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchResetPassword>>, {resetPasswordID: number;data: PatchResetPasswordBody}> = (props) => {
-          const {resetPasswordID,data} = props ?? {};
+export type PatchResetPasswordMutationResult = NonNullable<
+  Awaited<ReturnType<typeof patchResetPassword>>
+>
+export type PatchResetPasswordMutationBody = PatchResetPasswordBody | undefined
+export type PatchResetPasswordMutationError = unknown
+export type PatchResetPasswordMutationVariables = {
+  resetPasswordID: number
+  data?: PatchResetPasswordBody
+}
 
-          return  patchResetPassword(resetPasswordID,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PatchResetPasswordMutationResult = NonNullable<Awaited<ReturnType<typeof patchResetPassword>>>
-    export type PatchResetPasswordMutationBody = PatchResetPasswordBody
-    export type PatchResetPasswordMutationError = unknown
-
-    export const usePatchResetPassword = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchResetPassword>>, TError,{resetPasswordID: number;data: PatchResetPasswordBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof patchResetPassword>>,
-        TError,
-        {resetPasswordID: number;data: PatchResetPasswordBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPatchResetPasswordMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+export const usePatchResetPassword = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchResetPassword>>,
+    TError,
+    PatchResetPasswordMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof patchResetPassword>>,
+  TError,
+  PatchResetPasswordMutationVariables,
+  TContext
+> => {
+  return useMutation(getPatchResetPasswordMutationOptions(options))
+}

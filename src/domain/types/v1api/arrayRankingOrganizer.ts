@@ -3,7 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { RankingOrganizer } from "./rankingOrganizer"
+import type { RankingOrganizer } from "./rankingOrganizer.ts"
 
 /**
  * Data wrapper for RankingOrganizer

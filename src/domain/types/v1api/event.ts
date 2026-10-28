@@ -3,10 +3,10 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { LinkUri } from "./linkUri"
-import type { Federation } from "./federation"
-import type { Organizer } from "./organizer"
-import type { Stage } from "./stage"
+import type { Federation } from "./federation.ts"
+import type { LinkUri } from "./linkUri.ts"
+import type { Organizer } from "./organizer.ts"
+import type { Stage } from "./stage.ts"
 
 /**
  * Entity Event
@@ -33,7 +33,7 @@ export interface Event {
   /** @nullable */
   scope?: string | null
   stages?: Stage[]
-  timezone?: string
+  timezone: string
   /** @nullable */
   website?: string | null
 }

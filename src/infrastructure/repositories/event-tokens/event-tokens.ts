@@ -3,10 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation,
-  useQuery
-} from 'react-query';
+import { useMutation, useQuery } from "react-query"
 import type {
   MutationFunction,
   QueryClient,
@@ -15,217 +12,319 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
 import type {
   ArrayToken,
   PostListEventTokensBody,
-  ResToken
-} from '../../../domain/types/v1api';
+  ResToken,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Add new
  */
 export const postListEventTokens = (
-    eventID: string,
-    postListEventTokensBody: PostListEventTokensBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  postListEventTokensBody?: PostListEventTokensBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResToken>(
-      {url: `/api/v1/events/${eventID}/tokens/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: postListEventTokensBody, signal
+  return orvalAxiosInstance<ResToken>(
+    {
+      url: `/api/v1/events/${eventID}/tokens/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: postListEventTokensBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListEventTokensMutationKey = () =>
+  ["postListEventTokens"] as const
 
-export const getPostListEventTokensMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListEventTokens>>, TError,{eventID: string;data: PostListEventTokensBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListEventTokens>>, TError,{eventID: string;data: PostListEventTokensBody}, TContext> => {
+export const getPostListEventTokensMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListEventTokens>>,
+    TError,
+    PostListEventTokensMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListEventTokens>>,
+  TError,
+  PostListEventTokensMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListEventTokensMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListEventTokens'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListEventTokens>>,
+    PostListEventTokensMutationVariables
+  > = (props) => {
+    const { eventID, data } = props ?? {}
 
-      
+    return postListEventTokens(eventID, data, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListEventTokens>>, {eventID: string;data: PostListEventTokensBody}> = (props) => {
-          const {eventID,data} = props ?? {};
+export type PostListEventTokensMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListEventTokens>>
+>
+export type PostListEventTokensMutationBody =
+  | PostListEventTokensBody
+  | undefined
+export type PostListEventTokensMutationError = unknown
+export type PostListEventTokensMutationVariables = {
+  eventID: string
+  data?: PostListEventTokensBody
+}
 
-          return  postListEventTokens(eventID,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListEventTokensMutationResult = NonNullable<Awaited<ReturnType<typeof postListEventTokens>>>
-    export type PostListEventTokensMutationBody = PostListEventTokensBody
-    export type PostListEventTokensMutationError = unknown
-
-    export const usePostListEventTokens = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListEventTokens>>, TError,{eventID: string;data: PostListEventTokensBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListEventTokens>>,
-        TError,
-        {eventID: string;data: PostListEventTokensBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListEventTokensMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+export const usePostListEventTokens = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListEventTokens>>,
+    TError,
+    PostListEventTokensMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListEventTokens>>,
+  TError,
+  PostListEventTokensMutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListEventTokensMutationOptions(options))
+}
+/**
  * Get list
  */
 export const getListEventTokens = (
-    eventID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ArrayToken>(
-      {url: `/api/v1/events/${eventID}/tokens/`, method: 'GET', signal
-    },
-      options);
-    }
-  
-
-
-
-export const getGetListEventTokensQueryKey = (eventID?: string,) => {
-    return [
-    `/api/v1/events/${eventID}/tokens/`
-    ] as const;
-    }
-
-    
-export const getGetListEventTokensQueryOptions = <TData = Awaited<ReturnType<typeof getListEventTokens>>, TError = unknown>(eventID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListEventTokens>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListEventTokensQueryKey(eventID);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListEventTokens>>> = ({ signal }) => getListEventTokens(eventID, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(eventID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListEventTokens>>, TError, TData> & { queryKey: QueryKey }
+  return orvalAxiosInstance<ArrayToken>(
+    { url: `/api/v1/events/${eventID}/tokens/`, method: "GET", signal },
+    options,
+  )
 }
 
-export type GetListEventTokensQueryResult = NonNullable<Awaited<ReturnType<typeof getListEventTokens>>>
+export const getGetListEventTokensQueryKey = (eventID: string) => {
+  return [`/api/v1/events/${eventID}/tokens/`] as const
+}
+
+export const getGetListEventTokensQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListEventTokens>>,
+  TError = unknown,
+>(
+  eventID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListEventTokens>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetListEventTokensQueryKey(eventID)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListEventTokens>>
+  > = ({ signal }) => getListEventTokens(eventID, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: eventID !== null && eventID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListEventTokens>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListEventTokensQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListEventTokens>>
+>
 export type GetListEventTokensQueryError = unknown
 
+export function useGetListEventTokens<
+  TData = Awaited<ReturnType<typeof getListEventTokens>>,
+  TError = unknown,
+>(
+  eventID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListEventTokens>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListEventTokensQueryOptions(eventID, options)
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListEventTokens<TData = Awaited<ReturnType<typeof getListEventTokens>>, TError = unknown>(
- eventID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListEventTokens>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListEventTokensQueryOptions(eventID,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListEventTokensQuery = async <TData = Awaited<ReturnType<typeof getListEventTokens>>, TError = unknown>(
- queryClient: QueryClient, eventID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListEventTokens>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+export const prefetchGetListEventTokensQuery = async <
+  TData = Awaited<ReturnType<typeof getListEventTokens>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  eventID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListEventTokens>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListEventTokensQueryOptions(eventID, options)
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListEventTokensQueryOptions(eventID,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Delete
  */
 export const deleteEventTokens = (
-    eventID: string,
-    tokenID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<void>(
-      {url: `/api/v1/events/${eventID}/tokens/${tokenID}`, method: 'DELETE'
+  eventID: string,
+  tokenID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<void>(
+    {
+      url: `/api/v1/events/${eventID}/tokens/${tokenID}`,
+      method: "DELETE",
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getDeleteEventTokensMutationKey = () =>
+  ["deleteEventTokens"] as const
 
-export const getDeleteEventTokensMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteEventTokens>>, TError,{eventID: string;tokenID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteEventTokens>>, TError,{eventID: string;tokenID: string}, TContext> => {
+export const getDeleteEventTokensMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteEventTokens>>,
+    TError,
+    DeleteEventTokensMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteEventTokens>>,
+  TError,
+  DeleteEventTokensMutationVariables,
+  TContext
+> => {
+  const mutationKey = getDeleteEventTokensMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['deleteEventTokens'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteEventTokens>>,
+    DeleteEventTokensMutationVariables
+  > = (props) => {
+    const { eventID, tokenID } = props ?? {}
 
-      
+    return deleteEventTokens(eventID, tokenID, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteEventTokens>>, {eventID: string;tokenID: string}> = (props) => {
-          const {eventID,tokenID} = props ?? {};
+export type DeleteEventTokensMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteEventTokens>>
+>
 
-          return  deleteEventTokens(eventID,tokenID,requestOptions)
-        }
+export type DeleteEventTokensMutationError = unknown
+export type DeleteEventTokensMutationVariables = {
+  eventID: string
+  tokenID: string
+}
 
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteEventTokensMutationResult = NonNullable<Awaited<ReturnType<typeof deleteEventTokens>>>
-    
-    export type DeleteEventTokensMutationError = unknown
-
-    export const useDeleteEventTokens = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteEventTokens>>, TError,{eventID: string;tokenID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof deleteEventTokens>>,
-        TError,
-        {eventID: string;tokenID: string},
-        TContext
-      > => {
-
-      const mutationOptions = getDeleteEventTokensMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+export const useDeleteEventTokens = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteEventTokens>>,
+    TError,
+    DeleteEventTokensMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteEventTokens>>,
+  TError,
+  DeleteEventTokensMutationVariables,
+  TContext
+> => {
+  return useMutation(getDeleteEventTokensMutationOptions(options))
+}

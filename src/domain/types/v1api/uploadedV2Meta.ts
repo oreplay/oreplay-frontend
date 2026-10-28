@@ -3,9 +3,9 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadMessage } from "./uploadMessage"
-import type { UploadedV2MetaTimings } from "./uploadedV2MetaTimings"
-import type { UploadedV2MetaUpdated } from "./uploadedV2MetaUpdated"
+import type { UploadedV2MetaTimings } from "./uploadedV2MetaTimings.ts"
+import type { UploadedV2MetaUpdated } from "./uploadedV2MetaUpdated.ts"
+import type { UploadMessage } from "./uploadMessage.ts"
 
 /**
  * Entity UploadedV2Meta

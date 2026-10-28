@@ -3,90 +3,114 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation
-} from 'react-query';
+import { useMutation } from "react-query"
 import type {
   MutationFunction,
   UseMutationOptions,
-  UseMutationResult
-} from 'react-query';
+  UseMutationResult,
+} from "react-query"
 
 import type {
   PostListUploadsV2Params,
   ResUploadedV2,
-  UploadPostData
-} from '../../../domain/types/v1api';
+  UploadPostData,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
 /**
  * Add new should add mixed content
  */
 export const postListUploadsV2 = (
-    eventID: string,
-    uploadPostData: UploadPostData,
-    params?: PostListUploadsV2Params,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  uploadPostData?: UploadPostData,
+  params?: PostListUploadsV2Params,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResUploadedV2>(
-      {url: `/api/v1/events/${eventID}/uploads/v2/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
+  return orvalAxiosInstance<ResUploadedV2>(
+    {
+      url: `/api/v1/events/${eventID}/uploads/v2/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       data: uploadPostData,
-        params, signal
+      params,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListUploadsV2MutationKey = () =>
+  ["postListUploadsV2"] as const
 
-export const getPostListUploadsV2MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListUploadsV2>>, TError,{eventID: string;data: UploadPostData;params?: PostListUploadsV2Params}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListUploadsV2>>, TError,{eventID: string;data: UploadPostData;params?: PostListUploadsV2Params}, TContext> => {
+export const getPostListUploadsV2MutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListUploadsV2>>,
+    TError,
+    PostListUploadsV2MutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListUploadsV2>>,
+  TError,
+  PostListUploadsV2MutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListUploadsV2MutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListUploadsV2'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListUploadsV2>>,
+    PostListUploadsV2MutationVariables
+  > = (props) => {
+    const { eventID, data, params } = props ?? {}
 
-      
+    return postListUploadsV2(eventID, data, params, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListUploadsV2>>, {eventID: string;data: UploadPostData;params?: PostListUploadsV2Params}> = (props) => {
-          const {eventID,data,params} = props ?? {};
+export type PostListUploadsV2MutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListUploadsV2>>
+>
+export type PostListUploadsV2MutationBody = UploadPostData | undefined
+export type PostListUploadsV2MutationError = unknown
+export type PostListUploadsV2MutationVariables = {
+  eventID: string
+  data?: UploadPostData
+  params?: PostListUploadsV2Params
+}
 
-          return  postListUploadsV2(eventID,data,params,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListUploadsV2MutationResult = NonNullable<Awaited<ReturnType<typeof postListUploadsV2>>>
-    export type PostListUploadsV2MutationBody = UploadPostData
-    export type PostListUploadsV2MutationError = unknown
-
-    export const usePostListUploadsV2 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListUploadsV2>>, TError,{eventID: string;data: UploadPostData;params?: PostListUploadsV2Params}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListUploadsV2>>,
-        TError,
-        {eventID: string;data: UploadPostData;params?: PostListUploadsV2Params},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListUploadsV2MutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+export const usePostListUploadsV2 = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListUploadsV2>>,
+    TError,
+    PostListUploadsV2MutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListUploadsV2>>,
+  TError,
+  PostListUploadsV2MutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListUploadsV2MutationOptions(options))
+}

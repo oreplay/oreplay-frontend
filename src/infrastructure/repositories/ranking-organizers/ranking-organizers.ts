@@ -3,10 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation,
-  useQuery
-} from 'react-query';
+import { useMutation, useQuery } from "react-query"
 import type {
   MutationFunction,
   QueryClient,
@@ -15,238 +12,403 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
 import type {
   ArrayRankingOrganizer,
   PostListRankingOrganizersBody,
-  ResRankingOrganizer
-} from '../../../domain/types/v1api';
+  ResRankingOrganizer,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Add new with existing runner id
  */
 export const postListRankingOrganizers = (
-    rankingID: string,
-    eventID: string,
-    stageID: string,
-    stageOrderID: string,
-    postListRankingOrganizersBody: PostListRankingOrganizersBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  postListRankingOrganizersBody?: PostListRankingOrganizersBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResRankingOrganizer>(
-      {url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: postListRankingOrganizersBody, signal
+  return orvalAxiosInstance<ResRankingOrganizer>(
+    {
+      url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: postListRankingOrganizersBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListRankingOrganizersMutationKey = () =>
+  ["postListRankingOrganizers"] as const
 
-export const getPostListRankingOrganizersMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListRankingOrganizers>>, TError,{rankingID: string;eventID: string;stageID: string;stageOrderID: string;data: PostListRankingOrganizersBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListRankingOrganizers>>, TError,{rankingID: string;eventID: string;stageID: string;stageOrderID: string;data: PostListRankingOrganizersBody}, TContext> => {
+export const getPostListRankingOrganizersMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListRankingOrganizers>>,
+    TError,
+    PostListRankingOrganizersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListRankingOrganizers>>,
+  TError,
+  PostListRankingOrganizersMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListRankingOrganizersMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListRankingOrganizers'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListRankingOrganizers>>,
+    PostListRankingOrganizersMutationVariables
+  > = (props) => {
+    const { rankingID, eventID, stageID, stageOrderID, data } = props ?? {}
 
-      
+    return postListRankingOrganizers(
+      rankingID,
+      eventID,
+      stageID,
+      stageOrderID,
+      data,
+      requestOptions,
+    )
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListRankingOrganizers>>, {rankingID: string;eventID: string;stageID: string;stageOrderID: string;data: PostListRankingOrganizersBody}> = (props) => {
-          const {rankingID,eventID,stageID,stageOrderID,data} = props ?? {};
+export type PostListRankingOrganizersMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListRankingOrganizers>>
+>
+export type PostListRankingOrganizersMutationBody =
+  | PostListRankingOrganizersBody
+  | undefined
+export type PostListRankingOrganizersMutationError = unknown
+export type PostListRankingOrganizersMutationVariables = {
+  rankingID: string
+  eventID: string
+  stageID: string
+  stageOrderID: string
+  data?: PostListRankingOrganizersBody
+}
 
-          return  postListRankingOrganizers(rankingID,eventID,stageID,stageOrderID,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListRankingOrganizersMutationResult = NonNullable<Awaited<ReturnType<typeof postListRankingOrganizers>>>
-    export type PostListRankingOrganizersMutationBody = PostListRankingOrganizersBody
-    export type PostListRankingOrganizersMutationError = unknown
-
-    export const usePostListRankingOrganizers = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListRankingOrganizers>>, TError,{rankingID: string;eventID: string;stageID: string;stageOrderID: string;data: PostListRankingOrganizersBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListRankingOrganizers>>,
-        TError,
-        {rankingID: string;eventID: string;stageID: string;stageOrderID: string;data: PostListRankingOrganizersBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListRankingOrganizersMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+export const usePostListRankingOrganizers = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListRankingOrganizers>>,
+    TError,
+    PostListRankingOrganizersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListRankingOrganizers>>,
+  TError,
+  PostListRankingOrganizersMutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListRankingOrganizersMutationOptions(options))
+}
+/**
  * Get list returns organizers
  */
 export const getListRankingOrganizers = (
-    rankingID: string,
-    eventID: string,
-    stageID: string,
-    stageOrderID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ArrayRankingOrganizer>(
-      {url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/`, method: 'GET', signal
+  return orvalAxiosInstance<ArrayRankingOrganizer>(
+    {
+      url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/`,
+      method: "GET",
+      signal,
     },
-      options);
-    }
-  
-
-
-
-export const getGetListRankingOrganizersQueryKey = (rankingID?: string,
-    eventID?: string,
-    stageID?: string,
-    stageOrderID?: string,) => {
-    return [
-    `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/`
-    ] as const;
-    }
-
-    
-export const getGetListRankingOrganizersQueryOptions = <TData = Awaited<ReturnType<typeof getListRankingOrganizers>>, TError = unknown>(rankingID: string,
-    eventID: string,
-    stageID: string,
-    stageOrderID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRankingOrganizers>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListRankingOrganizersQueryKey(rankingID,eventID,stageID,stageOrderID);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListRankingOrganizers>>> = ({ signal }) => getListRankingOrganizers(rankingID,eventID,stageID,stageOrderID, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(rankingID && eventID && stageID && stageOrderID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListRankingOrganizers>>, TError, TData> & { queryKey: QueryKey }
+    options,
+  )
 }
 
-export type GetListRankingOrganizersQueryResult = NonNullable<Awaited<ReturnType<typeof getListRankingOrganizers>>>
+export const getGetListRankingOrganizersQueryKey = (
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+) => {
+  return [
+    `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/`,
+  ] as const
+}
+
+export const getGetListRankingOrganizersQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListRankingOrganizers>>,
+  TError = unknown,
+>(
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRankingOrganizers>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetListRankingOrganizersQueryKey(
+      rankingID,
+      eventID,
+      stageID,
+      stageOrderID,
+    )
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListRankingOrganizers>>
+  > = ({ signal }) =>
+    getListRankingOrganizers(
+      rankingID,
+      eventID,
+      stageID,
+      stageOrderID,
+      requestOptions,
+      signal,
+    )
+
+  return {
+    queryKey,
+    queryFn,
+    enabled:
+      rankingID !== null &&
+      rankingID !== undefined &&
+      eventID !== null &&
+      eventID !== undefined &&
+      stageID !== null &&
+      stageID !== undefined &&
+      stageOrderID !== null &&
+      stageOrderID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListRankingOrganizers>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListRankingOrganizersQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListRankingOrganizers>>
+>
 export type GetListRankingOrganizersQueryError = unknown
 
+export function useGetListRankingOrganizers<
+  TData = Awaited<ReturnType<typeof getListRankingOrganizers>>,
+  TError = unknown,
+>(
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRankingOrganizers>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListRankingOrganizersQueryOptions(
+    rankingID,
+    eventID,
+    stageID,
+    stageOrderID,
+    options,
+  )
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListRankingOrganizers<TData = Awaited<ReturnType<typeof getListRankingOrganizers>>, TError = unknown>(
- rankingID: string,
-    eventID: string,
-    stageID: string,
-    stageOrderID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRankingOrganizers>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListRankingOrganizersQueryOptions(rankingID,eventID,stageID,stageOrderID,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListRankingOrganizersQuery = async <TData = Awaited<ReturnType<typeof getListRankingOrganizers>>, TError = unknown>(
- queryClient: QueryClient, rankingID: string,
-    eventID: string,
-    stageID: string,
-    stageOrderID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRankingOrganizers>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+export const prefetchGetListRankingOrganizersQuery = async <
+  TData = Awaited<ReturnType<typeof getListRankingOrganizers>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRankingOrganizers>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListRankingOrganizersQueryOptions(
+    rankingID,
+    eventID,
+    stageID,
+    stageOrderID,
+    options,
+  )
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListRankingOrganizersQueryOptions(rankingID,eventID,stageID,stageOrderID,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Delete soft deletes organizer
  */
 export const deleteRankingOrganizers = (
-    rankingID: string,
-    eventID: string,
-    stageID: string,
-    stageOrderID: string,
-    organizerID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<void>(
-      {url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/${organizerID}`, method: 'DELETE'
+  rankingID: string,
+  eventID: string,
+  stageID: string,
+  stageOrderID: string,
+  organizerID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<void>(
+    {
+      url: `/api/v1/rankings/${rankingID}/events/${eventID}/stages/${stageID}/stageOrders/${stageOrderID}/organizers/${organizerID}`,
+      method: "DELETE",
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getDeleteRankingOrganizersMutationKey = () =>
+  ["deleteRankingOrganizers"] as const
 
-export const getDeleteRankingOrganizersMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRankingOrganizers>>, TError,{rankingID: string;eventID: string;stageID: string;stageOrderID: string;organizerID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteRankingOrganizers>>, TError,{rankingID: string;eventID: string;stageID: string;stageOrderID: string;organizerID: string}, TContext> => {
+export const getDeleteRankingOrganizersMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteRankingOrganizers>>,
+    TError,
+    DeleteRankingOrganizersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteRankingOrganizers>>,
+  TError,
+  DeleteRankingOrganizersMutationVariables,
+  TContext
+> => {
+  const mutationKey = getDeleteRankingOrganizersMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['deleteRankingOrganizers'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteRankingOrganizers>>,
+    DeleteRankingOrganizersMutationVariables
+  > = (props) => {
+    const { rankingID, eventID, stageID, stageOrderID, organizerID } =
+      props ?? {}
 
-      
+    return deleteRankingOrganizers(
+      rankingID,
+      eventID,
+      stageID,
+      stageOrderID,
+      organizerID,
+      requestOptions,
+    )
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteRankingOrganizers>>, {rankingID: string;eventID: string;stageID: string;stageOrderID: string;organizerID: string}> = (props) => {
-          const {rankingID,eventID,stageID,stageOrderID,organizerID} = props ?? {};
+export type DeleteRankingOrganizersMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteRankingOrganizers>>
+>
 
-          return  deleteRankingOrganizers(rankingID,eventID,stageID,stageOrderID,organizerID,requestOptions)
-        }
+export type DeleteRankingOrganizersMutationError = unknown
+export type DeleteRankingOrganizersMutationVariables = {
+  rankingID: string
+  eventID: string
+  stageID: string
+  stageOrderID: string
+  organizerID: string
+}
 
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteRankingOrganizersMutationResult = NonNullable<Awaited<ReturnType<typeof deleteRankingOrganizers>>>
-    
-    export type DeleteRankingOrganizersMutationError = unknown
-
-    export const useDeleteRankingOrganizers = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRankingOrganizers>>, TError,{rankingID: string;eventID: string;stageID: string;stageOrderID: string;organizerID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof deleteRankingOrganizers>>,
-        TError,
-        {rankingID: string;eventID: string;stageID: string;stageOrderID: string;organizerID: string},
-        TContext
-      > => {
-
-      const mutationOptions = getDeleteRankingOrganizersMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+export const useDeleteRankingOrganizers = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteRankingOrganizers>>,
+    TError,
+    DeleteRankingOrganizersMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteRankingOrganizers>>,
+  TError,
+  DeleteRankingOrganizersMutationVariables,
+  TContext
+> => {
+  return useMutation(getDeleteRankingOrganizersMutationOptions(options))
+}

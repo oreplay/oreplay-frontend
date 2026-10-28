@@ -3,8 +3,8 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadedV2MetaTimingsProcessing } from "./uploadedV2MetaTimingsProcessing"
-import type { UploadedV2MetaTimingsSaving } from "./uploadedV2MetaTimingsSaving"
+import type { UploadedV2MetaTimingsProcessing } from "./uploadedV2MetaTimingsProcessing.ts"
+import type { UploadedV2MetaTimingsSaving } from "./uploadedV2MetaTimingsSaving.ts"
 
 /**
  * Generic object.

@@ -3,8 +3,8 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Participant } from "./participant"
-import type { Split } from "./split"
+import type { Participant } from "./participant.ts"
+import type { Split } from "./split.ts"
 
 /**
  * Entity ClassEntity

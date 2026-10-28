@@ -8,11 +8,17 @@
  * Generic object when: Add new
  */
 export type PostListEventsBody = {
+  country_code?: string
   description?: string
   federation_id?: string
   final_date?: string
   id?: string
   initial_date?: string
-  is_hidden?: number
+  is_hidden?: boolean
+  location?: string
   organizer_id?: string
+  picture?: string
+  scope?: string
+  timezone?: string
+  website?: string
 }
