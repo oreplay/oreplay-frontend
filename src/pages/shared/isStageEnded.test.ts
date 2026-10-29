@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { isStageEnded } from "./isStageEnded.ts"
-import { StageModel, StateLogConst } from "../../../../../../../../../shared/EntityTypes.ts"
+import { isStageEnded, isStageEndedById } from "./isStageEnded.ts"
+import { StageModel, StateLogConst } from "../../shared/EntityTypes.ts"
 
 const aStage = (id: string, states: StateLogConst[]): StageModel => ({
   id,
@@ -19,18 +19,29 @@ const stages = [
 
 describe("isStageEnded", () => {
   it("is true when the stage was ended", () => {
-    expect(isStageEnded(stages, "ended")).toBe(true)
+    expect(isStageEnded(stages[1])).toBe(true)
   })
 
   it("is false when the stage only uploaded start times and results", () => {
-    expect(isStageEnded(stages, "running")).toBe(false)
+    expect(isStageEnded(stages[0])).toBe(false)
   })
 
   it("is false when the stage has no logs", () => {
-    expect(isStageEnded(stages, "empty")).toBe(false)
+    expect(isStageEnded(stages[2])).toBe(false)
+  })
+
+  it("is false without a stage", () => {
+    expect(isStageEnded(undefined)).toBe(false)
+  })
+})
+
+describe("isStageEndedById", () => {
+  it("finds the stage and checks whether it was ended", () => {
+    expect(isStageEndedById(stages, "ended")).toBe(true)
+    expect(isStageEndedById(stages, "running")).toBe(false)
   })
 
   it("is false when the stage is not listed", () => {
-    expect(isStageEnded(stages, "unknown")).toBe(false)
+    expect(isStageEndedById(stages, "unknown")).toBe(false)
   })
 })

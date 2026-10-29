@@ -14,6 +14,8 @@ import { StageModel } from "../../../../shared/EntityTypes.ts"
 import EventCountry from "../../components/EventCountry.tsx"
 import { EVENT_GRADIENT } from "../../shared/constants.ts"
 import { formatEventDateRange, formatStageStart } from "../../shared/eventDates.ts"
+import { isStageEnded } from "../../../shared/isStageEnded.ts"
+import StageEndedBadge from "./components/StageEndedBadge.tsx"
 
 const styles = {
   titleEvent: {
@@ -156,6 +158,7 @@ export default function EventDetail() {
                   <Box
                     key={stage.id}
                     sx={{
+                      position: "relative",
                       cursor: "pointer",
                       backgroundColor: "background.paper",
                       border: "1px solid",
@@ -194,6 +197,7 @@ export default function EventDetail() {
                       ) : null}
                     </Box>
                     <ArrowForward sx={{ color: "primary.main", fontSize: "20px" }} />
+                    {isStageEnded(stage) && <StageEndedBadge />}
                   </Box>
                 )
               })}
