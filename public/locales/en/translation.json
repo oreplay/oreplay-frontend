@@ -326,6 +326,7 @@
       "Hide": "Hide online controls",
       "Show": "Show online controls"
     },
+    "OutdatedData": "These results may be out of date: the latest update failed. They will update by themselves when the connection is back.",
     "PenaltyPoints": "Penalty:",
     "Points": "Points:",
     "PointsTable": {
