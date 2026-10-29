@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import {
-  MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX,
+  MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET,
   MOBILE_FLOATING_BUTTON_GAP_PX,
   MOBILE_FLOATING_BUTTON_HEIGHT_PX,
 } from "../../../../../../../shared/mobileLayout.ts"
@@ -32,7 +32,7 @@ export default function ClassSelectorTriggerFloatingButton(props: ClassSelectorT
         color: "text.primary",
         backgroundColor: "background.paper",
         "&:hover": { backgroundColor: "background.paper", borderColor: "divider" },
-        bottom: `${MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX}px`,
+        bottom: MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET,
         right: `${MOBILE_FLOATING_BUTTON_GAP_PX}px`,
         height: `${MOBILE_FLOATING_BUTTON_HEIGHT_PX}px`,
         maxWidth: `calc(100vw - ${2 * MOBILE_FLOATING_BUTTON_GAP_PX}px)`,
