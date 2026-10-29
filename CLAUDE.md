@@ -96,6 +96,13 @@ desktop; a phone in landscape stays mobile.
   `src/pages/Results/pages/Results/shared/mobileLayout.ts` (bottom navigation height, floating button
   offset, content bottom padding). Anything else pinned to the bottom of the screen reads those
   constants instead of repeating pixel values, so nothing ends up hidden behind the bar or the button.
+- **Keep clear of the device's hidden areas** (notch, Dynamic Island, home indicator): the page uses
+  `viewport-fit=cover`, so anything pinned to a screen edge adds the matching inset from
+  `src/shared/safeArea.ts` (`SAFE_AREA_INSET_*`, `offsetFromSafeArea`, or `measureCssLengthPx`
+  for layout computed in JavaScript). Bars pinned to the bottom use `SAFE_AREA_BOTTOM_BAR_INSET`,
+  which lets them cover the unused part of the home indicator's area instead of floating above it.
+  Dialogs and top snackbars already get it from the MUI theme (`src/shared/safeAreaTheme.ts`) —
+  don't add it again per dialog.
 - **Breakpoints are still right for purely responsive layout** inside one component (Tailwind `lg:`,
   MUI `sx` breakpoints) — column counts, spacing, font sizes.
 - **Tests** mock the hook (`vi.mock` of `useIsMobileDevice.ts`) to render each variant — see
