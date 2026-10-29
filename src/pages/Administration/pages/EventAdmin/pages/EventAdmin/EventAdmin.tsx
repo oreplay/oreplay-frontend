@@ -7,6 +7,7 @@ import StagesDataGrid from "./components/StagesDataGrid/StagesDataGrid.tsx"
 import EventTokenDataGrid from "./components/EventTokenDataGrid.tsx"
 import DeleteEventButton from "./components/DeleteEventButton.tsx"
 import DirectUploadAnnouncement from "./components/DirectUploadAnnouncement.tsx"
+import OfficialResultsAnnouncement from "./components/OfficialResultsAnnouncement.tsx"
 import TextWithUploadIcon from "./components/TextWithUploadIcon.tsx"
 import { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
@@ -156,6 +157,7 @@ export default function EventAdmin() {
           <Typography component="p" variant="body2" color="text.secondary" sx={{ mb: 2 }}>
             {t("EventAdmin.Stages.description")}
           </Typography>
+          <OfficialResultsAnnouncement />
           {detail ? <StagesDataGrid eventDetail={detail} /> : <></>}
 
           {/* Upload data */}

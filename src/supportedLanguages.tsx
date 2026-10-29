@@ -40,4 +40,5 @@ export const usedNamespaces: string[] = [
   "PrivacyPolicy",
   "LegalNotice",
   "CookiesPolicy",
+  "announcements",
 ]

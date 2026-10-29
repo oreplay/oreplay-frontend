@@ -148,16 +148,25 @@ Weblate-managed) and are fetched at runtime by `i18next-http-backend`
 ### Namespaces
 
 A namespace is one JSON file per locale, loaded independently. Today: `translation` (the default —
-core results/event functionality), `common`, `ranking`, `organizers`, `about-us`, etc.
+core results/event functionality), `common`, `ranking`, `organizers`, `about-us`, `announcements`,
+etc.
 
 - **New functionality that isn't deeply tied to the core results feature gets its own namespace**,
   rather than growing `translation.json`. A namespace keeps a feature's wording self-contained,
   keeps it out of the bundle for users who never open it, and lets Weblate track it separately.
 - **Declare the namespace, then use bare keys**: `const { t } = useTranslation("organizers")` →
   `t("title")`. This is how every feature namespace is consumed — never `t("organizers:title")`.
-- **Wrap the namespace in a hook rather than repeating the string**: the ranking area calls
-  `useTranslationRanking()` (`src/pages/Ranking/shared/useTranslationRanking.ts` instead of using `useTranslation("ranking")`), which owns the one
-  `RANKING_NAMESPACE` constant. Follow this for every new namespace — no magic strings at call sites.
+- **Use plain `useTranslation("<ns>")`** for a namespace with a handful of call sites, as
+  `organizers` and `announcements` do; don't add a wrapper hook just to name it. Only a large feature
+  wraps it: the ranking area calls `useTranslationRanking()`
+  (`src/pages/Ranking/shared/useTranslationRanking.ts`), which owns the one `RANKING_NAMESPACE`
+  constant used across its many screens.
+- **New-feature announcements live in the `announcements` namespace**: every "New: …" alert (an
+  info `Alert` with the `AutoAwesome` icon, e.g. `DirectUploadAnnouncement`,
+  `OfficialResultsAnnouncement`) reads `useTranslation("announcements")` and keys its text as
+  `<feature>.title` / `<feature>.body`. Icons inside the body are `<tag/>` placeholders filled by
+  `<Trans components={…}>`. Retiring an announcement means deleting its component and its keys in
+  every locale.
 - **`common` is the exception that is always available**: it is preloaded next to `translation`
   (`ns` in `src/i18n.ts`), so `t("common:save")` works from any `t`, including a plain
   `useTranslation()`. That way a component mixes its own feature keys with generic labels without
