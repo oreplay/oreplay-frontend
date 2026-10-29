@@ -135,16 +135,16 @@
       },
       "FailedToLoadOrganizers": "Failed to load organizers",
       "FinishStage": {
-        "DialogBody": "The results of this stage will be marked as final and official. You can reopen the stage later if you need to upload data again.",
+        "DialogBody": "Labeling results as official let runners know that the stage has ended and the results will no longer change. It also prevents any accidental upload or change on the data. If you need to edit the data later, you can remove this label.",
         "DialogConfirm": "Make official",
-        "DialogTitle": "Do you want to finish this stage?",
-        "MenuText": "Set as finished",
+        "DialogTitle": "Do you want to make results official?",
+        "MenuText": "Make official",
         "Tooltip": "Runners see these results as final. Make them provisional from the stage menu to change the data.",
         "Undo": {
-          "DialogBody": "The results of this stage will no longer be official.",
+          "DialogBody": "The stage was labeled as official. Making results provisional again allows you to modify the data.",
           "DialogConfirm": "Reopen",
           "DialogTitle": "Do you want to reopen this stage?",
-          "MenuText": "Set as not finished"
+          "MenuText": "Make provisional"
         }
       },
       "GoToStage": "Go to the stage",

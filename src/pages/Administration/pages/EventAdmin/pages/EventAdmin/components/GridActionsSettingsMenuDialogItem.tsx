@@ -20,8 +20,21 @@ interface Props {
   dialogBody: string
   dialogCancelButtonText: string
   dialogConfirmButtonText: string
+  disabled?: boolean
 }
 
+/**
+ * Settings menu entry that asks for confirmation in a dialog before running its action.
+ * @param props.icon Icon shown before the menu text.
+ * @param props.menuText Label of the menu entry.
+ * @param props.action Runs when the dialog is confirmed.
+ * @param props.menuCloseAction Closes the parent menu when the dialog is cancelled.
+ * @param props.dialogTitle Title of the confirmation dialog.
+ * @param props.dialogBody Explanation shown in the confirmation dialog.
+ * @param props.dialogCancelButtonText Label of the button that dismisses the dialog.
+ * @param props.dialogConfirmButtonText Label of the button that confirms the action.
+ * @param props.disabled Greys the entry out so the dialog cannot be opened; enabled when absent.
+ */
 export default function GridActionsSettingsMenuDialogItem(props: Props) {
   // Internal states
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
@@ -37,7 +50,7 @@ export default function GridActionsSettingsMenuDialogItem(props: Props) {
   // Component
   return (
     <>
-      <MenuItem onClick={handleOpen}>
+      <MenuItem onClick={handleOpen} disabled={props.disabled}>
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText>{props.menuText}</ListItemText>
       </MenuItem>

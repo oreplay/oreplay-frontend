@@ -16,6 +16,16 @@ vi.mock("@mui/x-data-grid", () => ({
   }),
 }))
 
+const WIPE_OUT_MENU_TEXT = "EventAdmin.Stages.WipeOutRunners.MenuText"
+const DELETE_MENU_TEXT = "EventAdmin.Stages.DeleteStage.MenuText"
+
+/**
+ * Finds the settings menu entry that shows the given text.
+ * @param text Untranslated key the entry renders as its label.
+ * @returns The menu item element.
+ */
+const getMenuItem = (text: string) => screen.getByText(text).closest('[role="menuitem"]')
+
 const renderMenu = (isStageEnded: boolean, handleSetStageEndedClick: () => void) =>
   render(
     <GridActionsSettingsMenu
@@ -51,5 +61,21 @@ describe("GridActionsSettingsMenu", () => {
     confirmStageEndedFrom("EventAdmin.Stages.FinishStage.Undo")
 
     expect(setStageEnded).toHaveBeenCalledWith(false)
+  })
+
+  it("disables wiping and deleting a stage whose results are official", () => {
+    renderMenu(true, vi.fn())
+    fireEvent.click(screen.getByRole("button", { name: "Settings" }))
+
+    expect(getMenuItem(WIPE_OUT_MENU_TEXT)).toHaveAttribute("aria-disabled", "true")
+    expect(getMenuItem(DELETE_MENU_TEXT)).toHaveAttribute("aria-disabled", "true")
+  })
+
+  it("lets the organizer wipe and delete a stage that is not official", () => {
+    renderMenu(false, vi.fn())
+    fireEvent.click(screen.getByRole("button", { name: "Settings" }))
+
+    expect(getMenuItem(WIPE_OUT_MENU_TEXT)).not.toHaveAttribute("aria-disabled")
+    expect(getMenuItem(DELETE_MENU_TEXT)).not.toHaveAttribute("aria-disabled")
   })
 })
