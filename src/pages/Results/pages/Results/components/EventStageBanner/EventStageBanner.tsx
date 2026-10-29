@@ -1,9 +1,11 @@
 import "../../../../../../styles/tokens.css"
 import "../../../../../../styles/tailwind.css"
+import { DateTime } from "luxon"
 import EventDetailURLButton from "../../../../components/EventDetailURLButton.tsx"
 import { formatStageStart } from "../../../../shared/eventDates.ts"
 import { parseWebsiteUrl } from "../../../../shared/websiteUrl.ts"
 import CalendarIcon from "./components/CalendarIcon.tsx"
+import EventStageBannerLiveStatus from "./components/EventStageBannerLiveStatus/EventStageBannerLiveStatus.tsx"
 import EventStageBannerOfficial from "./components/EventStageBannerOfficial.tsx"
 import EventStageBannerOrganizer from "./components/EventStageBannerOrganizer.tsx"
 import EventStageBannerSubtitle from "./components/EventStageBannerSubtitle.tsx"
@@ -18,6 +20,7 @@ interface EventStageBannerProps {
   website?: string | null
   singleStage: boolean
   isOfficial?: boolean
+  lastUpdate?: DateTime | null
   subtitleTo?: string
 }
 
@@ -25,8 +28,8 @@ const WEBSITE_BUTTON_SX = { minWidth: 0, paddingX: 0.5, paddingY: 0, lineHeight:
 
 /**
  * Header of a stage's results page: organizer, title, the event as a subtitle on multi-stage events,
- * start time and website, plus an "Official" chip in the bottom-right corner once the stage is
- * finished.
+ * start time and website, plus a live status icon in the top-right corner while results are being
+ * uploaded and an "Official" chip in the bottom-right corner once the stage is finished.
  * @param props.eventName Event name; the title on single-stage events, the subtitle otherwise.
  * @param props.stageName Stage name, the title on multi-stage events.
  * @param props.stageStart Stage start as an ISO date-time; omitted when null or absent.
@@ -36,6 +39,8 @@ const WEBSITE_BUTTON_SX = { minWidth: 0, paddingX: 0.5, paddingY: 0, lineHeight:
  * @param props.singleStage Whether the event has only one stage.
  * @param props.isOfficial Whether the organizer finished the stage, making its results official.
  * Absent means not official.
+ * @param props.lastUpdate Moment of the stage's latest upload; the live status icon is hidden when
+ * null or absent.
  * @param props.subtitleTo Where the subtitle links to, usually the event page.
  */
 export default function EventStageBanner(props: EventStageBannerProps) {
@@ -54,7 +59,7 @@ export default function EventStageBanner(props: EventStageBannerProps) {
           countryCode={props.countryCode}
         />
       )}
-      <p className="m-0 text-[x-large] font-semibold text-black/[0.87]">{title}</p>
+      <p className="m-0 pr-6 text-[x-large] font-semibold text-black/[0.87]">{title}</p>
       {subtitle && <EventStageBannerSubtitle text={subtitle} to={props.subtitleTo} />}
       {(stageStart || hasWebsite) && (
         <div className="flex flex-col items-start gap-1.5 text-[small] text-[#646464] sm:flex-row sm:flex-wrap sm:items-center">
@@ -74,6 +79,7 @@ export default function EventStageBanner(props: EventStageBannerProps) {
           )}
         </div>
       )}
+      {props.lastUpdate && <EventStageBannerLiveStatus lastUpdate={props.lastUpdate} />}
       {props.isOfficial && <EventStageBannerOfficial />}
     </div>
   )

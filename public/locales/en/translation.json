@@ -392,6 +392,7 @@
       "Msg": "The timekeeper has uploaded final results without splits. These files should not be uploaded and may cause missing or incorrect data to be displayed. More information on how to upload results to our service can be found on the <2>Organizers</2> page.",
       "Title": "Results Without Splits!"
     },
+    "lastUpdated": "Updated {{time}}",
     "statusCodes": {
       "dnf": "DNF",
       "dns": "DNS",
