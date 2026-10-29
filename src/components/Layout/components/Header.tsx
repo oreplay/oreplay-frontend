@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"
 import { ArrowBack } from "@mui/icons-material"
 import React from "react"
 import { HorizontalLogo } from "../../../assets/HorizontalLogo.tsx"
-import { SAFE_AREA_INSET_TOP } from "../shared/safeArea.ts"
+import { SAFE_AREA_INSET_TOP } from "../../../shared/safeArea.ts"
 
 const LOGO_HEIGHT = "20px"
 
