@@ -3,6 +3,7 @@ import { AxiosError } from "axios"
 import { Data, EventDetailModel, StageModel } from "../../../shared/EntityTypes.ts"
 import { getEventDetail } from "./EventService.ts"
 import { useAuth } from "../../../shared/hooks.ts"
+import { getEventDetailQueryKey } from "./eventDetailCache.ts"
 
 type EmptyModel = object
 
@@ -15,16 +16,6 @@ export function genericRetryHandler(failureCount: number, error: AxiosError): bo
     return false
   }
   return failureCount < 3
-}
-
-/**
- * React Query key of an event's detail, shared by every reader of the event (and its stages'
- * official state) so one refetch updates them all.
- * @param id Event id.
- * @returns The query key.
- */
-export function getEventDetailQueryKey(id: string) {
-  return ["eventDetail", id] as const
 }
 
 export function useFetchEventDetail(

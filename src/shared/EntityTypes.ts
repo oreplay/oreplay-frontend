@@ -120,6 +120,14 @@ export interface RunnerModel extends ParticipantModel {
   runners?: TeamRunner[] | null
 }
 
+/**
+ * Runners of a stage as the results endpoint returns them, together with the stage's last dates at
+ * the moment of the request.
+ */
+export interface RunnersPage extends Page<RunnerModel> {
+  last_dates?: LastDates
+}
+
 // Todo: Fusion RunnerResultModel and OverallModel
 export interface RunnerResultModel {
   id: string

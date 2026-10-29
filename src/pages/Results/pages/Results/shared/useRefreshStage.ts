@@ -1,7 +1,7 @@
 import { useCallback } from "react"
 import { useQueryClient } from "react-query"
 import { ClassModel, ClubModel } from "../../../../../shared/EntityTypes.ts"
-import { getEventDetailQueryKey } from "../../../services/FetchHooks.ts"
+import { getEventDetailQueryKey } from "../../../services/eventDetailCache.ts"
 
 interface RefetchableQuery {
   refetch: () => Promise<unknown>

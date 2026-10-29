@@ -3,7 +3,7 @@ import { renderHook } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { describe, expect, it, vi } from "vitest"
 import { ClassModel } from "../../../../../shared/EntityTypes.ts"
-import { getEventDetailQueryKey } from "../../../services/FetchHooks.ts"
+import { getEventDetailQueryKey } from "../../../services/eventDetailCache.ts"
 import { useRefreshStage } from "./useRefreshStage.ts"
 
 const ACTIVE_CLASS: ClassModel = { id: "class-1", long_name: "Men 21", short_name: "M21" }
