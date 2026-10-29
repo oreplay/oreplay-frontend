@@ -2,7 +2,7 @@ import { createElement, ReactNode } from "react"
 import { renderHook } from "@testing-library/react"
 import { QueryClient, QueryClientProvider, UseMutationOptions } from "react-query"
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { getEventDetailQueryKey } from "../../../../../../../../Results/services/FetchHooks.ts"
+import { getEventDetailQueryKey } from "../../../../../../../../Results/services/eventDetailCache.ts"
 import { useSetStageEnded } from "./useSetStageEnded.ts"
 
 const EVENT_ID = "event-1"

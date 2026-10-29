@@ -3,7 +3,7 @@ import { useNotifications } from "@toolpad/core/useNotifications"
 import { useTranslation } from "react-i18next"
 import { usePatchStages } from "../../../../../../../../../infrastructure/repositories/stages/stages.ts"
 import { useNotifyError } from "../../../../../../../../../infrastructure/notifications/useNotifyError.ts"
-import { getEventDetailQueryKey } from "../../../../../../../../Results/services/FetchHooks.ts"
+import { getEventDetailQueryKey } from "../../../../../../../../Results/services/eventDetailCache.ts"
 
 const SUCCESS_NOTIFICATION_DURATION = 3000
 
