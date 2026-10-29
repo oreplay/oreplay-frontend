@@ -84,7 +84,12 @@ export default function OneManRelay() {
   )
 
   const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
-  const refresh = useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery })
+  const refresh = useRefreshStage({
+    activeItem,
+    eventId,
+    refreshClassesClubs,
+    shownRunnersQuery,
+  })
 
   const { selectedMenu, handleMenuChange } = useResultTabs(
     eventDetail?.start ? (DateTime.fromISO(eventDetail?.start) <= DateTime.now() ? 1 : 0) : 1, // display start times if the race has not started

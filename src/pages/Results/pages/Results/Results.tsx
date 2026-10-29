@@ -7,7 +7,7 @@ import EventStageBanner from "./components/EventStageBanner/EventStageBanner.tsx
 import StageTypeSelector from "./components/StageTypeSelector.tsx"
 import { Suspense } from "react"
 import { useTranslation } from "react-i18next"
-import { STAGE_TYPE_DATABASE_ID } from "./shared/constants.ts"
+import { RESULTS_QUERY, STAGE_TYPE_DATABASE_ID } from "./shared/constants.ts"
 import PrivateEventPage from "../../../PrivateEventError/PrivateEventError.tsx"
 import ErrorBoundary from "../../../../components/ErrorBoundary/ErrorBoundary.tsx"
 import { useQuery } from "react-query"
@@ -18,6 +18,9 @@ import "../../../../styles/tailwind.css"
 import TrailO from "./pages/TrailO/TrailO.tsx"
 import { isTrailOStage } from "./shared/stageTypes.ts"
 import { isStageEnded } from "../../../shared/isStageEnded.ts"
+import OutdatedDataMsg from "./components/OutdatedDataMsg.tsx"
+import { useOutdatedDataError } from "./shared/useOutdatedDataError.ts"
+import { useNotifyOutdatedData } from "./shared/useNotifyOutdatedData.ts"
 
 export default function Results() {
   const { t } = useTranslation()
@@ -31,8 +34,12 @@ export default function Results() {
     isLoading,
     isError,
     error,
-  } = useFetchEventDetail(eventId as string, { staleTime: 15000 }) // stale time avoids future refetched while loading the component
+  } = useFetchEventDetail(eventId as string, RESULTS_QUERY)
   const eventDetail = eventData?.data
+  const failedWithoutData = isError && !eventDetail
+  const outdatedDataError = useOutdatedDataError()
+  const isOutdated = outdatedDataError !== undefined
+  useNotifyOutdatedData(isOutdated, outdatedDataError)
   const singleStage: boolean = eventDetail?.stages.length == 1
   const stageDetail = eventDetail?.stages.find((stage) => stage.id === stageId)
 
@@ -51,7 +58,7 @@ export default function Results() {
   }
 
   // Error states
-  if (isError) {
+  if (failedWithoutData) {
     if (error.response?.status === 404) {
       return <NotFoundPage />
     }
@@ -76,6 +83,7 @@ export default function Results() {
   return (
     <Suspense fallback={<GeneralSuspenseFallback />}>
       <ErrorBoundary>
+        {isOutdated && <OutdatedDataMsg />}
         <EventStageBanner
           key={`StageBanner${eventDetail.id}`}
           eventName={eventDetail.description}

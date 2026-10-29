@@ -1,9 +1,35 @@
+import { createElement, ReactNode } from "react"
 import { renderHook } from "@testing-library/react"
+import { QueryClient, QueryClientProvider } from "react-query"
 import { describe, expect, it, vi } from "vitest"
 import { ClassModel } from "../../../../../shared/EntityTypes.ts"
+import { getEventDetailQueryKey } from "../../../services/FetchHooks.ts"
 import { useRefreshStage } from "./useRefreshStage.ts"
 
 const ACTIVE_CLASS: ClassModel = { id: "class-1", long_name: "Men 21", short_name: "M21" }
+const EVENT_ID = "event-1"
+
+/**
+ * Creates a query client whose refetch of queries is a spy, plus a wrapper providing it.
+ * @param refetchQueries - Stand-in for the client's `refetchQueries`.
+ * @returns The wrapper to render hooks with and the refetch spy.
+ */
+function createWrapper(refetchQueries: () => Promise<void>) {
+  const queryClient = new QueryClient()
+  const refetchQueriesSpy = vi
+    .spyOn(queryClient, "refetchQueries")
+    .mockImplementation(refetchQueries)
+
+  /**
+   * Provides the spied query client.
+   * @param props.children - The hook under test.
+   */
+  function Wrapper(props: { children: ReactNode }) {
+    return createElement(QueryClientProvider, { client: queryClient }, props.children)
+  }
+
+  return { Wrapper, refetchQueriesSpy }
+}
 
 /**
  * Renders the hook with spy reloads.
@@ -13,45 +39,59 @@ const ACTIVE_CLASS: ClassModel = { id: "class-1", long_name: "Men 21", short_nam
 function renderRefreshStage(activeItem: ClassModel | null) {
   const refreshClassesClubs = vi.fn(() => Promise.resolve())
   const refetch = vi.fn(() => Promise.resolve())
-  const { result } = renderHook(() =>
-    useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery: { refetch } }),
+  const { Wrapper, refetchQueriesSpy } = createWrapper(() => Promise.resolve())
+  const { result } = renderHook(
+    () =>
+      useRefreshStage({
+        activeItem,
+        eventId: EVENT_ID,
+        refreshClassesClubs,
+        shownRunnersQuery: { refetch },
+      }),
+    { wrapper: Wrapper },
   )
-  return { refresh: result.current, refreshClassesClubs, refetch }
+  return { refresh: result.current, refreshClassesClubs, refetch, refetchQueriesSpy }
 }
 
 describe("useRefreshStage", () => {
-  it("reloads the class and club lists and the shown runners", async () => {
-    const { refresh, refreshClassesClubs, refetch } = renderRefreshStage(ACTIVE_CLASS)
+  it("reloads the event detail, the class and club lists and the shown runners", async () => {
+    const { refresh, refreshClassesClubs, refetch, refetchQueriesSpy } =
+      renderRefreshStage(ACTIVE_CLASS)
 
     await refresh()
 
+    expect(refetchQueriesSpy).toHaveBeenCalledWith(getEventDetailQueryKey(EVENT_ID))
     expect(refreshClassesClubs).toHaveBeenCalledOnce()
     expect(refetch).toHaveBeenCalledOnce()
   })
 
   it("leaves the runners alone when no class or club is selected", async () => {
-    const { refresh, refreshClassesClubs, refetch } = renderRefreshStage(null)
+    const { refresh, refreshClassesClubs, refetch, refetchQueriesSpy } = renderRefreshStage(null)
 
     await refresh()
 
+    expect(refetchQueriesSpy).toHaveBeenCalledWith(getEventDetailQueryKey(EVENT_ID))
     expect(refreshClassesClubs).toHaveBeenCalledOnce()
     expect(refetch).not.toHaveBeenCalled()
   })
 
   it("settles only once every reload has finished", async () => {
-    let finishRunners = () => {}
-    const refetch = vi.fn(
+    let finishEventDetail = () => {}
+    const { Wrapper } = createWrapper(
       () =>
         new Promise<void>((resolve) => {
-          finishRunners = resolve
+          finishEventDetail = resolve
         }),
     )
-    const { result } = renderHook(() =>
-      useRefreshStage({
-        activeItem: ACTIVE_CLASS,
-        refreshClassesClubs: () => Promise.resolve(),
-        shownRunnersQuery: { refetch },
-      }),
+    const { result } = renderHook(
+      () =>
+        useRefreshStage({
+          activeItem: ACTIVE_CLASS,
+          eventId: EVENT_ID,
+          refreshClassesClubs: () => Promise.resolve(),
+          shownRunnersQuery: { refetch: () => Promise.resolve() },
+        }),
+      { wrapper: Wrapper },
     )
     const onSettled = vi.fn()
 
@@ -59,7 +99,7 @@ describe("useRefreshStage", () => {
     await Promise.resolve()
     expect(onSettled).not.toHaveBeenCalled()
 
-    finishRunners()
+    finishEventDetail()
     await refreshing
     expect(onSettled).toHaveBeenCalledOnce()
   })
