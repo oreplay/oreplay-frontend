@@ -2,18 +2,18 @@ import { describe, expect, it } from "vitest"
 import { render, screen } from "@testing-library/react"
 import StageNameCell from "./StageNameCell.tsx"
 
-const FINISHED_LABEL = "common:finished"
+const OFFICIAL_LABEL = "common:official"
 
 describe("StageNameCell", () => {
-  it("marks a finished stage next to its name", () => {
+  it("marks a finished stage as official next to its name", () => {
     render(<StageNameCell name="Sprint" isEnded />)
     expect(screen.getByText("Sprint")).toBeInTheDocument()
-    expect(screen.getByRole("img", { name: FINISHED_LABEL })).toBeInTheDocument()
+    expect(screen.getByText(OFFICIAL_LABEL)).toBeInTheDocument()
   })
 
   it("shows only the name of a stage that is not finished", () => {
     render(<StageNameCell name="Sprint" isEnded={false} />)
     expect(screen.getByText("Sprint")).toBeInTheDocument()
-    expect(screen.queryByRole("img", { name: FINISHED_LABEL })).not.toBeInTheDocument()
+    expect(screen.queryByText(OFFICIAL_LABEL)).not.toBeInTheDocument()
   })
 })
