@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next"
 import { Settings as LuxonSettings } from "luxon"
 import CountriesLocalizationProvider from "./services/countryService/countriesProvider.tsx"
 import { DASHBOARD_PATH, RANKING_LIST_PATH } from "./shared/routes.ts"
+import { SAFE_AREA_THEME_COMPONENTS } from "./shared/safeAreaTheme.ts"
 
 const EventsList = lazyWithRetry(() => import("./pages/Results/pages/EventsList/EventsList.tsx"))
 const EventDetail = lazyWithRetry(() => import("./pages/Results/pages/EventDetail/EventDetail.tsx"))
@@ -70,6 +71,7 @@ const theme = createTheme({
       light: "#efefef",
     },
   },
+  components: SAFE_AREA_THEME_COMPONENTS,
 })
 
 export default function App() {
