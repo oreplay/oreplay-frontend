@@ -17,6 +17,16 @@ export function genericRetryHandler(failureCount: number, error: AxiosError): bo
   return failureCount < 3
 }
 
+/**
+ * React Query key of an event's detail, shared by every reader of the event (and its stages'
+ * official state) so one refetch updates them all.
+ * @param id Event id.
+ * @returns The query key.
+ */
+export function getEventDetailQueryKey(id: string) {
+  return ["eventDetail", id] as const
+}
+
 export function useFetchEventDetail(
   id: string,
   options?: UseQueryOptions<Data<EventDetailModel>, AxiosError<Data<EventDetailModel>, EmptyModel>>,
@@ -24,7 +34,7 @@ export function useFetchEventDetail(
   const { token } = useAuth()
 
   return useQuery<Data<EventDetailModel>, AxiosError<Data<EventDetailModel>, EmptyModel>>(
-    ["eventDetail", id], // Query key
+    getEventDetailQueryKey(id),
     () => getEventDetail(id, token ? token : undefined), // Query function
     {
       enabled: !!id, // Only fetch if id exists
@@ -61,7 +71,7 @@ export function useFetchStageDetail(
   let error: string | undefined = undefined
   let isError = queryIsError
 
-  if (isSuccess) {
+  if (data) {
     stageDetail = data?.data.stages.find((stage) => stage.id === stageId)
 
     if (!stageDetail) {

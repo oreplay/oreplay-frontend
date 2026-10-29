@@ -60,10 +60,6 @@
         "team_without_runners": "The team {{team}} has no runners.",
         "upload_type_guessed": "The file has neither split times nor finish times, so its type could not be determined. It was treated as finish times."
       },
-      "newFeature": {
-        "body": "Upload your IOF XML 3.0 start lists and results straight from this page, without the desktop client. Use the upload button <uploadIcon/> of each stage in the table above.",
-        "title": "New: upload XML files directly"
-      },
       "status": {
         "cancelled": "Cancelled",
         "done": "{{classes}} classes and {{runners}} runners updated",
@@ -134,6 +130,19 @@
         "MenuText": "Delete"
       },
       "FailedToLoadOrganizers": "Failed to load organizers",
+      "FinishStage": {
+        "DialogBody": "Labeling results as official let runners know that the stage has ended and the results will no longer change. It also prevents any accidental upload or change on the data. If you need to edit the data later, you can remove this label.",
+        "DialogConfirm": "Make official",
+        "DialogTitle": "Do you want to make results official?",
+        "MenuText": "Make official",
+        "Tooltip": "Runners see these results as final. Make them provisional from the stage menu to change the data.",
+        "Undo": {
+          "DialogBody": "The stage was labeled as official. Making results provisional again allows you to modify the data.",
+          "DialogConfirm": "Reopen",
+          "DialogTitle": "Do you want to reopen this stage?",
+          "MenuText": "Make provisional"
+        }
+      },
       "GoToStage": "Go to the stage",
       "NewStage": "New stage",
       "StagesTypes": {
@@ -311,11 +320,13 @@
     "NoStartTime": "-",
     "NonContributory": "Dropped",
     "NotStarted": "-",
+    "OfficialTooltip": "The organizer has labeled these results as final.",
     "OnlineCourse": {
       "ControlsReached": "{{reached}} of {{total}} online controls reached",
       "Hide": "Hide online controls",
       "Show": "Show online controls"
     },
+    "OutdatedData": "These results may be out of date: the latest update failed. They will update by themselves when the connection is back.",
     "PenaltyPoints": "Penalty:",
     "Points": "Points:",
     "PointsTable": {
