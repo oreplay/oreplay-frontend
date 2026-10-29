@@ -139,6 +139,7 @@
         "DialogConfirm": "Make official",
         "DialogTitle": "Do you want to finish this stage?",
         "MenuText": "Set as finished",
+        "Tooltip": "Runners see these results as final. Make them provisional from the stage menu to change the data.",
         "Undo": {
           "DialogBody": "The results of this stage will no longer be official.",
           "DialogConfirm": "Reopen",
@@ -323,6 +324,7 @@
     "NoStartTime": "-",
     "NonContributory": "Dropped",
     "NotStarted": "-",
+    "OfficialTooltip": "The organizer has labeled these results as final.",
     "OnlineCourse": {
       "ControlsReached": "{{reached}} of {{total}} online controls reached",
       "Hide": "Hide online controls",
