@@ -1,8 +1,8 @@
-import TaskAltIcon from "@mui/icons-material/TaskAlt"
-import RemoveDoneIcon from "@mui/icons-material/RemoveDone"
+import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined"
+import OfficialOffIcon from "../OfficialOffIcon.tsx"
 
 export const FINISH_STAGE_ITEM = {
-  Icon: TaskAltIcon,
+  Icon: VerifiedOutlinedIcon,
   menuTextKey: "EventAdmin.Stages.FinishStage.MenuText",
   dialogTitleKey: "EventAdmin.Stages.FinishStage.DialogTitle",
   dialogBodyKey: "EventAdmin.Stages.FinishStage.DialogBody",
@@ -11,7 +11,7 @@ export const FINISH_STAGE_ITEM = {
 }
 
 export const REOPEN_STAGE_ITEM = {
-  Icon: RemoveDoneIcon,
+  Icon: OfficialOffIcon,
   menuTextKey: "EventAdmin.Stages.FinishStage.Undo.MenuText",
   dialogTitleKey: "EventAdmin.Stages.FinishStage.Undo.DialogTitle",
   dialogBodyKey: "EventAdmin.Stages.FinishStage.Undo.DialogBody",

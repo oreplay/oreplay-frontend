@@ -10,6 +10,7 @@ import GridActionsSettingsMenuDialogItem from "./GridActionsSettingsMenuDialogIt
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import PersonOffIcon from "@mui/icons-material/PersonOff"
 import { FINISH_STAGE_ITEM, REOPEN_STAGE_ITEM } from "./shared/finishStageMenuItems.ts"
+import Sparkles from "../../../../../../../components/Sparkles/Sparkles.tsx"
 
 type GridActionsSettingsMenuProps = {
   isStageEnded: boolean
@@ -60,7 +61,11 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           <ListItemText>{t("common:edit")}</ListItemText>
         </MenuItem>
         <GridActionsSettingsMenuDialogItem
-          icon={<finishStageItem.Icon />}
+          icon={
+            <Sparkles>
+              <finishStageItem.Icon />
+            </Sparkles>
+          }
           menuText={t(finishStageItem.menuTextKey)}
           action={() => {
             handleSetStageEndedClick(finishStageItem.shouldBeEnded)
@@ -86,6 +91,7 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
             dialogBody={t("EventAdmin.Stages.WipeOutRunners.DialogBody")}
             dialogCancelButtonText={t("Cancel")}
             dialogConfirmButtonText={t("EventAdmin.Stages.WipeOutRunners.DialogConfirm")}
+            disabled={isStageEnded}
           />
         )}
         <GridActionsSettingsMenuDialogItem
@@ -100,6 +106,7 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           dialogBody={t("EventAdmin.Stages.DeleteStage.DialogBody")}
           dialogCancelButtonText={t("Cancel")}
           dialogConfirmButtonText={t("common:delete")}
+          disabled={isStageEnded}
         />
       </Menu>
     </>
