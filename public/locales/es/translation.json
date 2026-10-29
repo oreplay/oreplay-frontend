@@ -339,6 +339,7 @@
       "Hide": "Ocultar radiocontroles",
       "Show": "Mostrar radiocontroles"
     },
+    "OutdatedData": "Puede que estos resultados no estén actualizados: la última actualización ha fallado. Se actualizarán solos cuando vuelva la conexión.",
     "PenaltyPoints": "Penalización:",
     "Points": "Puntos:",
     "PointsTable": {
