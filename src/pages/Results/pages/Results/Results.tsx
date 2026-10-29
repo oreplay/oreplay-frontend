@@ -17,6 +17,7 @@ import { getEventPath } from "../../shared/eventPath.ts"
 import "../../../../styles/tailwind.css"
 import TrailO from "./pages/TrailO/TrailO.tsx"
 import { isTrailOStage } from "./shared/stageTypes.ts"
+import { isStageEnded } from "../../../shared/isStageEnded.ts"
 
 export default function Results() {
   const { t } = useTranslation()
@@ -88,6 +89,7 @@ export default function Results() {
           }
           stageStart={stageDetail.start}
           singleStage={singleStage}
+          isOfficial={isStageEnded(stageDetail)}
           subtitleTo={getEventPath(eventDetail.id)}
         />
         {isTrailO && <TrailO externalUrl={stageDetail.external_url} />}
