@@ -106,9 +106,10 @@ desktop; a phone in landscape stays mobile.
 ## API client — orval-generated
 
 One orval config (`orval.config.ts`) runs against the OpenAPI spec and generates a **single** client
-into `src/infrastructure/repositories/` plus types into `src/domain/types/v1api`. Ranking endpoints
-are included via `input.filters.tags` (`/Ranking/`, `/Events/`, `/Stages/`, `/StageOrders/`). Anywhere
-in the project, import the generated hooks/types with relative paths:
+into `src/infrastructure/repositories/` (one dir per tag, plus an `index.ts` barrel) and types into
+`src/domain/types/v1api`. Its input is the **production** spec
+(`https://www.oreplay.es/api/v1/openapi/json`). Anywhere in the project, import the generated
+hooks/types with relative paths:
 
 ```ts
 import { useGetListRankingSettings } from "../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
@@ -119,18 +120,22 @@ import { Ranking } from "../../domain/types/v1api"
   **singleton** in `src/infrastructure/orval/AxiosInstance.ts`, initialised once in `src/main.tsx`
   with the API base URL; the bearer token is attached automatically. Ranking authenticates exactly
   like every other host page — nothing ranking-specific to configure.
+- **Tags are filtered with an exclude list**: `input.filters` uses `mode: "exclude"`, so every tag in
+  the spec is generated **except** the ones listed (e.g. `Results`, `Uploads`, `Users`). A new
+  backend tag therefore shows up automatically on the next `npm run orval-build`; to start
+  generating an excluded tag, remove it from the list.
 - **Never edit generated files** under `src/infrastructure/repositories/` or `src/domain/types/v1api`
-  — change the backend OpenAPI spec and re-run `npm run orval-build`. These paths are ignored by
-  ESLint/Prettier.
+  — change the backend OpenAPI spec and re-run `npm run orval-build`. Orval formats its output with
+  Prettier; `src/infrastructure/repositories` is also ignored by ESLint and Prettier.
+- `npm run orval-build` deletes only `src/domain/types/v1api/index.ts` before regenerating, so type
+  files of endpoints that were removed or newly excluded stay behind. Delete those stale files by hand:
+  anything in `v1api/` that the regenerated `index.ts` no longer exports.
 - `orval.config.ts` sets `override.query.version: 3` because the app uses the legacy `react-query`
   v3 package, which orval cannot detect. Don't add `query.useQuery: true`: since orval 8 it turns
   every POST/PATCH/DELETE into a query instead of a mutation hook.
 - **Surface type/OpenAPI inconsistencies, don't work around them** — if a generated type looks wrong
   or forces an awkward cast/extra request, flag it so it's fixed in the OpenAPI spec and regenerated,
   rather than patched over in app code.
-- The ranking CRUD endpoints currently live only on the **local** backend, so `orval.config.ts`
-  points its input at `http://localhost/api/v1/openapi/json`. Switch it to the deployed spec once
-  they ship to production.
 
 ## i18n
 
