@@ -21,6 +21,7 @@ import { isStageEnded } from "../../../shared/isStageEnded.ts"
 import OutdatedDataMsg from "./components/OutdatedDataMsg.tsx"
 import { useOutdatedDataError } from "./shared/useOutdatedDataError.ts"
 import { useNotifyOutdatedData } from "./shared/useNotifyOutdatedData.ts"
+import { getStageLastUpdate } from "./shared/stageLastUpdate.ts"
 
 export default function Results() {
   const { t } = useTranslation()
@@ -98,6 +99,7 @@ export default function Results() {
           stageStart={stageDetail.start}
           singleStage={singleStage}
           isOfficial={isStageEnded(stageDetail)}
+          lastUpdate={getStageLastUpdate(stageDetail)}
           subtitleTo={getEventPath(eventDetail.id)}
         />
         {isTrailO && <TrailO externalUrl={stageDetail.external_url} />}
