@@ -22,14 +22,16 @@ export function computeResultListHeight(
 
 /**
  * Space the results list leaves free at the bottom of the viewport. A mobile device pins its
- * navigation there, so the list stops above it; on desktop nothing covers the bottom and the list
- * reaches the very end of the page.
+ * navigation there, lifted above the area the device hides behind its home indicator, so the list
+ * stops above both; on desktop nothing covers the bottom and the list reaches the very end of the
+ * page.
  *
  * @param isMobileDevice Whether the page is shown on a mobile device.
+ * @param safeAreaBottomPx Pixels the device hides at the bottom of the screen; `0` without one.
  * @returns The gap in pixels.
  */
-export function resultListBottomGapPx(isMobileDevice: boolean): number {
+export function resultListBottomGapPx(isMobileDevice: boolean, safeAreaBottomPx: number): number {
   return isMobileDevice
-    ? MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX
+    ? MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX + safeAreaBottomPx
     : RESULT_LIST_DESKTOP_BOTTOM_GAP_PX
 }

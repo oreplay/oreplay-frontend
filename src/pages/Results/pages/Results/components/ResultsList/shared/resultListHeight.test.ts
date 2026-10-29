@@ -34,11 +34,23 @@ describe("computeResultListHeight", () => {
 })
 
 describe("resultListBottomGapPx", () => {
+  const HOME_INDICATOR_PX = 34
+
   it("leaves no gap on desktop", () => {
-    expect(resultListBottomGapPx(false)).toBe(RESULT_LIST_DESKTOP_BOTTOM_GAP_PX)
+    expect(resultListBottomGapPx(false, 0)).toBe(RESULT_LIST_DESKTOP_BOTTOM_GAP_PX)
+  })
+
+  it("ignores the hidden bottom area on desktop", () => {
+    expect(resultListBottomGapPx(false, HOME_INDICATOR_PX)).toBe(RESULT_LIST_DESKTOP_BOTTOM_GAP_PX)
   })
 
   it("stops above the bottom navigation on a mobile device", () => {
-    expect(resultListBottomGapPx(true)).toBe(MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX)
+    expect(resultListBottomGapPx(true, 0)).toBe(MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX)
+  })
+
+  it("stops above the navigation lifted over the home indicator", () => {
+    expect(resultListBottomGapPx(true, HOME_INDICATOR_PX)).toBe(
+      MOBILE_FLOATING_BUTTON_BOTTOM_OFFSET_PX + HOME_INDICATOR_PX,
+    )
   })
 })

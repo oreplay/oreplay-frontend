@@ -1,6 +1,9 @@
 import { Box, Slide, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { CONNECTION_BAR_APPEARANCE, ConnectionBarState } from "../shared/connectionBar.ts"
+import { offsetFromSafeArea, SAFE_AREA_BOTTOM_BAR_INSET } from "../../../../../shared/safeArea.ts"
+
+const VERTICAL_PADDING_PX = 4
 
 interface ConnectionStatusBarProps {
   bar: ConnectionBarState
@@ -21,7 +24,8 @@ export default function ConnectionStatusBar({ bar }: ConnectionStatusBarProps) {
           left: 0,
           right: 0,
           zIndex: (theme) => theme.zIndex.snackbar,
-          paddingY: 0.5,
+          paddingTop: `${VERTICAL_PADDING_PX}px`,
+          paddingBottom: offsetFromSafeArea(SAFE_AREA_BOTTOM_BAR_INSET, VERTICAL_PADDING_PX),
           textAlign: "center",
           color: "common.white",
           backgroundColor,
