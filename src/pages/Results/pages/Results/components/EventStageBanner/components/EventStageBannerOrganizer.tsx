@@ -12,7 +12,7 @@ const FLAG_SLOT_PROPS = {
 
 export default function EventStageBannerOrganizer(props: EventStageBannerOrganizerProps) {
   return (
-    <div className="event-stage-banner-organizer flex items-center gap-1.5">
+    <div className="event-stage-banner-organizer flex items-center gap-1.5 pr-6">
       {props.countryCode && (
         <CountryFlag code={props.countryCode.toLowerCase()} slotProps={FLAG_SLOT_PROPS} />
       )}
