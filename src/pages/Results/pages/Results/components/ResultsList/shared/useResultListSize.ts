@@ -6,6 +6,10 @@ import {
   RESULT_LIST_MIN_HEIGHT_PX,
   resultListBottomGapPx,
 } from "./resultListHeight.ts"
+import {
+  measureCssLengthPx,
+  SAFE_AREA_BOTTOM_BAR_INSET,
+} from "../../../../../../../shared/safeArea.ts"
 
 /**
  * Measures the results list so it fills the viewport below its own top edge, keeping the size up to
@@ -19,7 +23,7 @@ export default function useResultListSize(containerRef: RefObject<HTMLElement | 
     height: RESULT_LIST_MIN_HEIGHT_PX,
     width: 0,
   })
-  const bottomGap = resultListBottomGapPx(useIsMobileDevice())
+  const isMobileDevice = useIsMobileDevice()
 
   useLayoutEffect(() => {
     const updateSize = () => {
@@ -27,6 +31,10 @@ export default function useResultListSize(containerRef: RefObject<HTMLElement | 
         return
       }
       const listDocumentTop = containerRef.current.getBoundingClientRect().top + window.scrollY
+      const bottomGap = resultListBottomGapPx(
+        isMobileDevice,
+        measureCssLengthPx(SAFE_AREA_BOTTOM_BAR_INSET),
+      )
       const height = computeResultListHeight(window.innerHeight, listDocumentTop, bottomGap)
       const width = containerRef.current.clientWidth
       setSize((previous) =>
@@ -42,7 +50,7 @@ export default function useResultListSize(containerRef: RefObject<HTMLElement | 
       observer.disconnect()
       window.removeEventListener("resize", updateSize)
     }
-  }, [bottomGap, containerRef])
+  }, [containerRef, isMobileDevice])
 
   return size
 }

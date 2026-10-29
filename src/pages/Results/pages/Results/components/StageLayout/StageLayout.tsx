@@ -11,7 +11,7 @@ import { UseQueryResult } from "react-query"
 import ErrorBoundary from "../../../../../../components/ErrorBoundary/ErrorBoundary.tsx"
 import TimezoneMsg from "./components/TimezoneMsg.tsx"
 import { useIsMobileDevice } from "../../../../shared/useIsMobileDevice.ts"
-import { MOBILE_CONTENT_BOTTOM_PADDING_PX } from "../../shared/mobileLayout.ts"
+import { MOBILE_CONTENT_BOTTOM_PADDING } from "../../shared/mobileLayout.ts"
 import PullToRefetch from "./components/PullToRefetch/PullToRefetch.tsx"
 
 const spin = keyframes({ from: { transform: "rotate(0deg)" }, to: { transform: "rotate(360deg)" } })
@@ -34,7 +34,7 @@ type StageLayoutProps = {
 export default function StageLayout(props: StageLayoutProps) {
   const { t } = useTranslation()
   const isMobileDevice = useIsMobileDevice()
-  const contentBottomPadding = isMobileDevice ? `${MOBILE_CONTENT_BOTTOM_PADDING_PX}px` : 0
+  const contentBottomPadding = isMobileDevice ? MOBILE_CONTENT_BOTTOM_PADDING : 0
 
   // Component
   return (
