@@ -14,6 +14,7 @@ import {
   GridRowEditStopReasons,
   GridRowParams,
   GridRenderEditCellParams,
+  GridRenderCellParams,
 } from "@mui/x-data-grid"
 import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
@@ -45,7 +46,8 @@ import { isStartApplicable } from "./shared/functions.ts"
 import { isTrailOStage } from "../../../../../../../Results/pages/Results/shared/stageTypes.ts"
 import TrailOResultsUrlDialog from "../TrailOResultsUrlDialog/TrailOResultsUrlDialog.tsx"
 import { useQueryClient } from "react-query"
-import { isStageEnded } from "./shared/isStageEnded.ts"
+import { isStageEndedById } from "../../../../../../../shared/isStageEnded.ts"
+import StageNameCell from "./components/StageNameCell.tsx"
 import { useSetStageEnded } from "./shared/useSetStageEnded.ts"
 
 /**
@@ -330,6 +332,12 @@ export default function StagesDataGrid(props: Props) {
       align: "left",
       headerAlign: "left",
       editable: true,
+      renderCell: (params: GridRenderCellParams<StageRow, string>) => (
+        <StageNameCell
+          name={params.value ?? ""}
+          isEnded={isStageEndedById(props.eventDetail.stages, params.row.stageId)}
+        />
+      ),
     },
     {
       field: "stageTypeId",
@@ -557,7 +565,7 @@ export default function StagesDataGrid(props: Props) {
           stageDataAction,
           <GridActionsSettingsMenu
             key="settings-menu"
-            isStageEnded={isStageEnded(props.eventDetail.stages, row.row.stageId)}
+            isStageEnded={isStageEndedById(props.eventDetail.stages, row.row.stageId)}
             handleSetStageEndedClick={(shouldBeEnded) =>
               setStageEnded(row.row.stageId, shouldBeEnded)
             }
