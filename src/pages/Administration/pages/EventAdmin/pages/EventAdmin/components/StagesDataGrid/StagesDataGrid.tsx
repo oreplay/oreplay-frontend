@@ -14,6 +14,8 @@ import {
   GridRowEditStopReasons,
   GridRowParams,
   GridRenderEditCellParams,
+  GridRenderCellParams,
+  GridCellParams,
 } from "@mui/x-data-grid"
 import { useTranslation } from "react-i18next"
 import React, { useState } from "react"
@@ -45,6 +47,14 @@ import { isStartApplicable } from "./shared/functions.ts"
 import { isTrailOStage } from "../../../../../../../Results/pages/Results/shared/stageTypes.ts"
 import TrailOResultsUrlDialog from "../TrailOResultsUrlDialog/TrailOResultsUrlDialog.tsx"
 import { useQueryClient } from "react-query"
+import { isStageEndedById } from "../../../../../../../shared/isStageEnded.ts"
+import StageNameCell from "./components/StageNameCell.tsx"
+import { useSetStageEnded } from "./shared/useSetStageEnded.ts"
+import {
+  getStageCellClassName,
+  isStageFieldEditable,
+  OFFICIAL_LOCKED_CELL_CLASS,
+} from "./shared/officialStageFields.ts"
 
 /**
  * Auxiliary component to introduce buttons on top of the DataGrid
@@ -182,6 +192,8 @@ export default function StagesDataGrid(props: Props) {
 
   const [rows, setRows] = useState(initialRows)
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
+
+  const setStageEnded = useSetStageEnded(props.eventDetail.id)
 
   const handleRowEditStop: GridEventListener<"rowEditStop"> = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -326,6 +338,12 @@ export default function StagesDataGrid(props: Props) {
       align: "left",
       headerAlign: "left",
       editable: true,
+      renderCell: (params: GridRenderCellParams<StageRow, string>) => (
+        <StageNameCell
+          name={params.value ?? ""}
+          isEnded={isStageEndedById(props.eventDetail.stages, params.row.stageId)}
+        />
+      ),
     },
     {
       field: "stageTypeId",
@@ -518,6 +536,7 @@ export default function StagesDataGrid(props: Props) {
         }
 
         const isTrailO = isTrailOStage(row.row.stageTypeId)
+        const isEnded = isStageEndedById(props.eventDetail.stages, row.row.stageId)
         const externalUrlAction = (
           <GridActionsCellItem
             key="external-url"
@@ -529,6 +548,7 @@ export default function StagesDataGrid(props: Props) {
             label={t("EventAdmin.Stages.TrailOResultsUrl.MenuText")}
             className="textPrimary"
             onClick={() => setStageToEditResultsUrl(row.row)}
+            disabled={isEnded}
           />
         )
         const uploadFilesAction = (
@@ -544,6 +564,7 @@ export default function StagesDataGrid(props: Props) {
             label={t("EventAdmin.DataUpload.uploadFiles")}
             className="textPrimary"
             onClick={() => setStageToUpload(row.row)}
+            disabled={isEnded}
           />
         )
         const stageDataAction = isTrailO ? externalUrlAction : uploadFilesAction
@@ -553,6 +574,10 @@ export default function StagesDataGrid(props: Props) {
           stageDataAction,
           <GridActionsSettingsMenu
             key="settings-menu"
+            isStageEnded={isEnded}
+            handleSetStageEndedClick={(shouldBeEnded) =>
+              setStageEnded(row.row.stageId, shouldBeEnded)
+            }
             handleEditClick={() => handleEditClick(row)}
             handleDeleteClick={() => void handleDeleteClick(row)}
             handleStatsClick={() => void handleStatsClick(row)}
@@ -588,6 +613,11 @@ export default function StagesDataGrid(props: Props) {
         "& .textPrimary": {
           color: "text.primary",
         },
+        [`& .${OFFICIAL_LOCKED_CELL_CLASS}`]: {
+          color: "text.disabled",
+          backgroundColor: "action.disabledBackground",
+          cursor: "not-allowed",
+        },
       }}
     >
       <DataGrid
@@ -599,6 +629,19 @@ export default function StagesDataGrid(props: Props) {
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        isCellEditable={(params: GridCellParams<StageRow>) =>
+          isStageFieldEditable(
+            params.field,
+            isStageEndedById(props.eventDetail.stages, params.row.stageId),
+          )
+        }
+        getCellClassName={(params: GridCellParams<StageRow>) =>
+          getStageCellClassName(
+            params.field,
+            isStageEndedById(props.eventDetail.stages, params.row.stageId),
+            rowModesModel[params.id]?.mode === GridRowModes.Edit,
+          )
+        }
         slots={{
           // Cast: EditToolbar requires setRows/setRowModesModel props which
           // aren't part of the grid's built-in toolbar slot prop type, but

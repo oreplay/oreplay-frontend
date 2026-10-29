@@ -3,6 +3,7 @@ import { AxiosError } from "axios"
 import { Data, EventDetailModel, StageModel } from "../../../shared/EntityTypes.ts"
 import { getEventDetail } from "./EventService.ts"
 import { useAuth } from "../../../shared/hooks.ts"
+import { getEventDetailQueryKey } from "./eventDetailCache.ts"
 
 type EmptyModel = object
 
@@ -24,7 +25,7 @@ export function useFetchEventDetail(
   const { token } = useAuth()
 
   return useQuery<Data<EventDetailModel>, AxiosError<Data<EventDetailModel>, EmptyModel>>(
-    ["eventDetail", id], // Query key
+    getEventDetailQueryKey(id),
     () => getEventDetail(id, token ? token : undefined), // Query function
     {
       enabled: !!id, // Only fetch if id exists
@@ -61,7 +62,7 @@ export function useFetchStageDetail(
   let error: string | undefined = undefined
   let isError = queryIsError
 
-  if (isSuccess) {
+  if (data) {
     stageDetail = data?.data.stages.find((stage) => stage.id === stageId)
 
     if (!stageDetail) {

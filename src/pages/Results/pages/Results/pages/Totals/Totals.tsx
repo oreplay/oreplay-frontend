@@ -52,7 +52,12 @@ export default function Totals() {
   )
 
   const shownRunnersQuery = isClass ? runnersQueryByClasses : runnersQueryByClubs
-  const refresh = useRefreshStage({ activeItem, refreshClassesClubs, shownRunnersQuery })
+  const refresh = useRefreshStage({
+    activeItem,
+    eventId,
+    refreshClassesClubs,
+    shownRunnersQuery,
+  })
 
   return (
     <Box sx={{ px: 3, height: "100%" }}>

@@ -5,10 +5,12 @@ import {
   EventDetailModel,
   EventModel,
   Page,
-  RunnerModel,
+  RunnersPage,
   StageClassModel,
   StageModel,
 } from "../../../shared/EntityTypes.ts"
+import { queryClient } from "../../../infrastructure/queryClient.ts"
+import { updateCachedStageLastLogs } from "./eventDetailCache.ts"
 const baseUrl = "events"
 
 export async function getEventList(
@@ -66,12 +68,22 @@ export async function getClubsInStage(
   return await get<Page<ClubModel>>(`${baseUrl}/${event_id}/stages/${stage_id}/clubs`)
 }
 
+/**
+ * Fetches a stage's runners with their results, filtered by class or by club. The stage's latest
+ * state logs come with them and are stored in the cached event detail, so the stage's live and
+ * official status stay as fresh as the results on screen.
+ * @param event_id Event the stage belongs to.
+ * @param stage_id Stage whose runners are fetched.
+ * @param class_id Class to list the runners of; omitted when filtering by club.
+ * @param club_id Club to list the runners of; omitted when filtering by class.
+ * @returns The runners, plus the stage's latest state logs when the backend sends them.
+ */
 export async function getRunnersInStage(
   event_id: string,
   stage_id: string,
   class_id?: string,
   club_id?: string,
-): Promise<Page<RunnerModel>> {
+): Promise<RunnersPage> {
   let url = `/${event_id}/stages/${stage_id}/results`
 
   // Set url search params
@@ -88,5 +100,9 @@ export async function getRunnersInStage(
   // Build final url and make query
   url = url + `?${urlSearchParam.toString()}`
 
-  return await get<Page<RunnerModel>>(baseUrl + url)
+  const runnersPage = await get<RunnersPage>(baseUrl + url)
+  if (runnersPage.last_logs) {
+    updateCachedStageLastLogs(queryClient, event_id, stage_id, runnersPage.last_logs)
+  }
+  return runnersPage
 }
