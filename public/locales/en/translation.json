@@ -60,10 +60,6 @@
         "team_without_runners": "The team {{team}} has no runners.",
         "upload_type_guessed": "The file has neither split times nor finish times, so its type could not be determined. It was treated as finish times."
       },
-      "newFeature": {
-        "body": "Upload your IOF XML 3.0 start lists and results straight from this page, without the desktop client. Use the upload button <uploadIcon/> of each stage in the table above.",
-        "title": "New: upload XML files directly"
-      },
       "status": {
         "cancelled": "Cancelled",
         "done": "{{classes}} classes and {{runners}} runners updated",
