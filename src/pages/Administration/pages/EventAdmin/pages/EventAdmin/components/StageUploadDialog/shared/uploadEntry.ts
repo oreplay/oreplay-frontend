@@ -85,6 +85,16 @@ export function updatedCountsOf(entry: UploadEntry): UpdatedCounts {
   }
 }
 
+/**
+ * Creates the entry of a file whose upload starts right away, with no waiting in a queue.
+ * @param id a unique id for the entry.
+ * @param file the file being uploaded.
+ * @returns an entry in the `uploading` status.
+ */
+export function uploadingEntry(id: string, file: File): UploadEntry {
+  return { fileName: file.name, id, status: UPLOAD_STATUS.uploading }
+}
+
 export function withChanges(
   entries: UploadEntry[],
   id: string,

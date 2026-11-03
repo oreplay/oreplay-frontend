@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react"
-import { beforeEach, describe, expect, it, vi } from "vitest"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import { fakeFolder, FakeFolder, folderFile } from "./shared/folderFixtures.ts"
 import { postXmlUpload } from "./shared/postXmlUpload.ts"
 import StageUploadDialog from "./StageUploadDialog.tsx"
 
@@ -31,6 +32,19 @@ const finishUploading = async () => {
   await screen.findByTestId("upload-more")
 }
 
+const offerFolder = (folder: FakeFolder) =>
+  Object.defineProperty(window, "showDirectoryPicker", {
+    configurable: true,
+    value: vi.fn().mockResolvedValue(folder.handle),
+  })
+
+const startListening = async (folder: FakeFolder) => {
+  offerFolder(folder)
+  fireEvent.click(screen.getByTestId("upload-mode-listen"))
+  fireEvent.click(screen.getByTestId("folder-listen-start"))
+  await screen.findByTestId("folder-listen-active")
+}
+
 const requestClose = () => fireEvent.click(screen.getByTestId("stage-upload-close"))
 
 const sentSignal = () => vi.mocked(postXmlUpload).mock.calls[0][3]
@@ -39,6 +53,10 @@ describe("StageUploadDialog", () => {
   beforeEach(() => {
     vi.resetAllMocks()
     vi.mocked(postXmlUpload).mockImplementation(neverAnswered)
+  })
+
+  afterEach(() => {
+    Reflect.deleteProperty(window, "showDirectoryPicker")
   })
 
   it("uploads the picked files to its stage", async () => {
@@ -106,5 +124,58 @@ describe("StageUploadDialog", () => {
 
     expect(screen.getByTestId("upload-drop-area")).toBeInTheDocument()
     expect(screen.queryByText("results.xml")).not.toBeInTheDocument()
+  })
+
+  it("explains when the browser cannot listen to a folder", () => {
+    renderDialog()
+
+    fireEvent.click(screen.getByTestId("upload-mode-listen"))
+
+    expect(screen.getByTestId("folder-listen-unsupported")).toBeInTheDocument()
+  })
+
+  it("uploads the files found in the listened folder to its stage and deletes them", async () => {
+    vi.mocked(postXmlUpload).mockResolvedValue({ data: {}, meta: {} })
+    const results = folderFile("results.xml")
+    const folder = fakeFolder("exports", [results])
+    renderDialog()
+
+    await startListening(folder)
+
+    await waitFor(() => expect(folder.contents.size).toBe(0))
+    expect(postXmlUpload).toHaveBeenCalledWith(EVENT_ID, STAGE_ID, results, expect.any(AbortSignal))
+    expect(screen.getByText("results.xml")).toBeInTheDocument()
+  })
+
+  it("keeps the other mode locked while listening", async () => {
+    renderDialog()
+
+    await startListening(fakeFolder("exports"))
+
+    expect(screen.getByTestId("upload-mode-files")).toBeDisabled()
+    expect(screen.getByTestId("folder-listen-waiting")).toBeInTheDocument()
+  })
+
+  it("goes back to picking a folder once listening stops", async () => {
+    renderDialog()
+    await startListening(fakeFolder("exports"))
+
+    fireEvent.click(screen.getByTestId("folder-listen-stop"))
+
+    expect(screen.getByTestId("folder-listen-idle")).toBeInTheDocument()
+    expect(screen.getByTestId("upload-mode-files")).not.toBeDisabled()
+  })
+
+  it("asks before closing while listening and aborts the upload once confirmed", async () => {
+    const onClose = renderDialog()
+    await startListening(fakeFolder("exports", [folderFile("results.xml")]))
+    await waitFor(() => expect(postXmlUpload).toHaveBeenCalled())
+
+    requestClose()
+    expect(onClose).not.toHaveBeenCalled()
+    fireEvent.click(screen.getByTestId("cancel-upload-confirm"))
+
+    expect(sentSignal().aborted).toBe(true)
+    expect(onClose).toHaveBeenCalled()
   })
 })

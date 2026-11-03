@@ -1,23 +1,29 @@
+import { ReactNode } from "react"
 import { DialogContent, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import { UploadEntry } from "../shared/uploadEntry.ts"
-import { UPLOAD_PHASE, UploadPhase } from "../shared/uploadPhase.ts"
-import DropArea from "./DropArea.tsx"
-import UploadResultBox from "./UploadResultBox.tsx"
+import { UploadMode } from "../shared/uploadMode.ts"
+import UploadModeTabs from "./UploadModeTabs.tsx"
 import ExperimentalFeatureAlert from "../../../../../../../../../components/ExperimentalFeatureAlert.tsx"
 
 interface StageUploadDialogBodyProps {
-  entries: UploadEntry[]
-  onFiles: (files: File[]) => void
-  onUploadMore: () => void
-  phase: UploadPhase
+  children: ReactNode
+  isModeLocked: boolean
+  mode: UploadMode
+  onModeChange: (mode: UploadMode) => void
 }
 
+/**
+ * Lays out the upload dialog's content: the explanation, the mode tabs and the active mode.
+ * @param props.children the panel of the active mode.
+ * @param props.isModeLocked disables switching mode while data is being sent.
+ * @param props.mode the active mode.
+ * @param props.onModeChange called with the mode the user picks.
+ */
 export default function StageUploadDialogBody({
-  entries,
-  onFiles,
-  onUploadMore,
-  phase,
+  children,
+  isModeLocked,
+  mode,
+  onModeChange,
 }: StageUploadDialogBodyProps) {
   const { t } = useTranslation()
 
@@ -27,15 +33,8 @@ export default function StageUploadDialogBody({
         {t("EventAdmin.DataUpload.uploadFilesDescription")}
       </Typography>
       <ExperimentalFeatureAlert />
-      {phase === UPLOAD_PHASE.selecting ? (
-        <DropArea onFiles={onFiles} />
-      ) : (
-        <UploadResultBox
-          entries={entries}
-          isFinished={phase === UPLOAD_PHASE.finished}
-          onUploadMore={onUploadMore}
-        />
-      )}
+      <UploadModeTabs isLocked={isModeLocked} mode={mode} onChange={onModeChange} />
+      {children}
     </DialogContent>
   )
 }

@@ -40,6 +40,15 @@
       "dropHere": "Drag and drop IOF XML 3.0 files here",
       "filesIgnored_one": "{{count}} file was ignored: only .xml files can be uploaded.",
       "filesIgnored_other": "{{count}} files were ignored: only .xml files can be uploaded.",
+      "listen": {
+        "description": "Pick the folder your timing software exports to. While this window stays open, O-Replay checks the folder every few seconds, uploads every new or re-exported XML file to this stage and deletes it once uploaded, just like the desktop client. Keep this tab open: in the background the browser may check less often.",
+        "folderLost": "The folder could not be read, so listening has stopped. Pick it again to carry on.",
+        "listeningTo": "Listening to the folder “{{folderName}}”",
+        "start": "Pick a folder and start listening",
+        "stop": "Stop listening",
+        "unsupported": "This browser cannot listen to a folder. Use Chrome or Edge on a computer, upload the files by hand, or use the O-Replay desktop client.",
+        "waiting": "Waiting for XML files. Export them to this folder from your timing software."
+      },
       "messages": {
         "bad_request": "The upload request is not valid.",
         "conflict": "Another upload for this stage is still being processed. Wait a moment and try again.",
@@ -60,6 +69,10 @@
         "team_without_runners": "The team {{team}} has no runners.",
         "upload_type_guessed": "The file has neither split times nor finish times, so its type could not be determined. It was treated as finish times."
       },
+      "mode": {
+        "files": "Upload files",
+        "listen": "Listen to a folder"
+      },
       "newFeature": {
         "body": "Upload your IOF XML 3.0 start lists and results straight from this page, without the desktop client. Use the upload button <uploadIcon/> of each stage in the table above.",
         "title": "New: upload XML files directly"
@@ -69,6 +82,11 @@
         "done": "{{classes}} classes and {{runners}} runners updated",
         "pending": "Waiting",
         "uploading": "Uploading"
+      },
+      "stopListening": {
+        "body": "If you close now, the files you export to the folder will no longer be uploaded. The file being sent right now may already have been processed.",
+        "keepListening": "Keep listening",
+        "title": "Stop listening?"
       },
       "title": "Data upload",
       "titleWithStage": "Data upload: {{stageName}}",
