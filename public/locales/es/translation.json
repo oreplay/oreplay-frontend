@@ -51,12 +51,12 @@
       "filesIgnored_one": "Se ha ignorado {{count}} fichero: solo se pueden subir ficheros .xml.",
       "filesIgnored_other": "Se han ignorado {{count}} ficheros: solo se pueden subir ficheros .xml.",
       "listen": {
-        "description": "Elige la carpeta a la que exporta tu programa de cronometraje. Mientras esta ventana siga abierta, O-Replay revisará la carpeta cada pocos segundos, subirá a esta etapa cada fichero XML nuevo o reexportado y lo borrará después de subirlo, igual que el cliente de escritorio. Mantén esta pestaña abierta: en segundo plano, el navegador puede revisarla con menos frecuencia.",
+        "description": "Elige la carpeta a la que exporta tu programa de cronometraje. Mientras esta ventana siga abierta, O-Replay revisará la carpeta cada pocos segundos, subirá a esta etapa cada fichero XML nuevo o reexportado y lo borrará después de subirlo, igual que el cliente de escritorio. Mantén esta pestaña visible: en segundo plano, el navegador puede revisarla con menos frecuencia o pausarla. En el móvil, usa la pantalla dividida para tenerla a la vista junto a tu programa de cronometraje.",
         "folderLost": "No se ha podido leer la carpeta, así que se ha dejado de escuchar. Vuelve a elegirla para continuar.",
         "listeningTo": "Escuchando la carpeta «{{folderName}}»",
         "start": "Elegir carpeta y empezar a escuchar",
         "stop": "Dejar de escuchar",
-        "unsupported": "Este navegador no puede escuchar una carpeta. Usa Chrome o Edge en un ordenador, sube los ficheros a mano o utiliza el cliente de escritorio de O-Replay.",
+        "unsupported": "Este navegador no puede escuchar una carpeta. Usa Chrome o Edge, sube los ficheros a mano o utiliza el cliente de escritorio de O-Replay.",
         "waiting": "Esperando ficheros XML. Expórtalos a esta carpeta desde tu programa de cronometraje."
       },
       "messages": {

@@ -41,12 +41,12 @@
       "filesIgnored_one": "{{count}} file was ignored: only .xml files can be uploaded.",
       "filesIgnored_other": "{{count}} files were ignored: only .xml files can be uploaded.",
       "listen": {
-        "description": "Pick the folder your timing software exports to. While this window stays open, O-Replay checks the folder every few seconds, uploads every new or re-exported XML file to this stage and deletes it once uploaded, just like the desktop client. Keep this tab open: in the background the browser may check less often.",
+        "description": "Pick the folder your timing software exports to. While this window stays open, O-Replay checks the folder every few seconds, uploads every new or re-exported XML file to this stage and deletes it once uploaded, just like the desktop client. Keep this tab visible: in the background the browser may check less often or pause it. On a phone, use split screen to keep it next to your timing software.",
         "folderLost": "The folder could not be read, so listening has stopped. Pick it again to carry on.",
         "listeningTo": "Listening to the folder “{{folderName}}”",
         "start": "Pick a folder and start listening",
         "stop": "Stop listening",
-        "unsupported": "This browser cannot listen to a folder. Use Chrome or Edge on a computer, upload the files by hand, or use the O-Replay desktop client.",
+        "unsupported": "This browser cannot listen to a folder. Use Chrome or Edge, upload the files by hand, or use the O-Replay desktop client.",
         "waiting": "Waiting for XML files. Export them to this folder from your timing software."
       },
       "messages": {
