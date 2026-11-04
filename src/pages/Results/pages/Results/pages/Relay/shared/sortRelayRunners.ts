@@ -36,33 +36,15 @@ function compareIfBothHaveStarted(
 ): number {
   return multiLevelCompare(a, b, [
     (a, b) => relayCompareFunctions.byLiveRelayTime(a, b, now),
-    (a, b) =>
-      conditionalCompare(
-        a,
-        b,
-        (a, b) => relayCompareFunctions.isSameLegRunning(a, b, now),
-        compareIfSameLegIsRunning,
-        compareIfNotSameLegIsRunning,
-      ),
+    compareFunctions.byFinishedStatus,
+    (a, b) => relayCompareFunctions.byNumberOfLegsFinished(a, b, now),
+    relayCompareFunctions.byLastCommonLegTime,
+    //TODO: byLastCommonOnlineControl
   ])
 }
 
 function compareIfNotBothHaveStarted(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
   return multiLevelCompare(a, b, [compareFunctions.byStartedStatus, compareFunctions.byStartTime])
-}
-
-function compareIfSameLegIsRunning(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
-  // TODO: Implement online controls
-
-  return relayCompareFunctions.byLastCommonLegTime(a, b)
-}
-
-function compareIfNotSameLegIsRunning(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
-  return multiLevelCompare(a, b, [
-    relayCompareFunctions.byLastCommonLegTime,
-    compareFunctions.byFinishedStatus,
-    (a, b) => compareFunctions.byStartTime(a, b, false),
-  ])
 }
 
 export function sortRelayRunners(
