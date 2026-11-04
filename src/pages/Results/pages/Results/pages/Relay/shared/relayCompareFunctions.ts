@@ -72,19 +72,19 @@ function byLastCommonLegTime(a: ProcessedRunnerModel, b: ProcessedRunnerModel): 
   return 0
 }
 
-function isSameLegRunning(
+function byNumberOfLegsFinished(
   a: ProcessedRunnerModel,
   b: ProcessedRunnerModel,
   now?: DateTime<true>,
-): boolean {
+): number {
   const aRunningLeg = Math.max(...findLegsNumberRunning(a, now))
   const bRunningLeg = Math.max(...findLegsNumberRunning(b, now))
 
-  return aRunningLeg === bRunningLeg
+  return bRunningLeg - aRunningLeg
 }
 
 export const relayCompareFunctions = {
   byLastCommonLegTime,
   byLiveRelayTime,
-  isSameLegRunning,
+  byNumberOfLegsFinished,
 }
