@@ -124,7 +124,6 @@ export default defineConfig(({ mode }) => {
               handler: "NetworkFirst",
               options: {
                 cacheName: "oreplay-api-cache",
-                networkTimeoutSeconds: 5,
                 expiration: { maxEntries: 200, maxAgeSeconds: 7 * ONE_DAY_IN_SECONDS },
                 cacheableResponse: { statuses: [0, 200] },
               },
