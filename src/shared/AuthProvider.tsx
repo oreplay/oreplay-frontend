@@ -6,6 +6,7 @@ import {
   validateSignIn,
 } from "../pages/Administration/services/AuthenticationService.ts"
 import { updateAxiosClientHeaders } from "../infrastructure/orval/AxiosInstance.ts"
+import { setApiAuthorization } from "../services/ApiConfig.ts"
 
 /**
  * Available information when calling useAuth() hook
@@ -39,6 +40,7 @@ export function AuthProvider(props: { children: React.ReactNode }) {
     updateAxiosClientHeaders({
       Authorization: token ? `Bearer ${token}` : undefined,
     })
+    setApiAuthorization(token)
   }, [token])
 
   /**

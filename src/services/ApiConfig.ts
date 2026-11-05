@@ -7,15 +7,40 @@ export const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
 })
 
+/**
+ * Sends the signed-in user's access token with every request made through `axiosInstance`, or
+ * stops sending it after logout. Requests that pass their own token keep using that one.
+ * @param token The user's access token, or `null` when nobody is signed in.
+ */
+export function setApiAuthorization(token: string | null) {
+  if (token) {
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
+  } else {
+    delete axiosInstance.defaults.headers.common.Authorization
+  }
+}
+
+/**
+ * Builds the axios config of a request.
+ * @param token The token to authenticate this request with; without one the signed-in user's
+ * token set by `setApiAuthorization` is used, if any.
+ * @returns The request config with its headers.
+ */
 function buildRequestConfig(token: string | null | undefined) {
   return {
     headers: buildHeaders(token),
   }
 }
 
+/**
+ * Builds the headers of a request. `Authorization` is only set when a token is given, so that an
+ * explicit `undefined` never hides the signed-in user's default one.
+ * @param token The token to authenticate this request with, if any.
+ * @returns The request headers.
+ */
 function buildHeaders(token: string | null | undefined) {
   return {
-    Authorization: token ? `Bearer ${token}` : undefined,
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     "Content-Type": "application/json",
     Accept: "application/json",
   }
