@@ -9,55 +9,65 @@ import { useTranslation } from "react-i18next"
 import { useAuth } from "../../../../../../../shared/hooks.ts"
 import { DateTime } from "luxon"
 import RefreshButton from "./RefreshButton.tsx"
+import { useNotifyError } from "../../../../../../../infrastructure/notifications/useNotifyError.ts"
+import { latestEventToken } from "../shared/eventTokens.ts"
 
 interface Props {
   event_id: string
 }
 
+/**
+ * Shows the event's upload security token and its expiry date, and lets the organizer create or
+ * renew it. Renewing revokes every valid token of the event before creating the new one, and
+ * stops if any of them cannot be revoked, so a leaked token never stays valid unnoticed.
+ * @param props.event_id Id of the event whose token is managed.
+ */
 export default function EventTokenDataGrid(props: Props) {
   const { token } = useAuth()
   const { t } = useTranslation()
+  const notifyError = useNotifyError()
   const [eventToken, setEventToken] = useState<string>("")
   const [eventTokenExpireDate, setEventTokenExpireDate] = useState<DateTime | null>(null)
+  const [validTokens, setValidTokens] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const getResponse = getEventToken(props.event_id, token)
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    getResponse.then((response) => {
-      // Check if there are security tokens
-      if (response.data.length > 0) {
-        setEventToken(response.data[0].token)
-        setEventTokenExpireDate(DateTime.fromISO(response.data[0].expires))
-      }
-      setIsLoading(false)
-
-      return () => setIsLoading(true)
-    })
+    getEventToken(props.event_id, token)
+      .then((response) => {
+        const latest = latestEventToken(response.data)
+        setValidTokens(response.data.map((eventTokenData) => eventTokenData.token))
+        if (latest) {
+          setEventToken(latest.token)
+          setEventTokenExpireDate(DateTime.fromISO(latest.expires))
+        }
+      })
+      .catch(notifyError)
+      .finally(() => setIsLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const handleRenewToken = () => {
-    void handleRenewToken2()
+    void renewToken()
   }
-  const handleRenewToken2 = async () => {
+
+  /**
+   * Revokes every valid token of the event and then creates a new one. Nothing is created when a
+   * revocation fails, because the old token would otherwise keep working behind the new one.
+   */
+  const renewToken = async () => {
     setIsLoading(true)
-    if (eventToken != "") {
-      try {
-        await deleteEventTokens(props.event_id, eventToken)
-      } catch (error) {
-        console.log("Error in invalidateEventToken", error)
-        setIsLoading(false)
-      }
-    }
     try {
+      for (const validToken of validTokens) {
+        await deleteEventTokens(props.event_id, validToken)
+      }
       const response = await postListEventTokens(props.event_id, {
         expires: DateTime.now().endOf("day").plus({ month: 1 }).toUTC().toISO() ?? undefined,
       })
       setEventToken(response.data.token!)
       setEventTokenExpireDate(DateTime.fromISO(response.data.expires!))
-      setIsLoading(false)
+      setValidTokens([response.data.token!])
     } catch (error) {
-      console.log("error in postEventToken", error)
+      notifyError(error)
+    } finally {
       setIsLoading(false)
     }
   }
