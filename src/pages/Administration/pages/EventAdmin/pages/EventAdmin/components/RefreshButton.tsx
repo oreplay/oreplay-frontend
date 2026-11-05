@@ -18,8 +18,17 @@ interface RefreshButtonParams {
   handleRenewToken: () => void
   eventToken: string
   eventId: string
+  isDisabled: boolean
 }
 
+/**
+ * Creates the event's security token when there is none, or renews it after a confirmation, and
+ * copies it to the clipboard.
+ * @param props.handleRenewToken Creates or renews the token.
+ * @param props.eventToken The current token, or an empty string when the event has none.
+ * @param props.eventId Id of the event, prefixed to the token when it is copied.
+ * @param props.isDisabled Blocks creating and renewing, e.g. while the tokens load or a renewal runs.
+ */
 export default function RefreshButton(props: RefreshButtonParams) {
   const { t } = useTranslation()
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
@@ -34,16 +43,16 @@ export default function RefreshButton(props: RefreshButtonParams) {
   return (
     <>
       {props.eventToken == "" ? (
-        <IconButton>
+        <IconButton disabled={props.isDisabled} onClick={() => props.handleRenewToken()}>
           <Tooltip title={t("EventAdmin.Create security keys")}>
-            <AddIcon onClick={() => props.handleRenewToken()} />
+            <AddIcon />
           </Tooltip>
         </IconButton>
       ) : (
         <>
-          <IconButton>
+          <IconButton disabled={props.isDisabled} onClick={() => setIsDialogOpen(true)}>
             <Tooltip title={t("EventAdmin.Renew security keys")}>
-              <AutorenewIcon onClick={() => setIsDialogOpen(true)} />
+              <AutorenewIcon />
             </Tooltip>
           </IconButton>
           <CopyToClipBoardButton value={`${props.eventId}${props.eventToken}`} />

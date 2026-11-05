@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { getEventToken } from "../../../../../services/EventAdminService.ts"
 import {
   deleteEventTokens,
@@ -30,6 +30,8 @@ export default function EventTokenDataGrid(props: Props) {
   const [eventTokenExpireDate, setEventTokenExpireDate] = useState<DateTime | null>(null)
   const [validTokens, setValidTokens] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [areTokensLoaded, setAreTokensLoaded] = useState(false)
+  const isRenewing = useRef(false)
 
   /**
    * Loads the event's valid tokens from the backend and shows the one that expires last, or none.
@@ -42,7 +44,9 @@ export default function EventTokenDataGrid(props: Props) {
       setValidTokens(response.data.map((eventTokenData) => eventTokenData.token))
       setEventToken(latest?.token ?? "")
       setEventTokenExpireDate(latest ? DateTime.fromISO(latest.expires) : null)
+      setAreTokensLoaded(true)
     } catch (error) {
+      setAreTokensLoaded(false)
       notifyError(error)
     }
   }
@@ -58,9 +62,13 @@ export default function EventTokenDataGrid(props: Props) {
   /**
    * Revokes every valid token of the event and then creates a new one. Nothing is created when a
    * revocation fails, because the old token would otherwise keep working behind the new one; the
-   * tokens are then reloaded, as the ones revoked before the failure are gone.
+   * tokens are then reloaded, as the ones revoked before the failure are gone. It does nothing while
+   * another renewal is running or before the current tokens are known, since it could only revoke
+   * the tokens it knows about and would leave the others valid.
    */
   const renewToken = async () => {
+    if (isRenewing.current || !areTokensLoaded) return
+    isRenewing.current = true
     setIsLoading(true)
     try {
       for (const validToken of validTokens) {
@@ -76,6 +84,7 @@ export default function EventTokenDataGrid(props: Props) {
       notifyError(error)
       await loadTokens()
     } finally {
+      isRenewing.current = false
       setIsLoading(false)
     }
   }
@@ -106,6 +115,7 @@ export default function EventTokenDataGrid(props: Props) {
                     eventToken={eventToken || ""}
                     handleRenewToken={handleRenewToken}
                     eventId={props.event_id}
+                    isDisabled={isLoading || !areTokensLoaded}
                   />
                 ),
               },

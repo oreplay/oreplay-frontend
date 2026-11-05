@@ -97,6 +97,34 @@ describe("EventTokenDataGrid", () => {
     ])
   })
 
+  it("creates a single token when Create is clicked twice", async () => {
+    vi.mocked(getEventToken).mockResolvedValue({ data: [] })
+    vi.mocked(postListEventTokens).mockResolvedValue({
+      data: { token: "new-token", expires: "2099-02-01T00:00:00+00:00" },
+    })
+    render(<EventTokenDataGrid event_id={EVENT_ID} />)
+    await waitFor(() => expect(screen.getByTestId("AddIcon").closest("button")).toBeEnabled())
+
+    fireEvent.click(screen.getByTestId("AddIcon"))
+    fireEvent.click(screen.getByTestId("AddIcon"))
+
+    await waitFor(() =>
+      expect(screen.getByDisplayValue(`${EVENT_ID}new-token`)).toBeInTheDocument(),
+    )
+    expect(postListEventTokens).toHaveBeenCalledTimes(1)
+  })
+
+  it("does not create a token when the current ones could not be loaded", async () => {
+    vi.mocked(getEventToken).mockRejectedValue(new Error("network"))
+    render(<EventTokenDataGrid event_id={EVENT_ID} />)
+    await waitFor(() => expect(notifyError).toHaveBeenCalled())
+
+    fireEvent.click(screen.getByTestId("AddIcon"))
+
+    expect(screen.getByTestId("AddIcon").closest("button")).toBeDisabled()
+    expect(postListEventTokens).not.toHaveBeenCalled()
+  })
+
   it("reports a failed load instead of loading forever", async () => {
     vi.mocked(getEventToken).mockRejectedValue(new Error("network"))
     render(<EventTokenDataGrid event_id={EVENT_ID} />)
