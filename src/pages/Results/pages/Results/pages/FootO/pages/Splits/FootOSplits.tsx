@@ -48,7 +48,7 @@ export default function FootOSplits(
         <OnlyForClassesMsg />
       </Box>
     )
-  if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
+  if (props.runnersQuery.isLoading) return <GeneralSuspenseFallback />
   if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
   const toggleTimeLoss = () => setIsTimeLossOn((isOn) => !isOn)

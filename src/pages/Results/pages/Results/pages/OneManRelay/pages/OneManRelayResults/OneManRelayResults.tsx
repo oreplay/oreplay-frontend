@@ -24,7 +24,7 @@ export default function OneManRelayResults(props: OneManRelayResultProps) {
   if (!props.activeItem) {
     return <ChooseClassMsg />
   }
-  if (props.runnersQuery.isFetching) {
+  if (props.runnersQuery.isLoading) {
     return <ResultsListSkeleton />
   } else if (props.runnersQuery.isError) {
     return <GeneralErrorFallback />

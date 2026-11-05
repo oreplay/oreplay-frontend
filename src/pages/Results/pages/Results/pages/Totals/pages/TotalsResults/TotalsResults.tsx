@@ -20,7 +20,7 @@ export default function TotalsResults(
       </>
     )
   }
-  if (props.runnersQuery.isFetching) {
+  if (props.runnersQuery.isLoading) {
     return (
       <>
         <ResultsListSkeleton />

@@ -26,7 +26,7 @@ export default function RogainePoints(props: RogainePointsProps) {
   // Render component
   if (!props.activeItem) {
     return <ChooseClassMsg />
-  } else if (props.runnersQuery.isFetching || props.runnersQuery.isLoading) {
+  } else if (props.runnersQuery.isLoading) {
     return <ResultsListSkeleton />
   } else if (props.runnersQuery.isError) {
     return <GeneralErrorFallback />
