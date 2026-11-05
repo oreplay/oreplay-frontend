@@ -34,7 +34,7 @@ export default function RogainePoints(
         <OnlyForClassesMsg />
       </Box>
     )
-  if (props.runnersQuery.isFetching || props.runnersQuery.isLoading)
+  if (props.runnersQuery.isLoading)
     return (
       <Box sx={{ px: 2, height: "100%" }}>
         <ResultsListSkeleton />

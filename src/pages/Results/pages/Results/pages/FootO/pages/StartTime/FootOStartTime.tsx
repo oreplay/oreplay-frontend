@@ -22,17 +22,13 @@ export default function FootOStartTime(
 ) {
   const { t } = useTranslation()
 
-  // Get runners and order by start time
-  const rawRunnersList = props.runnersQuery.data?.slice() //shallow copy to avoid mutation
-
-  const runnersByStartTime = useMemo(() => {
-    return sortRunnersByStartTime(rawRunnersList ?? [])
-  }, [rawRunnersList])
+  const runners = props.runnersQuery.data
+  const runnersByStartTime = useMemo(() => sortRunnersByStartTime([...(runners ?? [])]), [runners])
 
   // Component
   if (!props.activeItem) {
     return <ChooseClassMsg />
-  } else if (props.runnersQuery.isFetching || props.runnersQuery.isLoading) {
+  } else if (props.runnersQuery.isLoading) {
     return <ResultsListSkeleton />
   } else if (props.runnersQuery.isError) {
     return <GeneralErrorFallback />

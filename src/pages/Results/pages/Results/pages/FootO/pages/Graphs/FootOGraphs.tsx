@@ -33,7 +33,7 @@ export default function FootOGraphs(
         <OnlyForClassesMsg />
       </Box>
     )
-  if (props.runnersQuery.isFetching) return <GeneralSuspenseFallback />
+  if (props.runnersQuery.isLoading) return <GeneralSuspenseFallback />
   if (props.runnersQuery.isError) return <GeneralErrorFallback />
 
   const hasRunnersWithSplits = runners.some((runner) => hasChipDownload(runner))
