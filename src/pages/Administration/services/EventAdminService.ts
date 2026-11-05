@@ -246,7 +246,7 @@ export async function getEventStats(eventId: string, stageId: string): Promise<D
  * @param userToken user's event owner authentication token.
  */
 export async function getEventToken(eventId: string, userToken: string | null) {
-  return get<Data<[GetEventTokenResponse]>>(baseUrl + `/${eventId}/tokens/`, userToken)
+  return get<Data<GetEventTokenResponse[]>>(baseUrl + `/${eventId}/tokens/`, userToken)
 }
 
 export async function getOrganizerList(): Promise<Page<OrganizerModel>> {
