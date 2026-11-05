@@ -114,15 +114,37 @@ describe("EventTokenDataGrid", () => {
     expect(postListEventTokens).toHaveBeenCalledTimes(1)
   })
 
-  it("does not create a token when the current ones could not be loaded", async () => {
+  it("does not create a token while the current ones still cannot be loaded", async () => {
     vi.mocked(getEventToken).mockRejectedValue(new Error("network"))
     render(<EventTokenDataGrid event_id={EVENT_ID} />)
-    await waitFor(() => expect(notifyError).toHaveBeenCalled())
+    await waitFor(() => expect(screen.getByTestId("AddIcon").closest("button")).toBeEnabled())
 
     fireEvent.click(screen.getByTestId("AddIcon"))
 
-    expect(screen.getByTestId("AddIcon").closest("button")).toBeDisabled()
+    await waitFor(() => expect(getEventToken).toHaveBeenCalledTimes(2))
+    await waitFor(() => expect(screen.getByTestId("AddIcon").closest("button")).toBeEnabled())
     expect(postListEventTokens).not.toHaveBeenCalled()
+  })
+
+  it("after a failed load, Create reloads the tokens and revokes them before creating one", async () => {
+    vi.mocked(getEventToken)
+      .mockRejectedValueOnce(new Error("network"))
+      .mockResolvedValue({
+        data: [{ token: OLD_TOKEN, expires: "2099-01-01T00:00:00+00:00", created: "" }],
+      })
+    vi.mocked(deleteEventTokens).mockResolvedValue(undefined)
+    vi.mocked(postListEventTokens).mockResolvedValue({
+      data: { token: "new-token", expires: "2099-02-01T00:00:00+00:00" },
+    })
+    render(<EventTokenDataGrid event_id={EVENT_ID} />)
+    await waitFor(() => expect(screen.getByTestId("AddIcon").closest("button")).toBeEnabled())
+
+    fireEvent.click(screen.getByTestId("AddIcon"))
+
+    await waitFor(() =>
+      expect(screen.getByDisplayValue(`${EVENT_ID}new-token`)).toBeInTheDocument(),
+    )
+    expect(deleteEventTokens).toHaveBeenCalledWith(EVENT_ID, OLD_TOKEN)
   })
 
   it("reports a failed load instead of loading forever", async () => {
