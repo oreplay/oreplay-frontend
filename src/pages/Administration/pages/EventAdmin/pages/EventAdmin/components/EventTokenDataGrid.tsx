@@ -35,19 +35,27 @@ export default function EventTokenDataGrid(props: Props) {
 
   /**
    * Loads the event's valid tokens from the backend and shows the one that expires last, or none.
-   * It is also how a failed renewal resyncs, since some tokens may already have been revoked.
+   * It is also how a failed renewal resyncs, since some tokens may already have been revoked. When
+   * the load fails nothing is shown, so a token that may have been revoked is never displayed.
+   * @returns The event's valid tokens, or `null` when they could not be loaded.
    */
-  const loadTokens = async () => {
+  const loadTokens = async (): Promise<string[] | null> => {
     try {
       const response = await getEventToken(props.event_id, token)
       const latest = latestEventToken(response.data)
-      setValidTokens(response.data.map((eventTokenData) => eventTokenData.token))
+      const tokens = response.data.map((eventTokenData) => eventTokenData.token)
+      setValidTokens(tokens)
       setEventToken(latest?.token ?? "")
       setEventTokenExpireDate(latest ? DateTime.fromISO(latest.expires) : null)
       setAreTokensLoaded(true)
+      return tokens
     } catch (error) {
+      setValidTokens([])
+      setEventToken("")
+      setEventTokenExpireDate(null)
       setAreTokensLoaded(false)
       notifyError(error)
+      return null
     }
   }
 
@@ -63,15 +71,17 @@ export default function EventTokenDataGrid(props: Props) {
    * Revokes every valid token of the event and then creates a new one. Nothing is created when a
    * revocation fails, because the old token would otherwise keep working behind the new one; the
    * tokens are then reloaded, as the ones revoked before the failure are gone. It does nothing while
-   * another renewal is running or before the current tokens are known, since it could only revoke
-   * the tokens it knows about and would leave the others valid.
+   * another renewal is running, and loads the current tokens first when they are not known, since it
+   * could only revoke the tokens it knows about and would leave the others valid.
    */
   const renewToken = async () => {
-    if (isRenewing.current || !areTokensLoaded) return
+    if (isRenewing.current) return
     isRenewing.current = true
     setIsLoading(true)
     try {
-      for (const validToken of validTokens) {
+      const tokensToRevoke = areTokensLoaded ? validTokens : await loadTokens()
+      if (!tokensToRevoke) return
+      for (const validToken of tokensToRevoke) {
         await deleteEventTokens(props.event_id, validToken)
       }
       const response = await postListEventTokens(props.event_id, {
@@ -115,7 +125,7 @@ export default function EventTokenDataGrid(props: Props) {
                     eventToken={eventToken || ""}
                     handleRenewToken={handleRenewToken}
                     eventId={props.event_id}
-                    isDisabled={isLoading || !areTokensLoaded}
+                    isDisabled={isLoading}
                   />
                 ),
               },
