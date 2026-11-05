@@ -10,7 +10,7 @@ import DirectUploadAnnouncement from "./components/DirectUploadAnnouncement.tsx"
 import TextWithUploadIcon from "./components/TextWithUploadIcon.tsx"
 import { useState } from "react"
 import { patchEvent } from "../../../../services/EventAdminService.ts"
-import { EventDetailModel, useRequiredParams } from "../../../../../../shared/EntityTypes.ts"
+import { Data, EventDetailModel, useRequiredParams } from "../../../../../../shared/EntityTypes.ts"
 import { useAuth } from "../../../../../../shared/hooks.ts"
 import GeneralSuspenseFallback from "../../../../../../components/GeneralSuspenseFallback.tsx"
 import GeneralErrorFallback from "../../../../../../components/GeneralErrorFallback.tsx"
@@ -20,6 +20,7 @@ import { apiErrorService } from "../../../../../../domain/services/ApiErrorServi
 import { useNotifications } from "@toolpad/core/useNotifications"
 import { useMutation, useQueryClient } from "react-query"
 import { AxiosError } from "axios"
+import { withEditedEventDetail } from "./shared/eventDetailUpdate.ts"
 
 export default function EventAdmin() {
   const notifications = useNotifications()
@@ -36,7 +37,8 @@ export default function EventAdmin() {
   const updateEventMutation = useMutation<
     EventDetailModel,
     AxiosError<EventDetailModel>,
-    EventAdminFormValues
+    EventAdminFormValues,
+    { previous: Data<EventDetailModel> | undefined }
   >(
     (values) =>
       patchEvent(
@@ -57,32 +59,15 @@ export default function EventAdmin() {
       onMutate: async (values: EventAdminFormValues) => {
         await queryClient.cancelQueries({ queryKey: ["eventDetail", eventId] })
 
-        const previous = queryClient.getQueryData<EventDetailModel>(["eventDetail", eventId])
-
-        // Optimistic update
-        queryClient.setQueryData<EventDetailModel>(
-          ["eventDetail", eventId],
-          (old: EventDetailModel | undefined): EventDetailModel => {
-            return {
-              ...old!,
-              id: old?.id ?? "",
-              description: values.description,
-              website: values.website as string,
-              organizer: values.organizer,
-              initial_date: values.startDate?.toSQLDate() ?? "",
-              final_date: values.endDate?.toSQLDate() ?? "",
-              scope: values.scope,
-              is_hidden: !values.isPublic,
-              timezone: values.timezone.id,
-              country_code: values.countryCode,
-            }
-          },
-        )
+        const previous = queryClient.getQueryData<Data<EventDetailModel>>(["eventDetail", eventId])
+        queryClient.setQueryData(["eventDetail", eventId], withEditedEventDetail(previous, values))
 
         return { previous }
       },
-      onError: (err, context) => {
-        queryClient.setQueryData(["eventDetail", eventId], context)
+      onError: (err, _values, context) => {
+        if (context?.previous) {
+          queryClient.setQueryData(["eventDetail", eventId], context.previous)
+        }
         notifications.show("Edit event failed. " + apiErrorService.toString(err), {
           autoHideDuration: 3000,
           severity: "error",
