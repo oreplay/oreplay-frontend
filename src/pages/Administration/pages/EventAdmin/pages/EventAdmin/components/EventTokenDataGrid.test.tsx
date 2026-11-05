@@ -27,7 +27,7 @@ vi.mock("../../../../../../../infrastructure/notifications/useNotifyError.ts", (
 async function renderWithExistingToken() {
   vi.mocked(getEventToken).mockResolvedValue({
     data: [{ token: OLD_TOKEN, expires: "2099-01-01T00:00:00+00:00", created: "" }],
-  } as unknown as Awaited<ReturnType<typeof getEventToken>>)
+  })
   render(<EventTokenDataGrid event_id={EVENT_ID} />)
   await waitFor(() =>
     expect(screen.getByDisplayValue(`${EVENT_ID}${OLD_TOKEN}`)).toBeInTheDocument(),
