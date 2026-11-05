@@ -227,6 +227,14 @@ export async function wipeOutStage(eventId: string, stageId: string, token: stri
   return deleteRequest(baseUrl + `/${eventId}/stages/${stageId}/?clean=1`, token)
 }
 
+/**
+ * Gets the FEDO statistics of a stage: entries and status counts grouped as official under-20,
+ * official senior and other classes, by gender. It is the `stats-fedo` endpoint, not `stats`,
+ * which returns a flat list per class that the stats tables cannot read.
+ * @param eventId Id of the event.
+ * @param stageId Id of the stage.
+ * @returns The grouped statistics.
+ */
 export async function getEventStats(eventId: string, stageId: string): Promise<Data<ApiStats>> {
   const sub20M = "U-10,M-12,M-14,M-16,M-16/18,M-18E,M-20E"
   const sub20F = "U-10,F-12,F-14,F-16,F-16/18,F-18E,F-20E"
@@ -236,7 +244,7 @@ export async function getEventStats(eventId: string, stageId: string): Promise<D
     "F-E,F-21A,F-21B,F-35,F-35B,F-35A,F-40,F-45,F-50,F-55,F-60,F-65,F-70,F-75,F-80,F-85,F-90,F-95"
   return get(
     baseUrl +
-      `/${eventId}/stages/${stageId}/stats?officialSub20M=${sub20M}&officialSub20F=${sub20F}&officialSeniorM=${senM}&officialSeniorF=${senF}`,
+      `/${eventId}/stages/${stageId}/stats-fedo?officialSub20M=${sub20M}&officialSub20F=${sub20F}&officialSeniorM=${senM}&officialSeniorF=${senF}`,
   )
 }
 
