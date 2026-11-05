@@ -21,13 +21,19 @@ export function parseStartTime(dateString: null | string) {
 }
 
 /**
- * Parse a duration in seconds to MM:SS or HH:MM:SS format
+ * Parse a duration in seconds to MM:SS or HH:MM:SS format. A negative duration (a leg whose
+ * punches are out of order, for instance) gets a single leading minus, e.g. "-01:05", instead of
+ * Luxon's per-unit signs ("-01:-05").
  *
- * @param seconds Duration in seconds
+ * @param seconds Duration in seconds; negative values are formatted with a leading "-"
+ * @returns The formatted duration
  */
 export function parseSecondsToMMSS(seconds: number | string): string {
   // Parse duration
   seconds = Number(seconds)
+  if (seconds < 0) {
+    return `-${parseSecondsToMMSS(-seconds)}`
+  }
   const duration = Duration.fromObject({ seconds: seconds })
 
   // Choose HH:MM:SS or MM:SS formats
