@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest"
 import { act, renderHook } from "@testing-library/react"
 import { useSelectedRunners } from "./useSelectedRunners.ts"
+import { SELECTED_RUNNERS_STORAGE_KEY } from "./selectedRunners.ts"
 
 const originalStorage = Object.getOwnPropertyDescriptor(window, "localStorage")
 
@@ -19,6 +20,13 @@ function blockStorage() {
 describe("useSelectedRunners", () => {
   afterEach(() => {
     if (originalStorage) Object.defineProperty(window, "localStorage", originalStorage)
+  })
+
+  it("remembers the selection in the browser storage", () => {
+    const { result } = renderHook(() => useSelectedRunners([]))
+    act(() => result.current[1](["runner"]))
+
+    expect(localStorage.getItem(SELECTED_RUNNERS_STORAGE_KEY)).toBe(JSON.stringify(["runner"]))
   })
 
   it("works without the browser storage, keeping the selection in memory", () => {

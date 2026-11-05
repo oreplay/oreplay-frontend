@@ -30,7 +30,7 @@ function readStoredRunnerIds(): string | null {
  */
 function writeStoredRunnerIds(runnerIds: string[]) {
   try {
-    writeStoredRunnerIds(runnerIds)
+    localStorage.setItem(SELECTED_RUNNERS_STORAGE_KEY, JSON.stringify(runnerIds))
   } catch {
     return
   }
