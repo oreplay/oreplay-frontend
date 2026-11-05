@@ -31,18 +31,24 @@ export default function EventTokenDataGrid(props: Props) {
   const [validTokens, setValidTokens] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
+  /**
+   * Loads the event's valid tokens from the backend and shows the one that expires last, or none.
+   * It is also how a failed renewal resyncs, since some tokens may already have been revoked.
+   */
+  const loadTokens = async () => {
+    try {
+      const response = await getEventToken(props.event_id, token)
+      const latest = latestEventToken(response.data)
+      setValidTokens(response.data.map((eventTokenData) => eventTokenData.token))
+      setEventToken(latest?.token ?? "")
+      setEventTokenExpireDate(latest ? DateTime.fromISO(latest.expires) : null)
+    } catch (error) {
+      notifyError(error)
+    }
+  }
+
   useEffect(() => {
-    getEventToken(props.event_id, token)
-      .then((response) => {
-        const latest = latestEventToken(response.data)
-        setValidTokens(response.data.map((eventTokenData) => eventTokenData.token))
-        if (latest) {
-          setEventToken(latest.token)
-          setEventTokenExpireDate(DateTime.fromISO(latest.expires))
-        }
-      })
-      .catch(notifyError)
-      .finally(() => setIsLoading(false))
+    void loadTokens().finally(() => setIsLoading(false))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const handleRenewToken = () => {
@@ -51,7 +57,8 @@ export default function EventTokenDataGrid(props: Props) {
 
   /**
    * Revokes every valid token of the event and then creates a new one. Nothing is created when a
-   * revocation fails, because the old token would otherwise keep working behind the new one.
+   * revocation fails, because the old token would otherwise keep working behind the new one; the
+   * tokens are then reloaded, as the ones revoked before the failure are gone.
    */
   const renewToken = async () => {
     setIsLoading(true)
@@ -67,6 +74,7 @@ export default function EventTokenDataGrid(props: Props) {
       setValidTokens([response.data.token!])
     } catch (error) {
       notifyError(error)
+      await loadTokens()
     } finally {
       setIsLoading(false)
     }
