@@ -23,9 +23,22 @@ export const OVERALL_SETTINGS_FIELDS = [
   },
 ] as const
 
+export type OverallSettingKey = (typeof OVERALL_SETTINGS_FIELDS)[number]["key"]
+
 export const DEFAULT_OVERALL_SETTINGS: (number | null)[] = OVERALL_SETTINGS_FIELDS.map(
   (field) => field.default,
 )
+
+export function isTotalCircuitRacesMismatch(
+  key: OverallSettingKey,
+  value: number | null,
+  stageOrderCount?: number,
+): boolean {
+  if (key !== "totalCircuitRaces" || value === null || stageOrderCount === undefined) {
+    return false
+  }
+  return value !== stageOrderCount
+}
 
 export function parseOverallSettings(raw: string | null | undefined): (number | null)[] {
   let parsed: Record<string, unknown> = {}

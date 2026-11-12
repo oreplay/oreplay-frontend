@@ -5,7 +5,7 @@ import {
   RankingSettingsFormState,
   isRankingSettingsFormComplete,
 } from "../shared/rankingSettingsForm.ts"
-import { OVERALL_SETTINGS_FIELDS } from "../shared/overallSettings.ts"
+import { OVERALL_SETTINGS_FIELDS, isTotalCircuitRacesMismatch } from "../shared/overallSettings.ts"
 import { ROUND_PRECISION_OPTIONS } from "../shared/roundPrecision.ts"
 import { SCORING_ALGORITHM_OPTIONS } from "../shared/scoringAlgorithm.ts"
 import { STATUS_SCORE_FIELDS } from "../shared/statusScores.ts"
@@ -32,6 +32,7 @@ interface RankingSettingsFormProps {
   /** Extra action shown next to the submit button (e.g. delete). */
   secondaryAction?: ReactNode
   rankingId?: string
+  stageOrderCount?: number
 }
 
 // Presentational, action-agnostic form; the page wires `onSubmit` and labels.
@@ -46,6 +47,7 @@ export default function RankingSettingsForm({
   onSubmit,
   secondaryAction,
   rankingId,
+  stageOrderCount,
 }: RankingSettingsFormProps) {
   const { t } = useTranslationRanking()
 
@@ -158,15 +160,26 @@ export default function RankingSettingsForm({
       >
         {OVERALL_SETTINGS_FIELDS.map((settingsField, index) => (
           <form.Field key={settingsField.key} name={`overallSettings[${index}]`}>
-            {(field) => (
-              <NumberField
-                label={t(settingsField.labelKey)}
-                value={field.state.value}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                error={joinFieldErrors(field.state.meta.errors)}
-              />
-            )}
+            {(field) => {
+              const isMismatch = isTotalCircuitRacesMismatch(
+                settingsField.key,
+                field.state.value,
+                stageOrderCount,
+              )
+              const warning = isMismatch
+                ? t("Settings.totalCircuitRacesMismatch", { count: stageOrderCount })
+                : undefined
+              return (
+                <NumberField
+                  label={t(settingsField.labelKey)}
+                  value={field.state.value}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  error={joinFieldErrors(field.state.meta.errors)}
+                  warning={warning}
+                />
+              )
+            }}
           </form.Field>
         ))}
       </FormSection>

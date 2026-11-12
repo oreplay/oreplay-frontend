@@ -4,6 +4,7 @@ import {
   useGetRankingSettings,
   usePatchRankingSettings,
 } from "../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { useGetListStageOrders } from "../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
 import { initRankingSettingsForm, toRankingBody } from "../../shared/rankingSettingsForm.ts"
 import { useNotifyError } from "../../../../infrastructure/notifications/useNotifyError.ts"
 import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
@@ -19,6 +20,8 @@ export default function RankingSettings() {
   const { mutate, isLoading: isSaving } = usePatchRankingSettings()
 
   const ranking = data?.data
+  const stageOrders = useGetListStageOrders(ranking?.event_id ?? "", ranking?.stage_id ?? "")
+  const stageOrderCount = stageOrders.data?.data?.length
 
   return (
     <SettingsPageLayout
@@ -51,6 +54,7 @@ export default function RankingSettings() {
             )
           }
           rankingId={ranking.id}
+          stageOrderCount={stageOrderCount}
           secondaryAction={
             <DeleteRankingButton rankingId={ranking.id} eventId={ranking.event_id} />
           }
