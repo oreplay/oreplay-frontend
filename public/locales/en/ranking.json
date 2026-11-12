@@ -150,7 +150,7 @@
     "stats": "Stats",
     "title": "Stage orders",
     "warningClassesMissingInEvent": "These classes of the ranking do not exist in this event and will rank nobody: {{names}}. Process anyway.",
-    "warningClassesNotInDefinition": "These classes of the event are not in the ranking and will not be ranked: {{names}}. Process anyway.",
+    "warningClassesNotInDefinition": "These classes of the event are not part of the ranking: {{names}}. Exclude them.",
     "warningRunnersWithoutResult": "{{total}} runners are still in race, with no result yet: {{names}}. Process anyway."
   }
 }
