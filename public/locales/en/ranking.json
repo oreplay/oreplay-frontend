@@ -127,7 +127,8 @@
     "statusScores": "Status scores",
     "statusScoresHint": "Fixed score per result status. Leave empty to use the computed score.",
     "title": "Ranking settings",
-    "titleLabel": "Title"
+    "titleLabel": "Title",
+    "totalCircuitRacesMismatch": "Does not match the number of stage orders below ({{count}})"
   },
   "StageOrders": {
     "createTitle": "New stage order",
