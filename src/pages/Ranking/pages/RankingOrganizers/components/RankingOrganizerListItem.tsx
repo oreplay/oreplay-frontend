@@ -36,7 +36,7 @@ export default function RankingOrganizerListItem({
 
   return (
     <li className="rk-ranking-organizer-list-item flex flex-col gap-3 rounded-xl bg-white px-4 py-3 shadow-sm">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex min-h-9 items-center justify-between gap-4">
         <div>
           <p className="m-0 font-medium">
             {formatOrganizerName(organizer.first_name, organizer.last_name)}
