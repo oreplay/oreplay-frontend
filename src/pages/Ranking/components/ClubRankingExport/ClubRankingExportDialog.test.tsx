@@ -12,7 +12,7 @@ vi.mock("../../../../infrastructure/notifications/useNotifyError.ts", () => ({
 
 const EVENT_ID = "event-1"
 const STAGE_ID = "stage-1"
-const DOWNLOAD_LABEL = "ClubRankingExport.download"
+const DOWNLOAD_LABEL = "common:download"
 
 const renderDialog = () => {
   const onClose = vi.fn()

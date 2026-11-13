@@ -35,7 +35,7 @@ export default function ClubRankingExportDialog({
     <ConfirmDialog
       open
       title={t("ClubRankingExport.title")}
-      confirmLabel={t("ClubRankingExport.download")}
+      confirmLabel={t("common:download")}
       closeLabel={t("common:close")}
       isConfirming={downloading}
       onConfirm={() => void download()}

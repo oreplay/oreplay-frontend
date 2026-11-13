@@ -93,7 +93,7 @@ export default function ExportResultsDialog({
     <ConfirmDialog
       open={open}
       title={t("ExportResults.title")}
-      confirmLabel={t("ExportResults.download")}
+      confirmLabel={t("common:download")}
       closeLabel={t("common:close")}
       isConfirming={downloading}
       confirmDisabled={!canDownload}
