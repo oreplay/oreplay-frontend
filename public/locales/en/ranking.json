@@ -5,7 +5,6 @@
   },
   "ClubRankingExport": {
     "description": "Downloads a CSV with the points of each club grouped by age.",
-    "download": "Download",
     "title": "Export club ranking"
   },
   "Create": {
@@ -29,7 +28,6 @@
     "backgroundPdf": "Background PDF URL",
     "backgroundPdfHint": "Optional. Overrides the template background.",
     "classes": "Categories",
-    "download": "Download",
     "success": "Export ready.",
     "template": "Template",
     "templates": {
