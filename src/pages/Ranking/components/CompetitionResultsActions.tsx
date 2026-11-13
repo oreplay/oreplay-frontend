@@ -5,6 +5,7 @@ import CompetitionResultsLink from "./CompetitionResultsLink.tsx"
 import DropdownMenu from "./DropdownMenu/DropdownMenu.tsx"
 import SettingsIcon from "./icons/SettingsIcon.tsx"
 import ExportResultsDialog from "./ExportResults/ExportResultsDialog.tsx"
+import ClubRankingExportDialog from "./ClubRankingExport/ClubRankingExportDialog.tsx"
 
 interface CompetitionResultsActionsProps {
   eventId: string
@@ -19,11 +20,14 @@ export default function CompetitionResultsActions({
 }: CompetitionResultsActionsProps) {
   const { t } = useTranslationRanking()
   const [exportOpen, setExportOpen] = useState(false)
+  const [clubRankingOpen, setClubRankingOpen] = useState(false)
   const menuItems = competitionResultsMenuItems({
     exportLabel: t("ExportResults.title"),
+    clubRankingLabel: t("ClubRankingExport.title"),
     duplicatedRunnersLabel: t("DuplicatedRunners.title"),
     rankingId,
     onExport: () => setExportOpen(true),
+    onExportClubRanking: () => setClubRankingOpen(true),
   })
 
   return (
@@ -40,6 +44,13 @@ export default function CompetitionResultsActions({
           eventId={eventId}
           stageId={stageId}
           onClose={() => setExportOpen(false)}
+        />
+      )}
+      {clubRankingOpen && (
+        <ClubRankingExportDialog
+          eventId={eventId}
+          stageId={stageId}
+          onClose={() => setClubRankingOpen(false)}
         />
       )}
     </div>

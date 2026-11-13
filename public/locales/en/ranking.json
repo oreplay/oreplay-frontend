@@ -3,6 +3,11 @@
     "label": "Breadcrumb",
     "rankings": "Rankings"
   },
+  "ClubRankingExport": {
+    "description": "Downloads a CSV with the points of each club grouped by age.",
+    "download": "Download",
+    "title": "Export club ranking"
+  },
   "Create": {
     "title": "New ranking"
   },
