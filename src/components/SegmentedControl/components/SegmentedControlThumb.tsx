@@ -1,7 +1,4 @@
-import {
-  SEGMENTED_CONTROL_PADDING,
-  segmentedControlThumbStyle,
-} from "../shared/segmentedControl.ts"
+import { segmentedControlThumbStyle } from "../shared/segmentedControl.ts"
 
 interface SegmentedControlThumbProps {
   optionCount: number
@@ -20,12 +17,7 @@ export default function SegmentedControlThumb({
   optionCount,
   selectedIndex,
 }: SegmentedControlThumbProps) {
-  const style = {
-    ...segmentedControlThumbStyle(selectedIndex, optionCount),
-    bottom: SEGMENTED_CONTROL_PADDING,
-    left: SEGMENTED_CONTROL_PADDING,
-    top: SEGMENTED_CONTROL_PADDING,
-  }
+  const style = segmentedControlThumbStyle(selectedIndex, optionCount)
 
   return (
     <span

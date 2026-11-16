@@ -71,7 +71,10 @@ describe("segmentedControlThumbStyle", () => {
 
   it("hides the thumb when no choice is selected", () => {
     expect(segmentedControlThumbStyle(-1, 2)).toEqual({
+      bottom: "0.25rem",
+      left: "0.25rem",
       opacity: 0,
+      top: "0.25rem",
       transform: "translateX(calc(0 * (100% + 0.25rem)))",
       width: "calc((100% - 2 * 0.25rem - 1 * 0.25rem) / 2)",
     })
