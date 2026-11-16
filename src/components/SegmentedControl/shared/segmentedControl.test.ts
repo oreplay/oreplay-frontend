@@ -4,6 +4,7 @@ import {
   segmentedControlOptionAria,
   segmentedControlOptionId,
   segmentedControlRole,
+  segmentedControlThumbStyle,
 } from "./segmentedControl.ts"
 
 describe("segmentedControlOptionId", () => {
@@ -42,5 +43,41 @@ describe("segmentedControlOptionAria", () => {
       role: "radio",
       "aria-checked": false,
     })
+  })
+})
+
+describe("segmentedControlThumbStyle", () => {
+  it("makes the thumb one equal share of the track, net of padding and gaps", () => {
+    expect(segmentedControlThumbStyle(0, 3).width).toBe(
+      "calc((100% - 2 * 0.25rem - 2 * 0.25rem) / 3)",
+    )
+  })
+
+  it("keeps the thumb on the first choice when it is selected", () => {
+    expect(segmentedControlThumbStyle(0, 2).transform).toBe(
+      "translateX(calc(0 * (100% + 0.25rem)))",
+    )
+  })
+
+  it("moves the thumb by its own width plus a gap for every choice before the selected one", () => {
+    expect(segmentedControlThumbStyle(2, 3).transform).toBe(
+      "translateX(calc(2 * (100% + 0.25rem)))",
+    )
+  })
+
+  it("shows the thumb while a choice is selected", () => {
+    expect(segmentedControlThumbStyle(1, 2).opacity).toBe(1)
+  })
+
+  it("hides the thumb when no choice is selected", () => {
+    expect(segmentedControlThumbStyle(-1, 2)).toEqual({
+      opacity: 0,
+      transform: "translateX(calc(0 * (100% + 0.25rem)))",
+      width: "calc((100% - 2 * 0.25rem - 1 * 0.25rem) / 2)",
+    })
+  })
+
+  it("hides the thumb of a control without choices", () => {
+    expect(segmentedControlThumbStyle(0, 0).opacity).toBe(0)
   })
 })

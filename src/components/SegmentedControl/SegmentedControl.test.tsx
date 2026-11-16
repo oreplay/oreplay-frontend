@@ -134,6 +134,29 @@ describe("SegmentedControl", () => {
     expect(selected).toHaveAttribute("aria-controls", "panel-banana")
   })
 
+  it("slides the thumb behind the newly selected choice", () => {
+    const { rerender } = render(
+      <SegmentedControl
+        ariaLabel={GROUP_LABEL}
+        onChange={vi.fn()}
+        options={OPTIONS}
+        selectedKey={FRUIT.Apple}
+      />,
+    )
+    rerender(
+      <SegmentedControl
+        ariaLabel={GROUP_LABEL}
+        onChange={vi.fn()}
+        options={OPTIONS}
+        selectedKey={FRUIT.Cherry}
+      />,
+    )
+    const thumb = document.querySelector<HTMLElement>(".segmented-control-thumb")
+
+    expect(thumb).toHaveAttribute("aria-hidden", "true")
+    expect(thumb?.style.transform).toBe("translateX(calc(2 * (100% + 0.25rem)))")
+  })
+
   it("renders a choice without an icon", () => {
     render(
       <SegmentedControl
