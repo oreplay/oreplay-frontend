@@ -343,3 +343,12 @@ Never leave the user waiting on a silent UI — every asynchronous action shows 
 - **CSS class naming (ranking area)**: the root element of every ranking component has a first CSS
   class matching the component name in kebab-case prefixed with `rk-` (e.g. `SkeletonLoaderGroup` →
   `rk-skeleton-loader-group`).
+- **Language** The only valid language for the code is English. This applies to every comment and PR.
+- **Privacy** This is a public repo on GitHub. Thus, no personal information or sensitive data can go
+  into comments or PRs. What you find checking any API endpoint on the production server should remain
+  private.
+
+### Opening PRs
+
+- PRs should always be opened against `dev` branch unless you're explicitly instructed to open it
+  against another branch.
