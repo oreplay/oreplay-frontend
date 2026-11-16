@@ -1,11 +1,10 @@
 import { ReactElement } from "react"
 
 export const SEGMENTED_CONTROL_GAP = "0.25rem"
-export const SEGMENTED_CONTROL_PADDING = "0.25rem"
-
 export const SEGMENTED_CONTROL_MODE = { Radio: "radio", Tabs: "tabs" } as const
 export type SegmentedControlMode =
   (typeof SEGMENTED_CONTROL_MODE)[keyof typeof SEGMENTED_CONTROL_MODE]
+export const SEGMENTED_CONTROL_PADDING = "0.25rem"
 
 /**
  * One choice of a segmented control.
@@ -53,6 +52,16 @@ export function segmentedControlOptionId(controlId: string, optionKey: string): 
 }
 
 /**
+ * ARIA role of the element that groups the choices.
+ *
+ * @param mode `tabs` when every choice shows its own panel, `radio` when it picks a value.
+ * @returns `tablist` or `radiogroup`.
+ */
+export function segmentedControlRole(mode: SegmentedControlMode) {
+  return mode === SEGMENTED_CONTROL_MODE.Tabs ? "tablist" : "radiogroup"
+}
+
+/**
  * Inline style of the raised thumb that sits behind the selected choice and slides between choices.
  * Every choice takes the same share of the track, so the thumb is one share wide and moves by its
  * own width plus the gap for every choice before the selected one. Purely CSS lengths, so it needs
@@ -60,7 +69,7 @@ export function segmentedControlOptionId(controlId: string, optionKey: string): 
  *
  * @param selectedIndex Position of the selected choice; a negative value means nothing is selected.
  * @param optionCount How many choices the control offers; zero or less hides the thumb.
- * @returns The width, offset and visibility to put on the thumb element.
+ * @returns The insets, width, offset and visibility to put on the thumb element.
  */
 export function segmentedControlThumbStyle(selectedIndex: number, optionCount: number) {
   const isHidden = selectedIndex < 0 || optionCount <= 0
@@ -69,18 +78,11 @@ export function segmentedControlThumbStyle(selectedIndex: number, optionCount: n
   const totalGaps = `${count - 1} * ${SEGMENTED_CONTROL_GAP}`
 
   return {
+    bottom: SEGMENTED_CONTROL_PADDING,
+    left: SEGMENTED_CONTROL_PADDING,
     opacity: isHidden ? 0 : 1,
+    top: SEGMENTED_CONTROL_PADDING,
     transform: `translateX(calc(${visibleIndex} * (100% + ${SEGMENTED_CONTROL_GAP})))`,
     width: `calc((100% - 2 * ${SEGMENTED_CONTROL_PADDING} - ${totalGaps}) / ${count})`,
   } as const
-}
-
-/**
- * ARIA role of the element that groups the choices.
- *
- * @param mode `tabs` when every choice shows its own panel, `radio` when it picks a value.
- * @returns `tablist` or `radiogroup`.
- */
-export function segmentedControlRole(mode: SegmentedControlMode) {
-  return mode === SEGMENTED_CONTROL_MODE.Tabs ? "tablist" : "radiogroup"
 }
