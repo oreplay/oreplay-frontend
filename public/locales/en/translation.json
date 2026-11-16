@@ -51,7 +51,7 @@
         "invalid_token": "Your session is not valid. Log in again and retry.",
         "not_found": "The event or the stage was not found.",
         "nothing_changed": "Nothing changed: this data had already been uploaded.",
-        "result_type_converted": "Stage results were converted to partial overall results.",
+        "result_type_converted": "This results are for an overall stage, but some results were labeled in the file as race results. The results were saved as the stage result within overall results.",
         "results_without_splits": "The results were uploaded without split times.",
         "rows_not_saved": "{{rows}} rows of class {{class}} could not be saved. Upload the file again.",
         "runner_without_results": "Some runners have no results.",

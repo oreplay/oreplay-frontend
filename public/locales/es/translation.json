@@ -61,7 +61,7 @@
         "invalid_token": "Tu sesión no es válida. Vuelve a iniciar sesión e inténtalo de nuevo.",
         "not_found": "No se ha encontrado el evento o la etapa.",
         "nothing_changed": "No ha cambiado nada: estos datos ya se habían subido.",
-        "result_type_converted": "Los resultados de etapa se han convertido en resultados de general parcial.",
+        "result_type_converted": "Esta subida es de totales, pero algunos resultados venían marcados como resultado de carrera en el fichero. Se han guardado como resultados de etapa dentro de los totales.",
         "results_without_splits": "Los resultados se han subido sin tiempos parciales.",
         "rows_not_saved": "No se han podido guardar {{rows}} filas de la categoría {{class}}. Vuelve a subir el fichero.",
         "runner_without_results": "Algunos corredores no tienen resultados.",
