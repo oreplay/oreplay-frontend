@@ -1,5 +1,8 @@
 import { ReactElement } from "react"
 
+export const SEGMENTED_CONTROL_GAP = "0.25rem"
+export const SEGMENTED_CONTROL_PADDING = "0.25rem"
+
 export const SEGMENTED_CONTROL_MODE = { Radio: "radio", Tabs: "tabs" } as const
 export type SegmentedControlMode =
   (typeof SEGMENTED_CONTROL_MODE)[keyof typeof SEGMENTED_CONTROL_MODE]
@@ -47,6 +50,29 @@ export function segmentedControlOptionAria(
  */
 export function segmentedControlOptionId(controlId: string, optionKey: string): string {
   return `${controlId}-option-${optionKey}`
+}
+
+/**
+ * Inline style of the raised thumb that sits behind the selected choice and slides between choices.
+ * Every choice takes the same share of the track, so the thumb is one share wide and moves by its
+ * own width plus the gap for every choice before the selected one. Purely CSS lengths, so it needs
+ * no measuring and follows the control when it is resized.
+ *
+ * @param selectedIndex Position of the selected choice; a negative value means nothing is selected.
+ * @param optionCount How many choices the control offers; zero or less hides the thumb.
+ * @returns The width, offset and visibility to put on the thumb element.
+ */
+export function segmentedControlThumbStyle(selectedIndex: number, optionCount: number) {
+  const isHidden = selectedIndex < 0 || optionCount <= 0
+  const visibleIndex = Math.max(selectedIndex, 0)
+  const count = Math.max(optionCount, 1)
+  const totalGaps = `${count - 1} * ${SEGMENTED_CONTROL_GAP}`
+
+  return {
+    opacity: isHidden ? 0 : 1,
+    transform: `translateX(calc(${visibleIndex} * (100% + ${SEGMENTED_CONTROL_GAP})))`,
+    width: `calc((100% - 2 * ${SEGMENTED_CONTROL_PADDING} - ${totalGaps}) / ${count})`,
+  } as const
 }
 
 /**

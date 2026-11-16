@@ -3,13 +3,18 @@ import "../../styles/tailwind.css"
 import { KeyboardEvent, useId } from "react"
 import { tabIndexForKey } from "../../shared/tabIndexForKey.ts"
 import SegmentedControlOptionButton from "./components/SegmentedControlOption.tsx"
+import SegmentedControlThumb from "./components/SegmentedControlThumb.tsx"
 import {
+  SEGMENTED_CONTROL_GAP,
   SEGMENTED_CONTROL_MODE,
+  SEGMENTED_CONTROL_PADDING,
   SegmentedControlMode,
   SegmentedControlOption,
   segmentedControlOptionId,
   segmentedControlRole,
 } from "./shared/segmentedControl.ts"
+
+const TRACK_STYLE = { gap: SEGMENTED_CONTROL_GAP, padding: SEGMENTED_CONTROL_PADDING } as const
 
 interface SegmentedControlProps<Key extends string> {
   ariaLabel: string
@@ -24,7 +29,7 @@ interface SegmentedControlProps<Key extends string> {
 
 /**
  * Switch between a few mutually exclusive choices, shown side by side in a single pill with the
- * selected one raised. In `radio` mode it picks a value; in `tabs` mode every choice shows its own
+ * selected one raised on a thumb that slides to every new selection. In `radio` mode it picks a value; in `tabs` mode every choice shows its own
  * panel. Either way the arrow, Home and End keys move the selection. It has to be rendered inside
  * a `.tw-root` element.
  *
@@ -66,8 +71,10 @@ export default function SegmentedControl<Key extends string>({
     <div
       role={segmentedControlRole(mode)}
       aria-label={ariaLabel}
-      className={`segmented-control flex min-w-0 flex-1 gap-1 rounded-lg bg-neutral-100 p-1 ${className}`}
+      style={TRACK_STYLE}
+      className={`segmented-control relative flex min-w-0 flex-1 rounded-lg bg-neutral-100 ${className}`}
     >
+      <SegmentedControlThumb optionCount={options.length} selectedIndex={selectedIndex} />
       {options.map((option) => (
         <SegmentedControlOptionButton
           key={option.key}

@@ -15,8 +15,8 @@ interface SegmentedControlOptionProps {
 }
 
 /**
- * One choice of a segmented control: an optional icon and a label that look raised while
- * selected. Its accessible name is always the full label, whichever one is on screen.
+ * One choice of a segmented control: an optional icon and a label whose colour fades to the
+ * highlight while selected, in step with the thumb sliding in behind it. Its accessible name is always the full label, whichever one is on screen.
  *
  * @param props.icon Decorative icon shown before the label; none when left out.
  * @param props.id Element id, so the control can move the keyboard focus here.
@@ -41,9 +41,7 @@ export default function SegmentedControlOption({
   shortLabelKey,
 }: SegmentedControlOptionProps) {
   const { t } = useTranslation()
-  const colorClass = isSelected
-    ? "bg-white text-primary shadow-[0_1px_3px_rgba(0,0,0,0.12)]"
-    : "text-neutral-500 hover:text-neutral-800"
+  const colorClass = isSelected ? "text-primary" : "text-neutral-500 hover:text-neutral-800"
   const focusableIndex = isSelected ? 0 : -1
   const label = t(labelKey)
   const labelClass = shortLabelKey ? "hidden truncate sm:inline" : "truncate"
@@ -57,7 +55,7 @@ export default function SegmentedControlOption({
       tabIndex={focusableIndex}
       onClick={onSelect}
       onKeyDown={onKeyDown}
-      className={`segmented-control-option flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
+      className={`segmented-control-option relative flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-300 ease-out motion-reduce:transition-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 ${colorClass}`}
     >
       {icon}
       {shortLabelKey && <span className="truncate sm:hidden">{t(shortLabelKey)}</span>}
