@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Club } from "./club"
+import type { Club } from './club';
 
 /**
  * Data wrapper for Club
  */
 export interface ArrayClub {
-  data: Club[]
+  data: Club[];
 }

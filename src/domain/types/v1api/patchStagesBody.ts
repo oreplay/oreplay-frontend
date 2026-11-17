@@ -8,10 +8,10 @@
  * Entity PatchStagesBody
  */
 export interface PatchStagesBody {
-  description?: string
+  description?: string;
   /** @nullable */
-  external_url?: string | null
-  stage_type_id?: string
-  start?: string
-  state_end?: boolean
+  external_url?: string | null;
+  stage_type_id?: string;
+  start?: string;
+  state_end?: boolean;
 }

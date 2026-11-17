@@ -5,5 +5,5 @@
  */
 
 export type PostListUploadsV2Params = {
-  reprocess_all?: string
-}
+reprocess_all?: string;
+};

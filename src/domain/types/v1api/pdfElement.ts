@@ -3,16 +3,16 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PdfPosition } from "./pdfPosition"
+import type { PdfPosition } from './pdfPosition';
 
 /**
  * Entity PdfElement
  */
 export interface PdfElement {
-  color?: string
-  content?: string
-  position?: PdfPosition
-  size?: number
-  style?: string
-  type?: string
+  color?: string;
+  content?: string;
+  position?: PdfPosition;
+  size?: number;
+  style?: string;
+  type?: string;
 }

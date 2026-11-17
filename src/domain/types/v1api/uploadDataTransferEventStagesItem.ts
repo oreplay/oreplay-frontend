@@ -7,4 +7,4 @@
 /**
  * Empty array
  */
-export type UploadDataTransferEventStagesItem = { [key: string]: unknown }
+export type UploadDataTransferEventStagesItem = { [key: string]: unknown };

@@ -8,5 +8,5 @@
  * objectInArray
  */
 export type UploadedV2MetaTimingsSaving = {
-  total?: number
-}
+  total?: number;
+};

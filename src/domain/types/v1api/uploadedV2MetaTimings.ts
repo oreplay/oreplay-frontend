@@ -3,16 +3,16 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadedV2MetaTimingsProcessing } from "./uploadedV2MetaTimingsProcessing.ts"
-import type { UploadedV2MetaTimingsSaving } from "./uploadedV2MetaTimingsSaving.ts"
+import type { UploadedV2MetaTimingsProcessing } from './uploadedV2MetaTimingsProcessing';
+import type { UploadedV2MetaTimingsSaving } from './uploadedV2MetaTimingsSaving';
 
 /**
  * Generic object.
  */
 export type UploadedV2MetaTimings = {
   /** objectInArray */
-  processing?: UploadedV2MetaTimingsProcessing
+  processing?: UploadedV2MetaTimingsProcessing;
   /** objectInArray */
-  saving?: UploadedV2MetaTimingsSaving
-  total?: number
-}
+  saving?: UploadedV2MetaTimingsSaving;
+  total?: number;
+};

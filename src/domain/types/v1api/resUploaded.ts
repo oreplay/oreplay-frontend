@@ -3,14 +3,14 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { ResUploadedData } from "./resUploadedData"
-import type { UploadedMeta } from "./uploadedMeta"
+import type { ResUploadedData } from './resUploadedData';
+import type { UploadedMeta } from './uploadedMeta';
 
 /**
  * Data wrapper for ResUploaded
  */
 export interface ResUploaded {
   /** Any object */
-  data: ResUploadedData
-  meta?: UploadedMeta
+  data: ResUploadedData;
+  meta?: UploadedMeta;
 }

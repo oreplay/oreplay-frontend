@@ -8,10 +8,10 @@
  * objectInArray
  */
 export type UploadedV2MetaTimingsProcessingRunners = {
-  clubs?: number
-  runnerLoop?: number
-  runnerResults?: number
-  runnersInLoop?: number
-  splits?: number
-  total?: number
-}
+  clubs?: number;
+  runnerLoop?: number;
+  runnerResults?: number;
+  runnersInLoop?: number;
+  splits?: number;
+  total?: number;
+};

@@ -3,37 +3,37 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Federation } from "./federation.ts"
-import type { LinkUri } from "./linkUri.ts"
-import type { Organizer } from "./organizer.ts"
-import type { Stage } from "./stage.ts"
+import type { LinkUri } from './linkUri';
+import type { Federation } from './federation';
+import type { Organizer } from './organizer';
+import type { Stage } from './stage';
 
 /**
  * Entity Event
  */
 export interface Event {
-  _links: LinkUri
+  _links: LinkUri;
   /** @nullable */
-  country_code?: string | null
-  created: string
-  description: string
-  federation?: Federation
-  federation_id: string
-  final_date: string
-  id: string
-  initial_date: string
-  is_hidden: boolean
+  country_code?: string | null;
+  created: string;
+  description: string;
+  federation?: Federation;
+  federation_id: string;
+  final_date: string;
+  id: string;
+  initial_date: string;
+  is_hidden: boolean;
   /** @nullable */
-  location?: string | null
-  modified: string
-  organizer?: Organizer
-  organizer_id: string
+  location?: string | null;
+  modified: string;
+  organizer?: Organizer;
+  organizer_id: string;
   /** @nullable */
-  picture?: string | null
+  picture?: string | null;
   /** @nullable */
-  scope?: string | null
-  stages?: Stage[]
-  timezone: string
+  scope?: string | null;
+  stages?: Stage[];
+  timezone: string;
   /** @nullable */
-  website?: string | null
+  website?: string | null;
 }

@@ -8,6 +8,6 @@
  * Generic object.
  */
 export type UploadedMetaUpdated = {
-  classes?: number
-  runners?: number
-}
+  classes?: number;
+  runners?: number;
+};

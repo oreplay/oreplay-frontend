@@ -3,15 +3,15 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadMessageContext } from "./uploadMessageContext.ts"
+import type { UploadMessageContext } from './uploadMessageContext';
 
 /**
  * Entity UploadMessage
  */
 export interface UploadMessage {
-  code?: string
+  code?: string;
   /** Generic object. */
-  context?: UploadMessageContext
-  level?: string
-  text?: string
+  context?: UploadMessageContext;
+  level?: string;
+  text?: string;
 }

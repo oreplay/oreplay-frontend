@@ -8,6 +8,6 @@
  * Entity PdfPosition
  */
 export interface PdfPosition {
-  x?: number
-  y?: number
+  x?: number;
+  y?: number;
 }

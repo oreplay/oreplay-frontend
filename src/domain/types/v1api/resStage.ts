@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Stage } from "./stage.ts"
+import type { Stage } from './stage';
 
 /**
  * Data wrapper for Stage
  */
 export interface ResStage {
-  data: Stage
+  data: Stage;
 }

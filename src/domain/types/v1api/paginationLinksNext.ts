@@ -8,5 +8,5 @@
  * Generic object.
  */
 export type PaginationLinksNext = {
-  href?: string
-}
+  href?: string;
+};

@@ -5,6 +5,6 @@
  */
 
 export type GetListRankingSettingsParams = {
-  limit?: string
-  page?: string
-}
+limit?: string;
+page?: string;
+};

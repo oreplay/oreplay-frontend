@@ -8,6 +8,6 @@
  * Entity StageType
  */
 export interface StageType {
-  description: string
-  id: string
+  description: string;
+  id: string;
 }

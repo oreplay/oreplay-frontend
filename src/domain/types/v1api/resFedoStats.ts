@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { FedoStats } from "./fedoStats"
+import type { FedoStats } from './fedoStats';
 
 /**
  * Data wrapper for FedoStats
  */
 export interface ResFedoStats {
-  data: FedoStats
+  data: FedoStats;
 }

@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { LinkHref } from "./linkHref.ts"
+import type { LinkHref } from './linkHref';
 
 /**
  * Entity LinkUri
  */
 export interface LinkUri {
-  self: LinkHref
+  self: LinkHref;
 }

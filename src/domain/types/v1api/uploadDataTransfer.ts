@@ -3,15 +3,15 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadDataTransferConfiguration } from "./uploadDataTransferConfiguration.ts"
-import type { UploadDataTransferEvent } from "./uploadDataTransferEvent.ts"
+import type { UploadDataTransferConfiguration } from './uploadDataTransferConfiguration';
+import type { UploadDataTransferEvent } from './uploadDataTransferEvent';
 
 /**
  * Entity UploadDataTransfer
  */
 export interface UploadDataTransfer {
   /** Generic object. */
-  configuration?: UploadDataTransferConfiguration
+  configuration?: UploadDataTransferConfiguration;
   /** Generic object. */
-  event?: UploadDataTransferEvent
+  event?: UploadDataTransferEvent;
 }
