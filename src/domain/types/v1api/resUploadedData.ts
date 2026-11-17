@@ -7,4 +7,4 @@
 /**
  * Any object
  */
-export type ResUploadedData = { [key: string]: unknown }
+export type ResUploadedData = { [key: string]: unknown };

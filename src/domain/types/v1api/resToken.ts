@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Token } from "./token.ts"
+import type { Token } from './token';
 
 /**
  * Data wrapper for Token
  */
 export interface ResToken {
-  data: Token
+  data: Token;
 }

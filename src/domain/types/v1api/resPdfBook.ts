@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PdfBook } from "./pdfBook"
+import type { PdfBook } from './pdfBook';
 
 /**
  * Data wrapper for PdfBook
  */
 export interface ResPdfBook {
-  data: PdfBook
+  data: PdfBook;
 }

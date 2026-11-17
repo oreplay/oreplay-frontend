@@ -8,8 +8,8 @@
  * Generic object when: Add new with existing runner id
  */
 export type PostListRankingOrganizersBody = {
-  description?: string
-  first_name?: string
-  last_name?: string
-  runner_id?: string
-}
+  description?: string;
+  first_name?: string;
+  last_name?: string;
+  runner_id?: string;
+};

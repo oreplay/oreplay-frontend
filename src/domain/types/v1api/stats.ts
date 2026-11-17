@@ -8,15 +8,15 @@
  * Entity Stats
  */
 export interface Stats {
-  classes?: string[]
-  dnf?: number
-  dns?: number
-  dqf?: number
-  finished?: number
-  mp?: number
-  notYetFinished?: number
-  ot?: number
-  others?: number
-  otherValues?: string[]
-  total?: number
+  classes?: string[];
+  dnf?: number;
+  dns?: number;
+  dqf?: number;
+  finished?: number;
+  mp?: number;
+  notYetFinished?: number;
+  ot?: number;
+  others?: number;
+  otherValues?: string[];
+  total?: number;
 }

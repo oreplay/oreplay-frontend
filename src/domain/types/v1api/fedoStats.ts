@@ -3,13 +3,13 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { GenderGrouped } from "./genderGrouped"
+import type { GenderGrouped } from './genderGrouped';
 
 /**
  * Entity FedoStats
  */
 export interface FedoStats {
-  officialSenior?: GenderGrouped
-  officialSub20?: GenderGrouped
-  others?: GenderGrouped
+  officialSenior?: GenderGrouped;
+  officialSub20?: GenderGrouped;
+  others?: GenderGrouped;
 }

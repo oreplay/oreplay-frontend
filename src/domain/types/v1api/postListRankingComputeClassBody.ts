@@ -8,5 +8,5 @@
  * Generic object when: Add new
  */
 export type PostListRankingComputeClassBody = {
-  secret?: string
-}
+  secret?: string;
+};

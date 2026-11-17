@@ -3,20 +3,20 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadedV2MetaTimings } from "./uploadedV2MetaTimings.ts"
-import type { UploadedV2MetaUpdated } from "./uploadedV2MetaUpdated.ts"
-import type { UploadMessage } from "./uploadMessage.ts"
+import type { UploadMessage } from './uploadMessage';
+import type { UploadedV2MetaTimings } from './uploadedV2MetaTimings';
+import type { UploadedV2MetaUpdated } from './uploadedV2MetaUpdated';
 
 /**
  * Entity UploadedV2Meta
  */
 export interface UploadedV2Meta {
-  level?: string
-  messages?: UploadMessage[]
+  level?: string;
+  messages?: UploadMessage[];
   /** Generic object. */
-  timings?: UploadedV2MetaTimings
+  timings?: UploadedV2MetaTimings;
   /** Generic object. */
-  updated?: UploadedV2MetaUpdated
-  uploadId?: string
-  uploadType?: string
+  updated?: UploadedV2MetaUpdated;
+  uploadId?: string;
+  uploadType?: string;
 }

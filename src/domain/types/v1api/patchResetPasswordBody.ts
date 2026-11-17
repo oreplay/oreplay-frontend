@@ -8,6 +8,6 @@
  * Generic object when: Edit
  */
 export type PatchResetPasswordBody = {
-  email?: string
-  password?: string
-}
+  email?: string;
+  password?: string;
+};

@@ -3,14 +3,14 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadedMetaUpdated } from "./uploadedMetaUpdated"
+import type { UploadedMetaUpdated } from './uploadedMetaUpdated';
 
 /**
  * Entity UploadedMeta
  */
 export interface UploadedMeta {
-  human?: string[]
-  humanColor?: string
+  human?: string[];
+  humanColor?: string;
   /** Generic object. */
-  updated?: UploadedMetaUpdated
+  updated?: UploadedMetaUpdated;
 }

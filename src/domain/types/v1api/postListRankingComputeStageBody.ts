@@ -8,5 +8,5 @@
  * Generic object when: Add new only class list
  */
 export type PostListRankingComputeStageBody = {
-  classes?: string
-}
+  classes?: string;
+};

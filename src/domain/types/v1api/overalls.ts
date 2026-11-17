@@ -3,12 +3,12 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PartialOverall } from "./partialOverall.ts"
+import type { PartialOverall } from './partialOverall';
 
 /**
  * Entity Overalls
  */
 export interface Overalls {
-  overall?: PartialOverall
-  parts?: PartialOverall[]
+  overall?: PartialOverall;
+  parts?: PartialOverall[];
 }

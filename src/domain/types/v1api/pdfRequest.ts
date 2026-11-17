@@ -3,12 +3,12 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PdfBook } from "./pdfBook"
+import type { PdfBook } from './pdfBook';
 
 /**
  * Entity PdfRequest
  */
 export interface PdfRequest {
-  pdfBook?: PdfBook
-  runDry?: boolean
+  pdfBook?: PdfBook;
+  runDry?: boolean;
 }

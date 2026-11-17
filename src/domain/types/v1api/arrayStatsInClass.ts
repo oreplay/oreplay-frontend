@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { StatsInClass } from "./statsInClass"
+import type { StatsInClass } from './statsInClass';
 
 /**
  * Data wrapper for StatsInClass
  */
 export interface ArrayStatsInClass {
-  data: StatsInClass[]
+  data: StatsInClass[];
 }

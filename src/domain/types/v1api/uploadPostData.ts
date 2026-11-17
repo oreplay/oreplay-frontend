@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadDataTransfer } from "./uploadDataTransfer.ts"
+import type { UploadDataTransfer } from './uploadDataTransfer';
 
 /**
  * Entity UploadPostData
  */
 export interface UploadPostData {
-  oreplay_data_transfer: UploadDataTransfer
+  oreplay_data_transfer: UploadDataTransfer;
 }

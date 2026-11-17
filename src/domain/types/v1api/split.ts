@@ -3,20 +3,20 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Control } from "./control.ts"
+import type { Control } from './control';
 
 /**
  * Entity Split
  */
 export interface Split {
-  control?: Control
-  created?: string
-  id: string
-  is_intermediate?: boolean
+  control?: Control;
+  created?: string;
+  id: string;
+  is_intermediate?: boolean;
   /** @nullable */
-  order_number?: string | null
+  order_number?: string | null;
   /** @nullable */
-  points?: string | null
-  reading_time?: string
-  station?: number
+  points?: string | null;
+  reading_time?: string;
+  station?: number;
 }

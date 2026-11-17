@@ -8,15 +8,15 @@
  * Generic object when: Edit
  */
 export type PatchEventsBody = {
-  country_code?: string
-  description?: string
-  final_date?: string
-  initial_date?: string
-  is_hidden?: boolean
-  location?: string
-  organizer_id?: string
-  picture?: string
-  scope?: string
-  timezone?: string
-  website?: string
-}
+  country_code?: string;
+  description?: string;
+  final_date?: string;
+  initial_date?: string;
+  is_hidden?: boolean;
+  location?: string;
+  organizer_id?: string;
+  picture?: string;
+  scope?: string;
+  timezone?: string;
+  website?: string;
+};

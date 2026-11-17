@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { ClassEntity } from "./classEntity"
+import type { ClassEntity } from './classEntity';
 
 /**
  * Data wrapper for ClassEntity
  */
 export interface ArrayClassEntity {
-  data: ClassEntity[]
+  data: ClassEntity[];
 }

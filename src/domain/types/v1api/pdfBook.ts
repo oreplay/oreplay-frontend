@@ -3,14 +3,14 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PdfSection } from "./pdfSection"
+import type { PdfSection } from './pdfSection';
 
 /**
  * Entity PdfBook
  */
 export interface PdfBook {
-  backgroundPdf?: string
-  filename?: string
-  layout?: string
-  sections?: PdfSection[]
+  backgroundPdf?: string;
+  filename?: string;
+  layout?: string;
+  sections?: PdfSection[];
 }

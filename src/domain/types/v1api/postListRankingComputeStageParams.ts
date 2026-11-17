@@ -5,5 +5,5 @@
  */
 
 export type PostListRankingComputeStageParams = {
-  only_class_list?: string
-}
+only_class_list?: string;
+};

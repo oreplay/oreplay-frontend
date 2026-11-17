@@ -8,9 +8,9 @@
  * Generic object.
  */
 export type UploadedV2MetaUpdated = {
-  classes?: number
-  courses?: number
-  runnerResults?: number
-  runners?: number
-  splits?: number
-}
+  classes?: number;
+  courses?: number;
+  runnerResults?: number;
+  runners?: number;
+  splits?: number;
+};

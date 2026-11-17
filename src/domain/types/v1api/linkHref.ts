@@ -8,5 +8,5 @@
  * Entity LinkHref
  */
 export interface LinkHref {
-  href: string
+  href: string;
 }

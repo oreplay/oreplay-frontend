@@ -8,5 +8,5 @@
  * Generic object.
  */
 export type PaginationLinksPrev = {
-  href?: string
-}
+  href?: string;
+};

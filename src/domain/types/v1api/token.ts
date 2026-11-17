@@ -8,7 +8,7 @@
  * Entity Token
  */
 export interface Token {
-  created?: string
-  expires?: string
-  token?: string
+  created?: string;
+  expires?: string;
+  token?: string;
 }
