@@ -3,30 +3,29 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { StageOrder } from './stageOrder';
+import type { StageOrder } from "./stageOrder.ts"
 
 /**
  * Entity PartialOverall
  */
 export interface PartialOverall {
   /** @nullable */
-  contributory?: boolean | null;
-  id: string;
+  contributory?: boolean | null
+  id: string
   /** @nullable */
-  is_nc?: string | null;
+  is_nc?: string | null
   /** @nullable */
-  note?: string | null;
+  note?: string | null
   /** @nullable */
-  points_behind?: string | null;
-  points_final: number;
-  position: number;
+  points_behind?: string | null
+  points_final: number
+  position: number
+  stage?: StageOrder | null
+  stage_order: number
+  status_code: number
   /** @nullable */
-  stage?: StageOrder;
-  stage_order: number;
-  status_code: number;
+  time_behind?: string | null
   /** @nullable */
-  time_behind?: string | null;
-  /** @nullable */
-  time_seconds?: string | null;
-  upload_type: string;
+  time_seconds?: string | null
+  upload_type: string
 }

@@ -8,9 +8,9 @@
  * Entity PatchStageOrdersBody
  */
 export interface PatchStageOrdersBody {
-  description?: string;
-  is_official?: boolean;
-  original_event_id?: string;
-  original_stage_id?: string;
-  start?: string;
+  description?: string
+  is_official?: boolean
+  original_event_id?: string
+  original_stage_id?: string
+  start?: string
 }

@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PdfElement } from './pdfElement';
+import type { PdfElement } from "./pdfElement.ts"
 
 /**
  * Entity PdfSection
  */
 export interface PdfSection {
-  elements: PdfElement[];
+  elements: PdfElement[]
 }

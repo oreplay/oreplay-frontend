@@ -3,48 +3,48 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Split } from './split';
+import type { Split } from "./split.ts"
 
 /**
  * Entity Result
  */
 export interface Result {
   /** @nullable */
-  contributory?: string | null;
-  created: string;
-  finish_time?: string;
-  id: string;
-  is_nc?: boolean;
+  contributory?: string | null
+  created: string
+  finish_time?: string
+  id: string
+  is_nc?: boolean
   /** @nullable */
-  leg_number?: number | null;
+  leg_number?: number | null
   /** @nullable */
-  note?: string | null;
+  note?: string | null
   /** @nullable */
-  points_adjusted?: string | null;
+  points_adjusted?: string | null
   /** @nullable */
-  points_behind?: string | null;
+  points_behind?: string | null
   /** @nullable */
-  points_bonus?: string | null;
+  points_bonus?: string | null
   /** @nullable */
-  points_final?: string | null;
+  points_final?: string | null
   /** @nullable */
-  points_penalty?: string | null;
-  position?: number;
-  result_type_id?: string;
-  splits?: Split[];
-  start_time?: string;
+  points_penalty?: string | null
+  position?: number
+  result_type_id?: string
+  splits?: Split[]
+  start_time?: string
   /** @nullable */
-  status_code?: number | null;
+  status_code?: number | null
   /** @nullable */
-  time_adjusted?: string | null;
-  time_behind?: number;
+  time_adjusted?: string | null
+  time_behind?: number
   /** @nullable */
-  time_bonus?: string | null;
+  time_bonus?: string | null
   /** @nullable */
-  time_neutralization?: string | null;
+  time_neutralization?: string | null
   /** @nullable */
-  time_penalty?: string | null;
-  time_seconds?: number;
+  time_penalty?: string | null
+  time_seconds?: number
   /** @nullable */
-  upload_type?: string | null;
+  upload_type?: string | null
 }

@@ -8,5 +8,5 @@
  * Generic object when: Add new only class list
  */
 export type PostListRankingComputeStage200 = {
-  data?: string[];
-};
+  data?: string[]
+}

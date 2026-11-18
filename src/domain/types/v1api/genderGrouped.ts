@@ -3,13 +3,13 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Stats } from './stats';
+import type { Stats } from "./stats.ts"
 
 /**
  * Entity GenderGrouped
  */
 export interface GenderGrouped {
-  any?: Stats;
-  F?: Stats;
-  M?: Stats;
+  any?: Stats
+  F?: Stats
+  M?: Stats
 }

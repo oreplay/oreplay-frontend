@@ -3,13 +3,13 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { UploadDataTransferEventStagesItem } from './uploadDataTransferEventStagesItem';
+import type { UploadDataTransferEventStagesItem } from "./uploadDataTransferEventStagesItem.ts"
 
 /**
  * Generic object.
  */
 export type UploadDataTransferEvent = {
-  description?: string;
-  id?: string;
-  stages?: UploadDataTransferEventStagesItem[];
-};
+  description?: string
+  id?: string
+  stages?: UploadDataTransferEventStagesItem[]
+}

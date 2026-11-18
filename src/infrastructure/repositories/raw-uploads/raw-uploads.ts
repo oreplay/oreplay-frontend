@@ -3,10 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation,
-  useQuery
-} from 'react-query';
+import { useMutation, useQuery } from "react-query"
 import type {
   MutationFunction,
   QueryClient,
@@ -15,235 +12,353 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
-import type {
-  ArraySimpleLog,
-  ResRawUpload
-} from '../../../domain/types/v1api';
+import type { ArraySimpleLog, ResRawUpload } from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Get list
  */
 export const getListRawUploads = (
-    eventID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ArraySimpleLog>(
-      {url: `/api/v1/events/${eventID}/rawUploads/`, method: 'GET', signal
-    },
-      options);
-    }
-  
-
-
-
-export const getGetListRawUploadsQueryKey = (eventID?: string,) => {
-    return [
-    `/api/v1/events/${eventID}/rawUploads/`
-    ] as const;
-    }
-
-    
-export const getGetListRawUploadsQueryOptions = <TData = Awaited<ReturnType<typeof getListRawUploads>>, TError = unknown>(eventID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRawUploads>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListRawUploadsQueryKey(eventID);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListRawUploads>>> = ({ signal }) => getListRawUploads(eventID, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(eventID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListRawUploads>>, TError, TData> & { queryKey: QueryKey }
+  return orvalAxiosInstance<ArraySimpleLog>(
+    { url: `/api/v1/events/${eventID}/rawUploads/`, method: "GET", signal },
+    options,
+  )
 }
 
-export type GetListRawUploadsQueryResult = NonNullable<Awaited<ReturnType<typeof getListRawUploads>>>
+export const getGetListRawUploadsQueryKey = (eventID: string) => {
+  return [`/api/v1/events/${eventID}/rawUploads/`] as const
+}
+
+export const getGetListRawUploadsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListRawUploads>>,
+  TError = unknown,
+>(
+  eventID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRawUploads>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetListRawUploadsQueryKey(eventID)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListRawUploads>>
+  > = ({ signal }) => getListRawUploads(eventID, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled: eventID !== null && eventID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListRawUploads>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListRawUploadsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListRawUploads>>
+>
 export type GetListRawUploadsQueryError = unknown
 
+/** Get list */
+export function useGetListRawUploads<
+  TData = Awaited<ReturnType<typeof getListRawUploads>>,
+  TError = unknown,
+>(
+  eventID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRawUploads>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListRawUploadsQueryOptions(eventID, options)
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListRawUploads<TData = Awaited<ReturnType<typeof getListRawUploads>>, TError = unknown>(
- eventID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRawUploads>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListRawUploadsQueryOptions(eventID,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListRawUploadsQuery = async <TData = Awaited<ReturnType<typeof getListRawUploads>>, TError = unknown>(
- queryClient: QueryClient, eventID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRawUploads>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+/** Get list */
+export const prefetchGetListRawUploadsQuery = async <
+  TData = Awaited<ReturnType<typeof getListRawUploads>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  eventID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRawUploads>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListRawUploadsQueryOptions(eventID, options)
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListRawUploadsQueryOptions(eventID,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Get data
  */
 export const getRawUploads = (
-    eventID: string,
-    rawUploadID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  rawUploadID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResRawUpload>(
-      {url: `/api/v1/events/${eventID}/rawUploads/${rawUploadID}`, method: 'GET', signal
+  return orvalAxiosInstance<ResRawUpload>(
+    {
+      url: `/api/v1/events/${eventID}/rawUploads/${rawUploadID}`,
+      method: "GET",
+      signal,
     },
-      options);
-    }
-  
-
-
-
-export const getGetRawUploadsQueryKey = (eventID?: string,
-    rawUploadID?: string,) => {
-    return [
-    `/api/v1/events/${eventID}/rawUploads/${rawUploadID}`
-    ] as const;
-    }
-
-    
-export const getGetRawUploadsQueryOptions = <TData = Awaited<ReturnType<typeof getRawUploads>>, TError = unknown>(eventID: string,
-    rawUploadID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRawUploads>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetRawUploadsQueryKey(eventID,rawUploadID);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getRawUploads>>> = ({ signal }) => getRawUploads(eventID,rawUploadID, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(eventID && rawUploadID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getRawUploads>>, TError, TData> & { queryKey: QueryKey }
+    options,
+  )
 }
 
-export type GetRawUploadsQueryResult = NonNullable<Awaited<ReturnType<typeof getRawUploads>>>
+export const getGetRawUploadsQueryKey = (
+  eventID: string,
+  rawUploadID: string,
+) => {
+  return [`/api/v1/events/${eventID}/rawUploads/${rawUploadID}`] as const
+}
+
+export const getGetRawUploadsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getRawUploads>>,
+  TError = unknown,
+>(
+  eventID: string,
+  rawUploadID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getRawUploads>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetRawUploadsQueryKey(eventID, rawUploadID)
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getRawUploads>>> = ({
+    signal,
+  }) => getRawUploads(eventID, rawUploadID, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled:
+      eventID !== null &&
+      eventID !== undefined &&
+      rawUploadID !== null &&
+      rawUploadID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getRawUploads>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetRawUploadsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getRawUploads>>
+>
 export type GetRawUploadsQueryError = unknown
 
+/** Get data */
+export function useGetRawUploads<
+  TData = Awaited<ReturnType<typeof getRawUploads>>,
+  TError = unknown,
+>(
+  eventID: string,
+  rawUploadID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getRawUploads>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetRawUploadsQueryOptions(
+    eventID,
+    rawUploadID,
+    options,
+  )
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetRawUploads<TData = Awaited<ReturnType<typeof getRawUploads>>, TError = unknown>(
- eventID: string,
-    rawUploadID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRawUploads>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetRawUploadsQueryOptions(eventID,rawUploadID,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetRawUploadsQuery = async <TData = Awaited<ReturnType<typeof getRawUploads>>, TError = unknown>(
- queryClient: QueryClient, eventID: string,
-    rawUploadID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRawUploads>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+/** Get data */
+export const prefetchGetRawUploadsQuery = async <
+  TData = Awaited<ReturnType<typeof getRawUploads>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  eventID: string,
+  rawUploadID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getRawUploads>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetRawUploadsQueryOptions(
+    eventID,
+    rawUploadID,
+    options,
+  )
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetRawUploadsQueryOptions(eventID,rawUploadID,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Delete
  */
 export const deleteRawUploads = (
-    eventID: string,
-    rawUploadID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<void>(
-      {url: `/api/v1/events/${eventID}/rawUploads/${rawUploadID}`, method: 'DELETE'
+  eventID: string,
+  rawUploadID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<void>(
+    {
+      url: `/api/v1/events/${eventID}/rawUploads/${rawUploadID}`,
+      method: "DELETE",
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getDeleteRawUploadsMutationKey = () =>
+  ["deleteRawUploads"] as const
 
-export const getDeleteRawUploadsMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRawUploads>>, TError,{eventID: string;rawUploadID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteRawUploads>>, TError,{eventID: string;rawUploadID: string}, TContext> => {
+export const getDeleteRawUploadsMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteRawUploads>>,
+    TError,
+    DeleteRawUploadsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteRawUploads>>,
+  TError,
+  DeleteRawUploadsMutationVariables,
+  TContext
+> => {
+  const mutationKey = getDeleteRawUploadsMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['deleteRawUploads'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteRawUploads>>,
+    DeleteRawUploadsMutationVariables
+  > = (props) => {
+    const { eventID, rawUploadID } = props ?? {}
 
-      
+    return deleteRawUploads(eventID, rawUploadID, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteRawUploads>>, {eventID: string;rawUploadID: string}> = (props) => {
-          const {eventID,rawUploadID} = props ?? {};
+export type DeleteRawUploadsMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteRawUploads>>
+>
 
-          return  deleteRawUploads(eventID,rawUploadID,requestOptions)
-        }
+export type DeleteRawUploadsMutationError = unknown
+export type DeleteRawUploadsMutationVariables = {
+  eventID: string
+  rawUploadID: string
+}
 
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteRawUploadsMutationResult = NonNullable<Awaited<ReturnType<typeof deleteRawUploads>>>
-    
-    export type DeleteRawUploadsMutationError = unknown
-
-    export const useDeleteRawUploads = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRawUploads>>, TError,{eventID: string;rawUploadID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof deleteRawUploads>>,
-        TError,
-        {eventID: string;rawUploadID: string},
-        TContext
-      > => {
-
-      const mutationOptions = getDeleteRawUploadsMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+/** Delete */
+export const useDeleteRawUploads = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteRawUploads>>,
+    TError,
+    DeleteRawUploadsMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteRawUploads>>,
+  TError,
+  DeleteRawUploadsMutationVariables,
+  TContext
+> => {
+  return useMutation(getDeleteRawUploadsMutationOptions(options))
+}

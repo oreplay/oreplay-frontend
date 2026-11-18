@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Organizer } from './organizer';
+import type { Organizer } from "./organizer.ts"
 
 /**
  * Data wrapper for Organizer
  */
 export interface ArrayOrganizer {
-  data: Organizer[];
+  data: Organizer[]
 }

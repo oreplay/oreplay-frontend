@@ -8,11 +8,11 @@
  * Entity User
  */
 export interface User {
-  created?: string;
-  email: string;
-  first_name: string;
-  id: string;
-  last_name: string;
-  modified?: string;
-  scope: string;
+  created?: string
+  email: string
+  first_name: string
+  id: string
+  last_name: string
+  modified?: string
+  scope: string
 }

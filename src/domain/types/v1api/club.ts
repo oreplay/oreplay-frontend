@@ -9,11 +9,11 @@
  */
 export interface Club {
   /** @nullable */
-  city?: string | null;
-  id: string;
+  city?: string | null
+  id: string
   /** @nullable */
-  province?: string | null;
+  province?: string | null
   /** @nullable */
-  region?: string | null;
-  short_name: string;
+  region?: string | null
+  short_name: string
 }

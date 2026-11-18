@@ -8,10 +8,10 @@
  * Entity PostStageOrdersBody
  */
 export interface PostStageOrdersBody {
-  description?: string;
-  is_official?: boolean;
-  original_event_id?: string;
-  original_stage_id?: string;
-  stage_order?: number;
-  start?: string;
+  description?: string
+  is_official?: boolean
+  original_event_id?: string
+  original_stage_id?: string
+  stage_order?: number
+  start?: string
 }

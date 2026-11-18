@@ -3,10 +3,7 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useMutation,
-  useQuery
-} from 'react-query';
+import { useMutation, useQuery } from "react-query"
 import type {
   MutationFunction,
   QueryClient,
@@ -15,277 +12,405 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
 import type {
   ArrayOrganizer,
   PatchOrganizersManagementBody,
   PostListOrganizersManagementBody,
-  ResOrganizer
-} from '../../../domain/types/v1api';
+  ResOrganizer,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Get list returns organizers ordered by name
  */
 export const getListOrganizersManagement = (
-    
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ArrayOrganizer>(
-      {url: `/api/v1/organizersManagement/`, method: 'GET', signal
-    },
-      options);
-    }
-  
-
-
+  return orvalAxiosInstance<ArrayOrganizer>(
+    { url: `/api/v1/organizersManagement/`, method: "GET", signal },
+    options,
+  )
+}
 
 export const getGetListOrganizersManagementQueryKey = () => {
-    return [
-    `/api/v1/organizersManagement/`
-    ] as const;
-    }
-
-    
-export const getGetListOrganizersManagementQueryOptions = <TData = Awaited<ReturnType<typeof getListOrganizersManagement>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListOrganizersManagement>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListOrganizersManagementQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListOrganizersManagement>>> = ({ signal }) => getListOrganizersManagement(requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListOrganizersManagement>>, TError, TData> & { queryKey: QueryKey }
+  return [`/api/v1/organizersManagement/`] as const
 }
 
-export type GetListOrganizersManagementQueryResult = NonNullable<Awaited<ReturnType<typeof getListOrganizersManagement>>>
+export const getGetListOrganizersManagementQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListOrganizersManagement>>,
+  TError = unknown,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getListOrganizersManagement>>,
+    TError,
+    TData
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetListOrganizersManagementQueryKey()
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListOrganizersManagement>>
+  > = ({ signal }) => getListOrganizersManagement(requestOptions, signal)
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListOrganizersManagement>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListOrganizersManagementQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListOrganizersManagement>>
+>
 export type GetListOrganizersManagementQueryError = unknown
 
-
-
-export function useGetListOrganizersManagement<TData = Awaited<ReturnType<typeof getListOrganizersManagement>>, TError = unknown>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListOrganizersManagement>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
+/** Get list returns organizers ordered by name */
+export function useGetListOrganizersManagement<
+  TData = Awaited<ReturnType<typeof getListOrganizersManagement>>,
+  TError = unknown,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getListOrganizersManagement>>,
+    TError,
+    TData
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getGetListOrganizersManagementQueryOptions(options)
 
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListOrganizersManagementQuery = async <TData = Awaited<ReturnType<typeof getListOrganizersManagement>>, TError = unknown>(
- queryClient: QueryClient,  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListOrganizersManagement>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-
-  ): Promise<QueryClient> => {
-
+/** Get list returns organizers ordered by name */
+export const prefetchGetListOrganizersManagementQuery = async <
+  TData = Awaited<ReturnType<typeof getListOrganizersManagement>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListOrganizersManagement>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
   const queryOptions = getGetListOrganizersManagementQueryOptions(options)
 
-  await queryClient.prefetchQuery(queryOptions);
+  await queryClient.prefetchQuery(queryOptions)
 
-  return queryClient;
+  return queryClient
 }
-
-
 
 /**
  * Add new generates uuid server side
  */
 export const postListOrganizersManagement = (
-    postListOrganizersManagementBody: PostListOrganizersManagementBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  postListOrganizersManagementBody?: PostListOrganizersManagementBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResOrganizer>(
-      {url: `/api/v1/organizersManagement/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: postListOrganizersManagementBody, signal
+  return orvalAxiosInstance<ResOrganizer>(
+    {
+      url: `/api/v1/organizersManagement/`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: postListOrganizersManagementBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPostListOrganizersManagementMutationKey = () =>
+  ["postListOrganizersManagement"] as const
 
-export const getPostListOrganizersManagementMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListOrganizersManagement>>, TError,{data: PostListOrganizersManagementBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postListOrganizersManagement>>, TError,{data: PostListOrganizersManagementBody}, TContext> => {
+export const getPostListOrganizersManagementMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListOrganizersManagement>>,
+    TError,
+    PostListOrganizersManagementMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof postListOrganizersManagement>>,
+  TError,
+  PostListOrganizersManagementMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPostListOrganizersManagementMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['postListOrganizersManagement'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof postListOrganizersManagement>>,
+    PostListOrganizersManagementMutationVariables
+  > = (props) => {
+    const { data } = props ?? {}
 
-      
+    return postListOrganizersManagement(data, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postListOrganizersManagement>>, {data: PostListOrganizersManagementBody}> = (props) => {
-          const {data} = props ?? {};
+export type PostListOrganizersManagementMutationResult = NonNullable<
+  Awaited<ReturnType<typeof postListOrganizersManagement>>
+>
+export type PostListOrganizersManagementMutationBody =
+  | PostListOrganizersManagementBody
+  | undefined
+export type PostListOrganizersManagementMutationError = unknown
+export type PostListOrganizersManagementMutationVariables = {
+  data?: PostListOrganizersManagementBody
+}
 
-          return  postListOrganizersManagement(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PostListOrganizersManagementMutationResult = NonNullable<Awaited<ReturnType<typeof postListOrganizersManagement>>>
-    export type PostListOrganizersManagementMutationBody = PostListOrganizersManagementBody
-    export type PostListOrganizersManagementMutationError = unknown
-
-    export const usePostListOrganizersManagement = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postListOrganizersManagement>>, TError,{data: PostListOrganizersManagementBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof postListOrganizersManagement>>,
-        TError,
-        {data: PostListOrganizersManagementBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPostListOrganizersManagementMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+/** Add new generates uuid server side */
+export const usePostListOrganizersManagement = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postListOrganizersManagement>>,
+    TError,
+    PostListOrganizersManagementMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof postListOrganizersManagement>>,
+  TError,
+  PostListOrganizersManagementMutationVariables,
+  TContext
+> => {
+  return useMutation(getPostListOrganizersManagementMutationOptions(options))
+}
+/**
  * Edit updates organizer
  */
 export const patchOrganizersManagement = (
-    organizersManagementID: string,
-    patchOrganizersManagementBody: PatchOrganizersManagementBody,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<ResOrganizer>(
-      {url: `/api/v1/organizersManagement/${organizersManagementID}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: patchOrganizersManagementBody
+  organizersManagementID: string,
+  patchOrganizersManagementBody?: PatchOrganizersManagementBody,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<ResOrganizer>(
+    {
+      url: `/api/v1/organizersManagement/${organizersManagementID}`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: patchOrganizersManagementBody,
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getPatchOrganizersManagementMutationKey = () =>
+  ["patchOrganizersManagement"] as const
 
-export const getPatchOrganizersManagementMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchOrganizersManagement>>, TError,{organizersManagementID: string;data: PatchOrganizersManagementBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchOrganizersManagement>>, TError,{organizersManagementID: string;data: PatchOrganizersManagementBody}, TContext> => {
+export const getPatchOrganizersManagementMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchOrganizersManagement>>,
+    TError,
+    PatchOrganizersManagementMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof patchOrganizersManagement>>,
+  TError,
+  PatchOrganizersManagementMutationVariables,
+  TContext
+> => {
+  const mutationKey = getPatchOrganizersManagementMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['patchOrganizersManagement'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof patchOrganizersManagement>>,
+    PatchOrganizersManagementMutationVariables
+  > = (props) => {
+    const { organizersManagementID, data } = props ?? {}
 
-      
+    return patchOrganizersManagement(
+      organizersManagementID,
+      data,
+      requestOptions,
+    )
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchOrganizersManagement>>, {organizersManagementID: string;data: PatchOrganizersManagementBody}> = (props) => {
-          const {organizersManagementID,data} = props ?? {};
+export type PatchOrganizersManagementMutationResult = NonNullable<
+  Awaited<ReturnType<typeof patchOrganizersManagement>>
+>
+export type PatchOrganizersManagementMutationBody =
+  | PatchOrganizersManagementBody
+  | undefined
+export type PatchOrganizersManagementMutationError = unknown
+export type PatchOrganizersManagementMutationVariables = {
+  organizersManagementID: string
+  data?: PatchOrganizersManagementBody
+}
 
-          return  patchOrganizersManagement(organizersManagementID,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PatchOrganizersManagementMutationResult = NonNullable<Awaited<ReturnType<typeof patchOrganizersManagement>>>
-    export type PatchOrganizersManagementMutationBody = PatchOrganizersManagementBody
-    export type PatchOrganizersManagementMutationError = unknown
-
-    export const usePatchOrganizersManagement = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchOrganizersManagement>>, TError,{organizersManagementID: string;data: PatchOrganizersManagementBody}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof patchOrganizersManagement>>,
-        TError,
-        {organizersManagementID: string;data: PatchOrganizersManagementBody},
-        TContext
-      > => {
-
-      const mutationOptions = getPatchOrganizersManagementMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
+/** Edit updates organizer */
+export const usePatchOrganizersManagement = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof patchOrganizersManagement>>,
+    TError,
+    PatchOrganizersManagementMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof patchOrganizersManagement>>,
+  TError,
+  PatchOrganizersManagementMutationVariables,
+  TContext
+> => {
+  return useMutation(getPatchOrganizersManagementMutationOptions(options))
+}
+/**
  * Delete soft deletes organizer
  */
 export const deleteOrganizersManagement = (
-    organizersManagementID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,) => {
-      
-      
-      return orvalAxiosInstance<void>(
-      {url: `/api/v1/organizersManagement/${organizersManagementID}`, method: 'DELETE'
+  organizersManagementID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
+) => {
+  return orvalAxiosInstance<void>(
+    {
+      url: `/api/v1/organizersManagement/${organizersManagementID}`,
+      method: "DELETE",
+      signal,
     },
-      options);
-    }
-  
+    options,
+  )
+}
 
+export const getDeleteOrganizersManagementMutationKey = () =>
+  ["deleteOrganizersManagement"] as const
 
-export const getDeleteOrganizersManagementMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteOrganizersManagement>>, TError,{organizersManagementID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteOrganizersManagement>>, TError,{organizersManagementID: string}, TContext> => {
+export const getDeleteOrganizersManagementMutationOptions = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteOrganizersManagement>>,
+    TError,
+    DeleteOrganizersManagementMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteOrganizersManagement>>,
+  TError,
+  DeleteOrganizersManagementMutationVariables,
+  TContext
+> => {
+  const mutationKey = getDeleteOrganizersManagementMutationKey()
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
-const mutationKey = ['deleteOrganizersManagement'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteOrganizersManagement>>,
+    DeleteOrganizersManagementMutationVariables
+  > = (props) => {
+    const { organizersManagementID } = props ?? {}
 
-      
+    return deleteOrganizersManagement(organizersManagementID, requestOptions)
+  }
 
+  return { mutationFn, ...mutationOptions }
+}
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteOrganizersManagement>>, {organizersManagementID: string}> = (props) => {
-          const {organizersManagementID} = props ?? {};
+export type DeleteOrganizersManagementMutationResult = NonNullable<
+  Awaited<ReturnType<typeof deleteOrganizersManagement>>
+>
 
-          return  deleteOrganizersManagement(organizersManagementID,requestOptions)
-        }
+export type DeleteOrganizersManagementMutationError = unknown
+export type DeleteOrganizersManagementMutationVariables = {
+  organizersManagementID: string
+}
 
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteOrganizersManagementMutationResult = NonNullable<Awaited<ReturnType<typeof deleteOrganizersManagement>>>
-    
-    export type DeleteOrganizersManagementMutationError = unknown
-
-    export const useDeleteOrganizersManagement = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteOrganizersManagement>>, TError,{organizersManagementID: string}, TContext>, request?: SecondParameter<typeof orvalAxiosInstance>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof deleteOrganizersManagement>>,
-        TError,
-        {organizersManagementID: string},
-        TContext
-      > => {
-
-      const mutationOptions = getDeleteOrganizersManagementMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    
+/** Delete soft deletes organizer */
+export const useDeleteOrganizersManagement = <
+  TError = unknown,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteOrganizersManagement>>,
+    TError,
+    DeleteOrganizersManagementMutationVariables,
+    TContext
+  >
+  request?: SecondParameter<typeof orvalAxiosInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof deleteOrganizersManagement>>,
+  TError,
+  DeleteOrganizersManagementMutationVariables,
+  TContext
+> => {
+  return useMutation(getDeleteOrganizersManagementMutationOptions(options))
+}

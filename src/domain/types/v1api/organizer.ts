@@ -8,11 +8,11 @@
  * Entity Organizer
  */
 export interface Organizer {
-  city?: string;
-  country_code: string;
-  id: string;
-  name: string;
-  province?: string;
-  region: string;
-  region_code: string;
+  city?: string
+  country_code: string
+  id: string
+  name: string
+  province?: string
+  region: string
+  region_code: string
 }

@@ -8,6 +8,6 @@
  * Generic object.
  */
 export type UploadMessageContext = {
-  bib?: number;
-  class?: string;
-};
+  bib?: number
+  class?: string
+}

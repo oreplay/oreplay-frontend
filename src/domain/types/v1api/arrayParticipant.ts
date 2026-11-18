@@ -3,15 +3,15 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Participant } from './participant';
-import type { LastDates } from './lastDates';
-import type { UploadLog } from './uploadLog';
+import type { LastDates } from "./lastDates.ts"
+import type { Participant } from "./participant.ts"
+import type { UploadLog } from "./uploadLog.ts"
 
 /**
  * Data wrapper for Participant
  */
 export interface ArrayParticipant {
-  data: Participant[];
-  last_dates?: LastDates;
-  last_logs?: UploadLog[];
+  data: Participant[]
+  last_dates?: LastDates
+  last_logs?: UploadLog[]
 }

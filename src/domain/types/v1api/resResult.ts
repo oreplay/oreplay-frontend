@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { Result } from './result';
+import type { Result } from "./result.ts"
 
 /**
  * Data wrapper for Result
  */
 export interface ResResult {
-  data: Result;
+  data: Result
 }

@@ -5,12 +5,12 @@
  */
 
 export type GetListEventsParams = {
-user_id?: string;
-show_hidden?: string;
-description?: string;
-page?: string;
-limit?: string;
-when?: string;
-'initial_date:lte'?: string;
-'final_date:gte'?: string;
-};
+  user_id?: string
+  show_hidden?: string
+  description?: string
+  page?: string
+  limit?: string
+  when?: string
+  "initial_date:lte"?: string
+  "final_date:gte"?: string
+}

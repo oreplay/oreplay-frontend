@@ -3,12 +3,12 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { LinkHref } from './linkHref';
+import type { LinkHref } from "./linkHref.ts"
 
 /**
  * Entity RankingLinks
  */
 export interface RankingLinks {
-  results?: LinkHref;
-  self?: LinkHref;
+  results?: LinkHref
+  self?: LinkHref
 }

@@ -8,6 +8,6 @@
  * Entity ControlType
  */
 export interface ControlType {
-  description: string;
-  id: string;
+  description: string
+  id: string
 }

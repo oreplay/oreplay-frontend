@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { RawUpload } from './rawUpload';
+import type { RawUpload } from "./rawUpload.ts"
 
 /**
  * Data wrapper for RawUpload
  */
 export interface ResRawUpload {
-  data: RawUpload;
+  data: RawUpload
 }

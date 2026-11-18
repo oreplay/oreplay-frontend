@@ -8,7 +8,7 @@
  * Entity PostStagesBody
  */
 export interface PostStagesBody {
-  description?: string;
-  stage_type_id?: string;
-  start?: string;
+  description?: string
+  stage_type_id?: string
+  start?: string
 }

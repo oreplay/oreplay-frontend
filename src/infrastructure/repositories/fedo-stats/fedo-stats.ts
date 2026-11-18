@@ -3,113 +3,179 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useQuery
-} from 'react-query';
+import { useQuery } from "react-query"
 import type {
   QueryClient,
   QueryFunction,
   QueryKey,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
 import type {
   GetListFedoStatsParams,
-  ResFedoStats
-} from '../../../domain/types/v1api';
+  ResFedoStats,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Get list
  */
 export const getListFedoStats = (
-    eventID: string,
-    stageID: string,
-    params?: GetListFedoStatsParams,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  stageID: string,
+  params?: GetListFedoStatsParams,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ResFedoStats>(
-      {url: `/api/v1/events/${eventID}/stages/${stageID}/stats-fedo/`, method: 'GET',
-        params, signal
+  return orvalAxiosInstance<ResFedoStats>(
+    {
+      url: `/api/v1/events/${eventID}/stages/${stageID}/stats-fedo/`,
+      method: "GET",
+      params,
+      signal,
     },
-      options);
-    }
-  
-
-
-
-export const getGetListFedoStatsQueryKey = (eventID?: string,
-    stageID?: string,
-    params?: GetListFedoStatsParams,) => {
-    return [
-    `/api/v1/events/${eventID}/stages/${stageID}/stats-fedo/`, ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getGetListFedoStatsQueryOptions = <TData = Awaited<ReturnType<typeof getListFedoStats>>, TError = unknown>(eventID: string,
-    stageID: string,
-    params?: GetListFedoStatsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListFedoStats>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListFedoStatsQueryKey(eventID,stageID,params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListFedoStats>>> = ({ signal }) => getListFedoStats(eventID,stageID,params, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(eventID && stageID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListFedoStats>>, TError, TData> & { queryKey: QueryKey }
+    options,
+  )
 }
 
-export type GetListFedoStatsQueryResult = NonNullable<Awaited<ReturnType<typeof getListFedoStats>>>
+export const getGetListFedoStatsQueryKey = (
+  eventID: string,
+  stageID: string,
+  params?: GetListFedoStatsParams,
+) => {
+  return [
+    `/api/v1/events/${eventID}/stages/${stageID}/stats-fedo/`,
+    ...(params ? [params] : []),
+  ] as const
+}
+
+export const getGetListFedoStatsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListFedoStats>>,
+  TError = unknown,
+>(
+  eventID: string,
+  stageID: string,
+  params?: GetListFedoStatsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListFedoStats>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ??
+    getGetListFedoStatsQueryKey(eventID, stageID, params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListFedoStats>>
+  > = ({ signal }) =>
+    getListFedoStats(eventID, stageID, params, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled:
+      eventID !== null &&
+      eventID !== undefined &&
+      stageID !== null &&
+      stageID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListFedoStats>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListFedoStatsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListFedoStats>>
+>
 export type GetListFedoStatsQueryError = unknown
 
+/** Get list */
+export function useGetListFedoStats<
+  TData = Awaited<ReturnType<typeof getListFedoStats>>,
+  TError = unknown,
+>(
+  eventID: string,
+  stageID: string,
+  params?: GetListFedoStatsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListFedoStats>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListFedoStatsQueryOptions(
+    eventID,
+    stageID,
+    params,
+    options,
+  )
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListFedoStats<TData = Awaited<ReturnType<typeof getListFedoStats>>, TError = unknown>(
- eventID: string,
-    stageID: string,
-    params?: GetListFedoStatsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListFedoStats>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListFedoStatsQueryOptions(eventID,stageID,params,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListFedoStatsQuery = async <TData = Awaited<ReturnType<typeof getListFedoStats>>, TError = unknown>(
- queryClient: QueryClient, eventID: string,
-    stageID: string,
-    params?: GetListFedoStatsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListFedoStats>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+/** Get list */
+export const prefetchGetListFedoStatsQuery = async <
+  TData = Awaited<ReturnType<typeof getListFedoStats>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  eventID: string,
+  stageID: string,
+  params?: GetListFedoStatsParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListFedoStats>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListFedoStatsQueryOptions(
+    eventID,
+    stageID,
+    params,
+    options,
+  )
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListFedoStatsQueryOptions(eventID,stageID,params,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
-
