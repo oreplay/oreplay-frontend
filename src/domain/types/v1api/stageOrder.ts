@@ -8,6 +8,6 @@
  * Entity StageOrder
  */
 export interface StageOrder {
-  description: string;
-  id: string;
+  description: string
+  id: string
 }

@@ -9,11 +9,11 @@
  */
 export interface LastDates {
   /** @nullable */
-  cleared?: string | null;
+  cleared?: string | null
   /** @nullable */
-  final?: string | null;
+  final?: string | null
   /** @nullable */
-  results?: string | null;
+  results?: string | null
   /** @nullable */
-  start_list?: string | null;
+  start_list?: string | null
 }

@@ -3,32 +3,32 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { RankingLinks } from './rankingLinks';
+import type { RankingLinks } from "./rankingLinks.ts"
 
 /**
  * Entity Ranking
  */
 export interface Ranking {
-  _links: RankingLinks;
-  created: string;
-  event_id: string;
+  _links: RankingLinks
+  created: string
+  event_id: string
   /** @nullable */
-  excluded_class_names?: string | null;
-  id: string;
-  included_class_names: string[];
-  max_points: number;
-  modified: string;
+  excluded_class_names?: string | null
+  id: string
+  included_class_names: string[]
+  max_points: number
+  modified: string
   /** @nullable */
-  nc_false?: number | null;
+  nc_false?: number | null
   /** @nullable */
-  nc_true?: number | null;
+  nc_true?: number | null
   /** @nullable */
-  overall_settings?: string | null;
-  round_precision: number;
-  scoring_algorithm: string;
-  stage_id: string;
+  overall_settings?: string | null
+  round_precision: number
+  scoring_algorithm: string
+  stage_id: string
   /** @nullable */
-  status_scores?: string | null;
+  status_scores?: string | null
   /** @nullable */
-  title?: string | null;
+  title?: string | null
 }

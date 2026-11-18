@@ -3,106 +3,152 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useQuery
-} from 'react-query';
+import { useQuery } from "react-query"
 import type {
   QueryClient,
   QueryFunction,
   QueryKey,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
-import type {
-  ArrayStatsInClass
-} from '../../../domain/types/v1api';
+import type { ArrayStatsInClass } from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Get list
  */
 export const getListStats = (
-    eventID: string,
-    stageID: string,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  eventID: string,
+  stageID: string,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ArrayStatsInClass>(
-      {url: `/api/v1/events/${eventID}/stages/${stageID}/stats/`, method: 'GET', signal
+  return orvalAxiosInstance<ArrayStatsInClass>(
+    {
+      url: `/api/v1/events/${eventID}/stages/${stageID}/stats/`,
+      method: "GET",
+      signal,
     },
-      options);
-    }
-  
-
-
-
-export const getGetListStatsQueryKey = (eventID?: string,
-    stageID?: string,) => {
-    return [
-    `/api/v1/events/${eventID}/stages/${stageID}/stats/`
-    ] as const;
-    }
-
-    
-export const getGetListStatsQueryOptions = <TData = Awaited<ReturnType<typeof getListStats>>, TError = unknown>(eventID: string,
-    stageID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListStats>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListStatsQueryKey(eventID,stageID);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListStats>>> = ({ signal }) => getListStats(eventID,stageID, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(eventID && stageID), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListStats>>, TError, TData> & { queryKey: QueryKey }
+    options,
+  )
 }
 
-export type GetListStatsQueryResult = NonNullable<Awaited<ReturnType<typeof getListStats>>>
+export const getGetListStatsQueryKey = (eventID: string, stageID: string) => {
+  return [`/api/v1/events/${eventID}/stages/${stageID}/stats/`] as const
+}
+
+export const getGetListStatsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListStats>>,
+  TError = unknown,
+>(
+  eventID: string,
+  stageID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListStats>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetListStatsQueryKey(eventID, stageID)
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getListStats>>> = ({
+    signal,
+  }) => getListStats(eventID, stageID, requestOptions, signal)
+
+  return {
+    queryKey,
+    queryFn,
+    enabled:
+      eventID !== null &&
+      eventID !== undefined &&
+      stageID !== null &&
+      stageID !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListStats>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListStatsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListStats>>
+>
 export type GetListStatsQueryError = unknown
 
+/** Get list */
+export function useGetListStats<
+  TData = Awaited<ReturnType<typeof getListStats>>,
+  TError = unknown,
+>(
+  eventID: string,
+  stageID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListStats>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListStatsQueryOptions(eventID, stageID, options)
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListStats<TData = Awaited<ReturnType<typeof getListStats>>, TError = unknown>(
- eventID: string,
-    stageID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListStats>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListStatsQueryOptions(eventID,stageID,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListStatsQuery = async <TData = Awaited<ReturnType<typeof getListStats>>, TError = unknown>(
- queryClient: QueryClient, eventID: string,
-    stageID: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListStats>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+/** Get list */
+export const prefetchGetListStatsQuery = async <
+  TData = Awaited<ReturnType<typeof getListStats>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  eventID: string,
+  stageID: string,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListStats>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListStatsQueryOptions(eventID, stageID, options)
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListStatsQueryOptions(eventID,stageID,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
-

@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { RunnerSearch } from './runnerSearch';
+import type { RunnerSearch } from "./runnerSearch.ts"
 
 /**
  * Data wrapper for RunnerSearch
  */
 export interface ArrayRunnerSearch {
-  data: RunnerSearch[];
+  data: RunnerSearch[]
 }

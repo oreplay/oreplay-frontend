@@ -3,23 +3,23 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { StageLinks } from './stageLinks';
-import type { LastDates } from './lastDates';
-import type { UploadLog } from './uploadLog';
-import type { StageType } from './stageType';
+import type { LastDates } from "./lastDates.ts"
+import type { StageLinks } from "./stageLinks.ts"
+import type { StageType } from "./stageType.ts"
+import type { UploadLog } from "./uploadLog.ts"
 
 /**
  * Entity Stage
  */
 export interface Stage {
-  _links: StageLinks;
-  description: string;
+  _links: StageLinks
+  description: string
   /** @nullable */
-  external_url?: string | null;
-  id: string;
-  last_dates: LastDates;
-  last_logs: UploadLog[];
-  stage_type?: StageType;
+  external_url?: string | null
+  id: string
+  last_dates: LastDates
+  last_logs: UploadLog[]
+  stage_type?: StageType
   /** @nullable */
-  start?: string | null;
+  start?: string | null
 }

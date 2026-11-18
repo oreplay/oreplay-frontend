@@ -3,15 +3,15 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PaginationLinks } from './paginationLinks';
-import type { Event } from './event';
+import type { Event } from "./event.ts"
+import type { PaginationLinks } from "./paginationLinks.ts"
 
 /**
  * Paginated Event
  */
 export interface PaginatedEvent {
-  _links: PaginationLinks;
-  data: Event[];
-  limit: number;
-  total: number;
+  _links: PaginationLinks
+  data: Event[]
+  limit: number
+  total: number
 }

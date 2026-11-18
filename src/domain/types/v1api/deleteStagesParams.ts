@@ -5,5 +5,5 @@
  */
 
 export type DeleteStagesParams = {
-clean?: string;
-};
+  clean?: string
+}

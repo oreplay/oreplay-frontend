@@ -7,4 +7,4 @@
 /**
  * Any object
  */
-export type RawUploadFileData = { [key: string]: unknown };
+export type RawUploadFileData = { [key: string]: unknown }

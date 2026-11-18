@@ -8,5 +8,5 @@
  * Generic object when: Add new
  */
 export type PostListEventTokensBody = {
-  expires?: string;
-};
+  expires?: string
+}

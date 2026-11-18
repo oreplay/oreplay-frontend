@@ -3,103 +3,140 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import {
-  useQuery
-} from 'react-query';
+import { useQuery } from "react-query"
 import type {
   QueryClient,
   QueryFunction,
   QueryKey,
   UseQueryOptions,
-  UseQueryResult
-} from 'react-query';
+  UseQueryResult,
+} from "react-query"
 
 import type {
   ArrayRunnerSearch,
-  GetListRunnerSearchParams
-} from '../../../domain/types/v1api';
+  GetListRunnerSearchParams,
+} from "../../../domain/types/v1api"
 
-import { orvalAxiosInstance } from '../../orval/orval-axios-instance';
+import { orvalAxiosInstance } from "../../orval/orval-axios-instance.ts"
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K,
+): T & { queryKey: K } => {
+  const result = { queryKey } as T & { queryKey: K }
+  for (const key of Object.keys(query)) {
+    // The explicit queryKey always wins, matching the previous
+    // `{ ...query, queryKey }` spread where it was set last.
+    if (key === "queryKey") continue
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: () => (query as Record<string, unknown>)[key],
+    })
+  }
+  return result
+}
 
 /**
  * Search by first name
  */
 export const getListRunnerSearch = (
-    params?: GetListRunnerSearchParams,
- options?: SecondParameter<typeof orvalAxiosInstance>,signal?: AbortSignal
+  params?: GetListRunnerSearchParams,
+  options?: SecondParameter<typeof orvalAxiosInstance>,
+  signal?: AbortSignal,
 ) => {
-      
-      
-      return orvalAxiosInstance<ArrayRunnerSearch>(
-      {url: `/api/v1/runners/search/`, method: 'GET',
-        params, signal
-    },
-      options);
-    }
-  
-
-
-
-export const getGetListRunnerSearchQueryKey = (params?: GetListRunnerSearchParams,) => {
-    return [
-    `/api/v1/runners/search/`, ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getGetListRunnerSearchQueryOptions = <TData = Awaited<ReturnType<typeof getListRunnerSearch>>, TError = unknown>(params?: GetListRunnerSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRunnerSearch>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetListRunnerSearchQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getListRunnerSearch>>> = ({ signal }) => getListRunnerSearch(params, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getListRunnerSearch>>, TError, TData> & { queryKey: QueryKey }
+  return orvalAxiosInstance<ArrayRunnerSearch>(
+    { url: `/api/v1/runners/search/`, method: "GET", params, signal },
+    options,
+  )
 }
 
-export type GetListRunnerSearchQueryResult = NonNullable<Awaited<ReturnType<typeof getListRunnerSearch>>>
+export const getGetListRunnerSearchQueryKey = (
+  params?: GetListRunnerSearchParams,
+) => {
+  return [`/api/v1/runners/search/`, ...(params ? [params] : [])] as const
+}
+
+export const getGetListRunnerSearchQueryOptions = <
+  TData = Awaited<ReturnType<typeof getListRunnerSearch>>,
+  TError = unknown,
+>(
+  params?: GetListRunnerSearchParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRunnerSearch>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {}
+
+  const queryKey =
+    queryOptions?.queryKey ?? getGetListRunnerSearchQueryKey(params)
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getListRunnerSearch>>
+  > = ({ signal }) => getListRunnerSearch(params, requestOptions, signal)
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getListRunnerSearch>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey }
+}
+
+export type GetListRunnerSearchQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getListRunnerSearch>>
+>
 export type GetListRunnerSearchQueryError = unknown
 
+/** Search by first name */
+export function useGetListRunnerSearch<
+  TData = Awaited<ReturnType<typeof getListRunnerSearch>>,
+  TError = unknown,
+>(
+  params?: GetListRunnerSearchParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRunnerSearch>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetListRunnerSearchQueryOptions(params, options)
 
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey
+  }
 
-export function useGetListRunnerSearch<TData = Awaited<ReturnType<typeof getListRunnerSearch>>, TError = unknown>(
- params?: GetListRunnerSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRunnerSearch>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetListRunnerSearchQueryOptions(params,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
+  return withQueryKey(query, queryOptions.queryKey)
 }
 
-export const prefetchGetListRunnerSearchQuery = async <TData = Awaited<ReturnType<typeof getListRunnerSearch>>, TError = unknown>(
- queryClient: QueryClient, params?: GetListRunnerSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getListRunnerSearch>>, TError, TData>, request?: SecondParameter<typeof orvalAxiosInstance>}
+/** Search by first name */
+export const prefetchGetListRunnerSearchQuery = async <
+  TData = Awaited<ReturnType<typeof getListRunnerSearch>>,
+  TError = unknown,
+>(
+  queryClient: QueryClient,
+  params?: GetListRunnerSearchParams,
+  options?: {
+    query?: UseQueryOptions<
+      Awaited<ReturnType<typeof getListRunnerSearch>>,
+      TError,
+      TData
+    >
+    request?: SecondParameter<typeof orvalAxiosInstance>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetListRunnerSearchQueryOptions(params, options)
 
-  ): Promise<QueryClient> => {
+  await queryClient.prefetchQuery(queryOptions)
 
-  const queryOptions = getGetListRunnerSearchQueryOptions(params,options)
-
-  await queryClient.prefetchQuery(queryOptions);
-
-  return queryClient;
+  return queryClient
 }
-
-
-

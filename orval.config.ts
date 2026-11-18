@@ -36,13 +36,7 @@ const config = (name: string, url?: string) => {
       target: url ?? `./openapi/${name}.yaml`,
       filters: {
         mode: "exclude",
-        tags: [
-          "Me",
-          "StageClubs",
-          "Uploads",
-          "Users",
-          "ValidateTokens",
-        ],
+        tags: ["Me", "StageClubs", "Uploads", "Users", "ValidateTokens"],
       },
     },
   }

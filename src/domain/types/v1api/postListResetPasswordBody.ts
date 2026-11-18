@@ -8,5 +8,5 @@
  * Generic object when: Add new
  */
 export type PostListResetPasswordBody = {
-  email?: string;
-};
+  email?: string
+}

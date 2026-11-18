@@ -8,14 +8,14 @@
  * Entity RankingOrganizer
  */
 export interface RankingOrganizer {
-  created: string;
+  created: string
   /** @nullable */
-  description?: string | null;
-  first_name: string;
-  id: string;
-  last_name: string;
-  modified: string;
+  description?: string | null
+  first_name: string
+  id: string
+  last_name: string
+  modified: string
   /** @nullable */
-  runner_id?: string | null;
-  stage_order_id: string;
+  runner_id?: string | null
+  stage_order_id: string
 }

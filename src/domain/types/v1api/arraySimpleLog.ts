@@ -3,11 +3,11 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { SimpleLog } from './simpleLog';
+import type { SimpleLog } from "./simpleLog.ts"
 
 /**
  * Data wrapper for SimpleLog
  */
 export interface ArraySimpleLog {
-  data: SimpleLog[];
+  data: SimpleLog[]
 }

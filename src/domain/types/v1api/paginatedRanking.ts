@@ -3,15 +3,15 @@
  * O-replay - OpenAPI 3.0
  * O-replay Rest API
  */
-import type { PaginationLinks } from './paginationLinks';
-import type { Ranking } from './ranking';
+import type { PaginationLinks } from "./paginationLinks.ts"
+import type { Ranking } from "./ranking.ts"
 
 /**
  * Paginated Ranking
  */
 export interface PaginatedRanking {
-  _links: PaginationLinks;
-  data: Ranking[];
-  limit: number;
-  total: number;
+  _links: PaginationLinks
+  data: Ranking[]
+  limit: number
+  total: number
 }
