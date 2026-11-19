@@ -3,18 +3,17 @@ import { Participant, Result } from "../../../../../../../domain/types/v1api"
 import { RESULT_STATUS } from "../../../../../../Results/shared/constants.ts"
 import { isRunnerWithoutResult, runnersWithoutResult } from "./runnersWithoutResult.ts"
 
-const makeParticipant = (fullName: string, stage: Partial<Result> | null): Participant =>
-  ({
-    bib_number: 1,
-    class: { id: "c1", long_name: "Men 21", short_name: "M-21" },
-    club: { id: "cl1", short_name: "Club" },
-    created: "2026-01-01T00:00:00+00:00",
-    eligibility: "",
-    full_name: fullName,
-    id: fullName,
-    is_nc: false,
-    ...(stage ? { stage: { id: "res-1", created: "", ...stage } } : {}),
-  }) as Participant
+const makeParticipant = (fullName: string, stage: Partial<Result> | null): Participant => ({
+  bib_number: 1,
+  class: { id: "c1", long_name: "Men 21", short_name: "M-21" },
+  club: { id: "cl1", short_name: "Club" },
+  created: "2026-01-01T00:00:00+00:00",
+  eligibility: "",
+  full_name: fullName,
+  id: fullName,
+  is_nc: false,
+  ...(stage ? { stage: { id: "res-1", created: "", ...stage } } : {}),
+})
 
 describe("isRunnerWithoutResult", () => {
   it("is true for a runner out on the course", () => {

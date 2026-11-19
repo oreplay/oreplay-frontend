@@ -2,17 +2,16 @@ import { describe, expect, it } from "vitest"
 import { Participant } from "../../../../../domain/types/v1api"
 import { buildExportRunners, participantPosition, topParticipantsInClass } from "./exportRunners.ts"
 
-const makeParticipant = (over: Record<string, unknown>): Participant =>
-  ({
-    bib_number: 0,
-    club: { id: "c", short_name: "CLUB" },
-    created: "",
-    eligibility: "",
-    full_name: "Runner",
-    id: "id",
-    is_nc: false,
-    ...over,
-  }) as unknown as Participant
+const makeParticipant = (over: Record<string, unknown>): Participant => ({
+  bib_number: 0,
+  club: { id: "c", short_name: "CLUB" },
+  created: "",
+  eligibility: "",
+  full_name: "Runner",
+  id: "id",
+  is_nc: false,
+  ...over,
+})
 
 describe("participantPosition", () => {
   it("prefers overall position, falls back to stage position", () => {
