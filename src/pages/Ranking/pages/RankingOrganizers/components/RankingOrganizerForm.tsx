@@ -50,8 +50,14 @@ export default function RankingOrganizerForm({
   const requiredValidator = ({ value }: { value: string }) =>
     value.trim() ? undefined : t("common:fieldRequired")
 
-  // Only runners found within the ranking's event are a real runner link; a
-  // match from the all-events search just prefills the name, runner_id stays empty.
+  /**
+   * Fills the organizer's name from a runner picked in one of the searches.
+   * @param runners - runners the search returned
+   * @param id - id of the picked runner; an unknown id changes nothing
+   * @param linkRunner - true for a runner found in the ranking's own event, the only kind that
+   * is a real runner link; a match from the all-events search just prefills the name and leaves
+   * the runner id empty
+   */
   const selectRunner = (runners: RunnerSearch[], id: string, linkRunner: boolean) => {
     const runner = runners.find((candidate) => candidate.id === id)
     if (!runner) return
