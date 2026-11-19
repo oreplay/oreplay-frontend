@@ -2,15 +2,25 @@ import { orvalAxiosInstance } from "../../../infrastructure/orval/orval-axios-in
 import { postListRankingComputeStage } from "../../../infrastructure/repositories/ranking-compute-stage/ranking-compute-stage.ts"
 import { ProgressReporter } from "./progress.ts"
 
+const API_PREFIX = "/api/v1"
+
+/**
+ * Turns a compute URL returned by the backend into a request path. Those URLs may come without
+ * the API prefix, which the requests need because the axios base URL doesn't carry it.
+ * @param path - URL as returned by the backend, with or without the API prefix
+ * @returns the path starting with the API prefix
+ */
+export function withApiPrefix(path: string): string {
+  return path.startsWith("/api/") ? path : `${API_PREFIX}${path}`
+}
+
 const postInBatches = async (urls: string[], batchSize: number, onProgress?: ProgressReporter) => {
   for (let i = 0; i < urls.length; i += batchSize) {
     const batch = urls.slice(i, i + batchSize)
     await Promise.all(
       batch.map((path) =>
         orvalAxiosInstance({
-          // The returned URLs are relative and lack the `/api/v1` prefix the
-          // axios base URL already carries; add it when missing.
-          url: path.startsWith("/api/") ? path : `/api/v1${path}`,
+          url: withApiPrefix(path),
           method: "POST",
           data: { secret: "auth" },
         }),
