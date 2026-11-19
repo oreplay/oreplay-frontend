@@ -23,7 +23,7 @@ export default function SegmentedControlThumb({
     <span
       aria-hidden="true"
       style={style}
-      className="segmented-control-thumb pointer-events-none absolute rounded-md bg-white shadow-[0_1px_3px_rgba(0,0,0,0.12)] transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none"
+      className="segmented-control-thumb pointer-events-none absolute rounded-md bg-white shadow-[0_1px_3px_rgba(0,0,0,0.12)] transition-[transform,opacity] duration-200 ease-out motion-reduce:transition-none"
     />
   )
 }
