@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem"
 interface Props {
   icon: JSX.Element
   menuText: string
-  action: () => void
+  action: () => void | Promise<void>
   menuCloseAction: () => void
   dialogTitle: string
   dialogBody: string
@@ -29,7 +29,8 @@ interface Props {
  * Settings menu entry that asks for confirmation in a dialog before running its action.
  * @param props.icon Icon shown before the menu text.
  * @param props.menuText Label of the menu entry.
- * @param props.action Runs when the dialog is confirmed.
+ * @param props.action Runs when the dialog is confirmed. When it returns a promise, the dialog stays
+ * open with a spinner in the confirm button until the promise settles.
  * @param props.menuCloseAction Closes the parent menu when the dialog is cancelled.
  * @param props.dialogTitle Title of the confirmation dialog.
  * @param props.dialogBody Explanation shown in the confirmation dialog.
@@ -42,6 +43,7 @@ interface Props {
 export default function GridActionsSettingsMenuDialogItem(props: Props) {
   // Internal states
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
+  const [isConfirming, setIsConfirming] = useState<boolean>(false)
 
   // handle functions
   const handleClose = useCallback(() => {
@@ -50,6 +52,16 @@ export default function GridActionsSettingsMenuDialogItem(props: Props) {
   const handleOpen = useCallback(() => {
     setIsDialogOpen(true)
   }, [])
+
+  /**
+   * Runs the action and closes the dialog once it has finished, showing the pending state meanwhile.
+   */
+  const handleConfirm = async () => {
+    setIsConfirming(true)
+    await props.action()
+    setIsConfirming(false)
+    handleClose()
+  }
 
   // Component
   return (
@@ -66,6 +78,7 @@ export default function GridActionsSettingsMenuDialogItem(props: Props) {
         <DialogActions>
           <Button
             variant="outlined"
+            disabled={isConfirming}
             onClick={() => {
               handleClose()
               props.menuCloseAction()
@@ -75,11 +88,9 @@ export default function GridActionsSettingsMenuDialogItem(props: Props) {
           </Button>
           <Button
             variant="contained"
-            onClick={() => {
-              props.action()
-              handleClose()
-            }}
+            onClick={() => void handleConfirm()}
             color={props.dialogConfirmButtonColor ?? "error"}
+            loading={isConfirming}
             autoFocus
           >
             {props.dialogConfirmButtonText}

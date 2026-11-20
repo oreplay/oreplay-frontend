@@ -18,3 +18,13 @@ export const REOPEN_STAGE_ITEM = {
   dialogConfirmKey: "EventAdmin.Stages.FinishStage.Undo.DialogConfirm",
   shouldBeEnded: false,
 }
+
+/**
+ * Picks the settings menu entry that toggles a stage's official state: making it official when it
+ * is provisional, or provisional again when it is official.
+ * @param isStageEnded Whether the stage's results are official.
+ * @returns The entry's icon, translation keys and the state it sets.
+ */
+export function getFinishStageItem(isStageEnded: boolean) {
+  return isStageEnded ? REOPEN_STAGE_ITEM : FINISH_STAGE_ITEM
+}
