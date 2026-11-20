@@ -9,14 +9,14 @@ import EditIcon from "@mui/icons-material/Edit"
 import GridActionsSettingsMenuDialogItem from "./GridActionsSettingsMenuDialogItem.tsx"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import PersonOffIcon from "@mui/icons-material/PersonOff"
-import { FINISH_STAGE_ITEM, REOPEN_STAGE_ITEM } from "./shared/finishStageMenuItems.ts"
+import { getFinishStageItem } from "./shared/finishStageMenuItems.ts"
 import Sparkles from "../../../../../../../components/Sparkles/Sparkles.tsx"
 
 type GridActionsSettingsMenuProps = {
   isStageEnded: boolean
   handleDeleteClick: () => void
   handleEditClick: () => void
-  handleSetStageEndedClick: (shouldBeEnded: boolean) => void
+  handleSetStageEndedClick: (shouldBeEnded: boolean) => Promise<void>
   handleWipeOutRunnersClick?: () => void
   handleStatsClick: () => void
 }
@@ -33,14 +33,14 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
   // Menu functions
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+  const [finishStageItem, setFinishStageItem] = useState(() => getFinishStageItem(isStageEnded))
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFinishStageItem(getFinishStageItem(isStageEnded))
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {
     setAnchorEl(null)
   }
-
-  const finishStageItem = isStageEnded ? REOPEN_STAGE_ITEM : FINISH_STAGE_ITEM
 
   return (
     <>
@@ -67,8 +67,8 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
             </Sparkles>
           }
           menuText={t(finishStageItem.menuTextKey)}
-          action={() => {
-            handleSetStageEndedClick(finishStageItem.shouldBeEnded)
+          action={async () => {
+            await handleSetStageEndedClick(finishStageItem.shouldBeEnded)
             handleClose()
           }}
           menuCloseAction={handleClose}
