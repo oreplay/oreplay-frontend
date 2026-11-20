@@ -140,6 +140,19 @@
       },
       "description": "Crea tantas etapas como tenga tu evento. Cada evento debe tener al menos una etapa.",
       "FailedToLoadOrganizers": "No se han podido cargar los organizadores",
+      "FinishStage": {
+        "DialogBody": "Marcar los resultados como oficiales indica a los corredores que la etapa ya ha terminado y los resultados no van a cambiar más. Además, previene cambios accidentales en los datos. Si necesitas editar los resultados más adelante puedes volver a marcar los resultados como provisionales y modificarlos.",
+        "DialogConfirm": "Hacer oficiales",
+        "DialogTitle": "¿Desea marcar los resultados como oficiales?",
+        "MenuText": "Hacer oficiales",
+        "Tooltip": "Estos resultados están marcados como definitivos. Hágalos provisionales desde las opciones de la etapa para cambiar los datos.",
+        "Undo": {
+          "DialogBody": "Estos resultados están marcados como oficiales. Hacer los resultados provisionales de nuevo te permite modificarlos.",
+          "DialogConfirm": "Reabrir",
+          "DialogTitle": "¿Desea reabrir esta etapa?",
+          "MenuText": "Hacer provisionales"
+        }
+      },
       "GoToStage": "Ver la etapa",
       "NewStage": "Nueva etapa",
       "StagesTypes": {
@@ -328,12 +341,14 @@
     "Club": "Club",
     "Clubs": "Clubs",
     "FinishTime": "Final",
+    "lastUpdated": "Actualizado {{time}}",
     "Name": "Nombre",
     "NoClubMsg": "Sin club",
     "NoData": "No hay datos disponibles",
     "NonContributory": "No puntúa",
     "NoStartTime": "-",
     "NotStarted": "-",
+    "OfficialTooltip": "El organizador ha marcado estos resultados como oficiales y definitivos.",
     "OnlineCourse": {
       "ControlsReached": "{{reached}} de {{total}} radiocontroles alcanzados",
       "Hide": "Ocultar radiocontroles",
