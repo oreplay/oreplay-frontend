@@ -76,6 +76,7 @@ const GridActionsSettingsMenu: React.FC<GridActionsSettingsMenuProps> = ({
           dialogBody={t(finishStageItem.dialogBodyKey)}
           dialogCancelButtonText={t("Cancel")}
           dialogConfirmButtonText={t(finishStageItem.dialogConfirmKey)}
+          dialogConfirmButtonColor="primary"
         />
         <Divider />
         {handleWipeOutRunnersClick && (
