@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { UPLOAD_TYPES } from "../pages/Results/pages/Results/shared/constants.ts"
+import { LastDates } from "../domain/types/v1api"
 
 /**
  * Paginated list from backend
@@ -74,23 +75,11 @@ export interface StageTypeModel {
     | "Trail-O"
 }
 
-export enum StateLogConst {
-  CLEAR = 0,
-  START = 1,
-  RESULT = 2,
-  ENDED = 3,
-}
-
-export interface StateLog {
-  state: StateLogConst
-  created: string
-}
-
 export interface StageModel {
   id: string
   description: string
   external_url: string | null
-  last_logs: StateLog[]
+  last_dates: LastDates
   stage_type: StageTypeModel
   start: string | null
 }
