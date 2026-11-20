@@ -10,7 +10,7 @@ function buildStage(stageTypeId: string, externalUrl: string | null): StageModel
     id: "stage-id",
     description: "Stage",
     external_url: externalUrl,
-    last_logs: [],
+    last_dates: {},
     stage_type: { id: stageTypeId, description: "Trail-O" },
     start: null,
   }

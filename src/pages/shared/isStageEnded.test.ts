@@ -1,24 +1,28 @@
 import { describe, expect, it } from "vitest"
 import { isStageEnded, isStageEndedById } from "./isStageEnded.ts"
-import { StageModel, StateLogConst } from "../../shared/EntityTypes.ts"
+import { StageModel } from "../../shared/EntityTypes.ts"
+import { LastDates } from "../../domain/types/v1api"
 
-const aStage = (id: string, states: StateLogConst[]): StageModel => ({
+const UPLOADED_AT = "2026-08-06T10:00:00.000+00:00"
+const MADE_FINAL_AT = "2026-08-06T12:00:00.000+00:00"
+
+const aStage = (id: string, lastDates: LastDates): StageModel => ({
   id,
   description: `Stage ${id}`,
   external_url: null,
-  last_logs: states.map((state) => ({ state, created: "2026-08-06T10:00:00+00:00" })),
+  last_dates: lastDates,
   stage_type: { id: "stage-type", description: "Rogaine" },
   start: null,
 })
 
 const stages = [
-  aStage("running", [StateLogConst.START, StateLogConst.RESULT]),
-  aStage("ended", [StateLogConst.RESULT, StateLogConst.ENDED]),
-  aStage("empty", []),
+  aStage("running", { start_list: UPLOADED_AT, results: UPLOADED_AT, final: null }),
+  aStage("ended", { results: UPLOADED_AT, final: MADE_FINAL_AT }),
+  aStage("empty", { cleared: null, start_list: null, results: null, final: null }),
 ]
 
 describe("isStageEnded", () => {
-  it("is true when the stage was ended", () => {
+  it("is true when the stage has a final date", () => {
     expect(isStageEnded(stages[1])).toBe(true)
   })
 
@@ -26,8 +30,12 @@ describe("isStageEnded", () => {
     expect(isStageEnded(stages[0])).toBe(false)
   })
 
-  it("is false when the stage has no logs", () => {
+  it("is false when the stage has no dates", () => {
     expect(isStageEnded(stages[2])).toBe(false)
+  })
+
+  it("is false when the final date is missing", () => {
+    expect(isStageEnded(aStage("partial", {}))).toBe(false)
   })
 
   it("is false without a stage", () => {
