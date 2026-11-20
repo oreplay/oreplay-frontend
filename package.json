@@ -60,6 +60,9 @@
     },
     "typedoc": {
       "minimatch": "^11.0.1"
+    },
+    "workbox-build": {
+      "glob": "^14.0.3"
     }
   },
   "devDependencies": {
