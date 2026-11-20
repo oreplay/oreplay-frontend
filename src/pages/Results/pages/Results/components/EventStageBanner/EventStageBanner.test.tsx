@@ -26,12 +26,14 @@ const renderBanner = (isOfficial?: boolean) =>
 /**
  * Renders the banner of a multi-stage event's stage that received results at a given moment.
  * @param lastUpdate Moment of the latest upload, or null when there is none.
+ * @param stageStart Moment the stage starts, or undefined to leave the start out.
  */
-const renderBannerUpdatedAt = (lastUpdate: DateTime | null) =>
+const renderBannerUpdatedAt = (lastUpdate: DateTime | null, stageStart?: DateTime) =>
   render(
     <EventStageBanner
       eventName="Spring Cup"
       stageName="Sprint"
+      stageStart={stageStart?.toISO()}
       singleStage={false}
       lastUpdate={lastUpdate}
     />,
@@ -69,5 +71,15 @@ describe("EventStageBanner", () => {
   it("shows no live status for a stage without uploads", () => {
     renderBannerUpdatedAt(null)
     expect(screen.queryByRole("img", { name: LAST_UPDATED_LABEL })).not.toBeInTheDocument()
+  })
+
+  it("shows no live status before the stage starts", () => {
+    renderBannerUpdatedAt(DateTime.now(), DateTime.now().plus({ hours: 1 }))
+    expect(screen.queryByRole("img", { name: LAST_UPDATED_LABEL })).not.toBeInTheDocument()
+  })
+
+  it("shows the live status once the stage has started", () => {
+    renderBannerUpdatedAt(DateTime.now(), DateTime.now().minus({ hours: 1 }))
+    expect(screen.getByTestId(LIVE_ICON)).toBeInTheDocument()
   })
 })

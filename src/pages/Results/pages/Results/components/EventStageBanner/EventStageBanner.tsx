@@ -28,11 +28,12 @@ const WEBSITE_BUTTON_SX = { minWidth: 0, paddingX: 0.5, paddingY: 0, lineHeight:
 
 /**
  * Header of a stage's results page: organizer, title, the event as a subtitle on multi-stage events,
- * start time and website, plus a live status icon in the top-right corner while results are being
- * uploaded and an "Official" chip in the bottom-right corner once the stage is finished.
+ * start time and website, plus a live status icon in the top-right corner once the stage has started
+ * and while results are being uploaded, and an "Official" chip in the bottom-right corner once the stage is finished.
  * @param props.eventName Event name; the title on single-stage events, the subtitle otherwise.
  * @param props.stageName Stage name, the title on multi-stage events.
- * @param props.stageStart Stage start as an ISO date-time; omitted when null or absent.
+ * @param props.stageStart Stage start as an ISO date-time; omitted when null or absent. The live
+ * status icon stays hidden until it is reached.
  * @param props.organizerName Organizer shown above the title, when known.
  * @param props.countryCode Organizer's country, for its flag.
  * @param props.website Event website; the link is hidden when missing or not a valid URL.
@@ -79,7 +80,9 @@ export default function EventStageBanner(props: EventStageBannerProps) {
           )}
         </div>
       )}
-      {props.lastUpdate && <EventStageBannerLiveStatus lastUpdate={props.lastUpdate} />}
+      {props.lastUpdate && (
+        <EventStageBannerLiveStatus lastUpdate={props.lastUpdate} stageStart={props.stageStart} />
+      )}
       {props.isOfficial && <EventStageBannerOfficial />}
     </div>
   )

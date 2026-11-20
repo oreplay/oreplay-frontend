@@ -5,11 +5,11 @@ import { isStageEnded } from "../../../../shared/isStageEnded.ts"
 export const LIVE_UPDATE_WINDOW = Duration.fromObject({ minutes: 15 })
 
 /**
- * Parses one of the dates the backend reports for a stage's latest events.
- * @param date ISO date-time; null or absent when that event never happened.
+ * Parses one of the dates the backend reports for a stage: its start or its latest events.
+ * @param date ISO date-time; null or absent when unknown or when that event never happened.
  * @returns The parsed moment, or `null` when there is no date or it cannot be parsed.
  */
-function parseLastDate(date?: string | null): DateTime | null {
+function parseStageDate(date?: string | null): DateTime | null {
   if (!date) {
     return null
   }
@@ -37,15 +37,28 @@ function latestOf(moments: (DateTime | null)[]): DateTime | null {
  */
 export function getStageLastUpdate(stage: StageModel): DateTime | null {
   const lastUpload = latestOf([
-    parseLastDate(stage.last_dates?.start_list),
-    parseLastDate(stage.last_dates?.results),
+    parseStageDate(stage.last_dates?.start_list),
+    parseStageDate(stage.last_dates?.results),
   ])
-  const cleared = parseLastDate(stage.last_dates?.cleared)
+  const cleared = parseStageDate(stage.last_dates?.cleared)
   const isClearedSinceUpload = lastUpload !== null && cleared !== null && cleared >= lastUpload
   if (!lastUpload || isClearedSinceUpload || isStageEnded(stage)) {
     return null
   }
   return lastUpload
+}
+
+/**
+ * Tells whether a stage has started, so its live status is not shown while only the start list is
+ * up.
+ * @param stageStart Stage start as an ISO date-time; null or absent when unknown.
+ * @param now Current moment.
+ * @returns `true` once the start is reached, and also when the start is unknown or cannot be
+ * parsed, so a missing start never hides the live status.
+ */
+export function hasStageStarted(stageStart: string | null | undefined, now: DateTime): boolean {
+  const start = parseStageDate(stageStart)
+  return start === null || now >= start
 }
 
 /**

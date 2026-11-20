@@ -2,7 +2,12 @@ import { describe, expect, it } from "vitest"
 import { DateTime } from "luxon"
 import { LastDates } from "../../../../../domain/types/v1api"
 import { StageModel } from "../../../../../shared/EntityTypes.ts"
-import { getStageLastUpdate, isStageLive, LIVE_UPDATE_WINDOW } from "./stageLastUpdate.ts"
+import {
+  getStageLastUpdate,
+  hasStageStarted,
+  isStageLive,
+  LIVE_UPDATE_WINDOW,
+} from "./stageLastUpdate.ts"
 
 const EARLIER = "2026-10-29T09:00:00.000Z"
 const LATER = "2026-10-29T10:00:00.000Z"
@@ -51,6 +56,31 @@ describe("getStageLastUpdate", () => {
 
   it("returns null when the upload date cannot be parsed", () => {
     expect(getStageLastUpdate(stageWithDates({ results: "not a date" }))).toBeNull()
+  })
+})
+
+describe("hasStageStarted", () => {
+  const start = DateTime.fromISO(EARLIER)
+
+  it("has not started before its start", () => {
+    expect(hasStageStarted(EARLIER, start.minus({ minutes: 1 }))).toBe(false)
+  })
+
+  it("has started right at its start", () => {
+    expect(hasStageStarted(EARLIER, start)).toBe(true)
+  })
+
+  it("has started after its start", () => {
+    expect(hasStageStarted(EARLIER, start.plus({ minutes: 1 }))).toBe(true)
+  })
+
+  it("counts a stage without a start as started", () => {
+    expect(hasStageStarted(null, start)).toBe(true)
+    expect(hasStageStarted(undefined, start)).toBe(true)
+  })
+
+  it("counts a stage whose start cannot be parsed as started", () => {
+    expect(hasStageStarted("not a date", start)).toBe(true)
   })
 })
 
