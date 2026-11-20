@@ -1,12 +1,10 @@
-import { useState } from "react"
 import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
 import { useNavigate } from "react-router-dom"
 import { Ranking } from "../../../../../domain/types/v1api"
 import { competitionResultsPath } from "../../../shared/competitionLink.ts"
 import { formatDate } from "../shared/formatDate.ts"
-import DropdownMenu, { DropdownMenuItem } from "./DropdownMenu/DropdownMenu.tsx"
-import SettingsIcon from "./icons/SettingsIcon.tsx"
-import ProcessEventDialog from "./ProcessEventDialog.tsx"
+import DropdownMenu, { DropdownMenuItem } from "../../../components/DropdownMenu/DropdownMenu.tsx"
+import SettingsIcon from "../../../components/icons/SettingsIcon.tsx"
 
 interface RankingListItemProps {
   ranking: Ranking
@@ -15,7 +13,6 @@ interface RankingListItemProps {
 export default function RankingListItem({ ranking }: RankingListItemProps) {
   const { t, i18n } = useTranslationRanking()
   const navigate = useNavigate()
-  const [processOpen, setProcessOpen] = useState(false)
 
   const settingsPath = `${ranking.id}/settings`
   const details = `${formatDate(ranking.created, i18n.language)} · ${t(
@@ -29,15 +26,11 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
     },
     {
       label: t("Settings.competitionLink"),
-      href: competitionResultsPath(ranking.event_id, ranking.stage_id),
+      to: competitionResultsPath(ranking.event_id, ranking.stage_id),
     },
     {
       label: t("common:duplicate"),
       onSelect: () => void navigate(`${ranking.id}/duplicate`),
-    },
-    {
-      label: t("ProcessEvent.title"),
-      onSelect: () => setProcessOpen(true),
     },
   ]
 
@@ -54,11 +47,6 @@ export default function RankingListItem({ ranking }: RankingListItemProps) {
         triggerLabel={t("List.menuLabel")}
         trigger={<SettingsIcon />}
         items={menuItems}
-      />
-      <ProcessEventDialog
-        open={processOpen}
-        onClose={() => setProcessOpen(false)}
-        rankingId={ranking.id}
       />
     </li>
   )

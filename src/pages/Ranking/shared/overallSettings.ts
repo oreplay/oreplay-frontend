@@ -4,20 +4,41 @@ export const OVERALL_SETTINGS_FIELDS = [
   {
     key: "totalCircuitRaces",
     labelKey: "Settings.overallValues.totalCircuitRaces",
+    default: 4,
   },
   {
     key: "maxRacesCounted",
     labelKey: "Settings.overallValues.maxRacesCounted",
+    default: 3,
   },
   {
     key: "organizerScoringFraction",
     labelKey: "Settings.overallValues.organizerScoringFraction",
+    default: 0.3,
   },
   {
     key: "minPointsAsOrg",
     labelKey: "Settings.overallValues.minPointsAsOrg",
+    default: 50,
   },
 ] as const
+
+export type OverallSettingKey = (typeof OVERALL_SETTINGS_FIELDS)[number]["key"]
+
+export const DEFAULT_OVERALL_SETTINGS: (number | null)[] = OVERALL_SETTINGS_FIELDS.map(
+  (field) => field.default,
+)
+
+export function isTotalCircuitRacesMismatch(
+  key: OverallSettingKey,
+  value: number | null,
+  stageOrderCount?: number,
+): boolean {
+  if (key !== "totalCircuitRaces" || value === null || stageOrderCount === undefined) {
+    return false
+  }
+  return value !== stageOrderCount
+}
 
 export function parseOverallSettings(raw: string | null | undefined): (number | null)[] {
   let parsed: Record<string, unknown> = {}

@@ -1,7 +1,11 @@
 {
+  "addNew": "Yeni ekle",
+  "clearAll": "Tümünü temizle",
   "clearSearch": "Aramayı temizle",
   "close": "Kapat",
   "confirm": "Onayla",
+  "copied": "Panoya kopyalandı",
+  "copy": "Kopyala",
   "delete": "Sil",
   "deleteConfirm": "Devam etmek istediğinizden emin misiniz?",
   "duplicate": "Çoğalt",
@@ -18,5 +22,6 @@
   "noResults": "Sonuç yok",
   "ok": "Tamam",
   "save": "Kaydet",
-  "search": "Ara"
+  "search": "Ara",
+  "selectAll": "Tümünü seç"
 }

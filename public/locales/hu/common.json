@@ -1,7 +1,11 @@
 {
+  "addNew": "Új hozzáadása",
+  "clearAll": "Összes törlése",
   "clearSearch": "Keresés törlése",
   "close": "Bezárás",
   "confirm": "Megerősítés",
+  "copied": "Vágólapra másolva",
+  "copy": "Másolás",
   "delete": "Törlés",
   "deleteConfirm": "Biztosan folytatja?",
   "duplicate": "Másolat",
@@ -18,5 +22,6 @@
   "noResults": "Nincs találat",
   "ok": "OK",
   "save": "Mentés",
-  "search": "Keresés"
+  "search": "Keresés",
+  "selectAll": "Összes kijelölése"
 }

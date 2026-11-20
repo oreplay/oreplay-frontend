@@ -12,6 +12,7 @@ interface TextFieldProps {
   error?: string
   description?: string
   required?: boolean
+  readOnly?: boolean
   className?: string
 }
 
@@ -23,6 +24,7 @@ export default function TextField({
   error,
   description,
   required,
+  readOnly,
   className,
 }: TextFieldProps) {
   return (
@@ -33,10 +35,13 @@ export default function TextField({
         type="text"
         aria-required={required}
         aria-invalid={!!error}
+        readOnly={readOnly}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         onBlur={onBlur}
-        className={fieldClass(!!error)}
+        className={[fieldClass(!!error), readOnly ? "bg-neutral-100" : ""]
+          .filter(Boolean)
+          .join(" ")}
       />
       <FieldError message={error} />
     </label>

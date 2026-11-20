@@ -3,33 +3,101 @@
     "label": "Breadcrumb",
     "rankings": "Rankings"
   },
-  "Duplicate": {
-    "crumb": "Duplicate",
-    "title": "Duplicate ranking"
+  "ClubRankingExport": {
+    "description": "Downloads a CSV with the points of each club grouped by age.",
+    "title": "Export club ranking"
+  },
+  "Create": {
+    "title": "New ranking"
+  },
+  "DuplicatedRunners": {
+    "action": "Action",
+    "bibNumber": "Bib",
+    "class": "Class",
+    "empty": "No duplicated runners found.",
+    "loadError": "We couldn't load the duplicated runners.",
+    "name": "Name",
+    "partials": "Partials",
+    "points": "Points",
+    "remove": "Remove",
+    "removeConfirm": "{{name}} will be removed from the ranking.",
+    "removeTitle": "Remove",
+    "title": "Duplicated runners"
+  },
+  "ExportResults": {
+    "backgroundPdf": "Background PDF URL",
+    "backgroundPdfHint": "Optional. Overrides the template background.",
+    "classes": "Categories",
+    "success": "Export ready.",
+    "template": "Template",
+    "templates": {
+      "diplomaA": "Diploma A",
+      "diplomaB": "Diploma B",
+      "podiumA": "Podium A"
+    },
+    "title": "Export results",
+    "topCount": "Top runners per class"
+  },
+  "FedoStats": {
+    "buckets": {
+      "others": "Others",
+      "seniorF": "Senior F",
+      "seniorM": "Senior M",
+      "sub20F": "Sub-20 F",
+      "sub20M": "Sub-20 M"
+    },
+    "compute": "Compute",
+    "dnf": "Retired",
+    "dns": "Did not start",
+    "dqf": "Disqualified",
+    "female": "F",
+    "loadError": "We couldn't load the stats.",
+    "male": "M",
+    "moveTo": "Move {{name}} to a category",
+    "mp": "Card error",
+    "officialTitle": "Official",
+    "ot": "Over time",
+    "title": "Stage stats",
+    "total": "Total",
+    "totalRegistered": "Total registered",
+    "totalSenior": "Total ≥ Sub-20",
+    "totalSub20": "Total < Sub-20"
   },
   "List": {
     "description": "Manage your ranking lists and edit the settings of each one.",
-    "empty": "No rankings yet.",
     "loadError": "We couldn't load the rankings.",
     "menuLabel": "Ranking options",
     "title": "Rankings"
   },
   "ProcessEvent": {
-    "stage": "Stage",
-    "title": "Process event"
+    "stage": "Stage"
   },
-  "RunnerInteraction": {
-    "empty": "Expand a runner in the results page on another tab to load it here.",
-    "sendOrganizer": "Send organizer",
-    "stageOrder": "Add to stage",
-    "title": "Organizer runner"
+  "RankingOrganizers": {
+    "add": "Add organizer",
+    "addToClass": "Add to {{className}}",
+    "description": "Description",
+    "empty": "No organizers yet.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "loadError": "We couldn't load the organizers.",
+    "missing": "Missing",
+    "possibleMatches": "Possible matches",
+    "removeTitle": "Remove organizer",
+    "searchRunnerAll": "Search runner (all events)",
+    "searchRunnerEvent": "Search runner (current ranking results)",
+    "title": "Organizers"
   },
   "Settings": {
     "circuitSettings": "Circuit settings",
     "circuitSettingsHint": "Season-wide aggregation across the circuit's races.",
+    "classNameUnknownPattern": "This class name does not follow the usual pattern, e.g. M-21 or W-E",
     "competitionLink": "View competition results",
+    "competitionMenuLabel": "Competition options",
     "deleteEventToo": "Do you also want to delete the associated event?",
     "generalSettings": "General settings",
+    "includedClassNames": "Included classes",
+    "includedClassNamesEmpty": "All classes of the stage",
+    "includedClassNamesHint": "Comma separated class names, e.g. M-E, F-E.",
     "maxPoints": "Max points",
     "maxPointsHint": "The scoring scale: points awarded to the leader; everyone else is scored relative to this.",
     "maxPointsPositive": "Max points must be greater than zero.",
@@ -62,6 +130,31 @@
     "statusScores": "Status scores",
     "statusScoresHint": "Fixed score per result status. Leave empty to use the computed score.",
     "title": "Ranking settings",
-    "titleLabel": "Title"
+    "titleLabel": "Title",
+    "totalCircuitRacesMismatch": "Does not match the number of stage orders below ({{count}})"
+  },
+  "StageOrders": {
+    "createTitle": "New stage order",
+    "deleteStage": "Delete stage",
+    "descriptionLabel": "Description",
+    "editTitle": "Edit stage order",
+    "empty": "No stage orders yet.",
+    "export": "Export results",
+    "isOfficial": "Validated by the manager",
+    "loadError": "We couldn't load the stage orders.",
+    "manageOrganizers": "Manage organizers",
+    "menuLabel": "Stage order options",
+    "notOfficial": "No",
+    "official": "Yes",
+    "processResults": "Process results",
+    "processResultsConfirm": "Process the results for this stage? This generates the ranking.",
+    "processResultsSuccess": "Results processed.",
+    "stageOrder": "Stage order",
+    "start": "Start",
+    "stats": "Stats",
+    "title": "Stage orders",
+    "warningClassesMissingInEvent": "These classes of the ranking do not exist in this event and will rank nobody: {{names}}. Process anyway.",
+    "warningClassesNotInDefinition": "These classes of the event are not part of the ranking: {{names}}. Exclude them.",
+    "warningRunnersWithoutResult": "{{total}} runners are still in race, with no result yet: {{names}}. Process anyway."
   }
 }

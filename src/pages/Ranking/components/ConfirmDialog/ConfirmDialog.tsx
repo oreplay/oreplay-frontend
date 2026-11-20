@@ -8,7 +8,10 @@ interface ConfirmDialogProps {
   confirmLabel: string
   closeLabel: string
   isConfirming?: boolean
+  confirmDisabled?: boolean
   destructive?: boolean
+  /** Panel width; "lg" suits wide content like a board. Defaults to "sm". */
+  size?: "sm" | "lg"
   onConfirm: () => void
   onClose: () => void
   /** Optional content between the title and the buttons (e.g. extra options). */
@@ -21,7 +24,9 @@ export default function ConfirmDialog({
   confirmLabel,
   closeLabel,
   isConfirming,
+  confirmDisabled,
   destructive,
+  size = "sm",
   onConfirm,
   onClose,
   children,
@@ -58,9 +63,12 @@ export default function ConfirmDialog({
         aria-modal="true"
         aria-label={title}
         onClick={(event) => event.stopPropagation()}
-        className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl"
+        className={[
+          "flex max-h-[calc(100vh-2rem)] w-full flex-col rounded-xl bg-white py-6 shadow-xl",
+          size === "lg" ? "max-w-4xl" : "max-w-sm",
+        ].join(" ")}
       >
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex shrink-0 items-start justify-between gap-4 px-6">
           <p className="m-0 text-lg font-semibold text-neutral-900">{title}</p>
           <button
             type="button"
@@ -73,11 +81,11 @@ export default function ConfirmDialog({
           </button>
         </div>
 
-        {children && <div className="mt-4">{children}</div>}
-        <div className="mt-6 flex justify-end">
+        {children && <div className="mt-4 min-h-0 flex-1 overflow-y-auto px-6">{children}</div>}
+        <div className="mt-6 flex shrink-0 justify-end px-6">
           <button
             type="button"
-            disabled={isConfirming}
+            disabled={isConfirming || confirmDisabled}
             onClick={onConfirm}
             className={[
               "inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2 font-medium disabled:cursor-not-allowed disabled:opacity-50",

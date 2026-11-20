@@ -1,5 +1,6 @@
 import FieldError from "./FieldError.tsx"
 import FieldLabel from "./FieldLabel.tsx"
+import FieldWarning from "./FieldWarning.tsx"
 import { fieldClass } from "./shared/fieldStyles.ts"
 
 interface NumberFieldProps {
@@ -10,6 +11,7 @@ interface NumberFieldProps {
   onBlur?: () => void
   /** Validation message; when set the control turns red and shows it. */
   error?: string
+  warning?: string
   description?: string
   required?: boolean
   className?: string
@@ -21,6 +23,7 @@ export default function NumberField({
   onChange,
   onBlur,
   error,
+  warning,
   description,
   required,
   className,
@@ -39,9 +42,10 @@ export default function NumberField({
           onChange(event.target.value === "" ? null : Number(event.target.value))
         }
         onBlur={onBlur}
-        className={fieldClass(!!error)}
+        className={fieldClass(!!error, !!warning)}
       />
       <FieldError message={error} />
+      {!error && <FieldWarning message={warning} />}
     </label>
   )
 }

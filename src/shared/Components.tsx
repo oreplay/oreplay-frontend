@@ -22,14 +22,14 @@ export function CopyToClipBoardButton(props: CopyToClipBoardButtonParams) {
 
   const handleClick = () => {
     void navigator.clipboard.writeText(props.value)
-    notifications.show(t("Copied to the clipboard"), {
+    notifications.show(t("common:copied"), {
       autoHideDuration: 5000,
     })
   }
 
   return (
     <>
-      <Tooltip title={t("Copy")}>
+      <Tooltip title={t("common:copy")}>
         <IconButton onClick={handleClick}>
           <ContentCopyIcon />
         </IconButton>

@@ -1,7 +1,11 @@
 {
+  "addNew": "Dodaj nowy",
+  "clearAll": "Wyczyść wszystko",
   "clearSearch": "Wyczyść wyszukiwanie",
   "close": "Zamknij",
   "confirm": "Potwierdź",
+  "copied": "Skopiowano do schowka",
+  "copy": "Kopiuj",
   "delete": "Usuń",
   "deleteConfirm": "Czy na pewno chcesz kontynuować?",
   "duplicate": "Duplikuj",
@@ -18,5 +22,6 @@
   "noResults": "Brak wyników",
   "ok": "OK",
   "save": "Zapisz",
-  "search": "Szukaj"
+  "search": "Szukaj",
+  "selectAll": "Zaznacz wszystko"
 }

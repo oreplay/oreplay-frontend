@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import FieldLabel from "./FieldLabel.tsx"
 import SpinnerRing from "../SpinnerRing.tsx"
 import { FIELD_CLASS } from "./shared/fieldStyles.ts"
-
-const DROPDOWN_MAX_HEIGHT = 224 // matches max-h-56 (14rem)
+import { useDropdown } from "./useDropdown.ts"
+import { shouldDropUp, visibleOptions } from "./shared/searchableSelect.ts"
 
 export interface SearchableSelectOption {
   value: string
@@ -25,6 +25,21 @@ interface SearchableSelectProps {
   onSearch?: (query: string) => void
 }
 
+/**
+ * Text field that filters a list of options and selects one of them. The typed query is cleared
+ * whenever the list closes, by selecting or clicking outside, so it reopens unfiltered; while
+ * closed the field shows the selected option's label instead.
+ * @param props.label - label shown above the field
+ * @param props.value - value of the selected option, or null when nothing is selected
+ * @param props.onChange - called with the chosen option's value
+ * @param props.options - options to choose from
+ * @param props.noResultsLabel - text listed when no option matches the query
+ * @param props.placeholder - hint shown while the field is empty
+ * @param props.disabled - true to block typing and selecting
+ * @param props.loading - true to show a spinner while options are being fetched
+ * @param props.onSearch - when set, search is server-side: the query is reported here and the options are listed as they are
+ * @param props.className - extra classes for the root element
+ */
 export default function SearchableSelect({
   label,
   value,
@@ -38,42 +53,25 @@ export default function SearchableSelect({
   onSearch,
 }: SearchableSelectProps) {
   const [query, setQuery] = useState("")
-  const [open, setOpen] = useState(false)
   const [dropUp, setDropUp] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const { open, setOpen, containerRef } = useDropdown()
 
   const selectedLabel = options.find((o) => o.value === value)?.label ?? ""
 
   useEffect(() => {
-    if (!open) return
-    const onPointerDown = (event: MouseEvent) => {
-      if (!containerRef.current?.contains(event.target as Node)) {
-        setOpen(false)
-        setQuery("")
-      }
-    }
-    document.addEventListener("mousedown", onPointerDown)
-    return () => document.removeEventListener("mousedown", onPointerDown)
+    if (!open) setQuery("")
   }, [open])
 
-  // Server-search mode: the parent already filtered, so show options as-is.
-  const filtered = onSearch
-    ? options
-    : options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
+  const filtered = visibleOptions(options, query, Boolean(onSearch))
 
-  // Flip the list upward when there isn't enough room below (e.g. near the
-  // bottom of the page), so it overlays instead of growing the page.
   useEffect(() => {
     if (!open || !containerRef.current) return
     const rect = containerRef.current.getBoundingClientRect()
-    const estimated = Math.min(filtered.length * 40 + 8, DROPDOWN_MAX_HEIGHT)
-    const spaceBelow = window.innerHeight - rect.bottom
-    setDropUp(spaceBelow < estimated && rect.top > spaceBelow)
-  }, [open, filtered.length])
+    setDropUp(shouldDropUp(rect, window.innerHeight, filtered.length))
+  }, [open, filtered.length, containerRef])
 
   const select = (option: SearchableSelectOption) => {
     onChange(option.value)
-    setQuery("")
     setOpen(false)
   }
 

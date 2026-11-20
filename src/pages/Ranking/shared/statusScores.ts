@@ -3,13 +3,17 @@
 // order). A `null` at a position means "no override — use the computed score".
 // (NC is handled separately by nc_true/nc_false, not here.)
 export const STATUS_SCORE_FIELDS = [
-  { index: 0, labelKey: "translation:ResultsStage.statusCodes.ok" },
-  { index: 1, labelKey: "translation:ResultsStage.statusCodes.dns" },
-  { index: 2, labelKey: "translation:ResultsStage.statusCodes.dnf" },
-  { index: 3, labelKey: "translation:ResultsStage.statusCodes.mp" },
-  { index: 4, labelKey: "translation:ResultsStage.statusCodes.dsq" },
-  { index: 5, labelKey: "translation:ResultsStage.statusCodes.ot" },
+  { index: 0, labelKey: "translation:ResultsStage.statusCodes.ok", default: null },
+  { index: 1, labelKey: "translation:ResultsStage.statusCodes.dns", default: 0 },
+  { index: 2, labelKey: "translation:ResultsStage.statusCodes.dnf", default: 10 },
+  { index: 3, labelKey: "translation:ResultsStage.statusCodes.mp", default: 10 },
+  { index: 4, labelKey: "translation:ResultsStage.statusCodes.dsq", default: 0 },
+  { index: 5, labelKey: "translation:ResultsStage.statusCodes.ot", default: 10 },
 ] as const
+
+export const DEFAULT_STATUS_SCORES: (number | null)[] = STATUS_SCORE_FIELDS.map(
+  (field) => field.default,
+)
 
 const emptyStatusScores = (): (number | null)[] => STATUS_SCORE_FIELDS.map(() => null)
 

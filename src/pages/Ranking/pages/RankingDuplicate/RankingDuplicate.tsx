@@ -8,7 +8,7 @@ import {
   initRankingSettingsForm,
 } from "../../shared/rankingSettingsForm.ts"
 import { useNotifyError } from "../../../../infrastructure/notifications/useNotifyError.ts"
-import { useDuplicateRanking } from "./shared/useDuplicateRanking.ts"
+import { useRankingCreator } from "../../shared/useRankingCreator.ts"
 import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "../../components/RankingSettingsForm.tsx"
 
@@ -18,13 +18,13 @@ export default function RankingDuplicate() {
   const navigate = useNavigate()
   const { rankingId } = useParams()
   const { data, isLoading } = useGetRankingSettings(rankingId ?? "")
-  const { duplicate, isLoading: isDuplicating } = useDuplicateRanking()
+  const { create, isLoading: isDuplicating } = useRankingCreator()
 
   const ranking = data?.data
 
   const onDuplicate = async (source: Ranking, state: RankingSettingsFormState) => {
     try {
-      const newId = await duplicate(source, state)
+      const newId = await create(state, source.excluded_class_names ?? "")
       void navigate(rankingSettingsPath(newId))
     } catch (error) {
       notifyError(error)
@@ -33,8 +33,8 @@ export default function RankingDuplicate() {
 
   return (
     <SettingsPageLayout
-      heading={t("Duplicate.title")}
-      currentCrumb={t("Duplicate.crumb")}
+      heading={t("Create.title")}
+      currentCrumb={t("Create.title")}
       isLoading={isLoading}
       isMissing={!ranking}
     >

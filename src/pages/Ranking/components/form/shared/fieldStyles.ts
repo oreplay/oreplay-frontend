@@ -5,10 +5,17 @@
 const FIELD_BASE = "rounded-sm border bg-white px-[14px] py-[16.5px] outline-hidden focus:ring-1"
 const FIELD_IDLE = "border-neutral-300 focus:border-primary focus:ring-primary"
 const FIELD_INVALID = "border-red-500 focus:border-red-500 focus:ring-red-500"
+const FIELD_WARNING = "border-amber-500 focus:border-amber-500 focus:ring-amber-500"
 
 /** Field styling for a control; turns the border red while it has an error. */
-export function fieldClass(hasError?: boolean): string {
-  return [FIELD_BASE, hasError ? FIELD_INVALID : FIELD_IDLE].join(" ")
+export function fieldClass(hasError?: boolean, hasWarning?: boolean): string {
+  return [FIELD_BASE, fieldStateClass(hasError, hasWarning)].join(" ")
+}
+
+function fieldStateClass(hasError?: boolean, hasWarning?: boolean): string {
+  if (hasError) return FIELD_INVALID
+  if (hasWarning) return FIELD_WARNING
+  return FIELD_IDLE
 }
 
 export const FIELD_CLASS = fieldClass(false)

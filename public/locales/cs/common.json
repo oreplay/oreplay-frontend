@@ -1,7 +1,11 @@
 {
+  "addNew": "Přidat nový",
+  "clearAll": "Vymazat vše",
   "clearSearch": "Smazat filtr",
   "close": "Zavřít",
   "confirm": "Potvrdit",
+  "copied": "Zkopírováno do schránky",
+  "copy": "Kopírovat",
   "delete": "Smazat",
   "deleteConfirm": "Opravdu chcete pokračovat?",
   "duplicate": "Duplikovat",
@@ -18,5 +22,6 @@
   "noResults": "Žádné výsledky",
   "ok": "OK",
   "save": "Uložit",
-  "search": "Hledat"
+  "search": "Hledat",
+  "selectAll": "Vybrat vše"
 }

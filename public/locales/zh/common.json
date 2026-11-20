@@ -1,7 +1,11 @@
 {
+  "addNew": "新增",
+  "clearAll": "清除全部",
   "clearSearch": "清除搜索",
   "close": "关闭",
   "confirm": "确认",
+  "copied": "已复制到剪贴板",
+  "copy": "复制",
   "delete": "删除",
   "deleteConfirm": "确定要继续吗？",
   "duplicate": "复制",
@@ -18,5 +22,6 @@
   "noResults": "没有匹配结果",
   "ok": "确定",
   "save": "保存",
-  "search": "搜索"
+  "search": "搜索",
+  "selectAll": "全选"
 }
