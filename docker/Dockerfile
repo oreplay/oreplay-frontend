@@ -1,4 +1,4 @@
-ARG NODE_VERSION=22.22.0
+ARG NODE_VERSION=22.23.5
 FROM node:${NODE_VERSION}
 ADD . /var/www
 RUN cd /var/www && npm install
