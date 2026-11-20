@@ -63,6 +63,17 @@ describe("GridActionsSettingsMenu", () => {
     expect(setStageEnded).toHaveBeenCalledWith(false)
   })
 
+  it("confirms making a stage official with a non-destructive button", () => {
+    renderMenu(false, vi.fn())
+    fireEvent.click(screen.getByRole("button", { name: "Settings" }))
+    fireEvent.click(screen.getByText("EventAdmin.Stages.FinishStage.MenuText"))
+
+    const confirmButton = screen.getByRole("button", {
+      name: "EventAdmin.Stages.FinishStage.DialogConfirm",
+    })
+    expect(confirmButton).toHaveClass("MuiButton-colorPrimary")
+  })
+
   it("disables wiping and deleting a stage whose results are official", () => {
     renderMenu(true, vi.fn())
     fireEvent.click(screen.getByRole("button", { name: "Settings" }))

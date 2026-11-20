@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonProps,
   Dialog,
   DialogActions,
   DialogContent,
@@ -20,6 +21,7 @@ interface Props {
   dialogBody: string
   dialogCancelButtonText: string
   dialogConfirmButtonText: string
+  dialogConfirmButtonColor?: ButtonProps["color"]
   disabled?: boolean
 }
 
@@ -33,6 +35,8 @@ interface Props {
  * @param props.dialogBody Explanation shown in the confirmation dialog.
  * @param props.dialogCancelButtonText Label of the button that dismisses the dialog.
  * @param props.dialogConfirmButtonText Label of the button that confirms the action.
+ * @param props.dialogConfirmButtonColor Colour of the confirm button; red (`error`) when absent, as
+ * most entries are destructive.
  * @param props.disabled Greys the entry out so the dialog cannot be opened; enabled when absent.
  */
 export default function GridActionsSettingsMenuDialogItem(props: Props) {
@@ -75,7 +79,7 @@ export default function GridActionsSettingsMenuDialogItem(props: Props) {
               props.action()
               handleClose()
             }}
-            color="error"
+            color={props.dialogConfirmButtonColor ?? "error"}
             autoFocus
           >
             {props.dialogConfirmButtonText}
