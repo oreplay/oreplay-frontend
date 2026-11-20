@@ -57,6 +57,9 @@
       "@mui/icons-material": "^9.2.0",
       "@mui/material": "^9.2.0",
       "yaml": "^2.9.1"
+    },
+    "typedoc": {
+      "minimatch": "^11.0.1"
     }
   },
   "devDependencies": {
