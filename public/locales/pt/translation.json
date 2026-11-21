@@ -23,21 +23,76 @@
     "Dashboard": "Painel",
     "FinishDate": "Data final",
     "Name": "Nome do evento",
-    "StartDate": "Data de início"
+    "StartDate": "Data de início",
+    "YourEvents": {
+      "CreateEvent": "Criar evento",
+      "title": "Seus eventos"
+    }
   },
   "Dates": "Datas",
   "EmailAddress": "Endereço de email",
   "Event": "Evento",
   "EventAdmin": {
+    "CannotBePublicWithoutStages": "É obrigatório pelo menos uma etapa para configurar o evento.",
     "Country": "País",
     "Create security keys": "Criar chave de segurança",
     "DangerArea": "Zona de perigo",
+    "DataUpload": {
+      "cancelUpload": {
+        "body": "Ficheiro ainda a carregar. Se sair agora, os que não carregaram serão cancelados. O ficheiro carregado agora pode já ter sido colocado.",
+        "confirm": "Cancelar carregamento",
+        "keepUploading": "Continua a carregar",
+        "title": "Cancelar carregamento?"
+      },
+      "description": "Existem duas formas de enviar dados para este evento: utilizando o botão de upload (<uploadIcon/>) para cada passo da tabela acima ou através da aplicação O-Replay para desktop. A aplicação requer as informações de segurança listadas abaixo. Partilhe estas informações apenas com a sua equipa. Podem ser revogadas a qualquer momento.",
+      "dropHere": "Arraste e largue os ficheiros IOF XML 3.0 aqui",
+      "messages": {
+        "bad_request": "O carregamento pedido não é valido.",
+        "conflict": "Outro envio para esta etapa ainda está a ser processado. Aguarde um momento e tente novamente.",
+        "duplicated_runner": "Atleta duplicado com dorsal {{bib}} no escalão {{class}}: duas inscrições no ficheiro é igual ao mesmo atleta, apenas um é guardado.",
+        "event_without_time_zone": "O evento não tem fuso horário, pelo que as horas no ficheiro foram lidas como {{timeZone}}. Defina o fuso horário do evento e carregue o ficheiro novamente.",
+        "finish_time_without_seconds": "Alguns resultados têm tempo final nas não tempo de prova.",
+        "invalid_payload": "Não tem permissão para carregar dados para este evento.",
+        "invalid_token": "A sua sessão não é válida. Inicie sessão novamente e tente de novo.",
+        "not_found": "Evento ou etapa não encontrada.",
+        "nothing_changed": "Nada mudou: estes dados já tinham sido carregados.",
+        "result_type_converted": "Estes resultados referem-se a uma etapa da classificação geral, mas alguns resultados foram identificados no ficheiro como resultados da corrida. Os resultados foram guardados como o resultado da etapa, no âmbito da classificação geral.",
+        "results_without_splits": "Os resultados foram carregados sem split times.",
+        "rows_not_saved": "Não foi possível guardar {{rows}} linhas da classe {{class}}. Carregue o ficheiro novamente.",
+        "runner_without_results": "Alguns atletas não têm resultados.",
+        "taking_too_long": "O processamento demorou demasiado tempo e não terminou. Carregue o ficheiro novamente para o concluir.",
+        "team_without_results": "Algumas equipas não têm resultados.",
+        "team_without_runners": "A equipa {{team}} não têm atletas.",
+        "upload_type_guessed": "O ficheiro não contém split times nem tempos de chegada, pelo que não foi possível determinar o seu tipo. Foi tratado como tempos de chegada."
+      },
+      "status": {
+        "cancelled": "Cancelado",
+        "done": "{{classes}} classes e {{runners}} corredores atualizados",
+        "pending": "Espere",
+        "uploading": "Carregando"
+      },
+      "title": "Carregamento de dados",
+      "titleWithStage": "Cargamento de dados: {{stageName}}",
+      "unknownMessage": {
+        "error": "O servidor não conseguiu processar o ficheiro devido a um erro inesperado. Tente novamente mais tarde.",
+        "warning": "O ficheiro foi processado com um aviso que não pode ser apresentado em detalhe."
+      },
+      "uploadFiles": "Carregar dados",
+      "uploadFilesDescription": "Carregar listas de partida ou resultados IOF XML 3.0 para esta etapa.",
+      "uploadMore": {
+        "action": "Carregar mais ficheiros",
+        "question": "Quer carregar mais ficheiros?"
+      }
+    },
     "DeleteEvent": "Apagar evento",
     "Do you want to delete this event?": "Quer apagar este evento?",
     "Do you want to renew the security key?": "Quer renovar a palavra chaves?",
+    "EndMustBeBeforeEnd": "Data de fim não pode ser antes da dta de início.",
     "EventData": "Informação do evento",
+    "EventDataDescription": "Ver e editar os detalhes principais do seu evento",
     "EventId": "Evento ID",
     "EventName": "Nome do evento",
+    "EventNamePlaceholder": "Um grande evento a participar",
     "EventSecurityTokens": "Palavra passe para o utilizador",
     "EventSecurityTokensExpireDate": "Expira dentro de",
     "FinishDate": "Data final",
@@ -45,7 +100,12 @@
     "InvalidURLMsg": "URL inválido",
     "Location": "Localização",
     "Organizer": "Organização",
+    "OrganizerPlaceholder": "Clube incrível",
     "Public": "Público",
+    "QRCode": {
+      "CopyUrl": "Copiar evento URL",
+      "Description": "Gere e descarregue um código QR que remete diretamente para este evento no O-Replay."
+    },
     "Renew": "Renovar",
     "Renew security keys": "Gerar uma nova palavra passe",
     "RenewEventTokenMsg": "Se renovar a palavra passe, a antiga será invalidada. Assim, ninguém com a passe antiga poderá enviar resultados para este evento.",
@@ -96,6 +156,7 @@
       }
     },
     "StartDate": "Data de início",
+    "StartMustBeAfterEnd": "Data de início não podes ser depois da data de fim.",
     "TooLongMsg": "O URL introduzido excede o máximo de {{count}} caracteres.",
     "Website": "Site do evento"
   },
