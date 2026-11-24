@@ -1,7 +1,34 @@
 import { DateTime } from "luxon"
 import { findLastFinishedRelayLeg, findLegsNumberRunning, liveRelayTime } from "./functions.ts"
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { captureException as sentryCaptureException, withScope } from "@sentry/react"
+import { captureExceptionOnce } from "./captureExceptionOnce.ts"
+import { MissingTeamMembersError } from "./MissingTeamMembersError.ts"
+
+/**
+ * Reports an unexpected error thrown while comparing two relay teams.
+ *
+ * Teams without members are valid data, so a `MissingTeamMembersError` is ignored and the
+ * comparison falls through to the next criterion. Any other error is reported once per page
+ * load: comparators run many times per sort, and reporting every call floods Sentry.
+ *
+ * @param error The value thrown by the comparison.
+ * @param a The first team being compared.
+ * @param b The second team being compared.
+ * @param origin Name of the comparator that caught the error.
+ */
+function reportComparisonError(
+  error: unknown,
+  a: ProcessedRunnerModel,
+  b: ProcessedRunnerModel,
+  origin: string,
+): void {
+  if (error instanceof MissingTeamMembersError) {
+    return
+  }
+
+  console.error(error)
+  captureExceptionOnce(error, origin, { teamA: a.id, teamB: b.id })
+}
 
 function byLiveRelayTime(
   a: ProcessedRunnerModel,
@@ -21,15 +48,7 @@ function byLiveRelayTime(
       return Math.round((aRelayTime - bRelayTime) * 1000)
     }
   } catch (error) {
-    console.error(error)
-
-    withScope((scope) => {
-      scope.setExtra("runnerA", a)
-      scope.setExtra("runnerB", b)
-      scope.setExtra("origin", "relayCompareFunctions.byLiveRelayTime")
-
-      sentryCaptureException(error)
-    })
+    reportComparisonError(error, a, b, "relayCompareFunctions.byLiveRelayTime")
   }
 
   return 0
@@ -39,7 +58,7 @@ function byLastCommonLegTime(a: ProcessedRunnerModel, b: ProcessedRunnerModel): 
   try {
     // Sanitize
     if (!a.runners || !b.runners) {
-      throw new Error("Relay teams must have team members in `.runners` attribute")
+      throw new MissingTeamMembersError()
     }
 
     // Find last common time
@@ -58,15 +77,7 @@ function byLastCommonLegTime(a: ProcessedRunnerModel, b: ProcessedRunnerModel): 
       }
     }
   } catch (error) {
-    console.error(error)
-
-    withScope((scope) => {
-      scope.setExtra("runnerA", a)
-      scope.setExtra("runnerB", b)
-      scope.setExtra("origin", "relayCompareFunctions.byLastCommonLegTime")
-
-      sentryCaptureException(error)
-    })
+    reportComparisonError(error, a, b, "relayCompareFunctions.byLastCommonLegTime")
   }
 
   return 0
