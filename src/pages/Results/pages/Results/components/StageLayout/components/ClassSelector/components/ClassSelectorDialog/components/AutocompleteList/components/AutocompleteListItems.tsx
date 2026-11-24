@@ -9,9 +9,16 @@ interface AutocompleteListItemsProps {
 
 const LAYOUT_CLASSES: Record<AutocompleteListLayout, string> = {
   list: "flex-col gap-0.5 px-2",
-  wrap: "flex-wrap content-start justify-between gap-1.5 px-4 after:flex-auto after:content-['']",
+  wrap: "flex-wrap content-start gap-1.5 px-4",
 }
 
+/**
+ * Lays out the selector items either as a vertical list or as rows of boxes that wrap, where every
+ * row, the last one included, is filled edge to edge by its items.
+ * @param props.children The items to lay out.
+ * @param props.layout `list` for one item per row, `wrap` for several items per row.
+ * @param props.className Extra classes for the list element, such as scrolling or padding.
+ */
 export default function AutocompleteListItems(props: AutocompleteListItemsProps) {
   return (
     <ul
