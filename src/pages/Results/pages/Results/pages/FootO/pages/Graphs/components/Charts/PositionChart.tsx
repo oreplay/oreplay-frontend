@@ -22,9 +22,17 @@ import useElementWidth from "../../shared/useElementWidth.ts"
 interface PositionChartProps {
   data: PositionChartData[]
   height?: number
+  isInteractive: boolean
 }
 
-const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => {
+/**
+ * Line chart of the position of each selected runner in the class at every control.
+ *
+ * @param props.data One series per selected runner; an empty list shows a "no data" message.
+ * @param props.height Height of the chart, in pixels.
+ * @param props.isInteractive Whether hovering or tapping a point shows its tooltip and crosshair.
+ */
+const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400, isInteractive }) => {
   const { t } = useTranslation()
   const [chartRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
@@ -127,6 +135,7 @@ const PositionChart: React.FC<PositionChartProps> = ({ data, height = 400 }) => 
         enableArea={false}
         colors={(d) => d.color}
         lineWidth={3}
+        isInteractive={isInteractive}
         useMesh={true}
         legends={[]}
         tooltip={({ point }) => {

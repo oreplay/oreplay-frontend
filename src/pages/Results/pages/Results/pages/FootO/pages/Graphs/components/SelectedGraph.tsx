@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
+import { useIsMobileDevice } from "../../../../../../../shared/useIsMobileDevice.ts"
 import { ProcessedRunnerModel } from "../../../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import {
   transformRunnersForLineChart,
@@ -18,7 +19,8 @@ interface SelectedGraphProps {
 }
 
 /**
- * Renders the graph the user picked for the selected runners.
+ * Renders the graph the user picked for the selected runners. On a mobile device the graph is
+ * static: a tap would otherwise open a tooltip that covers the graph and stays until the next tap.
  *
  * @param props.runners Runners of the class.
  * @param props.selectedRunnerIds Ids of the runners to plot.
@@ -26,6 +28,7 @@ interface SelectedGraphProps {
  */
 export default function SelectedGraph({ runners, selectedRunnerIds, view }: SelectedGraphProps) {
   const { t } = useTranslation()
+  const isInteractive = !useIsMobileDevice()
   const lineChartReference = lineChartReferenceOf(view)
 
   const lineChartData = useMemo(
@@ -47,8 +50,14 @@ export default function SelectedGraph({ runners, selectedRunnerIds, view }: Sele
   switch (view) {
     case GRAPH_VIEW.LineChart:
     case GRAPH_VIEW.PerfectRunnerChart:
-      return <LineChart data={lineChartData} height={GRAPH_HEIGHT} />
+      return <LineChart data={lineChartData} height={GRAPH_HEIGHT} isInteractive={isInteractive} />
     case GRAPH_VIEW.PositionChart:
-      return <PositionChart data={positionChartData} height={GRAPH_HEIGHT} />
+      return (
+        <PositionChart
+          data={positionChartData}
+          height={GRAPH_HEIGHT}
+          isInteractive={isInteractive}
+        />
+      )
   }
 }
