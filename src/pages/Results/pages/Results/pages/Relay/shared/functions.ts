@@ -7,6 +7,7 @@ import { ParticipantModel, RunnerModel } from "../../../../../../../shared/Entit
 import { runnerService } from "../../../../../../../domain/services/RunnerService.ts"
 import { maxBy } from "../../../../../../../utils/generalFunctions.ts"
 import { RESULT_STATUS } from "../../../../../shared/constants.ts"
+import { MissingTeamMembersError } from "./MissingTeamMembersError.ts"
 
 /**
  * Calculates the elapsed time (in seconds) for a participant in a stage.
@@ -70,7 +71,7 @@ export function liveRelayTime(
 
   // Sanitize
   if (!runner.runners || runner.runners.length == 0) {
-    throw new Error("A relay runner is expected to have team members")
+    throw new MissingTeamMembersError()
   }
 
   // Compute time
@@ -125,7 +126,7 @@ export function findLegsNumberRunning(
 
   // Sanitize
   if (!runner.runners || runner.runners.length == 0) {
-    throw new Error("A relay runner is expected to have team members")
+    throw new MissingTeamMembersError()
   }
 
   const legsRunning = runner.runners.filter(
