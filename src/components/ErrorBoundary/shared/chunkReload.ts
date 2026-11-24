@@ -1,46 +1,71 @@
+import { DateTime, Duration } from "luxon"
 import { ChunkLoadError } from "../../../services/lazyLoad.ts"
 
-const CHUNK_RELOAD_ATTEMPTED_KEY = "chunk_reload_attempted"
+const CHUNK_RELOAD_ATTEMPTED_AT_KEY = "chunk_reload_attempted_at"
 
 /**
- * Forgets that the page was reloaded to recover from a chunk load error, so the next one can
- * reload again.
+ * How long after a reload a chunk load error is taken to mean the reload did not help.
+ *
+ * A chunk that still fails after the reload does so while the page loads, well within this
+ * window, and is then shown and reported instead of reloading again. A chunk error after the
+ * window comes from a later deploy and gets its own reload.
+ */
+export const CHUNK_RELOAD_COOLDOWN = Duration.fromObject({ minutes: 1 })
+
+/**
+ * Forgets the last reload made to recover from a chunk load error, so the next one can reload
+ * right away.
  */
 export function clearChunkReloadAttempt(): void {
-  sessionStorage.removeItem(CHUNK_RELOAD_ATTEMPTED_KEY)
+  sessionStorage.removeItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY)
 }
 
 /**
- * Tells whether the page was already reloaded in this browser session to recover from a chunk
- * load error.
+ * Returns when the page was last reloaded in this browser session to recover from a chunk load
+ * error.
  *
- * @returns `true` when a reload was attempted and not cleared since.
+ * @returns The time of the last reload, or `null` when there was none or the stored value is
+ * not a valid time.
  */
-export function hasAttemptedChunkReload(): boolean {
-  return sessionStorage.getItem(CHUNK_RELOAD_ATTEMPTED_KEY) === "true"
+export function lastChunkReloadAttempt(): DateTime | null {
+  const storedMillis = Number(sessionStorage.getItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY) ?? Number.NaN)
+  if (!Number.isFinite(storedMillis)) {
+    return null
+  }
+
+  return DateTime.fromMillis(storedMillis)
 }
 
 /**
  * Remembers that the page is being reloaded to recover from a chunk load error, so a chunk that
  * still fails after the reload does not reload the page again.
+ *
+ * @param now The time of the reload; defaults to the current time.
  */
-export function markChunkReloadAttempt(): void {
-  sessionStorage.setItem(CHUNK_RELOAD_ATTEMPTED_KEY, "true")
+export function markChunkReloadAttempt(now: DateTime = DateTime.now()): void {
+  sessionStorage.setItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY, String(now.toMillis()))
 }
 
 /**
  * Decides whether an error should be recovered from by reloading the page.
  *
  * A chunk usually fails to load because a deploy replaced it, and a reload fetches the current
- * ones. The reload is attempted only once, so a chunk that keeps failing is shown and reported.
+ * ones. A chunk error within {@link CHUNK_RELOAD_COOLDOWN} of the last reload means the reload
+ * did not help, so the page is not reloaded again and the error is shown and reported.
  *
  * @param error The error caught by the boundary.
- * @param reloadAlreadyAttempted Whether the page was already reloaded for a chunk error.
- * @returns `true` for a `ChunkLoadError` when no reload was attempted yet.
+ * @param lastAttempt When the page was last reloaded for a chunk error, or `null` if never.
+ * @param now The current time.
+ * @returns `true` for a `ChunkLoadError` when no reload happened within the cooldown.
  */
 export function shouldReloadForChunkError(
   error: unknown,
-  reloadAlreadyAttempted: boolean,
+  lastAttempt: DateTime | null,
+  now: DateTime,
 ): boolean {
-  return error instanceof ChunkLoadError && !reloadAlreadyAttempted
+  if (!(error instanceof ChunkLoadError)) {
+    return false
+  }
+
+  return lastAttempt === null || now.diff(lastAttempt) >= CHUNK_RELOAD_COOLDOWN
 }

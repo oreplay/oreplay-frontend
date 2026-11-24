@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react"
 import * as Sentry from "@sentry/react"
 import ErrorBoundary from "./ErrorBoundary.tsx"
 import { ChunkLoadError } from "../../services/lazyLoad.ts"
-import { markChunkReloadAttempt } from "./shared/chunkReload.ts"
+import { CHUNK_RELOAD_COOLDOWN, markChunkReloadAttempt } from "./shared/chunkReload.ts"
+import { DateTime } from "luxon"
 
 const reload = vi.fn()
 
@@ -40,6 +41,20 @@ describe("ErrorBoundary", () => {
   })
 
   it("reloads on a first chunk load error without reporting it", () => {
+    const onError = vi.fn()
+
+    render(
+      <ErrorBoundary onError={onError}>
+        <Thrower error={new ChunkLoadError("https://example.com/assets/Page.js")} />
+      </ErrorBoundary>,
+    )
+
+    expect(reload).toHaveBeenCalledTimes(1)
+    expect(onError).not.toHaveBeenCalled()
+  })
+
+  it("reloads again on a chunk load error after the cooldown, as after a later deploy", () => {
+    markChunkReloadAttempt(DateTime.now().minus(CHUNK_RELOAD_COOLDOWN))
     const onError = vi.fn()
 
     render(
