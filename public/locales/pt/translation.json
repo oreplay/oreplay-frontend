@@ -26,6 +26,7 @@
     "StartDate": "Data de início",
     "YourEvents": {
       "CreateEvent": "Criar evento",
+      "description": "Cria e dirige todos os seus evento num unico sítio.",
       "title": "Seus eventos"
     }
   },
@@ -46,12 +47,16 @@
       },
       "description": "Existem duas formas de enviar dados para este evento: utilizando o botão de upload (<uploadIcon/>) para cada passo da tabela acima ou através da aplicação O-Replay para desktop. A aplicação requer as informações de segurança listadas abaixo. Partilhe estas informações apenas com a sua equipa. Podem ser revogadas a qualquer momento.",
       "dropHere": "Arraste e largue os ficheiros IOF XML 3.0 aqui",
+      "filesIgnored_many": "{{count}}Ficheiros foram ignorados: apenas ficheiro .xml pode ser carregado.",
+      "filesIgnored_one": "{{count}}Ficheiro ignorado: apenas ficheiro .xml pode ser carregado.",
+      "filesIgnored_other": "{{count}}Ficheiros foram ignorados: apenas ficheiro .xml podem ser carregados.",
       "messages": {
         "bad_request": "O carregamento pedido não é valido.",
         "conflict": "Outro envio para esta etapa ainda está a ser processado. Aguarde um momento e tente novamente.",
         "duplicated_runner": "Atleta duplicado com dorsal {{bib}} no escalão {{class}}: duas inscrições no ficheiro é igual ao mesmo atleta, apenas um é guardado.",
         "event_without_time_zone": "O evento não tem fuso horário, pelo que as horas no ficheiro foram lidas como {{timeZone}}. Defina o fuso horário do evento e carregue o ficheiro novamente.",
         "finish_time_without_seconds": "Alguns resultados têm tempo final nas não tempo de prova.",
+        "forbidden": "Não têm permissão para carregar dados para este evento.",
         "invalid_payload": "Não tem permissão para carregar dados para este evento.",
         "invalid_token": "A sua sessão não é válida. Inicie sessão novamente e tente de novo.",
         "not_found": "Evento ou etapa não encontrada.",
@@ -93,7 +98,7 @@
     "EventId": "Evento ID",
     "EventName": "Nome do evento",
     "EventNamePlaceholder": "Um grande evento a participar",
-    "EventSecurityTokens": "Palavra passe para o utilizador",
+    "EventSecurityTokens": "Palavra passe",
     "EventSecurityTokensExpireDate": "Expira dentro de",
     "FinishDate": "Data final",
     "Hidden": "Escondido",
@@ -104,7 +109,15 @@
     "Public": "Público",
     "QRCode": {
       "CopyUrl": "Copiar evento URL",
-      "Description": "Gere e descarregue um código QR que remete diretamente para este evento no O-Replay."
+      "Description": "Gere e descarregue um código QR que remete diretamente para este evento no O-Replay.",
+      "Download": "Descarrega código QR (PNG)",
+      "DownloadSuccessful": "Código QR descarregado com sucesso",
+      "EventName": "Nome da prova",
+      "EventUrl": "Evento URL",
+      "Generating": "Gerar código QR...",
+      "Instructions": "Este código QR pode ser incluído nos mapas impressos para facilitar o acesso ao evento no O-Replay.",
+      "ShareEvent": "Partilhar",
+      "Title": "Código QR do evento"
     },
     "Renew": "Renovar",
     "Renew security keys": "Gerar uma nova palavra passe",
@@ -114,6 +127,7 @@
       "International": "Internacional",
       "Local": "Lugar",
       "National": "Nacional",
+      "Placeholder": "Âmbito",
       "RegionalHigh": "Regional",
       "RegionalLow": "Local",
       "Scope": "scope"
@@ -124,15 +138,51 @@
         "DialogTitle": "Quer anular esta etapa?",
         "MenuText": "Apagar"
       },
+      "description": "Crie tantos etapas quantos o seu evento exigir. Cada evento tem de ter, pelo menos, uma etapa.",
+      "FailedToLoadOrganizers": "Falha ao carregar os organizadores",
+      "FinishStage": {
+        "DialogBody": "Classificar os resultados como oficiais indica aos corredores que a etapa terminou e que os resultados já não sofrerão alterações. Além disso, evita o carregamento acidental ou a alteração dos dados. Se precisar de editar os dados mais tarde, pode remover esta classificação.",
+        "DialogConfirm": "É oficial",
+        "DialogTitle": "Quer tornar os resultados oficiais?",
+        "MenuText": "Tornar oficial",
+        "Tooltip": "Os corredores veem estes resultados como definitivos. Torne-os provisórios a partir do menu da etapa para alterar os dados.",
+        "Undo": {
+          "DialogBody": "A etapa foi classificada como oficial. Voltar a colocar os resultados como provisórios permite-lhe modificar os dados.",
+          "DialogConfirm": "Reabrir",
+          "DialogTitle": "Quer reabrir esta etapa?",
+          "MenuText": "Tornar provisório"
+        }
+      },
       "GoToStage": "Ir para a etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
+        "FootO": {
+          "description": "Baseado no tempo, individual ou em equipa, percurso linear.",
+          "title": "Clássico"
+        },
+        "OneManRelay": {
+          "description": "Percurso linear, individual ou por equipas, baseado no tempo, no qual cada participante realiza o seu próprio percurso.",
+          "title": "Percusr com forking"
+        },
+        "Relay": {
+          "description": "Corrida de equipas baseada no tempo, com etapas consecutivas em percursos diferentes.",
+          "title": "Estafeta"
+        },
+        "Rogaine": {
+          "description": "Prova baseada em pontos, individual ou por equipas, num percurso de pontuação. O tempo serve para desempatar.",
+          "title": "Pontuação"
+        },
         "StageType": "Tipo",
+        "Totals": {
+          "description": "Resultado combinado, com base em pontos ou no tempo, ao longo de duas ou mais etapas.",
+          "title": "Total"
+        },
         "TrailO": {
           "description": "Orientação de precisão. Os resultados são calculados no TOP ou no Jaruori e ligados a partir do O-Replay.",
           "title": "Trail-O"
         }
       },
+      "Start": "Partidas (tempo local)",
       "Stats": {
         "DialogBody": "As estatísticas das etapas serão apresentadas.",
         "DialogConfirm": "Ok",
@@ -157,16 +207,39 @@
     },
     "StartDate": "Data de início",
     "StartMustBeAfterEnd": "Data de início não podes ser depois da data de fim.",
+    "TooLongDescriptionMsg_many": "O nome fornecido excede o máximo de {{count}} caracteres.",
+    "TooLongDescriptionMsg_one": "O nome fornecido excede o máximo de um caráter.",
+    "TooLongDescriptionMsg_other": "O nome fornecido excede o máximo de {{count}} caracteres.",
     "TooLongMsg": "O URL introduzido excede o máximo de {{count}} caracteres.",
-    "Website": "Site do evento"
+    "Website": "Site do evento",
+    "WebsitePlaceholder": "https://yourclub.com/yourevent"
   },
   "EventList": {
     "LiveToday": "Ao vivo",
-    "NoLiveEventsToday": "Nao existe eventos hoje"
+    "NoLiveEventsToday": "Nao existe eventos hoje",
+    "NoResults": "Não existem eventos que correspondam à sua pesquisa ou aos seus filtros."
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Característica experimental",
+  "FailedToLoad": {
+    "msg": "Por favor, verifique a sua ligação à Internet. Se o erro persistir, tente novamente mais tarde.",
+    "title": "Carregamento falhado"
+  },
   "ForbiddenAccess": "Acesso restrito",
+  "ForgotPassword": {
+    "EmailSent": {
+      "msg": "Se existir uma conta associada a {{email}}, enviámos-lhe um código para redefinir a sua palavra-passe. Verifique a pasta de spam, caso não receba o e-mail dentro de alguns minutos. Introduza o código e a nova palavra-passe.",
+      "title": "Verifique sua caixa de correio"
+    },
+    "Instructions": "Introduza o endereço de e-mail associado à sua conta e enviar-lhe-emos uma ligação para redefinir a sua palavra-passe.",
+    "Reset": {
+      "Code": "Codigo de 6 dígitos",
+      "InvalidCode": "O código deve ter 6 dígitos.",
+      "Submit": "Apagar password"
+    },
+    "Submit": "Enviar ligação de reposição",
+    "Title": "Esqueceu a sua password?"
+  },
   "GeneralErrorFallback": {
     "msg": "Tente atualizar a página. Se o erro persistir, tente novamente mais tarde.",
     "title": "Ocorreu um erro inesperado"
@@ -216,9 +289,20 @@
   },
   "Location": "Localização",
   "Menu": "Menu",
+  "MyAccount": {
+    "description": "Gere a sua informação pessoal.",
+    "personalInformation": {
+      "title": "Informação pessoal"
+    },
+    "title": "Meu perfil"
+  },
   "Name": "Nome",
+  "NotApplicable": "Não se aplica",
   "Organizer": "Organizador",
   "Organizers": "Informação do organizador",
+  "Overall": {
+    "pointsAbbreviation": "Pontos"
+  },
   "Password": "Palavra passe",
   "positionChart": {
     "noData": "Selecione os atletas para visualizar a evolução da posição",
@@ -230,11 +314,16 @@
     },
     "xAxisLabel": "Pontos"
   },
+  "PrivateEventPage": {
+    "Header": "Evento privado",
+    "Message": "Este evento foi definido como privado pelo organizador. Se considera que se trata de um erro, por favor, contacte o organizador do evento."
+  },
   "RadiosExperimentalMsg": "Ao utilizar controlos online, os recursos relacionados com os splits são experimentais.",
+  "Rankings": "Rankings",
   "Results": {
     "Class": "Escalão",
     "Classes": "Escalões",
-    "Finish": "Fim",
+    "Finish": "Chegada",
     "Name": "Nome",
     "Position": "Posição",
     "shortClass": "Escalão",
@@ -249,12 +338,20 @@
     "Classes": "Escalões",
     "Club": "Clube",
     "Clubs": "Clubes",
-    "FinishTime": "Fim",
+    "FinishTime": "Chegada",
     "Name": "Nome",
     "NoClubMsg": "Sem clube",
     "NoData": "Lamentamos, não há dados disponíveis",
+    "NonContributory": "Pior prova",
     "NoStartTime": "-",
     "NotStarted": "-",
+    "OfficialTooltip": "O organizador classificou estes resultados como finais.",
+    "OnlineCourse": {
+      "ControlsReached": "{{reached}} de {{total}} controlos online atingidos",
+      "Hide": "Esconder controlos online",
+      "Show": "Mostre controlos online"
+    },
+    "OutdatedData": "Estes resultados podem estar desatualizados: a última atualização falhou. Serão atualizados automaticamente assim que a ligação for restabelecida.",
     "PenaltyPoints": "Penalização:",
     "Points": "Pontos:",
     "PointsTable": {
@@ -266,7 +363,7 @@
     "SplitsTable": {
       "CleanTime": "Sem erros",
       "CumulativeTimes": "Acumulativo",
-      "NoRunnersWithSplits": "Nenhum atleta descarregou o SI",
+      "NoRunnersWithSplits": "Nenhum atleta descarregou o chip",
       "OnlyForClasses": "A tabela de splits só pode ser acedida na vista baseada em classes.",
       "PartialTimes": "Parciais"
     },
@@ -277,7 +374,7 @@
       "dsq": "Desqualificado",
       "mp": "Missing Point",
       "nc": "Não Classificado",
-      "ok": "OK",
+      "ok": "Ok",
       "ot": "Fora de tempo"
     },
     "Times": "Tempo",
@@ -334,7 +431,7 @@
   },
   "Sign in": {
     "ForgotPassword": "Esqueceu palavra passe?",
-    "Logout": "Logout",
+    "Logout": "Sair",
     "NoAccount": "Não tem conta? Cadastre-se",
     "RememberMe": "Lembra me",
     "Sign in": "Iniciar"
@@ -356,6 +453,11 @@
     "errorFreeTime": "Erro- tempo livre",
     "errorTime": "Tempo perdido (erro)",
     "totalDisplayedTime": "Tempo total"
+  },
+  "URLButtonDialog": {
+    "body": "Está prestes a sair desta página e a abrir um website externo. Abra a ligação apenas se confiar no site.",
+    "openLink": "Abrir link",
+    "title": "Abrir link externo?"
   },
   "view": {
     "accumulated": "Acumulado",
