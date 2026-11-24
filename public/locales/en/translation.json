@@ -336,6 +336,9 @@
     "RaceTime": "Time",
     "Recent": "Recent",
     "Refresh": "Refresh",
+    "Relay": {
+      "NonRelayData": "The uploaded results don't seem to come from a relay, so they can't be shown. The organizer needs to upload the right data."
+    },
     "SplitsTable": {
       "CleanTime": "Without Error",
       "CumulativeTimes": "Cumulative",

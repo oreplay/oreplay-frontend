@@ -364,6 +364,9 @@
     "RaceTime": "Tiempo",
     "Recent": "Recientes",
     "Refresh": "Refrescar",
+    "Relay": {
+      "NonRelayData": "Los resultados subidos no parecen ser de un relevo, así que no se pueden mostrar. La organización tiene que subir los datos correctos."
+    },
     "SplitsTable": {
       "CleanTime": "Sin Errores",
       "CumulativeTimes": "Acumulados",
