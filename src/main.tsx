@@ -1,3 +1,4 @@
+import "./infrastructure/sentry/instrument.ts"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import "./i18n.ts"
@@ -5,24 +6,8 @@ import App from "./App.tsx"
 import { QueryClientProvider } from "react-query"
 import { queryClient } from "./infrastructure/queryClient.ts"
 import { AuthProvider } from "./shared/AuthProvider.tsx"
-
-// In-it sentry data collection
-const sentryDSN = import.meta.env.VITE_SENTRY_DSN
-import * as Sentry from "@sentry/react"
-import { API_BASE_URL, API_DOMAIN } from "./services/ApiConfig.ts"
+import { API_DOMAIN } from "./services/ApiConfig.ts"
 import { initAxiosClientInstance } from "./infrastructure/orval/AxiosInstance.ts"
-import { IGNORED_ERRORS } from "./infrastructure/sentry/ignoredErrors.ts"
-
-Sentry.init({
-  dsn: sentryDSN,
-  // Setting this option to true will send default PII data to Sentry.
-  // For example, automatic IP address collection on events
-  sendDefaultPii: true,
-  integrations: [Sentry.browserTracingIntegration()],
-  tracesSampleRate: import.meta.env.VITE_SENTRY_TRACING_RATE,
-  tracePropagationTargets: [API_BASE_URL],
-  ignoreErrors: Object.values(IGNORED_ERRORS),
-})
 
 // Initialize orval axios instance
 initAxiosClientInstance(API_DOMAIN)

@@ -3,7 +3,8 @@
 // `tokens.css` holds the palette CSS vars the Tailwind colors reference.
 import "../../styles/tokens.css"
 import "../../styles/tailwind.css"
-import { Route, Routes } from "react-router-dom"
+import { Route } from "react-router-dom"
+import SentryRoutes from "../../components/SentryRoutes.tsx"
 import RankingList from "./pages/RankingList/RankingList.tsx"
 import RankingDuplicate from "./pages/RankingDuplicate/RankingDuplicate.tsx"
 import RankingSettings from "./pages/RankingSettings/RankingSettings.tsx"
@@ -11,11 +12,11 @@ import RankingSettings from "./pages/RankingSettings/RankingSettings.tsx"
 export default function Ranking() {
   return (
     <div className="tw-root font-sans">
-      <Routes>
+      <SentryRoutes>
         <Route index element={<RankingList />} />
         <Route path=":rankingId/settings" element={<RankingSettings />} />
         <Route path=":rankingId/duplicate" element={<RankingDuplicate />} />
-      </Routes>
+      </SentryRoutes>
     </div>
   )
 }

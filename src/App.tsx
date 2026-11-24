@@ -1,11 +1,12 @@
 import { Suspense, useEffect, useState } from "react"
 import { ThemeProvider, createTheme } from "@mui/material"
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route } from "react-router-dom"
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon"
 import { LocalizationProvider } from "@mui/x-date-pickers"
 
 import GeneralSuspenseFallback from "./components/GeneralSuspenseFallback.tsx"
 import Layout from "./components/Layout/Layout.tsx"
+import SentryRoutes from "./components/SentryRoutes.tsx"
 import { NotificationsProvider } from "@toolpad/core"
 import { lazyWithRetry } from "./services/lazyLoad.ts"
 import { useTranslation } from "react-i18next"
@@ -107,7 +108,7 @@ export default function App() {
           <CountriesLocalizationProvider>
             <Suspense fallback={<GeneralSuspenseFallback useViewPort />}>
               <BrowserRouter>
-                <Routes>
+                <SentryRoutes>
                   <Route path="/" element={<Layout />}>
                     <Route index element={<EventsList />} />
                     <Route path="competitions" element={<Navigate to={"/"} />} />
@@ -134,7 +135,7 @@ export default function App() {
                   </Route>
                   <Route path={"/forgot-password"} element={<ForgotPassword />} />
                   <Route path={"/sign-up"} element={<SignUp />} />
-                </Routes>
+                </SentryRoutes>
               </BrowserRouter>
             </Suspense>
           </CountriesLocalizationProvider>
