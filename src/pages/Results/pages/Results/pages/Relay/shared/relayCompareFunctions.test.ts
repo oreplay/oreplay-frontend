@@ -53,6 +53,13 @@ describe("relayCompareFunctions", () => {
     expect(captureExceptionOnce).not.toHaveBeenCalled()
   })
 
+  it("byNumberOfLegsFinished treats a team without members as a tie without reporting it", () => {
+    expect(relayCompareFunctions.byNumberOfLegsFinished(runningTeam, teamWithoutMembers, NOW)).toBe(
+      0,
+    )
+    expect(captureExceptionOnce).not.toHaveBeenCalled()
+  })
+
   it("reports an unexpected error with the team ids only", () => {
     const error = new Error("unexpected")
     vi.spyOn(console, "error").mockImplementation(() => undefined)
