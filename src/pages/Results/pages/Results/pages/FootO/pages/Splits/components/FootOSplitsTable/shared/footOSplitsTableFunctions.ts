@@ -12,6 +12,7 @@ import {
 import { DateTime } from "luxon"
 import { NORMAL_CONTROL } from "../../../../../../../../../shared/constants.ts"
 import { hasChipDownload } from "../../../../../../../shared/functions.ts"
+import { captureExceptionOnce } from "../../../../../../../shared/captureExceptionOnce.ts"
 import { captureException as sentryCaptureException, withScope } from "@sentry/react"
 
 export type CourseControlModel = {
@@ -40,8 +41,10 @@ export function getCourseFromRunner(
         courseControlList = getCourseFromSplits(splitList)
         break
       } catch (e) {
-        // TODO: Add sentry error tracing here
         console.error(e)
+        captureExceptionOnce(e, "footOSplitsTableFunctions.getCourseFromRunner", {
+          runnerId: runner.id,
+        })
       }
     }
   }

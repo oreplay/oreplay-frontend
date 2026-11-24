@@ -2,11 +2,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import { DateTime } from "luxon"
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { relayCompareFunctions } from "./relayCompareFunctions.ts"
-import { captureExceptionOnce } from "./captureExceptionOnce.ts"
+import { captureExceptionOnce } from "../../../shared/captureExceptionOnce.ts"
 import { baseLegFixture, baseRelayRunnerFixture } from "./relayFixtures.ts"
 import { liveRelayTime } from "./functions.ts"
 
-vi.mock("./captureExceptionOnce.ts", () => ({ captureExceptionOnce: vi.fn() }))
+vi.mock("../../../shared/captureExceptionOnce.ts", () => ({ captureExceptionOnce: vi.fn() }))
 
 vi.mock("./functions.ts", async (importOriginal) => {
   const actual = await importOriginal<typeof import("./functions.ts")>()
