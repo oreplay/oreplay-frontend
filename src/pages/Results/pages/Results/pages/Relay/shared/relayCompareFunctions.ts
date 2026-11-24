@@ -1,7 +1,7 @@
 import { DateTime } from "luxon"
 import { findLastFinishedRelayLeg, findLegsNumberRunning, liveRelayTime } from "./functions.ts"
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
-import { captureExceptionOnce } from "./captureExceptionOnce.ts"
+import { captureExceptionOnce } from "../../../shared/captureExceptionOnce.ts"
 import { MissingTeamMembersError } from "./MissingTeamMembersError.ts"
 
 /**

@@ -8,9 +8,37 @@ import {
   createMissingRadioFinish,
   createMissingRadioSplit,
   getControlColumnHeader,
+  getCourseFromRunner,
   getOnlineSplits,
 } from "./footOSplitsTableFunctions.ts"
 import { DateTime } from "luxon"
+import { captureExceptionOnce } from "../../../../../../../shared/captureExceptionOnce.ts"
+import { baseRelayRunnerFixture } from "../../../../../../Relay/shared/relayFixtures.ts"
+
+vi.mock("../../../../../../../shared/captureExceptionOnce.ts", () => ({
+  captureExceptionOnce: vi.fn(),
+}))
+
+describe("getCourseFromRunner", () => {
+  it("reports a runner whose splits cannot be read and skips it", () => {
+    vi.spyOn(console, "error").mockImplementation(() => undefined)
+    const runner = {
+      ...baseRelayRunnerFixture,
+      id: "runner-with-unreadable-splits",
+      stage: {
+        ...baseRelayRunnerFixture.stage,
+        splits: {} as unknown as ProcessedSplitModel[],
+      },
+    }
+
+    expect(getCourseFromRunner([runner])).toEqual([])
+    expect(captureExceptionOnce).toHaveBeenCalledWith(
+      expect.any(TypeError),
+      "footOSplitsTableFunctions.getCourseFromRunner",
+      { runnerId: runner.id },
+    )
+  })
+})
 
 describe("getControlColumnHeader", () => {
   const control = { control_type: { description: "Normal", id: "type1" }, id: "c1", station: "31" }
