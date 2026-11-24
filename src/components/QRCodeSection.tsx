@@ -74,7 +74,7 @@ const QRCodeSection: React.FC<QRCodeSectionProps> = ({ eventId, eventName }) => 
 
         // Merge into frame SVG by replacing placeholder rect
         // Assume qrFrameSvgText is your raw frame SVG string containing <rect id="qr-placeholder" ... />
-        const mergedSvgText = (QRFrame as string).replace(
+        const mergedSvgText = QRFrame.replace(
           /<rect[^>]*id="qr-placeholder"[^>]*\/>/,
           `<g transform="translate(44.590008,44.209202)">${qrInner}</g>`,
         )
