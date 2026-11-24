@@ -1,4 +1,5 @@
 import type { ErrorInfo, ReactNode } from "react"
+import { DateTime } from "luxon"
 import * as Sentry from "@sentry/react"
 import type { ErrorBoundaryProps, FallbackRender } from "@sentry/react"
 import GeneralErrorFallback from "../GeneralErrorFallback.tsx"
@@ -6,7 +7,7 @@ import { ChunkLoadError } from "../../services/lazyLoad.ts"
 import FailedToLoadAlert from "./components/FailedToLoadAlert/FailedToLoadAlert.tsx"
 import {
   clearChunkReloadAttempt,
-  hasAttemptedChunkReload,
+  lastChunkReloadAttempt,
   markChunkReloadAttempt,
   shouldReloadForChunkError,
 } from "./shared/chunkReload.ts"
@@ -35,7 +36,9 @@ const INITIAL_STATE: State = {
  * - **Chunk load errors** (`ChunkLoadError`) — automatically attempts a one-time page reload to
  *   recover, without reporting the error: it is expected after a deploy and the reload fixes it.
  *   If the error persists after the reload, it is reported to Sentry and `FailedToLoadAlert` is
- *   shown. The reload attempt is tracked in `sessionStorage` to prevent infinite reload loops.
+ *   shown. The time of the reload is kept in `sessionStorage`: a chunk error within
+ *   `CHUNK_RELOAD_COOLDOWN` of it means the reload did not help, which prevents reload loops,
+ *   while a later one (after the next deploy) reloads again.
  * - **All other errors** — captured and reported to Sentry via `super.componentDidCatch`,
  *   then renders `GeneralErrorFallback`.
  *
@@ -103,8 +106,9 @@ class ErrorBoundary extends Sentry.ErrorBoundary {
    * @param errorInfo React's information about the error, including the component stack.
    */
   componentDidCatch(error: unknown, errorInfo: ErrorInfo): void {
-    if (shouldReloadForChunkError(error, hasAttemptedChunkReload())) {
-      markChunkReloadAttempt()
+    const now = DateTime.now()
+    if (shouldReloadForChunkError(error, lastChunkReloadAttempt(), now)) {
+      markChunkReloadAttempt(now)
       window.location.reload()
       return
     }

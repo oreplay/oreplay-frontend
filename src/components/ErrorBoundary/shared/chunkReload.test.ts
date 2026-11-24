@@ -1,25 +1,37 @@
 import { beforeEach, describe, expect, it } from "vitest"
+import { DateTime } from "luxon"
 import { ChunkLoadError } from "../../../services/lazyLoad.ts"
 import {
+  CHUNK_RELOAD_COOLDOWN,
   clearChunkReloadAttempt,
-  hasAttemptedChunkReload,
+  lastChunkReloadAttempt,
   markChunkReloadAttempt,
   shouldReloadForChunkError,
 } from "./chunkReload.ts"
+
+const NOW = DateTime.fromISO("2026-11-24T10:00:00.000Z")
 
 describe("shouldReloadForChunkError", () => {
   const chunkError = new ChunkLoadError("https://example.com/assets/Page.js")
 
   it("reloads on the first chunk load error", () => {
-    expect(shouldReloadForChunkError(chunkError, false)).toBe(true)
+    expect(shouldReloadForChunkError(chunkError, null, NOW)).toBe(true)
   })
 
-  it("does not reload again once a reload was attempted", () => {
-    expect(shouldReloadForChunkError(chunkError, true)).toBe(false)
+  it("does not reload again when the last reload is within the cooldown", () => {
+    const justReloaded = NOW.minus({ seconds: 5 })
+
+    expect(shouldReloadForChunkError(chunkError, justReloaded, NOW)).toBe(false)
+  })
+
+  it("reloads again once the cooldown has passed", () => {
+    const reloadedLongAgo = NOW.minus(CHUNK_RELOAD_COOLDOWN)
+
+    expect(shouldReloadForChunkError(chunkError, reloadedLongAgo, NOW)).toBe(true)
   })
 
   it("does not reload for other errors", () => {
-    expect(shouldReloadForChunkError(new Error("render failed"), false)).toBe(false)
+    expect(shouldReloadForChunkError(new Error("render failed"), null, NOW)).toBe(false)
   })
 })
 
@@ -29,19 +41,25 @@ describe("chunk reload attempt", () => {
   })
 
   it("is not attempted by default", () => {
-    expect(hasAttemptedChunkReload()).toBe(false)
+    expect(lastChunkReloadAttempt()).toBeNull()
   })
 
-  it("is remembered once marked", () => {
-    markChunkReloadAttempt()
+  it("remembers when it was marked", () => {
+    markChunkReloadAttempt(NOW)
 
-    expect(hasAttemptedChunkReload()).toBe(true)
+    expect(lastChunkReloadAttempt()?.toMillis()).toBe(NOW.toMillis())
   })
 
   it("is forgotten once cleared", () => {
-    markChunkReloadAttempt()
+    markChunkReloadAttempt(NOW)
     clearChunkReloadAttempt()
 
-    expect(hasAttemptedChunkReload()).toBe(false)
+    expect(lastChunkReloadAttempt()).toBeNull()
+  })
+
+  it("ignores a stored value that is not a time", () => {
+    sessionStorage.setItem("chunk_reload_attempted_at", "true")
+
+    expect(lastChunkReloadAttempt()).toBeNull()
   })
 })
