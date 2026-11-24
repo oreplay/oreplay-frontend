@@ -92,7 +92,11 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build --build-arg NODE_VERSION="$(cat .nvmrc)" -t oreplay/frontend:${VERSION} -f docker/Dockerfile .
+          docker build \
+            --build-arg NODE_VERSION="$(cat .nvmrc)" \
+            --build-arg GITHUB_REF="$GITHUB_REF" \
+            --secret id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
+            -t oreplay/frontend:${VERSION} -f docker/Dockerfile .
           docker push oreplay/frontend:${VERSION}
 
   deploy:
