@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { DateTime } from "luxon"
 import { ChunkLoadError } from "../../../services/lazyLoad.ts"
 import {
@@ -45,7 +45,7 @@ describe("chunk reload attempt", () => {
   })
 
   it("remembers when it was marked", () => {
-    markChunkReloadAttempt(NOW)
+    expect(markChunkReloadAttempt(NOW)).toBe(true)
 
     expect(lastChunkReloadAttempt()?.toMillis()).toBe(NOW.toMillis())
   })
@@ -61,5 +61,32 @@ describe("chunk reload attempt", () => {
     sessionStorage.setItem("chunk_reload_attempted_at", "true")
 
     expect(lastChunkReloadAttempt()).toBeNull()
+  })
+})
+
+describe("chunk reload attempt with storage blocked", () => {
+  beforeEach(() => {
+    const blocked = () => {
+      throw new DOMException("The operation is insecure.", "SecurityError")
+    }
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(blocked)
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(blocked)
+    vi.spyOn(Storage.prototype, "removeItem").mockImplementation(blocked)
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it("reads no previous attempt", () => {
+    expect(lastChunkReloadAttempt()).toBeNull()
+  })
+
+  it("reports that the attempt could not be stored", () => {
+    expect(markChunkReloadAttempt(NOW)).toBe(false)
+  })
+
+  it("clears without throwing", () => {
+    expect(() => clearChunkReloadAttempt()).not.toThrow()
   })
 })

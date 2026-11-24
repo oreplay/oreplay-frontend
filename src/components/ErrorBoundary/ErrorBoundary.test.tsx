@@ -67,6 +67,26 @@ describe("ErrorBoundary", () => {
     expect(onError).not.toHaveBeenCalled()
   })
 
+  it("reports a chunk load error instead of reloading when storage is blocked", () => {
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new DOMException("The operation is insecure.", "SecurityError")
+    })
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new DOMException("The operation is insecure.", "SecurityError")
+    })
+    const onError = vi.fn()
+
+    render(
+      <ErrorBoundary onError={onError}>
+        <Thrower error={new ChunkLoadError("https://example.com/assets/Page.js")} />
+      </ErrorBoundary>,
+    )
+
+    expect(reload).not.toHaveBeenCalled()
+    expect(onError).toHaveBeenCalledTimes(1)
+    expect(screen.getByText("FailedToLoad.title")).toBeInTheDocument()
+  })
+
   it("reports a chunk load error that persists after the reload", () => {
     markChunkReloadAttempt()
     const onError = vi.fn()

@@ -13,22 +13,44 @@ const CHUNK_RELOAD_ATTEMPTED_AT_KEY = "chunk_reload_attempted_at"
 export const CHUNK_RELOAD_COOLDOWN = Duration.fromObject({ minutes: 1 })
 
 /**
+ * Runs an action on `sessionStorage`, falling back to a value when storage is unavailable.
+ *
+ * Browsers throw a `SecurityError` on any access to `sessionStorage` when site data is blocked,
+ * and an error boundary must never throw while handling another error.
+ *
+ * @param action The storage access to run.
+ * @param fallback The value returned when the access throws.
+ * @returns The action's result, or `fallback` when storage is unavailable.
+ */
+function withSessionStorage<T>(action: (storage: Storage) => T, fallback: T): T {
+  try {
+    return action(sessionStorage)
+  } catch {
+    return fallback
+  }
+}
+
+/**
  * Forgets the last reload made to recover from a chunk load error, so the next one can reload
- * right away.
+ * right away. Does nothing when storage is unavailable.
  */
 export function clearChunkReloadAttempt(): void {
-  sessionStorage.removeItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY)
+  withSessionStorage((storage) => storage.removeItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY), undefined)
 }
 
 /**
  * Returns when the page was last reloaded in this browser session to recover from a chunk load
  * error.
  *
- * @returns The time of the last reload, or `null` when there was none or the stored value is
- * not a valid time.
+ * @returns The time of the last reload, or `null` when there was none, the stored value is not
+ * a valid time, or storage is unavailable.
  */
 export function lastChunkReloadAttempt(): DateTime | null {
-  const storedMillis = Number(sessionStorage.getItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY) ?? Number.NaN)
+  const storedValue = withSessionStorage(
+    (storage) => storage.getItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY),
+    null,
+  )
+  const storedMillis = Number(storedValue ?? Number.NaN)
   if (!Number.isFinite(storedMillis)) {
     return null
   }
@@ -41,9 +63,15 @@ export function lastChunkReloadAttempt(): DateTime | null {
  * still fails after the reload does not reload the page again.
  *
  * @param now The time of the reload; defaults to the current time.
+ * @returns `true` when the time was stored. `false` when storage is unavailable: the reload
+ * could then not be detected afterwards, so the caller must not reload, or a chunk that keeps
+ * failing would reload the page forever.
  */
-export function markChunkReloadAttempt(now: DateTime = DateTime.now()): void {
-  sessionStorage.setItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY, String(now.toMillis()))
+export function markChunkReloadAttempt(now: DateTime = DateTime.now()): boolean {
+  return withSessionStorage((storage) => {
+    storage.setItem(CHUNK_RELOAD_ATTEMPTED_AT_KEY, String(now.toMillis()))
+    return true
+  }, false)
 }
 
 /**

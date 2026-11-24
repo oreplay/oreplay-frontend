@@ -100,15 +100,17 @@ class ErrorBoundary extends Sentry.ErrorBoundary {
 
   /**
    * Reloads the page on a first chunk load error, without reporting it; reports any other error
-   * to Sentry.
+   * to Sentry. When storage is unavailable the reload could not be tracked, so a chunk load error
+   * is reported instead of risking a reload loop.
    *
    * @param error The error thrown while rendering the children.
    * @param errorInfo React's information about the error, including the component stack.
    */
   componentDidCatch(error: unknown, errorInfo: ErrorInfo): void {
     const now = DateTime.now()
-    if (shouldReloadForChunkError(error, lastChunkReloadAttempt(), now)) {
-      markChunkReloadAttempt(now)
+    const canReload =
+      shouldReloadForChunkError(error, lastChunkReloadAttempt(), now) && markChunkReloadAttempt(now)
+    if (canReload) {
       window.location.reload()
       return
     }
