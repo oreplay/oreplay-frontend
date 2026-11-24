@@ -1,4 +1,4 @@
-// <reference types="vite/client" />
+/// <reference types="vite/client" />
 
 // Declare types for env variables
 interface ImportMetaEnv {

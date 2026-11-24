@@ -5,7 +5,6 @@ import QRCodeStyling from "qr-code-styling"
 import { useTranslation } from "react-i18next"
 import { useNotifications } from "@toolpad/core/useNotifications"
 import GeneralErrorFallback from "./GeneralErrorFallback.tsx"
-// @ts-expect-error no type definitions for this asset
 import QRFrame from "../assets/QR-Frame.svg?raw"
 
 const WEBSITE_DOMAIN = import.meta.env.VITE_WEBSITE_DOMAIN
