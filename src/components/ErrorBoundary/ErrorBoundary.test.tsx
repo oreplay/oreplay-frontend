@@ -1,5 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
+import * as Sentry from "@sentry/react"
 import ErrorBoundary from "./ErrorBoundary.tsx"
 import { ChunkLoadError } from "../../services/lazyLoad.ts"
 import { markChunkReloadAttempt } from "./shared/chunkReload.ts"
@@ -78,5 +79,57 @@ describe("ErrorBoundary", () => {
     expect(reload).not.toHaveBeenCalled()
     expect(onError).toHaveBeenCalledTimes(1)
     expect(screen.getByText("GeneralErrorFallback.title")).toBeInTheDocument()
+  })
+
+  describe("reported events", () => {
+    const sentEvents: Sentry.ErrorEvent[] = []
+
+    beforeAll(() => {
+      Sentry.init({
+        dsn: "https://public@o0.ingest.sentry.io/0",
+        defaultIntegrations: false,
+        sendClientReports: false,
+        beforeSend: (event) => {
+          sentEvents.push(event)
+          return null
+        },
+      })
+    })
+
+    afterEach(() => {
+      sentEvents.length = 0
+    })
+
+    /**
+     * Returns whether Sentry marked the boundary's error as handled.
+     *
+     * @returns The `handled` flag of the first event's exception mechanism, or `undefined` when
+     * no event was sent.
+     */
+    function reportedAsHandled(): boolean | undefined {
+      return sentEvents[0]?.exception?.values?.at(-1)?.mechanism?.handled
+    }
+
+    it("reports caught errors as handled by default", async () => {
+      render(
+        <ErrorBoundary>
+          <Thrower error={new Error("render failed")} />
+        </ErrorBoundary>,
+      )
+
+      await vi.waitFor(() => expect(sentEvents).toHaveLength(1))
+      expect(reportedAsHandled()).toBe(true)
+    })
+
+    it("lets a caller report caught errors as unhandled", async () => {
+      render(
+        <ErrorBoundary handled={false}>
+          <Thrower error={new Error("render failed")} />
+        </ErrorBoundary>,
+      )
+
+      await vi.waitFor(() => expect(sentEvents).toHaveLength(1))
+      expect(reportedAsHandled()).toBe(false)
+    })
   })
 })

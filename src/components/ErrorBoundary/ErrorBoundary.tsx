@@ -39,6 +39,10 @@ const INITIAL_STATE: State = {
  * - **All other errors** — captured and reported to Sentry via `super.componentDidCatch`,
  *   then renders `GeneralErrorFallback`.
  *
+ * Errors are reported as handled by default, since the boundary always renders a fallback.
+ * Sentry's own boundary decides that from its `fallback` prop, which this one does not use, so
+ * without the default every caught error would count as unhandled.
+ *
  * @extends {Sentry.ErrorBoundary}
  *
  * @example
@@ -71,6 +75,8 @@ const INITIAL_STATE: State = {
  * </ErrorBoundary>
  */
 class ErrorBoundary extends Sentry.ErrorBoundary {
+  static defaultProps: Partial<Props> = { handled: true }
+
   declare props: Props
   state: State = INITIAL_STATE
 
