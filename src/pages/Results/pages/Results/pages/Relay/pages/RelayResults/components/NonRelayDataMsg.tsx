@@ -1,19 +1,16 @@
-import "../../../../../../../../../styles/tokens.css"
-import "../../../../../../../../../styles/tailwind.css"
+import { Alert } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 /**
  * Tells the user that the results uploaded to a relay stage do not come from a relay, so they
- * cannot be shown until the organizer uploads relay results.
+ * cannot be shown until the organizer uploads the right data.
  */
 export default function NonRelayDataMsg() {
   const { t } = useTranslation()
 
   return (
-    <section className="non-relay-data-msg tw-root flex flex-1 flex-col items-center justify-center px-6 py-12 text-center font-sans">
-      <p role="alert" className="m-0 max-w-xl text-[20px] text-red-700">
-        {t("ResultsStage.Relay.NonRelayData")}
-      </p>
-    </section>
+    <Alert severity="error" variant="outlined" sx={{ margin: 2 }}>
+      {t("ResultsStage.Relay.NonRelayData")}
+    </Alert>
   )
 }
