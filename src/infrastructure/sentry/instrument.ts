@@ -20,7 +20,7 @@ Sentry.init({
       matchRoutes,
     }),
   ],
-  tracesSampleRate: import.meta.env.VITE_SENTRY_TRACING_RATE,
+  tracesSampleRate: Number(import.meta.env.VITE_SENTRY_TRACING_RATE),
   tracePropagationTargets: [API_BASE_URL],
   ignoreErrors: Object.values(IGNORED_ERRORS),
 })

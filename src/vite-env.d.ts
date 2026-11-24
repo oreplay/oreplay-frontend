@@ -7,7 +7,7 @@ interface ImportMetaEnv {
   readonly VITE_VERSION_NUMBER: string
   readonly VITE_DESKTOP_CLIENT_VERSION_FALLBACK: string
   readonly VITE_SENTRY_DSN: string
-  readonly VITE_SENTRY_TRACING_RATE: number
+  readonly VITE_SENTRY_TRACING_RATE: string
 }
 
 interface ImportMeta {
