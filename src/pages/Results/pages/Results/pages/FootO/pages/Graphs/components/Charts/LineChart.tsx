@@ -22,9 +22,17 @@ import useElementWidth from "../../shared/useElementWidth.ts"
 interface LineChartProps {
   data: LineChartData[]
   height?: number
+  isInteractive: boolean
 }
 
-const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
+/**
+ * Line chart of how far behind the reference each selected runner was at every control.
+ *
+ * @param props.data One series per selected runner; an empty list shows a "no data" message.
+ * @param props.height Height of the chart, in pixels.
+ * @param props.isInteractive Whether hovering or tapping a point shows its tooltip and crosshair.
+ */
+const LineChart: React.FC<LineChartProps> = ({ data, height = 400, isInteractive }) => {
   const { t } = useTranslation()
   const [chartRef, chartWidth] = useElementWidth<HTMLDivElement>()
 
@@ -111,6 +119,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, height = 400 }) => {
         pointBorderWidth={2}
         pointBorderColor={{ from: "serieColor" }}
         pointLabelYOffset={-12}
+        isInteractive={isInteractive}
         useMesh={true}
         colors={(d) => d.color}
         tooltip={({ point }) => {
