@@ -12,6 +12,7 @@ const ALWAYS_FRESH_FILES = ["/sw.js", "/registerSW.js", "/manifest.webmanifest"]
 const AZURE_CONFIG_FILE = "staticwebapp.config.json"
 const ASSET_LINKS_FILE = ".well-known/assetlinks.json"
 const AGENT_WORKTREES = ".claude/**"
+const GIT_TAG_REF_PREFIX = "refs/tags/"
 
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 
@@ -73,6 +74,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "")
   const websiteDomainAndSubdomains = `.${new URL(env.VITE_WEBSITE_DOMAIN).hostname.replace(/^www\./, "")}`
   const apiOrigin = new URL(env.VITE_API_DOMAIN).origin
+  const isReleaseBuild = (env.GITHUB_REF ?? "").startsWith(GIT_TAG_REF_PREFIX)
 
   return {
     optimizeDeps: {
@@ -142,6 +144,7 @@ export default defineConfig(({ mode }) => {
       sentryVitePlugin({
         org: "o-replay",
         project: "o-replay",
+        disable: !isReleaseBuild,
       }),
     ],
 
