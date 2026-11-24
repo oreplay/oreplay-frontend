@@ -11,7 +11,6 @@ import { IGNORED_ERRORS } from "./ignoredErrors.ts"
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
-  sendDefaultPii: true,
   integrations: [
     Sentry.reactRouterV7BrowserTracingIntegration({
       useEffect,
