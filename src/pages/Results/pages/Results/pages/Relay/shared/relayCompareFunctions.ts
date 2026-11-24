@@ -83,15 +83,30 @@ function byLastCommonLegTime(a: ProcessedRunnerModel, b: ProcessedRunnerModel): 
   return 0
 }
 
+/**
+ * Sorts first the team whose runner is on the furthest leg.
+ *
+ * @param a The first team being compared.
+ * @param b The second team being compared.
+ * @param now The moment to compare at; the current time when omitted.
+ * @returns A negative number when `a` goes first, a positive one when `b` does, and `0` on a tie
+ * or when the legs cannot be compared, such as for a team without members.
+ */
 function byNumberOfLegsFinished(
   a: ProcessedRunnerModel,
   b: ProcessedRunnerModel,
   now?: DateTime<true>,
 ): number {
-  const aRunningLeg = Math.max(...findLegsNumberRunning(a, now))
-  const bRunningLeg = Math.max(...findLegsNumberRunning(b, now))
+  try {
+    const aRunningLeg = Math.max(...findLegsNumberRunning(a, now))
+    const bRunningLeg = Math.max(...findLegsNumberRunning(b, now))
 
-  return bRunningLeg - aRunningLeg
+    return bRunningLeg - aRunningLeg
+  } catch (error) {
+    reportComparisonError(error, a, b, "relayCompareFunctions.byNumberOfLegsFinished")
+  }
+
+  return 0
 }
 
 export const relayCompareFunctions = {
