@@ -5,6 +5,7 @@ import ButtonBase from "@mui/material/ButtonBase"
 import { useNavigate } from "react-router-dom"
 import { Event } from "../../../../../../domain/types/v1api"
 import CountryFlag from "../../../../../../components/CountryFlag/CountryFlag.tsx"
+import HighlightEventCardTitle from "./components/HighlightEventCardTitle.tsx"
 
 export type EventCardVariant = "highlight" | "default"
 
@@ -19,11 +20,6 @@ interface EventCardProps {
 
 const HIGHLIGHT_COLORS = ["#3F51B5", "#00897B", "#D84315", "#6A1B9A"] as const
 const DEFAULT_TITLE_LINES = 2
-/**
- * Title lines that fill the free space of the square highlight card at each breakpoint, at the
- * card's fixed width (160px on xs, 220px on sm and up) and title font size.
- */
-const HIGHLIGHT_TITLE_LINES = { xs: 5, sm: 6 } as const
 
 export default function EventCard({
   event,
@@ -35,7 +31,6 @@ export default function EventCard({
   const isHighlight = variant === "highlight"
 
   const accentColor = HIGHLIGHT_COLORS[colorIndex % HIGHLIGHT_COLORS.length]
-  const titleLineClamp = isHighlight ? HIGHLIGHT_TITLE_LINES : DEFAULT_TITLE_LINES
 
   return (
     <ButtonBase
@@ -118,22 +113,26 @@ export default function EventCard({
         ) : null}
 
         {/** Title **/}
-        <Typography
-          sx={{
-            color: isHighlight ? "white" : "text.primary",
-            fontWeight: isHighlight ? 700 : 500,
-            fontSize: isHighlight ? { xs: "0.9rem", sm: "1.05rem" } : "0.95rem",
-            lineHeight: 1.35,
-            textAlign: "left",
-            textTransform: "none",
-            display: "-webkit-box",
-            WebkitLineClamp: titleLineClamp,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
-        >
-          {event.description}
-        </Typography>
+        {isHighlight ? (
+          <HighlightEventCardTitle title={event.description} />
+        ) : (
+          <Typography
+            sx={{
+              color: "text.primary",
+              fontWeight: 500,
+              fontSize: "0.95rem",
+              lineHeight: 1.35,
+              textAlign: "left",
+              textTransform: "none",
+              display: "-webkit-box",
+              WebkitLineClamp: DEFAULT_TITLE_LINES,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {event.description}
+          </Typography>
+        )}
 
         {/** Location row, list variant only **/}
         {!isHighlight && event.location ? (
