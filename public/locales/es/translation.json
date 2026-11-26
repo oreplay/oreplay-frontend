@@ -386,6 +386,9 @@
       "ot": "FC"
     },
     "Times": "Tiempos",
+    "Totals": {
+      "NonTotalsData": "Los resultados subidos no parecen ser resultados totales, así que no se pueden mostrar. La organización tiene que subir los datos correctos."
+    },
     "TrailO": {
       "ExternalResults": "Los resultados de esta etapa de Trail-O están publicados en:",
       "MissingExternalResults": "La organización no ha configurado correctamente los resultados de esta etapa de Trail-O. Por favor, contacta con la organización."

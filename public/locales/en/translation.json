@@ -349,6 +349,9 @@
     "StageNumber": "Stage {{number}}",
     "StartTime": "Start",
     "Times": "Time",
+    "Totals": {
+      "NonTotalsData": "The uploaded results don't seem to be overall results, so they can't be shown. The organizer needs to upload the right data."
+    },
     "TrailO": {
       "ExternalResults": "The results of this Trail-O stage are published on:",
       "MissingExternalResults": "The organizer has not set up the results of this Trail-O stage properly. Please contact the organizer."
