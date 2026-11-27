@@ -1,10 +1,9 @@
 import { useState } from "react"
-import { useQuery } from "react-query"
 import {
-  getListEvents,
   useGetEvents,
+  useGetListEvents,
 } from "../../../../infrastructure/repositories/events/events.ts"
-import { getListStages } from "../../../../infrastructure/repositories/stages/stages.ts"
+import { useGetListStages } from "../../../../infrastructure/repositories/stages/stages.ts"
 import { useTranslationRanking } from "../../shared/useTranslationRanking.ts"
 import SearchableSelect from "../form/SearchableSelect.tsx"
 import { useDebouncedValue } from "../../shared/useDebouncedValue.ts"
@@ -38,13 +37,9 @@ export default function EventStageSelect({
   const [eventSearch, setEventSearch] = useState("")
   const description = useDebouncedValue(eventSearch, EVENT_SEARCH_DEBOUNCE_MS)
 
-  const events = useQuery(["events", description], () =>
-    getListEvents({ limit: EVENT_LIST_LIMIT, show_hidden: "1", description }),
-  )
+  const events = useGetListEvents({ limit: EVENT_LIST_LIMIT, show_hidden: "1", description })
   const selectedEvent = useGetEvents(eventId ?? "", { query: { enabled: eventId !== null } })
-  const stages = useQuery(["stages", eventId], () => getListStages(eventId ?? ""), {
-    enabled: eventId !== null,
-  })
+  const stages = useGetListStages(eventId ?? "", { query: { enabled: eventId !== null } })
 
   const eventOptions = toEventOptions(events.data?.data ?? [], selectedEvent.data?.data)
   const stageOptions = (stages.data?.data ?? []).map((stage) => ({
