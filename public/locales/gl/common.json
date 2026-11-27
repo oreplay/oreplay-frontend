@@ -16,7 +16,19 @@
   "loading": "Cargando",
   "noConnection": "Sen conexión a internet",
   "noResults": "Sen resultados",
+  "official": "Oficial",
   "ok": "Aceptar",
   "save": "Gravar",
-  "search": "Buscar"
+  "search": "Buscar",
+  "timeFilter": {
+    "Anytime": "En calquera momento",
+    "CustomRange": "Rango personalizado",
+    "From": "Dende",
+    "Future": "Futuro",
+    "InvalidRange": "A data de finalización debe ser igual ou posterior á data de inicio",
+    "LastMonth": "O mes pasado",
+    "LastWeek": "A semana pasada",
+    "LastYear": "O ano pasado",
+    "To": "Para"
+  }
 }
