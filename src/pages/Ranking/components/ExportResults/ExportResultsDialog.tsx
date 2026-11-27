@@ -12,7 +12,11 @@ import TextField from "../form/TextField.tsx"
 import ClassMultiSelect from "../form/ClassMultiSelect.tsx"
 import { collectTopRunners } from "./shared/collectTopRunners.ts"
 import { downloadRankingPdf } from "./shared/downloadRankingPdf.ts"
-import { DEFAULT_PDF_TEMPLATE, findPdfTemplate, PDF_TEMPLATES } from "./shared/templates/index.ts"
+import {
+  DEFAULT_PDF_TEMPLATE,
+  findPdfTemplate,
+  PDF_TEMPLATES,
+} from "./shared/templates/pdfTemplates.ts"
 import { Progress } from "../../shared/progress.ts"
 
 interface ExportResultsDialogProps {
