@@ -41,7 +41,7 @@ export default function EventStageSelect({
   const events = useQuery(["events", description], () =>
     getListEvents({ limit: EVENT_LIST_LIMIT, show_hidden: "1", description }),
   )
-  const selectedEvent = useGetEvents(eventId ?? "")
+  const selectedEvent = useGetEvents(eventId ?? "", { query: { enabled: eventId !== null } })
   const stages = useQuery(["stages", eventId], () => getListStages(eventId ?? ""), {
     enabled: eventId !== null,
   })
