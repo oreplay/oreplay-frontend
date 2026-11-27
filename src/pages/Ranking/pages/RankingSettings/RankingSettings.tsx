@@ -20,7 +20,9 @@ export default function RankingSettings() {
   const { mutate, isLoading: isSaving } = usePatchRankingSettings()
 
   const ranking = data?.data
-  const stageOrders = useGetListStageOrders(ranking?.event_id ?? "", ranking?.stage_id ?? "")
+  const stageOrders = useGetListStageOrders(ranking?.event_id ?? "", ranking?.stage_id ?? "", {
+    query: { enabled: Boolean(ranking) },
+  })
   const stageOrderCount = stageOrders.data?.data?.length
 
   return (
