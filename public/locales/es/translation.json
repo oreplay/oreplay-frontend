@@ -366,6 +366,7 @@
     "Recent": "Recientes",
     "Refresh": "Refrescar",
     "Relay": {
+      "Leg": "Posta {{leg}}",
       "NonRelayData": "Los resultados subidos no parecen ser de un relevo, así que no se pueden mostrar. La organización tiene que subir los datos correctos."
     },
     "SplitsTable": {

@@ -338,6 +338,7 @@
     "Recent": "Recent",
     "Refresh": "Refresh",
     "Relay": {
+      "Leg": "Leg {{leg}}",
       "NonRelayData": "The uploaded results don't seem to come from a relay, so they can't be shown. The organizer needs to upload the right data."
     },
     "SplitsTable": {

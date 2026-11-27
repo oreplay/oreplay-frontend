@@ -42,6 +42,12 @@ const EventAdmin = lazyWithRetry(
   () => import("./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx"),
 )
 const Results = lazyWithRetry(() => import("./pages/Results/pages/Results/Results.tsx"))
+const RelayRadiosMockup = lazyWithRetry(
+  () =>
+    import(
+      "./pages/Results/pages/Results/pages/Relay/pages/RelayRadiosMockup/RelayRadiosMockup.tsx"
+    ),
+)
 const ControlPunches = lazyWithRetry(
   () => import("./pages/Results/pages/Results/pages/ControlPunches/ControlPunches.tsx"),
 )
@@ -122,6 +128,7 @@ export default function App() {
                     <Route path="legal-notice" element={<LegalNotice />} />
                     <Route path="competitions/:id" element={<EventDetail />} />
                     <Route path="competitions/:eventId/:stageId" element={<Results />} />
+                    <Route path="relay-mockup" element={<RelayRadiosMockup />} />
                     <Route
                       path="competitions/:eventId/:stageId/control/:station"
                       element={<ControlPunches />}

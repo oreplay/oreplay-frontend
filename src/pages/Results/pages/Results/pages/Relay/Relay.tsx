@@ -2,12 +2,9 @@ import RelayResults from "./pages/RelayResults/RelayResults.tsx"
 import StageLayout from "../../components/StageLayout/StageLayout.tsx"
 import { useFetchClasses } from "../../../../shared/hooks.ts"
 import { Box } from "@mui/material"
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents"
 import ResultTabsPanel from "../../components/ResultTabsPanel.tsx"
 import ResultTabsBar from "../../components/ResultTabsBar/ResultTabsBar.tsx"
-import { ResultTabOption } from "../../shared/resultTabs.ts"
 import { useResultTabs } from "../../shared/useResultTabs.ts"
-import { Person } from "@mui/icons-material"
 import { useQuery } from "react-query"
 import { ProcessedRunnerModel } from "../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { AxiosError } from "axios"
@@ -16,16 +13,12 @@ import { useParams } from "react-router-dom"
 import { useMemo } from "react"
 import RelayLegs from "./pages/RelayLegs/RelayLegs.tsx"
 import { getRelayRunnersByClass, getRelayRunnersByClub } from "./services/RelayService.ts"
-import { RESULT_TAB, RESULTS_QUERY } from "../../shared/constants.ts"
+import { RESULTS_QUERY } from "../../shared/constants.ts"
+import { RELAY_TABS } from "./shared/relayTabs.tsx"
 import { checkIfEventTimezoneMatchesUser } from "../../../../../../shared/timezoneFunctions.ts"
 import { DateTime } from "luxon"
 import { useFetchStageDetail } from "../../../../services/FetchHooks.ts"
 import { useRefreshStage } from "../../shared/useRefreshStage.ts"
-
-const RELAY_TABS: readonly ResultTabOption[] = [
-  { icon: <EmojiEventsIcon />, key: RESULT_TAB.Results, labelKey: "StageHeader.Results" },
-  { icon: <Person />, key: RESULT_TAB.Legs, labelKey: "StageHeader.RelayLegs" },
-]
 
 export default function Relay() {
   // Get stage's and event's ids

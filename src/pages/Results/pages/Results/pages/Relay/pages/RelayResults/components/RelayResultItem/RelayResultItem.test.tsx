@@ -32,7 +32,14 @@ function buildTeam(): ProcessedRunnerModel {
 
 describe("RelayResultItem", () => {
   it("renders every leg as its own clickable line under the team", () => {
-    render(<RelayResultItem runner={buildTeam()} handleRowClick={vi.fn()} isClass />)
+    render(
+      <RelayResultItem
+        bestOnlineCumulativeSecondsByLeg={null}
+        runner={buildTeam()}
+        handleRowClick={vi.fn()}
+        isClass
+      />,
+    )
 
     expect(screen.getByText(TEAM_NAME)).toBeInTheDocument()
     expect(screen.getAllByRole("button")).toHaveLength(2)
@@ -43,7 +50,14 @@ describe("RelayResultItem", () => {
   it("opens the ticket of the clicked leg", () => {
     const team = buildTeam()
     const handleRowClick = vi.fn()
-    render(<RelayResultItem runner={team} handleRowClick={handleRowClick} isClass />)
+    render(
+      <RelayResultItem
+        bestOnlineCumulativeSecondsByLeg={null}
+        runner={team}
+        handleRowClick={handleRowClick}
+        isClass
+      />,
+    )
 
     fireEvent.click(screen.getByText(SECOND_LEG_NAME))
 

@@ -2,7 +2,9 @@ import {
   ProcessedParticipantModel,
   ProcessedRunnerModel,
   ProcessedTeamRunnerModel,
+  RadioSplitModel,
 } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import { NORMAL_CONTROL } from "../../../../../shared/constants.ts"
 
 export const baseParticipantFixture: ProcessedParticipantModel = {
   id: "legId",
@@ -88,4 +90,73 @@ export const baseRelayRunnerFixture: ProcessedRunnerModel = {
     online_splits: [],
   },
   overalls: null,
+}
+
+/**
+ * Builds a leg runner for relay tests.
+ *
+ * @param legNumber Number of the leg, from 1.
+ * @param stage Start, finish and online splits of the leg; a leg without a start is waiting.
+ * @returns The leg runner, OK and with a unique id per leg number.
+ */
+export function buildLegFixture(
+  legNumber: number,
+  stage: Pick<ProcessedTeamRunnerModel["stage"], "finish_time" | "online_splits" | "start_time">,
+): ProcessedTeamRunnerModel {
+  return {
+    ...baseLegFixture,
+    id: `leg-${legNumber}`,
+    leg_number: legNumber,
+    stage: { ...baseLegFixture.stage, ...stage, leg_number: legNumber },
+  }
+}
+
+/**
+ * Builds an online split for relay tests.
+ *
+ * @param station Station of the radio control, or `null` for the finish.
+ * @param cumulativeSeconds Leg time at the split, or `null` without a reading.
+ * @returns The online split.
+ */
+export function buildRadioSplitFixture(
+  station: string | null,
+  cumulativeSeconds: number | null,
+): RadioSplitModel {
+  return {
+    control: station ? { control_type: NORMAL_CONTROL, id: `control-${station}`, station } : null,
+    cumulative_behind: null,
+    cumulative_position: null,
+    cumulative_time: cumulativeSeconds,
+    id: `split-${station ?? "finish"}`,
+    is_intermediate: true,
+    is_next: null,
+    order_number: null,
+    points: null,
+    position: null,
+    reading_time: null,
+    time: null,
+    time_behind: null,
+  }
+}
+
+/**
+ * Builds a relay team for relay tests.
+ *
+ * @param id Identifier of the team.
+ * @param startTime Start of the team's first leg, as ISO 8601.
+ * @param legs Leg runners of the team.
+ * @returns The team, OK and not finished; each leg id is prefixed with the team id.
+ */
+export function buildTeamFixture(
+  id: string,
+  startTime: string,
+  legs: ProcessedTeamRunnerModel[],
+): ProcessedRunnerModel {
+  return {
+    ...baseRelayRunnerFixture,
+    full_name: `Team ${id}`,
+    id,
+    runners: legs.map((leg) => ({ ...leg, id: `${id}-${leg.id}` })),
+    stage: { ...baseRelayRunnerFixture.stage, start_time: startTime, time_behind: 0 },
+  }
 }

@@ -3,7 +3,13 @@ import { DateTime } from "luxon"
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { relayCompareFunctions } from "./relayCompareFunctions.ts"
 import { captureExceptionOnce } from "../../../shared/captureExceptionOnce.ts"
-import { baseLegFixture, baseRelayRunnerFixture } from "./relayFixtures.ts"
+import {
+  baseLegFixture,
+  baseRelayRunnerFixture,
+  buildLegFixture,
+  buildRadioSplitFixture,
+  buildTeamFixture,
+} from "./relayFixtures.ts"
 import { liveRelayTime } from "./functions.ts"
 
 vi.mock("../../../shared/captureExceptionOnce.ts", () => ({ captureExceptionOnce: vi.fn() }))
@@ -73,5 +79,96 @@ describe("relayCompareFunctions", () => {
       "relayCompareFunctions.byLiveRelayTime",
       { teamA: runningTeam.id, teamB: teamWithoutMembers.id },
     )
+  })
+})
+
+describe("byLastCommonOnlineControl", () => {
+  const TEAM_START = "2025-10-26T09:00:00.000+00:00"
+
+  /**
+   * Builds a team whose first leg finished at `changeover` and whose second leg is out on the
+   * course with the given leg times at the radio controls 40 and 42.
+   *
+   * @param id Identifier of the team.
+   * @param changeover End of the first leg, as ISO 8601.
+   * @param radioSeconds Leg times of the second leg at the controls 40 and 42.
+   * @returns The team.
+   */
+  function teamOnSecondLeg(id: string, changeover: string, radioSeconds: (number | null)[]) {
+    return buildTeamFixture(id, TEAM_START, [
+      buildLegFixture(1, { finish_time: changeover, online_splits: [], start_time: TEAM_START }),
+      buildLegFixture(2, {
+        finish_time: null,
+        online_splits: [
+          buildRadioSplitFixture("40", radioSeconds[0]),
+          buildRadioSplitFixture("42", radioSeconds[1]),
+        ],
+        start_time: changeover,
+      }),
+    ])
+  }
+
+  const earlierChangeoverSlowerRadio = teamOnSecondLeg(
+    "A",
+    "2025-10-26T09:30:00.000+00:00",
+    [500, 1000],
+  )
+  const laterChangeoverFasterRadio = teamOnSecondLeg("B", "2025-10-26T09:31:00.000+00:00", [
+    300,
+    null,
+  ])
+
+  it("puts first the team with the better team time at the last control both punched", () => {
+    expect(
+      relayCompareFunctions.byLastCommonOnlineControl(
+        laterChangeoverFasterRadio,
+        earlierChangeoverSlowerRadio,
+        NOW,
+      ),
+    ).toBeLessThan(0)
+    expect(
+      relayCompareFunctions.byLastCommonOnlineControl(
+        earlierChangeoverSlowerRadio,
+        laterChangeoverFasterRadio,
+        NOW,
+      ),
+    ).toBeGreaterThan(0)
+  })
+
+  it("ties teams with no online reading in common", () => {
+    const withoutReadings = teamOnSecondLeg("C", "2025-10-26T09:30:00.000+00:00", [null, null])
+
+    expect(
+      relayCompareFunctions.byLastCommonOnlineControl(
+        withoutReadings,
+        laterChangeoverFasterRadio,
+        NOW,
+      ),
+    ).toBe(0)
+  })
+
+  it("ties teams running different legs", () => {
+    const onFirstLeg = buildTeamFixture("D", TEAM_START, [
+      buildLegFixture(1, {
+        finish_time: null,
+        online_splits: [buildRadioSplitFixture("40", 200)],
+        start_time: TEAM_START,
+      }),
+    ])
+
+    expect(
+      relayCompareFunctions.byLastCommonOnlineControl(onFirstLeg, laterChangeoverFasterRadio, NOW),
+    ).toBe(0)
+  })
+
+  it("ties a team without members without reporting it", () => {
+    expect(
+      relayCompareFunctions.byLastCommonOnlineControl(
+        teamWithoutMembers,
+        laterChangeoverFasterRadio,
+        NOW,
+      ),
+    ).toBe(0)
+    expect(captureExceptionOnce).not.toHaveBeenCalled()
   })
 })

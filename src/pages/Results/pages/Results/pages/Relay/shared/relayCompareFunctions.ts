@@ -3,6 +3,8 @@ import { findLastFinishedRelayLeg, findLegsNumberRunning, liveRelayTime } from "
 import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { captureExceptionOnce } from "../../../shared/captureExceptionOnce.ts"
 import { MissingTeamMembersError } from "./MissingTeamMembersError.ts"
+import { findLeg } from "./relayLegs.ts"
+import { teamSecondsAtOnlineSplit } from "./relayOnlineCourse.ts"
 
 /**
  * Reports an unexpected error thrown while comparing two relay teams.
@@ -49,6 +51,45 @@ function byLiveRelayTime(
     }
   } catch (error) {
     reportComparisonError(error, a, b, "relayCompareFunctions.byLiveRelayTime")
+  }
+
+  return 0
+}
+
+/**
+ * Sorts first, of two teams running the same leg, the one with the better team time at the last
+ * online control both leg runners have punched. A mass start gives every running team the same
+ * live time, so the online controls are what tells them apart.
+ *
+ * @param a The first team being compared.
+ * @param b The second team being compared.
+ * @param now The moment to compare at; the current time when omitted.
+ * @returns A negative number when `a` goes first, a positive one when `b` does, and `0` when the
+ * teams are on different legs, have no online reading in common, or have no members.
+ */
+function byLastCommonOnlineControl(
+  a: ProcessedRunnerModel,
+  b: ProcessedRunnerModel,
+  now?: DateTime<true>,
+): number {
+  try {
+    const legNumber = Math.max(...findLegsNumberRunning(a, now))
+    const isSameRunningLeg = legNumber === Math.max(...findLegsNumberRunning(b, now))
+    const aLeg = findLeg(a, legNumber)
+    const bLeg = findLeg(b, legNumber)
+    if (!isSameRunningLeg || !aLeg || !bLeg) return 0
+
+    const commonSplitCount = Math.min(
+      aLeg.stage.online_splits?.length ?? 0,
+      bLeg.stage.online_splits?.length ?? 0,
+    )
+    for (let splitIndex = commonSplitCount - 1; splitIndex >= 0; splitIndex--) {
+      const aSeconds = teamSecondsAtOnlineSplit(a, aLeg, splitIndex)
+      const bSeconds = teamSecondsAtOnlineSplit(b, bLeg, splitIndex)
+      if (aSeconds !== null && bSeconds !== null) return Math.round((aSeconds - bSeconds) * 1000)
+    }
+  } catch (error) {
+    reportComparisonError(error, a, b, "relayCompareFunctions.byLastCommonOnlineControl")
   }
 
   return 0
@@ -111,6 +152,7 @@ function byNumberOfLegsFinished(
 
 export const relayCompareFunctions = {
   byLastCommonLegTime,
+  byLastCommonOnlineControl,
   byLiveRelayTime,
   byNumberOfLegsFinished,
 }
