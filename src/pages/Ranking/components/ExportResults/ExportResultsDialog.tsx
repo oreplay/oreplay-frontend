@@ -24,7 +24,6 @@ interface ExportResultsDialogProps {
 
 const DEFAULT_TOP_COUNT = 3
 const SUCCESS_NOTIFICATION_MS = 4000
-const PDF_FILENAME = "diplomas"
 
 export default function ExportResultsDialog({
   open,
@@ -77,7 +76,8 @@ export default function ExportResultsDialog({
         (completed, total) => setProgress({ completed, total }),
       )
       const background = backgroundPdf.trim() === "" ? null : backgroundPdf.trim()
-      await downloadRankingPdf(findPdfTemplate(templateId), runners, PDF_FILENAME, background)
+      const template = findPdfTemplate(templateId)
+      await downloadRankingPdf(template, runners, template.id, background)
       notifications.show(t("ExportResults.success"), {
         severity: "success",
         autoHideDuration: SUCCESS_NOTIFICATION_MS,
