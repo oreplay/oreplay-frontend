@@ -39,9 +39,7 @@ export default function TextField({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         onBlur={onBlur}
-        className={[fieldClass(!!error), readOnly ? "bg-neutral-100" : ""]
-          .filter(Boolean)
-          .join(" ")}
+        className={fieldClass(!!error)}
       />
       <FieldError message={error} />
     </label>

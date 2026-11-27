@@ -2,7 +2,8 @@
 // outlined inputs: white background, 1px border, 4px radius (`rounded-sm`), and a
 // primary-coloured focus outline. The `ring` (not a thicker border) avoids the
 // 1px layout shift a border-width change would cause on focus.
-const FIELD_BASE = "rounded-sm border bg-white px-[14px] py-[16.5px] outline-hidden focus:ring-1"
+const FIELD_BASE =
+  "rounded-sm border bg-white px-[14px] py-[16.5px] outline-hidden focus:ring-1 [&[readonly]]:bg-neutral-100"
 const FIELD_IDLE = "border-neutral-300 focus:border-primary focus:ring-primary"
 const FIELD_INVALID = "border-red-500 focus:border-red-500 focus:ring-red-500"
 const FIELD_WARNING = "border-amber-500 focus:border-amber-500 focus:ring-amber-500"
