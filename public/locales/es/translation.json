@@ -340,6 +340,7 @@
     "Classes": "Categorías",
     "Club": "Club",
     "Clubs": "Clubs",
+    "Control": "Control {{station}}",
     "FinishTime": "Final",
     "lastUpdated": "Actualizado {{time}}",
     "Name": "Nombre",

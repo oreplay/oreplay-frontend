@@ -1,9 +1,6 @@
-import { Box, IconButton } from "@mui/material"
-import { keyframes } from "@mui/material/styles"
+import { Box } from "@mui/material"
 import ClassSelector from "./components/ClassSelector/ClassSelector.tsx"
-import Tooltip from "@mui/material/Tooltip"
-import RefreshIcon from "@mui/icons-material/Refresh"
-import { useTranslation } from "react-i18next"
+import RefreshButton from "../RefreshButton.tsx"
 import { ClassModel, ClubModel, Page } from "../../../../../../shared/EntityTypes.ts"
 import React from "react"
 import WrongResultsFileUploadedMsg from "../WrongResultsFileUploadedMsg.tsx"
@@ -13,8 +10,6 @@ import TimezoneMsg from "./components/TimezoneMsg.tsx"
 import { useIsMobileDevice } from "../../../../shared/useIsMobileDevice.ts"
 import { MOBILE_CONTENT_BOTTOM_PADDING } from "../../shared/mobileLayout.ts"
 import PullToRefetch from "./components/PullToRefetch/PullToRefetch.tsx"
-
-const spin = keyframes({ from: { transform: "rotate(0deg)" }, to: { transform: "rotate(360deg)" } })
 
 type StageLayoutProps = {
   actions?: React.ReactNode
@@ -32,7 +27,6 @@ type StageLayoutProps = {
 }
 
 export default function StageLayout(props: StageLayoutProps) {
-  const { t } = useTranslation()
   const isMobileDevice = useIsMobileDevice()
   const contentBottomPadding = isMobileDevice ? MOBILE_CONTENT_BOTTOM_PADDING : 0
 
@@ -66,15 +60,7 @@ export default function StageLayout(props: StageLayoutProps) {
         />
         <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
           {props.actions}
-          <Tooltip title={t("ResultsStage.Refresh")}>
-            <IconButton onClick={() => void props.onRefresh()}>
-              <RefreshIcon
-                sx={{
-                  animation: props.isFetching ? `${spin} .6s linear infinite` : "none",
-                }}
-              />
-            </IconButton>
-          </Tooltip>
+          <RefreshButton isFetching={props.isFetching} onRefresh={props.onRefresh} />
         </Box>
       </Box>
       {props.displayTimezoneMsg ? <TimezoneMsg /> : null}

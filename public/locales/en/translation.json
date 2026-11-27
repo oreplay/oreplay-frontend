@@ -313,6 +313,7 @@
     "Classes": "Classes",
     "Club": "Club",
     "Clubs": "Clubs",
+    "Control": "Control {{station}}",
     "FinishTime": "Finish",
     "Name": "Name",
     "NoClubMsg": "No club",

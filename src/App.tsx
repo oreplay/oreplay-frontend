@@ -42,6 +42,9 @@ const EventAdmin = lazyWithRetry(
   () => import("./pages/Administration/pages/EventAdmin/pages/EventAdmin/EventAdmin.tsx"),
 )
 const Results = lazyWithRetry(() => import("./pages/Results/pages/Results/Results.tsx"))
+const ControlPunches = lazyWithRetry(
+  () => import("./pages/Results/pages/Results/pages/ControlPunches/ControlPunches.tsx"),
+)
 const AboutUs = lazyWithRetry(() => import("./pages/AboutUs/AboutUs.tsx"))
 const NotFoundPage = lazyWithRetry(() => import("./pages/NotFoundPage/NotFoundPage.tsx"))
 const Organizers = lazyWithRetry(() => import("./pages/Organizers/Organizers.tsx"))
@@ -119,6 +122,10 @@ export default function App() {
                     <Route path="legal-notice" element={<LegalNotice />} />
                     <Route path="competitions/:id" element={<EventDetail />} />
                     <Route path="competitions/:eventId/:stageId" element={<Results />} />
+                    <Route
+                      path="competitions/:eventId/:stageId/control/:station"
+                      element={<ControlPunches />}
+                    />
                     <Route element={<PrivateRoute />}>
                       <Route path={DASHBOARD_PATH} element={<Dashboard />} />
                       <Route path={"/admin/create-event"} element={<CreateEvent />} />
