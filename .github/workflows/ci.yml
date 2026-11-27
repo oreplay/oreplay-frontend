@@ -59,7 +59,7 @@ jobs:
       # Staging is opened on its own host but reads the production API, so it never points at a
       # local API left in .env. An empty Sentry DSN keeps its errors out of production's issues.
       - name: Point the build at staging
-        if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+        if: github.event_name == 'push' && contains(fromJSON('["refs/heads/dev", "refs/heads/staging"]'), github.ref)
         run: |
           {
             echo "VITE_API_DOMAIN=https://www.oreplay.es/"
@@ -76,7 +76,7 @@ jobs:
         if: |
           startsWith(github.ref, 'refs/tags/')
             || github.event_name == 'workflow_dispatch'
-            || (github.event_name == 'push' && github.ref == 'refs/heads/dev')
+            || (github.event_name == 'push' && contains(fromJSON('["refs/heads/dev", "refs/heads/staging"]'), github.ref))
         with:
           name: dist-${{ github.run_id }}
           path: dist
@@ -151,7 +151,7 @@ jobs:
 
   deploy-staging:
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    if: github.event_name == 'push' && contains(fromJSON('["refs/heads/dev", "refs/heads/staging"]'), github.ref)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     name: Deploy staging
