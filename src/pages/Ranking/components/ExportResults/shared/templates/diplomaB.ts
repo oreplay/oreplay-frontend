@@ -1,6 +1,6 @@
 import { createDiploma } from "./diploma.ts"
 
-const BACKGROUND_PDF = "http://d1ljmtj9ckzv64.cloudfront.net/fisioOreplay/fegado.pdf"
+const BACKGROUND_PDF = "https://d1ljmtj9ckzv64.cloudfront.net/fisioOreplay/fegado.pdf"
 
 export const diplomaB = createDiploma({
   id: "diplomaB",

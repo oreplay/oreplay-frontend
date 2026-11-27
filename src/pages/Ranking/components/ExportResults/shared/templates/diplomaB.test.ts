@@ -16,7 +16,7 @@ describe("diplomaB", () => {
   it("has no background on A and the fegado pdf on B", () => {
     expect(diplomaA.backgroundPdf).toBeNull()
     expect(diplomaB.backgroundPdf).toBe(
-      "http://d1ljmtj9ckzv64.cloudfront.net/fisioOreplay/fegado.pdf",
+      "https://d1ljmtj9ckzv64.cloudfront.net/fisioOreplay/fegado.pdf",
     )
   })
 
