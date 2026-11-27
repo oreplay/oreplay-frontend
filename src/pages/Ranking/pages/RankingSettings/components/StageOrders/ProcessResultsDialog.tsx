@@ -5,7 +5,7 @@ import { useNotifyError } from "../../../../../../infrastructure/notifications/u
 import ConfirmDialog from "../../../../components/ConfirmDialog/ConfirmDialog.tsx"
 import ComputeProgress from "../../../../components/ComputeProgress.tsx"
 import Spinner from "../../../../components/Spinner/Spinner.tsx"
-import { calculateRankingBatches } from "../../../../shared/calculateRankingBatches.ts"
+import { calculateRankingBatches } from "./shared/calculateRankingBatches.ts"
 import { Progress } from "../../../../shared/progress.ts"
 import ProcessResultsWarningList from "./ProcessResultsWarningList.tsx"
 import {

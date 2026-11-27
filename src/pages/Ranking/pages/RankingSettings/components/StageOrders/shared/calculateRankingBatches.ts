@@ -1,6 +1,6 @@
-import { orvalAxiosInstance } from "../../../infrastructure/orval/orval-axios-instance.ts"
-import { postListRankingComputeStage } from "../../../infrastructure/repositories/ranking-compute-stage/ranking-compute-stage.ts"
-import { ProgressReporter } from "./progress.ts"
+import { orvalAxiosInstance } from "../../../../../../../infrastructure/orval/orval-axios-instance.ts"
+import { postListRankingComputeStage } from "../../../../../../../infrastructure/repositories/ranking-compute-stage/ranking-compute-stage.ts"
+import { ProgressReporter } from "../../../../../shared/progress.ts"
 
 const API_PREFIX = "/api/v1"
 

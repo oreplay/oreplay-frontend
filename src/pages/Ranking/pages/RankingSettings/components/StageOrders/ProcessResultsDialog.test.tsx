@@ -36,7 +36,7 @@ vi.mock("../../../../../../infrastructure/repositories/stage-classes/stage-class
   }),
 }))
 
-vi.mock("../../../../shared/calculateRankingBatches.ts", () => ({
+vi.mock("./shared/calculateRankingBatches.ts", () => ({
   calculateRankingBatches: mocks.calculate,
 }))
 
