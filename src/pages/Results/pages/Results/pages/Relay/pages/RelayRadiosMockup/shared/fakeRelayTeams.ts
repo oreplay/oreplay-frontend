@@ -56,7 +56,7 @@ const FAKE_TEAMS: FakeTeam[] = [
     legs: [
       { finishSeconds: 1982, name: "Jon Ibarra", radioSeconds: [490, 1080, 1600] },
       { finishSeconds: 1910, name: "Alba Ruiz", radioSeconds: [500, 1078, 1590] },
-      { finishSeconds: null, name: "Rubén Ortiz", radioSeconds: [400] },
+      { finishSeconds: null, name: "Rubén Ortiz", radioSeconds: [300] },
     ],
     name: "Montaña Sur 1",
   },

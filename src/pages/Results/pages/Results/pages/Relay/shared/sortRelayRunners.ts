@@ -38,6 +38,7 @@ function compareIfBothHaveStarted(
     (a, b) => relayCompareFunctions.byLiveRelayTime(a, b, now),
     compareFunctions.byFinishedStatus,
     (a, b) => relayCompareFunctions.byNumberOfLegsFinished(a, b, now),
+    (a, b) => relayCompareFunctions.byOnlineControlRunningTowards(a, b, now),
     (a, b) => relayCompareFunctions.byLastCommonOnlineControl(a, b, now),
     relayCompareFunctions.byLastCommonLegTime,
   ])

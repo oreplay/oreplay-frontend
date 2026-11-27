@@ -96,12 +96,12 @@ export const baseRelayRunnerFixture: ProcessedRunnerModel = {
  * Builds a leg runner for relay tests.
  *
  * @param legNumber Number of the leg, from 1.
- * @param stage Start, finish and online splits of the leg; a leg without a start is waiting.
+ * @param stage Fields of the leg result to set, such as its start, finish, time and online splits.
  * @returns The leg runner, OK and with a unique id per leg number.
  */
 export function buildLegFixture(
   legNumber: number,
-  stage: Pick<ProcessedTeamRunnerModel["stage"], "finish_time" | "online_splits" | "start_time">,
+  stage: Partial<ProcessedTeamRunnerModel["stage"]>,
 ): ProcessedTeamRunnerModel {
   return {
     ...baseLegFixture,

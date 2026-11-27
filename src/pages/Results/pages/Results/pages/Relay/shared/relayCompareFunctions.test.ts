@@ -82,32 +82,40 @@ describe("relayCompareFunctions", () => {
   })
 })
 
+const TEAM_START = "2025-10-26T09:00:00.000+00:00"
+
+/**
+ * Builds a team whose first leg finished at `changeover` and whose second leg is out on the
+ * course with the given leg times at the radio controls 40 and 42.
+ *
+ * @param id Identifier of the team.
+ * @param changeover End of the first leg, as ISO 8601.
+ * @param radioSeconds Leg times of the second leg at the controls 40 and 42.
+ * @returns The team.
+ */
+function teamOnSecondLeg(id: string, changeover: string, radioSeconds: (number | null)[]) {
+  const firstLegSeconds = DateTime.fromISO(changeover)
+    .diff(DateTime.fromISO(TEAM_START))
+    .as("seconds")
+  return buildTeamFixture(id, TEAM_START, [
+    buildLegFixture(1, {
+      finish_time: changeover,
+      online_splits: [],
+      start_time: TEAM_START,
+      time_seconds: firstLegSeconds,
+    }),
+    buildLegFixture(2, {
+      finish_time: null,
+      online_splits: [
+        buildRadioSplitFixture("40", radioSeconds[0]),
+        buildRadioSplitFixture("42", radioSeconds[1]),
+      ],
+      start_time: changeover,
+    }),
+  ])
+}
+
 describe("byLastCommonOnlineControl", () => {
-  const TEAM_START = "2025-10-26T09:00:00.000+00:00"
-
-  /**
-   * Builds a team whose first leg finished at `changeover` and whose second leg is out on the
-   * course with the given leg times at the radio controls 40 and 42.
-   *
-   * @param id Identifier of the team.
-   * @param changeover End of the first leg, as ISO 8601.
-   * @param radioSeconds Leg times of the second leg at the controls 40 and 42.
-   * @returns The team.
-   */
-  function teamOnSecondLeg(id: string, changeover: string, radioSeconds: (number | null)[]) {
-    return buildTeamFixture(id, TEAM_START, [
-      buildLegFixture(1, { finish_time: changeover, online_splits: [], start_time: TEAM_START }),
-      buildLegFixture(2, {
-        finish_time: null,
-        online_splits: [
-          buildRadioSplitFixture("40", radioSeconds[0]),
-          buildRadioSplitFixture("42", radioSeconds[1]),
-        ],
-        start_time: changeover,
-      }),
-    ])
-  }
-
   const earlierChangeoverSlowerRadio = teamOnSecondLeg(
     "A",
     "2025-10-26T09:30:00.000+00:00",
@@ -170,5 +178,45 @@ describe("byLastCommonOnlineControl", () => {
       ),
     ).toBe(0)
     expect(captureExceptionOnce).not.toHaveBeenCalled()
+  })
+})
+
+describe("byOnlineControlRunningTowards", () => {
+  const atSecondControl = teamOnSecondLeg("A", "2025-10-26T09:30:00.000+00:00", [400, 900])
+
+  it("puts behind a team still heading to a control the other passed in less team time", () => {
+    const stillHeadingToSecond = teamOnSecondLeg("B", "2025-10-26T09:31:00.000+00:00", [420, null])
+
+    expect(
+      relayCompareFunctions.byOnlineControlRunningTowards(
+        stillHeadingToSecond,
+        atSecondControl,
+        NOW,
+      ),
+    ).toBeGreaterThan(0)
+    expect(
+      relayCompareFunctions.byOnlineControlRunningTowards(
+        atSecondControl,
+        stillHeadingToSecond,
+        NOW,
+      ),
+    ).toBeLessThan(0)
+  })
+
+  it("ties while the team behind can still be ahead at that control", () => {
+    const fastAtSecond = teamOnSecondLeg("C", "2025-10-26T09:30:00.000+00:00", [400, 3500])
+    const stillHeadingToSecond = teamOnSecondLeg("D", "2025-10-26T09:31:00.000+00:00", [420, null])
+
+    expect(
+      relayCompareFunctions.byOnlineControlRunningTowards(stillHeadingToSecond, fastAtSecond, NOW),
+    ).toBe(0)
+  })
+
+  it("ties teams heading to the same control", () => {
+    const alsoAtSecond = teamOnSecondLeg("E", "2025-10-26T09:31:00.000+00:00", [300, 800])
+
+    expect(
+      relayCompareFunctions.byOnlineControlRunningTowards(alsoAtSecond, atSecondControl, NOW),
+    ).toBe(0)
   })
 })

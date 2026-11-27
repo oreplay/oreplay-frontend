@@ -8,6 +8,7 @@ import {
   buildLegOnlineCourse,
   buildRunningLegOnlineCourse,
   isLegOnCourse,
+  nextOnlineSplitIndex,
   teamSecondsAtOnlineSplit,
 } from "./relayOnlineCourse.ts"
 
@@ -25,6 +26,7 @@ const finishedLeg = buildLegFixture(1, {
     buildRadioSplitFixture(null, SECONDS_TO_CHANGEOVER),
   ],
   start_time: TEAM_START,
+  time_seconds: SECONDS_TO_CHANGEOVER,
 })
 const runningLeg = buildLegFixture(2, {
   finish_time: null,
@@ -48,10 +50,27 @@ describe("teamSecondsAtOnlineSplit", () => {
     expect(teamSecondsAtOnlineSplit(team, teamRunningLeg, 1)).toBeNull()
   })
 
-  it("has no team time for a leg without a start", () => {
-    const waitingLeg = { ...teamRunningLeg, stage: { ...teamRunningLeg.stage, start_time: null } }
+  it("has no team time while a previous leg has no time", () => {
+    const notStartedFirstLeg = buildLegFixture(1, { finish_time: null, start_time: null })
+    const waitingTeam = buildTeamFixture("W", TEAM_START, [notStartedFirstLeg, runningLeg])
 
-    expect(teamSecondsAtOnlineSplit(team, waitingLeg, 0)).toBeNull()
+    expect(teamSecondsAtOnlineSplit(waitingTeam, findLeg(waitingTeam, 2)!, 0)).toBeNull()
+  })
+})
+
+describe("nextOnlineSplitIndex", () => {
+  it("points at the online split after the last one punched", () => {
+    expect(nextOnlineSplitIndex(teamRunningLeg)).toBe(1)
+  })
+
+  it("points past the finish once the finish is read", () => {
+    expect(nextOnlineSplitIndex(teamFinishedLeg)).toBe(3)
+  })
+
+  it("points at the first online split before any punch", () => {
+    const leg = buildLegFixture(2, { online_splits: [buildRadioSplitFixture("40", null)] })
+
+    expect(nextOnlineSplitIndex(leg)).toBe(0)
   })
 })
 

@@ -8,7 +8,10 @@ import bestOnlineCumulativeSeconds from "../../FootO/pages/Results/shared/online
 import buildOnlineCourse from "../../FootO/pages/Results/shared/onlineCourse/buildOnlineCourse.ts"
 import hasOnlineControls from "../../FootO/pages/Results/shared/onlineCourse/hasOnlineControls.ts"
 import { OnlineCourse } from "../../FootO/pages/Results/shared/onlineCourse/onlineCourse.ts"
+import { liveRelayTime } from "./functions.ts"
 import { legAsRunner, legNumbersOf, legRunnersOf } from "./relayLegs.ts"
+
+const NO_PREVIOUS_LEGS_SECONDS = 0
 
 /**
  * Computes, for every leg of a relay, the best leg time at each of its online splits, so each leg
@@ -99,14 +102,30 @@ export function isLegOnCourse(legRunner: ProcessedRunnerModel, now: DateTime<tru
 }
 
 /**
- * Computes the team time at one online split of a leg: the time from the team's start to the start
- * of the leg, plus the leg time at the split.
+ * Finds the online split a leg runner is heading to: the one after the last they have punched.
+ *
+ * @param leg Runner of the leg.
+ * @returns The index of the online split, `0` when the leg has punched none, and the number of
+ * online splits once the finish is read.
+ */
+export function nextOnlineSplitIndex(leg: ProcessedTeamRunnerModel): number {
+  const splits = leg.stage.online_splits ?? []
+  const hasReadings = splits.map(
+    (split) => split.cumulative_time !== null || split.reading_time !== null,
+  )
+  return hasReadings.lastIndexOf(true) + 1
+}
+
+/**
+ * Computes the team time at one online split of a leg: the time of the previous legs, as the team
+ * time counts it, plus the leg time at the split.
  *
  * @param team Relay team.
  * @param leg Runner of the leg.
  * @param splitIndex Position of the online split in the leg's course.
- * @returns The team time in seconds, or `null` when the leg has no reading there or the team or
- * the leg has no start time.
+ * @returns The team time in seconds, or `null` when the leg has no time at the split or a previous
+ * leg has no time.
+ * @throws MissingTeamMembersError When the team has no members.
  */
 export function teamSecondsAtOnlineSplit(
   team: ProcessedRunnerModel,
@@ -114,12 +133,12 @@ export function teamSecondsAtOnlineSplit(
   splitIndex: number,
 ): number | null {
   const legSeconds = leg.stage.online_splits?.[splitIndex]?.cumulative_time ?? null
-  const teamStart = team.stage.start_time
-  const legStart = leg.stage.start_time
-  if (legSeconds === null || !teamStart || !legStart) return null
+  const previousLegCount = leg.leg_number - 1
+  const previousLegsSeconds =
+    previousLegCount > 0
+      ? liveRelayTime(team, undefined, previousLegCount)
+      : NO_PREVIOUS_LEGS_SECONDS
+  if (legSeconds === null || previousLegsSeconds === null) return null
 
-  const secondsToLegStart = DateTime.fromISO(legStart)
-    .diff(DateTime.fromISO(teamStart))
-    .as("seconds")
-  return secondsToLegStart + legSeconds
+  return previousLegsSeconds + legSeconds
 }

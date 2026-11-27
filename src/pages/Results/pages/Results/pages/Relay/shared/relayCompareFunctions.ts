@@ -1,10 +1,13 @@
 import { DateTime } from "luxon"
 import { findLastFinishedRelayLeg, findLegsNumberRunning, liveRelayTime } from "./functions.ts"
-import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
+import {
+  ProcessedRunnerModel,
+  ProcessedTeamRunnerModel,
+} from "../../../../../components/VirtualTicket/shared/EntityTypes.ts"
 import { captureExceptionOnce } from "../../../shared/captureExceptionOnce.ts"
 import { MissingTeamMembersError } from "./MissingTeamMembersError.ts"
 import { findLeg } from "./relayLegs.ts"
-import { teamSecondsAtOnlineSplit } from "./relayOnlineCourse.ts"
+import { nextOnlineSplitIndex, teamSecondsAtOnlineSplit } from "./relayOnlineCourse.ts"
 
 /**
  * Reports an unexpected error thrown while comparing two relay teams.
@@ -56,6 +59,75 @@ function byLiveRelayTime(
   return 0
 }
 
+const A_FIRST = -1
+const B_FIRST = 1
+const NO_ORDER = 0
+
+/**
+ * Finds the runners of two teams when both teams are running the same leg.
+ *
+ * @param a The first team.
+ * @param b The second team.
+ * @param now The moment to compare at; the current time when omitted.
+ * @returns The runners of that leg of each team, or `null` when the teams are on different legs.
+ * @throws MissingTeamMembersError When a team has no members.
+ */
+function findSameRunningLegs(
+  a: ProcessedRunnerModel,
+  b: ProcessedRunnerModel,
+  now?: DateTime<true>,
+): [ProcessedTeamRunnerModel, ProcessedTeamRunnerModel] | null {
+  const legNumber = Math.max(...findLegsNumberRunning(a, now))
+  const isSameRunningLeg = legNumber === Math.max(...findLegsNumberRunning(b, now))
+  const aLeg = findLeg(a, legNumber)
+  const bLeg = findLeg(b, legNumber)
+  return isSameRunningLeg && aLeg && bLeg ? [aLeg, bLeg] : null
+}
+
+/**
+ * Sorts first, of two teams running the same leg, the one ahead at the online control the other
+ * is still heading to: once the team behind has spent longer than the team ahead needed to reach
+ * that control, it cannot be ahead there any more.
+ *
+ * @param a The first team being compared.
+ * @param b The second team being compared.
+ * @param now The moment to compare at; the current time when omitted.
+ * @returns A negative number when `a` goes first, a positive one when `b` does, and `0` when the
+ * teams head to the same control, the team behind can still be ahead there, they are on different
+ * legs, or have no members.
+ */
+function byOnlineControlRunningTowards(
+  a: ProcessedRunnerModel,
+  b: ProcessedRunnerModel,
+  now?: DateTime<true>,
+): number {
+  try {
+    const legs = findSameRunningLegs(a, b, now)
+    if (!legs) return NO_ORDER
+
+    const [aNextSplit, bNextSplit] = legs.map(nextOnlineSplitIndex)
+    if (aNextSplit === bNextSplit) return NO_ORDER
+
+    const isABehind = aNextSplit < bNextSplit
+    const behind = isABehind ? a : b
+    const [aheadTeam, aheadLeg] = isABehind ? [b, legs[1]] : [a, legs[0]]
+    const behindLiveSeconds = liveRelayTime(behind, now)
+    const aheadSeconds = teamSecondsAtOnlineSplit(
+      aheadTeam,
+      aheadLeg,
+      Math.min(aNextSplit, bNextSplit),
+    )
+    if (behindLiveSeconds === null || aheadSeconds === null || behindLiveSeconds <= aheadSeconds) {
+      return NO_ORDER
+    }
+    return isABehind ? B_FIRST : A_FIRST
+  } catch (error) {
+    reportComparisonError(error, a, b, "relayCompareFunctions.byOnlineControlRunningTowards")
+  }
+
+  return NO_ORDER
+}
+
 /**
  * Sorts first, of two teams running the same leg, the one with the better team time at the last
  * online control both leg runners have punched. A mass start gives every running team the same
@@ -73,12 +145,10 @@ function byLastCommonOnlineControl(
   now?: DateTime<true>,
 ): number {
   try {
-    const legNumber = Math.max(...findLegsNumberRunning(a, now))
-    const isSameRunningLeg = legNumber === Math.max(...findLegsNumberRunning(b, now))
-    const aLeg = findLeg(a, legNumber)
-    const bLeg = findLeg(b, legNumber)
-    if (!isSameRunningLeg || !aLeg || !bLeg) return 0
+    const legs = findSameRunningLegs(a, b, now)
+    if (!legs) return NO_ORDER
 
+    const [aLeg, bLeg] = legs
     const commonSplitCount = Math.min(
       aLeg.stage.online_splits?.length ?? 0,
       bLeg.stage.online_splits?.length ?? 0,
@@ -92,7 +162,7 @@ function byLastCommonOnlineControl(
     reportComparisonError(error, a, b, "relayCompareFunctions.byLastCommonOnlineControl")
   }
 
-  return 0
+  return NO_ORDER
 }
 
 function byLastCommonLegTime(a: ProcessedRunnerModel, b: ProcessedRunnerModel): number {
@@ -155,4 +225,5 @@ export const relayCompareFunctions = {
   byLastCommonOnlineControl,
   byLiveRelayTime,
   byNumberOfLegsFinished,
+  byOnlineControlRunningTowards,
 }
