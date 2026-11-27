@@ -89,7 +89,7 @@ describe("FootOResults", () => {
   it("draws the online course of a runner whose class has online controls", () => {
     const container = renderResults({ data: [buildRunner()], isFetching: false, isLoading: false })
 
-    expect(container.querySelectorAll('svg[role="img"]')).toHaveLength(1)
+    expect(container.querySelectorAll('svg[role="group"]')).toHaveLength(1)
   })
 
   it("draws no online course while the user keeps it hidden", () => {
@@ -99,7 +99,7 @@ describe("FootOResults", () => {
     )
 
     expect(screen.getByText(RUNNER_NAME)).toBeInTheDocument()
-    expect(container.querySelectorAll('svg[role="img"]')).toHaveLength(0)
+    expect(container.querySelectorAll('svg[role="group"]')).toHaveLength(0)
   })
 
   it("draws no online course when the class has no online controls", () => {
@@ -110,6 +110,6 @@ describe("FootOResults", () => {
     })
 
     expect(screen.getByText(RUNNER_NAME)).toBeInTheDocument()
-    expect(container.querySelectorAll('svg[role="img"]')).toHaveLength(0)
+    expect(container.querySelectorAll('svg[role="group"]')).toHaveLength(0)
   })
 })

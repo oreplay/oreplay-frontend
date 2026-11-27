@@ -153,7 +153,7 @@ describe("OnlineCourse", () => {
 
   it("fills its container and never gets narrower than the course at its fixed spacing", () => {
     const container = renderCourseAfterFirstControl(BEST_CUMULATIVE_SECONDS)
-    const image = container.querySelector<SVGSVGElement>('svg[role="img"]')
+    const image = container.querySelector<SVGSVGElement>('svg[role="group"]')
 
     expect(image).toHaveAttribute("width", "100%")
     expect(image).toHaveStyle({ minWidth: `${onlineCourseGeometry(NODE_COUNT).minWidth}px` })
@@ -162,6 +162,6 @@ describe("OnlineCourse", () => {
   it("is a single image for assistive technology", () => {
     const container = renderCourseAfterFirstControl(BEST_CUMULATIVE_SECONDS)
 
-    expect(container.querySelectorAll('svg[role="img"][aria-label]')).toHaveLength(1)
+    expect(container.querySelectorAll('svg[role="group"][aria-label]')).toHaveLength(1)
   })
 })

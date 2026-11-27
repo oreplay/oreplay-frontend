@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next"
 import { ArrowBack } from "@mui/icons-material"
 import React from "react"
 import { HorizontalLogo } from "../../../assets/HorizontalLogo.tsx"
+import { hasInAppHistory } from "../../../shared/navigationHistory.ts"
 import { SAFE_AREA_INSET_TOP } from "../../../shared/safeArea.ts"
 
 const LOGO_HEIGHT = "20px"
@@ -29,7 +30,7 @@ const Header = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ minWidth: "48px", minHeight: "48px" }}>
-            {location?.key !== "default" && (
+            {hasInAppHistory(location.key) && (
               <Tooltip title={t("GoBack")}>
                 <IconButton
                   size="large"

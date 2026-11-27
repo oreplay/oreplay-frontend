@@ -325,6 +325,7 @@
     "OnlineCourse": {
       "ControlsReached": "{{reached}} of {{total}} online controls reached",
       "Hide": "Hide online controls",
+      "OpenControl": "See control {{station}}",
       "Show": "Show online controls"
     },
     "OutdatedData": "These results may be out of date: the latest update failed. They will update by themselves when the connection is back.",

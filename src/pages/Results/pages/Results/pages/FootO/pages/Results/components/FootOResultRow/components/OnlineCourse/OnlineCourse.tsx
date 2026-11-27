@@ -54,7 +54,7 @@ export default function OnlineCourse({ course, className }: OnlineCourseProps) {
         aria-label={controlsReachedLabel}
         className="block font-sans"
         height={geometry.height}
-        role="img"
+        role="group"
         style={{ minWidth: geometry.minWidth }}
         width="100%"
       >

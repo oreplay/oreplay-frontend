@@ -353,6 +353,7 @@
     "OnlineCourse": {
       "ControlsReached": "{{reached}} de {{total}} radiocontroles alcanzados",
       "Hide": "Ocultar radiocontroles",
+      "OpenControl": "Ver control {{station}}",
       "Show": "Mostrar radiocontroles"
     },
     "OutdatedData": "Puede que estos resultados no estén actualizados: la última actualización ha fallado. Se actualizarán solos cuando vuelva la conexión.",
