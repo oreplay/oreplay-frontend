@@ -80,3 +80,15 @@ export function isStageOrderFormComplete(
   }
   return true
 }
+
+/**
+ * Suggests the number of a new stage order: one past the highest existing number, so it never
+ * repeats one even when deletions left gaps.
+ * @param stageOrders - the ranking's current stage orders, in any order; empty for a new ranking
+ * @returns the highest `stage_order` plus one, or 1 when there are none
+ */
+export function nextStageOrderNumber(
+  stageOrders: Pick<StageOrderManagement, "stage_order">[],
+): number {
+  return Math.max(0, ...stageOrders.map((stageOrder) => stageOrder.stage_order)) + 1
+}

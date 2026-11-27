@@ -3,6 +3,7 @@ import {
   initStageOrderForm,
   isOriginalFieldEditable,
   isStageOrderFormComplete,
+  nextStageOrderNumber,
   toPatchBody,
   toPostBody,
 } from "./stageOrderForm.ts"
@@ -103,5 +104,17 @@ describe("isOriginalFieldEditable", () => {
     expect(isOriginalFieldEditable(null)).toBe(true)
     expect(isOriginalFieldEditable("")).toBe(true)
     expect(isOriginalFieldEditable("evt-9")).toBe(false)
+  })
+})
+
+describe("nextStageOrderNumber", () => {
+  it("is 1 for a ranking without stage orders", () => {
+    expect(nextStageOrderNumber([])).toBe(1)
+  })
+
+  it("follows the highest number even when deletions left gaps", () => {
+    expect(nextStageOrderNumber([{ stage_order: 1 }, { stage_order: 4 }, { stage_order: 2 }])).toBe(
+      5,
+    )
   })
 })

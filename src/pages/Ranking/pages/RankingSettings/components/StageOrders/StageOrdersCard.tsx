@@ -13,7 +13,7 @@ import StageOrderFormDialog from "./StageOrderFormDialog.tsx"
 import StageOrderList from "./StageOrderList.tsx"
 import SourceStageActionDialog from "./SourceStageActionDialog.tsx"
 import DeleteStageOrderDialog from "./DeleteStageOrderDialog.tsx"
-import { StageOrderDialogMode } from "./shared/stageOrderForm.ts"
+import { nextStageOrderNumber, StageOrderDialogMode } from "./shared/stageOrderForm.ts"
 import {
   isSourceStageAction,
   SourceStageAction,
@@ -89,7 +89,7 @@ export default function StageOrdersCard({ eventId, stageId }: StageOrdersCardPro
           open
           mode={dialog.mode}
           stageOrder={dialog.stageOrder}
-          defaultStageOrder={stageOrders.length + 1}
+          defaultStageOrder={nextStageOrderNumber(stageOrders)}
           eventId={eventId}
           stageId={stageId}
           onClose={closeDialog}
