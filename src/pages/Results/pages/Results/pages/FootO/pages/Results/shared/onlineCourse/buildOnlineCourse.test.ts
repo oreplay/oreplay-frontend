@@ -109,6 +109,18 @@ describe("buildOnlineCourse", () => {
     expect(legProgresses(course)).toEqual([Reached, InProgress, Pending])
   })
 
+  it("draws a punched control as reached without a time when the start is not known", () => {
+    const punchedWithoutStart = { ...buildOnlineSplit(31, 1, null), reading_time: START_TIME }
+    const runner = buildRunnerWithOnlineSplits({
+      onlineSplits: [punchedWithoutStart, buildOnlineSplit(41, 2, null), buildFinishSplit(null)],
+    })
+
+    const course = buildOnlineCourse(runner, BEST_CUMULATIVE_SECONDS, HAS_NOT_STARTED)
+
+    expect(nodeProgresses(course)).toEqual([Reached, Reached, Pending, Pending])
+    expect(course.nodes[1]).toMatchObject({ behindSeconds: null, cumulativeSeconds: null })
+  })
+
   it("keeps the whole course reached for a runner that finished and downloaded", () => {
     const runner = buildRunnerWithOnlineSplits({
       finishTime: FINISH_TIME,

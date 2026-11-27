@@ -60,6 +60,19 @@ describe("isLegOnCourse", () => {
     expect(isLegOnCourse(legAsRunner(team, teamRunningLeg), NOW)).toBe(true)
   })
 
+  it("is true for a leg without a start that has punched an online control", () => {
+    const punchedWithoutStart = {
+      ...teamRunningLeg,
+      stage: {
+        ...teamRunningLeg.stage,
+        online_splits: [{ ...buildRadioSplitFixture("42", null), reading_time: CHANGEOVER }],
+        start_time: null,
+      },
+    }
+
+    expect(isLegOnCourse(legAsRunner(team, punchedWithoutStart), NOW)).toBe(true)
+  })
+
   it("is false for a finished leg", () => {
     expect(isLegOnCourse(legAsRunner(team, teamFinishedLeg), NOW)).toBe(false)
   })

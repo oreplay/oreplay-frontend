@@ -160,6 +160,17 @@ export function createMissingRadioFinish(): RadioSplitModel {
 }
 
 /**
+ * Tells whether a split is the finish, the only split without a control. A runner without a start
+ * time has none, since the finish split is computed from the start.
+ *
+ * @param split Online split of a runner.
+ * @returns `true` for the finish split.
+ */
+function isFinishSplit(split: RadioSplitModel) {
+  return split.control === null
+}
+
+/**
  * Get online splits from a Processed Splits list and compute the next online control
  * @param splitList List of ProcessedSplitModel to extract online controls from
  * @param radiosList List of OnlineControlModel with the online controls
@@ -180,7 +191,7 @@ export function getOnlineSplits(
   const radioSplits = Splits.map((split): RadioSplitModel => ({ ...split, is_next: null }))
 
   // Fill missing online controls from split list
-  if (radioSplits.length == 0) {
+  if (!radioSplits.some(isFinishSplit)) {
     radioSplits.push(createMissingRadioFinish())
   }
   //// Regular controls

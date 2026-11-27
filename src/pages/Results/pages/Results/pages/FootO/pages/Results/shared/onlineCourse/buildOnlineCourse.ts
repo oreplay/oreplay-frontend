@@ -18,13 +18,14 @@ const START_NODE_INDEX = 0
 const START_NODE_COUNT = 1
 
 /**
- * Tells whether an online split has been read.
+ * Tells whether an online split has been read. A punch counts even without a time since the
+ * start, as for a relay leg whose start is not known yet.
  *
  * @param split Online split to check.
- * @returns `true` when the split has a time since the start.
+ * @returns `true` when the split has a time since the start or a punch time.
  */
 function hasReading(split: RadioSplitModel) {
-  return split.cumulative_time !== null
+  return split.cumulative_time !== null || split.reading_time !== null
 }
 
 /**

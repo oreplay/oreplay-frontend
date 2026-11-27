@@ -75,14 +75,27 @@ export function buildRunningLegOnlineCourse(
 }
 
 /**
- * Tells whether a leg runner is out on the course: started and not finished yet.
+ * Tells whether a leg has punched any online control, which shows the leg is being run even when
+ * its start is not known yet, as before the previous leg's finish is read.
+ *
+ * @param legRunner Runner of the leg, seen as a runner of the team's class.
+ * @returns `true` when one of its online splits has a punch time.
+ */
+function hasOnlineReading(legRunner: ProcessedRunnerModel): boolean {
+  return (legRunner.stage.online_splits ?? []).some((split) => split.reading_time !== null)
+}
+
+/**
+ * Tells whether a leg runner is out on the course: started, or seen at an online control, and not
+ * finished yet.
  *
  * @param legRunner Runner of the leg, seen as a runner of the team's class.
  * @param now The current moment.
  * @returns `true` while the leg is being run.
  */
 export function isLegOnCourse(legRunner: ProcessedRunnerModel, now: DateTime<true>): boolean {
-  return runnerService.hasStarted(legRunner, now) && !runnerService.hasFinished(legRunner)
+  const isOut = runnerService.hasStarted(legRunner, now) || hasOnlineReading(legRunner)
+  return isOut && !runnerService.hasFinished(legRunner)
 }
 
 /**

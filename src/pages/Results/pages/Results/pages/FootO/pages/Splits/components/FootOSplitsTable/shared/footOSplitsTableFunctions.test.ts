@@ -160,6 +160,24 @@ describe("getOnlineSplits", () => {
     expect(actual).toEqual(expectedSplits)
   })
 
+  it("keeps the radio punches of a runner without a start time, who has no finish split", () => {
+    const punchTime = "2025-08-05T09:10:00.000+00:00"
+    const punch: ProcessedSplitModel = {
+      ...baseControl,
+      control: { ...baseControl.control, station: "41" },
+      reading_time: punchTime,
+    }
+
+    const actual = getOnlineSplits([punch], radiosList, null)
+
+    expect(actual.map((split) => [split.control?.station ?? null, split.reading_time])).toEqual([
+      ["31", null],
+      ["41", punchTime],
+      ["51", null],
+      [null, null],
+    ])
+  })
+
   it("should get online splits when there are only online splits'", () => {
     const splitList: ProcessedSplitModel[] = [
       {

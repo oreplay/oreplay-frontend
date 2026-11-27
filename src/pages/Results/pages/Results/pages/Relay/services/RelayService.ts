@@ -2,6 +2,7 @@ import { ProcessedRunnerModel } from "../../../../../components/VirtualTicket/sh
 import { getRunnersInStage } from "../../../../../services/EventService.ts"
 import { sortRunners } from "../../../../../shared/sortingFunctions/sortRunners.ts"
 import { processRunnerData } from "../../../../../components/VirtualTicket/shared/virtualTicketFunctions.ts"
+import { withMockupRadioControls } from "../shared/mockupRadioControls.ts"
 import { sortRelayRunners } from "../shared/sortRelayRunners.ts"
 
 export async function getRelayRunnersByClass(
@@ -11,13 +12,13 @@ export async function getRelayRunnersByClass(
 ): Promise<ProcessedRunnerModel[]> {
   // Make query
   const runnersPage = await getRunnersInStage(eventId, stageId, classId)
-  let runnersList = runnersPage.data
+  const { classes, teams } = withMockupRadioControls(runnersPage.data)
 
   // Sort
-  runnersList = sortRunners(runnersList)
+  const runnersList = sortRunners(teams)
 
   // Runner processing
-  const processRunners = processRunnerData(runnersList)
+  const processRunners = processRunnerData(runnersList, classes)
 
   // Final sort
   return sortRelayRunners(processRunners)
@@ -30,13 +31,13 @@ export async function getRelayRunnersByClub(
 ): Promise<ProcessedRunnerModel[]> {
   // Make query
   const runnersPage = await getRunnersInStage(eventId, stageId, undefined, clubId)
-  let runnersList = runnersPage.data
+  const { classes, teams } = withMockupRadioControls(runnersPage.data)
 
   // Sort
-  runnersList = sortRunners(runnersList)
+  const runnersList = sortRunners(teams)
 
   // Runner processing
-  const processRunners = processRunnerData(runnersList)
+  const processRunners = processRunnerData(runnersList, classes)
 
   // Final sort
   return sortRelayRunners(processRunners)
