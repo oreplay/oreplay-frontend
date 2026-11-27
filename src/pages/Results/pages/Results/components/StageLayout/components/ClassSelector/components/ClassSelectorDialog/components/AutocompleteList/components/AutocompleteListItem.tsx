@@ -53,7 +53,7 @@ export default function AutocompleteListItem(props: AutocompleteListItemProps) {
         onClick={props.onClick}
         className={`flex items-center px-3 py-2.5 text-[0.9375rem] transition-colors duration-150 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary/40 ${BUTTON_LAYOUT_CLASSES[props.layout]} ${colorClass}`}
       >
-        <span className="truncate">{props.name}</span>
+        <span className="truncate py-1 [text-box:trim-both_cap_alphabetic]">{props.name}</span>
       </button>
     </li>
   )
