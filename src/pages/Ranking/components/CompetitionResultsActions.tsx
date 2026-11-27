@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useTranslationRanking } from "../shared/useTranslationRanking.ts"
-import { competitionResultsMenuItems } from "../shared/competitionResultsMenu.ts"
+import { competitionResultsMenuItems } from "./shared/competitionResultsMenu.ts"
 import CompetitionResultsLink from "./CompetitionResultsLink.tsx"
 import DropdownMenu from "./DropdownMenu/DropdownMenu.tsx"
 import SettingsIcon from "./icons/SettingsIcon.tsx"

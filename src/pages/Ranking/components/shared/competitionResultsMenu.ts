@@ -1,5 +1,5 @@
-import { rankingDuplicatedRunnersPath } from "../../../shared/routes.ts"
-import { DropdownMenuItem } from "../components/DropdownMenu/DropdownMenu.tsx"
+import { rankingDuplicatedRunnersPath } from "../../../../shared/routes.ts"
+import { DropdownMenuItem } from "../DropdownMenu/DropdownMenu.tsx"
 
 interface CompetitionResultsMenuInput {
   exportLabel: string
