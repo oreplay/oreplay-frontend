@@ -57,13 +57,14 @@ jobs:
         run: npm run test
 
       # Staging is opened on its own host but reads the production API, so it never points at a
-      # local API left in .env.
+      # local API left in .env. An empty Sentry DSN keeps its errors out of production's issues.
       - name: Point the build at staging
         if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
         run: |
           {
             echo "VITE_API_DOMAIN=https://www.oreplay.es/"
             echo "VITE_WEBSITE_DOMAIN=${STAGING_ORIGIN}/"
+            echo "VITE_SENTRY_DSN="
             echo "DEPLOY_ENVIRONMENT=staging"
           } > .env.production.local
 
