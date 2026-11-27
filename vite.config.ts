@@ -15,6 +15,8 @@ const AGENT_WORKTREES = ".claude/**"
 const GIT_TAG_REF_PREFIX = "refs/tags/"
 const STAGING_DEPLOY_ENVIRONMENT = "staging"
 const SEARCH_ENGINE_EXCLUSION_HEADERS = { "X-Robots-Tag": "noindex, nofollow" }
+// A live stream never ends, so the service worker can neither cache nor pass it on: it must not answer it.
+const EXCEPT_LIVE_STREAMS = "(?!v1/live/)"
 const STATIC_FILE_PATTERNS = [
   "/*.{css,ico,js,json,map,png,svg,txt,webmanifest}",
   "/.well-known/*",
@@ -153,7 +155,7 @@ export default defineConfig(({ mode }) => {
           navigateFallbackDenylist: [/^\/api\//, /^\/\.well-known\//],
           runtimeCaching: [
             {
-              urlPattern: new RegExp(`^${escapeRegExp(apiOrigin)}/api/`),
+              urlPattern: new RegExp(`^${escapeRegExp(apiOrigin)}/api/${EXCEPT_LIVE_STREAMS}`),
               handler: "NetworkFirst",
               options: {
                 cacheName: "oreplay-api-cache",
