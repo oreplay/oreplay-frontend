@@ -22,7 +22,7 @@ export default function ClassNamesText({
       {classNames.map((name, index) => {
         const isUnknownPattern = !isKnownClassNamePattern(name)
         return (
-          <Fragment key={name}>
+          <Fragment key={`${index}-${name}`}>
             {index > 0 && ", "}
             <span
               title={isUnknownPattern ? unknownPatternLabel : undefined}
