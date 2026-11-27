@@ -74,7 +74,7 @@
         "cancelled": "Cancelado",
         "done": "{{classes}} classes e {{runners}} corredores atualizados",
         "pending": "Espere",
-        "uploading": "Carregando"
+        "uploading": "A carregar"
       },
       "title": "Carregamento de dados",
       "titleWithStage": "Cargamento de dados: {{stageName}}",
@@ -225,6 +225,7 @@
     "msg": "Por favor, verifique a sua ligação à Internet. Se o erro persistir, tente novamente mais tarde.",
     "title": "Carregamento falhado"
   },
+  "firstName": "Primeiro nome",
   "ForbiddenAccess": "Acesso restrito",
   "ForgotPassword": {
     "EmailSent": {
@@ -254,7 +255,7 @@
       "positionChart": "Mostra a posição de cada corredor no escalão em cada ponto de controlo, segundo o tempo acumulado. O primeiro lugar fica em cima, pelo que uma linha que sobe indica que o corredor está a ganhar posições."
     },
     "DescriptionLabel": "O que mostra este gráfico?",
-    "Finish": "Fim",
+    "Finish": "Chegada",
     "LineChart": "Grafico de linhas",
     "PositionChart": "Grafico de posição",
     "RunnerSelection": "Seleção do atleta",
@@ -279,6 +280,7 @@
     "Language": "Língua",
     "Spanish": "Espanhol"
   },
+  "lastName": "Pronome",
   "lineChart": {
     "noData": "Selecione atletas para ver o gráfico de linhas",
     "tooltip": {
@@ -312,7 +314,7 @@
       "splitTime": "Tempo parcial",
       "timeLost": "Tempo por detrás do melhor parcial: {{timeLost}}"
     },
-    "xAxisLabel": "Pontos"
+    "xAxisLabel": "Controlos"
   },
   "PrivateEventPage": {
     "Header": "Evento privado",
@@ -332,13 +334,14 @@
     "Time": "Tempo"
   },
   "ResultsStage": {
-    "BonusPoints": "Bônus",
+    "BonusPoints": "Bônus-",
     "ChooseClass": "Por favor, escolha um escalão",
     "Class": "Escalão",
     "Classes": "Escalões",
     "Club": "Clube",
     "Clubs": "Clubes",
     "FinishTime": "Chegada",
+    "lastUpdated": "Atualizado {{time}}",
     "Name": "Nome",
     "NoClubMsg": "Sem clube",
     "NoData": "Lamentamos, não há dados disponíveis",
@@ -359,7 +362,11 @@
     },
     "Position": "Posição",
     "RaceTime": "Tempo",
+    "Recent": "Recente",
     "Refresh": "Refrescar",
+    "Relay": {
+      "NonRelayData": "Os resultados enviados não parecem vir de uma estafeta, pelo que não podem ser apresentados. O organizador precisa de enviar os dados corretos."
+    },
     "SplitsTable": {
       "CleanTime": "Sem erros",
       "CumulativeTimes": "Acumulativo",
@@ -367,6 +374,7 @@
       "OnlyForClasses": "A tabela de splits só pode ser acedida na vista baseada em classes.",
       "PartialTimes": "Parciais"
     },
+    "StageNumber": "Etapa {{number}}",
     "StartTime": "Partida",
     "statusCodes": {
       "dnf": "Não terminou",
@@ -387,11 +395,17 @@
       "Bib": "Dorsal {{bib}}",
       "BonusPenalty": "Bónus / Penalização",
       "Control": "Ctrl",
-      "Controls": "Pontos",
+      "Controls": "Controles",
       "ControlsPunched": "<strong>{{punched}}</strong> de {{total}} pontos picados",
       "Cumulative": "Acumulativo",
       "Finish": "Chegada",
       "FinishControl": "Fim",
+      "FootO": {
+        "Points": {
+          "HelpLabel": "Como são os pontos calculados?",
+          "HelpMsg": "Pontos obtidos pela fórmula 1000-pontos: 1000*(tempo do vencedor/seu tempo)"
+        }
+      },
       "Leg": "Percurso {{leg}} – {{name}}",
       "LegTime": "Tempo do percurso",
       "NoDownloadHint": "Os parciais aparecem quando o chip é lido na chegada.",
@@ -431,10 +445,53 @@
   },
   "Sign in": {
     "ForgotPassword": "Esqueceu palavra passe?",
+    "InvalidCredentials": "Username ou password invalida",
+    "LoginChallengeExpired": "O seu início de sessão demorou demasiado tempo. Por favor, tente novamente.",
     "Logout": "Sair",
     "NoAccount": "Não tem conta? Cadastre-se",
     "RememberMe": "Lembra me",
     "Sign in": "Iniciar"
+  },
+  "SignUp": {
+    "AlreadyHaveAccount": "Já tem uma conta? <1>Iniciar sessão</1>",
+    "Email": {
+      "Validation": {
+        "EnterValidEmailAddress": "Por favor, introduza um email valido."
+      }
+    },
+    "EmailMe": "Queres receber novidades via email.",
+    "EmailVerification": {
+      "msg": "Foi enviada uma ligação de verificação para {{email}}. Por favor, verifique a sua caixa de entrada e clique na ligação para confirmar a sua conta. Pode fechar esta janela em segurança.",
+      "title": "Por favor verifique o endereço de email"
+    },
+    "FirstName": "Nome",
+    "LastName": "Pronome",
+    "Password": {
+      "InvalidPassword": "Password invalida",
+      "Validation": {
+        "AtLeastCharacter_many": "Pelo menos {{count}} letras",
+        "AtLeastCharacter_one": "Pelo menos {{count}} letra",
+        "AtLeastCharacter_other": "Pelo menos {{count}} letras",
+        "AtLeastLowercase_many": "Pelo menos {{count}} letra minúscula",
+        "AtLeastLowercase_one": "“Pelo menos {{count}} letra minúscula",
+        "AtLeastLowercase_other": "Pelo menos {{count}} letra minúscula",
+        "AtLeastNumber_many": "Pelo menos {{count}} números",
+        "AtLeastNumber_one": "Pelo menos {{count}} número",
+        "AtLeastNumber_other": "Pelo menos {{count}} números",
+        "AtLeastSymbol_many": "Pelo menos {{count}} letras especiais",
+        "AtLeastSymbol_one": "Pelo menos {{count}} letra especial",
+        "AtLeastSymbol_other": "Pelo menos {{count}} letras especiais",
+        "AtLeastUppercase_many": "Pelo menos {{count}} letras maiúsculas",
+        "AtLeastUppercase_one": "Pelo menos {{count}} letra maiúscula",
+        "AtLeastUppercase_other": "Pelo menos {{count}} letras maiúsculas",
+        "DoesntMeetCriteria": "A password não corresponde aos parâmetros"
+      }
+    },
+    "SignUp": "Registar",
+    "TermsConditions": {
+      "label": "Li e aceito os <1>termos e condições</1>.*",
+      "notChecked": "Têm de aceitar os termos e condições."
+    }
   },
   "StageHeader": {
     "Graphs": "Gráficos",
@@ -448,12 +505,15 @@
   "Success": "Sucesso",
   "This action cannot be undone": "Esta ação não pode ser anulada.",
   "ThisFunctionalityNotImplementedMsg": "Esta ação ainda não foi implementado.",
+  "TimeZone": "Fuso horário",
+  "TimezoneMismatchRunnerMsg": "Está a visualizar este evento num fuso horário diferente. Todas as horas apresentadas (incluindo as horas de início) correspondem ao seu fuso horário local, e não ao do evento.",
   "tooltip": {
     "efficiency": "Eficácia",
     "errorFreeTime": "Erro- tempo livre",
     "errorTime": "Tempo perdido (erro)",
     "totalDisplayedTime": "Tempo total"
   },
+  "UnderDevelopment": "Em desenvolvimento",
   "URLButtonDialog": {
     "body": "Está prestes a sair desta página e a abrir um website externo. Abra a ligação apenas se confiar no site.",
     "openLink": "Abrir link",
@@ -467,8 +527,15 @@
     "perfectRunnerChart": "Corredor ideal",
     "perfectRunnerChartShort": "Ideal",
     "positionChart": "Posição",
-    "radios": "Radios",
+    "radios": "Rádios",
     "splits": "Parciais",
     "timeLoss": "Tabela tempo perdido"
+  },
+  "WorldContinents": {
+    "America": "América",
+    "Asia": "Ásia",
+    "Australia": "Austrália",
+    "Europe": "Europa",
+    "Other": "Outro"
   }
 }

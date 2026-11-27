@@ -20,7 +20,7 @@
   "Copied to the clipboard": "Copiado no portapapeis.",
   "Copy": "Copiar",
   "Dashboard": {
-    "Dashboard": "Panel de control",
+    "Dashboard": "Panel",
     "FinishDate": "Data de remate",
     "Name": "Nome do evento",
     "StartDate": "Data de inicio",
@@ -39,8 +39,54 @@
     "Create security keys": "Crear unha chave de seguridade",
     "DangerArea": "Zona de perigo",
     "DataUpload": {
+      "cancelUpload": {
+        "body": "Os ficheiros aínda se están a cargar. Se saes agora, os que aínda non se enviaron serán cancelados. É posible que o ficheiro que se está a enviar agora mesmo xa fose procesado.",
+        "confirm": "Cancelar a carga",
+        "keepUploading": "Continúa cargando",
+        "title": "Cancelar a carga?"
+      },
       "description": "Hai dúas formas de subir datos a este evento: co botón de subida <uploadIcon/> de cada etapa na táboa de arriba, ou a través do cliente de escritorio de O-Replay. O cliente necesita a información de seguridade que aparece a continuación. Compártea só co teu equipo. Pode ser revocada en calquera momento.",
-      "title": "Subida de datos"
+      "dropHere": "Arrastra e solta ficheiros IOF XML 3.0 aquí",
+      "filesIgnored_one": "{{count}} Ignorouse o ficheiro: só se pode cargar ficheiro .xml.",
+      "filesIgnored_other": "{{count}} Ignoráronse os ficheiros: só se poden cargar ficheiros .xml.",
+      "messages": {
+        "bad_request": "A solicitude de subida non é válidaA solicitude de subida non é válida.",
+        "conflict": "Aínda se está procesando outra subida para esta etapa. Agarde un momento e ténteo de novo.",
+        "duplicated_runner": "Corredor duplicado con bib {{bib}} na clase {{class}}: dúas entradas do ficheiro coinciden co mesmo corredor, polo que só se conservou unha.",
+        "event_without_time_zone": "O evento non ten fuso horario, polo que as horas do ficheiro léronse como {{timeZone}}. Define o fuso horario do evento e volve cargar o ficheiro.",
+        "finish_time_without_seconds": "Algúns resultados teñen unha hora de finalización pero non un tempo de execución.",
+        "forbidden": "Non tes permiso para cargar datos neste evento.",
+        "invalid_payload": "Non se puido importar o ficheiro. Comprobe que sexa unha lista de saída ou unha lista de resultados IOF XML 3.0 exportada para esta etapa.",
+        "invalid_token": "A túa sesión non é válida. Inicia sesión de novo e inténtao de novo.",
+        "not_found": "Non se atopou o evento ou o escenario.",
+        "nothing_changed": "Nada cambiou: estes datos xa foran cargados.",
+        "result_type_converted": "Estes resultados corresponden a unha etapa xeral, pero algúns resultados foron etiquetados no ficheiro como resultados de carreira. Os resultados gardáronse como o resultado da etapa dentro dos resultados xerais.",
+        "results_without_splits": "Os resultados foron subidos sen tempos parciais.",
+        "rows_not_saved": "Non se puideron gardar {{rows}} filas da clase {{class}}. Volva cargar o ficheiro.",
+        "runner_without_results": "Algúns corredores non teñen resultados.",
+        "taking_too_long": "O procesamento tardou demasiado e non rematou. Volve cargar o ficheiro para completalo.",
+        "team_without_results": "Algúns equipos non obtiveron resultados.",
+        "team_without_runners": "O equipo {{team}} non ten corredores.",
+        "upload_type_guessed": "O ficheiro non ten tempos de fracción nin tempos de finalización, polo que non se puido determinar o seu tipo. Tratáronse como tempos de finalización."
+      },
+      "status": {
+        "cancelled": "Cancelado",
+        "done": "Clases {{classes}} e corredores {{runners}} actualizados",
+        "pending": "Agardando",
+        "uploading": "Cargando"
+      },
+      "title": "Carga de datos",
+      "titleWithStage": "Carga de datos: {{stageName}}",
+      "unknownMessage": {
+        "error": "O servidor non puido procesar o ficheiro debido a un erro inesperado. Téntao de novo máis tarde.",
+        "warning": "O ficheiro foi procesado cun aviso que non se pode mostrar en detalle."
+      },
+      "uploadFiles": "Cargar datos",
+      "uploadFilesDescription": "Carga as listas de saída ou as listas de resultados XML 3.0 de IOF nesta fase.",
+      "uploadMore": {
+        "action": "Carga máis ficheiros",
+        "question": "Queres subir máis ficheiros?"
+      }
     },
     "DeleteEvent": "Borrar evento",
     "Do you want to delete this event?": "Queres borrar este evento?",
@@ -93,6 +139,19 @@
       },
       "description": "Crea tantas etapas como necesites para o teu evento. Cada evento debe ter polo menos unha etapa.",
       "FailedToLoadOrganizers": "Erro cargando organizadores",
+      "FinishStage": {
+        "DialogBody": "Etiquetar os resultados como oficiais indica aos corredores que a etapa rematou e que os resultados xa non cambiarán. Tamén evita calquera carga ou cambio accidental nos datos. Se precisas editar os datos máis tarde, podes eliminar esta etiqueta.",
+        "DialogConfirm": "Facer oficial",
+        "DialogTitle": "Queres facer os resultados oficiais?",
+        "MenuText": "Facer oficial",
+        "Tooltip": "Os corredores ven estes resultados como definitivos. Faios provisionais desde o menú da etapa para cambiar os datos.",
+        "Undo": {
+          "DialogBody": "A etapa foi etiquetada como oficial. Facer que os resultados sexan provisionais de novo permíteche modificar os datos.",
+          "DialogConfirm": "Reabrir",
+          "DialogTitle": "Queres reabrir esta etapa?",
+          "MenuText": "Facer provisional"
+        }
+      },
       "GoToStage": "Ir á etapa",
       "NewStage": "Nova etapa",
       "StagesTypes": {
@@ -155,7 +214,8 @@
   },
   "EventList": {
     "LiveToday": "En directo hoxe",
-    "NoLiveEventsToday": "Hoxe non hai eventos"
+    "NoLiveEventsToday": "Hoxe non hai eventos",
+    "NoResults": "Non hai eventos que coincidan coa túa busca ou cos filtros."
   },
   "Events": "Eventos",
   "ExperimentalFeatureMsg": "Característica experimental",
@@ -278,12 +338,20 @@
     "Club": "Club",
     "Clubs": "Clubs",
     "FinishTime": "Meta",
+    "lastUpdated": "Actualizado {{time}}",
     "Name": "Nome",
     "NoClubMsg": "Sen club",
     "NoData": "Non hai datos dispoñibles",
     "NonContributory": "Non contribúe",
     "NoStartTime": "-",
     "NotStarted": "-",
+    "OfficialTooltip": "A organizadora cualificou estes resultados como definitivos.",
+    "OnlineCourse": {
+      "ControlsReached": "{{reached}} de {{total}} controis en liña alcanzados",
+      "Hide": "Ocultar controis en liña",
+      "Show": "Mostrar controis en liña"
+    },
+    "OutdatedData": "Estes resultados poden estar desactualizados: fallou a última actualización. Actualizaranse por si sós cando se restableza a conexión.",
     "PenaltyPoints": "Penalización:",
     "Points": "Puntos:",
     "PointsTable": {
@@ -291,7 +359,11 @@
     },
     "Position": "Posto",
     "RaceTime": "Tempo",
+    "Recent": "Recente",
     "Refresh": "Refrescar",
+    "Relay": {
+      "NonRelayData": "Os resultados cargados non parecen proceder dunha retransmisión, polo que non se poden mostrar. O organizador ten que cargar os datos correctos."
+    },
     "SplitsTable": {
       "CleanTime": "Sen erro",
       "CumulativeTimes": "Acumulativo",
@@ -370,6 +442,8 @@
   },
   "Sign in": {
     "ForgotPassword": "Contrasinal esquecido?",
+    "InvalidCredentials": "Nome de usuario ou contrasinal non válidos",
+    "LoginChallengeExpired": "O inicio de sesión tardou demasiado. Téntao de novo.",
     "Logout": "Pechar sesión",
     "NoAccount": "Non tes unha conta? <1>Rexístrate</1>",
     "RememberMe": "Lémbrame",
@@ -432,6 +506,11 @@
     "totalDisplayedTime": "Tempo total mostrado"
   },
   "UnderDevelopment": "En desenvolvemento",
+  "URLButtonDialog": {
+    "body": "Estás a piques de saír desta páxina e abrir un sitio web externo. Só abre a ligazón se confías no sitio.",
+    "openLink": "Abrir ligazón",
+    "title": "Abrir ligazón externa?"
+  },
   "view": {
     "accumulated": "Acumulados",
     "barChart": "Tempo perdido",
