@@ -26,9 +26,11 @@ export default function StageOrderListItem({ stageOrder, onAction }: StageOrderL
     ? t("StageOrders.official")
     : t("StageOrders.notOfficial")
   const title = formatStageOrderTitle(stageOrder.stage_order, stageOrder.description)
-  const details = `${formatStartDateTime(stageOrder.start, i18n.language)} ${t(
-    "StageOrders.isOfficial",
-  )}: ${officialLabel}`
+  const details = t("StageOrders.details", {
+    start: formatStartDateTime(stageOrder.start, i18n.language),
+    official: officialLabel,
+    interpolation: { escapeValue: false },
+  })
 
   const menuItems: DropdownMenuItem[] = STAGE_ORDER_ACTIONS.map(({ key, labelKey }) => ({
     label: t(labelKey),

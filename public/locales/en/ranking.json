@@ -85,7 +85,8 @@
     "removeTitle": "Remove organizer",
     "searchRunnerAll": "Search runner (all events)",
     "searchRunnerEvent": "Search runner (current ranking results)",
-    "title": "Organizers"
+    "title": "Organizers",
+    "titleWithCount": "Organizers ({{count}})"
   },
   "Settings": {
     "circuitSettings": "Circuit settings",
@@ -137,6 +138,7 @@
     "createTitle": "New stage order",
     "deleteStage": "Delete stage",
     "descriptionLabel": "Description",
+    "details": "{{start}} Validated by the manager: {{official}}",
     "editTitle": "Edit stage order",
     "empty": "No stage orders yet.",
     "export": "Export results",
