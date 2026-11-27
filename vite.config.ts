@@ -13,6 +13,18 @@ const AZURE_CONFIG_FILE = "staticwebapp.config.json"
 const ASSET_LINKS_FILE = ".well-known/assetlinks.json"
 const AGENT_WORKTREES = ".claude/**"
 const GIT_TAG_REF_PREFIX = "refs/tags/"
+const STAGING_DEPLOY_ENVIRONMENT = "staging"
+const SEARCH_ENGINE_EXCLUSION_HEADERS = { "X-Robots-Tag": "noindex, nofollow" }
+const STATIC_FILE_PATTERNS = [
+  "/*.{css,ico,js,json,map,png,svg,txt,webmanifest}",
+  "/.well-known/*",
+  "/assets/*",
+  "/img/*",
+  "/locales/*",
+  "/organizers/*",
+  "/pwa-icons/*",
+]
+const APP_ROUTES_FALLBACK = { rewrite: "/index.html", exclude: STATIC_FILE_PATTERNS }
 
 const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 
@@ -22,11 +34,22 @@ const parseList = (value: string | undefined) =>
     .map((item) => item.trim())
     .filter(Boolean)
 
-const azureStaticWebAppConfig = (websiteOrigin: string) => ({
+/**
+ * Builds the Azure Static Web Apps config shipped with the build. Production pages are always
+ * served by the backend, which answers every app route with index.html, while staging is opened on
+ * the static host itself: so only a staging build rewrites app routes to index.html, and it asks
+ * search engines to keep its host out of their results.
+ * @param websiteOrigin The origin the app is opened on, allowed to read the static files.
+ * @param isStagingBuild Whether the build is deployed to the staging host.
+ * @returns The content of staticwebapp.config.json.
+ */
+const azureStaticWebAppConfig = (websiteOrigin: string, isStagingBuild: boolean) => ({
   globalHeaders: {
     "Access-Control-Allow-Origin": websiteOrigin,
     "Access-Control-Allow-Methods": "HEAD, GET, OPTIONS",
+    ...(isStagingBuild ? SEARCH_ENGINE_EXCLUSION_HEADERS : {}),
   },
+  ...(isStagingBuild ? { navigationFallback: APP_ROUTES_FALLBACK } : {}),
   routes: [
     ...ALWAYS_FRESH_FILES.map((route) => ({ route, headers: NO_CACHE_HEADERS })),
     { route: `/${ASSET_LINKS_FILE}`, headers: { "content-type": "application/json" } },
@@ -45,7 +68,14 @@ const androidAssetLinks = (packageName: string, fingerprints: string[]) => [
   },
 ]
 
-const deploymentFiles = (env: Record<string, string>): Plugin => ({
+/**
+ * Emits the files the hosts read next to the build: the Static Web Apps config, and the Android
+ * asset links when signing fingerprints are configured.
+ * @param env The build's environment variables.
+ * @param isStagingBuild Whether the build is deployed to the staging host.
+ * @returns The Vite plugin.
+ */
+const deploymentFiles = (env: Record<string, string>, isStagingBuild: boolean): Plugin => ({
   name: "oreplay-deployment-files",
   apply: "build",
   generateBundle() {
@@ -53,7 +83,7 @@ const deploymentFiles = (env: Record<string, string>): Plugin => ({
     this.emitFile({
       type: "asset",
       fileName: AZURE_CONFIG_FILE,
-      source: JSON.stringify(azureStaticWebAppConfig(websiteOrigin), null, 2),
+      source: JSON.stringify(azureStaticWebAppConfig(websiteOrigin, isStagingBuild), null, 2),
     })
 
     const fingerprints = parseList(env.TWA_SHA256_CERT_FINGERPRINTS)
@@ -75,6 +105,7 @@ export default defineConfig(({ mode }) => {
   const websiteDomainAndSubdomains = `.${new URL(env.VITE_WEBSITE_DOMAIN).hostname.replace(/^www\./, "")}`
   const apiOrigin = new URL(env.VITE_API_DOMAIN).origin
   const isReleaseBuild = (env.GITHUB_REF ?? "").startsWith(GIT_TAG_REF_PREFIX)
+  const isStagingBuild = env.DEPLOY_ENVIRONMENT === STAGING_DEPLOY_ENVIRONMENT
 
   return {
     optimizeDeps: {
@@ -83,7 +114,7 @@ export default defineConfig(({ mode }) => {
 
     plugins: [
       react(),
-      deploymentFiles(env),
+      deploymentFiles(env, isStagingBuild),
       VitePWA({
         registerType: "autoUpdate",
         includeAssets: ["apple-touch-icon.png"],
