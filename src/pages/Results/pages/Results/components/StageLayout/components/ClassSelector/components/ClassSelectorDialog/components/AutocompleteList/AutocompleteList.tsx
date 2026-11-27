@@ -42,14 +42,23 @@ export default function AutocompleteList<T>({
   )
   const hasRecent = recentList.length > 0
 
-  const renderItem = (item: T, scrollIntoViewWhenSelected: boolean) => (
+  /**
+   * Renders one item, either in the full list, where it scrolls to the centre when selected and
+   * grows to fill its row, or among the recent ones, where it does neither so a handful of recent
+   * items keep their natural width.
+   * @param item The class or club to render.
+   * @param isInFullList True for the full, scrollable list; false for the recent section.
+   * @returns The rendered list item.
+   */
+  const renderItem = (item: T, isInFullList: boolean) => (
     <AutocompleteListItem
       key={keyExtractor(item)}
       name={nameExtractor(item)}
       layout={layout}
       isSelected={keyExtractor(item) === selectedKey}
       onClick={() => handleClick(item)}
-      scrollIntoViewWhenSelected={scrollIntoViewWhenSelected}
+      scrollIntoViewWhenSelected={isInFullList}
+      fillsRow={isInFullList}
     />
   )
 

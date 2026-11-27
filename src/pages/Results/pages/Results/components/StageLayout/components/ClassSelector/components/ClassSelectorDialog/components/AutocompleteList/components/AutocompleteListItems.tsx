@@ -13,8 +13,8 @@ const LAYOUT_CLASSES: Record<AutocompleteListLayout, string> = {
 }
 
 /**
- * Lays out the selector items either as a vertical list or as rows of boxes that wrap, where every
- * row, the last one included, is filled edge to edge by its items.
+ * Lays out the selector items either as a vertical list or as rows of boxes that wrap; items that
+ * grow fill every row, the last one included, edge to edge.
  * @param props.children The items to lay out.
  * @param props.layout `list` for one item per row, `wrap` for several items per row.
  * @param props.className Extra classes for the list element, such as scrolling or padding.
