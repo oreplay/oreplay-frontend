@@ -45,3 +45,26 @@ describe("ConfirmDialog dismissal while confirming", () => {
     expect(screen.getByRole("button", { name: "Close" })).toBeDisabled()
   })
 })
+
+describe("ConfirmDialog placement", () => {
+  it("renders outside the form it is opened from, so Enter in its inputs never submits that form", () => {
+    render(
+      <form aria-label="Settings">
+        <ConfirmDialog
+          open
+          title="Export"
+          confirmLabel="Confirm"
+          closeLabel="Close"
+          onConfirm={vi.fn()}
+          onClose={vi.fn()}
+        >
+          <input aria-label="Top count" />
+        </ConfirmDialog>
+      </form>,
+    )
+
+    expect(screen.getByRole("form", { name: "Settings" })).not.toContainElement(
+      screen.getByRole("dialog"),
+    )
+  })
+})

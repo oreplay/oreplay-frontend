@@ -1,4 +1,5 @@
 import { ReactNode, useCallback, useEffect } from "react"
+import { createPortal } from "react-dom"
 import CloseIcon from "../icons/CloseIcon.tsx"
 import SpinnerRing from "../SpinnerRing.tsx"
 
@@ -49,14 +50,14 @@ export default function ConfirmDialog({
 
   const confirmClass = destructive ? "bg-red-600 text-white" : "bg-primary text-neutral-900"
 
-  return (
+  return createPortal(
     <div
       role="presentation"
       onClick={(event) => {
         event.stopPropagation()
         requestClose()
       }}
-      className="rk-confirm-dialog fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      className="rk-confirm-dialog tw-root fixed inset-0 font-sans z-50 flex items-center justify-center bg-black/40 p-4"
     >
       <div
         role="dialog"
@@ -97,6 +98,7 @@ export default function ConfirmDialog({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
