@@ -2,7 +2,7 @@ import { postListPdf } from "../../../../../infrastructure/repositories/pdf/pdf.
 import { PdfBook, PdfRequest } from "../../../../../domain/types/v1api"
 import { ExportRunner } from "./exportRunners.ts"
 import { buildPdfBook, PdfTemplate } from "./pdfBook.ts"
-import { saveBlob } from "../../../shared/saveBlob.ts"
+import { saveBlob } from "../../shared/saveBlob.ts"
 
 async function requestPdf(pdfBook: PdfBook): Promise<Blob> {
   const request: PdfRequest = { pdfBook }

@@ -1,5 +1,5 @@
 import { orvalAxiosInstance } from "../../../../../infrastructure/orval/orval-axios-instance.ts"
-import { saveBlob } from "../../../shared/saveBlob.ts"
+import { saveBlob } from "../../shared/saveBlob.ts"
 
 export const CLUB_RANKING_OUTPUT = "AgeGroupClubs"
 export const CLUB_RANKING_FILENAME = "club-ranking.csv"

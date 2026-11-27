@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { orvalAxiosInstance } from "../../../../../infrastructure/orval/orval-axios-instance.ts"
-import { saveBlob } from "../../../shared/saveBlob.ts"
+import { saveBlob } from "../../shared/saveBlob.ts"
 import {
   CLUB_RANKING_FILENAME,
   CLUB_RANKING_OUTPUT,
@@ -10,7 +10,7 @@ import {
 vi.mock("../../../../../infrastructure/orval/orval-axios-instance.ts", () => ({
   orvalAxiosInstance: vi.fn(),
 }))
-vi.mock("../../../shared/saveBlob.ts", () => ({ saveBlob: vi.fn() }))
+vi.mock("../../shared/saveBlob.ts", () => ({ saveBlob: vi.fn() }))
 
 const EVENT_ID = "event-1"
 const STAGE_ID = "stage-1"
