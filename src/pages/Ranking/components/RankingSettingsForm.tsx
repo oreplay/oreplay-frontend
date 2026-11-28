@@ -5,17 +5,21 @@ import {
   RankingSettingsFormState,
   isRankingSettingsFormComplete,
 } from "../shared/rankingSettingsForm.ts"
-import { OVERALL_SETTINGS_FIELDS } from "../shared/overallSettings.ts"
+import { OVERALL_SETTINGS_FIELDS, isTotalCircuitRacesMismatch } from "../shared/overallSettings.ts"
 import { ROUND_PRECISION_OPTIONS } from "../shared/roundPrecision.ts"
 import { SCORING_ALGORITHM_OPTIONS } from "../shared/scoringAlgorithm.ts"
 import { STATUS_SCORE_FIELDS } from "../shared/statusScores.ts"
 import { NC_SCORE_VALUES, STATUS_SCORE_VALUES } from "../shared/scoreOptions.ts"
-import { competitionResultsPath } from "../shared/competitionLink.ts"
+import CompetitionResultsActions from "./CompetitionResultsActions.tsx"
 import FormSection from "./form/FormSection.tsx"
+import PrimaryButton from "./PrimaryButton.tsx"
 import NumberField from "./form/NumberField.tsx"
 import ScoreSelectField from "./form/ScoreSelectField.tsx"
 import SelectField from "./form/SelectField.tsx"
+import ClassNamesText from "./ClassNamesText.tsx"
+import EditableTextField from "./form/EditableTextField.tsx"
 import TextField from "./form/TextField.tsx"
+import { joinFieldErrors } from "./form/fieldErrors.ts"
 
 interface RankingSettingsFormProps {
   initialState: RankingSettingsFormState
@@ -27,11 +31,9 @@ interface RankingSettingsFormProps {
   onSubmit: (state: RankingSettingsFormState) => void
   /** Extra action shown next to the submit button (e.g. delete). */
   secondaryAction?: ReactNode
+  rankingId?: string
+  stageOrderCount?: number
 }
-
-/** TanStack Form exposes one message per failed validator; join them for display. */
-const errorMessage = (errors: (string | undefined)[]): string | undefined =>
-  errors.filter(Boolean).join(" ") || undefined
 
 // Presentational, action-agnostic form; the page wires `onSubmit` and labels.
 // Validation lives in `<form.Field validators>`; `noValidate` keeps the browser
@@ -44,6 +46,8 @@ export default function RankingSettingsForm({
   isSubmitting,
   onSubmit,
   secondaryAction,
+  rankingId,
+  stageOrderCount,
 }: RankingSettingsFormProps) {
   const { t } = useTranslationRanking()
 
@@ -76,18 +80,13 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
             />
           )}
         </form.Field>
-        <a
-          href={competitionResultsPath(eventId, stageId)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="self-start text-sm text-primary hover:underline"
-        >
-          {t("Settings.competitionLink")}
-        </a>
+        {eventId && (
+          <CompetitionResultsActions eventId={eventId} stageId={stageId} rankingId={rankingId} />
+        )}
       </div>
 
       <FormSection title={t("Settings.generalSettings")}>
@@ -107,7 +106,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               className="col-span-2"
             />
           )}
@@ -126,7 +125,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               options={SCORING_ALGORITHM_OPTIONS.map((option) => ({
                 value: option.value,
                 label: t(option.labelKey),
@@ -144,7 +143,7 @@ export default function RankingSettingsForm({
               value={String(field.state.value)}
               onChange={(value) => field.handleChange(Number(value))}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               options={ROUND_PRECISION_OPTIONS.map((option) => ({
                 value: String(option.value),
                 label: t(option.labelKey),
@@ -161,15 +160,26 @@ export default function RankingSettingsForm({
       >
         {OVERALL_SETTINGS_FIELDS.map((settingsField, index) => (
           <form.Field key={settingsField.key} name={`overallSettings[${index}]`}>
-            {(field) => (
-              <NumberField
-                label={t(settingsField.labelKey)}
-                value={field.state.value}
-                onChange={field.handleChange}
-                onBlur={field.handleBlur}
-                error={errorMessage(field.state.meta.errors)}
-              />
-            )}
+            {(field) => {
+              const isMismatch = isTotalCircuitRacesMismatch(
+                settingsField.key,
+                field.state.value,
+                stageOrderCount,
+              )
+              const warning = isMismatch
+                ? t("Settings.totalCircuitRacesMismatch", { count: stageOrderCount })
+                : undefined
+              return (
+                <NumberField
+                  label={t(settingsField.labelKey)}
+                  value={field.state.value}
+                  onChange={field.handleChange}
+                  onBlur={field.handleBlur}
+                  error={joinFieldErrors(field.state.meta.errors)}
+                  warning={warning}
+                />
+              )
+            }}
           </form.Field>
         ))}
       </FormSection>
@@ -185,7 +195,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               values={NC_SCORE_VALUES}
               emptyLabel={t("Settings.scoreOptions.empty")}
             />
@@ -198,7 +208,7 @@ export default function RankingSettingsForm({
               value={field.state.value}
               onChange={field.handleChange}
               onBlur={field.handleBlur}
-              error={errorMessage(field.state.meta.errors)}
+              error={joinFieldErrors(field.state.meta.errors)}
               values={NC_SCORE_VALUES}
               emptyLabel={t("Settings.scoreOptions.empty")}
             />
@@ -215,7 +225,7 @@ export default function RankingSettingsForm({
                 value={field.state.value}
                 onChange={field.handleChange}
                 onBlur={field.handleBlur}
-                error={errorMessage(field.state.meta.errors)}
+                error={joinFieldErrors(field.state.meta.errors)}
                 values={STATUS_SCORE_VALUES}
                 emptyLabel={t("Settings.scoreOptions.empty")}
               />
@@ -223,6 +233,27 @@ export default function RankingSettingsForm({
           </form.Field>
         ))}
       </FormSection>
+
+      <form.Field name="includedClassNames">
+        {(field) => (
+          <EditableTextField
+            label={t("Settings.includedClassNames")}
+            description={t("Settings.includedClassNamesHint")}
+            editLabel={t("common:edit")}
+            emptyLabel={t("Settings.includedClassNamesEmpty")}
+            display={
+              <ClassNamesText
+                value={field.state.value}
+                unknownPatternLabel={t("Settings.classNameUnknownPattern")}
+              />
+            }
+            value={field.state.value}
+            onChange={field.handleChange}
+            onBlur={field.handleBlur}
+            error={joinFieldErrors(field.state.meta.errors)}
+          />
+        )}
+      </form.Field>
 
       <div
         className={[
@@ -235,19 +266,13 @@ export default function RankingSettingsForm({
           selector={(state) => ({ canSubmit: state.canSubmit, values: state.values })}
         >
           {({ canSubmit, values }) => (
-            <button
+            <PrimaryButton
               type="submit"
-              disabled={isSubmitting || !canSubmit || !isRankingSettingsFormComplete(values)}
-              className="inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-2 font-medium text-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+              isLoading={isSubmitting}
+              disabled={!canSubmit || !isRankingSettingsFormComplete(values)}
             >
-              {isSubmitting && (
-                <span
-                  aria-hidden="true"
-                  className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-                />
-              )}
               {submitLabel}
-            </button>
+            </PrimaryButton>
           )}
         </form.Subscribe>
       </div>

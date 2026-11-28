@@ -92,7 +92,7 @@ function findClassClub(query: UseQueryResult<Page<ClassModel | ClubModel>>, name
   return query.data?.data.find((value) => value.short_name === name)
 }
 
-const ACTIVE_CLASS_SEARCH_PARAM = "class"
+export const ACTIVE_CLASS_SEARCH_PARAM = "class"
 const ACTIVE_CLUB_SEARCH_PARAM = "club"
 
 export function useClassClubSearchParams(): {

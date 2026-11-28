@@ -4,12 +4,13 @@ import {
   useGetRankingSettings,
   usePatchRankingSettings,
 } from "../../../../infrastructure/repositories/ranking-settings/ranking-settings.ts"
+import { useGetListStageOrders } from "../../../../infrastructure/repositories/stage-orders/stage-orders.ts"
 import { initRankingSettingsForm, toRankingBody } from "../../shared/rankingSettingsForm.ts"
 import { useNotifyError } from "../../../../infrastructure/notifications/useNotifyError.ts"
 import SettingsPageLayout from "../../components/SettingsPageLayout.tsx"
 import RankingSettingsForm from "../../components/RankingSettingsForm.tsx"
 import DeleteRankingButton from "./components/DeleteRankingButton.tsx"
-import RunnerInteractionCard from "./components/RunnerInteractionCard.tsx"
+import StageOrdersCard from "./components/StageOrders/StageOrdersCard.tsx"
 
 export default function RankingSettings() {
   const { t } = useTranslationRanking()
@@ -19,6 +20,10 @@ export default function RankingSettings() {
   const { mutate, isLoading: isSaving } = usePatchRankingSettings()
 
   const ranking = data?.data
+  const stageOrders = useGetListStageOrders(ranking?.event_id ?? "", ranking?.stage_id ?? "", {
+    query: { enabled: Boolean(ranking) },
+  })
+  const stageOrderCount = stageOrders.data?.data?.length
 
   return (
     <SettingsPageLayout
@@ -26,7 +31,11 @@ export default function RankingSettings() {
       currentCrumb={ranking?.title ?? rankingId ?? ""}
       isLoading={isLoading}
       isMissing={!ranking}
-      extraContent={ranking ? <RunnerInteractionCard rankingId={ranking.id} /> : undefined}
+      extraContent={
+        ranking ? (
+          <StageOrdersCard eventId={ranking.event_id} stageId={ranking.stage_id} />
+        ) : undefined
+      }
     >
       {ranking && (
         <RankingSettingsForm
@@ -46,6 +55,8 @@ export default function RankingSettings() {
               },
             )
           }
+          rankingId={ranking.id}
+          stageOrderCount={stageOrderCount}
           secondaryAction={
             <DeleteRankingButton rankingId={ranking.id} eventId={ranking.event_id} />
           }

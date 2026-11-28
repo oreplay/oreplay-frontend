@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom"
 import { useTranslationRanking } from "../../../shared/useTranslationRanking.ts"
+import { rankingCreatePath } from "../../../../../shared/routes.ts"
 import { Ranking } from "../../../../../domain/types/v1api"
+import PrimaryButton from "../../../components/PrimaryButton.tsx"
 import Spinner from "../../../components/Spinner/Spinner.tsx"
 import RankingListItem from "./RankingListItem.tsx"
 
@@ -15,6 +18,7 @@ export default function RankingListContent({
   rankings,
 }: RankingListContentProps) {
   const { t } = useTranslationRanking()
+  const navigate = useNavigate()
 
   if (isLoading) {
     return <Spinner label={t("common:loading")} />
@@ -25,7 +29,13 @@ export default function RankingListContent({
   }
 
   if (rankings.length === 0) {
-    return <p className="rk-ranking-list-content text-neutral-500">{t("List.empty")}</p>
+    return (
+      <div className="rk-ranking-list-content">
+        <PrimaryButton onClick={() => void navigate(rankingCreatePath())}>
+          {t("Create.title")}
+        </PrimaryButton>
+      </div>
+    )
   }
 
   return (

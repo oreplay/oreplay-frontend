@@ -2,12 +2,18 @@ import { ReactNode } from "react"
 import { useTranslationRanking } from "../shared/useTranslationRanking.ts"
 import Breadcrumbs from "./Breadcrumbs/Breadcrumbs.tsx"
 import Spinner from "./Spinner/Spinner.tsx"
-import { buildRankingSettingsBreadcrumbs } from "../shared/breadcrumbs.ts"
+import {
+  BreadcrumbItem,
+  buildRankingSettingsBreadcrumbs,
+  buildRankingStageOrderBreadcrumbs,
+} from "../shared/breadcrumbs.ts"
 
 interface SettingsPageLayoutProps {
   heading: string
   /** Last breadcrumb label (the ranking title, or e.g. "Duplicate"). */
   currentCrumb: string
+  /** When set, inserts a linked ranking crumb before `currentCrumb` */
+  parentCrumb?: BreadcrumbItem
   isLoading: boolean
   isMissing: boolean
   children: ReactNode
@@ -20,6 +26,7 @@ interface SettingsPageLayoutProps {
 export default function SettingsPageLayout({
   heading,
   currentCrumb,
+  parentCrumb,
   isLoading,
   isMissing,
   children,
@@ -27,13 +34,13 @@ export default function SettingsPageLayout({
 }: SettingsPageLayoutProps) {
   const { t } = useTranslationRanking()
 
-  const breadcrumbs = buildRankingSettingsBreadcrumbs(
-    {
-      dashboard: t("translation:Dashboard.Dashboard"),
-      ranking: t("Breadcrumbs.rankings"),
-    },
-    currentCrumb,
-  )
+  const labels = {
+    dashboard: t("translation:Dashboard.Dashboard"),
+    ranking: t("Breadcrumbs.rankings"),
+  }
+  const breadcrumbs = parentCrumb
+    ? buildRankingStageOrderBreadcrumbs(labels, parentCrumb, currentCrumb)
+    : buildRankingSettingsBreadcrumbs(labels, currentCrumb)
 
   return (
     <div className="rk-settings-page-layout min-h-screen grow bg-surface py-12">

@@ -1,7 +1,11 @@
 {
+  "addNew": "Lägg till ny",
+  "clearAll": "Rensa alla",
   "clearSearch": "Rensa sökning",
   "close": "Stäng",
   "confirm": "Bekräfta",
+  "copied": "Kopierat till urklipp",
+  "copy": "Kopiera",
   "delete": "Ta bort",
   "deleteConfirm": "Är du säker på att du vill fortsätta?",
   "duplicate": "Duplicera",
@@ -18,5 +22,6 @@
   "noResults": "Inga träffar",
   "ok": "OK",
   "save": "Spara",
-  "search": "Sök"
+  "search": "Sök",
+  "selectAll": "Markera alla"
 }

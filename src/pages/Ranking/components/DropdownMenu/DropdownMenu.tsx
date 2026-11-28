@@ -1,0 +1,126 @@
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
+import { MenuPlacement, menuPlacement } from "./shared/menuPlacement.ts"
+
+export interface DropdownMenuItem {
+  label: string
+  /** Action items run `onSelect`; link items navigate to `to`. */
+  onSelect?: () => void
+  to?: string
+  disabled?: boolean
+}
+
+interface DropdownMenuProps {
+  /** Accessible label for the trigger button. */
+  triggerLabel: string
+  /** Visual content of the trigger (e.g. an icon). */
+  trigger: ReactNode
+  items: DropdownMenuItem[]
+  className?: string
+}
+
+const PLACEMENT_CLASS: Record<MenuPlacement, string> = {
+  above: "bottom-full mb-1",
+  below: "top-full mt-1",
+}
+
+const ITEM_CLASS =
+  "block w-full rounded-sm px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-100"
+
+export default function DropdownMenu({
+  triggerLabel,
+  trigger,
+  items,
+  className,
+}: DropdownMenuProps) {
+  const [open, setOpen] = useState(false)
+  const [placement, setPlacement] = useState<MenuPlacement>("below")
+  const containerRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLUListElement>(null)
+
+  useLayoutEffect(() => {
+    if (!open || !containerRef.current || !menuRef.current) return
+    const trigger = containerRef.current.getBoundingClientRect()
+    setPlacement(
+      menuPlacement({
+        triggerTop: trigger.top,
+        triggerBottom: trigger.bottom,
+        menuHeight: menuRef.current.getBoundingClientRect().height,
+        viewportHeight: window.innerHeight,
+      }),
+    )
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const onPointerDown = (event: MouseEvent) => {
+      if (!containerRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", onPointerDown)
+    return () => document.removeEventListener("mousedown", onPointerDown)
+  }, [open])
+
+  return (
+    // Stop propagation so interacting with the menu never triggers a clickable
+    // ancestor (e.g. the list row navigating to the settings page).
+    <div
+      ref={containerRef}
+      onClick={(event) => event.stopPropagation()}
+      className={["rk-dropdown-menu relative", className].filter(Boolean).join(" ")}
+    >
+      <button
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label={triggerLabel}
+        onClick={() => setOpen((prev) => !prev)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") setOpen(false)
+        }}
+        className="text-neutral-500 transition-colors hover:text-primary"
+      >
+        {trigger}
+      </button>
+      {open && (
+        <ul
+          ref={menuRef}
+          role="menu"
+          className={[
+            "absolute right-0 z-10 min-w-[11rem] list-none rounded-lg border border-neutral-200 bg-white p-1 shadow-md",
+            PLACEMENT_CLASS[placement],
+          ].join(" ")}
+        >
+          {items.map((item) => (
+            <li key={item.label} role="none">
+              {item.to ? (
+                <Link
+                  role="menuitem"
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className={ITEM_CLASS}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  role="menuitem"
+                  disabled={item.disabled}
+                  onClick={() => {
+                    item.onSelect?.()
+                    setOpen(false)
+                  }}
+                  className={[ITEM_CLASS, "disabled:cursor-not-allowed disabled:opacity-50"].join(
+                    " ",
+                  )}
+                >
+                  {item.label}
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}

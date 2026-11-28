@@ -27,3 +27,16 @@ export function buildRankingSettingsBreadcrumbs(
     { label: rankingLabel },
   ]
 }
+
+export function buildRankingStageOrderBreadcrumbs(
+  labels: TrailLabels,
+  rankingCrumb: BreadcrumbItem,
+  currentLabel: string,
+): BreadcrumbItem[] {
+  return [
+    { label: labels.dashboard, to: DASHBOARD_PATH },
+    { label: labels.ranking, to: RANKING_LIST_PATH },
+    rankingCrumb,
+    { label: currentLabel },
+  ]
+}
