@@ -11,19 +11,21 @@ import {
 } from "../../../../../../../../../shared/EntityTypes.ts"
 import { NORMAL_CONTROL, RESULT_STATUS } from "../../../../../../../shared/constants.ts"
 import { UPLOAD_TYPES } from "../../../../../shared/constants.ts"
-
-const RADIO_STATIONS = ["40", "42", "100"] as const
+import { mockupRadioStationsOf } from "../../../shared/mockupRadioControls.ts"
 
 const MINUTES_SINCE_MASS_START = 82
 
 const RESULT_TYPE_ID = "e4ddfa9d-3347-47e4-9d32-c6c119aeac0e"
 
-const FAKE_CLASS: ClassModel = { id: "fake-relay-class", long_name: "Junior", short_name: "JUN" }
+const FAKE_CLASS: ClassModel = { id: "fake-relay-class", long_name: "Senior", short_name: "SEN" }
+
+/** Radio controls of the fake relay: those of the long course, which its class runs. */
+const RADIO_STATIONS = mockupRadioStationsOf(FAKE_CLASS)
 
 /** Class of the fake relay, with its radio controls in course order. */
 export const FAKE_RELAY_CLASS: StageClassModel = {
   ...FAKE_CLASS,
-  splits: RADIO_STATIONS.map((station) => ({ id: `fake-control-${station}`, station })),
+  splits: RADIO_STATIONS.map((station, index) => ({ id: `fake-radio-${index + 1}`, station })),
 }
 
 /** One fake leg: leg times at the radio controls reached, and the leg time at the finish. */
@@ -45,17 +47,17 @@ const FAKE_TEAMS: FakeTeam[] = [
   {
     club: "Club Norte",
     legs: [
-      { finishSeconds: 1930, name: "Laura Méndez", radioSeconds: [470, 1020, 1530] },
-      { finishSeconds: 1805, name: "Iker Sanz", radioSeconds: [482, 1050, 1540] },
-      { finishSeconds: null, name: "Nora Pazos", radioSeconds: [475, 1030] },
+      { finishSeconds: 1930, name: "Laura Méndez", radioSeconds: [470, 1020, 1420, 1530] },
+      { finishSeconds: 1805, name: "Iker Sanz", radioSeconds: [482, 1050, 1430, 1540] },
+      { finishSeconds: null, name: "Nora Pazos", radioSeconds: [475, 1030, 1400] },
     ],
     name: "Norte O-Team 1",
   },
   {
     club: "Montaña Sur",
     legs: [
-      { finishSeconds: 1982, name: "Jon Ibarra", radioSeconds: [490, 1080, 1600] },
-      { finishSeconds: 1910, name: "Alba Ruiz", radioSeconds: [500, 1078, 1590] },
+      { finishSeconds: 1982, name: "Jon Ibarra", radioSeconds: [490, 1080, 1490, 1600] },
+      { finishSeconds: 1910, name: "Alba Ruiz", radioSeconds: [500, 1078, 1480, 1590] },
       { finishSeconds: null, name: "Rubén Ortiz", radioSeconds: [300] },
     ],
     name: "Montaña Sur 1",
@@ -63,8 +65,8 @@ const FAKE_TEAMS: FakeTeam[] = [
   {
     club: "C.O. Bosque",
     legs: [
-      { finishSeconds: 1900, name: "Carla Núñez", radioSeconds: [460, 1010, 1510] },
-      { finishSeconds: 1880, name: "Diego Martín", radioSeconds: [490, 1100, 1615] },
+      { finishSeconds: 1900, name: "Carla Núñez", radioSeconds: [460, 1010, 1400, 1510] },
+      { finishSeconds: 1880, name: "Diego Martín", radioSeconds: [490, 1100, 1505, 1615] },
       { finishSeconds: null, name: "Sara Gil", radioSeconds: [550] },
     ],
     name: "Bosque Azul",
@@ -72,8 +74,8 @@ const FAKE_TEAMS: FakeTeam[] = [
   {
     club: "Valle Verde",
     legs: [
-      { finishSeconds: 2700, name: "Ana Torres", radioSeconds: [660, 1440, 2160] },
-      { finishSeconds: null, name: "Hugo Prieto", radioSeconds: [580, 1140, 1710] },
+      { finishSeconds: 2700, name: "Ana Torres", radioSeconds: [660, 1440, 2050, 2160] },
+      { finishSeconds: null, name: "Hugo Prieto", radioSeconds: [580, 1140, 1600, 1710] },
       { finishSeconds: null, name: "Marta León", radioSeconds: [] },
     ],
     name: "Valle Verde 2",
@@ -81,7 +83,7 @@ const FAKE_TEAMS: FakeTeam[] = [
   {
     club: "Ría Club",
     legs: [
-      { finishSeconds: 3150, name: "Pedro Lago", radioSeconds: [750, 1620, 2470] },
+      { finishSeconds: 3150, name: "Pedro Lago", radioSeconds: [750, 1620, 2360, 2470] },
       { finishSeconds: null, name: "Elena Vidal", radioSeconds: [520, 1120] },
       { finishSeconds: null, name: "Pablo Rey", radioSeconds: [] },
     ],
@@ -160,7 +162,7 @@ function buildRadioSplits(legId: string, legStart: DateTime, radioSeconds: numbe
       },
       id: `${legId}-split-${index}`,
       is_intermediate: true,
-      order_number: index + 1,
+      order_number: null,
       points: null,
       reading_time: legStart.plus({ seconds }).toISO(),
     }),
@@ -275,7 +277,7 @@ function rankFinishedLegs(teams: RunnerModel[]) {
 
 /**
  * Builds a fake relay class in the middle of the race: six teams of three legs, the mass start
- * 82 minutes before `now`, and the radio controls 40, 42 and 100. Two teams on the last leg are
+ * 82 minutes before `now`, and the radio controls 40, 42, 42 again and 100. Two teams on the last leg are
  * ordered by their radio punches the other way round than by their changeover.
  *
  * @param now The moment the race is drawn at; the live times run from it.

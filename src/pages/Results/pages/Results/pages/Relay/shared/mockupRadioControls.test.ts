@@ -2,14 +2,16 @@ import { describe, expect, it } from "vitest"
 import { RunnerModel, SplitModel, TeamRunner } from "../../../../../../../shared/EntityTypes.ts"
 import { NORMAL_CONTROL } from "../../../../../shared/constants.ts"
 import {
-  firstRadioPunchPerStation,
-  MOCKUP_RADIO_STATIONS,
+  mockupRadioStationsOf,
   withMockupRadioControls,
+  withoutDoubleRadioPunches,
 } from "./mockupRadioControls.ts"
 import { baseLegFixture, baseRelayRunnerFixture } from "./relayFixtures.ts"
 
 const EARLIER_PUNCH = "2026-11-27T22:28:04.000+00:00"
 const LATER_PUNCH = "2026-11-27T22:28:32.000+00:00"
+const SECOND_PASS_PUNCH = "2026-11-27T22:36:10.000+00:00"
+const SECOND_PASS_AGAIN_PUNCH = "2026-11-27T22:36:20.000+00:00"
 
 /**
  * Builds a split for these tests.
@@ -36,19 +38,54 @@ function buildSplit(
   }
 }
 
-describe("firstRadioPunchPerStation", () => {
-  it("keeps only the first punch at a radio control punched twice", () => {
+describe("withoutDoubleRadioPunches", () => {
+  it("keeps only the first punch of a double punch at a radio control", () => {
     const later = buildSplit("later", "42", LATER_PUNCH, null)
     const earlier = buildSplit("earlier", "42", EARLIER_PUNCH, null)
 
-    expect(firstRadioPunchPerStation([later, earlier])).toEqual([earlier])
+    expect(withoutDoubleRadioPunches([later, earlier])).toEqual([earlier])
+  })
+
+  it("keeps a second pass at a radio control the course repeats", () => {
+    const firstPass = buildSplit("first", "42", EARLIER_PUNCH, null)
+    const secondPass = buildSplit("second", "42", SECOND_PASS_PUNCH, null)
+
+    expect(withoutDoubleRadioPunches([secondPass, firstPass])).toEqual([secondPass, firstPass])
+  })
+
+  it("drops a double punch at the second pass too", () => {
+    const firstPass = buildSplit("first", "42", EARLIER_PUNCH, null)
+    const secondPass = buildSplit("second", "42", SECOND_PASS_PUNCH, null)
+    const secondPassAgain = buildSplit("again", "42", SECOND_PASS_AGAIN_PUNCH, null)
+
+    expect(withoutDoubleRadioPunches([firstPass, secondPass, secondPassAgain])).toEqual([
+      firstPass,
+      secondPass,
+    ])
   })
 
   it("keeps a control repeated in a downloaded course", () => {
-    const firstPass = buildSplit("first", "42", EARLIER_PUNCH, 1)
-    const secondPass = buildSplit("second", "42", LATER_PUNCH, 5)
+    const firstPass = buildSplit("first", "42", EARLIER_PUNCH, 12)
+    const secondPass = buildSplit("second", "42", LATER_PUNCH, 20)
 
-    expect(firstRadioPunchPerStation([firstPass, secondPass])).toEqual([firstPass, secondPass])
+    expect(withoutDoubleRadioPunches([firstPass, secondPass])).toEqual([firstPass, secondPass])
+  })
+})
+
+describe("mockupRadioStationsOf", () => {
+  const LONG_COURSE = ["40", "42", "42", "100"]
+  const SHORT_COURSE = ["42", "40", "42", "100"]
+
+  it.each([
+    ["SEN", LONG_COURSE],
+    ["VET A", LONG_COURSE],
+    ["XUV", SHORT_COURSE],
+    ["INF", SHORT_COURSE],
+    ["VET B", SHORT_COURSE],
+  ])("gives %s the radio controls of its course", (shortName, stations) => {
+    const relayClass = { id: shortName, long_name: shortName, short_name: shortName }
+
+    expect(mockupRadioStationsOf(relayClass)).toEqual(stations)
   })
 })
 
@@ -64,7 +101,9 @@ describe("withMockupRadioControls", () => {
 
     expect(classes).toHaveLength(1)
     expect(classes[0].id).toBe(team.class.id)
-    expect(classes[0].splits.map((control) => control.station)).toEqual([...MOCKUP_RADIO_STATIONS])
+    expect(classes[0].splits.map((control) => control.station)).toEqual(
+      mockupRadioStationsOf(team.class),
+    )
   })
 
   it("gives a leg without a class the class of its team", () => {

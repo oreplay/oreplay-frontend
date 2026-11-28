@@ -95,9 +95,29 @@ export function computeSplitListTimes(
 }
 
 /**
- * Auxiliary function to sort split
+ * Compares two splits by punch time, a split without one going last. Radio punches have no place
+ * in the course, so their punch time is what tells a second pass at a control from the first.
  * @param a first split to compare
  * @param b second split to compare
+ * @returns A negative number when `a` was punched first, a positive one when `b` was, `0` when
+ * neither has a punch time or both were punched at once.
+ */
+function compareReadingTimes(
+  a: ProcessedSplitModel | SplitModel,
+  b: ProcessedSplitModel | SplitModel,
+): number {
+  const aMillis = a.reading_time ? DateTime.fromISO(a.reading_time).toMillis() : Infinity
+  const bMillis = b.reading_time ? DateTime.fromISO(b.reading_time).toMillis() : Infinity
+  if (aMillis === bMillis) return 0
+  return aMillis < bMillis ? -1 : 1
+}
+
+/**
+ * Auxiliary function to sort split: by place in the course, the splits without one first and by
+ * punch time.
+ * @param a first split to compare
+ * @param b second split to compare
+ * @returns A negative number when `a` goes first, a positive one when `b` does.
  */
 function sorterSplitByOrderNumber(
   a: ProcessedSplitModel | SplitModel,
@@ -106,7 +126,7 @@ function sorterSplitByOrderNumber(
   if (a.order_number && b.order_number) {
     return a.order_number - b.order_number
   } else if (!a.order_number && !b.order_number) {
-    return 0
+    return compareReadingTimes(a, b)
   } else if (a.order_number) {
     return 1
   } else {
